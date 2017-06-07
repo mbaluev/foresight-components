@@ -11,14 +11,13 @@ var gulp = require('gulp'),
     url = require('gulp-css-url-adjuster'),
     autoprefixer = require('autoprefixer-core'),
     postcss = require('gulp-postcss'),
-    cleancss = require('gulp-clean-css');
+    cleancss = require('gulp-clean-css'),
+    minify = require('gulp-minify');
 
 var params = {
     out: 'public',
     cssOut: 'foresight-components.css',
-    cssOutMin: 'foresight-components.min.css',
     jsOut: 'foresight-components.js',
-    jsOutMin: 'foresight-components.min.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
     levels: ['common.blocks']
@@ -37,9 +36,13 @@ gulp.task('server', function(){
         var cssGlob = level + '/**/*.css';
         return cssGlob;
     }), ['css']);
+    gulp.watch(params.levels.map(function(level) {
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['js']);
 });
 
-gulp.task('build', ['html', 'css', 'images']);
+gulp.task('build', ['html', 'css', 'images', 'js']);
 
 gulp.task('html', function(){
     gulp.src(params.htmlSrc)
@@ -48,9 +51,7 @@ gulp.task('html', function(){
         .pipe(reload({ stream: true }));
 });
 
-gulp.task('css', ['build-css', 'clean-css']);
-
-gulp.task('build-css', function(){
+gulp.task('css', function(){
     getFileNames.then(function(files){
         //gulp.src(['common.blocks/**/*.css', 'pink.blocks/**/*.css'])
         gulp.src(files.css)
@@ -60,9 +61,7 @@ gulp.task('build-css', function(){
             .pipe(gulp.dest(params.out))
             .pipe(reload({ stream: true }));
     }).done();
-});
 
-gulp.task('clean-css', function(){
     getFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(params.cssOut))
@@ -85,4 +84,25 @@ gulp.task('images', function(){
             return imgGlob;
         })).pipe(gulp.dest(path.join(params.out, 'images')));
     }).done();
+});
+
+gulp.task('js', function() {
+    getFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(params.out))
+            .pipe(reload({ stream: true }));
+    })
+    .done();
 });
