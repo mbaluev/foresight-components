@@ -8,12 +8,27 @@
 </head>
 <body class="page">
     <div class="component">
-        <div class="component__heading compopent_heading_1">Текстовое поле</div>
-        <div class="component__heading compopent_heading_2">Текстовое поле</div>
-        <div class="component__heading compopent_heading_3">Текстовое поле</div>
+        <!--
+        <div class="component__heading compopent__heading_1">Текстовое поле</div>
+        <div class="component__heading compopent__heading_2">Текстовое поле</div>
+        <div class="component__heading compopent__heading_3">Текстовое поле</div>
+        -->
         <div class="component__content">
             <div class="checkbox">
-                checkbox
+                <input id="cfirst" type="checkbox" name="first" checked hidden />
+                <label for="cfirst">Checked checkbox</label>
+            </div>
+            <div class="checkbox">
+                <input id="csecond" type="checkbox" name="second" hidden />
+                <label for="csecond">Unchecked checkbox</label>
+            </div>
+            <div class="checkbox">
+                <input id="cthird" type="checkbox" name="third" hidden disabled />
+                <label for="cthird">Disabled checkbox</label>
+            </div>
+            <div class="checkbox">
+                <input id="clast" type="checkbox" name="last" checked hidden disabled />
+                <label for="clast">Disabled checked checkbox</label>
             </div>
         </div>
     </div>
