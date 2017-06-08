@@ -1,8 +1,13 @@
 $(function(){
-    var text = "checkbox + ",
-        text2 = "checkbox2 + ",
-        sdd = 2,
-        wwe = 4;
-    console.log(text + text2 + '123');
-    return sdd + wwe;
+    $('[data-fc="checkbox"]').each(function(){
+        var that = $(this),
+            $input = that.find(".checkbox__input"),
+            $label = that.find(".checkbox__label");
+        if (!$input.prop('disabled')) {
+            $label.on('click', function(e){
+                e.preventDefault();
+                $input.prop('checked') ? $input.prop('checked', false) : $input.prop('checked', true);
+            })
+        }
+    });
 });

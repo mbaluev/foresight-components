@@ -6,31 +6,50 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="foresight-components.css" type="text/css" media="all">
 </head>
-<body class="page">
-    <div class="component">
-        <!--
-        <div class="component__heading compopent__heading_1">Текстовое поле</div>
-        <div class="component__heading compopent__heading_2">Текстовое поле</div>
-        <div class="component__heading compopent__heading_3">Текстовое поле</div>
-        -->
-        <div class="component__content">
-            <div class="checkbox">
-                <input id="cfirst" type="checkbox" name="first" checked hidden />
-                <label for="cfirst">Checked checkbox</label>
-            </div>
-            <div class="checkbox">
-                <input id="csecond" type="checkbox" name="second" hidden />
-                <label for="csecond">Unchecked checkbox</label>
-            </div>
-            <div class="checkbox">
-                <input id="cthird" type="checkbox" name="third" hidden disabled />
-                <label for="cthird">Disabled checkbox</label>
-            </div>
-            <div class="checkbox">
-                <input id="clast" type="checkbox" name="last" checked hidden disabled />
-                <label for="clast">Disabled checked checkbox</label>
-            </div>
+<body class="page proximanova">
+    <div class="heading heading_1">components</div>
+    <div class="article" data-title="checkbox">
+        <div class="heading heading_2">checkbox<span class="heading__info">IE 9+</span></div>
+        <div class="heading heading_5">
+            <span>checked</span>
+            <a class="heading__info link" href="#">html</a>
+            <a class="heading__info link" href="#">css</a>
+            <a class="heading__info link" href="#">js</a>
         </div>
+        <label class="checkbox" data-fc="checkbox">
+            <input class="checkbox__input" type="checkbox" name="first" checked hidden/>
+            <label class="checkbox__label">Checked checkbox</label>
+        </label>
+        <div class="heading heading_5">
+            <span>no checked</span>
+            <a class="heading__info link" href="#">html</a>
+            <a class="heading__info link" href="#">css</a>
+            <a class="heading__info link" href="#">js</a>
+        </div>
+        <label class="checkbox" data-fc="checkbox">
+            <input class="checkbox__input" type="checkbox" name="second" hidden/>
+            <label class="checkbox__label">Unchecked checkbox</label>
+        </label>
+        <div class="heading heading_5">
+            <span>disabled</span>
+            <a class="heading__info link" href="#">html</a>
+            <a class="heading__info link" href="#">css</a>
+            <a class="heading__info link" href="#">js</a>
+        </div>
+        <label class="checkbox" data-fc="checkbox">
+            <input class="checkbox__input" type="checkbox" name="third" disabled hidden/>
+            <label class="checkbox__label">Disabled checkbox</label>
+        </label>
+        <div class="heading heading_5">
+            <span>disabled checked</span>
+            <a class="heading__info link" href="#">html</a>
+            <a class="heading__info link" href="#">css</a>
+            <a class="heading__info link" href="#">js</a>
+        </div>
+        <label class="checkbox" data-fc="checkbox">
+            <input class="checkbox__input" type="checkbox" name="last" checked disabled hidden/>
+            <label class="checkbox__label">Disabled checked checkbox</label>
+        </label>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="foresight-components.min.js"></script>
