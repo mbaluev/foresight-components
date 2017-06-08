@@ -1,5 +1,7 @@
 .page {
   font-family: 'ProximaNova-Regular';
+  font-size: 13px;
+  font-weight: normal;
   margin: 25px 50px;
 }
 
@@ -74,6 +76,19 @@
 .article {
   font-family: 'ProximaNova-Regular';
   margin-bottom: 50px;
+}
+
+.paragraph {
+  font-style: italic;
+  margin: 5px 0;
+}
+
+.paragraph_color_grey {
+  color: #999;
+}
+
+.paragraph_color_red {
+  color: #ff5940;
 }
 
 .link {
