@@ -8,8 +8,8 @@ $(function(){
             $label.on('click', function(e){
                 e.preventDefault();
                 if (!$input.prop('checked')) {
-                    $('.radio_input[name="' + name + '"]').prop('cheched', false);
                     $input.prop('checked', true);
+                    $input.attr('checked', 'checked')
                 }
             })
         }
