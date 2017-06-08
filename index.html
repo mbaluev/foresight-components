@@ -19,7 +19,7 @@
             <span class="heading__info heading__link link link_code">html</span>
         </div>
         <label class="checkbox" data-fc="checkbox">
-            <input class="checkbox__input" type="checkbox" name="first" checked hidden/>
+            <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
             <label class="checkbox__label">Checked checkbox</label>
         </label>
 
@@ -37,7 +37,7 @@
             <span class="heading__info heading__link link link_code">html</span>
         </div>
         <label class="checkbox" data-fc="checkbox">
-            <input class="checkbox__input" type="checkbox" name="third" disabled hidden/>
+            <input class="checkbox__input" type="checkbox" name="third" disabled="disabled" hidden/>
             <label class="checkbox__label">Disabled checkbox</label>
         </label>
 
@@ -46,7 +46,7 @@
             <span class="heading__info heading__link link link_code">html</span>
         </div>
         <label class="checkbox" data-fc="checkbox">
-            <input class="checkbox__input" type="checkbox" name="last" checked disabled hidden/>
+            <input class="checkbox__input" type="checkbox" name="last" checked="checked" disabled="disabled" hidden/>
             <label class="checkbox__label">Disabled checked checkbox</label>
         </label>
     </div>
@@ -92,6 +92,27 @@
             <span class="heading__info heading__link link link_code">html</span>
         </div>
         <label class="radio-group" data-fc="radio-group">
+            <label class="radio">
+                <input class="radio__input" type="radio" name="radio-group" value="1" checked hidden />
+                <label class="radio__label">Checked radio</label>
+            </label>
+            <br>
+            <label class="radio">
+                <input class="radio__input" type="radio" name="radio-group" value="2" hidden />
+                <label class="radio__label">Unchecked radio</label>
+            </label>
+            <br>
+            <label class="radio">
+                <input class="radio__input" type="radio" name="radio-group" value="3" hidden disabled/>
+                <label class="radio__label">Disabled radio</label>
+            </label>
+        </label>
+
+        <div class="heading heading_5">
+            <span class="heading__info">radio-group disabled</span>
+            <span class="heading__info heading__link link link_code">html</span>
+        </div>
+        <label class="radio-group" data-fc="radio-group" disabled="disabled">
             <label class="radio">
                 <input class="radio__input" type="radio" name="radio-group" value="1" checked hidden />
                 <label class="radio__label">Checked radio</label>
