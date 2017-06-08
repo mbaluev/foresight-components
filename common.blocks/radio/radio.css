@@ -42,6 +42,7 @@
     border-radius: 7px;
 }
 .radio__input:disabled + .radio__label {
+    color: #999;
     cursor: default;
 }
 .radio__input:disabled + .radio__label::before {
@@ -51,6 +52,7 @@
 }
 .radio__input:checked:disabled + .radio__label::before {
     background-color: #4983c4;
+    border-color: #4983c4;
     opacity: .5;
 }
 

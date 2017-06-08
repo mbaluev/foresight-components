@@ -44,6 +44,7 @@
 }
 
 .checkbox__input:disabled + .checkbox__label {
+    color: #999;
     cursor: default;
 }
 .checkbox__input:disabled + .checkbox__label::before {

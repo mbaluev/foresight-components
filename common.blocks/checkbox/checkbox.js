@@ -7,6 +7,7 @@ $(function(){
             $label.on('click', function(e){
                 e.preventDefault();
                 $input.prop('checked') ? $input.prop('checked', false) : $input.prop('checked', true);
+                $input.attr('checked') ? $input.removeAttr('checked') : $input.attr('checked', 'checked');
             })
         }
     });
