@@ -15,12 +15,12 @@
 .radio__label::before {
     content: "";
     display: inline-block;
-    height: 12px;
-    width: 12px;
+    height: 14px;
+    width: 14px;
     margin: 0 10px 0 0;
     box-sizing: border-box;
     position: absolute;
-    top: 1px;
+    top: 0;
     left: 0;
     border: solid 2px #ddd;
     border-radius: 7px;
@@ -32,17 +32,18 @@
 .radio__input:checked + .radio__label::after {
     content: "";
     display: inline-block;
-    height: 4px;
-    width: 4px;
+    height: 6px;
+    width: 6px;
     box-sizing: border-box;
     position: absolute;
-    top: 5px;
+    top: 4px;
     left: 4px;
     background-color: #fff;
     border-radius: 7px;
 }
 .radio__input:disabled + .radio__label::before {
-    background-color: #ddd;
+    background-color: #ccc;
+    border-color: #ccc;
     opacity: .5;
 }
 .radio__input:checked:disabled + .radio__label::before {
