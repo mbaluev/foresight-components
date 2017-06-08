@@ -3,9 +3,31 @@
   margin: 25px 50px;
 }
 
+@font-face {
+  font-family: 'ProximaNova-Regular';
+  src: url("images/ProximaNova-Regular/ProximaNova-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("images/ProximaNova-Regular/ProximaNova-Regular.eot?#iefix") format('embedded-opentype'), 
+    url("images/ProximaNova-Regular/ProximaNova-Regular.woff") format('woff'), 
+    url("images/ProximaNova-Regular/ProximaNova-Regular.ttf")  format('truetype'), 
+    url("images/ProximaNova-Regular/ProximaNova-Regular.svg#svgFontName") format('svg');
+  /* Legacy iOS */
+}
+
+@font-face {
+  font-family: 'ProximaNova-Bold';
+  src: url("images/ProximaNova-Bold/ProximaNova-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("images/ProximaNova-Bold/ProximaNova-Bold.eot?#iefix") format('embedded-opentype'), 
+    url("images/ProximaNova-Bold/ProximaNova-Bold.woff") format('woff'), 
+    url("images/ProximaNova-Bold/ProximaNova-Bold.ttf")  format('truetype'), 
+    url("images/ProximaNova-Bold/ProximaNova-Bold.svg#svgFontName") format('svg');
+  /* Legacy iOS */
+}
+
 .heading {
   font-family: 'ProximaNova-Regular';
-  font-weight: 300;
+  font-weight: normal;
   position: relative;
   z-index: 1;
   padding: 0;
@@ -49,28 +71,6 @@
 .article {
   font-family: 'ProximaNova-Regular';
   margin-bottom: 50px;
-}
-
-@font-face {
-  font-family: 'ProximaNova-Regular';
-  src: url("images/ProximaNova-Regular/ProximaNova-Regular.eot");
-  /* IE9 Compat Modes */
-  src: url("images/ProximaNova-Regular/ProximaNova-Regular.eot?#iefix") format('embedded-opentype'), 
-    url("images/ProximaNova-Regular/ProximaNova-Regular.woff") format('woff'), 
-    url("images/ProximaNova-Regular/ProximaNova-Regular.ttf")  format('truetype'), 
-    url("images/ProximaNova-Regular/ProximaNova-Regular.svg#svgFontName") format('svg');
-  /* Legacy iOS */
-}
-
-@font-face {
-  font-family: 'ProximaNova-Bold';
-  src: url("images/ProximaNova-Bold/ProximaNova-Bold.eot");
-  /* IE9 Compat Modes */
-  src: url("images/ProximaNova-Bold/ProximaNova-Bold.eot?#iefix") format('embedded-opentype'), 
-    url("images/ProximaNova-Bold/ProximaNova-Bold.woff") format('woff'), 
-    url("images/ProximaNova-Bold/ProximaNova-Bold.ttf")  format('truetype'), 
-    url("images/ProximaNova-Bold/ProximaNova-Bold.svg#svgFontName") format('svg');
-  /* Legacy iOS */
 }
 
 .link {
