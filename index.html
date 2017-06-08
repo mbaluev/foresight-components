@@ -74,19 +74,27 @@
             <label class="radio__label">Disabled radio</label>
         </div>
     </div>
-    <div class="article" data-title="button">
-        <div class="heading heading_2">button</div>
+    <div class="article" data-title="radio-group">
+        <div class="heading heading_2">radio-group</div>
         <div class="heading">IE 9+</div>
         <div class="heading heading_5">
-            <span class="heading__info">checked</span>
+            <span class="heading__info">radio group</span>
             <a class="heading__info heading__link link" href="#">html</a>
             <a class="heading__info heading__link link" href="#">css</a>
             <a class="heading__info heading__link link" href="#">js</a>
         </div>
-        <label class="checkbox" data-fc="checkbox">
-            <input class="checkbox__input" type="checkbox" name="first" checked hidden/>
-            <label class="checkbox__label">Checked checkbox</label>
-        </label>
+        <div class="radio" data-fc="radio">
+            <input class="radio__input" type="radio" name="radio-group" checked hidden />
+            <label class="radio__label">Checked radio</label>
+        </div>
+        <div class="radio" data-fc="radio">
+            <input class="radio__input" type="radio" name="radio-group" hidden />
+            <label class="radio__label">Unchecked radio</label>
+        </div>
+        <div class="radio" data-fc="radio">
+            <input class="radio__input" type="radio" name="radio-group" hidden disabled/>
+            <label class="radio__label">Disabled radio</label>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="foresight-components.min.js"></script>
