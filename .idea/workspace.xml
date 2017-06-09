@@ -2,17 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd5d191-3cef-498c-a4bd-b8837896517e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/checkbox/checkbox.css" afterPath="$PROJECT_DIR$/common.blocks/checkbox/checkbox.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/checkbox/checkbox.js" afterPath="$PROJECT_DIR$/common.blocks/checkbox/checkbox.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight-components.css" afterPath="$PROJECT_DIR$/public/foresight-components.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight-components.debug.js" afterPath="$PROJECT_DIR$/public/foresight-components.debug.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight-components.min.css" afterPath="$PROJECT_DIR$/public/foresight-components.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight-components.min.js" afterPath="$PROJECT_DIR$/public/foresight-components.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/radio-group/radio-group.js" afterPath="$PROJECT_DIR$/common.blocks/radio-group/radio-group.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/radio/radio.css" afterPath="$PROJECT_DIR$/common.blocks/radio/radio.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/page/page.css" afterPath="$PROJECT_DIR$/common.blocks/page/page.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,13 +40,14 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32407406">
-              <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.6759259">
+              <caret line="249" column="65" selection-start-line="249" selection-start-column="65" selection-end-line="249" selection-end-column="65" />
               <folding>
-                <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-                <element signature="n#div#2;n#body#0;n#!!top" expanded="false" />
                 <element signature="n#div#3;n#body#0;n#!!top" expanded="false" />
                 <element signature="n#div#4;n#body#0;n#!!top" expanded="false" />
+                <element signature="n#div#5;n#body#0;n#!!top" expanded="false" />
+                <element signature="n#div#6;n#body#0;n#!!top" expanded="false" />
+                <element signature="n#div#7;n#body#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -78,13 +73,13 @@
         <option value="$PROJECT_DIR$/public/foresight-components.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/public/foresight-components.css" />
-        <option value="$PROJECT_DIR$/common.blocks/page/page.css" />
         <option value="$PROJECT_DIR$/common.blocks/heading/heading.css" />
         <option value="$PROJECT_DIR$/common.blocks/checkbox/checkbox.js" />
         <option value="$PROJECT_DIR$/common.blocks/radio/radio.js" />
         <option value="$PROJECT_DIR$/common.blocks/radio-group/radio-group.js" />
         <option value="$PROJECT_DIR$/common.blocks/checkbox/checkbox.css" />
         <option value="$PROJECT_DIR$/common.blocks/radio/radio.css" />
+        <option value="$PROJECT_DIR$/common.blocks/page/page.css" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
@@ -207,6 +202,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="page" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -377,14 +390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/page/page.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/heading/heading.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -433,15 +438,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/page/page.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08928572">
+          <caret line="4" column="11" selection-start-line="4" selection-start-column="11" selection-end-line="4" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32407406">
-          <caret line="164" column="4" selection-start-line="164" selection-start-column="4" selection-end-line="164" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.6759259">
+          <caret line="249" column="65" selection-start-line="249" selection-start-column="65" selection-end-line="249" selection-end-column="65" />
           <folding>
-            <element signature="n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="n#div#2;n#body#0;n#!!top" expanded="false" />
             <element signature="n#div#3;n#body#0;n#!!top" expanded="false" />
             <element signature="n#div#4;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#div#5;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#div#6;n#body#0;n#!!top" expanded="false" />
+            <element signature="n#div#7;n#body#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
