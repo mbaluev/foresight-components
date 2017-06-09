@@ -1,0 +1,62 @@
+.button {
+    font-family: 'ProximaNova-Regular';
+    position: relative;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    color: #000;
+    border: 0;
+    outline: 0;
+    background: #ddd;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+.button:before {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+    content: '';
+    background: #fff;
+}
+
+.button.button_disabled {
+    background: rgba(0,0,0,.08);
+}
+.button.button_disabled:before {
+    display: none;
+}
+
+.button .button__text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+}
+
+.button.button_hovered {
+    cursor: pointer;
+    /*background-color: #4983c4;*/
+    /*background-color: #5a97f2;*/
+    background-color: #aaa;
+}
+
+.button.button_focused {
+    z-index: 1;
+}
+
+.button.button_focused:before {
+    box-shadow: 0 0 0 1px #fc0, inset 0 0 0 1px #fc0;
+}
+
+.button.button_checked:before {
+    background-color: #ffeba0;
+}
