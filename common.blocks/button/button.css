@@ -50,3 +50,11 @@
 .button.button_focused.button_clicked:before { box-shadow: 0 0 0 1px #fc0, inset 0 0 0 1px #fc0, inset 0 0 0 3px rgba(0,0,0,.05); }
 
 .button.button_checked:before { background-color: #ffeba0; }
+
+.button .icon {
+    width: 30px;
+    position: relative;
+}
+.button .icon + .button__text {
+    margin-left: 0;
+}

@@ -2,11 +2,12 @@ $(function(){
     $('[data-fc="button"]').each(function() {
         var that = $(this);
         if (!that.prop('disabled')) {
+
             // --> all buttons
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
-            that.on('mousedown', function(){ that.addClass('button_clicked'); });
-            that.on('mouseup', function(){ that.removeClass('button_clicked'); });
+            that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
+            that.on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
             //that.on('focusin', function(){ that.addClass('button_focused'); });
             //that.on('focusout', function(){ that.removeClass('button_focused'); });
 
@@ -27,6 +28,7 @@ $(function(){
                     }
                 });
             }
+
         } else {
             that.addClass('button_disabled');
         }
