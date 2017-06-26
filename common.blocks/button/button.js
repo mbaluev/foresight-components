@@ -13,7 +13,7 @@ $(function(){
 
             // --> button_toggable_check
             if (that.hasClass('button_toggable_check')) {
-                if (that.attr('aria-checked', 'true') || that.hasClass('button_checked')) {
+                if ((that.attr('aria-checked') == "true") || that.hasClass('button_checked')) {
                     that.attr('aria-checked', 'true');
                     that.addClass('button_checked');
                 }

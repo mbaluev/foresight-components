@@ -58,3 +58,6 @@
 .button .icon + .button__text {
     margin-left: 0;
 }
+.button .button__text + .icon {
+    margin-left: -10px;
+}

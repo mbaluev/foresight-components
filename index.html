@@ -7,33 +7,15 @@
     <link rel="stylesheet" href="foresight-components.min.css" type="text/css" media="all">
 </head>
 <body class="page proximanova">
-    <div class="heading heading_1">components</div>
     <div class="article" data-title="icon" id="icon">
-        <div class="heading heading_2">icon</div>
-        <p class="paragraph paragraph_color_grey">Используется в качестве вспомогательного декоративного изображения в других блоках.</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-        <div class="heading heading_5">
-            <span class="heading__info">Иконка</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <span class="icon icon_svg_settings"></span>
     </div>
     <div class="article" data-title="button" id="button">
-        <div class="heading heading_2">button</div>
-        <p class="paragraph paragraph_color_grey">Кнопка</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-        <div class="heading heading_5">
-            <span class="heading__info">Кнопка</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <button class="button" type="button" data-fc="button">
             <span class="button__text">Сохранить</span>
         </button>
-        <div class="heading heading_5">
-            <span class="heading__info">Кнопка c картинкой</span>
-            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_bars"></span>
         </button>
@@ -67,185 +49,157 @@
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_trash"></span>
         </button>
-        <div class="heading heading_5">
-            <span class="heading__info">Кнопка c картинкой и текстом</span>
-            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_bars"></span>
             <span class="button__text">Меню</span>
         </button>
         <br><br>
+
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_settings"></span>
             <span class="button__text">Настройки</span>
         </button>
         <br><br>
+
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_move"></span>
             <span class="button__text">Переместить</span>
         </button>
         <br><br>
+
         <button class="button" type="button" data-fc="button">
             <span class="icon icon_svg_close"></span>
             <span class="button__text">Закрыть</span>
         </button>
-        <div class="heading heading_5">
-            <span class="heading__info">Кнопка чекбокс</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+    </div>
+    <div class="article" data-title="button-checkbox" id="button-checkbox">
         <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
             <span class="button__text">Включить в объект госпрограммы</span>
         </button>
+        <br><br>
+
+        <button class="button button_toggable_check" type="button" data-fc="button" aria-checked="false">
+            <span class="icon icon_svg_trash"></span>
+            <span class="button__text">Исключить</span>
+        </button>
+        <br><br>
+
+        <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
+            <span class="button__text">Удалить</span>
+            <span class="icon icon_svg_close"></span>
+        </button>
     </div>
+    <div class="article" data-title="alert-with-button" id="alert-with-button">
+        <label class="alert" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_close"></span>
+            </button>
+        </label>
+        <br><br>
+
+        <label class="alert alert_color_cyan" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_close_white"></span>
+            </button>
+        </label>
+        <br><br>
+
+        <label class="alert alert_color_blue" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_close_white"></span>
+            </button>
+        </label>
+        <br><br>
+
+        <label class="alert alert_color_red" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_close_white"></span>
+            </button>
+        </label>
+        <br><br>
+
+        <label class="alert alert_color_red" data-fc="alert">
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_close_white"></span>
+            </button>
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+        </label>
+    </div>
+    <div class="article" data-title="alert-with-icon" id="alert-with-icon">
+        <label class="alert" data-fc="alert">
+            <span class="icon icon_svg_settings"></span>
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+        </label>
+        <br><br>
+
+        <label class="alert" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <span class="icon icon_svg_settings"></span>
+        </label>
+        <br><br>
+
+        <label class="alert alert_color_blue" data-fc="alert">
+            <span class="alert__text">Лицензия заканчивается через 30 дней</span>
+            <span class="icon icon_svg_settings_white"></span>
+        </label>
+    </div>
+
     <div class="article" data-title="checkbox" id="checkbox">
-        <div class="heading heading_2">checkbox</div>
-        <p class="paragraph paragraph_color_grey">Используется для управления параметром выбора с двумя состояниями – «включено» и «выключено».</p>
-        <p class="paragraph paragraph_color_grey">Для отображения и управления группой однотипных переключателей – чекбоксов используйте блок <a class="link link_code" href="#checkbox-group">checkbox-group</a>.</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-        <div class="heading heading_5">
-            <span class="heading__info">checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
-            <label class="checkbox__label">Использовать</label>
+            <label class="checkbox__label">Включить в объект госпрограммы</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">unchecked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="second" hidden/>
-            <label class="checkbox__label">Использовать</label>
+            <label class="checkbox__label">Включить в объект госпрограммы</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="third" disabled="disabled" hidden/>
-            <label class="checkbox__label">Использовать</label>
+            <label class="checkbox__label">Включить в объект госпрограммы</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">disabled checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="last" checked="checked" disabled="disabled" hidden/>
-            <label class="checkbox__label">Использовать</label>
+            <label class="checkbox__label">Включить в объект госпрограммы</label>
         </label>
-
-        <div class="heading heading_5">
-            <span class="heading__info">button</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button disabled checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-    </div>
-    <div class="article" data-title="checkbox-group" id="checkbox-group">
-        <div class="heading heading_2">checkbox-group</div>
-        <p class="paragraph paragraph_color_grey">Используется для отображения и управления группой однотипных переключателей, реализованных блоком <a class="link link_code" href="#checkbox">checkbox</a>.</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group inline</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group buttons</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group buttons disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">checkbox-group inline buttons</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
     </div>
     <div class="article" data-title="radio" id="radio">
-        <div class="heading heading_2">radio</div>
-        <p class="paragraph paragraph_color_grey">Используется в составе блока <a class="link link_code" href="#radio-group">radio-group</a> для создания радиопереключателей.</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-        <div class="heading heading_5">
-            <span class="heading__info">checked radio</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-checked" checked="checked" hidden />
             <label class="radio__label">Checked radio</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">unchecked radio</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-unchecked" hidden />
             <label class="radio__label">Unchecked radio</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">disabled radio</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-disabled" hidden disabled="disabled"/>
             <label class="radio__label">Disabled radio</label>
         </label>
-        <div class="heading heading_5">
-            <span class="heading__info">disabled checked radio</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
+        <br><br>
+
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-disabled-checked" hidden disabled="disabled" checked="checked"/>
             <label class="radio__label">Disabled radio</label>
         </label>
-
-        <div class="heading heading_5">
-            <span class="heading__info">button</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">button disabled checked</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
     </div>
     <div class="article" data-title="radio-group" id="radio-group">
-        <div class="heading heading_2">radio-group</div>
-        <p class="paragraph paragraph_color_grey">Используется для отображения группы однотипных переключателей, реализованных блоком <a class="link link_code" href="#radio">radio</a>.</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
-
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <label class="radio-group" data-fc="radio-group">
             <label class="radio">
                 <input class="radio__input" type="radio" name="radio-group" value="1" checked="checked" hidden />
@@ -262,11 +216,8 @@
                 <label class="radio__label">Программа</label>
             </label>
         </label>
+        <br><br>
 
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <label class="radio-group" data-fc="radio-group" disabled="disabled">
             <label class="radio">
                 <input class="radio__input" type="radio" name="radio-group-disabled" value="1" checked="checked" hidden />
@@ -283,11 +234,8 @@
                 <label class="radio__label">Программа</label>
             </label>
         </label>
+        <br><br>
 
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group inline</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
         <label class="radio-group" data-fc="radio-group">
             <label class="radio radio_type_line">
                 <input class="radio__input" type="radio" name="radio-group-inline" value="1" checked="checked" hidden />
@@ -302,39 +250,15 @@
                 <label class="radio__label">Программа</label>
             </label>
         </label>
-
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group buttons</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group buttons disabled</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
-        <div class="heading heading_5">
-            <span class="heading__info">radio-group inline buttons</span>
-            <span class="heading__info heading__link link link_code">html</span>
-        </div>
     </div>
+
     <div class="article" data-title="input" id="input">
-        <div class="heading heading_2">input</div>
-        <p class="paragraph paragraph_color_grey">Поле для ввода текста</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
     </div>
     <div class="article" data-title="textarea" id="textarea">
-        <div class="heading heading_2">textarea</div>
-        <p class="paragraph paragraph_color_grey">Многострочное поле для ввода текста</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
     </div>
     <div class="article" data-title="select" id="select">
-        <div class="heading heading_2">select</div>
-        <p class="paragraph paragraph_color_grey">Выпадающий список</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
     </div>
     <div class="article" data-title="dropdown" id="dropdown">
-        <div class="heading heading_2">dropdown</div>
-        <p class="paragraph paragraph_color_grey">Выпадающее окно</p>
-        <p class="paragraph paragraph_color_red">IE 9+</p>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
