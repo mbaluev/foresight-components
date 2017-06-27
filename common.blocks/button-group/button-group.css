@@ -1,4 +1,7 @@
-.button-group {}
+.button-group {
+    display: inline-flex;
+    white-space: nowrap;
+}
 
 .button-group .button+.button { margin-left: -1px; }
 .button-group .button.button_hovered { z-index: 1; }

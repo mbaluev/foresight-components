@@ -133,7 +133,10 @@
 .button {
   font-family: 'ProximaNova-Regular';
   position: relative;
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   -webkit-user-select: none;
@@ -221,7 +224,12 @@
   margin-left: -10px;
 }
 
-
+.button-group {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  white-space: nowrap;
+}
 
 .button-group .button+.button {
   margin-left: -1px;
@@ -258,7 +266,10 @@
 .alert {
   font-family: 'ProximaNova-Regular';
   position: relative;
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   /*user-select: none;*/
@@ -445,46 +456,51 @@
   display: inline-block;
 }
 
-
-
-.checkbox-group_type_line {
-  display: inline-block;
+.checkbox-group {
   line-height: 24px;
 }
 
+.checkbox-group_type_line,
 .checkbox-group_type_button {
   display: inline-block;
 }
 
-.checkbox-group .checkbox+.checkbox {
+.checkbox-group_type_button {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.checkbox-group_type_button .checkbox + .checkbox {
   margin-left: -1px;
 }
 
-.checkbox-group .checkbox.checkbox_hovered .button.button_hovered {
+.checkbox-group_type_button .checkbox.checkbox_hovered .button.button_hovered {
   z-index: 1;
 }
 
-.checkbox-group .checkbox .button {
+.checkbox-group_type_button .checkbox .button {
   border-radius: 0;
 }
 
-.checkbox-group .checkbox .button:before {
+.checkbox-group_type_button .checkbox .button:before {
   border-radius: 0;
 }
 
-.checkbox-group .checkbox:first-child .button {
+.checkbox-group_type_button .checkbox:first-child .button {
   border-radius: 3px 0 0 3px;
 }
 
-.checkbox-group .checkbox:first-child .button:before {
+.checkbox-group_type_button .checkbox:first-child .button:before {
   border-radius: 2px 0 0 2px;
 }
 
-.checkbox-group .checkbox:last-child .button {
+.checkbox-group_type_button .checkbox:last-child .button {
   border-radius: 0 3px 3px 0;
 }
 
-.checkbox-group .checkbox:last-child .button:before {
+.checkbox-group_type_button .checkbox:last-child .button:before {
   border-radius: 0 2px 2px 0;
 }
 
@@ -560,4 +576,13 @@
 
 .radio-group {
   line-height: 24px;
+}
+
+.radio-group_type_line,
+.radio-group_type_button {
+  display: inline-block;
+}
+
+.radio-group_type_button {
+  white-space: nowrap;
 }

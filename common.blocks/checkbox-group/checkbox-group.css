@@ -1,20 +1,23 @@
-.checkbox-group {  }
-
-.checkbox-group_type_line {
-    display: inline-block;
+.checkbox-group {
     line-height: 24px;
 }
 
+.checkbox-group_type_line,
 .checkbox-group_type_button {
     display: inline-block;
 }
 
-.checkbox-group .checkbox+.checkbox { margin-left: -1px; }
-.checkbox-group .checkbox.checkbox_hovered .button.button_hovered { z-index: 1; }
+.checkbox-group_type_button {
+    display: inline-flex;
+    white-space: nowrap;
+}
 
-.checkbox-group .checkbox .button { border-radius: 0; }
-.checkbox-group .checkbox .button:before { border-radius: 0; }
-.checkbox-group .checkbox:first-child .button { border-radius: 3px 0 0 3px; }
-.checkbox-group .checkbox:first-child .button:before { border-radius: 2px 0 0 2px; }
-.checkbox-group .checkbox:last-child .button { border-radius: 0 3px 3px 0; }
-.checkbox-group .checkbox:last-child .button:before { border-radius: 0 2px 2px 0; }
+.checkbox-group_type_button .checkbox + .checkbox { margin-left: -1px; }
+.checkbox-group_type_button .checkbox.checkbox_hovered .button.button_hovered { z-index: 1; }
+
+.checkbox-group_type_button .checkbox .button { border-radius: 0; }
+.checkbox-group_type_button .checkbox .button:before { border-radius: 0; }
+.checkbox-group_type_button .checkbox:first-child .button { border-radius: 3px 0 0 3px; }
+.checkbox-group_type_button .checkbox:first-child .button:before { border-radius: 2px 0 0 2px; }
+.checkbox-group_type_button .checkbox:last-child .button { border-radius: 0 3px 3px 0; }
+.checkbox-group_type_button .checkbox:last-child .button:before { border-radius: 0 2px 2px 0; }

@@ -1,3 +1,12 @@
 .radio-group {
     line-height: 24px;
 }
+
+.radio-group_type_line,
+.radio-group_type_button {
+    display: inline-block;
+}
+
+.radio-group_type_button {
+    white-space: nowrap;
+}
