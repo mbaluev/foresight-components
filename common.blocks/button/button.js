@@ -1,6 +1,7 @@
 $(function(){
     $('[data-fc="button"]').each(function() {
         var that = $(this);
+
         if (!that.prop('disabled')) {
 
             // --> all buttons

@@ -1,0 +1,6 @@
+.button-group {}
+
+.button-group .button:before { right: 0; }
+.button-group .button:last-child:before { right: 1px; }
+.button-group .button.button_hovered:before { right: 1px; }
+.button-group .button.button_hovered + .button:before { left: 0; }

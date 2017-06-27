@@ -76,6 +76,17 @@
         </button>
         <br><br>
     </div>
+    <div class="article" data-title="button-group" id="button-group">
+        <span class="button-group" data-fc="button-group">
+            <button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_left"></span>
+            </button><button class="button" type="button" data-fc="button">
+                <span class="button__text">Июнь</span>
+            </button><button class="button" type="button" data-fc="button">
+                <span class="icon icon_svg_right"></span>
+            </button>
+        </span>
+    </div>
     <div class="article" data-title="button-checkbox" id="button-checkbox">
         <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
             <span class="button__text">Включить в объект госпрограммы</span>
@@ -288,27 +299,37 @@
         <br><br>
 
         <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-            <label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
-                <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
+
+
+            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
                     <span class="button__text">Вверх</span>
                 </button>
-                <input class="checkbox__input" type="checkbox" name="first" checked="checked" disabled="disabled" hidden/>
-            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
-                <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked"hidden/>
+
+
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check" type="button" data-fc="button">
                     <span class="button__text">Вправо</span>
                 </button>
-                <input class="checkbox__input" type="checkbox" name="first" disabled="disabled" hidden/>
-            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
-                <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
+                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+
+
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
                     <span class="button__text">Вниз</span>
                 </button>
-                <input class="checkbox__input" type="checkbox" name="first" checked="checked" disabled="disabled" hidden/>
-            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
-                <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+
+
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check" type="button" data-fc="button">
                     <span class="button__text">Влево</span>
                 </button>
-                <input class="checkbox__input" type="checkbox" name="first" disabled="disabled" hidden/>
+                <input class="checkbox__input" type="checkbox" name="first" hidden/>
             </label>
+
+
         </span>
     </div>
 

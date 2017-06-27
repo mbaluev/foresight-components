@@ -9,14 +9,12 @@
     display: inline-block;
 }
 
-.checkbox-group .button:before {
-    left: 0;
-}
+.checkbox-group .checkbox .button:before { right: 0; }
+.checkbox-group .checkbox:last-child .button:before { right: 1px; }
+.checkbox-group .checkbox.checkbox_hovered .button:before { right: 1px; }
+.checkbox-group .checkbox.checkbox_hovered + .checkbox .button:before { left: 0; }
 
-.checkbox-group .checkbox:first-child .button:before {
-    left: 1px;
-}
-
+/*
 .checkbox-group .button { border-radius: 0; }
 .checkbox-group .button:before { border-radius: 0; }
 .checkbox-group .checkbox:first-child .button { border-radius: 3px 0 0 3px; }
@@ -25,3 +23,4 @@
 .checkbox-group .checkbox:last-child .button:before { border-radius: 0 2px 2px 0; }
 
 .checkbox-group .checkbox.checkbox_disabled + .checkbox .button:before { left: 1px; }
+*/
