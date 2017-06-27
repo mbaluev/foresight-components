@@ -10,6 +10,7 @@
     <div class="article" data-title="icon" id="icon">
         <span class="icon icon_svg_settings"></span>
     </div>
+
     <div class="article" data-title="button" id="button">
         <button class="button" type="button" data-fc="button">
             <span class="button__text">Сохранить</span>
@@ -69,7 +70,7 @@
         </button>
         <br><br>
 
-        <button class="button" type="button" data-fc="button">
+        <button class="button button_disabled" type="button" data-fc="button" disabled="disabled">
             <span class="icon icon_svg_close"></span>
             <span class="button__text">Закрыть</span>
         </button>
@@ -87,11 +88,18 @@
         </button>
         <br><br>
 
-        <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
+        <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+            <span class="button__text">Удалить</span>
+            <span class="icon icon_svg_close"></span>
+        </button>
+        <br><br>
+
+        <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
             <span class="button__text">Удалить</span>
             <span class="icon icon_svg_close"></span>
         </button>
     </div>
+
     <div class="article" data-title="alert-with-button" id="alert-with-button">
         <label class="alert" data-fc="alert">
             <span class="alert__text">Лицензия заканчивается через 30 дней</span>
@@ -154,27 +162,156 @@
     <div class="article" data-title="checkbox" id="checkbox">
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
-            <label class="checkbox__label">Включить в объект госпрограммы</label>
+            <label class="checkbox__label">Checked checkbox</label>
         </label>
         <br><br>
 
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="second" hidden/>
-            <label class="checkbox__label">Включить в объект госпрограммы</label>
+            <label class="checkbox__label">Unchecked checkbox</label>
         </label>
         <br><br>
 
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="third" disabled="disabled" hidden/>
-            <label class="checkbox__label">Включить в объект госпрограммы</label>
+            <label class="checkbox__label">Disabled checkbox</label>
         </label>
         <br><br>
 
         <label class="checkbox" data-fc="checkbox">
             <input class="checkbox__input" type="checkbox" name="last" checked="checked" disabled="disabled" hidden/>
-            <label class="checkbox__label">Включить в объект госпрограммы</label>
+            <label class="checkbox__label">Disabled checked checkbox</label>
         </label>
     </div>
+    <div class="article" data-title="checkbox-button" id="checkbox-button">
+        <label class="checkbox checkbox_type_button" data-fc="checkbox">
+            <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
+                <span class="button__text">Включить в объект госпрограммы</span>
+            </button>
+            <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+        </label>
+        <br><br>
+
+        <label class="checkbox checkbox_type_button" data-fc="checkbox">
+            <button class="button button_toggable_check" type="button" data-fc="button">
+                <span class="icon icon_svg_trash"></span>
+                <span class="button__text">Исключить</span>
+            </button>
+            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+        </label>
+        <br><br>
+
+        <label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+            <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+                <span class="button__text">Удалить</span>
+                <span class="icon icon_svg_close"></span>
+            </button>
+            <input class="checkbox__input" type="checkbox" name="first" disabled="disabled" hidden/>
+        </label>
+        <br><br>
+
+        <label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+            <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
+                <span class="button__text">Удалить</span>
+                <span class="icon icon_svg_close"></span>
+            </button>
+            <input class="checkbox__input" type="checkbox" name="first" checked="checked" disabled="disabled" hidden/>
+        </label>
+    </div>
+    <div class="article" data-title="checkbox-group" id="checkbox-group">
+        <span class="checkbox-group checkbox-group_type_line" data-fc="checkbox-group">
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+                <label class="checkbox__label">Вверх</label>
+            </label>
+            <br>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="second" hidden/>
+                <label class="checkbox__label">Вправо</label>
+            </label>
+            <br>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="third" disabled="disabled" hidden/>
+                <label class="checkbox__label">Вниз</label>
+            </label>
+            <br>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="last" checked="checked" disabled="disabled" hidden/>
+                <label class="checkbox__label">Влево</label>
+            </label>
+        </span>
+        <br><br><br>
+
+        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+                <label class="checkbox__label">Вверх</label>
+            </label>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="second" hidden/>
+                <label class="checkbox__label">Вправо</label>
+            </label>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="third" disabled="disabled" hidden/>
+                <label class="checkbox__label">Вниз</label>
+            </label>
+            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                <input class="checkbox__input" type="checkbox" name="last" checked="checked" disabled="disabled" hidden/>
+                <label class="checkbox__label">Влево</label>
+            </label>
+        </span>
+    </div>
+    <div class="article" data-title="checkbox-button-group" id="checkbox-button-group">
+        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
+                    <span class="button__text">Вверх</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check" type="button" data-fc="button">
+                    <span class="button__text">Вправо</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked" type="button" data-fc="button" aria-checked="true">
+                    <span class="button__text">Вниз</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" hidden/>
+            </label><label class="checkbox checkbox_type_button" data-fc="checkbox">
+                <button class="button button_toggable_check" type="button" data-fc="button">
+                    <span class="button__text">Влево</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+            </label>
+        </span>
+        <br><br>
+
+        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+            <label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
+                    <span class="button__text">Вверх</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" disabled="disabled" hidden/>
+            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+                <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+                    <span class="button__text">Вправо</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" disabled="disabled" hidden/>
+            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+                <button class="button button_toggable_check button_checked button_disabled" type="button" data-fc="button" aria-checked="true" disabled="disabled">
+                    <span class="button__text">Вниз</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" checked="checked" disabled="disabled" hidden/>
+            </label><label class="checkbox checkbox_type_button checkbox_disabled" data-fc="checkbox">
+                <button class="button button_toggable_check button_disabled" type="button" data-fc="button" disabled="disabled">
+                    <span class="button__text">Влево</span>
+                </button>
+                <input class="checkbox__input" type="checkbox" name="first" disabled="disabled" hidden/>
+            </label>
+        </span>
+    </div>
+
     <div class="article" data-title="radio" id="radio">
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-checked" checked="checked" hidden />
@@ -196,11 +333,11 @@
 
         <label class="radio" data-fc="radio">
             <input class="radio__input" type="radio" name="radio-disabled-checked" hidden disabled="disabled" checked="checked"/>
-            <label class="radio__label">Disabled radio</label>
+            <label class="radio__label">Disabled checked radio</label>
         </label>
     </div>
     <div class="article" data-title="radio-group" id="radio-group">
-        <label class="radio-group" data-fc="radio-group">
+        <span class="radio-group" data-fc="radio-group">
             <label class="radio">
                 <input class="radio__input" type="radio" name="radio-group" value="1" checked="checked" hidden />
                 <label class="radio__label">Проект</label>
@@ -215,10 +352,10 @@
                 <input class="radio__input" type="radio" name="radio-group" value="3" hidden disabled="disabled"/>
                 <label class="radio__label">Программа</label>
             </label>
-        </label>
+        </span>
         <br><br>
 
-        <label class="radio-group" data-fc="radio-group" disabled="disabled">
+        <span class="radio-group" data-fc="radio-group" disabled="disabled">
             <label class="radio">
                 <input class="radio__input" type="radio" name="radio-group-disabled" value="1" checked="checked" hidden />
                 <label class="radio__label">Проект</label>
@@ -233,10 +370,10 @@
                 <input class="radio__input" type="radio" name="radio-group-disabled" value="3" hidden disabled="disabled"/>
                 <label class="radio__label">Программа</label>
             </label>
-        </label>
+        </span>
         <br><br>
 
-        <label class="radio-group" data-fc="radio-group">
+        <span class="radio-group" data-fc="radio-group">
             <label class="radio radio_type_line">
                 <input class="radio__input" type="radio" name="radio-group-inline" value="1" checked="checked" hidden />
                 <label class="radio__label">Проект</label>
@@ -249,7 +386,7 @@
                 <input class="radio__input" type="radio" name="radio-group-inline" value="3" hidden disabled="disabled"/>
                 <label class="radio__label">Программа</label>
             </label>
-        </label>
+        </span>
     </div>
 
     <div class="article" data-title="input" id="input">

@@ -204,8 +204,14 @@
   box-shadow: 0 0 0 1px #fc0, inset 0 0 0 1px #fc0, inset 0 0 0 3px rgba(0,0,0,.05);
 }
 
+/*.button.button_checked { background: rgba(0,0,0,.2); }*/
+
 .button.button_checked:before {
   background-color: #ffeba0;
+}
+
+.button.button_checked.button_disabled {
+  background: rgba(0,0,0,.16);
 }
 
 .button .icon {
@@ -336,6 +342,8 @@
 
 .checkbox {
   font-family: 'ProximaNova-Regular';
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
 }
 
 .checkbox__input {
@@ -397,6 +405,61 @@
 .checkbox__input:checked:disabled + .checkbox__label::before {
   background-color: #4983c4;
   opacity: .5;
+}
+
+.checkbox_type_line {
+  margin-right: 15px;
+}
+
+.checkbox_type_button {
+  display: inline-block;
+}
+
+
+
+.checkbox-group_type_line {
+  display: inline-block;
+  line-height: 24px;
+}
+
+.checkbox-group_type_button {
+  display: inline-block;
+}
+
+.checkbox-group .button:before {
+  left: 0;
+}
+
+.checkbox-group .checkbox:first-child .button:before {
+  left: 1px;
+}
+
+.checkbox-group .button {
+  border-radius: 0;
+}
+
+.checkbox-group .button:before {
+  border-radius: 0;
+}
+
+.checkbox-group .checkbox:first-child .button {
+  border-radius: 3px 0 0 3px;
+}
+
+.checkbox-group .checkbox:first-child .button:before {
+  border-radius: 2px 0 0 2px;
+}
+
+.checkbox-group .checkbox:last-child .button {
+  border-radius: 0 3px 3px 0;
+}
+
+.checkbox-group .checkbox:last-child .button:before {
+  border-radius: 0 2px 2px 0;
+}
+
+.checkbox-group .checkbox.checkbox_disabled + .checkbox .button:before {
+  left: 1px;
 }
 
 .radio {

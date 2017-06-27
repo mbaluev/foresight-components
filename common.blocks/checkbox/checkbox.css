@@ -1,5 +1,6 @@
 .checkbox {
     font-family: 'ProximaNova-Regular';
+    touch-action: manipulation;
 }
 .checkbox__input {
     display:none;
@@ -54,4 +55,11 @@
 .checkbox__input:checked:disabled + .checkbox__label::before {
     background-color: #4983c4;
     opacity: .5;
+}
+
+.checkbox_type_line {
+    margin-right: 15px;
+}
+.checkbox_type_button {
+    display: inline-block;
 }

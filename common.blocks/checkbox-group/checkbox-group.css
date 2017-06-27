@@ -1,0 +1,27 @@
+.checkbox-group {  }
+
+.checkbox-group_type_line {
+    display: inline-block;
+    line-height: 24px;
+}
+
+.checkbox-group_type_button {
+    display: inline-block;
+}
+
+.checkbox-group .button:before {
+    left: 0;
+}
+
+.checkbox-group .checkbox:first-child .button:before {
+    left: 1px;
+}
+
+.checkbox-group .button { border-radius: 0; }
+.checkbox-group .button:before { border-radius: 0; }
+.checkbox-group .checkbox:first-child .button { border-radius: 3px 0 0 3px; }
+.checkbox-group .checkbox:first-child .button:before { border-radius: 2px 0 0 2px; }
+.checkbox-group .checkbox:last-child .button { border-radius: 0 3px 3px 0; }
+.checkbox-group .checkbox:last-child .button:before { border-radius: 0 2px 2px 0; }
+
+.checkbox-group .checkbox.checkbox_disabled + .checkbox .button:before { left: 1px; }
