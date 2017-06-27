@@ -15,7 +15,7 @@ $(function(){
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
             that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
-            that.on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
+            $('body').on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
             //that.on('focusin', function(){ that.addClass('button_focused'); });
             //that.on('focusout', function(){ that.removeClass('button_focused'); });
 

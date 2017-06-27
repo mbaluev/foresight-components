@@ -15,7 +15,7 @@ $(function(){
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
             that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
-            that.on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
+            $('body').on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
             //that.on('focusin', function(){ that.addClass('button_focused'); });
             //that.on('focusout', function(){ that.removeClass('button_focused'); });
 
@@ -60,7 +60,7 @@ $(function(){
             that.on('mouseover', function () { that.addClass('checkbox_hovered'); });
             that.on('mouseout', function () { that.removeClass('checkbox_hovered'); });
             that.on('mousedown touchstart', function () { that.addClass('checkbox_clicked'); });
-            that.on('mouseup touchend', function () { that.removeClass('checkbox_clicked'); });
+            $('body').on('mouseup touchend', function () { that.removeClass('checkbox_clicked'); });
             if ($label) {
                 $label.on('click', function (e) {
                     e.preventDefault();
