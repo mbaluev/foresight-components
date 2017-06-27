@@ -8,7 +8,7 @@
     color: #000;
     border: 0;
     outline: 0;
-    background: #ddd;
+    background: #ccc;
     text-align: center;
     white-space: nowrap;
     -webkit-tap-highlight-color: transparent;
@@ -47,7 +47,7 @@
 .alert .button + .alert__text { margin-left: 0px; }
 
 .alert .button:before { left: 0; }
-.alert .button.button_hovered { cursor: pointer; background-color: #ddd; }
+.alert .button.button_hovered { cursor: pointer; background-color: #ccc; }
 .alert .button.button_clicked:before { box-shadow: none; background-color: #fff; }
 .alert .button.button_hovered .icon { opacity: .75; }
 .alert .button.button_clicked .icon { opacity: .5; }

@@ -1,10 +1,17 @@
 $(function(){
     $('[data-fc="button"]').each(function() {
-        var that = $(this);
+        var that = $(this),
+            data = that.data();
 
-        if (!that.prop('disabled')) {
+        if (that.hasClass('button_toggable_check')) {
+            if (data.checked) {
+                that.addClass('button_checked');
+            }
+        }
 
-            // --> all buttons
+        if (data.disabled) {
+            that.addClass('button_disabled');
+        } else {
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
             that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
@@ -12,26 +19,18 @@ $(function(){
             //that.on('focusin', function(){ that.addClass('button_focused'); });
             //that.on('focusout', function(){ that.removeClass('button_focused'); });
 
-            // --> button_toggable_check
             if (that.hasClass('button_toggable_check')) {
-                if ((that.attr('aria-checked') == "true") || that.hasClass('button_checked')) {
-                    that.attr('aria-checked', 'true');
-                    that.addClass('button_checked');
-                }
                 that.on('click', function(e){
                     e.preventDefault();
-                    if (that.hasClass('button_checked')) {
-                        $(this).removeClass('button_checked')
-                        that.attr('aria-checked', 'false');
+                    if (that.attr("data-checked") == "true") {
+                        $(this).removeClass('button_checked');
+                        that.attr('data-checked', 'false');
                     } else {
                         $(this).addClass('button_checked');
-                        that.attr('aria-checked', 'true');
+                        that.attr('data-checked', 'true');
                     }
                 });
             }
-
-        } else {
-            that.addClass('button_disabled');
         }
     });
 });
@@ -40,31 +39,42 @@ $(function(){
         var that = $(this),
             $input = that.find(".checkbox__input"),
             $label = that.find(".checkbox__label"),
-            $button = that.find(".button");
+            $button = that.find(".button"),
+            data = that.data();
 
-        if (!$input.prop('disabled')) {
+        if (data.checked) {
+            that.addClass('checkbox_checked');
+            $button.addClass('button_checked');
+            $button.attr('data-checked','true');
+            $input.attr('checked', 'checked');
+            $input.prop('checked', true);
+        }
 
-            // --> all checkboxes
-            that.on('mouseover', function(){ that.addClass('checkbox_hovered'); });
-            that.on('mouseout', function(){ that.removeClass('checkbox_hovered'); });
-            that.on('mousedown touchstart', function(){ that.addClass('checkbox_clicked'); });
-            that.on('mouseup touchend', function(){ that.removeClass('checkbox_clicked'); });
-
+        if (data.disabled) {
+            that.addClass('checkbox_disabled');
+            $button.addClass('button_disabled');
+            $button.attr('data-disabled','true');
+            $input.attr('disabled', 'disabled');
+            $input.prop('disabled', true);
+        } else {
+            that.on('mouseover', function () { that.addClass('checkbox_hovered'); });
+            that.on('mouseout', function () { that.removeClass('checkbox_hovered'); });
+            that.on('mousedown touchstart', function () { that.addClass('checkbox_clicked'); });
+            that.on('mouseup touchend', function () { that.removeClass('checkbox_clicked'); });
             if ($label) {
-                $label.on('click', function(e){
+                $label.on('click', function (e) {
                     e.preventDefault();
                     $input.prop('checked') ? $input.prop('checked', false) : $input.prop('checked', true);
                     $input.attr('checked') ? $input.removeAttr('checked') : $input.attr('checked', 'checked');
                 })
             }
             if ($button) {
-                $button.on('click', function(e){
+                $button.on('click', function (e) {
                     e.preventDefault();
                     $input.prop('checked') ? $input.prop('checked', false) : $input.prop('checked', true);
                     $input.attr('checked') ? $input.removeAttr('checked') : $input.attr('checked', 'checked');
                 })
             }
-
         }
     });
 });
