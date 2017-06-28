@@ -8,5 +8,16 @@
 }
 
 .radio-group_type_button {
+    display: inline-flex;
     white-space: nowrap;
 }
+
+.radio-group_type_button .radio + .radio { margin-left: -1px; }
+.radio-group_type_button .radio.radio_hovered .button.button_hovered { z-index: 1; }
+
+.radio-group_type_button .radio .button { border-radius: 0; }
+.radio-group_type_button .radio .button:before { border-radius: 0; }
+.radio-group_type_button .radio:first-child .button { border-radius: 3px 0 0 3px; }
+.radio-group_type_button .radio:first-child .button:before { border-radius: 2px 0 0 2px; }
+.radio-group_type_button .radio:last-child .button { border-radius: 0 3px 3px 0; }
+.radio-group_type_button .radio:last-child .button:before { border-radius: 0 2px 2px 0; }

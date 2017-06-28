@@ -12,6 +12,13 @@ $(function(){
             $button.attr('data-checked','true');
             $input.attr('checked', 'checked');
             $input.prop('checked', true);
+        } else {
+            that.removeClass('checkbox_checked');
+            that.removeAttr('data-checked');
+            $button.removeClass('button_checked');
+            $button.removeAttr('data-checked');
+            $input.removeAttr('checked');
+            $input.prop('checked', false);
         }
 
         if (data.disabled) {
@@ -21,6 +28,13 @@ $(function(){
             $input.attr('disabled', 'disabled');
             $input.prop('disabled', true);
         } else {
+            that.removeClass('checkbox_disabled');
+            that.removeAttr('data-disabled');
+            $button.removeClass('button_disabled');
+            $button.removeAttr('data-disabled');
+            $input.removeAttr('disabled');
+            $input.prop('disabled', false);
+
             that.on('mouseover', function () { that.addClass('checkbox_hovered'); });
             that.on('mouseout', function () { that.removeClass('checkbox_hovered'); });
             that.on('mousedown touchstart', function () { that.addClass('checkbox_clicked'); });

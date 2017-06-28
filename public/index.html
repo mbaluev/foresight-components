@@ -201,6 +201,7 @@
             <span class="icon icon_svg_settings_white"></span>
         </label>
     </div>
+
     <div class="article" data-title="checkbox" id="checkbox">
         <label class="checkbox" data-fc="checkbox" data-checked="true">
             <input class="checkbox__input" type="checkbox" name="first" hidden/>
@@ -225,7 +226,6 @@
             <label class="checkbox__label">Disabled checked checkbox</label>
         </label>
     </div>
-
     <div class="article" data-title="checkbox-button" id="checkbox-button">
         <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
             <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
@@ -497,6 +497,25 @@
             <label class="radio__label">Disabled checked radio</label>
         </label>
     </div>
+    <div class="article" data-title="radio-button" id="radio-button">
+
+        <label class="radio radio_type_button" data-fc="radio">
+            <button class="button button_toggable_radio" type="button" data-fc="button">
+                <span class="icon icon_svg_settings"></span>
+                <span class="button__text">Я принимаю уловия договора</span>
+            </button>
+            <input class="radio__input" type="radio" name="radio-button-1" hidden/>
+        </label>
+        <br><br>
+
+        <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+            <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                <span class="button__text">Я принимаю уловия договора</span>
+            </button>
+            <input class="radio__input" type="radio" name="radio-button-2" hidden/>
+        </label>
+
+    </div>
     <div class="article" data-title="radio-group" id="radio-group">
         <span class="radio-group radio-group_type_line" data-fc="radio-group">
             <label class="radio">
@@ -548,6 +567,92 @@
                 <label class="radio__label">Программа</label>
             </label>
         </span>
+    </div>
+    <div class="article" data-title="radio-button-group" id="radio-button-group">
+
+        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+            <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                    <span class="button__text">Я</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio">
+                <button class="button button_toggable_radio" type="button" data-fc="button">
+                    <span class="button__text">Принимаю</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio">
+                <button class="button button_toggable_radio" type="button" data-fc="button">
+                    <span class="button__text">Условия</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio">
+                <button class="button button_toggable_radio" type="button" data-fc="button">
+                    <span class="button__text">Договора</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+        </span>
+        <br><br>
+
+        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+            <label class="radio radio_type_button" data-fc="radio">
+                <button class="button button_toggable_radio" type="button" data-fc="button">
+                    <span class="button__text">Я</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                    <span class="button__text">Принимаю</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                    <span class="button__text">Условия</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio">
+                <button class="button button_toggable_radio" type="button" data-fc="button">
+                    <span class="button__text">Договора</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+            </label>
+        </span>
+        <br><br>
+
+        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                    <span class="button__text">Я</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                    <span class="button__text">Принимаю</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio" data-checked="true" data-disabled="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                    <span class="button__text">Условия</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+            </label>
+            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                    <span class="button__text">Договора</span>
+                </button>
+                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+            </label>
+        </span>
+
     </div>
 
     <!--

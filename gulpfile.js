@@ -20,7 +20,7 @@ var params = {
     jsOut: 'foresight-components.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['common.blocks']
+    levels: ['common.blocks', 'mobile.blocks']
 };
 
 var getFileNames = require('html2bl').getFileNames(params);
