@@ -3,6 +3,7 @@
     display: inline-block;
     text-align: center;
     background: 50% no-repeat;
+    flex-shrink: 0;
 }
 .icon:empty:after {
     visibility: hidden;

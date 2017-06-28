@@ -1,0 +1,43 @@
+.safari {
+    width: 100%;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+}
+.safari__top {
+    padding: 12px;
+    background-color: #eee;
+    border-radius: 5px 5px 0 0;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: solid 1px #ccc;
+}
+.safari__content {
+    border-radius: 0 0 3px 3px;
+    padding-bottom: 50px;
+}
+.safari__button {
+    width: 10px;
+    height: 10px;
+    background-color: #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.safari__button:last-child {
+    margin-right: 0px;
+}
+.safari__button:hover {
+    cursor: pointer;
+}
+.safari__button_red {
+    background-color: #ff5940;
+}
+.safari__button_yellow {
+    background-color: #fbc600;
+}
+.safari__button_green {
+
+}
+.safari__width-counter {
+    font-size: 10px;
+    line-height: 10px;
+}

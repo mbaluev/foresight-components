@@ -1,0 +1,16 @@
+.mobile_show {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+@media (max-width: 768px) {
+    .mobile {}
+    .mobile_hide {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    .mobile_show {
+        display: inherit !important;
+        visibility: visible !important;
+    }
+}

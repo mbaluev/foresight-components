@@ -1,0 +1,24 @@
+.header {
+    border-bottom: solid 1px #ddd;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__column {
+    display: flex;
+    padding: 10px 0 10px 10px;
+}
+
+.header__column-item {
+    margin-right: 10px;
+}
+
+.header__name {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+    line-height: 30px;
+    font-size: 20px;
+}
