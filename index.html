@@ -474,8 +474,8 @@
     </div>
 
     <div class="article" data-title="radio" id="radio">
-        <label class="radio" data-fc="radio">
-            <input class="radio__input" type="radio" name="radio-checked" checked="checked" hidden />
+        <label class="radio" data-fc="radio" data-checked="true">
+            <input class="radio__input" type="radio" name="radio-checked" hidden />
             <label class="radio__label">Checked radio</label>
         </label>
         <br><br>
@@ -486,14 +486,14 @@
         </label>
         <br><br>
 
-        <label class="radio" data-fc="radio">
-            <input class="radio__input" type="radio" name="radio-disabled" hidden disabled="disabled"/>
+        <label class="radio" data-fc="radio" data-disabled="true">
+            <input class="radio__input" type="radio" name="radio-disabled" hidden/>
             <label class="radio__label">Disabled radio</label>
         </label>
         <br><br>
 
-        <label class="radio" data-fc="radio">
-            <input class="radio__input" type="radio" name="radio-disabled-checked" hidden disabled="disabled" checked="checked"/>
+        <label class="radio" data-fc="radio" data-checked="true" data-disabled="true">
+            <input class="radio__input" type="radio" name="radio-disabled-checked" hidden/>
             <label class="radio__label">Disabled checked radio</label>
         </label>
     </div>
@@ -518,52 +518,52 @@
     </div>
     <div class="article" data-title="radio-group" id="radio-group">
         <span class="radio-group radio-group_type_line" data-fc="radio-group">
-            <label class="radio">
-                <input class="radio__input" type="radio" name="radio-group" value="1" checked="checked" hidden />
+            <label class="radio" data-fc="radio" data-checked="true" data-disabled="true">
+                <input class="radio__input" type="radio" name="radio-group" value="1" hidden />
                 <label class="radio__label">Проект</label>
             </label>
             <br>
-            <label class="radio">
+            <label class="radio" data-fc="radio" data-disabled="true">
                 <input class="radio__input" type="radio" name="radio-group" value="2" hidden />
                 <label class="radio__label">Портфель</label>
             </label>
             <br>
-            <label class="radio">
-                <input class="radio__input" type="radio" name="radio-group" value="3" hidden disabled="disabled"/>
-                <label class="radio__label">Программа</label>
-            </label>
-        </span>
-        <br><br>
-
-        <span class="radio-group radio-group_type_line" data-fc="radio-group" disabled="disabled">
-            <label class="radio">
-                <input class="radio__input" type="radio" name="radio-group-disabled" value="1" checked="checked" hidden />
-                <label class="radio__label">Проект</label>
-            </label>
-            <br>
-            <label class="radio">
-                <input class="radio__input" type="radio" name="radio-group-disabled" value="2" hidden />
-                <label class="radio__label">Портфель</label>
-            </label>
-            <br>
-            <label class="radio">
-                <input class="radio__input" type="radio" name="radio-group-disabled" value="3" hidden disabled="disabled"/>
+            <label class="radio" data-fc="radio" data-disabled="true">
+                <input class="radio__input" type="radio" name="radio-group" value="3" hidden/>
                 <label class="radio__label">Программа</label>
             </label>
         </span>
         <br><br>
 
         <span class="radio-group radio-group_type_line" data-fc="radio-group">
-            <label class="radio radio_type_line">
-                <input class="radio__input" type="radio" name="radio-group-inline" value="1" checked="checked" hidden />
+            <label class="radio" data-fc="radio" data-checked="true">
+                <input class="radio__input" type="radio" name="radio-group-disabled" value="1" hidden />
                 <label class="radio__label">Проект</label>
             </label>
-            <label class="radio radio_type_line">
-                <input class="radio__input" type="radio" name="radio-group-inline" value="2" hidden />
+            <br>
+            <label class="radio" data-fc="radio">
+                <input class="radio__input" type="radio" name="radio-group-disabled" value="2" hidden />
                 <label class="radio__label">Портфель</label>
             </label>
-            <label class="radio radio_type_line">
-                <input class="radio__input" type="radio" name="radio-group-inline" value="3" hidden disabled="disabled"/>
+            <br>
+            <label class="radio" data-fc="radio" data-disabled="true">
+                <input class="radio__input" type="radio" name="radio-group-disabled" value="3" hidden/>
+                <label class="radio__label">Программа</label>
+            </label>
+        </span>
+        <br><br>
+
+        <span class="radio-group radio-group_type_line" data-fc="radio-group">
+            <label class="radio radio_type_line" data-fc="radio" data-checked="true">
+                <input class="radio__input" type="radio" name="radio-group-inline" value="1" hidden/>
+                <label class="radio__label">Проект</label>
+            </label>
+            <label class="radio radio_type_line" data-fc="radio">
+                <input class="radio__input" type="radio" name="radio-group-inline" value="2" hidden/>
+                <label class="radio__label">Портфель</label>
+            </label>
+            <label class="radio radio_type_line" data-fc="radio" data-disabled="true">
+                <input class="radio__input" type="radio" name="radio-group-inline" value="3" hidden/>
                 <label class="radio__label">Программа</label>
             </label>
         </span>
@@ -575,25 +575,25 @@
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
                     <span class="button__text">Я</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio">
                 <button class="button button_toggable_radio" type="button" data-fc="button">
                     <span class="button__text">Принимаю</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio">
                 <button class="button button_toggable_radio" type="button" data-fc="button">
                     <span class="button__text">Условия</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button" value="3" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio">
                 <button class="button button_toggable_radio" type="button" data-fc="button">
                     <span class="button__text">Договора</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button" value="4" hidden/>
             </label>
         </span>
         <br><br>
@@ -603,25 +603,25 @@
                 <button class="button button_toggable_radio" type="button" data-fc="button">
                     <span class="button__text">Я</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-2" value="1" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
                     <span class="button__text">Принимаю</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-2" value="2" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio" data-checked="true">
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
                     <span class="button__text">Условия</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-2" value="3" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio">
                 <button class="button button_toggable_radio" type="button" data-fc="button">
                     <span class="button__text">Договора</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-2" value="4" hidden/>
             </label>
         </span>
         <br><br>
@@ -631,25 +631,25 @@
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
                     <span class="button__text">Я</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-3" value="1" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
                     <span class="button__text">Принимаю</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-3" value="2" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio" data-checked="true" data-disabled="true">
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true" data-disabled="true">
                     <span class="button__text">Условия</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-3" value="3" hidden/>
             </label>
             <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
                 <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
                     <span class="button__text">Договора</span>
                 </button>
-                <input class="radio__input" type="radio" name="radio-group-button-2" hidden/>
+                <input class="radio__input" type="radio" name="radio-group-button-3" value="4" hidden/>
             </label>
         </span>
 

@@ -5,11 +5,15 @@ $(function(){
         if (that.hasClass('button_toggable_check') || that.hasClass('button_toggable_radio')) {
             if (data.checked) {
                 that.addClass('button_checked');
+            } else {
+                that.removeClass('button_checked');
             }
         }
         if (data.disabled) {
             that.addClass('button_disabled');
         } else {
+            that.removeClass('button_disabled');
+
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
             that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
