@@ -41,6 +41,15 @@ $(function(){
                     }
                 });
             }
+
+            //bind trigger items
+            if (data.trigger_class) {
+                that.on('click', function(e){
+                    debugger;
+                    e.preventDefault();
+                    that.find('.' + data.trigger_class).trigger('toggle');
+                });
+            }
         }
     });
 });

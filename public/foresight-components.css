@@ -46,6 +46,80 @@
   content: '\00A0';
 }
 
+/* icon menu css animate -begin */
+
+.icon_css_animate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 30px;
+}
+
+.icon__menu {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  width: 12px;
+  height: 12px;
+}
+
+.icon__menu-global {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+  left: 0;
+  border-top: 2px solid #666;
+  width: 100%;
+  transition: 0.5s;
+}
+
+.icon__menu-top {
+  top: 0;
+}
+
+.icon__menu-middle {
+  top: 5px;
+}
+
+.icon__menu-bottom {
+  top: 10px;
+}
+
+.icon__menu_click {
+  transition: 0.5s 0.5s;
+  width: 16px;
+}
+
+.icon__menu-top_click {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  top: 5px;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  transition: 0.5s 0.5s;
+}
+
+.icon__menu-middle_click {
+  opacity: 0;
+}
+
+.icon__menu-bottom_click {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  top: 5px;
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  transition: 0.5s 0.5s;
+}
+
+/* icon menu css animate -end */
+
 .icon_svg_bars {
   background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9IiM2NzY3NjciIHdpZHRoPSIxMiIgaGVpZ2h0PSIyIi8+PHJlY3QgeT0iNSIgZmlsbD0iIzY3Njc2NyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjIiLz48cmVjdCB5PSIxMCIgZmlsbD0iIzY3Njc2NyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjIiLz48L3N2Zz4=");
 }
