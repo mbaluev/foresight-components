@@ -19,7 +19,7 @@
 .menu__item-link {
     flex-shrink: 0;
     display: flex;
-    padding: 0 10px;
+    padding: 12px 10px;
     box-sizing: border-box;
     justify-content: flex-start;
     align-items: center;
@@ -30,12 +30,10 @@
 }
 .menu__item-text {
     display: inline-block;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
     color: #fff;
     font-size: 12px;
-    line-height: 35px;
+    font-weight: bold;
+    line-height: 16px;
     flex-grow: 1000;
 }
 .icon + .menu__item-text {
@@ -44,6 +42,8 @@
 
 .menu__submenu {
     background-color: rgba(0,0,0,0.1);
+    transition: 0.5s;
+    overflow: hidden;
 }
 .menu__submenu .menu__item {
     border-bottom: none;
