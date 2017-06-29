@@ -16,13 +16,11 @@ $(function() {
             bindUIactions: function() {
                 var self = this;
                 self.el.ham.on('toggle', function(e){
-                    debugger;
                     self.activateMenu(e);
                     e.preventDefault();
                 });
             },
             activateMenu: function() {
-                debugger;
                 var self = this;
                 self.el.ham.toggleClass('icon__menu_click');
                 self.el.menu_top.toggleClass('icon__menu-top_click');
@@ -80,11 +78,10 @@ $(function(){
             }
 
             //bind trigger items
-            if (data.trigger_class) {
+            if (data.toggle == "trigger" && data.trigger) {
                 that.on('click', function(e){
-                    debugger;
                     e.preventDefault();
-                    that.find('.' + data.trigger_class).trigger('toggle');
+                    that.find('.'+data.container).trigger(data.trigger);
                 });
             }
         }

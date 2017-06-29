@@ -16,13 +16,11 @@ $(function() {
             bindUIactions: function() {
                 var self = this;
                 self.el.ham.on('toggle', function(e){
-                    debugger;
                     self.activateMenu(e);
                     e.preventDefault();
                 });
             },
             activateMenu: function() {
-                debugger;
                 var self = this;
                 self.el.ham.toggleClass('icon__menu_click');
                 self.el.menu_top.toggleClass('icon__menu-top_click');

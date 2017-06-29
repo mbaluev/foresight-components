@@ -43,11 +43,10 @@ $(function(){
             }
 
             //bind trigger items
-            if (data.trigger_class) {
+            if (data.toggle == "trigger" && data.trigger) {
                 that.on('click', function(e){
-                    debugger;
                     e.preventDefault();
-                    that.find('.' + data.trigger_class).trigger('toggle');
+                    that.find('.'+data.container).trigger(data.trigger);
                 });
             }
         }
