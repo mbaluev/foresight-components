@@ -1,4 +1,4 @@
-$(function() {
+$(function(){
     $('[data-fc="icon__menu"]').each(function () {
         var that = $(this);
 

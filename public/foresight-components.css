@@ -200,6 +200,34 @@
   background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMXB4IiBoZWlnaHQ9IjEzcHgiIHZpZXdCb3g9IjAgMCAxMSAxMyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTEgMTMiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiM2NzY3NjciIGQ9Ik0zLDJWMGg1djJoM3YxSDBWMkgzeiBNNywyVjFINHYxSDd6Ii8+PHJlY3QgeD0iMSIgeT0iNCIgZmlsbD0iIzY3Njc2NyIgd2lkdGg9IjEiIGhlaWdodD0iOSIvPjxyZWN0IHg9IjEiIHk9IjQiIGZpbGw9IiM2NzY3NjciIHdpZHRoPSI5IiBoZWlnaHQ9IjEiLz48cmVjdCB4PSI5IiB5PSI0IiBmaWxsPSIjNjc2NzY3IiB3aWR0aD0iMSIgaGVpZ2h0PSI5Ii8+PHJlY3QgeD0iMSIgeT0iMTIiIGZpbGw9IiM2NzY3NjciIHdpZHRoPSI5IiBoZWlnaHQ9IjEiLz48cmVjdCB4PSIzIiB5PSI0IiBmaWxsPSIjNjc2NzY3IiB3aWR0aD0iMSIgaGVpZ2h0PSI5Ii8+PHJlY3QgeD0iNSIgeT0iNCIgZmlsbD0iIzY3Njc2NyIgd2lkdGg9IjEiIGhlaWdodD0iOSIvPjxyZWN0IHg9IjciIHk9IjQiIGZpbGw9IiM2NzY3NjciIHdpZHRoPSIxIiBoZWlnaHQ9IjkiLz48L3N2Zz4=");
 }
 
+/* icon animations -begin */
+
+.icon_animate {
+  transition: 0.5s;
+}
+
+.icon_rotate_0deg {
+  -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+}
+
+.icon_rotate_90deg {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
+
+.icon_rotate_180deg {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.icon_rotate_270deg {
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+/* icon animations -end */
+
 .button {
   font-family: 'ProximaNova-Regular';
   position: relative;
@@ -703,7 +731,7 @@
 .safari {
   width: 100%;
   border: solid 1px #ccc;
-  border-radius: 5px;
+  border-radius: 5px 5px 0 0;
 }
 
 .safari__top {
@@ -719,9 +747,22 @@
   border-bottom: solid 1px #ccc;
 }
 
-.safari__content {
-  border-radius: 0 0 3px 3px;
-  padding-bottom: 50px;
+
+
+.safari__content_height_100 {
+  height: 100px;
+}
+
+.safari__content_height_500 {
+  height: 500px;
+}
+
+.safari__content_height_550 {
+  height: 550px;
+}
+
+.safari__content_height_600 {
+  height: 600px;
 }
 
 .safari__button {
@@ -807,6 +848,103 @@
   white-space: nowrap;
   line-height: 30px;
   font-size: 20px;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  width: 230px;
+  background-color: #4983c4;
+  list-style: none;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.menu__item {
+  border-bottom: solid 1px rgba(255,255,255,0.15);
+  width: 100%;
+}
+
+.menu__item-link {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 10px;
+  box-sizing: border-box;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.menu__item-link:hover {
+  cursor: pointer;
+  background-color: rgba(255,255,255,0.1);
+}
+
+.menu__item-text {
+  display: inline-block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 12px;
+  line-height: 35px;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
+}
+
+.icon + .menu__item-text {
+  padding-left: 10px;
+}
+
+.menu__submenu {
+  background-color: rgba(0,0,0,0.1);
+}
+
+.menu__submenu .menu__item {
+  border-bottom: none;
+  border-top: solid 1px rgba(255,255,255,0.15);
+}
+
+.menu__submenu .menu__item-link {
+  padding-left: 20px;
+}
+
+.link {
+  font-family: 'ProximaNova-Regular';
+  text-decoration: none;
+  color: #4983c4;
+  border: none;
+}
+
+.link_code {
+  font-family: 'Courier New',monospace;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: #ff5940;
+  cursor: pointer;
+  border: none;
 }
 
 @media (max-width: 768px) {

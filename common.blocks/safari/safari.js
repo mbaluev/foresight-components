@@ -1,12 +1,13 @@
-$(function() {
-    $('[data-fc="button"]').each(function () {
+$(function(){
+    $('[data-fc="safari"]').each(function () {
+        var that = $(this);
         write_width();
         $(window).resize(write_width);
         function get_width(){
-            return $('.safari__content').width();
+            return that.find('.safari__content').width();
         };
         function write_width(){
-            $('.safari__width-counter').text(get_width() + ' px');
+            that.find('.safari__width-counter').text(get_width() + ' px');
         };
     });
 });

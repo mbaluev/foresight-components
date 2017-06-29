@@ -1,7 +1,7 @@
 .safari {
     width: 100%;
     border: solid 1px #ccc;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
 }
 .safari__top {
     padding: 12px;
@@ -11,10 +11,11 @@
     justify-content: flex-start;
     border-bottom: solid 1px #ccc;
 }
-.safari__content {
-    border-radius: 0 0 3px 3px;
-    padding-bottom: 50px;
-}
+.safari__content {  }
+.safari__content_height_100 { height: 100px; }
+.safari__content_height_500 { height: 500px; }
+.safari__content_height_550 { height: 550px; }
+.safari__content_height_600 { height: 600px; }
 .safari__button {
     width: 10px;
     height: 10px;
