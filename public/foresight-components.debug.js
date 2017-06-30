@@ -296,24 +296,17 @@ $(function() {
         $menu_item_list.each(function(){
             var self = $(this),
                 $itemlink = self.children('.menu__item-link'),
-                $icon = $itemlink.children('.menu__icon'),
-                $submenu = self.children('.menu__submenu');
+                $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
+                $icon = $itemlinkcontent.children('.menu__icon'),
+                $submenu = self.children('.menu__submenu-container');
+
             if ($submenu.length > 0) {
-                var height = $submenu.outerHeight();
                 $itemlink.removeAttr('href');
                 $icon.addClass('icon_animate');
-                $submenu.css('height', 0);
-                $itemlink.one("click", open);
-                function open() {
-                    $submenu.css('height', height);
+                $itemlink.on("click", function(){
+                    $submenu.slideToggle(500);
                     $icon.toggleClass('icon_rotate_0deg');
-                    $itemlink.one("click", close);
-                }
-                function close() {
-                    $submenu.css('height', 0);
-                    $icon.toggleClass('icon_rotate_0deg');
-                    $itemlink.one("click", open);
-                }
+                });
             }
         });
     });

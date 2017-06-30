@@ -1,4 +1,5 @@
 .safari {
+    font-family: 'ProximaNova-Regular';
     width: 100%;
     border: solid 1px #ccc;
     border-radius: 5px 5px 0 0;
@@ -11,7 +12,7 @@
     justify-content: flex-start;
     border-bottom: solid 1px #ccc;
 }
-.safari__content {  }
+.safari__content { overflow: hidden; overflow-y: auto; }
 .safari__content_height_100 { height: 100px; }
 .safari__content_height_500 { height: 500px; }
 .safari__content_height_550 { height: 550px; }
