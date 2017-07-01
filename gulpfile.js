@@ -16,8 +16,8 @@ var gulp = require('gulp'),
 
 var params = {
     out: 'public',
-    cssOut: 'foresight-components.css',
-    jsOut: 'foresight-components.js',
+    cssOut: 'foresight.components.css',
+    jsOut: 'foresight.components.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
     levels: ['common.blocks', 'mobile.blocks']

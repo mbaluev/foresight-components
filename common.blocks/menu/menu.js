@@ -1,4 +1,4 @@
-$(function() {
+$(function(){
     $('[data-fc="menu"]').each(function () {
         var that = $(this),
             $menu_item_list = that.find('.menu__item');
