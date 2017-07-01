@@ -4,14 +4,16 @@
     font-family: 'ProximaNova-Regular';
 }
 .menu {
+    background-color: #4983c4;
+    width: 230px;
+    height: 100%;
+    max-height: 100%;
+    overflow: auto;
+}
+.menu__list {
     margin: 0;
     padding: 0;
-    width: 230px;
-    background-color: #4983c4;
     list-style: none;
-    height: 100%;
-    overflow: hidden;
-    /*overflow-y: auto;*/
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
