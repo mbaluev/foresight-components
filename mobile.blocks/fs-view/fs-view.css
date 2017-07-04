@@ -1,0 +1,25 @@
+@media (max-width: 768px) {
+    .fs-view__left {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+    }
+    .fs-view__left_hidden {
+        margin-left: -300px;
+    }
+    .fs-view__middle {
+        left: 0;
+    }
+    .fs-view__backdrop {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+        background-color: rgba(51,51,51,.25);
+    }
+}
