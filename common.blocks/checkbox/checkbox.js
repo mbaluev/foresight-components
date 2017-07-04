@@ -37,8 +37,12 @@ $(function(){
 
             that.on('mouseover', function () { that.addClass('checkbox_hovered'); });
             that.on('mouseout', function () { that.removeClass('checkbox_hovered'); });
-            that.on('mousedown touchstart', function () { that.addClass('checkbox_clicked'); });
-            $('body').on('mouseup touchend', function () { that.removeClass('checkbox_clicked'); });
+            that.on('mousedown touchstart', function () {
+                that.addClass('checkbox_clicked');
+                $('body').one('mouseup touchend', function () {
+                    that.removeClass('checkbox_clicked');
+                });
+            });
             if ($label) {
                 $label.on('click', function (e) {
                     e.preventDefault();

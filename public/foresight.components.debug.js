@@ -153,6 +153,7 @@ $(function(){
                 $itemlink.removeAttr('href');
                 $icon.addClass('icon_animate');
                 $itemlink.on("click", function(){
+                    console.log('menu__item clicked');
                     $submenu.slideToggle(500);
                     $icon.toggleClass('icon_rotate_0deg');
                 });
@@ -206,8 +207,12 @@ $(function(){
 
             that.on('mouseover', function () { that.addClass('checkbox_hovered'); });
             that.on('mouseout', function () { that.removeClass('checkbox_hovered'); });
-            that.on('mousedown touchstart', function () { that.addClass('checkbox_clicked'); });
-            $('body').on('mouseup touchend', function () { that.removeClass('checkbox_clicked'); });
+            that.on('mousedown touchstart', function () {
+                that.addClass('checkbox_clicked');
+                $('body').one('mouseup touchend', function () {
+                    that.removeClass('checkbox_clicked');
+                });
+            });
             if ($label) {
                 $label.on('click', function (e) {
                     e.preventDefault();
@@ -264,8 +269,12 @@ $(function(){
 
             that.on('mouseover', function () { that.addClass('radio_hovered'); });
             that.on('mouseout', function () { that.removeClass('radio_hovered'); });
-            that.on('mousedown touchstart', function () { that.addClass('radio_clicked'); });
-            $('body').on('mouseup touchend', function () { that.removeClass('radio_clicked'); });
+            that.on('mousedown touchstart', function () {
+                that.addClass('radio_clicked');
+                $('body').one('mouseup touchend', function () {
+                    that.removeClass('radio_clicked');
+                });
+            });
             if ($label) {
                 $label.on('click', function (e) {
                     e.preventDefault();

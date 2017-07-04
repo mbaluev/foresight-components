@@ -345,19 +345,22 @@ body {
   border-radius: 50%;
 }
 
+/*
 .button_clicked > .button__anim {
-  -webkit-animation: anim-in 0.75s;
-  animation: anim-in 0.75s;
+    -moz-animation: anim-in 0.75s;
+    -webkit-animation: anim-in 0.75s;
+    animation: anim-in 0.75s;
 }
+.button_clicked > .button__anim:after {
+    -moz-animation: anim-in-pseudo 0.75s;
+    -webkit-animation: anim-in-pseudo 0.75s;
+    animation: anim-in-pseudo 0.75s;
+}
+*/
 
 .button_clicked_out > .button__anim {
   -webkit-animation: anim-out 0.75s;
   animation: anim-out 0.75s;
-}
-
-.button_clicked > .button__anim:after {
-  -webkit-animation: anim-in-pseudo 0.75s;
-  animation: anim-in-pseudo 0.75s;
 }
 
 .button_clicked_out > .button__anim:after {
@@ -919,7 +922,7 @@ body {
 
 .widget__header .button.button_clicked:before {
   box-shadow: none;
-  background-color: #fff;
+  /*background-color: #fff;*/
 }
 
 .widget__header .button:before {

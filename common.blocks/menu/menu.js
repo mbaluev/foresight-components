@@ -13,6 +13,7 @@ $(function(){
                 $itemlink.removeAttr('href');
                 $icon.addClass('icon_animate');
                 $itemlink.on("click", function(){
+                    console.log('menu__item clicked');
                     $submenu.slideToggle(500);
                     $icon.toggleClass('icon_rotate_0deg');
                 });

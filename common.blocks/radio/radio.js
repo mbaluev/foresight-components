@@ -37,8 +37,12 @@ $(function(){
 
             that.on('mouseover', function () { that.addClass('radio_hovered'); });
             that.on('mouseout', function () { that.removeClass('radio_hovered'); });
-            that.on('mousedown touchstart', function () { that.addClass('radio_clicked'); });
-            $('body').on('mouseup touchend', function () { that.removeClass('radio_clicked'); });
+            that.on('mousedown touchstart', function () {
+                that.addClass('radio_clicked');
+                $('body').one('mouseup touchend', function () {
+                    that.removeClass('radio_clicked');
+                });
+            });
             if ($label) {
                 $label.on('click', function (e) {
                     e.preventDefault();
