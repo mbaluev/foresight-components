@@ -32,8 +32,11 @@ $(function(){
             self.trigger('click');
         }
         if ($(window).outerWidth() > 768) {
+            /*
             show_menu();
             self.one('click', hide_menu);
+            */
+            self.one('click', show_menu);
             onlyloaded = false;
         } else {
             self.one('click', show_menu);
@@ -59,8 +62,14 @@ $(function(){
 
             that.on('mouseover', function(){ that.addClass('button_hovered'); });
             that.on('mouseout', function(){ that.removeClass('button_hovered'); });
-            that.on('mousedown touchstart', function(){ that.addClass('button_clicked'); });
-            $('body').on('mouseup touchend', function(){ that.removeClass('button_clicked'); });
+            that.on('mousedown touchstart', function(){
+                that.addClass('button_clicked');
+                that.removeClass('button_clicked_out');
+                $('body').one('mouseup touchend', function(){
+                    that.addClass('button_clicked_out');
+                    that.removeClass('button_clicked');
+                });
+            });
             //that.on('focusin', function(){ that.addClass('button_focused'); });
             //that.on('focusout', function(){ that.removeClass('button_focused'); });
             if (that.hasClass('button_toggable_check')) {

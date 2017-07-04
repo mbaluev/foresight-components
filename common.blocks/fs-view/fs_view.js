@@ -32,8 +32,11 @@ $(function(){
             self.trigger('click');
         }
         if ($(window).outerWidth() > 768) {
+            /*
             show_menu();
             self.one('click', hide_menu);
+            */
+            self.one('click', show_menu);
             onlyloaded = false;
         } else {
             self.one('click', show_menu);
