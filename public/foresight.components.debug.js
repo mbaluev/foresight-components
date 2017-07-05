@@ -138,6 +138,50 @@ $(function(){
         menu.init();
     });
 });
+$(function() {
+    $('[data-fc="tumbler"]').each(function () {
+        var self = $(this),
+            $button = self.find('button'),
+            $input = self.find('input'),
+            data = self.data();
+        if (data.checked) {
+            self.addClass('tumbler_checked');
+            $input.attr('checked', 'checked');
+            $input.prop('checked', true);
+        } else {
+            self.removeClass('tumbler_checked');
+            $input.removeAttr('checked');
+            $input.prop('checked', false);
+        }
+        $button.on('click', function(){
+            self.toggleClass('tumbler_checked');
+            $input.prop('checked') ? $input.prop('checked', false) : $input.prop('checked', true);
+            $input.attr('checked') ? $input.removeAttr('checked') : $input.attr('checked', 'checked');
+        })
+    });
+});
+$(function(){
+    $('[data-fc="menu"]').each(function () {
+        var that = $(this),
+            $menu_item_list = that.find('.menu__item');
+        $menu_item_list.each(function(){
+            var self = $(this),
+                $itemlink = self.children('.menu__item-link'),
+                $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
+                $icon = $itemlinkcontent.children('.menu__icon'),
+                $submenu = self.children('.menu__submenu-container');
+
+            if ($submenu.length > 0) {
+                $itemlink.removeAttr('href');
+                $icon.addClass('icon_animate');
+                $itemlink.on("click", function(){
+                    $submenu.slideToggle(500);
+                    $icon.toggleClass('icon_rotate_0deg');
+                });
+            }
+        });
+    });
+});
 $(function(){
     $('[data-fc="checkbox"]').each(function(){
         var that = $(this),
@@ -198,33 +242,6 @@ $(function(){
                 })
             }
         }
-    });
-});
-$(function(){
-    $('[data-fc="menu"]').each(function () {
-        var that = $(this),
-            $menu_item_list = that.find('.menu__item');
-        $menu_item_list.each(function(){
-            var self = $(this),
-                $itemlink = self.children('.menu__item-link'),
-                $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
-                $icon = $itemlinkcontent.children('.menu__icon'),
-                $submenu = self.children('.menu__submenu-container');
-
-            if ($submenu.length > 0) {
-                $itemlink.removeAttr('href');
-                $icon.addClass('icon_animate');
-                $itemlink.on("click", function(){
-                    $submenu.slideToggle(500);
-                    $icon.toggleClass('icon_rotate_0deg');
-                });
-            }
-        });
-    });
-});
-$(function() {
-    $('[data-fc="tumbler"]').each(function () {
-
     });
 });
 $(function(){
