@@ -1094,9 +1094,11 @@ body {
   background: #fff;
 }
 
+/*
 .tumbler__box:after {
-  border: solid 1px #ccc;
+    border: solid 1px #ccc;
 }
+*/
 
 .tumbler__sticker {
   position: relative;
@@ -1128,6 +1130,7 @@ body {
           order: 1;
   transition: 0.5s;
   margin-left: -50px;
+  /*border-radius: 3px 0 0 3px;*/
 }
 
 .tumbler_checked .tumbler__sticker_position_left {
@@ -1144,6 +1147,7 @@ body {
       -ms-flex-order: 3;
           order: 3;
   transition: 0.5s;
+  /*border-radius: 0 3px 3px 0;*/
 }
 
 .tumbler__sticker_position_right:before {
@@ -1165,17 +1169,19 @@ body {
   -webkit-box-ordinal-group: 3;
       -ms-flex-order: 2;
           order: 2;
-  background: #aaa;
   z-index: 2;
-  border-radius: 3px;
+  /*
+    background: #aaa;
+    border-radius: 3px;
+    */
 }
 
 .tumbler__box .button_hovered:hover {
-  background: #999;
+  /*background: #999;*/
 }
 
 .tumbler__box .button:before {
-  border-radius: 2px;
+  /*border-radius: 2px;*/
 }
 
 .checkbox-group {
