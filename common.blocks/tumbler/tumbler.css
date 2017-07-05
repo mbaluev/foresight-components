@@ -1,0 +1,110 @@
+.tumbler {
+    font-family: 'ProximaNova-Regular';
+    display: inline-block;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    touch-action: manipulation;
+}
+
+.tumbler__box {
+    position: relative;
+    vertical-align: top;
+    overflow: hidden;
+    width: 80px;
+    box-sizing: border-box;
+    display: flex;
+    /*border-radius: 3px;*/
+}
+
+.tumbler__box:before,
+.tumbler__box:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    content: '';
+    background-clip: padding-box;
+    /*border-radius: 3px;*/
+}
+
+.tumbler__box:before {
+    background: #fff;
+}
+
+.tumbler__box:after {
+    border: solid 1px #ccc;
+}
+
+.tumbler__sticker {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    line-height: 30px;
+}
+
+.tumbler__box > * {
+    flex: 0 0 auto;
+}
+
+.tumbler .tumbler__sticker:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    content: '';
+    background-clip: padding-box;
+}
+
+.tumbler__sticker_position_left {
+    order: 1;
+    transition: 0.5s;
+    margin-left: -50px;
+}
+
+.tumbler_checked .tumbler__sticker_position_left {
+    margin-left: 0;
+}
+
+.tumbler__sticker_position_left:before {
+    background-color: #ffeba0;
+    right: -5px;
+}
+
+.tumbler__sticker_position_right {
+    order: 3;
+    transition: 0.5s;
+}
+
+.tumbler__sticker_position_right:before {
+    background-color: rgba(0,0,0,.05);
+    left: -5px;
+}
+
+.tumbler__sticker-label {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 auto;
+    width: 50px;
+}
+
+.tumbler__box .button {
+    order: 2;
+    background: #aaa;
+    z-index: 2;
+    border-radius: 3px;
+}
+
+.tumbler__box .button_hovered:hover {
+    background: #999;
+}
+
+.tumbler__box .button:before {
+    border-radius: 2px;
+}

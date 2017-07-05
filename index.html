@@ -42,13 +42,25 @@
                             <span class="button__anim"></span>
                         </button>
                     </label>
-                    <label class="header__column-item checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                        <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                            <span class="button__text">Редактировать</span>
-                            <span class="button__anim"></span>
-                        </button>
-                        <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                    </label>
+                    <button class="header__column-item button" type="button" data-fc="button">
+                        <span class="icon icon_svg_plus"></span>
+                        <span class="button__anim"></span>
+                    </button>
+                    <span class="header__column-item tumbler tumbler_checked" data-fc="tumbler" data-checked="true">
+                        <span class="tumbler__box">
+                            <div class="tumbler__sticker tumbler__sticker_position_left">
+                                <div class="tumbler__sticker-label">Вкл</div>
+                            </div>
+                            <div class="tumbler__sticker tumbler__sticker_position_right">
+                                <div class="tumbler__sticker-label">Выкл</div>
+                            </div>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_edit"></span>
+                                <span class="button__anim"></span>
+                            </button>
+                        </span>
+                        <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
+                    </span>
                     <button class="header__column-item button" data-fc="button">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
@@ -370,33 +382,33 @@
                             <br><br>
                         </div>
                         <div class="article" data-title="button-group" id="button-group">
-        <span class="button-group" data-fc="button-group">
-            <button class="button" type="button" data-fc="button">
-                <span class="icon icon_svg_left"></span>
-            </button>
-            <button class="button" type="button" data-fc="button">
-                <span class="button__text">Июнь</span>
-            </button>
-            <button class="button" type="button" data-fc="button">
-                <span class="icon icon_svg_right"></span>
-            </button>
-        </span>
+                            <span class="button-group" data-fc="button-group">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_left"></span>
+                                </button>
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="button__text">Июнь</span>
+                                </button>
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_right"></span>
+                                </button>
+                            </span>
                             <br><br>
 
-        <span class="button-group" data-fc="button-group">
-            <button class="button" type="button" data-fc="button">
-                <span class="icon icon_svg_up"></span>
-            </button>
-            <button class="button" type="button" data-fc="button" data-disabled="true">
-                <span class="icon icon_svg_right"></span>
-            </button>
-            <button class="button" type="button" data-fc="button">
-                <span class="icon icon_svg_down"></span>
-            </button>
-            <button class="button" type="button" data-fc="button" data-disabled="true">
-                <span class="icon icon_svg_left"></span>
-            </button>
-        </span>
+                            <span class="button-group" data-fc="button-group">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_up"></span>
+                                </button>
+                                <button class="button" type="button" data-fc="button" data-disabled="true">
+                                    <span class="icon icon_svg_right"></span>
+                                </button>
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_down"></span>
+                                </button>
+                                <button class="button" type="button" data-fc="button" data-disabled="true">
+                                    <span class="icon icon_svg_left"></span>
+                                </button>
+                            </span>
                         </div>
                         <div class="article" data-title="button-toggable-check" id="button-toggable-check">
                             <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
@@ -420,6 +432,22 @@
                                 <span class="button__text">Удалить</span>
                                 <span class="icon icon_svg_close"></span>
                             </button>
+                        </div>
+                        <div class="article" data-title="tumbler" id="tumbler">
+                            <span class="tumbler" data-fc="tumbler tumbler_checked" data-checked="true">
+                                <span class="tumbler__box">
+                                    <div class="tumbler__sticker tumbler__sticker_position_left">
+                                        <div class="tumbler__sticker-label">Вкл</div>
+                                    </div>
+                                    <div class="tumbler__sticker tumbler__sticker_position_right">
+                                        <div class="tumbler__sticker-label">Выкл</div>
+                                    </div>
+                                    <button class="button" type="button" data-fc="button">
+                                        <span class="icon icon_svg_edit"></span>
+                                    </button>
+                                </span>
+                                <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
+                            </span>
                         </div>
                         <div class="article" data-title="alert-with-button" id="alert-with-button">
                             <label class="alert" data-fc="alert">
