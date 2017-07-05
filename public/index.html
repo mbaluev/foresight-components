@@ -39,19 +39,28 @@
                         <span class="alert__text mobile mobile_show">30 дней</span>
                         <button class="button" type="button" data-fc="button">
                             <span class="icon icon_svg_close_white"></span>
+                            <span class="button__anim"></span>
                         </button>
+                    </label>
+                    <label class="header__column-item checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                        <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                            <span class="button__text">Редактировать</span>
+                            <span class="button__anim"></span>
+                        </button>
+                        <input class="checkbox__input" type="checkbox" name="first" hidden/>
                     </label>
                     <button class="header__column-item button" data-fc="button">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
                         <span class="icon icon_svg_down"></span>
+                        <span class="button__anim"></span>
                     </button>
                 </div>
             </div>
         </div>
         <div class="fs-view__main">
             <div class="fs-view__left fs-view__left_hidden">
-                <div class="menu scrollbar" data-fc="menu">
+                <div class="menu" data-fc="menu">
                     <ul class="menu__list">
                         <li class="menu__item">
                             <a class="menu__item-link link">
@@ -251,7 +260,7 @@
                 </div>
             </div>
             <div class="fs-view__middle fs-view__middle_full">
-                <div class="fs-view__middle-scroll scrollbar">
+                <div class="fs-view__middle-scroll">
                     <div class="fs-view__middle-inner">
                         <div class="article" data-title="widget" id="widget">
                             <div class="widget" data-fc="widget">
@@ -925,8 +934,8 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script src="third/jquery.scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="third/jquery-3.2.1.min.js"></script>
+    <!--<script src="third/jquery.scrollbar/jquery.scrollbar.min.js"></script>-->
     <script src="foresight.components.min.js"></script>
 </body>
 </html>
