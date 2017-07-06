@@ -303,6 +303,14 @@ $(function() {
             $('#button_add-widget').button('disable');
         }
     });
+    $('#tumbler_menu').on('click', function(){
+        var self = $(this), data = self.data();
+        if (data.checked) {
+            $('#button_toggle-menu').button('enable');
+        } else {
+            $('#button_toggle-menu').button('disable');
+        }
+    });
 });
 $(function(){
     $('[data-fc="menu"]').each(function () {
