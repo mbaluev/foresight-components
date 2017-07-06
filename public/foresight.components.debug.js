@@ -113,18 +113,23 @@ $(function(){
                             });
                         }
                         //bind disabled handlers
-                        if (that.data.clickHandlers) {
-                            that.data.clickHandlers.forEach(function(ev){
-                                self.on(ev.type + '.' + ev.namespace, ev.handler);
-                            });
+                        if (that.data.handlers) {
+                            for (var type in that.data.handlers) {
+                                that.data.handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
                         }
                     };
                     that.disable = function(){
                         self.addClass('button_disabled');
                         self.off('.button');
                         if ($._data(self[0], "events")) {
-                            that.data.clickHandlers = $._data(self[0], "events")["click"].slice(0);
-                            self.off('click');
+                            that.data.handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data.handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
                         }
                     };
                     that.init = function(){
