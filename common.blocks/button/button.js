@@ -66,12 +66,22 @@
                                 self.find('.' + that.data.container).trigger(that.data.trigger);
                             });
                         }
+                        //bind disabled handlers
+                        if (that.data.clickHandlers) {
+                            that.data.clickHandlers.forEach(function(ev){
+                                self.on(ev.type + '.' + ev.namespace, ev.handler);
+                            });
+                        }
                     };
                     that.disable = function(){
                         self.addClass('button_disabled');
                         self.off('.button');
+                        if ($._data(self[0], "events")) {
+                            that.data.clickHandlers = $._data(self[0], "events")["click"].slice(0);
+                            self.off('click');
+                        }
                     };
-                    that.start = function(){
+                    that.init = function(){
                         if (self.hasClass('button_toggable_check') || self.hasClass('button_toggable_radio')) {
                             if (that.data.checked) {
                                 that.check();
@@ -85,7 +95,7 @@
                             that.enable();
                         }
                     };
-                    that.start();
+                    that.init();
                 }
                 return this;
             });
