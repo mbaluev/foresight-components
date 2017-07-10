@@ -1328,7 +1328,7 @@ body {
   border-radius: 0 2px 2px 0;
 }
 
-.alert {
+.alertbox {
   font-family: 'ProximaNova-Regular';
   position: relative;
   display: -webkit-inline-box;
@@ -1349,7 +1349,12 @@ body {
   line-height: 30px;
 }
 
-.alert:before {
+.alertbox.alertbox_hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.alertbox:before {
   position: absolute;
   top: 1px;
   right: 1px;
@@ -1359,7 +1364,7 @@ body {
   background: #fff;
 }
 
-.alert .alert__text {
+.alertbox .alertbox__text {
   position: relative;
   display: inline-block;
   overflow: hidden;
@@ -1370,49 +1375,49 @@ body {
   line-height: 30px;
 }
 
-.alert .icon {
+.alertbox .icon {
   width: 30px;
   position: relative;
 }
 
-.alert .alert__text + .icon,
-.alert .alert__text + .button {
+.alertbox .alertbox__text + .icon,
+.alertbox .alertbox__text + .button {
   margin-left: -10px;
 }
 
-.alert .icon + .alert__text,
-.alert .button + .alert__text {
+.alertbox .icon + .alertbox__text,
+.alertbox .button + .alertbox__text {
   margin-left: 0px;
 }
 
-.alert .button:before {
+.alertbox .button:before {
   left: 0;
 }
 
-.alert .button.button_hovered {
+.alertbox .button.button_hovered {
   cursor: pointer;
   background-color: #ccc;
 }
 
-.alert .button.button_clicked:before {
+.alertbox .button.button_clicked:before {
   box-shadow: none;
   background-color: #fff;
 }
 
-.alert .button.button_hovered .icon {
+.alertbox .button.button_hovered .icon {
   opacity: .75;
 }
 
-.alert .button.button_clicked .icon {
+.alertbox .button.button_clicked .icon {
   opacity: .5;
 }
 
-.alert.alert_color_red {
+.alertbox.alertbox_color_red {
   color: #fff;
 }
 
-.alert.alert_color_red:before,
-.alert.alert_color_red .button:before {
+.alertbox.alertbox_color_red:before,
+.alertbox.alertbox_color_red .button:before {
   top: 0;
   right: 0;
   bottom: 0;
@@ -1420,12 +1425,12 @@ body {
   background: #ff5940;
 }
 
-.alert.alert_color_blue {
+.alertbox.alertbox_color_blue {
   color: #fff;
 }
 
-.alert.alert_color_blue:before,
-.alert.alert_color_blue .button:before {
+.alertbox.alertbox_color_blue:before,
+.alertbox.alertbox_color_blue .button:before {
   top: 0;
   right: 0;
   bottom: 0;
@@ -1433,26 +1438,18 @@ body {
   background: #4983c4;
 }
 
-.alert.alert_color_cyan {
+.alertbox.alertbox_color_cyan {
   color: #fff;
 }
 
-.alert.alert_color_cyan:before,
-.alert.alert_color_cyan .button:before {
+.alertbox.alertbox_color_cyan:before,
+.alertbox.alertbox_color_cyan .button:before {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   background: #58c9f3;
 }
-
-/*
-@media (max-width: 768px) {
-    .page {
-        margin: 20px;
-    }
-}
-*/
 
 @media (max-width: 768px) {
   .fs-view__left {
@@ -1482,6 +1479,14 @@ body {
     background-color: rgba(51,51,51,.25);
   }
 }
+
+/*
+@media (max-width: 768px) {
+    .page {
+        margin: 20px;
+    }
+}
+*/
 
 .mobile_show {
   display: none !important;

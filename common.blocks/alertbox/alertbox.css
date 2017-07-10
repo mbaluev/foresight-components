@@ -1,0 +1,89 @@
+.alertbox {
+    font-family: 'ProximaNova-Regular';
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    /*user-select: none;*/
+    color: #000;
+    border: 0;
+    outline: 0;
+    background: #ccc;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 13px;
+    line-height: 30px;
+}
+.alertbox.alertbox_hidden {
+    display: none;
+    visibility: hidden;
+}
+
+.alertbox:before {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+    content: '';
+    background: #fff;
+}
+
+.alertbox .alertbox__text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+}
+
+.alertbox .icon {
+    width: 30px;
+    position: relative;
+}
+
+.alertbox .alertbox__text + .icon,
+.alertbox .alertbox__text + .button { margin-left: -10px; }
+.alertbox .icon + .alertbox__text,
+.alertbox .button + .alertbox__text { margin-left: 0px; }
+
+.alertbox .button:before { left: 0; }
+.alertbox .button.button_hovered { cursor: pointer; background-color: #ccc; }
+.alertbox .button.button_clicked:before { box-shadow: none; background-color: #fff; }
+.alertbox .button.button_hovered .icon { opacity: .75; }
+.alertbox .button.button_clicked .icon { opacity: .5; }
+
+.alertbox.alertbox_color_red { color: #fff; }
+.alertbox.alertbox_color_red:before,
+.alertbox.alertbox_color_red .button:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #ff5940;
+}
+
+.alertbox.alertbox_color_blue { color: #fff; }
+.alertbox.alertbox_color_blue:before,
+.alertbox.alertbox_color_blue .button:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #4983c4;
+}
+
+.alertbox.alertbox_color_cyan { color: #fff; }
+.alertbox.alertbox_color_cyan:before,
+.alertbox.alertbox_color_cyan .button:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #58c9f3;
+}
