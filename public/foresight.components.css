@@ -266,6 +266,11 @@ body {
   margin: 0 10px;
 }
 
+.button.button_hidden {
+  display: none;
+  visibility: hidden;
+}
+
 .button.button_disabled {
   background: rgba(0,0,0,.08);
 }
@@ -779,6 +784,20 @@ body {
   /*border-radius: 2px;*/
 }
 
+.tumbler.tumbler_hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.tumbler.tumbler_disabled {
+  background: rgba(0,0,0,.08);
+}
+
+.tumbler.tumbler_disabled .tumbler__box:before,
+.tumbler.tumbler_disabled .tumbler__sticker:before {
+  display: none;
+}
+
 .menu * {
   position: relative;
   box-sizing: border-box;
@@ -903,11 +922,6 @@ body {
   border: none;
 }
 
-.article {
-  font-family: 'ProximaNova-Regular';
-  margin-bottom: 50px;
-}
-
 .widget {
   position: relative;
   height: auto;
@@ -949,6 +963,73 @@ body {
   left: 0;
 }
 
+.article {
+  font-family: 'ProximaNova-Regular';
+  /*margin-bottom: 50px;*/
+  margin: 0 20px 50px;
+}
+
+.heading {
+  font-family: 'ProximaNova-Regular';
+  font-weight: normal;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+.heading__info {
+  margin-right: 10px;
+}
+
+.heading__link {
+  font-size: 13px;
+}
+
+.heading_1 {
+  font-size: 49px;
+  line-height: 64px;
+  margin: 0 0 43px -2px;
+}
+
+.heading_2 {
+  font-size: 36px;
+  line-height: 48px;
+  margin: 50px 0 14px -1px;
+}
+
+.heading_3 {
+  font-size: 28px;
+  line-height: 48px;
+  margin: 37px 0 11px;
+}
+
+.heading_4 {
+  font-size: 20px;
+  line-height: 32px;
+  margin: 31px 0 17px;
+}
+
+.heading_5 {
+  font-size: 18px;
+  line-height: 32px;
+  margin: 31px 0 16px;
+}
+
+.paragraph {
+  font-style: italic;
+  line-height: 1.5;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.paragraph_color_grey {
+  color: #999;
+}
+
+.paragraph_color_red {
+  color: #ff5940;
+}
+
 .button-group {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -988,128 +1069,15 @@ body {
   border-radius: 0 2px 2px 0;
 }
 
-.alert {
-  font-family: 'ProximaNova-Regular';
-  position: relative;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  max-width: 100%;
-  margin: 0;
-  padding: 0;
-  /*user-select: none;*/
-  color: #000;
-  border: 0;
-  outline: 0;
-  background: #ccc;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
-  font-size: 13px;
-  line-height: 30px;
-}
-
-.alert:before {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  bottom: 1px;
-  left: 1px;
-  content: '';
-  background: #fff;
-}
-
-.alert .alert__text {
-  position: relative;
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: top;
-  margin: 0 10px;
-  font-size: 13px;
-  line-height: 30px;
-}
-
-.alert .icon {
-  width: 30px;
-  position: relative;
-}
-
-.alert .alert__text + .icon,
-.alert .alert__text + .button {
-  margin-left: -10px;
-}
-
-.alert .icon + .alert__text,
-.alert .button + .alert__text {
-  margin-left: 0px;
-}
-
-.alert .button:before {
-  left: 0;
-}
-
-.alert .button.button_hovered {
-  cursor: pointer;
-  background-color: #ccc;
-}
-
-.alert .button.button_clicked:before {
-  box-shadow: none;
-  background-color: #fff;
-}
-
-.alert .button.button_hovered .icon {
-  opacity: .75;
-}
-
-.alert .button.button_clicked .icon {
-  opacity: .5;
-}
-
-.alert.alert_color_red {
-  color: #fff;
-}
-
-.alert.alert_color_red:before,
-.alert.alert_color_red .button:before {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #ff5940;
-}
-
-.alert.alert_color_blue {
-  color: #fff;
-}
-
-.alert.alert_color_blue:before,
-.alert.alert_color_blue .button:before {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #4983c4;
-}
-
-.alert.alert_color_cyan {
-  color: #fff;
-}
-
-.alert.alert_color_cyan:before,
-.alert.alert_color_cyan .button:before {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #58c9f3;
-}
-
 .checkbox {
   font-family: 'ProximaNova-Regular';
   -ms-touch-action: manipulation;
       touch-action: manipulation;
+}
+
+.checkbox.checkbox_hidden {
+  display: none;
+  visibility: hidden;
 }
 
 .checkbox__input {
@@ -1235,6 +1203,11 @@ body {
   font-family: 'ProximaNova-Regular';
 }
 
+.radio.radio_hidden {
+  display: none;
+  visibility: hidden;
+}
+
 .radio__input {
   display: none;
   visibility: hidden;
@@ -1355,6 +1328,124 @@ body {
   border-radius: 0 2px 2px 0;
 }
 
+.alert {
+  font-family: 'ProximaNova-Regular';
+  position: relative;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  /*user-select: none;*/
+  color: #000;
+  border: 0;
+  outline: 0;
+  background: #ccc;
+  text-align: center;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  font-size: 13px;
+  line-height: 30px;
+}
+
+.alert:before {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+  content: '';
+  background: #fff;
+}
+
+.alert .alert__text {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  margin: 0 10px;
+  font-size: 13px;
+  line-height: 30px;
+}
+
+.alert .icon {
+  width: 30px;
+  position: relative;
+}
+
+.alert .alert__text + .icon,
+.alert .alert__text + .button {
+  margin-left: -10px;
+}
+
+.alert .icon + .alert__text,
+.alert .button + .alert__text {
+  margin-left: 0px;
+}
+
+.alert .button:before {
+  left: 0;
+}
+
+.alert .button.button_hovered {
+  cursor: pointer;
+  background-color: #ccc;
+}
+
+.alert .button.button_clicked:before {
+  box-shadow: none;
+  background-color: #fff;
+}
+
+.alert .button.button_hovered .icon {
+  opacity: .75;
+}
+
+.alert .button.button_clicked .icon {
+  opacity: .5;
+}
+
+.alert.alert_color_red {
+  color: #fff;
+}
+
+.alert.alert_color_red:before,
+.alert.alert_color_red .button:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #ff5940;
+}
+
+.alert.alert_color_blue {
+  color: #fff;
+}
+
+.alert.alert_color_blue:before,
+.alert.alert_color_blue .button:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #4983c4;
+}
+
+.alert.alert_color_cyan {
+  color: #fff;
+}
+
+.alert.alert_color_cyan:before,
+.alert.alert_color_cyan .button:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #58c9f3;
+}
+
 /*
 @media (max-width: 768px) {
     .page {
@@ -1408,5 +1499,11 @@ body {
   .mobile_show {
     display: inherit !important;
     visibility: visible !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .article {
+    margin: 0 0 50px;
   }
 }

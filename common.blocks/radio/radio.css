@@ -1,6 +1,10 @@
 .radio {
     font-family: 'ProximaNova-Regular';
 }
+.radio.radio_hidden {
+    display: none;
+    visibility: hidden;
+}
 .radio__input {
     display: none;
     visibility: hidden;

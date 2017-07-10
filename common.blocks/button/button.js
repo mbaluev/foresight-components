@@ -2,19 +2,22 @@
     var methods = {
         init : function(options) {
             return this.each(function(){
-                var self = $(this),
-                    data = self.data('fc-button');
+                var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('fc-button', { target : self });
-                    var defaults = {};
-                    var that = this.obj = {};
+                    self.data('_widget', { type: 'button', target : self });
+                    var defaults = {}, that = this.obj = {};
                     that.options = $.extend(defaults, options);
                     that.data = self.data();
-                    that.check = function(){
-                        self.addClass('button_checked');
+
+                    that.destroy = function(){
+                        self.data = null;
+                        self.remove();
                     };
-                    that.uncheck = function(){
-                        self.removeClass('button_checked');
+                    that.hover = function(){
+                        self.addClass('button_hovered');
+                    };
+                    that.unhover = function(){
+                        self.removeClass('button_hovered');
                     };
                     that.click = function(){
                         self.addClass('button_clicked');
@@ -24,85 +27,133 @@
                         self.addClass('button_clicked_out');
                         self.removeClass('button_clicked');
                     };
-                    that.hover = function(){
-                        self.addClass('button_hovered');
+                    that.check = function(){
+                        self.addClass('button_checked');
+                        self.attr('data-checked', 'true');
+                        that.data.checked = true;
                     };
-                    that.unhover = function(){
-                        self.removeClass('button_hovered');
+                    that.uncheck = function(){
+                        self.removeClass('button_checked');
+                        self.attr('data-checked', 'false');
+                        that.data.checked = false;
                     };
                     that.enable = function(){
+                        self.removeClass('button_clicked_out');
                         self.removeClass('button_disabled');
-                        self.on('mouseover.button', that.hover);
-                        self.on('mouseout.button', that.unhover);
-                        self.on('mousedown.button touchstart.button', function(){
-                            that.click();
-                            $('body').one('mouseup.button touchend.button', that.unclick);
-                        });
-                        if (self.hasClass('button_toggable_check')) {
-                            self.on('click.button', function(e){
-                                e.preventDefault();
-                                if (self.attr("data-checked") == "true") {
-                                    $(this).removeClass('button_checked');
-                                    self.attr('data-checked', 'false');
-                                } else {
-                                    $(this).addClass('button_checked');
-                                    self.attr('data-checked', 'true');
-                                }
-                            });
-                        }
-                        if (self.hasClass('button_toggable_radio')) {
-                            self.on('click.button', function(e){
-                                e.preventDefault();
-                                if (self.attr("data-checked") != "true") {
-                                    $(this).addClass('button_checked');
-                                    self.attr('data-checked', 'true');
-                                }
-                            });
-                        }
-                        //bind trigger items
-                        if (that.data.toggle == "trigger" && that.data.trigger) {
-                            self.on('click.button', function(e){
-                                e.preventDefault();
-                                self.find('.' + that.data.container).trigger(that.data.trigger);
-                            });
-                        }
                         //bind disabled handlers
-                        if (that.data.handlers) {
-                            for (var type in that.data.handlers) {
-                                that.data.handlers[type].forEach(function(ev){
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
                                     self.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
                             }
                         }
                     };
                     that.disable = function(){
+                        self.removeClass('button_clicked_out');
                         self.addClass('button_disabled');
-                        self.off('.button');
+                        //save handlers and unbind events
                         if ($._data(self[0], "events")) {
-                            that.data.handlers = {};
+                            that.data._handlers = {};
                             for (var type in $._data(self[0], "events")) {
-                                that.data.handlers[type] = $._data(self[0], "events")[type].slice(0);
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
                             }
                             self.off();
                         }
                     };
-                    that.init = function(){
-                        if (self.hasClass('button_toggable_check') || self.hasClass('button_toggable_radio')) {
+                    that.hide = function(){
+                        self.addClass('button_hidden');
+                    };
+                    that.show = function(){
+                        self.removeClass('button_hidden');
+                    };
+                    that.bind = function(){
+                        //bind private events
+                        self.on('mouseover.button.private', that.hover);
+                        self.on('mouseout.button.private', that.unhover);
+                        self.on('mousedown.button.private touchstart.button.private', function(){
+                            that.click();
+                            $('body').one('mouseup.button.private touchend.button.private', that.unclick);
+                        });
+                        //bind trigger events
+                        if (that.data.trigger) {
+                            self.on('click.button.trigger', function(e){
+                                e.preventDefault();
+                                self.find('.' + that.data.triggercontainer).trigger(that.data.trigger);
+                            });
+                        }
+                    };
+                    that.bind_checkbox = function(){
+                        self.bindFirst('click.button.check', null, null, function(e){
+                            e.preventDefault();
                             if (that.data.checked) {
-                                that.check();
-                            } else {
                                 that.uncheck();
+                            } else {
+                                that.check();
                             }
+                        });
+                    };
+                    that.bind_radio = function(){
+                        self.bindFirst('click.button.radio', null, null, function(e){
+                            e.preventDefault();
+                            if (!that.data.checked) {
+                                that.check();
+                            }
+                        });
+                    };
+                    that.init = function() {
+                        that.bind();
+                        if (self.hasClass('button_toggable_check')) {
+                            that.data['_widget']['type'] = 'button.checkbox';
+                            that.init_check();
+                            that.bind_checkbox();
+                        }
+                        if (self.hasClass('button_toggable_radio')) {
+                            that.data['_widget']['type'] = 'button.radio';
+                            that.init_check();
+                            that.bind_radio();
                         }
                         if (that.data.disabled) {
                             that.disable();
                         } else {
                             that.enable();
                         }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                    };
+                    that.init_check = function(){
+                        if (that.data.checked) {
+                            that.check();
+                        } else {
+                            that.uncheck();
+                        }
                     };
                     that.init();
                 }
                 return this;
+            });
+        },
+        check : function() {
+            return this.each(function() {
+                this.obj.check();
+            });
+        },
+        uncheck : function() {
+            return this.each(function() {
+                this.obj.uncheck();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
             });
         },
         enable : function() {
@@ -113,6 +164,11 @@
         disable : function() {
             return this.each(function() {
                 this.obj.disable();
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
             });
         }
     };
@@ -129,63 +185,4 @@
 
 $(function(){
     $('[data-fc="button"]').button();
-    /*
-    $('[data-fc="button_"]').each(function() {
-        var that = $(this),
-            data = that.data();
-        if (that.hasClass('button_toggable_check') || that.hasClass('button_toggable_radio')) {
-            if (data.checked) {
-                that.addClass('button_checked');
-            } else {
-                that.removeClass('button_checked');
-            }
-        }
-        if (data.disabled) {
-            that.addClass('button_disabled');
-        } else {
-            that.removeClass('button_disabled');
-
-            that.on('mouseover', function(){ that.addClass('button_hovered'); });
-            that.on('mouseout', function(){ that.removeClass('button_hovered'); });
-            that.on('mousedown touchstart', function(){
-                that.addClass('button_clicked');
-                that.removeClass('button_clicked_out');
-                $('body').one('mouseup touchend', function(){
-                    that.addClass('button_clicked_out');
-                    that.removeClass('button_clicked');
-                });
-            });
-            //that.on('focusin', function(){ that.addClass('button_focused'); });
-            //that.on('focusout', function(){ that.removeClass('button_focused'); });
-            if (that.hasClass('button_toggable_check')) {
-                that.on('click', function(e){
-                    e.preventDefault();
-                    if (that.attr("data-checked") == "true") {
-                        $(this).removeClass('button_checked');
-                        that.attr('data-checked', 'false');
-                    } else {
-                        $(this).addClass('button_checked');
-                        that.attr('data-checked', 'true');
-                    }
-                });
-            }
-            if (that.hasClass('button_toggable_radio')) {
-                that.on('click', function(e){
-                    e.preventDefault();
-                    if (that.attr("data-checked") != "true") {
-                        $(this).addClass('button_checked');
-                        that.attr('data-checked', 'true');
-                    }
-                });
-            }
-            //bind trigger items
-            if (data.toggle == "trigger" && data.trigger) {
-                that.on('click', function(e){
-                    e.preventDefault();
-                    that.find('.'+data.container).trigger(data.trigger);
-                });
-            }
-        }
-    });
-    */
 });

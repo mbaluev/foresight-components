@@ -1,30 +1,30 @@
 $(function(){
-    $('[data-action="toggleLeft"]').each(function () {
+    $('#button_toggle-menu').each(function(){
         var self = $(this),
-            data = self.data(),
-            $main = $('.' + data.main),
-            $left = $('.' + data.left),
-            $middle = $('.' + data.middle),
+            $iconmenu = self.find('.icon__menu');
+            $main = $('.fs-view__main'),
+            $left = $('.fs-view__left'),
+            $middle = $('.fs-view__middle'),
             $backdrop = $('<div class="fs-view__backdrop"></div>'),
             onlyloaded = true;
         function show_menu(){
-            if (!onlyloaded && !$main.hasClass('fs-view__main_transition'))
+            $iconmenu.icon__menu('toggle');
+            if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
-
+            }
             $left.removeClass('fs-view__left_hidden');
             $middle.removeClass('fs-view__middle_full');
-
             $left.after($backdrop);
-            $backdrop.one('click', hide_menu_backdrop);
+            $backdrop.on('click', hide_menu_backdrop);
             self.one('click', hide_menu);
         }
         function hide_menu(){
-            if (!onlyloaded && !$main.hasClass('fs-view__main_transition'))
+            $iconmenu.icon__menu('toggle');
+            if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
-
+            }
             $left.addClass('fs-view__left_hidden');
             $middle.addClass('fs-view__middle_full');
-
             $backdrop.remove();
             self.one('click', show_menu);
         }
@@ -32,10 +32,6 @@ $(function(){
             self.trigger('click');
         }
         if ($(window).outerWidth() > 768) {
-            /*
-            show_menu();
-            self.one('click', hide_menu);
-            */
             self.one('click', show_menu);
             onlyloaded = false;
         } else {

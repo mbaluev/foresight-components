@@ -37,6 +37,7 @@
     margin: 0 10px;
 }
 
+.button.button_hidden { display: none; visibility: hidden; }
 .button.button_disabled { background: rgba(0,0,0,.08); }
 .button.button_disabled:before { display: none; }
 

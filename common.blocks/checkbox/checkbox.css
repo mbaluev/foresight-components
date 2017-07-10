@@ -2,6 +2,10 @@
     font-family: 'ProximaNova-Regular';
     touch-action: manipulation;
 }
+.checkbox.checkbox_hidden {
+    display: none;
+    visibility: hidden;
+}
 .checkbox__input {
     display:none;
     visibility: hidden;

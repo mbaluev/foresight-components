@@ -114,3 +114,10 @@
 .tumbler__box .button:before {
     /*border-radius: 2px;*/
 }
+
+.tumbler.tumbler_hidden { display: none; visibility: hidden; }
+
+.tumbler.tumbler_disabled { background: rgba(0,0,0,.08); }
+
+.tumbler.tumbler_disabled .tumbler__box:before,
+.tumbler.tumbler_disabled .tumbler__sticker:before { display: none; }
