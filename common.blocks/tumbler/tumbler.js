@@ -170,12 +170,4 @@
 
 $(function(){
     $('[data-fc="tumbler"]').tumbler();
-    $('#tumbler_edit-page').on('click', function(){
-        var self = $(this), data = self.data();
-        if (data.checked) {
-            $('#button_add-widget').button('enable');
-        } else {
-            $('#button_add-widget').button('disable');
-        }
-    });
 });

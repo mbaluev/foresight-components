@@ -157,7 +157,7 @@ body {
 }
 
 .fs-view__middle-inner {
-  padding: 10px;
+  padding: 20px 10px;
   box-sizing: border-box;
   position: relative;
 }
@@ -925,7 +925,9 @@ body {
 .widget {
   position: relative;
   height: auto;
-  padding-top: 15px;
+  padding-top: 10px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .widget__header {
@@ -936,37 +938,76 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  padding-left: 10px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
+
+.widget__header-name {
+  min-width: 0;
+}
+
+.widget__header-actions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+
+
+
 
 .widget__border {
   border: solid 1px #ccc;
   box-sizing: border-box;
+  height: 100%;
+}
+
+.widget__body {
+  height: 100%;
+  background-color: #fff;
 }
 
 .widget__header .button {
   font-size: 15px;
+  line-height: 20px;
 }
 
 .widget__header .button.button_clicked:before {
   box-shadow: none;
-  /*background-color: #fff;*/
 }
 
-.widget__header .button:before {
+.widget__header .button:before,
+.widget__header .alertbox:before {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
 
+.widget__header .button.button_disabled {
+  background: #fff;
+  cursor: default;
+}
+
+
+
+.widget.widget_collapsed .widget__border {
+  height: 0;
+  border-bottom: none;
+}
+
+.ui-draggable-dragging .widget__border,
+.ui-resizable-resizing .widget__border {
+  border: solid 1px #5a97f2;
+}
+
 .article {
   font-family: 'ProximaNova-Regular';
   /*margin-bottom: 50px;*/
-  margin: 0 20px 50px;
+  margin: 0 10px 50px;
 }
 
 .heading {
@@ -1451,6 +1492,14 @@ body {
   background: #58c9f3;
 }
 
+/*
+@media (max-width: 768px) {
+    .page {
+        margin: 20px;
+    }
+}
+*/
+
 @media (max-width: 768px) {
   .fs-view__left {
     position: absolute;
@@ -1480,14 +1529,6 @@ body {
   }
 }
 
-/*
-@media (max-width: 768px) {
-    .page {
-        margin: 20px;
-    }
-}
-*/
-
 .mobile_show {
   display: none !important;
   visibility: hidden !important;
@@ -1508,7 +1549,5 @@ body {
 }
 
 @media (max-width: 768px) {
-  .article {
-    margin: 0 0 50px;
-  }
+
 }

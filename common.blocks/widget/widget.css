@@ -1,7 +1,9 @@
 .widget {
     position: relative;
     height: auto;
-    padding-top: 15px;
+    padding-top: 10px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .widget__header {
@@ -11,26 +13,56 @@
     width: 100%;
 
     display: flex;
-    justify-content: flex-start;
-    padding-left: 10px;
+    justify-content: space-between;
+    padding: 0 10px;
+    box-sizing: border-box;
 }
+.widget__header-name {
+    min-width: 0;
+}
+.widget__header-actions {
+    display: flex;
+}
+.widget__header-name > * {}
+.widget__header-actions > * {}
 
 .widget__border {
     border: solid 1px #ccc;
     box-sizing: border-box;
+    height: 100%;
+}
+
+.widget__body {
+    height: 100%;
+    background-color: #fff;
 }
 
 .widget__header .button {
     font-size: 15px;
+    line-height: 20px;
 }
 .widget__header .button.button_clicked:before {
     box-shadow: none;
-    /*background-color: #fff;*/
 }
-
-.widget__header .button:before {
+.widget__header .button:before,
+.widget__header .alertbox:before {
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+}
+.widget__header .button.button_disabled {
+    background: #fff;
+    cursor: default;
+}
+.widget__header .button.button_disabled > * {}
+
+.widget.widget_collapsed .widget__border {
+    height: 0;
+    border-bottom: none;
+}
+
+.ui-draggable-dragging .widget__border,
+.ui-resizable-resizing .widget__border{
+    border: solid 1px #5a97f2;
 }

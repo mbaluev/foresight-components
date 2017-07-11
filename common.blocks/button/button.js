@@ -48,6 +48,7 @@
                                 });
                             }
                         }
+                        that.data.disabled = false;
                     };
                     that.disable = function(){
                         self.removeClass('button_clicked_out');
@@ -60,6 +61,7 @@
                             }
                             self.off();
                         }
+                        that.data.disabled = true;
                     };
                     that.hide = function(){
                         self.addClass('button_hidden');
