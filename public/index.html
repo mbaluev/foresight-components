@@ -40,26 +40,28 @@
                             <span class="button__anim"></span>
                         </button>
                     </label>-->
-                    <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_add-widget">
-                        <span class="icon icon_svg_plus"></span>
-                        <span class="button__text mobile mobile_hide">Добавить</span>
-                        <span class="button__anim"></span>
-                    </button>
-                    <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_clear-grid">
-                        <span class="icon icon_svg_trash"></span>
-                        <span class="button__text mobile mobile_hide">Очистить</span>
-                        <span class="button__anim"></span>
-                    </button>
-                    <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_save-grid">
-                        <span class="icon icon_svg_up"></span>
-                        <span class="button__text mobile mobile_hide">Сохранить</span>
-                        <span class="button__anim"></span>
-                    </button>
-                    <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_load-grid">
-                        <span class="icon icon_svg_down"></span>
-                        <span class="button__text mobile mobile_hide">Загрузить</span>
-                        <span class="button__anim"></span>
-                    </button>
+                    <span class="button-group header__column-item" data-fc="button-group">
+                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_add-widget">
+                            <span class="icon icon_svg_plus"></span>
+                            <span class="button__text mobile mobile_hide">Добавить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_clear-grid">
+                            <span class="icon icon_svg_trash"></span>
+                            <span class="button__text mobile mobile_hide">Очистить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_save-grid">
+                            <span class="icon icon_svg_up"></span>
+                            <span class="button__text mobile mobile_hide">Сохранить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_load-grid">
+                            <span class="icon icon_svg_down"></span>
+                            <span class="button__text mobile mobile_hide">Загрузить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                    </span>
                     <span class="header__column-item tumbler" data-fc="tumbler" id="tumbler_edit-page">
                         <span class="tumbler__box">
                             <div class="tumbler__sticker tumbler__sticker_position_left">
@@ -1118,9 +1120,9 @@
             new function () {
                 var self = this;
                 this.items = [
-                    {x: 0, y: 0, width: 12, height: 10, name: "КТ"},
-                    {x: 4, y: 10, width: 4, height: 4, name: "Виджет"},
-                    {x: 8, y: 10, width: 4, height: 3, name: "Виджет"},
+                    {x: 0, y: 0, width: 12, height: 5, name: "КТ"},
+                    {x: 4, y: 5, width: 4, height: 4, name: "Виджет"},
+                    {x: 8, y: 5, width: 4, height: 3, name: "Виджет"},
                 ];
                 this.grid = $('.grid-stack').data('gridstack');
                 this.loadGrid = function () {
@@ -1133,7 +1135,7 @@
                                     '<div class="widget" data-fc="widget">' +
                                         '<div class="widget__header">' +
                                             '<div class="widget__header-name">' +
-                                                '<button class="button button_collapse" type="button" data-fc="button" data-disabled="true">' +
+                                                '<button class="button button_collapse" type="button" data-fc="button">' +
                                                     '<span class="button__text">' + node.name + '</span>' +
                                                     '<span class="icon icon_svg_down"></span>' +
                                                     '<span class="button__anim"></span>' +
@@ -1173,6 +1175,7 @@
                                 el.addClass('collapsed');
                             }
                         });
+                        el.find('[data-fc="widget"] .button_collapse').button('disable');
                     }, this);
                     return false;
                 }.bind(this);
@@ -1209,7 +1212,7 @@
                                 '<div class="widget" data-fc="widget">' +
                                     '<div class="widget__header">' +
                                         '<div class="widget__header-name">' +
-                                            '<button class="button button_collapse" type="button" data-fc="button" data-disabled="true">' +
+                                            '<button class="button button_collapse" type="button" data-fc="button">' +
                                                 '<span class="button__text">' + node.name + '</span>' +
                                                 '<span class="icon icon_svg_down"></span>' +
                                                 '<span class="button__anim"></span>' +
@@ -1249,6 +1252,7 @@
                             el.addClass('collapsed');
                         }
                     });
+                    el.find('[data-fc="widget"] .button_collapse').button('disable');
                     return false;
                 }.bind(this);
                 this.removeWidget = function(element) {

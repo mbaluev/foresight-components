@@ -200,6 +200,8 @@ body {
 
 .header__column:first-child {
   padding-left: 10px;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .header__column:last-child {
@@ -922,6 +924,73 @@ body {
   border: none;
 }
 
+.article {
+  font-family: 'ProximaNova-Regular';
+  /*margin-bottom: 50px;*/
+  margin: 0 10px 50px;
+}
+
+.heading {
+  font-family: 'ProximaNova-Regular';
+  font-weight: normal;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+.heading__info {
+  margin-right: 10px;
+}
+
+.heading__link {
+  font-size: 13px;
+}
+
+.heading_1 {
+  font-size: 49px;
+  line-height: 64px;
+  margin: 0 0 43px -2px;
+}
+
+.heading_2 {
+  font-size: 36px;
+  line-height: 48px;
+  margin: 50px 0 14px -1px;
+}
+
+.heading_3 {
+  font-size: 28px;
+  line-height: 48px;
+  margin: 37px 0 11px;
+}
+
+.heading_4 {
+  font-size: 20px;
+  line-height: 32px;
+  margin: 31px 0 17px;
+}
+
+.heading_5 {
+  font-size: 18px;
+  line-height: 32px;
+  margin: 31px 0 16px;
+}
+
+.paragraph {
+  font-style: italic;
+  line-height: 1.5;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.paragraph_color_grey {
+  color: #999;
+}
+
+.paragraph_color_red {
+  color: #ff5940;
+}
+
 .widget {
   position: relative;
   height: auto;
@@ -1011,73 +1080,6 @@ body {
 .ui-draggable-dragging .widget__border,
 .ui-resizable-resizing .widget__border {
   border: solid 1px #5a97f2;
-}
-
-.article {
-  font-family: 'ProximaNova-Regular';
-  /*margin-bottom: 50px;*/
-  margin: 0 10px 50px;
-}
-
-.heading {
-  font-family: 'ProximaNova-Regular';
-  font-weight: normal;
-  position: relative;
-  z-index: 1;
-  padding: 0;
-}
-
-.heading__info {
-  margin-right: 10px;
-}
-
-.heading__link {
-  font-size: 13px;
-}
-
-.heading_1 {
-  font-size: 49px;
-  line-height: 64px;
-  margin: 0 0 43px -2px;
-}
-
-.heading_2 {
-  font-size: 36px;
-  line-height: 48px;
-  margin: 50px 0 14px -1px;
-}
-
-.heading_3 {
-  font-size: 28px;
-  line-height: 48px;
-  margin: 37px 0 11px;
-}
-
-.heading_4 {
-  font-size: 20px;
-  line-height: 32px;
-  margin: 31px 0 17px;
-}
-
-.heading_5 {
-  font-size: 18px;
-  line-height: 32px;
-  margin: 31px 0 16px;
-}
-
-.paragraph {
-  font-style: italic;
-  line-height: 1.5;
-  margin: 5px 0;
-  font-size: 13px;
-}
-
-.paragraph_color_grey {
-  color: #999;
-}
-
-.paragraph_color_red {
-  color: #ff5940;
 }
 
 .button-group {
@@ -1523,6 +1525,10 @@ body {
 
   .fs-view__middle {
     left: 0;
+  }
+
+  .fs-view__middle-inner {
+    padding: 10px 0px;
   }
 
   .fs-view__backdrop {

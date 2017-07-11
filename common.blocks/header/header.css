@@ -17,6 +17,7 @@
 }
 .header__column:first-child {
     padding-left: 10px;
+    flex-wrap: nowrap;
 }
 .header__column:last-child {
     justify-content: flex-end;
