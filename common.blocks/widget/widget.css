@@ -57,6 +57,13 @@
 }
 .widget__header .button.button_disabled > * {}
 
+
+.widget .button_collapse .icon {
+    transition: 0.5s;
+}
+.widget.widget_collapsed .button_collapse .icon {
+    transform: rotate(-90deg);
+}
 .widget.widget_collapsed .widget__border {
     height: 0;
     border-bottom: none;

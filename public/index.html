@@ -51,10 +51,12 @@
                         <span class="button__anim"></span>
                     </button>
                     <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_save-grid">
+                        <span class="icon icon_svg_up"></span>
                         <span class="button__text mobile mobile_hide">Сохранить</span>
                         <span class="button__anim"></span>
                     </button>
                     <button class="header__column-item button" type="button" data-fc="button" data-disabled="true" id="button_load-grid">
+                        <span class="icon icon_svg_down"></span>
                         <span class="button__text mobile mobile_hide">Загрузить</span>
                         <span class="button__anim"></span>
                     </button>
@@ -288,6 +290,7 @@
                     <div class="fs-view__middle-inner">
                         <div class="grid-stack" data-fc="widget-grid" data-gs-animate="true"></div>
 
+                        <!--
                         <div class="article" data-title="widget" id="widget">
                             <div class="heading heading_2">widget</div>
                             <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
@@ -1089,7 +1092,7 @@
                                 <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
                             </label>
                         </div>
-
+                        -->
                     </div>
                 </div>
             </div>
@@ -1105,6 +1108,7 @@
     <script type="text/javascript">
         $(function () {
             var options = {
+                cellHeight: 20,
                 disableDrag: true,
                 disableResize: true,
                 resizable: { handles: 'e, se, s, sw, w' }
@@ -1114,9 +1118,9 @@
             new function () {
                 var self = this;
                 this.items = [
-                    {x: 0, y: 0, width: 3, height: 2, name: "КТ"},
-                    {x: 4, y: 0, width: 4, height: 4, name: "Виджет"},
-                    {x: 8, y: 1, width: 4, height: 3, name: "Виджет"},
+                    {x: 0, y: 0, width: 12, height: 10, name: "КТ"},
+                    {x: 4, y: 10, width: 4, height: 4, name: "Виджет"},
+                    {x: 8, y: 10, width: 4, height: 3, name: "Виджет"},
                 ];
                 this.grid = $('.grid-stack').data('gridstack');
                 this.loadGrid = function () {
@@ -1160,6 +1164,15 @@
                         el.find('[data-fc="widget"] .button_remove').on('click', function(){
                             self.removeWidget(el);
                         });
+                        el.find('[data-fc="widget"] .button_collapse').on('click', function(){
+                            if (el.hasClass('collapsed')) {
+                                self.updateElement(el, node.height);
+                                el.removeClass('collapsed');
+                            } else {
+                                self.updateElement(el, 1);
+                                el.addClass('collapsed');
+                            }
+                        });
                     }, this);
                     return false;
                 }.bind(this);
@@ -1186,8 +1199,8 @@
                     var node = {
                         x: 0,
                         y: 0,
-                        width: 12,
-                        height: 2,
+                        width: 6,
+                        height: 6,
                         name: "Новый виджет"
                     };
                     var el = $(
@@ -1227,10 +1240,22 @@
                     el.find('[data-fc="widget"] .button_remove').on('click', function(){
                         self.removeWidget(el);
                     });
+                    el.find('[data-fc="widget"] .button_collapse').on('click', function(){
+                        if (el.hasClass('collapsed')) {
+                            self.updateElement(el, node.height);
+                            el.removeClass('collapsed');
+                        } else {
+                            self.updateElement(el, 1);
+                            el.addClass('collapsed');
+                        }
+                    });
                     return false;
                 }.bind(this);
                 this.removeWidget = function(element) {
                     this.grid.removeWidget(element);
+                }.bind(this);
+                this.updateElement = function(element, height){
+                    this.grid.update(element, null, null, null, height);
                 }.bind(this);
 
                 $('#button_add-widget').button('enable').click(this.addNewWidget).button('disable');

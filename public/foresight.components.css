@@ -994,6 +994,15 @@ body {
 
 
 
+.widget .button_collapse .icon {
+  transition: 0.5s;
+}
+
+.widget.widget_collapsed .button_collapse .icon {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+
 .widget.widget_collapsed .widget__border {
   height: 0;
   border-bottom: none;
