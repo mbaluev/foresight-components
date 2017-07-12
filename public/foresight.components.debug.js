@@ -386,6 +386,11 @@ $(function(){
                             that.data.checked ? that.uncheck() : that.check();
                         })
                     };
+                    that.bind_custom = function(opt){
+                        self.on('click.tumbler.custom', null, null, function(){
+                            that.data.checked ? opt.on() : opt.off();
+                        })
+                    };
                     that.init = function(){
                         that.data.name = that.input.attr('name');
                         that.bind();
@@ -443,6 +448,11 @@ $(function(){
         },
         value : function() {
             return this.checkbox('checked');
+        },
+        bind : function(opt) {
+            return this.each(function() {
+                this.obj.bind_custom(opt);
+            });
         }
     };
     $.fn.tumbler = function( method ) {
@@ -515,7 +525,17 @@ $(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
-                    var defaults = {}, that = this.obj = {};
+                    var defaults = {
+                        items: [],
+                        account: '',
+                        pagename: '',
+                        guid: '',
+                        buttons: {},
+                        events: {
+                            onAdd: function(){},
+                            onSave: function(){}
+                        }
+                    }, that = this.obj = {};
                     that.options = $.extend(defaults, options);
                     that.options_grid = {
                         cellHeight: 20,
@@ -524,11 +544,7 @@ $(function(){
                         resizable: { handles: 'e, se, s, sw, w' }
                     };
                     that.data = self.data();
-                    that.items = [
-                        { x: 0, y: 0, width: 8, height: 4, name: "КТ", collapsed: false },
-                        { x: 4, y: 4, width: 4, height: 4, name: "Виджет", collapsed: false },
-                        { x: 8, y: 0, width: 4, height: 3, name: "Виджет", collapsed: true }
-                    ];
+                    that.items = that.options.items;
                     that.widgets = [];
 
                     that.template = function(node){
@@ -566,27 +582,30 @@ $(function(){
                     that.createWidget = function(node){
                         var el = that.template(node);
                         var item = {
-                            name: node.name,
-                            collapsed: node.collapsed,
                             el: el,
                             node: node,
+                            name: node.name,
                             height: node.height,
+                            collapsed: node.collapsed,
                             widget: null
                         };
 
                         item.widget = el.find('[data-fc="widget"]');
                         item.widget.widget();
                         item.widget.data().buttons.button_remove.on('click.widget-grid', function(){
-                            that.removeWidget(el);
+                            that.removeWidget(item);
                         });
                         item.widget.data().buttons.button_collapse.off('.widget');
                         item.widget.data().buttons.button_collapse.on('click.widget-grid', function(){
                             if (item.collapsed) {
                                 that.expandWidget(item, true);
+                                that.saveGrid();
                             } else {
                                 that.collapseWidget(item, true);
+                                that.saveGrid();
                             }
                         });
+                        item.widget.widget('editMode');
 
                         that.grid.addWidget(el, node.x, node.y, node.width, node.height);
                         that.widgets.push(item);
@@ -639,14 +658,13 @@ $(function(){
                                 collapsed: node.item.collapsed
                             };
                         }, this);
-                        //console.log(that.items);
-                        //console.log(JSON.stringify(that.items, null, '    '));
                     };
                     that.clearGrid = function () {
                         that.grid.removeAll();
                     };
-                    that.removeWidget = function(el) {
-                        that.grid.removeWidget(el);
+                    that.removeWidget = function(item) {
+                        that.grid.removeWidget(item.el);
+                        that.widgets = that.widgets.filter(function(d){ return d.el !== item.el; });
                     };
                     that.updateWidget = function(el, height){
                         that.grid.update(el, null, null, null, height);
@@ -660,6 +678,7 @@ $(function(){
                     };
                     that.viewMode = function(){
                         _.each(that.widgets, function (item) {
+                            item.height = that.getItemData(item.el).height;
                             item.widget.widget('viewMode');
                             if (item.collapsed) {
                                 that.collapseWidget(item, false);
@@ -688,13 +707,19 @@ $(function(){
                         that.grid.enableResize(false, true);
                     };
                     that.bindButtons = function(){
-                        $(that.options.add_widget_button_selector).button('enable').click(that.addNewWidget).button('disable');
-                        /*
-                        $('#button_clear-grid').button('enable').click(that.clearGrid).button('disable');
-                        $('#button_save-grid').button('enable').click(that.saveGrid).button('disable');
-                        $('#button_load-grid').button('enable').click(that.loadGrid).button('disable');
-                        */
-                    }
+                        if (that.options.buttons.add) {
+                            $(that.options.buttons.add).button('enable').on('click', function(){
+                                that.addNewWidget();
+                                that.options.events.onAdd();
+                            }).button('disable');
+                        }
+                        if (that.options.buttons.add) {
+                            $(that.options.buttons.save).button('enable').on('click', function(){
+                                that.saveGrid();
+                                that.options.events.onSave(that.items);
+                            }).button('disable');
+                        }
+                    };
                     that.setItemData = function(el, data){
                         $.extend(el.data('_gridstack_node'), data);
                     };
@@ -726,7 +751,6 @@ $(function(){
         save : function() {
             return this.each(function() {
                 this.obj.saveGrid();
-                this.obj.loadGrid();
             });
         }
     };
@@ -742,34 +766,95 @@ $(function(){
 })( jQuery );
 
 $(function(){
-    var add_widget_button_selector = "#button_add-widget";
-    var grid = $('[data-fc="widget-grid"]').widget_grid({
+    var grid = $('#widget-grid').widget_grid({
+        items: [
+            {
+                x: 4,
+                y: 0,
+                width: 4,
+                height: 4,
+                name: "Виджет 1",
+                collapsed: false
+            },
+            {
+                x: 8,
+                y: 0,
+                width: 4,
+                height: 3,
+                name: "Виджет 3",
+                collapsed: false
+            },
+            {
+                x: 4,
+                y: 7,
+                width: 4,
+                height: 3,
+                name: "Виджет 2",
+                collapsed: false
+            },
+            {
+                x: 0,
+                y: 0,
+                width: 2,
+                height: 10,
+                name: "Новый виджет",
+                collapsed: false
+            },
+            {
+                x: 2,
+                y: 4,
+                width: 6,
+                height: 3,
+                name: "Новый виджет",
+                collapsed: false
+            },
+            {
+                x: 2,
+                y: 0,
+                width: 2,
+                height: 4,
+                name: "Новый виджет",
+                collapsed: false
+            },
+            {
+                x: 8,
+                y: 3,
+                width: 4,
+                height: 7,
+                name: "Новый виджет",
+                collapsed: false
+            },
+            {
+                x: 2,
+                y: 7,
+                width: 2,
+                height: 3,
+                name: "Новый виджет",
+                collapsed: false
+            }
+        ],
         account: 'fa',
-        page_name: 'index',
-        data_guid: '',
-        add_widget_button_selector: add_widget_button_selector
+        pagename: 'index',
+        guid: '',
+        buttons: {
+            add: '#button_add-widget',
+            save: '#button_save-grid'
+        },
+        events: {
+            onAdd: function(){ console.log('add new widget') },
+            onSave: function(items){ console.log('saveGrid'); console.log(items); }
+        }
     });
-    $('#tumbler_edit-page').on('click', function(){
-        var data = $(this).data();
-        if (data.checked) {
-            $(add_widget_button_selector).button('enable');
+    $('#tumbler_edit-page').tumbler('bind',{
+        on: function(){
+            $("#button_add-widget").button('enable');
+            $("#button_save-grid").button('enable');
             grid.widget_grid('editMode');
-
-            /*
-            $('#button_clear-grid').button('enable');
-            $('#button_save-grid').button('enable');
-            $('#button_load-grid').button('enable');
-            */
-        } else {
-            $(add_widget_button_selector).button('disable');
-            grid.widget_grid('save');
+        },
+        off: function(){
+            $("#button_add-widget").button('disable');
+            $("#button_save-grid").button('disable');
             grid.widget_grid('viewMode');
-
-            /*
-            $('#button_clear-grid').button('disable');
-            $('#button_save-grid').button('disable');
-            $('#button_load-grid').button('disable');
-            */
         }
     });
 });

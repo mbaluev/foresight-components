@@ -46,15 +46,15 @@
                             <span class="button__text mobile mobile_hide">Добавить</span>
                             <span class="button__anim"></span>
                         </button>
+                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_save-grid">
+                            <span class="icon icon_svg_settings"></span>
+                            <span class="button__text mobile mobile_hide">Сохранить</span>
+                            <span class="button__anim"></span>
+                        </button>
                         <!--
                         <button class="button" type="button" data-fc="button" data-disabled="true" id="button_clear-grid">
                             <span class="icon icon_svg_trash"></span>
                             <span class="button__text mobile mobile_hide">Очистить</span>
-                            <span class="button__anim"></span>
-                        </button>
-                        <button class="button" type="button" data-fc="button" data-disabled="true" id="button_save-grid">
-                            <span class="icon icon_svg_up"></span>
-                            <span class="button__text mobile mobile_hide">Сохранить</span>
                             <span class="button__anim"></span>
                         </button>
                         <button class="button" type="button" data-fc="button" data-disabled="true" id="button_load-grid">
@@ -293,7 +293,7 @@
                 <div class="fs-view__middle-scroll">
                     <div class="fs-view__middle-inner">
 
-                        <div class="widget-grid grid-stack" data-fc="widget-grid" data-gs-animate="true"></div>
+                        <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
 
                         <div class="article" data-title="widget" id="widget">
                             <div class="heading heading_2">widget</div>
@@ -1108,7 +1108,7 @@
     <script src="third/gridstack/gridstack.js"></script>
     <script src="third/gridstack/gridstack.jQueryUI.js"></script>
     <!--<script src="third/jquery.scrollbar/jquery.scrollbar.min.js"></script>-->
-    <script src="foresight.components.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
     <!--
     <script type="text/javascript">
         $(function () {

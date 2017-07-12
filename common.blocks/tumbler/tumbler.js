@@ -98,6 +98,11 @@
                             that.data.checked ? that.uncheck() : that.check();
                         })
                     };
+                    that.bind_custom = function(opt){
+                        self.on('click.tumbler.custom', null, null, function(){
+                            that.data.checked ? opt.on() : opt.off();
+                        })
+                    };
                     that.init = function(){
                         that.data.name = that.input.attr('name');
                         that.bind();
@@ -155,6 +160,11 @@
         },
         value : function() {
             return this.checkbox('checked');
+        },
+        bind : function(opt) {
+            return this.each(function() {
+                this.obj.bind_custom(opt);
+            });
         }
     };
     $.fn.tumbler = function( method ) {
