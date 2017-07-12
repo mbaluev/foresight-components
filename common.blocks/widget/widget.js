@@ -8,52 +8,84 @@
                     var defaults = {}, that = this.obj = {};
                     that.options = $.extend(defaults, options);
                     that.data = self.data();
-                    that.button_collapse = self.find('.button_collapse');
+                    that.data.buttons = {
+                        button_collapse: self.find('.button_collapse'),
+                        button_settings: self.find('.button_settings'),
+                        button_remove: self.find('.button_remove')
+                    };
 
                     that.destroy = function(){
-                        if (typeof that.button_collapse[0] != "undefined") {
-                            that.button_collapse.button('destroy');
+                        if (typeof that.data.buttons.button_collapse[0] != "undefined") {
+                            that.data.buttons.button_collapse.button('destroy');
+                        }
+                        if (typeof that.data.buttons.button_settings[0] != "undefined") {
+                            that.data.buttons.button_settings.button('destroy');
+                        }
+                        if (typeof that.data.buttons.button_remove[0] != "undefined") {
+                            that.data.buttons.button_remove.button('destroy');
                         }
                         that.disable();
                         self.data = null;
                         self.remove();
                     };
-                    that.hide = function(){
+                    that.collapse = function(){
                         self.addClass('widget_collapsed');
                     };
-                    that.show = function(){
+                    that.expand = function(){
                         self.removeClass('widget_collapsed');
                     };
                     that.toggle = function(){
                         self.toggleClass('widget_collapsed');
                     };
                     that.bind = function(){
-                        that.button_collapse.on('click', function(){
+                        that.data.buttons.button_collapse.on('click.widget', function(){
                             that.toggle();
                         });
                     };
+                    that.editMode = function(){
+                        that.data.buttons.button_collapse.button('disable');
+                        that.data.buttons.button_settings.button('show').button('enable');
+                        that.data.buttons.button_remove.button('show').button('enable');
+                    };
+                    that.viewMode = function(){
+                        that.data.buttons.button_collapse.button('enable');
+                        that.data.buttons.button_settings.button('hide').button('disable');
+                        that.data.buttons.button_remove.button('hide').button('disable');
+                    };
                     that.init = function(){
                         that.bind();
-                        that.button_collapse.button();
+                        that.data.buttons.button_collapse.button();
+                        that.data.buttons.button_settings.button();
+                        that.data.buttons.button_remove.button();
                     };
                     that.init();
                 }
                 return this;
             });
         },
-        hide : function() {
+        collapse : function() {
             return this.each(function() {
-                this.obj.hide();
+                this.obj.collapse();
             });
         },
-        show : function() {
+        expand : function() {
             return this.each(function() {
-                this.obj.show();
+                this.obj.expand();
             });
         },
         toggle : function() {
             return this.each(function() {
                 this.obj.toggle();
+            });
+        },
+        editMode : function() {
+            return this.each(function() {
+                this.obj.editMode();
+            });
+        },
+        viewMode : function() {
+            return this.each(function() {
+                this.obj.viewMode();
             });
         },
         destroy : function() {
