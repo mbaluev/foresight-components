@@ -188,16 +188,20 @@
                     };
                     that.bindButtons = function(){
                         if (that.options.buttons.add) {
-                            $(that.options.buttons.add).button('enable').on('click', function(){
+                            //$(that.options.buttons.add).button('enable');
+                            $(that.options.buttons.add).on('click', function(){
                                 that.addNewWidget();
                                 that.options.events.onAdd();
-                            }).button('disable');
+                            });
+                            //$(that.options.buttons.add).button('disable');
                         }
-                        if (that.options.buttons.add) {
-                            $(that.options.buttons.save).button('enable').on('click', function(){
+                        if (that.options.buttons.save) {
+                            //$(that.options.buttons.save).button('enable');
+                            $(that.options.buttons.save).on('click', function(){
                                 that.saveGrid();
                                 that.options.events.onSave(that.items);
-                            }).button('disable');
+                            });
+                            //$(that.options.buttons.save).button('disable');
                         }
                     };
                     that.setItemData = function(el, data){
@@ -327,13 +331,13 @@ $(function(){
     });
     $('#tumbler_edit-page').tumbler('bind',{
         on: function(){
-            $("#button_add-widget").button('enable');
-            $("#button_save-grid").button('enable');
+            $("#button_add-widget").button('show');
+            $("#button_save-grid").button('show');
             grid.widget_grid('editMode');
         },
         off: function(){
-            $("#button_add-widget").button('disable');
-            $("#button_save-grid").button('disable');
+            $("#button_add-widget").button('hide');
+            $("#button_save-grid").button('hide');
             grid.widget_grid('viewMode');
         }
     });
