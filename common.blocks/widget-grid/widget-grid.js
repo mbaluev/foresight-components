@@ -197,9 +197,7 @@
                                 ],
                                 data: item
                             };
-                            $('<div class="modal"></div>').appendTo('body')
-                                .modal(modal_options)
-                                .modal('show');
+                            $('<div class="modal"></div>').appendTo('body').modal(modal_options).modal('show');
                         });
                         item.widget.data().buttons.button_remove.on('click.widget-grid', function(){
                             that.removeWidget(item);
