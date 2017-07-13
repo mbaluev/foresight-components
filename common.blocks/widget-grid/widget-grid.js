@@ -15,7 +15,8 @@
                             onAdd: function(){},
                             onSave: function(){}
                         }
-                    }, that = this.obj = {};
+                    };
+                    var that = this.obj = {};
                     that.options = $.extend(defaults, options);
                     that.options_grid = {
                         cellHeight: 20,
@@ -26,16 +27,28 @@
                     that.data = self.data();
                     that.items = that.options.items;
                     that.widgets = [];
+                    that.const = {
+                        NO_DATA: 'Нет данных',
+                        ERROR_DATA: 'Ошибка загрузки',
+                        BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_PURPLE: '#8e6bf5',
+                        BORDER_COLOR_RED: '#ff5940',
+                        CONTENT_TYPE_TEXT: 'text',
+                        CONTENT_TYPE_HTML: 'html',
+                        CONTENT_TYPE_AJAX: 'ajax',
+                        CONTENT_TYPE_COUNT: 'count'
+                    };
 
                     that.template = function(node){
-                        return $(
+                        var $template = $(
                             '<div>'+
                                 '<div class="grid-stack-item-content">' +
                                     '<div class="widget" data-fc="widget">' +
                                         '<div class="widget__header">' +
                                             '<div class="widget__header-name">' +
                                                 '<button class="button button_collapse" type="button" data-fc="button">' +
-                                                    '<span class="button__text">' + node.name + '</span>' +
+                                                    '<span class="button__text">' + node.settings.name + '</span>' +
                                                     '<span class="icon icon_svg_down"></span>' +
                                                     '<span class="button__anim"></span>' +
                                                 '</button>' +
@@ -52,37 +65,151 @@
                                             '</div>' +
                                         '</div>' +
                                         '<div class="widget__border">' +
-                                            '<div class="widget__body">' +
+                                            '<div class="widget__body widget__body_align_center">' +
+                                                '<div class="widget__body_data"></div>' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
-                            '</div>');
+                            '</div>'),
+                            $border = $template.find('.widget__border'),
+                            $body = $template.find('.widget__body'),
+                            $bodydata = $template.find('.widget__body_data');
+
+                        if (node.settings.content_type === that.const.CONTENT_TYPE_TEXT) {
+                            $bodydata.addClass('widget__body_data_text');
+                        }
+                        if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
+                            $bodydata.addClass('widget__body_data_ajax');
+                        }
+                        if (node.settings.content_type === that.const.CONTENT_TYPE_HTML) {
+                            $bodydata.addClass('widget__body_data_html');
+                        }
+                        if (node.settings.content_type === that.const.CONTENT_TYPE_COUNT) {
+                            $bodydata.addClass('widget__body_data_count');
+                        }
+
+                        if (node.settings.content === that.const.NO_DATA) {
+                            $border.addClass('widget__border_default');
+                            $bodydata.addClass('widget__body_data_color_nodata');
+                            $bodydata.text(that.const.NO_DATA);
+                        } else {
+                            if (node.settings.color === that.const.BORDER_COLOR_BLUE) {
+                                $border.addClass('widget__border_blue');
+                                $bodydata.addClass('widget__body_data_color_blue');
+                            }
+                            if (node.settings.color === that.const.BORDER_COLOR_DEFAULT) {
+                                $border.addClass('widget__border_default');
+                                $bodydata.addClass('widget__body_data_color_default');
+                            }
+                            if (node.settings.color === that.const.BORDER_COLOR_PURPLE) {
+                                $border.addClass('widget__border_purple');
+                                $bodydata.addClass('widget__body_data_color_purple');
+                            }
+                            if (node.settings.color === that.const.BORDER_COLOR_RED) {
+                                $border.addClass('widget__border_red');
+                                $bodydata.addClass('widget__body_data_color_red');
+                            }
+                            if (node.settings.content_type === that.const.CONTENT_TYPE_TEXT) {
+                                $bodydata.text(node.settings.content);
+                            }
+                            if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
+                                $.ajax({
+                                    url: node.settings.content,
+                                    type: node.settings.ajax.ajax_type,
+                                    dataType: node.settings.ajax.ajax_dataType,
+                                    cache: node.settings.ajax.ajax_cache,
+                                    data: node.settings.ajax.ajax_data,
+                                    success: function(data, textStatus, jqXHR) {
+                                        $bodydata.addClass('widget__body_data_html');
+                                        $bodydata.html(data);
+                                    },
+                                    error: function(){
+                                        $border.addClass('widget__border_red');
+                                        $bodydata.addClass('widget__body_data_text');
+                                        $bodydata.addClass('widget__body_data_color_red');
+                                        $bodydata.text(that.const.ERROR_DATA);
+                                    }
+                                });
+                            }
+                            if (node.settings.content_type === that.const.CONTENT_TYPE_COUNT) {
+                                $bodydata.text(node.settings.content);
+                            }
+                            if (node.settings.content_type === that.const.CONTENT_TYPE_HTML) {
+                                $bodydata.html(node.settings.content);
+                            }
+                        }
+
+                        return $template;
                     };
                     that.createWidget = function(node){
+                        var default_settings = {
+                            name: 'Виджет',
+                            collapsed: false,
+                            color: that.const.BORDER_COLOR_DEFAULT,
+                            content_type: that.const.CONTENT_TYPE_TEXT,
+                            content: that.const.NO_DATA
+                        };
+                        var default_settings_ajax = {
+                            type: 'post',
+                            dataType: 'json',
+                            cache: false,
+                            data: {}
+                        };
+                        node.settings = $.extend(true, {}, default_settings, node.settings);
+                        if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
+                            node.settings.ajax = $.extend(true, {}, default_settings_ajax, node.settings.ajax);
+                        }
                         var el = that.template(node);
                         var item = {
-                            el: el,
-                            node: node,
-                            name: node.name,
-                            height: node.height,
-                            collapsed: node.collapsed,
-                            widget: null
+                            _height: node.height,
+                            settings: node.settings,
+                            widget: null,
+                            el: el
                         };
 
                         item.widget = el.find('[data-fc="widget"]');
                         item.widget.widget();
+                        item.widget.data().buttons.button_settings.on('click.widget-grid', function(){
+                            var modal_options = {
+                                name: 'Настройки',
+                                caption: item.settings.name,
+                                buttons: {
+                                    save: {
+                                        onSave: function(item){ console.log(item); }
+                                    },
+                                    close: {
+                                        onClose: function(item){ console.log(item); }
+                                    }
+                                },
+                                tabs: [
+                                    {
+                                        name: 'Основные настройки',
+                                        content: {
+                                            field: {
+                                                caption: 'Название',
+                                                control: 'input',
+                                                datafield: 'settings.name',
+                                                isrequired: true
+                                            }
+                                        }
+                                    }
+                                ],
+                                data: item
+                            };
+                            $('<div class="modal"></div>').appendTo('body')
+                                .modal(modal_options)
+                                .modal('show');
+                        });
                         item.widget.data().buttons.button_remove.on('click.widget-grid', function(){
                             that.removeWidget(item);
                         });
                         item.widget.data().buttons.button_collapse.off('.widget');
                         item.widget.data().buttons.button_collapse.on('click.widget-grid', function(){
-                            if (item.collapsed) {
+                            if (item.settings.collapsed) {
                                 that.expandWidget(item, true);
-                                that.saveGrid();
                             } else {
                                 that.collapseWidget(item, true);
-                                that.saveGrid();
                             }
                         });
                         item.widget.widget('editMode');
@@ -100,7 +227,7 @@
                     };
                     that.collapseWidget = function(item, saveState){
                         if (saveState) {
-                            item.collapsed = true;
+                            item.settings.collapsed = true;
                             that.setItemData(item.el, {item: item});
                         }
                         that.updateWidget(item.el, 1);
@@ -108,20 +235,22 @@
                     };
                     that.expandWidget = function(item, saveState){
                         if (saveState) {
-                            item.collapsed = false;
+                            item.settings.collapsed = false;
                             that.setItemData(item.el, {item: item});
                         }
-                        that.updateWidget(item.el, item.height);
+                        that.updateWidget(item.el, item._height);
                         item.widget.widget('expand');
                     };
                     that.addNewWidget = function () {
                         var node = {
                             x: 0,
                             y: 0,
-                            width: 6,
-                            height: 3,
-                            name: "Новый виджет",
-                            collapsed: false
+                            width: 2,
+                            height: 4,
+                            settings: {
+                                name: "Новый виджет",
+                                collapsed: false
+                            }
                         };
                         that.createWidget(node);
                     };
@@ -134,8 +263,7 @@
                                 y: node.y,
                                 width: node.width,
                                 height: node.height,
-                                name: node.item.name,
-                                collapsed: node.item.collapsed
+                                settings: node.item.settings
                             };
                         }, this);
                     };
@@ -158,9 +286,9 @@
                     };
                     that.viewMode = function(){
                         _.each(that.widgets, function (item) {
-                            item.height = that.getItemData(item.el).height;
+                            item._height = that.getItemData(item.el).height;
                             item.widget.widget('viewMode');
-                            if (item.collapsed) {
+                            if (item.settings.collapsed) {
                                 that.collapseWidget(item, false);
                             } else {
                                 that.expandWidget(item, false);
@@ -188,20 +316,16 @@
                     };
                     that.bindButtons = function(){
                         if (that.options.buttons.add) {
-                            //$(that.options.buttons.add).button('enable');
                             $(that.options.buttons.add).on('click', function(){
                                 that.addNewWidget();
                                 that.options.events.onAdd();
                             });
-                            //$(that.options.buttons.add).button('disable');
                         }
                         if (that.options.buttons.save) {
-                            //$(that.options.buttons.save).button('enable');
                             $(that.options.buttons.save).on('click', function(){
                                 that.saveGrid();
                                 that.options.events.onSave(that.items);
                             });
-                            //$(that.options.buttons.save).button('disable');
                         }
                     };
                     that.setItemData = function(el, data){
@@ -253,68 +377,68 @@ $(function(){
     var grid = $('#widget-grid').widget_grid({
         items: [
             {
-                x: 4,
-                y: 0,
-                width: 4,
-                height: 4,
-                name: "Виджет 1",
-                collapsed: false
-            },
-            {
-                x: 8,
-                y: 0,
-                width: 4,
-                height: 3,
-                name: "Виджет 3",
-                collapsed: false
-            },
-            {
-                x: 4,
-                y: 7,
-                width: 4,
-                height: 3,
-                name: "Виджет 2",
-                collapsed: false
-            },
-            {
                 x: 0,
                 y: 0,
-                width: 2,
-                height: 10,
-                name: "Новый виджет",
-                collapsed: false
+                width: 3,
+                height: 8,
+                settings: {
+                    name: "Текст",
+                    collapsed: false,
+                    content: 'Диаграмма'
+                }
             },
             {
-                x: 2,
-                y: 4,
-                width: 6,
-                height: 3,
-                name: "Новый виджет",
-                collapsed: false
-            },
-            {
-                x: 2,
+                x: 9,
                 y: 0,
-                width: 2,
-                height: 4,
-                name: "Новый виджет",
-                collapsed: false
+                width: 3,
+                height: 8,
+                settings: {
+                    name: "Html (см. консоль)",
+                    collapsed: false,
+                    content_type: 'html',
+                    content: '<div style="background-color: #eee; height: 100px; width: 100%;"></div><div style="background-color: #ddd; height: 100px; width: 100%;"></div><div style="background-color: #ccc; height: 100px; width: 100%;"></div><script>console.log("скрипт: " + 123);</script>'
+                }
             },
             {
-                x: 8,
-                y: 3,
-                width: 4,
-                height: 7,
-                name: "Новый виджет",
-                collapsed: false
+                x: 3,
+                y: 0,
+                width: 3,
+                height: 8,
+                settings: {
+                    name: "AJAX",
+                    collapsed: false,
+                    content_type: 'ajax',
+                    content: 'http://ya.ru',
+                    ajax: {
+                        type: 'get',
+                        dataType: 'json',
+                        cache: false,
+                        data: {}
+                    }
+                }
             },
             {
-                x: 2,
-                y: 7,
-                width: 2,
+                x: 6,
+                y: 0,
+                width: 3,
+                height: 11,
+                settings: {
+                    name: "Количество",
+                    collapsed: false,
+                    content_type: 'count',
+                    content: 5,
+                    color: '#5a97f2'
+                }
+            },
+            {
+                x: 9,
+                y: 8,
+                width: 3,
                 height: 3,
-                name: "Новый виджет",
-                collapsed: false
+                settings: {
+                    name: "Пустой виджет",
+                    collapsed: false
+                }
             }
         ],
         account: 'fa',
@@ -325,8 +449,13 @@ $(function(){
             save: '#button_save-grid'
         },
         events: {
-            onAdd: function(){ console.log('add new widget') },
-            onSave: function(items){ console.log('saveGrid'); console.log(items); }
+            onAdd: function(){
+                console.log('add new widget');
+            },
+            onSave: function(items){
+                console.log('save grid');
+                console.log(items);
+            }
         }
     });
     $('#tumbler_edit-page').tumbler('bind',{

@@ -4,6 +4,7 @@
     padding-top: 10px;
     height: 100%;
     box-sizing: border-box;
+    overflow: hidden;
 }
 
 .widget__header {
@@ -11,6 +12,7 @@
     top: 0;
     left: 0;
     width: 100%;
+    z-index: 1;
 
     display: flex;
     justify-content: space-between;
@@ -30,12 +32,74 @@
     border: solid 1px #ccc;
     box-sizing: border-box;
     height: 100%;
+    overflow: hidden;
+}
+.widget__border_blue {
+    border-color: #5a97f2;
+}
+.widget__border_default {
+    border-color: #ccc;
+}
+.widget__border_purple {
+    border-color: #8e6bf5;
+}
+.widget__border_red {
+    border-color: #ff5940;
 }
 
 .widget__body {
     height: 100%;
     background-color: #fff;
+    overflow: hidden;
+    position: relative;
 }
+.widget__body.widget__body_align_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.widget__body_data {
+    padding: 20px 10px 10px;
+    box-sizing: border-box;
+}
+.widget__body_data_text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.widget__body_data_ajax {
+}
+.widget__body_data_html {
+    position: absolute;
+    top: 20px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0;
+    overflow: auto;
+}
+.widget__body_data_count {
+    font-size: 40px;
+    font-style: italic;
+}
+
+.widget__body_data_color_nodata {
+    color: #aaa;
+}
+.widget__body_data_color_blue {
+    color: #5a97f2;
+}
+.widget__body_data_color_default {
+    color: #333;
+}
+.widget__body_data_color_purple {
+    color: #8e6bf5;
+}
+.widget__body_data_color_red {
+    color: #ff5940;
+}
+
 
 .widget__header .button {
     font-size: 15px;
@@ -62,6 +126,7 @@
 .widget .button_collapse .icon {
     transition: 0.5s;
 }
+
 .widget.widget_collapsed .button_collapse .icon {
     transform: rotate(-90deg);
 }
@@ -69,8 +134,12 @@
     height: 0;
     border-bottom: none;
 }
+.widget.widget_collapsed .widget__body {
+    display: none;
+    visibility: hidden;
+}
 
 .ui-draggable-dragging .widget__border,
 .ui-resizable-resizing .widget__border{
-    border: solid 1px #5a97f2;
+    border-color: #5a97f2 !important;
 }

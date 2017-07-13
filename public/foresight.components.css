@@ -952,6 +952,12 @@ body {
   border: none;
 }
 
+.link_nowrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .link_code {
   font-family: 'Courier New',monospace;
 }
@@ -1038,6 +1044,7 @@ body {
   padding-top: 10px;
   height: 100%;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .widget__header {
@@ -1045,6 +1052,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1073,11 +1081,90 @@ body {
   border: solid 1px #ccc;
   box-sizing: border-box;
   height: 100%;
+  overflow: hidden;
+}
+
+.widget__border_blue {
+  border-color: #5a97f2;
+}
+
+.widget__border_default {
+  border-color: #ccc;
+}
+
+.widget__border_purple {
+  border-color: #8e6bf5;
+}
+
+.widget__border_red {
+  border-color: #ff5940;
 }
 
 .widget__body {
   height: 100%;
   background-color: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.widget__body.widget__body_align_center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.widget__body_data {
+  padding: 20px 10px 10px;
+  box-sizing: border-box;
+}
+
+.widget__body_data_text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+.widget__body_data_html {
+  position: absolute;
+  top: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.widget__body_data_count {
+  font-size: 40px;
+  font-style: italic;
+}
+
+.widget__body_data_color_nodata {
+  color: #aaa;
+}
+
+.widget__body_data_color_blue {
+  color: #5a97f2;
+}
+
+.widget__body_data_color_default {
+  color: #333;
+}
+
+.widget__body_data_color_purple {
+  color: #8e6bf5;
+}
+
+.widget__body_data_color_red {
+  color: #ff5940;
 }
 
 .widget__header .button {
@@ -1119,9 +1206,14 @@ body {
   border-bottom: none;
 }
 
+.widget.widget_collapsed .widget__body {
+  display: none;
+  visibility: hidden;
+}
+
 .ui-draggable-dragging .widget__border,
 .ui-resizable-resizing .widget__border {
-  border: solid 1px #5a97f2;
+  border-color: #5a97f2 !important;
 }
 
 .checkbox {
@@ -1504,6 +1596,16 @@ body {
   bottom: 0;
   left: 0;
   background: #58c9f3;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9000;
+  background-color: rgba(0,0,0,.25);
 }
 
 /*
