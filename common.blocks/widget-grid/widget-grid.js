@@ -172,32 +172,36 @@
                         item.widget.widget();
                         item.widget.data().buttons.button_settings.on('click.widget-grid', function(){
                             var modal_options = {
-                                name: 'Настройки',
-                                caption: item.settings.name,
-                                buttons: {
-                                    save: {
-                                        onSave: function(item){ console.log(item); }
-                                    },
-                                    close: {
-                                        onClose: function(item){ console.log(item); }
-                                    }
-                                },
-                                tabs: [
-                                    {
-                                        name: 'Основные настройки',
-                                        content: {
-                                            field: {
-                                                caption: 'Название',
-                                                control: 'input',
-                                                datafield: 'settings.name',
-                                                isrequired: true
-                                            }
+                                header: {
+                                    icon: 'icon_svg_settings',
+                                    caption: 'Настройки',
+                                    name: item.settings.name,
+                                    buttons: [
+                                        {
+                                            name: 'save',
+                                            action: 'save',
+                                            icon: 'icon_svg_settings',
+                                            caption: 'Сохранить',
+                                            event: function(item){ console.log(item); },
+                                        },
+                                        {
+                                            name: 'close',
+                                            action: 'destroy',
+                                            icon: 'icon_svg_close',
+                                            event: function(item){ console.log(item); },
                                         }
-                                    }
-                                ],
+                                    ]
+                                },
+                                content: {
+                                    tabs: [
+                                        { id: "main", name: 'Основные', active: true },
+                                        { id: "datasource", name: 'Источник данных' },
+                                        { id: "drolldown", name: 'Дриллдаун' }
+                                    ]
+                                },
                                 data: item
                             };
-                            $('<div class="modal"></div>').appendTo('body').modal(modal_options).modal('show');
+                            $('<span class="modal"></span>').appendTo('body').modal(modal_options);
                         });
                         item.widget.data().buttons.button_remove.on('click.widget-grid', function(){
                             that.removeWidget(item);
@@ -391,7 +395,7 @@ $(function(){
                 width: 3,
                 height: 8,
                 settings: {
-                    name: "Html (см. консоль)",
+                    name: "Html",
                     collapsed: false,
                     content_type: 'html',
                     content: '<div style="background-color: #eee; height: 100px; width: 100%;"></div><div style="background-color: #ddd; height: 100px; width: 100%;"></div><div style="background-color: #ccc; height: 100px; width: 100%;"></div><script>console.log("скрипт: " + 123);</script>'

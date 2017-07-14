@@ -1,0 +1,124 @@
+.card {
+    font-family: ProximaNova-Regular;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    position: relative;
+
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.card__header {
+    z-index: 2;
+    position: relative;
+
+    flex: 0 0 auto;
+    overflow: hidden;
+    background-color: #fafafa;
+}
+
+.card__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+.card__header-column {
+    display: inline-flex;
+}
+.card__header-column:first-child {
+    padding-left: 10px;
+}
+.card__header-column > * {
+    flex-wrap: nowrap;
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.card__caption {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    color: #999;
+    border: 0;
+    outline: 0;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 13px;
+    line-height: 30px;
+}
+.card__caption_hidden {
+    display: none;
+    visibility: hidden;
+}
+.card__caption-text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+}
+.card__caption .icon {
+    opacity: 0.5;
+    width: 20px;
+    position: relative;
+}
+.card__caption .icon + .card__caption-text {
+    margin-left: 5px;
+}
+
+.card__name {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    color: #333;
+    border: 0;
+    outline: 0;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 20px;
+    line-height: 30px;
+}
+.card__name_hidden {
+    display: none;
+    visibility: hidden;
+}
+.card__name-text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+    font-size: 20px;
+    line-height: 30px;
+}
+.card__name .icon {
+    width: 20px;
+    position: relative;
+}
+.card__name .icon + .card__name-text {
+    margin-left: 5px;
+}
+
+.card__header .alertbox:before,
+.card__header .button:before,
+.card__header .checkbox:before {
+    background-color: #fafafa;
+}
+
+.card__main {
+    z-index: 1;
+    position: relative;
+
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+
