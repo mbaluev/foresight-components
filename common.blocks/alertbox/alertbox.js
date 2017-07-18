@@ -68,7 +68,13 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                             that.destroy();
                         })
                     };
+                    that.init_components = function(){
+                        if (typeof that.button[0] != "undefined") {
+                            that.button.button();
+                        }
+                    };
                     that.init = function(){
+                        that.init_components();
                         that.bind();
                         if (that.data.disabled) {
                             that.disable();

@@ -291,7 +291,6 @@
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
                     <div class="fs-view__middle-inner">
-
                         <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
 
                         <div class="article" data-title="widget" id="widget">
@@ -307,17 +306,17 @@
                                 <div class="widget__header">
                                     <div class="widget__header-name">
                                         <button class="button button_collapse" type="button" data-fc="button">
-                                            <span class="button__text">Виджет</span>
+                                            <span class="button__text">Тестируем виджет</span>
                                             <span class="icon icon_svg_down"></span>
                                             <span class="button__anim"></span>
                                         </button>
                                     </div>
                                     <div class="widget__header-actions">
-                                        <button class="button" type="button" data-fc="button">
+                                        <button class="button button_settings" type="button" data-fc="button">
                                             <span class="icon icon_svg_settings"></span>
                                             <span class="button__anim"></span>
                                         </button>
-                                        <button class="button" type="button" data-fc="button">
+                                        <button class="button button_remove" type="button" data-fc="button">
                                             <span class="icon icon_svg_trash"></span>
                                             <span class="button__anim"></span>
                                         </button>
@@ -1110,7 +1109,7 @@
         <div class="modal__view">
             <div class="modal__backdrop"></div>
             <div class="modal__dialog modal__dialog_hidden">
-                <div class="card">
+                <div class="card" data-fc="card">
                     <div class="card__header">
                         <div class="card__header-row">
                             <div class="card__header-column">
@@ -1136,22 +1135,38 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="card__header-row tabs">
+                        <div class="card__header-row tabs" data-fc="tabs">
                             <ul class="tabs__list">
                                 <li class="tabs__tab tabs__tab_active">
-                                    <button class="button" data-fc="button">
-                                        <span class="button__text">Основные</span>
-                                        <span class="button__anim"></span>
-                                    </button>
+                                    <a class="tabs__link link" href="#general">
+                                        <button class="button" data-fc="button">
+                                            <span class="button__text">Основные</span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                    </a>
                                 </li>
                                 <li class="tabs__tab">
-                                    <button class="button" data-fc="button">
-                                        <span class="button__text">Источник данных</span>
-                                        <span class="button__anim"></span>
-                                    </button>
+                                    <a class="tabs__link link" href="#datasource">
+                                        <button class="button" data-fc="button">
+                                            <span class="button__text">Источник данных</span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                    </a>
                                 </li>
                             </ul>
                         </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__middle">
+                            <div class="card__middle-scroll">
+                                <div class="card__middle-inner">
+                                    <div class="tabs__pane tabs__pane_active" id="general">Основные</div>
+                                    <div class="tabs__pane" id="datasource">Источник данных</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card__backdrop"></div>
+                        <div class="card__right"></div>
                     </div>
                 </div>
             </div>

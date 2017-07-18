@@ -5,6 +5,7 @@
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
+                    var that = this.obj = {};
                     var defaults = {
                         items: [],
                         account: '',
@@ -14,237 +15,71 @@
                         events: {
                             onAdd: function(){},
                             onSave: function(){}
+                        },
+                        grid: {
+                            cellHeight: 20,
+                            disableDrag: true,
+                            disableResize: true,
+                            resizable: { handles: 'e, se, s, sw, w' }
                         }
                     };
-                    var that = this.obj = {};
                     that.options = $.extend(defaults, options);
-                    that.options_grid = {
-                        cellHeight: 20,
-                        disableDrag: true,
-                        disableResize: true,
-                        resizable: { handles: 'e, se, s, sw, w' }
-                    };
                     that.data = self.data();
-                    that.items = that.options.items;
-                    that.widgets = [];
-                    that.const = {
-                        NO_DATA: 'Нет данных',
-                        ERROR_DATA: 'Ошибка загрузки',
-                        BORDER_COLOR_BLUE: '#5a97f2',
-                        BORDER_COLOR_DEFAULT: '#ccc',
-                        BORDER_COLOR_PURPLE: '#8e6bf5',
-                        BORDER_COLOR_RED: '#ff5940',
-                        CONTENT_TYPE_TEXT: 'text',
-                        CONTENT_TYPE_HTML: 'html',
-                        CONTENT_TYPE_AJAX: 'ajax',
-                        CONTENT_TYPE_COUNT: 'count'
-                    };
+                    that._nodes = [];
+                    that._nodesCount = 0;
 
-                    that.template = function(node){
-                        var $template = $(
-                            '<div>'+
-                                '<div class="grid-stack-item-content">' +
-                                    '<div class="widget" data-fc="widget">' +
-                                        '<div class="widget__header">' +
-                                            '<div class="widget__header-name">' +
-                                                '<button class="button button_collapse" type="button" data-fc="button">' +
-                                                    '<span class="button__text">' + node.settings.name + '</span>' +
-                                                    '<span class="icon icon_svg_down"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                            '</div>' +
-                                            '<div class="widget__header-actions">' +
-                                                '<button class="button button_settings" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_settings"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                                '<button class="button button_remove" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_trash"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="widget__border">' +
-                                            '<div class="widget__body widget__body_align_center">' +
-                                                '<div class="widget__body_data"></div>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
-                                '</div>' +
-                            '</div>'),
-                            $border = $template.find('.widget__border'),
-                            $body = $template.find('.widget__body'),
-                            $bodydata = $template.find('.widget__body_data');
-
-                        if (node.settings.content_type === that.const.CONTENT_TYPE_TEXT) {
-                            $bodydata.addClass('widget__body_data_text');
-                        }
-                        if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
-                            $bodydata.addClass('widget__body_data_ajax');
-                        }
-                        if (node.settings.content_type === that.const.CONTENT_TYPE_HTML) {
-                            $bodydata.addClass('widget__body_data_html');
-                        }
-                        if (node.settings.content_type === that.const.CONTENT_TYPE_COUNT) {
-                            $bodydata.addClass('widget__body_data_count');
-                        }
-
-                        if (node.settings.content === that.const.NO_DATA) {
-                            $border.addClass('widget__border_default');
-                            $bodydata.addClass('widget__body_data_color_nodata');
-                            $bodydata.text(that.const.NO_DATA);
-                        } else {
-                            if (node.settings.color === that.const.BORDER_COLOR_BLUE) {
-                                $border.addClass('widget__border_blue');
-                                $bodydata.addClass('widget__body_data_color_blue');
-                            }
-                            if (node.settings.color === that.const.BORDER_COLOR_DEFAULT) {
-                                $border.addClass('widget__border_default');
-                                $bodydata.addClass('widget__body_data_color_default');
-                            }
-                            if (node.settings.color === that.const.BORDER_COLOR_PURPLE) {
-                                $border.addClass('widget__border_purple');
-                                $bodydata.addClass('widget__body_data_color_purple');
-                            }
-                            if (node.settings.color === that.const.BORDER_COLOR_RED) {
-                                $border.addClass('widget__border_red');
-                                $bodydata.addClass('widget__body_data_color_red');
-                            }
-                            if (node.settings.content_type === that.const.CONTENT_TYPE_TEXT) {
-                                $bodydata.text(node.settings.content);
-                            }
-                            if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
-                                $.ajax({
-                                    url: node.settings.content,
-                                    type: node.settings.ajax.ajax_type,
-                                    dataType: node.settings.ajax.ajax_dataType,
-                                    cache: node.settings.ajax.ajax_cache,
-                                    data: node.settings.ajax.ajax_data,
-                                    success: function(data, textStatus, jqXHR) {
-                                        $bodydata.addClass('widget__body_data_html');
-                                        $bodydata.html(data);
-                                    },
-                                    error: function(){
-                                        $border.addClass('widget__border_red');
-                                        $bodydata.addClass('widget__body_data_text');
-                                        $bodydata.addClass('widget__body_data_color_red');
-                                        $bodydata.text(that.const.ERROR_DATA);
-                                    }
-                                });
-                            }
-                            if (node.settings.content_type === that.const.CONTENT_TYPE_COUNT) {
-                                $bodydata.text(node.settings.content);
-                            }
-                            if (node.settings.content_type === that.const.CONTENT_TYPE_HTML) {
-                                $bodydata.html(node.settings.content);
-                            }
-                        }
-
-                        return $template;
-                    };
                     that.createWidget = function(node){
-                        var default_settings = {
-                            name: 'Виджет',
-                            collapsed: false,
-                            color: that.const.BORDER_COLOR_DEFAULT,
-                            content_type: that.const.CONTENT_TYPE_TEXT,
-                            content: that.const.NO_DATA
-                        };
-                        var default_settings_ajax = {
-                            type: 'post',
-                            dataType: 'json',
-                            cache: false,
-                            data: {}
-                        };
-                        node.settings = $.extend(true, {}, default_settings, node.settings);
-                        if (node.settings.content_type === that.const.CONTENT_TYPE_AJAX) {
-                            node.settings.ajax = $.extend(true, {}, default_settings_ajax, node.settings.ajax);
-                        }
-                        var el = that.template(node);
-                        var item = {
-                            _height: node.height,
-                            settings: node.settings,
-                            widget: null,
-                            el: el
-                        };
+                        that._nodesCount++;
 
-                        item.widget = el.find('[data-fc="widget"]');
-                        item.widget.widget();
-                        item.widget.data().buttons.button_settings.on('click.widget-grid', function(){
-                            var modal_options = {
-                                header: {
-                                    icon: 'icon_svg_settings',
-                                    caption: 'Настройки',
-                                    name: item.settings.name,
-                                    buttons: [
-                                        {
-                                            name: 'save',
-                                            action: 'save',
-                                            icon: 'icon_svg_settings',
-                                            caption: 'Сохранить',
-                                            event: function(item){ console.log(item); },
-                                        },
-                                        {
-                                            name: 'close',
-                                            action: 'destroy',
-                                            icon: 'icon_svg_close',
-                                            event: function(item){ console.log(item); },
-                                        }
-                                    ]
-                                },
-                                content: {
-                                    tabs: [
-                                        { id: "main", name: 'Основные', active: true },
-                                        { id: "datasource", name: 'Источник данных' },
-                                        { id: "drolldown", name: 'Дриллдаун' }
-                                    ]
-                                },
-                                data: item
-                            };
-                            $('<span class="modal"></span>').appendTo('body').modal(modal_options);
-                        });
-                        item.widget.data().buttons.button_remove.on('click.widget-grid', function(){
-                            that.removeWidget(item);
-                        });
-                        item.widget.data().buttons.button_collapse.off('.widget');
-                        item.widget.data().buttons.button_collapse.on('click.widget-grid', function(){
-                            if (item.settings.collapsed) {
-                                that.expandWidget(item, true);
+                        node._id = that._nodesCount;
+                        node._height = node.height;
+                        node.widget = $('<div class="widget" id="widget' + that._nodesCount + '"></div>').widget(node.settings);
+                        node.el = $('<div><div class="grid-stack-item-content"></div></div>');
+                        _.unset(node, 'settings');
+
+                        node.el.find('.grid-stack-item-content').append(node.widget);
+
+                        node.widget.off('self.check_toggle');
+                        node.widget.data().buttons.button_collapse.off('click.widget');
+                        node.widget.data().buttons.button_collapse.on('click.widget-grid', function(){
+                            if (node.widget.data().options.collapsed) {
+                                that.expandWidget(node, true);
                             } else {
-                                that.collapseWidget(item, true);
+                                that.collapseWidget(node, true);
                             }
                         });
-                        item.widget.widget('editMode');
+                        node.widget.data().buttons.button_remove.on('click.widget-grid', function(){
+                            that.removeWidget(node);
+                        });
+                        node.widget.widget('editMode');
 
-                        that.grid.addWidget(el, node.x, node.y, node.width, node.height);
-                        that.widgets.push(item);
-                        that.setItemData(item.el, {item: item});
+                        that.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
+                        that._nodes.push(node);
+                        that.setItemData(node.el, node);
                     };
                     that.loadGrid = function(){
                         that.grid.removeAll();
-                        var items = GridStackUI.Utils.sort(that.items);
-                        _.each(items, function (node) {
-                            that.createWidget(node);
+                        var items = GridStackUI.Utils.sort(that.options.items);
+                        _.each(items, function(item) {
+                            that.createWidget(item);
                         });
                     };
-                    that.collapseWidget = function(item, saveState){
+                    that.collapseWidget = function(node, saveState){
                         if (saveState) {
-                            item.settings.collapsed = true;
-                            that.setItemData(item.el, {item: item});
+                            node.widget.data().options.collapsed = true;
                         }
-                        that.updateWidget(item.el, 1);
-                        item.widget.widget('collapse');
+                        that.updateWidget(node.el, 1);
+                        node.widget.widget('collapse');
                     };
-                    that.expandWidget = function(item, saveState){
+                    that.expandWidget = function(node, saveState){
                         if (saveState) {
-                            item.settings.collapsed = false;
-                            that.setItemData(item.el, {item: item});
+                            node.widget.data().options.collapsed = false;
                         }
-                        that.updateWidget(item.el, item._height);
-                        item.widget.widget('expand');
+                        that.updateWidget(node.el, node._height);
+                        node.widget.widget('expand');
                     };
-                    that.addNewWidget = function () {
-                        var node = {
+                    that.addNewWidget = function() {
+                        var item = {
                             x: 0,
                             y: 0,
                             width: 2,
@@ -254,10 +89,10 @@
                                 collapsed: false
                             }
                         };
-                        that.createWidget(node);
+                        that.createWidget(item);
                     };
-                    that.saveGrid = function () {
-                        that.items = _.map(self.children('.grid-stack-item:visible'), function (el) {
+                    that.saveGrid = function() {
+                        that.options.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
                             el = $(el);
                             var node = that.getItemData(el);
                             return {
@@ -265,42 +100,42 @@
                                 y: node.y,
                                 width: node.width,
                                 height: node.height,
-                                settings: node.item.settings
+                                settings: node.widget.data().options
                             };
                         }, this);
                     };
-                    that.clearGrid = function () {
+                    that.clearGrid = function() {
                         that.grid.removeAll();
                     };
-                    that.removeWidget = function(item) {
-                        that.grid.removeWidget(item.el);
-                        that.widgets = that.widgets.filter(function(d){ return d.el !== item.el; });
+                    that.removeWidget = function(node) {
+                        that.grid.removeWidget(node.el);
+                        that._nodes = that._nodes.filter(function(d){ return d._id !== node._id; });
                     };
                     that.updateWidget = function(el, height){
                         that.grid.update(el, null, null, null, height);
                     };
                     that.editMode = function(){
-                        _.each(that.widgets, function (item) {
-                            item.widget.widget('editMode');
-                            that.expandWidget(item, false);
+                        _.each(that._nodes, function(node) {
+                            node.widget.widget('editMode');
+                            that.expandWidget(node, false);
                         });
                         that.enableGrid();
                     };
                     that.viewMode = function(){
-                        _.each(that.widgets, function (item) {
-                            item._height = that.getItemData(item.el).height;
-                            item.widget.widget('viewMode');
-                            if (item.settings.collapsed) {
-                                that.collapseWidget(item, false);
+                        _.each(that._nodes, function(node) {
+                            node._height = that.getItemData(node.el).height;
+                            node.widget.widget('viewMode');
+                            if (node.widget.data().options.collapsed) {
+                                that.collapseWidget(node, false);
                             } else {
-                                that.expandWidget(item, false);
+                                that.expandWidget(node, false);
                             }
                         });
                         that.disableGrid();
                     };
                     that.createGrid = function(){
                         if (self.hasClass('grid-stack')) {
-                            self.gridstack(that.options_grid);
+                            self.gridstack(that.options.grid);
                             that.grid = self.data('gridstack');
                             return true;
                         } else {
@@ -326,7 +161,7 @@
                         if (that.options.buttons.save) {
                             $(that.options.buttons.save).on('click', function(){
                                 that.saveGrid();
-                                that.options.events.onSave(that.items);
+                                that.options.events.onSave(that.options.items);
                             });
                         }
                     };
@@ -376,73 +211,77 @@
 })( jQuery );
 
 $(function(){
-    var grid = $('#widget-grid').widget_grid({
-        items: [
-            {
-                x: 0,
-                y: 0,
-                width: 3,
-                height: 8,
-                settings: {
-                    name: "Текст",
-                    collapsed: false,
-                    content: 'Диаграмма'
-                }
-            },
-            {
-                x: 9,
-                y: 0,
-                width: 3,
-                height: 8,
-                settings: {
-                    name: "Html",
-                    collapsed: false,
-                    content_type: 'html',
-                    content: '<div style="background-color: #eee; height: 100px; width: 100%;"></div><div style="background-color: #ddd; height: 100px; width: 100%;"></div><div style="background-color: #ccc; height: 100px; width: 100%;"></div><script>console.log("скрипт: " + 123);</script>'
-                }
-            },
-            {
-                x: 3,
-                y: 0,
-                width: 3,
-                height: 8,
-                settings: {
-                    name: "AJAX",
-                    collapsed: false,
-                    content_type: 'ajax',
-                    content: 'http://ya.ru',
-                    ajax: {
-                        type: 'get',
-                        dataType: 'json',
-                        cache: false,
-                        data: {}
-                    }
-                }
-            },
-            {
-                x: 6,
-                y: 0,
-                width: 3,
-                height: 11,
-                settings: {
-                    name: "Количество",
-                    collapsed: false,
-                    content_type: 'count',
-                    content: 5,
-                    color: '#5a97f2'
-                }
-            },
-            {
-                x: 9,
-                y: 8,
-                width: 3,
-                height: 3,
-                settings: {
-                    name: "Пустой виджет",
-                    collapsed: false
-                }
+    var items = [
+        {
+            x: 0,
+            y: 0,
+            width: 3,
+            height: 8,
+            settings: {
+                name: "Текст",
+                collapsed: false,
+                content: 'Диаграмма'
             }
-        ],
+        },
+        {
+            x: 9,
+            y: 0,
+            width: 3,
+            height: 8,
+            settings: {
+                name: "Html",
+                collapsed: false,
+                content_type: 'html',
+                content:
+                '<div class="widget__body-data_paddings">' +
+                '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
+                '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
+                '<span class="button__text">Включить</span>' +
+                '</button>' +
+                '<input class="checkbox__input" type="checkbox" name="first" hidden/>' +
+                '</label>' +
+                '</div>'
+            }
+        },
+        {
+            x: 3,
+            y: 0,
+            width: 3,
+            height: 8,
+            settings: {
+                name: "Фиолетовый",
+                collapsed: false,
+                content_type: 'count',
+                content: 666,
+                color: '#8e6bf5'
+            }
+        },
+        {
+            x: 6,
+            y: 0,
+            width: 3,
+            height: 11,
+            settings: {
+                name: "Количество",
+                collapsed: false,
+                content_type: 'count',
+                content: 5,
+                color: '#5a97f2'
+            }
+        },
+        {
+            x: 9,
+            y: 8,
+            width: 3,
+            height: 3,
+            settings: {
+                name: "Пустой виджет",
+                collapsed: false
+            }
+        }
+    ];
+    var grid = $('#widget-grid').widget_grid({
+        items: items,
         account: 'fa',
         pagename: 'index',
         guid: '',

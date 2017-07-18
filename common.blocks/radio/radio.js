@@ -118,9 +118,15 @@
                             })
                         }
                     };
+                    that.init_components = function(){
+                        if (typeof that.button[0] != "undefined") {
+                            that.button.button();
+                        }
+                    };
                     that.init = function(){
                         that.data.name = that.input.attr('name');
                         that.data.value = that.input.attr('value');
+                        that.init_components();
                         that.bind();
                         if (that.data.checked) {
                             that.check();

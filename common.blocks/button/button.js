@@ -64,9 +64,11 @@
                         that.data.disabled = true;
                     };
                     that.hide = function(){
+                        self.removeClass('button_clicked_out');
                         self.addClass('button_hidden');
                     };
                     that.show = function(){
+                        self.removeClass('button_clicked_out');
                         self.removeClass('button_hidden');
                     };
                     that.bind = function(){

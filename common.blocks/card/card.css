@@ -122,3 +122,60 @@
     overflow: hidden;
 }
 
+.card__main_transition > * {
+    transition: 0.5s;
+}
+
+.card__right {
+    z-index: 3;
+    position: absolute;
+    width: 230px;
+    min-width: 230px;
+    max-width: 230px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    border-left: solid 1px #ddd;
+    background-color: #fff;
+}
+
+.card__right > * {
+    height: 100%;
+}
+
+.card__right_hidden {
+    margin-right: -230px;
+}
+
+.card__middle {
+    z-index: 1;
+    position: absolute;
+    height: 100%;
+    right: 230px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.card__middle_full {
+    right: 0;
+}
+
+.card__middle-scroll {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.card__middle-inner {
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.card__backdrop {
+    display: none;
+    visibility: hidden;
+}

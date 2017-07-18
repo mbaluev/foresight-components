@@ -1,9 +1,11 @@
 @media (max-width: 768px) {
+    .modal__view {
+        align-items: flex-start;
+    }
     .modal__dialog {
         max-width: 100%;
         margin-left: 10px;
         margin-right: 10px;
-        height: 300px;
         max-height: 100%;
     }
 }

@@ -42,3 +42,15 @@
 .tabs__tab_active .button:before {
     background-color: #fff;
 }
+.tabs__link {
+    display: inline-flex;
+}
+
+.tabs__pane {
+    display: none;
+    visibility: hidden;
+}
+.tabs__pane_active {
+    display: block;
+    visibility: visible;
+}
