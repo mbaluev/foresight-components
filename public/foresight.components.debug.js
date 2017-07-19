@@ -1107,12 +1107,10 @@ $(function(){
                             el.button.button('enable');
                             el.tabs__tab.removeClass('tabs__tab_active');
                             el.tabs__pane.removeClass('tabs__pane_active');
-                            el.tabs__pane.find('[data-fc="button"]').button('disable');
                         });
                         that.el.button.button('disable');
                         that.el.tabs__tab.addClass('tabs__tab_active');
                         that.el.tabs__pane.addClass('tabs__pane_active');
-                        that.el.tabs__pane.find('[data-fc="button"]').button('enable');
                     };
                     that.bind = function(){
                         that.el.tabs__link.on('click', function(e){
@@ -1595,27 +1593,12 @@ $(function(){
                                             '<span class="button-group" data-fc="button-group">' +
                                                 '<button class="button" type="button" data-fc="button">' +
                                                     '<span class="icon icon_svg_info"></span>' +
-                                                    '<span class="button__anim"></span>' +
                                                 '</button>' +
                                                 '<button class="button" type="button" data-fc="button">' +
                                                     '<span class="icon icon_svg_star_red"></span>' +
-                                                    '<span class="button__anim"></span>' +
                                                 '</button>' +
                                                 '<button class="button" type="button" data-fc="button">' +
                                                     '<span class="icon icon_svg_star_green"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_save"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_save_red"></span>' +
-                                                    '<span class="button__anim"></span>' +
-                                                '</button>' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_ok"></span>' +
-                                                    '<span class="button__anim"></span>' +
                                                 '</button>' +
                                             '</button>'
                                     }
