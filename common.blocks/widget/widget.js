@@ -190,7 +190,33 @@
                                     },
                                     {
                                         id: 'advanced', name: 'Расширенные',
-                                        content: 'Расширенные<br>настройки'
+                                        content:
+                                            '<span class="button-group" data-fc="button-group">' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_info"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_star_red"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_star_green"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_save"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_save_red"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                                '<button class="button" type="button" data-fc="button">' +
+                                                    '<span class="icon icon_svg_ok"></span>' +
+                                                    '<span class="button__anim"></span>' +
+                                                '</button>' +
+                                            '</button>'
                                     }
                                 ]
                             },
