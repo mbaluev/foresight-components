@@ -8,6 +8,7 @@
     min-height: 20px;
 }
 
+
 .widget__header {
     position: absolute;
     top: 0;
@@ -28,6 +29,7 @@
 }
 .widget__header-name > * {}
 .widget__header-actions > * {}
+
 
 .widget__border {
     border: solid 1px #ccc;
@@ -51,17 +53,19 @@
     border-color: #ff5940;
 }
 
+
 .widget__body {
     height: 100%;
     background-color: #fff;
     overflow: hidden;
     position: relative;
 }
-.widget__body.widget__body_align_center {
+.widget__body_align_center {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 
 .widget__body-data {
     padding: 20px 10px 10px;
@@ -87,9 +91,7 @@
     font-size: 40px;
     font-style: italic;
 }
-.widget__body-data_paddings {
-    padding: 20px 10px 10px;
-}
+
 
 .widget__body-data_color_nodata {
     color: #aaa;
@@ -105,6 +107,11 @@
 }
 .widget__body-data_color_red {
     color: #ff5940;
+}
+
+
+.widget__body-data-inner {
+    padding: 20px 10px 10px;
 }
 
 

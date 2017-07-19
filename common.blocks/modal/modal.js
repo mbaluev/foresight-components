@@ -21,7 +21,7 @@
                         },
                         content: {
                             tabs: [
-                                { id: "main", name: 'Основные' }
+                                { id: "general", name: 'Главная' }
                             ]
                         },
                         data: null
@@ -146,7 +146,7 @@
                         that.options.content.tabs.forEach(function(tab){
                             that.el.tabs__list.append($(
                                 (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
-                                    '<a class="tabs__link link" href="#' + tab.id + '">' +
+                                    '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
                                         '<button class="button" data-fc="button">' +
                                             '<span class="button__text">' + tab.name + '</span>' +
                                             '<span class="button__anim"></span>' +
@@ -158,7 +158,7 @@
                                 that.el.tabs_pane.clone()
                                     .attr('id', tab.id)
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))
-                                    .append($(tab.content)));
+                                    .html(tab.content));
                         });
                     };
                     that.init_components = function(){
@@ -167,7 +167,7 @@
                         self.find('[data-fc="checkbox"]').checkbox();
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
-                        //self.find('[data-fc="tabs"]').tabs();
+                        self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
                     };
@@ -176,6 +176,7 @@
                         self.find('.modal__backdrop').on('click', that.destroy);
                     };
                     that.init = function(){
+                        self.remove().appendTo('body');
                         if (self.children().length == 0) {
                             that.render_view();
                             that.render_header();
@@ -217,6 +218,8 @@
     };
 })( jQuery );
 
+/*
 $(function(){
     $('[data-fc="modal"]').modal();
 });
+*/

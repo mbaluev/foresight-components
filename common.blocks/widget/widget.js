@@ -24,12 +24,12 @@
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content_type: that.const.CONTENT_TYPE_TEXT,
                         content: that.const.NO_DATA,
-                        onSave: function(data){}
+                        onSave: null
                     };
                     that.options = $.extend(true, {}, that.defaults, options);
                     that.data = self.data();
 
-                    /* for widget-grid */
+                    /* public */
                     that.data.options = that.options;
                     that.data.buttons = {};
 
@@ -106,15 +106,15 @@
 
                         self.append($template);
                     };
-                    that.get_name = function(){
-                        that.data.options.name = that.data.buttons.button_collapse.find('.button__text').text();
-                    };
                     that.get_buttons = function(){
                         that.data.buttons = {
                             button_collapse: self.find('.button_collapse'),
                             button_settings: self.find('.button_settings'),
                             button_remove: self.find('.button_remove')
                         };
+                    };
+                    that.get_name = function(){
+                        that.data.options.name = that.data.buttons.button_collapse.find('.button__text').text();
                     };
 
                     that.destroy = function(){
@@ -150,7 +150,7 @@
                     that.settings = function(){
                         var modal_options = {
                             header: {
-                                caption: 'Настройки',
+                                caption: 'Настройки виджета',
                                 name: that.data.options.name,
                                 buttons: [
                                     {
@@ -161,10 +161,9 @@
                                             console.log(data);
                                             that.data.options = data;
                                             self.trigger('self.check_toggle');
-                                            if (typeof(that.options.onSave == "function")) {
+                                            if (typeof(that.options.onSave) == "function") {
                                                 that.options.onSave(data);
                                             }
-                                            that.data.buttons.button_collapse.find('.button__text').text(data.collapsed);
                                         }
                                     },
                                     {
@@ -186,10 +185,12 @@
                                         '</label>'
                                     },
                                     {
-                                        id: 'datasource', name: 'Источник данных'
+                                        id: 'datasource', name: 'Источник данных',
+                                        content: 'Источник данных'
                                     },
                                     {
-                                        id: 'advanced', name: 'Расширенные'
+                                        id: 'advanced', name: 'Расширенные',
+                                        content: 'Расширенные<br>настройки'
                                     }
                                 ]
                             },

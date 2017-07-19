@@ -51,6 +51,7 @@
                         that.data.disabled = false;
                     };
                     that.disable = function(){
+                        that.unhover();
                         self.removeClass('button_clicked_out');
                         self.addClass('button_disabled');
                         //save handlers and unbind events

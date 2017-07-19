@@ -149,6 +149,7 @@ $(function(){
                         that.data.disabled = false;
                     };
                     that.disable = function(){
+                        that.unhover();
                         self.removeClass('button_clicked_out');
                         self.addClass('button_disabled');
                         //save handlers and unbind events
@@ -530,9 +531,6 @@ $(function(){
                     var that = this.obj = {};
                     var defaults = {
                         items: [],
-                        account: '',
-                        pagename: '',
-                        guid: '',
                         buttons: {},
                         events: {
                             onAdd: function(){},
@@ -547,9 +545,19 @@ $(function(){
                     };
                     that.options = $.extend(defaults, options);
                     that.data = self.data();
-                    that._nodes = [];
                     that._nodesCount = 0;
 
+                    /* public */
+                    that.data._nodes = [];
+
+                    that.destroy = function(){
+                        that.clearGrid();
+                        _.each(that.data._nodes, function(node) {
+                            node.widget.widget('destroy');
+                        });
+                        self.data = null;
+                        self.remove();
+                    };
                     that.createWidget = function(node){
                         that._nodesCount++;
 
@@ -576,7 +584,7 @@ $(function(){
                         node.widget.widget('editMode');
 
                         that.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
-                        that._nodes.push(node);
+                        that.data._nodes.push(node);
                         that.setItemData(node.el, node);
                     };
                     that.loadGrid = function(){
@@ -631,20 +639,20 @@ $(function(){
                     };
                     that.removeWidget = function(node) {
                         that.grid.removeWidget(node.el);
-                        that._nodes = that._nodes.filter(function(d){ return d._id !== node._id; });
+                        that.data._nodes = that.data._nodes.filter(function(d){ return d._id !== node._id; });
                     };
                     that.updateWidget = function(el, height){
                         that.grid.update(el, null, null, null, height);
                     };
                     that.editMode = function(){
-                        _.each(that._nodes, function(node) {
+                        _.each(that.data._nodes, function(node) {
                             node.widget.widget('editMode');
                             that.expandWidget(node, false);
                         });
                         that.enableGrid();
                     };
                     that.viewMode = function(){
-                        _.each(that._nodes, function(node) {
+                        _.each(that.data._nodes, function(node) {
                             node._height = that.getItemData(node.el).height;
                             node.widget.widget('viewMode');
                             if (node.widget.data().options.collapsed) {
@@ -719,6 +727,11 @@ $(function(){
             return this.each(function() {
                 this.obj.saveGrid();
             });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
         }
     };
     $.fn.widget_grid = function( method ) {
@@ -752,10 +765,10 @@ $(function(){
             height: 8,
             settings: {
                 name: "Html",
-                collapsed: false,
+                collapsed: true,
                 content_type: 'html',
                 content:
-                '<div class="widget__body-data_paddings">' +
+                '<div class="widget__body-data-inner">' +
                 '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
                 '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
                 '<span class="button__text">Включить</span>' +
@@ -804,9 +817,6 @@ $(function(){
     ];
     var grid = $('#widget-grid').widget_grid({
         items: items,
-        account: 'fa',
-        pagename: 'index',
-        guid: '',
         buttons: {
             add: '#button_add-widget',
             save: '#button_save-grid'
@@ -860,12 +870,12 @@ $(function(){
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content_type: that.const.CONTENT_TYPE_TEXT,
                         content: that.const.NO_DATA,
-                        onSave: function(data){}
+                        onSave: null
                     };
                     that.options = $.extend(true, {}, that.defaults, options);
                     that.data = self.data();
 
-                    /* for widget-grid */
+                    /* public */
                     that.data.options = that.options;
                     that.data.buttons = {};
 
@@ -942,15 +952,15 @@ $(function(){
 
                         self.append($template);
                     };
-                    that.get_name = function(){
-                        that.data.options.name = that.data.buttons.button_collapse.find('.button__text').text();
-                    };
                     that.get_buttons = function(){
                         that.data.buttons = {
                             button_collapse: self.find('.button_collapse'),
                             button_settings: self.find('.button_settings'),
                             button_remove: self.find('.button_remove')
                         };
+                    };
+                    that.get_name = function(){
+                        that.data.options.name = that.data.buttons.button_collapse.find('.button__text').text();
                     };
 
                     that.destroy = function(){
@@ -986,7 +996,7 @@ $(function(){
                     that.settings = function(){
                         var modal_options = {
                             header: {
-                                caption: 'Настройки',
+                                caption: 'Настройки виджета',
                                 name: that.data.options.name,
                                 buttons: [
                                     {
@@ -997,10 +1007,9 @@ $(function(){
                                             console.log(data);
                                             that.data.options = data;
                                             self.trigger('self.check_toggle');
-                                            if (typeof(that.options.onSave == "function")) {
+                                            if (typeof(that.options.onSave) == "function") {
                                                 that.options.onSave(data);
                                             }
-                                            that.data.buttons.button_collapse.find('.button__text').text(data.collapsed);
                                         }
                                     },
                                     {
@@ -1022,10 +1031,12 @@ $(function(){
                                         '</label>'
                                     },
                                     {
-                                        id: 'datasource', name: 'Источник данных'
+                                        id: 'datasource', name: 'Источник данных',
+                                        content: 'Источник данных'
                                     },
                                     {
-                                        id: 'advanced', name: 'Расширенные'
+                                        id: 'advanced', name: 'Расширенные',
+                                        content: 'Расширенные<br>настройки'
                                     }
                                 ]
                             },
@@ -1829,7 +1840,7 @@ $(function(){
                         },
                         content: {
                             tabs: [
-                                { id: "main", name: 'Основные' }
+                                { id: "general", name: 'Главная' }
                             ]
                         },
                         data: null
@@ -1954,7 +1965,7 @@ $(function(){
                         that.options.content.tabs.forEach(function(tab){
                             that.el.tabs__list.append($(
                                 (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
-                                    '<a class="tabs__link link" href="#' + tab.id + '">' +
+                                    '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
                                         '<button class="button" data-fc="button">' +
                                             '<span class="button__text">' + tab.name + '</span>' +
                                             '<span class="button__anim"></span>' +
@@ -1966,7 +1977,7 @@ $(function(){
                                 that.el.tabs_pane.clone()
                                     .attr('id', tab.id)
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))
-                                    .append($(tab.content)));
+                                    .html(tab.content));
                         });
                     };
                     that.init_components = function(){
@@ -1975,7 +1986,7 @@ $(function(){
                         self.find('[data-fc="checkbox"]').checkbox();
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
-                        //self.find('[data-fc="tabs"]').tabs();
+                        self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
                     };
@@ -1984,6 +1995,7 @@ $(function(){
                         self.find('.modal__backdrop').on('click', that.destroy);
                     };
                     that.init = function(){
+                        self.remove().appendTo('body');
                         if (self.children().length == 0) {
                             that.render_view();
                             that.render_header();
@@ -2025,7 +2037,122 @@ $(function(){
     };
 })( jQuery );
 
+/*
 $(function(){
     $('[data-fc="modal"]').modal();
 });
+*/
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'tab', target : self });
+                    var defaults = {}, that = this.obj = {};
+                    that.options = $.extend(defaults, options);
+                    that.data = self.data();
 
+                    /* private */
+                    that.neighbors = [];
+                    that.el = {
+                        button: self.find('[data-fc="button"]'),
+                        tabs__tab: self.parent('.tabs__tab'),
+                        tabs__link: self,
+                        tabs__pane: $('.tabs__pane[id="' + self.attr('href').replace('#','') + '"]')
+                    };
+
+                    that.destroy = function(){
+                        that.neighbors.forEach(function(el){
+                            el.button.button('destroy');
+                        });
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.enable = function(){
+                        that.el.button.button('enable');
+                    };
+                    that.disable = function(){
+                        that.el.button.button('disable');
+                    };
+                    that.show = function(){
+                        that.neighbors.forEach(function(el){
+                            el.button.button('enable');
+                            el.tabs__tab.removeClass('tabs__tab_active');
+                            el.tabs__pane.removeClass('tabs__pane_active');
+                        });
+                        that.el.button.button('disable');
+                        that.el.tabs__tab.addClass('tabs__tab_active');
+                        that.el.tabs__pane.addClass('tabs__pane_active');
+                    };
+                    that.bind = function(){
+                        that.el.tabs__link.on('click', function(e){
+                            e.preventDefault();
+                            if (!that.el.tabs__tab.hasClass('tabs__tab_active')) {
+                                that.show();
+                            }
+                        });
+                    };
+                    that.check_active = function(){
+                        if (that.el.tabs__tab.hasClass('tabs__tab_active')) {
+                            that.show();
+                        }
+                    };
+                    that.get_neighbors = function(){
+                        self.closest('.tabs').find('.tabs__tab').each(function(){
+                            var t = $(this);
+                            var el = {
+                                button: t.find('[data-fc="button"]'),
+                                tabs__tab: t,
+                                tabs__link: t.find('.tabs__link'),
+                                tabs__pane: t.closest('.card').find('.tabs__pane[id="' + t.find('.tabs__link').attr('href').replace('#','') + '"]')
+                            };
+                            el.button.button();
+                            that.neighbors.push(el);
+                        });
+                    };
+                    that.init = function(){
+                        that.get_neighbors();
+                        that.bind();
+                        that.check_active();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+    };
+    $.fn.tabs = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.tabs' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="tab"]').tabs();
+});

@@ -293,6 +293,91 @@
                     <div class="fs-view__middle-inner">
                         <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
 
+                        <div class="article" data-title="modal" id="modal">
+                            <span class="modal" data-fc="modal"></span>
+                        </div>
+
+                        <div class="article" data-title="tabs" id="tabs">
+                            <div class="heading heading_2">tabs</div>
+                            <p class="paragraph paragraph_color_grey">Вкладки.</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">Вкладки в карточке / модальном окне</span>
+                            </div>
+
+                            <div class="card" data-fc="card" style="height: 250px;">
+                                <div class="card__header">
+                                    <div class="card__header-row">
+                                        <div class="card__header-column">
+                                            <label class="card__caption">
+                                                <span class="card__caption-text">Карточка</span>
+                                            </label>
+                                        </div>
+                                        <div class="card__header-column">
+                                            <button class="button" data-fc="button">
+                                                <span class="icon icon_svg_edit"></span>
+                                                <span class="button__anim"></span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card__header-row">
+                                        <div class="card__header-column">
+                                            <label class="card__name">
+                                                <span class="card__name-text">Название</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="card__header-row tabs">
+                                        <ul class="tabs__list">
+                                            <li class="tabs__tab tabs__tab_active">
+                                                <a class="tabs__link link" href="#general" data-fc="tab">
+                                                    <button class="button" data-fc="button">
+                                                        <span class="button__text">Основные</span>
+                                                        <span class="button__anim"></span>
+                                                    </button>
+                                                </a>
+                                            </li>
+                                            <li class="tabs__tab">
+                                                <a class="tabs__link link" href="#datasource" data-fc="tab">
+                                                    <button class="button" data-fc="button">
+                                                        <span class="button__text">Источник данных</span>
+                                                        <span class="button__anim"></span>
+                                                    </button>
+                                                </a>
+                                            </li>
+                                            <li class="tabs__tab">
+                                                <a class="tabs__link link" href="#advanced" data-fc="tab">
+                                                    <button class="button" data-fc="button">
+                                                        <span class="button__text">Расширенные</span>
+                                                        <span class="button__anim"></span>
+                                                    </button>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card__main">
+                                    <div class="card__middle card__middle_full">
+                                        <div class="card__middle-scroll">
+                                            <div class="card__middle-inner tabs__content">
+                                                <div class="tabs__pane tabs__pane_active" id="general">
+                                                    <label class="checkbox" data-fc="checkbox" data-field="collapsed">
+                                                        <input class="checkbox__input" type="checkbox" name="collapsed">
+                                                        <label class="checkbox__label">Скрывать по умолчанию</label>
+                                                    </label>
+                                                </div>
+                                                <div class="tabs__pane" id="datasource"></div>
+                                                <div class="tabs__pane" id="advanced"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card__backdrop"></div>
+                                    <div class="card__right"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="article" data-title="widget" id="widget">
                             <div class="heading heading_2">widget</div>
                             <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
@@ -1102,9 +1187,6 @@
     </div>
 
     <!--
-    <span class="modal" data-fc="modal"></span>
-    -->
-
     <span class="modal" data-fc="modal">
         <div class="modal__view">
             <div class="modal__backdrop"></div>
@@ -1114,7 +1196,7 @@
                         <div class="card__header-row">
                             <div class="card__header-column">
                                 <label class="card__caption">
-                                    <span class="card__caption-text">Настройка виджета</span>
+                                    <span class="card__caption-text">Модальное окно</span>
                                 </label>
                             </div>
                             <div class="card__header-column">
@@ -1131,7 +1213,7 @@
                         <div class="card__header-row">
                             <div class="card__header-column">
                                 <label class="card__name">
-                                    <span class="card__name-text">Календарь</span>
+                                    <span class="card__name-text">Карточка</span>
                                 </label>
                             </div>
                         </div>
@@ -1140,15 +1222,15 @@
                                 <li class="tabs__tab tabs__tab_active">
                                     <a class="tabs__link link" href="#general">
                                         <button class="button" data-fc="button">
-                                            <span class="button__text">Основные</span>
+                                            <span class="button__text">Главная</span>
                                             <span class="button__anim"></span>
                                         </button>
                                     </a>
                                 </li>
                                 <li class="tabs__tab">
-                                    <a class="tabs__link link" href="#datasource">
+                                    <a class="tabs__link link" href="#advance">
                                         <button class="button" data-fc="button">
-                                            <span class="button__text">Источник данных</span>
+                                            <span class="button__text">Вкладка 2</span>
                                             <span class="button__anim"></span>
                                         </button>
                                     </a>
@@ -1160,8 +1242,8 @@
                         <div class="card__middle">
                             <div class="card__middle-scroll">
                                 <div class="card__middle-inner">
-                                    <div class="tabs__pane tabs__pane_active" id="general">Основные</div>
-                                    <div class="tabs__pane" id="datasource">Источник данных</div>
+                                    <div class="tabs__pane tabs__pane_active" id="general">Основные настройки</div>
+                                    <div class="tabs__pane" id="advance">Расширенные настройки</div>
                                 </div>
                             </div>
                         </div>
@@ -1172,6 +1254,7 @@
             </div>
         </div>
     </span>
+    -->
 
     <script src="third/jquery-3.2.1.min.js"></script>
     <script src="third/jquery-ui.min.js"></script>

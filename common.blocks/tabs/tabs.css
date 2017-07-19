@@ -2,7 +2,7 @@
     display: block;
     padding: 15px 0 0 10px;
     box-sizing: border-box;
-    border-bottom: solid 1px #ddd;
+    border-bottom: solid 1px #ccc;
 }
 .tabs__list {
     list-style: none;
@@ -32,6 +32,7 @@
     border-radius: 3px 3px 0 0;
     background-color: #ddd;
 }
+.tabs__tab .button.button_disabled:before { display: block; }
 .tabs__tab .button.button_hovered { background-color: #aaa; }
 .tabs__tab .button:before {
     border-radius: 2px 2px 0 0;
@@ -39,6 +40,9 @@
     background-color: #fafafa;
 }
 
+.tabs__tab_active .button {
+    background-color: #ccc;
+}
 .tabs__tab_active .button:before {
     background-color: #fff;
 }

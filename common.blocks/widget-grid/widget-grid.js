@@ -8,9 +8,6 @@
                     var that = this.obj = {};
                     var defaults = {
                         items: [],
-                        account: '',
-                        pagename: '',
-                        guid: '',
                         buttons: {},
                         events: {
                             onAdd: function(){},
@@ -25,9 +22,19 @@
                     };
                     that.options = $.extend(defaults, options);
                     that.data = self.data();
-                    that._nodes = [];
                     that._nodesCount = 0;
 
+                    /* public */
+                    that.data._nodes = [];
+
+                    that.destroy = function(){
+                        that.clearGrid();
+                        _.each(that.data._nodes, function(node) {
+                            node.widget.widget('destroy');
+                        });
+                        self.data = null;
+                        self.remove();
+                    };
                     that.createWidget = function(node){
                         that._nodesCount++;
 
@@ -54,7 +61,7 @@
                         node.widget.widget('editMode');
 
                         that.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
-                        that._nodes.push(node);
+                        that.data._nodes.push(node);
                         that.setItemData(node.el, node);
                     };
                     that.loadGrid = function(){
@@ -109,20 +116,20 @@
                     };
                     that.removeWidget = function(node) {
                         that.grid.removeWidget(node.el);
-                        that._nodes = that._nodes.filter(function(d){ return d._id !== node._id; });
+                        that.data._nodes = that.data._nodes.filter(function(d){ return d._id !== node._id; });
                     };
                     that.updateWidget = function(el, height){
                         that.grid.update(el, null, null, null, height);
                     };
                     that.editMode = function(){
-                        _.each(that._nodes, function(node) {
+                        _.each(that.data._nodes, function(node) {
                             node.widget.widget('editMode');
                             that.expandWidget(node, false);
                         });
                         that.enableGrid();
                     };
                     that.viewMode = function(){
-                        _.each(that._nodes, function(node) {
+                        _.each(that.data._nodes, function(node) {
                             node._height = that.getItemData(node.el).height;
                             node.widget.widget('viewMode');
                             if (node.widget.data().options.collapsed) {
@@ -197,6 +204,11 @@
             return this.each(function() {
                 this.obj.saveGrid();
             });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
         }
     };
     $.fn.widget_grid = function( method ) {
@@ -230,10 +242,10 @@ $(function(){
             height: 8,
             settings: {
                 name: "Html",
-                collapsed: false,
+                collapsed: true,
                 content_type: 'html',
                 content:
-                '<div class="widget__body-data_paddings">' +
+                '<div class="widget__body-data-inner">' +
                 '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
                 '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
                 '<span class="button__text">Включить</span>' +
@@ -282,9 +294,6 @@ $(function(){
     ];
     var grid = $('#widget-grid').widget_grid({
         items: items,
-        account: 'fa',
-        pagename: 'index',
-        guid: '',
         buttons: {
             add: '#button_add-widget',
             save: '#button_save-grid'
