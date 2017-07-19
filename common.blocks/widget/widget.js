@@ -156,7 +156,7 @@
                                     {
                                         name: 'save',
                                         action: 'save',
-                                        caption: 'Применить',
+                                        icon: 'icon_svg_ok',
                                         event: function(data){
                                             console.log(data);
                                             that.data.options = data;
