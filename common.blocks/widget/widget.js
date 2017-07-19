@@ -191,17 +191,9 @@
                                     {
                                         id: 'advanced', name: 'Расширенные',
                                         content:
-                                            '<span class="button-group" data-fc="button-group">' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_info"></span>' +
-                                                '</button>' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_star_red"></span>' +
-                                                '</button>' +
-                                                '<button class="button" type="button" data-fc="button">' +
-                                                    '<span class="icon icon_svg_star_green"></span>' +
-                                                '</button>' +
-                                            '</button>'
+                                            '<span class="icon icon_svg_info"></span>' +
+                                            '<span class="icon icon_svg_star_red"></span>' +
+                                            '<span class="icon icon_svg_star_green"></span>'
                                     }
                                 ]
                             },
