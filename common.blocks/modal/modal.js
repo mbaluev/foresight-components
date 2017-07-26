@@ -213,6 +213,7 @@
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
+                        self.find('[data-fc="date-picker"]').date_picker();
                     };
                     that.init = function(){
                         self.remove().appendTo('body');

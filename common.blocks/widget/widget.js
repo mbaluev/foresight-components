@@ -270,18 +270,33 @@
                                         '</button>' +
                                         '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_BLUE + '" hidden/>' +
                                         '</label>' +
-                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'data-checked="true"' : '' ) + '>' +
-                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
-                                        '<span class="button__text">Фиолетовый</span>' +
-                                        '</button>' +
-                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_PURPLE + '" hidden/>' +
-                                        '</label>' +
                                         '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'data-checked="true"' : '' ) + '>' +
                                         '<button class="button button_toggable_radio" type="button" data-fc="button">' +
                                         '<span class="button__text">Красный</span>' +
                                         '</button>' +
                                         '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_RED + '" hidden/>' +
                                         '</label>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата создания</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
                                         '</span>' +
                                         '</div>' +
                                         '</div>'
@@ -304,6 +319,27 @@
                                         '</span>' +
                                         '</span>' +
                                         '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата редактирования</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
                                         '</div>'
                                     }
                                 ]
@@ -314,8 +350,9 @@
                             .modal(modal_options)
                             .on('save.fc.modal', function(){
                                 $(this).find('[data-field]').each(function(){
-                                    var t = $(this);
-                                    _.set(that.data, t.data('field'), t[t.data('fc').replace('-','_')]('value'));
+                                    var t = $(this),
+                                        val = t[t.data('fc').replace('-','_')]('value');
+                                    _.set(that.data, t.data('field'), val);
                                 });
                                 that.trigger_toggle();
                                 that.set_name();

@@ -1,4 +1,7 @@
 $(function(){
+    $('.fs-view__middle-scroll').on('scroll', function(){
+        $('[data-fc="date-picker"]').date_picker('hide');
+    })
     $('#button_toggle-menu').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu');
@@ -1171,6 +1174,7 @@ $(function(){
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
+                        self.find('[data-fc="date-picker"]').date_picker();
                     };
                     that.init = function(){
                         self.remove().appendTo('body');
@@ -2352,18 +2356,33 @@ $(function(){
                                         '</button>' +
                                         '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_BLUE + '" hidden/>' +
                                         '</label>' +
-                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'data-checked="true"' : '' ) + '>' +
-                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
-                                        '<span class="button__text">Фиолетовый</span>' +
-                                        '</button>' +
-                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_PURPLE + '" hidden/>' +
-                                        '</label>' +
                                         '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'data-checked="true"' : '' ) + '>' +
                                         '<button class="button button_toggable_radio" type="button" data-fc="button">' +
                                         '<span class="button__text">Красный</span>' +
                                         '</button>' +
                                         '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_RED + '" hidden/>' +
                                         '</label>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата создания</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
                                         '</span>' +
                                         '</div>' +
                                         '</div>'
@@ -2386,6 +2405,27 @@ $(function(){
                                         '</span>' +
                                         '</span>' +
                                         '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата редактирования</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
                                         '</div>'
                                     }
                                 ]
@@ -2396,8 +2436,9 @@ $(function(){
                             .modal(modal_options)
                             .on('save.fc.modal', function(){
                                 $(this).find('[data-field]').each(function(){
-                                    var t = $(this);
-                                    _.set(that.data, t.data('field'), t[t.data('fc').replace('-','_')]('value'));
+                                    var t = $(this),
+                                        val = t[t.data('fc').replace('-','_')]('value');
+                                    _.set(that.data, t.data('field'), val);
                                 });
                                 that.trigger_toggle();
                                 that.set_name();
@@ -2477,6 +2518,83 @@ $(function(){
 
 $(function(){
     $('[data-fc="widget"]').widget();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'date_picker', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        position: 'bottom left'
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._datepicker = null;
+
+                    that.destroy = function(){
+                        that.data._datepicker.destroy();
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.hide = function(){
+                        if (that.data._datepicker.visible)
+                            that.data._datepicker.hide();
+                    };
+                    that.show = function(){
+                        if (!that.data._datepicker.visible)
+                            that.data._datepicker.show();
+                    };
+
+                    that.init = function(){
+                        self.datepicker(that.data);
+                        that.data._datepicker = that.data.datepicker;
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        hide: function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show: function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        set: function() {
+            return this.each(function() {
+                this.obj.set();
+            });
+        }
+    };
+    $.fn.date_picker = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.date_picker' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="date-picker"]').date_picker();
 });
 (function($){
     var methods = {

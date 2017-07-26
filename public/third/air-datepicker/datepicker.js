@@ -723,13 +723,14 @@
         },
 
         _getDimensions: function ($el) {
-            var offset = $el.offset();
+            var offset = $el.offset(),
+                bodyOffset = $body.offset();
 
             return {
                 width: $el.outerWidth(),
                 height: $el.outerHeight(),
                 left: offset.left,
-                top: offset.top
+                top: offset.top - bodyOffset.top
             }
         },
 
