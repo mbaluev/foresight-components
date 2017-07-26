@@ -1,16 +1,7 @@
 @media (max-width: 768px) {
-    .card__right {
-        position: absolute;
-        top: 0;
-        right: 0;
-        height: 100%;
-    }
-    .card__right_hidden {
-        margin-right: -300px;
-    }
-    .card__middle {
-        right: 0;
-    }
+    .card__right {}
+    .card__right_hidden {}
+    .card__middle {}
     .card__middle-inner {}
     .card__backdrop {
         display: block;

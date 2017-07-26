@@ -44,7 +44,7 @@
     border-color: #ccc;
 }
 .widget__border_color_nodata {
-    border-color: #aaa;
+    border-color: #ccc;
 }
 .widget__border_color_purple {
     border-color: #8e6bf5;
@@ -68,28 +68,24 @@
 
 
 .widget__body-data {
-    padding: 20px 10px 10px;
     box-sizing: border-box;
 }
 .widget__body-data_type_text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.widget__body-data_type_ajax {
+    padding: 20px 10px 10px;
 }
 .widget__body-data_type_html {
-    position: absolute;
-    top: 20px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0;
-    overflow: auto;
+    padding: 20px 10px 10px;
 }
 .widget__body-data_type_count {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 40px;
     font-style: italic;
+    padding: 20px 10px 10px;
 }
 
 
@@ -110,14 +106,10 @@
 }
 
 
-.widget__body-data-inner {
-    padding: 20px 10px 10px;
-}
-
-
 .widget__header .button {
     font-size: 15px;
     line-height: 20px;
+    height: 20px;
     overflow: hidden;
 }
 .widget__header .button.button_clicked:before {
@@ -135,7 +127,9 @@
     cursor: default;
 }
 .widget__header .button.button_disabled > * {}
-
+.widget__header .button__text {
+    min-height: 20px;
+}
 
 .widget .button_collapse .icon {
     transition: 0.5s;

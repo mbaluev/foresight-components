@@ -5,8 +5,13 @@
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
                     self.data('_widget', { type: 'menu', target : self });
-                    var defaults = {}, that = this.obj = {};
-                    that.options = $.extend(defaults, options);
+                    var that = this.obj = {};
+                    that.defaults = {};
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
 
                     that.init = function() {
                         var $menu_item_list = self.find('.menu__item');

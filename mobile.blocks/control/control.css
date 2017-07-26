@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .control {
+        flex-direction: column;
+        padding-bottom: 15px;
+    }
+
+    .control__caption {
+        justify-content: flex-start;
+        width: auto;
+    }
+}

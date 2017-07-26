@@ -1,0 +1,31 @@
+.control {
+    display: flex;
+    padding-bottom: 10px;
+}
+
+.control__caption {
+    width: 230px;
+    min-width: 230px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 7px 0;
+    flex: 0 0 auto;
+}
+
+.control__text {
+    padding-right: 10px;
+}
+
+.control__icons {
+    padding-right: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.control__container {
+    flex: 1 1 auto;
+    line-height: 30px;
+}

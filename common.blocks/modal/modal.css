@@ -1,3 +1,9 @@
+.modal {}
+.modal_hidden {
+    display: none;
+    visibility: hidden;
+}
+
 .modal__view {
     position: fixed;
     top: 0;
@@ -10,7 +16,7 @@
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .modal__backdrop {
@@ -26,7 +32,7 @@
 .modal__dialog {
     position: relative;
     width: 700px;
-    height: 500px;
+    min-height: 200px;
     max-height: 100%;
     z-index: 2;
     background-color: #fff;
@@ -34,6 +40,9 @@
     overflow: hidden;
     transition: 0.25s;
     opacity: 1;
+
+    display: flex;
+    flex-direction: column;
 }
 .modal__dialog_hidden {
     margin-top: -100%;

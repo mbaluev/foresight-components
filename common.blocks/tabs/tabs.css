@@ -2,7 +2,6 @@
     display: block;
     padding: 15px 0 0 10px;
     box-sizing: border-box;
-    border-bottom: solid 1px #ccc;
 }
 .tabs__list {
     list-style: none;
@@ -13,11 +12,15 @@
 .tabs__tab {
     position: relative;
     margin-right: 10px;
-    display: inline-flex;
+    display: block;
+    margin-bottom: -1px;
 }
-.tabs__tab_active {
+.tabs__tab_active {}
+.tabs__tab_active .button:before {
+    bottom: 0;
+}
 
-}
+/*
 .tabs__tab_active:before {
     content: '';
     position: absolute;
@@ -27,16 +30,15 @@
     right: 1px;
     background-color: #fff;
 }
+*/
 
 .tabs__tab .button {
     border-radius: 3px 3px 0 0;
-    background-color: #ddd;
 }
 .tabs__tab .button.button_disabled:before { display: block; }
 .tabs__tab .button.button_hovered { background-color: #aaa; }
 .tabs__tab .button:before {
     border-radius: 2px 2px 0 0;
-    bottom: 0;
     background-color: #fafafa;
 }
 
@@ -47,12 +49,14 @@
     background-color: #fff;
 }
 .tabs__link {
-    display: inline-flex;
+    display: flex;
 }
 
 .tabs__pane {
     display: none;
     visibility: hidden;
+    padding: 20px;
+    box-sizing: border-box;
 }
 .tabs__pane_active {
     display: block;

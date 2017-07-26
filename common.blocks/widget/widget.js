@@ -11,7 +11,6 @@
                         ERROR_DATA: 'Ошибка загрузки',
                         BORDER_COLOR_BLUE: '#5a97f2',
                         BORDER_COLOR_DEFAULT: '#ccc',
-                        BORDER_COLOR_NODATA: '#aaa',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
                         CONTENT_TYPE_TEXT: 'text',
@@ -24,21 +23,42 @@
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content_type: that.const.CONTENT_TYPE_TEXT,
                         content: that.const.NO_DATA,
-                        onSave: null
+                        mode: ''
                     };
-                    that.options = $.extend(true, {}, that.defaults, options);
                     that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
 
-                    /* public */
-                    that.data.options = that.options;
-                    that.data.buttons = {};
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        buttons: {
+                            button_collapse: null,
+                            button_settings: null,
+                            button_remove: null
+                        }
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.buttons.button_collapse[0] != "undefined") {
+                            that.data._el.buttons.button_collapse.button('destroy');
+                        }
+                        if (typeof that.data._el.buttons.button_settings[0] != "undefined") {
+                            that.data._el.buttons.button_settings.button('destroy');
+                        }
+                        if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
+                            that.data._el.buttons.button_remove.button('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
 
                     that.render = function(){
                         var $template = $(
                                 '<div class="widget__header">' +
                                     '<div class="widget__header-name">' +
                                         '<button class="button button_collapse" type="button" data-fc="button">' +
-                                            '<span class="button__text">' + that.data.options.name + '</span>' +
+                                            '<span class="button__text">' + that.data.name + '</span>' +
                                             '<span class="icon icon_svg_down"></span>' +
                                             '<span class="button__anim"></span>' +
                                         '</button>' +
@@ -55,168 +75,262 @@
                                     '</div>' +
                                 '</div>' +
                                 '<div class="widget__border">' +
-                                    '<div class="widget__body widget__body_align_center">' +
+                                    '<div class="widget__body">' +
                                         '<div class="widget__body-data"></div>' +
                                     '</div>' +
                                 '</div>');
-                        var $border = $($template[1]);
-                        var $bodydata = $border.find('.widget__body-data');
 
-                        /* const.no_data */
-                        if (that.data.options.content === that.const.NO_DATA) {
-                            that.data.options.content_type = that.const.CONTENT_TYPE_TEXT;
-                            that.data.options.color = that.const.BORDER_COLOR_NODATA;
-                        }
-
-                        /* options.content_type */
-                        if (that.data.options.content_type === that.const.CONTENT_TYPE_COUNT) {
-                            $bodydata.addClass('widget__body-data_type_count');
-                            $bodydata.text(that.data.options.content);
-                        }
-                        if (that.data.options.content_type === that.const.CONTENT_TYPE_TEXT) {
-                            $bodydata.addClass('widget__body-data_type_text');
-                            $bodydata.text(that.data.options.content);
-                        }
-                        if (that.data.options.content_type === that.const.CONTENT_TYPE_HTML) {
-                            $bodydata.addClass('widget__body-data_type_html');
-                            $bodydata.html(that.data.options.content);
-                        }
-
-                        /* options.color */
-                        if (that.data.options.color === that.const.BORDER_COLOR_BLUE) {
-                            $border.addClass('widget__border_color_blue');
-                            $bodydata.addClass('widget__body-data_color_blue');
-                        }
-                        if (that.data.options.color === that.const.BORDER_COLOR_DEFAULT) {
-                            $border.addClass('widget__border_color_default');
-                            $bodydata.addClass('widget__body-data_color_default');
-                        }
-                        if (that.data.options.color === that.const.BORDER_COLOR_NODATA) {
-                            $border.addClass('widget__border_color_nodata');
-                            $bodydata.addClass('widget__body-data_color_nodata');
-                        }
-                        if (that.data.options.color === that.const.BORDER_COLOR_PURPLE) {
-                            $border.addClass('widget__border_color_purple');
-                            $bodydata.addClass('widget__body-data_color_purple');
-                        }
-                        if (that.data.options.color === that.const.BORDER_COLOR_RED) {
-                            $border.addClass('widget__border_color_red');
-                            $bodydata.addClass('widget__body-data_color_red');
+                        if (that.data.content === that.const.NO_DATA) {
+                            that.data.content_type = that.const.CONTENT_TYPE_TEXT;
+                            that.data.color = that.const.BORDER_COLOR_NODATA;
                         }
 
                         self.append($template);
+
+                        that.set_color();
+                        that.set_content();
                     };
+
                     that.get_buttons = function(){
-                        that.data.buttons = {
+                        that.data._el.buttons = {
                             button_collapse: self.find('.button_collapse'),
                             button_settings: self.find('.button_settings'),
                             button_remove: self.find('.button_remove')
                         };
                     };
                     that.get_name = function(){
-                        that.data.options.name = that.data.buttons.button_collapse.find('.button__text').text();
+                        that.data.name = that.data._el.buttons.button_collapse.find('.button__text').text();
                     };
 
-                    that.destroy = function(){
-                        if (typeof that.data.buttons.button_collapse[0] != "undefined") {
-                            that.data.buttons.button_collapse.button('destroy');
-                        }
-                        if (typeof that.data.buttons.button_settings[0] != "undefined") {
-                            that.data.buttons.button_settings.button('destroy');
-                        }
-                        if (typeof that.data.buttons.button_remove[0] != "undefined") {
-                            that.data.buttons.button_remove.button('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
+                    that.set_name = function(){
+                        that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
                     };
+                    that.set_color = function(){
+                        var $border = self.find('.widget__border'),
+                            $bodydata = self.find('.widget__body-data');
+                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_blue');
+                            $bodydata.addClass('widget__body-data_color_blue');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_default');
+                            $bodydata.addClass('widget__body-data_color_default');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_NODATA) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_nodata');
+                            $bodydata.addClass('widget__body-data_color_nodata');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_purple');
+                            $bodydata.addClass('widget__body-data_color_purple');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_RED) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_red');
+                            $bodydata.addClass('widget__body-data_color_red');
+                        }
+                    };
+                    that.set_content = function(){
+                        var $body = self.find('.widget__body'),
+                            $bodydata = self.find('.widget__body-data');
+                        if (that.data.content_type === that.const.CONTENT_TYPE_COUNT) {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_count');
+                            $bodydata.text(that.data.content);
+                        }
+                        if (that.data.content_type === that.const.CONTENT_TYPE_TEXT) {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_text');
+                            $bodydata.text(that.data.content);
+                        }
+                        if (that.data.content_type === that.const.CONTENT_TYPE_HTML) {
+                            $bodydata.addClass('widget__body-data_type_html');
+                            $bodydata.html(that.data.content);
+                        }
+                    };
+
                     that.collapse = function(){
                         self.addClass('widget_collapsed');
+                        that.data.collapsed = true;
                     };
                     that.expand = function(){
                         self.removeClass('widget_collapsed');
+                        that.data.collapsed = false;
                     };
                     that.toggle = function(){
                         self.toggleClass('widget_collapsed');
-                        that.data.options.collapsed = !that.data.options.collapsed;
+                        that.data.collapsed = !that.data.collapsed;
+                    };
+                    that.trigger_toggle = function(){
+                        self.trigger('toggle.widget');
                     };
                     that.check_toggle = function(){
-                        if (that.data.options.collapsed) {
+                        if (that.data.collapsed) {
                             that.collapse();
                         } else {
                             that.expand();
                         }
                     };
+
+                    that.edit_mode = function(){
+                        that.data._el.buttons.button_collapse.button('disable');
+                        that.data._el.buttons.button_settings.button('show').button('enable');
+                        that.data._el.buttons.button_remove.button('show').button('enable');
+                        that.data.mode = 'edit';
+                    };
+                    that.view_mode = function(){
+                        that.data._el.buttons.button_collapse.button('enable');
+                        that.data._el.buttons.button_settings.button('hide').button('disable');
+                        that.data._el.buttons.button_remove.button('hide').button('disable');
+                        that.data.mode = 'view';
+                    };
+
                     that.settings = function(){
                         var modal_options = {
+                            buttons: [
+                                {
+                                    name: 'save',
+                                    action: 'save',
+                                    icon: 'icon_svg_ok'
+                                },
+                                {
+                                    name: 'destroy',
+                                    action: 'destroy',
+                                    icon: 'icon_svg_close'
+                                }
+                            ],
                             header: {
                                 caption: 'Настройки виджета',
-                                name: that.data.options.name,
-                                buttons: [
-                                    {
-                                        name: 'save',
-                                        action: 'save',
-                                        icon: 'icon_svg_ok',
-                                        event: function(data){
-                                            console.log(data);
-                                            that.data.options = data;
-                                            self.trigger('self.check_toggle');
-                                            if (typeof(that.options.onSave) == "function") {
-                                                that.options.onSave(data);
-                                            }
-                                        }
-                                    },
-                                    {
-                                        name: 'close',
-                                        action: 'destroy',
-                                        icon: 'icon_svg_close'
-                                    }
-                                ]
+                                name: that.data.name
                             },
                             content: {
                                 tabs: [
                                     {
                                         id: 'general', name: 'Основные', active: true,
                                         content:
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Скрывать по умолчанию</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
                                         '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
-                                        (that.data.options.collapsed ? 'data-checked="true"' : '') + '>' +
+                                        (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
                                         '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
-                                        '<label class="checkbox__label">Скрывать по умолчанию</label>' +
-                                        '</label>'
-                                    },
-                                    {
-                                        id: 'datasource', name: 'Источник данных',
-                                        content: 'Источник данных'
+                                        '<label class="checkbox__label"></label>' +
+                                        '</label>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Заголовок</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-field="name">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" value="' + that.data.name + '">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Цвет</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">' +
+                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'data-checked="true"' : '' ) + '>' +
+                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
+                                        '<span class="button__text">Серый</span>' +
+                                        '</button>' +
+                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_DEFAULT + '" hidden/>' +
+                                        '</label>' +
+                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'data-checked="true"' : '' ) + '>' +
+                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
+                                        '<span class="button__text">Синий</span>' +
+                                        '</button>' +
+                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_BLUE + '" hidden/>' +
+                                        '</label>' +
+                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'data-checked="true"' : '' ) + '>' +
+                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
+                                        '<span class="button__text">Фиолетовый</span>' +
+                                        '</button>' +
+                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_PURPLE + '" hidden/>' +
+                                        '</label>' +
+                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'data-checked="true"' : '' ) + '>' +
+                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
+                                        '<span class="button__text">Красный</span>' +
+                                        '</button>' +
+                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_RED + '" hidden/>' +
+                                        '</label>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>'
                                     },
                                     {
                                         id: 'advanced', name: 'Расширенные',
                                         content:
-                                            '<span class="icon icon_svg_info"></span>' +
-                                            '<span class="icon icon_svg_star_red"></span>' +
-                                            '<span class="icon icon_svg_star_green"></span>'
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Источник данных</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-field="source">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" value="">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>'
                                     }
                                 ]
                             },
-                            data: that.data.options
+                            data: that.data
                         };
-                        $('<span class="modal"></span>').appendTo('body').modal(modal_options);
+                        $('<span class="modal"></span>').appendTo('body')
+                            .modal(modal_options)
+                            .on('save.fc.modal', function(){
+                                $(this).find('[data-field]').each(function(){
+                                    var t = $(this);
+                                    _.set(that.data, t.data('field'), t[t.data('fc').replace('-','_')]('value'));
+                                });
+                                that.trigger_toggle();
+                                that.set_name();
+                                that.set_color();
+                                $(this).modal('destroy');
+                            });
                     };
+
                     that.bind = function(){
-                        self.on('self.check_toggle', that.check_toggle);
-                        that.data.buttons.button_collapse.on('click.widget', that.toggle);
-                        that.data.buttons.button_settings.on('click.widget', that.settings);
-                        that.data.buttons.button_remove.on('click.widget', that.destroy);
+                        self.on('toggle.widget', that.check_toggle);
+                        that.data._el.buttons.button_collapse.on('click.widget', that.toggle);
+                        that.data._el.buttons.button_settings.on('click.widget', that.settings);
+                        that.data._el.buttons.button_remove.on('click.widget', that.destroy);
                     };
-                    that.editMode = function(){
-                        that.data.buttons.button_collapse.button('disable');
-                        that.data.buttons.button_settings.button('show').button('enable');
-                        that.data.buttons.button_remove.button('show').button('enable');
-                    };
-                    that.viewMode = function(){
-                        that.data.buttons.button_collapse.button('enable');
-                        that.data.buttons.button_settings.button('hide').button('disable');
-                        that.data.buttons.button_remove.button('hide').button('disable');
-                    };
+
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
                         self.find('[data-fc="checkbox"]').checkbox();
@@ -237,6 +351,11 @@
                 return this;
             });
         },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
         collapse : function() {
             return this.each(function() {
                 this.obj.collapse();
@@ -252,19 +371,14 @@
                 this.obj.toggle();
             });
         },
-        editMode : function() {
+        edit_mode : function() {
             return this.each(function() {
-                this.obj.editMode();
+                this.obj.edit_mode();
             });
         },
-        viewMode : function() {
+        view_mode : function() {
             return this.each(function() {
-                this.obj.viewMode();
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
+                this.obj.view_mode();
             });
         },
     };

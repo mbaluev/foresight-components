@@ -1,6 +1,5 @@
 .card {
     font-family: ProximaNova-Regular;
-    height: 100%;
     width: 100%;
     z-index: 99;
     position: relative;
@@ -15,8 +14,8 @@
     position: relative;
 
     flex: 0 0 auto;
-    overflow: hidden;
     background-color: #fafafa;
+    overflow: visible;
 }
 
 .card__header-row {
@@ -117,63 +116,26 @@
 .card__main {
     z-index: 1;
     position: relative;
-
     flex: 1 1 auto;
-    overflow: hidden;
+    border-top: solid 1px #ccc;
+
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
 }
 
 .card__main_transition > * {
     transition: 0.5s;
 }
 
-.card__right {
-    z-index: 3;
-    position: absolute;
-    width: 230px;
-    min-width: 230px;
-    max-width: 230px;
-    height: 100%;
-    right: 0;
-    top: 0;
-    overflow: hidden;
-    border-left: solid 1px #ddd;
-    background-color: #fff;
-}
+.card__right {}
+.card__right > * {}
+.card__right_hidden {}
 
-.card__right > * {
-    height: 100%;
-}
-
-.card__right_hidden {
-    margin-right: -230px;
-}
-
-.card__middle {
-    z-index: 1;
-    position: absolute;
-    height: 100%;
-    right: 230px;
-    top: 0;
-    left: 0;
-    overflow: hidden;
-}
-
-.card__middle_full {
-    right: 0;
-}
-
-.card__middle-scroll {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-}
-
-.card__middle-inner {
-    padding: 20px;
-    box-sizing: border-box;
-    position: relative;
-}
+.card__middle {}
+.card__middle_full {}
+.card__middle-scroll {}
+.card__middle-inner {}
 
 .card__backdrop {
     display: none;

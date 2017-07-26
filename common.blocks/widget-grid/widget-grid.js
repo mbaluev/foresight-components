@@ -6,12 +6,13 @@
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
                     var that = this.obj = {};
-                    var defaults = {
+                    that.defaults = {
+                        mode: 'view',
+                        disabled: true,
                         items: [],
-                        buttons: {},
-                        events: {
-                            onAdd: function(){},
-                            onSave: function(){}
+                        buttons: [],
+                        tumbler: {
+                            selector: ''
                         },
                         grid: {
                             cellHeight: 20,
@@ -20,12 +21,22 @@
                             resizable: { handles: 'e, se, s, sw, w' }
                         }
                     };
-                    that.options = $.extend(defaults, options);
                     that.data = self.data();
-                    that._nodesCount = 0;
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
 
-                    /* public */
-                    that.data._nodes = [];
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        grid: null,
+                        nodes: [],
+                        nodesCount: 0,
+                        tumbler: $(that.data.tumbler.selector)
+                    };
+                    that.data._triggers = {
+                        add: 'add.fc.widget-grid',
+                        save: 'save.fc.widget-grid'
+                    };
 
                     that.destroy = function(){
                         that.clearGrid();
@@ -35,57 +46,7 @@
                         self.data = null;
                         self.remove();
                     };
-                    that.createWidget = function(node){
-                        that._nodesCount++;
-
-                        node._id = that._nodesCount;
-                        node._height = node.height;
-                        node.widget = $('<div class="widget" id="widget' + that._nodesCount + '"></div>').widget(node.settings);
-                        node.el = $('<div><div class="grid-stack-item-content"></div></div>');
-                        _.unset(node, 'settings');
-
-                        node.el.find('.grid-stack-item-content').append(node.widget);
-
-                        node.widget.off('self.check_toggle');
-                        node.widget.data().buttons.button_collapse.off('click.widget');
-                        node.widget.data().buttons.button_collapse.on('click.widget-grid', function(){
-                            if (node.widget.data().options.collapsed) {
-                                that.expandWidget(node, true);
-                            } else {
-                                that.collapseWidget(node, true);
-                            }
-                        });
-                        node.widget.data().buttons.button_remove.on('click.widget-grid', function(){
-                            that.removeWidget(node);
-                        });
-                        node.widget.widget('editMode');
-
-                        that.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
-                        that.data._nodes.push(node);
-                        that.setItemData(node.el, node);
-                    };
-                    that.loadGrid = function(){
-                        that.grid.removeAll();
-                        var items = GridStackUI.Utils.sort(that.options.items);
-                        _.each(items, function(item) {
-                            that.createWidget(item);
-                        });
-                    };
-                    that.collapseWidget = function(node, saveState){
-                        if (saveState) {
-                            node.widget.data().options.collapsed = true;
-                        }
-                        that.updateWidget(node.el, 1);
-                        node.widget.widget('collapse');
-                    };
-                    that.expandWidget = function(node, saveState){
-                        if (saveState) {
-                            node.widget.data().options.collapsed = false;
-                        }
-                        that.updateWidget(node.el, node._height);
-                        node.widget.widget('expand');
-                    };
-                    that.addNewWidget = function() {
+                    that.add = function() {
                         var item = {
                             x: 0,
                             y: 0,
@@ -96,93 +57,174 @@
                                 collapsed: false
                             }
                         };
-                        that.createWidget(item);
+                        that.create_widget(item);
+                        self.trigger(that.data._triggers.add, [item]);
                     };
-                    that.saveGrid = function() {
-                        that.options.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
+                    that.save = function() {
+                        that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
                             el = $(el);
-                            var node = that.getItemData(el);
+                            var node = that.get(el);
                             return {
                                 x: node.x,
                                 y: node.y,
                                 width: node.width,
                                 height: node.height,
-                                settings: node.widget.data().options
+                                settings: node.widget.data()
                             };
                         }, this);
+                        self.trigger(that.data._triggers.save, [that.data.items]);
                     };
-                    that.clearGrid = function() {
-                        that.grid.removeAll();
+                    that.clear = function() {
+                        that.data._el.grid.removeAll();
                     };
-                    that.removeWidget = function(node) {
-                        that.grid.removeWidget(node.el);
-                        that.data._nodes = that.data._nodes.filter(function(d){ return d._id !== node._id; });
-                    };
-                    that.updateWidget = function(el, height){
-                        that.grid.update(el, null, null, null, height);
-                    };
-                    that.editMode = function(){
-                        _.each(that.data._nodes, function(node) {
-                            node.widget.widget('editMode');
-                            that.expandWidget(node, false);
+                    that.load = function(){
+                        that.data._el.grid.removeAll();
+                        var items = GridStackUI.Utils.sort(that.data.items);
+                        _.each(items, function(item) {
+                            that.create_widget(item);
                         });
-                        that.enableGrid();
                     };
-                    that.viewMode = function(){
-                        _.each(that.data._nodes, function(node) {
-                            node._height = that.getItemData(node.el).height;
-                            node.widget.widget('viewMode');
-                            if (node.widget.data().options.collapsed) {
-                                that.collapseWidget(node, false);
+
+                    that.create_widget = function(node){
+                        that.data._el.nodesCount++;
+
+                        node._id = that.data._el.nodesCount;
+                        node._height = node.height;
+                        node.widget = $('<div class="widget" id="widget' + that.data._el.nodesCount + '"></div>').widget(node.settings);
+                        node.el = $('<div><div class="grid-stack-item-content"></div></div>');
+                        _.unset(node, 'settings');
+
+                        node.el.find('.grid-stack-item-content').append(node.widget);
+
+                        node.widget.off('toggle.widget');
+                        node.widget.data()._el.buttons.button_collapse.off('click.widget');
+                        node.widget.data()._el.buttons.button_collapse.on('click.widget-grid', function(){
+                            if (node.widget.data().collapsed) {
+                                that.expand_widget(node, true);
                             } else {
-                                that.expandWidget(node, false);
+                                that.collapse_widget(node, true);
                             }
                         });
-                        that.disableGrid();
+                        node.widget.data()._el.buttons.button_remove.on('click.widget-grid', function(){
+                            that.remove_widget(node);
+                        });
+                        node.widget.widget('edit_mode');
+
+                        that.data._el.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
+                        that.data._el.nodes.push(node);
+                        that.set(node.el, node);
                     };
-                    that.createGrid = function(){
+                    that.collapse_widget = function(node, saveState){
+                        var _collapsed = node.widget.data().collapsed;
+                        that.update_widget(node.el, 1);
+                        node.widget.widget('collapse');
+                        if (!saveState) {
+                            node.widget.data().collapsed = _collapsed;
+                        }
+                    };
+                    that.expand_widget = function(node, saveState){
+                        var _collapsed = node.widget.data().collapsed;
+                        that.update_widget(node.el, node._height);
+                        node.widget.widget('expand');
+                        if (!saveState) {
+                            node.widget.data().collapsed = _collapsed;
+                        }
+                    };
+
+                    that.remove_widget = function(node) {
+                        that.data._el.grid.removeWidget(node.el);
+                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                    };
+                    that.update_widget = function(el, height){
+                        that.data._el.grid.update(el, null, null, null, height);
+                    };
+
+                    that.edit_mode = function(){
+                        that.data.mode = 'edit';
+                        _.each(that.data._el.nodes, function(node) {
+                            node.widget.widget('edit_mode');
+                            that.expand_widget(node, false);
+                        });
+                        that.enable();
+                    };
+                    that.view_mode = function(){
+                        that.data.mode = 'view';
+                        _.each(that.data._el.nodes, function(node) {
+                            node._height = that.get(node.el).height;
+                            node.widget.widget('view_mode');
+                            if (node.widget.data().collapsed) {
+                                that.collapse_widget(node, false);
+                            } else {
+                                that.expand_widget(node, false);
+                            }
+                        });
+                        that.disable();
+                    };
+
+                    that.create = function(){
                         if (self.hasClass('grid-stack')) {
-                            self.gridstack(that.options.grid);
-                            that.grid = self.data('gridstack');
+                            self.gridstack(that.data.grid);
+                            that.data._el.grid = self.data('gridstack');
                             return true;
                         } else {
                             $.error( 'Container does not have class .grid-stack' );
                             return false;
                         }
                     };
-                    that.enableGrid = function(){
-                        that.grid.enableMove(true, true);
-                        that.grid.enableResize(true, true);
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        that.data._el.grid.enableMove(true, true);
+                        that.data._el.grid.enableResize(true, true);
                     };
-                    that.disableGrid = function(){
-                        that.grid.enableMove(false, true);
-                        that.grid.enableResize(false, true);
+                    that.disable = function(){
+                        that.data.disabled = true;
+                        that.data._el.grid.enableMove(false, true);
+                        that.data._el.grid.enableResize(false, true);
                     };
-                    that.bindButtons = function(){
-                        if (that.options.buttons.add) {
-                            $(that.options.buttons.add).on('click', function(){
-                                that.addNewWidget();
-                                that.options.events.onAdd();
-                            });
-                        }
-                        if (that.options.buttons.save) {
-                            $(that.options.buttons.save).on('click', function(){
-                                that.saveGrid();
-                                that.options.events.onSave(that.options.items);
-                            });
-                        }
-                    };
-                    that.setItemData = function(el, data){
+
+                    that.set = function(el, data){
                         $.extend(el.data('_gridstack_node'), data);
                     };
-                    that.getItemData = function(el){
+                    that.get = function(el){
                         return el.data('_gridstack_node');
                     };
+
+                    that.bind_buttons = function(){
+                        that.data.buttons.forEach(function(button){
+                            var $button = $(button.selector);
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', function(){
+                                        that[button.action]();
+                                    });
+                                }
+                            }
+                        });
+                    };
+
+                    that.init_tumbler = function(){
+                        if (typeof that.data._el.tumbler[0] != "undefined") {
+                            that.data._el.tumbler
+                                .on('on.fc.tumbler', function(){
+                                    that.data.buttons.forEach(function(button){
+                                        $(button.selector).button('show');
+                                    });
+                                    that.edit_mode();
+                                })
+                                .on('off.fc.tumbler', function(){
+                                    that.data.buttons.forEach(function(button){
+                                        $(button.selector).button('hide');
+                                    });
+                                    that.view_mode();
+                                });
+                        }
+                    };
                     that.init = function(){
-                        if (that.createGrid()) {
-                            that.loadGrid();
-                            that.viewMode();
-                            that.bindButtons();
+                        if (that.create()) {
+                            that.load();
+                            that.view_mode();
+                            that.bind_buttons();
+                            that.init_tumbler();
                         }
                     };
                     that.init();
@@ -190,19 +232,19 @@
                 return this;
             });
         },
-        viewMode : function() {
+        view_mode : function() {
             return this.each(function() {
-                this.obj.viewMode();
+                this.obj.view_mode();
             });
         },
-        editMode : function() {
+        edit_mode : function() {
             return this.each(function() {
-                this.obj.editMode();
+                this.obj.edit_mode();
             });
         },
         save : function() {
             return this.each(function() {
-                this.obj.saveGrid();
+                this.obj.save();
             });
         },
         destroy : function() {
@@ -228,7 +270,7 @@ $(function(){
             x: 0,
             y: 0,
             width: 3,
-            height: 8,
+            height: 6,
             settings: {
                 name: "Текст",
                 collapsed: false,
@@ -236,30 +278,10 @@ $(function(){
             }
         },
         {
-            x: 9,
-            y: 0,
-            width: 3,
-            height: 8,
-            settings: {
-                name: "Html",
-                collapsed: true,
-                content_type: 'html',
-                content:
-                '<div class="widget__body-data-inner">' +
-                '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
-                '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
-                '<span class="button__text">Включить</span>' +
-                '</button>' +
-                '<input class="checkbox__input" type="checkbox" name="first" hidden/>' +
-                '</label>' +
-                '</div>'
-            }
-        },
-        {
             x: 3,
             y: 0,
             width: 3,
-            height: 8,
+            height: 6,
             settings: {
                 name: "Фиолетовый",
                 collapsed: false,
@@ -272,7 +294,7 @@ $(function(){
             x: 6,
             y: 0,
             width: 3,
-            height: 11,
+            height: 6,
             settings: {
                 name: "Количество",
                 collapsed: false,
@@ -283,7 +305,25 @@ $(function(){
         },
         {
             x: 9,
-            y: 8,
+            y: 0,
+            width: 3,
+            height: 3,
+            settings: {
+                name: "Html",
+                collapsed: true,
+                content_type: 'html',
+                content:
+                    '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
+                    '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
+                    '<span class="button__text">Включить</span>' +
+                    '</button>' +
+                    '<input class="checkbox__input" type="checkbox" name="first" hidden/>' +
+                    '</label>'
+            }
+        },
+        {
+            x: 9,
+            y: 3,
             width: 3,
             height: 3,
             settings: {
@@ -292,32 +332,42 @@ $(function(){
             }
         }
     ];
-    var grid = $('#widget-grid').widget_grid({
+    var widget_grid_options = {
         items: items,
-        buttons: {
-            add: '#button_add-widget',
-            save: '#button_save-grid'
-        },
-        events: {
-            onAdd: function(){
-                console.log('add new widget');
+        buttons: [
+            {
+                selector: '#button_add-widget',
+                action: 'add'
             },
-            onSave: function(items){
-                console.log('save grid');
-                console.log(items);
+            {
+                selector: '#button_save-grid',
+                action: 'save'
             }
+        ],
+        tumbler: {
+            selector: '#tumbler_edit-page'
         }
-    });
-    $('#tumbler_edit-page').tumbler('bind',{
-        on: function(){
+    };
+    var grid = $('#widget-grid')
+        .widget_grid(widget_grid_options)
+        .on('add.fc.widget-grid', function(e, data){
+            console.log(data);
+        })
+        .on('save.fc.widget-grid', function(e, data){
+            console.log(data);
+        });
+
+    /*
+    $('#tumbler_edit-page')
+        .on('on.fc.tumbler', function(){
             $("#button_add-widget").button('show');
             $("#button_save-grid").button('show');
-            grid.widget_grid('editMode');
-        },
-        off: function(){
+            grid.widget_grid('edit_mode');
+        })
+        .on('off.fc.tumbler', function(){
             $("#button_add-widget").button('hide');
             $("#button_save-grid").button('hide');
-            grid.widget_grid('viewMode');
-        }
-    });
+            grid.widget_grid('view_mode');
+        });
+    */
 });

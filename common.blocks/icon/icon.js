@@ -5,29 +5,37 @@
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
                     self.data('_widget', { type: 'icon__menu', target : self });
-                    var defaults = {}, that = this.obj = {};
-                    that.options = $.extend(defaults, options);
-                    that.el = {
+                    var that = this.obj = {};
+                    that.defaults = {};
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
                         ham: self,
                         menu_top: self.find('.icon__menu-top'),
                         menu_middle: self.find('.icon__menu-middle'),
                         menu_bottom: self.find('.icon__menu-bottom')
                     };
 
-                    that.init = function() {
-                        that.bind();
+                    that.toggle = function() {
+                        that.data._el.ham.toggleClass('icon__menu_click');
+                        that.data._el.menu_top.toggleClass('icon__menu-top_click');
+                        that.data._el.menu_middle.toggleClass('icon__menu-middle_click');
+                        that.data._el.menu_bottom.toggleClass('icon__menu-bottom_click');
                     };
+
                     that.bind = function() {
-                        that.el.ham.on('toggle.icon__menu', function(e){
+                        that.data._el.ham.on('toggle.icon__menu', function(e){
                             that.toggle(e);
                             e.preventDefault();
                         });
                     };
-                    that.toggle = function() {
-                        that.el.ham.toggleClass('icon__menu_click');
-                        that.el.menu_top.toggleClass('icon__menu-top_click');
-                        that.el.menu_middle.toggleClass('icon__menu-middle_click');
-                        that.el.menu_bottom.toggleClass('icon__menu-bottom_click');
+
+                    that.init = function() {
+                        that.bind();
                     };
                     that.init();
                 }

@@ -16,7 +16,7 @@
     font-size: 13px;
     line-height: 30px;
 }
-.alertbox.alertbox_hidden {
+.alertbox_hidden {
     display: none;
     visibility: hidden;
 }
@@ -38,7 +38,7 @@
     left: 0;
 }
 
-.alertbox .alertbox__text {
+.alertbox__text {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -49,25 +49,28 @@
     line-height: 30px;
 }
 
-.alertbox .icon {
-    width: 30px;
-    position: relative;
-}
+.alertbox .icon { width: 30px; position: relative; }
 
-.alertbox .alertbox__text + .icon,
-.alertbox .alertbox__text + .button { margin-left: -10px; }
+.alertbox__text + .icon,
+.alertbox__text + .button { margin-left: -10px; }
 .alertbox .icon + .alertbox__text,
 .alertbox .button + .alertbox__text { margin-left: 0px; }
 
-.alertbox .button:before { left: 0; }
-.alertbox .button.button_hovered { cursor: pointer; background-color: #ccc; }
-.alertbox .button.button_clicked:before { box-shadow: none; background-color: #fff; }
-.alertbox .button.button_hovered .icon { opacity: .75; }
-.alertbox .button.button_clicked .icon { opacity: .5; }
+.alertbox .button .icon { opacity: .5; }
 
-.alertbox.alertbox_color_red { color: #fff; }
-.alertbox.alertbox_color_red:before,
-.alertbox.alertbox_color_red .button:before {
+.alertbox .button:before { left: 0; }
+.alertbox .button_hovered { cursor: pointer; background-color: #ccc; }
+.alertbox .button_clicked:before { box-shadow: none; background-color: #fff; }
+.alertbox .button_hovered .icon { opacity: 1; }
+.alertbox .button_clicked .icon { opacity: .75; }
+
+.alertbox .button_disabled {
+    background-color: transparent;
+}
+
+.alertbox_color_red { color: #fff; }
+.alertbox_color_red:before,
+.alertbox_color_red .button:before {
     top: 0;
     right: 0;
     bottom: 0;
@@ -75,9 +78,9 @@
     background: #ff5940;
 }
 
-.alertbox.alertbox_color_blue { color: #fff; }
-.alertbox.alertbox_color_blue:before,
-.alertbox.alertbox_color_blue .button:before {
+.alertbox_color_blue { color: #fff; }
+.alertbox_color_blue:before,
+.alertbox_color_blue .button:before {
     top: 0;
     right: 0;
     bottom: 0;
@@ -85,9 +88,9 @@
     background: #4983c4;
 }
 
-.alertbox.alertbox_color_cyan { color: #fff; }
-.alertbox.alertbox_color_cyan:before,
-.alertbox.alertbox_color_cyan .button:before {
+.alertbox_color_cyan { color: #fff; }
+.alertbox_color_cyan:before,
+.alertbox_color_cyan .button:before {
     top: 0;
     right: 0;
     bottom: 0;

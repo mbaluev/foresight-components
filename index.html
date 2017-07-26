@@ -291,10 +291,227 @@
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
                     <div class="fs-view__middle-inner">
+
                         <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
 
                         <div class="article" data-title="modal" id="modal">
-                            <span class="modal" data-fc="modal"></span>
+                            <div class="modal"></div>
+                        </div>
+
+                        <div class="article" data-title="control" id="control">
+                            <div class="heading heading_2">control</div>
+                            <p class="paragraph paragraph_color_grey">Строка с контролом</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">С заголовком</span>
+                            </div>
+
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Название</div>
+                                    <div class="control__icons">
+                                        <span class="icon icon_svg_star_red"></span>
+                                        <span class="icon icon_svg_info"></span>
+                                    </div>
+                                </div>
+                                <div class="control__container">
+                                    <span class="input input__has-clear" data-fc="input">
+                                        <span class="input__box">
+                                            <input type="text" class="input__control" value="Проект 07-11-2016 11:15 (Chrome)">
+                                            <button class="button" type="button" data-fc="button">
+                                                <span class="icon icon_svg_close"></span>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Взаимодействие с другими проектами</div>
+                                    <div class="control__icons">
+                                        <span class="icon icon_svg_star_green"></span>
+                                    </div>
+                                </div>
+                                <div class="control__container">
+                                    <span class="input input__has-clear" data-fc="input">
+                                        <span class="input__box">
+                                            <input type="text" class="input__control" value="Привет">
+                                            <button class="button" type="button" data-fc="button">
+                                                <span class="icon icon_svg_close"></span>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Период реализации проекта</div>
+                                    <div class="control__icons">
+                                        <span class="icon icon_svg_star_green"></span>
+                                        <span class="icon icon_svg_info"></span>
+                                    </div>
+                                </div>
+                                <div class="control__container">
+                                    <span class="input input__has-clear" data-fc="input">
+                                        <span class="input__box">
+                                            <input type="text" class="input__control" value="07.12.2016 - 07.03.2017">
+                                            <button class="button" type="button" data-fc="button">
+                                                <span class="icon icon_svg_close"></span>
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Цвет</div>
+                                </div>
+                                <div class="control__container">
+                                    <span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">
+                                        <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                            <button class="button button_toggable_radio" type="button" data-fc="button">
+                                                <span class="button__text">Серый</span>
+                                            </button>
+                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                        </label>
+                                        <label class="radio radio_type_button" data-fc="radio">
+                                            <button class="button button_toggable_radio" type="button" data-fc="button">
+                                                <span class="button__text">Синий</span>
+                                            </button>
+                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                        </label>
+                                        <label class="radio radio_type_button" data-fc="radio">
+                                            <button class="button button_toggable_radio" type="button" data-fc="button">
+                                                <span class="button__text">Фиолетовый</span>
+                                            </button>
+                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                        </label>
+                                        <label class="radio radio_type_button" data-fc="radio">
+                                            <button class="button button_toggable_radio" type="button" data-fc="button">
+                                                <span class="button__text">Красный</span>
+                                            </button>
+                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Полный профиль</div>
+                                </div>
+                                <div class="control__container">
+                                    <label class="checkbox" data-fc="checkbox" data-checked="true">
+                                        <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                                        <label class="checkbox__label"></label>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control">
+                                <div class="control__caption">
+                                    <div class="control__text">Радио-группа</div>
+                                </div>
+                                <div class="control__container">
+                                    <span class="radio-group radio-group_type_line" data-fc="radio-group">
+                                        <label class="radio" data-fc="radio" data-checked="true">
+                                            <input class="radio__input" type="radio" name="radios-1" value="1" hidden>
+                                            <label class="radio__label">Проект</label>
+                                        </label>
+                                        <br>
+                                        <label class="radio" data-fc="radio">
+                                            <input class="radio__input" type="radio" name="radios-1" value="2" hidden>
+                                            <label class="radio__label">Портфель</label>
+                                        </label>
+                                        <br>
+                                        <label class="radio" data-fc="radio" data-disabled="true">
+                                            <input class="radio__input" type="radio" name="radios-1" value="3" hidden>
+                                            <label class="radio__label">Программа</label>
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article" data-title="widget" id="widget">
+                            <div class="heading heading_2">widget</div>
+                            <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">виджет</span>
+                            </div>
+
+                            <div class="widget" data-fc="widget">
+                                <div class="widget__header">
+                                    <div class="widget__header-name">
+                                        <button class="button button_collapse" type="button" data-fc="button">
+                                            <span class="button__text">Тестируем виджет</span>
+                                            <span class="icon icon_svg_down"></span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                    </div>
+                                    <div class="widget__header-actions">
+                                        <button class="button button_settings" type="button" data-fc="button">
+                                            <span class="icon icon_svg_settings"></span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                        <button class="button button_remove" type="button" data-fc="button">
+                                            <span class="icon icon_svg_trash"></span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="widget__border widget__border_color_default">
+                                    <div class="widget__body widget__body_align_center">
+                                        <div class="widget__body-data widget__body-data_color_default widget__body-data_type_count">xxx</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="article" data-title="input" id="input">
+                            <div class="heading heading_2">input</div>
+                            <p class="paragraph paragraph_color_grey">Поле ввода.</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">disabled</span>
+                            </div>
+
+                            <span class="input input__has-clear" data-fc="input" data-width="200" data-disabled="true">
+                                <span class="input__box">
+                                    <input type="text" class="input__control" value="Привет">
+                                    <button class="button" type="button" data-fc="button">
+                                        <span class="icon icon_svg_close"></span>
+                                    </button>
+                                </span>
+                            </span>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">200px</span>
+                            </div>
+
+                            <span class="input input__has-clear" data-fc="input" data-width="200">
+                                <span class="input__box">
+                                    <input type="text" class="input__control" value="Привет">
+                                    <button class="button" type="button" data-fc="button">
+                                        <span class="icon icon_svg_close"></span>
+                                    </button>
+                                </span>
+                            </span>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">На всю ширину</span>
+                            </div>
+
+                            <span class="input input__has-clear" data-fc="input">
+                                <span class="input__box">
+                                    <input type="text" class="input__control" value="Привет">
+                                    <button class="button" type="button" data-fc="button">
+                                        <span class="icon icon_svg_close"></span>
+                                    </button>
+                                </span>
+                            </span>
                         </div>
 
                         <div class="article" data-title="tabs" id="tabs">
@@ -306,7 +523,7 @@
                                 <span class="heading__info">Вкладки в карточке / модальном окне</span>
                             </div>
 
-                            <div class="card" data-fc="card" style="height: 250px;">
+                            <div class="card" data-fc="card">
                                 <div class="card__header">
                                     <div class="card__header-row">
                                         <div class="card__header-column">
@@ -374,43 +591,6 @@
                                     </div>
                                     <div class="card__backdrop"></div>
                                     <div class="card__right"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="article" data-title="widget" id="widget">
-                            <div class="heading heading_2">widget</div>
-                            <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">виджет</span>
-                            </div>
-
-                            <div class="widget" data-fc="widget">
-                                <div class="widget__header">
-                                    <div class="widget__header-name">
-                                        <button class="button button_collapse" type="button" data-fc="button">
-                                            <span class="button__text">Тестируем виджет</span>
-                                            <span class="icon icon_svg_down"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </div>
-                                    <div class="widget__header-actions">
-                                        <button class="button button_settings" type="button" data-fc="button">
-                                            <span class="icon icon_svg_settings"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                        <button class="button button_remove" type="button" data-fc="button">
-                                            <span class="icon icon_svg_trash"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="widget__border">
-                                    <div class="widget__body">
-                                        <br><br><br><br><br>
-                                    </div>
                                 </div>
                             </div>
                         </div>

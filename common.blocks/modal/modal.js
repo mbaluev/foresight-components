@@ -7,29 +7,33 @@
                     self.data('_widget', { type: 'modal', target : self });
                     var that = this.obj = {};
                     that.defaults = {
+                        buttons: [
+                            {
+                                name: 'destroy',
+                                action: 'destroy',
+                                icon: 'icon_svg_close'
+                            }
+                        ],
                         header: {
                             icon: 'icon_svg_settings',
                             caption: 'Модальное окно',
-                            name: 'Название',
-                            buttons: [
-                                {
-                                    name: 'close',
-                                    action: 'destroy',
-                                    icon: 'icon_svg_close'
-                                }
-                            ]
+                            name: 'Название'
                         },
                         content: {
                             tabs: [
                                 { id: "general", name: 'Главная' }
                             ]
                         },
-                        data: null
+                        data: null,
+                        show: true
                     };
-                    that.options = $.extend({}, that.defaults, options);
                     that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
 
-                    that.el = {
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
                         modal__view: $('<div class="modal__view"></div>'),
                         modal__backdrop: $('<div class="modal__backdrop"></div>'),
                         modal__dialog: $('<div class="modal__dialog modal__dialog_hidden"></div>'),
@@ -40,45 +44,63 @@
                         card__header_row_tabs: $('<div class="card__header-row tabs"></div>'),
                         tabs__list: $('<ul class="tabs__list"></ul>'),
                         card__main: $('<div class="card__main"></div>'),
-                        card__middle: $('<div class="card__middle card__middle_full"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
                         card__middle_inner: $('<div class="card__middle-inner"></div>'),
                         card__backdrop: $('<div class="card__backdrop"></div>'),
                         card__right: $('<div class="card__right"></div>'),
                         tabs_pane: $('<div class="tabs__pane"></div>')
                     };
+                    that.data._triggers = {
+                        show: 'show.fc.modal',
+                        shown: 'shown.fc.modal',
+                        hide: 'hide.fc.modal',
+                        hidden: 'hidden.fc.modal',
+                        loaded: 'loaded.fc.modal'
+                    };
 
                     that.destroy = function(){
                         that.hide();
-                        self.find('.modal__backdrop').remove();
                         setTimeout(function(){
                             self.data = null;
                             self.remove();
                         }, 500);
                     };
-                    that.save = function(){
-                        that.el.card__middle_inner.find('[data-field]').each(function(){
-                            var t = $(this);
-                            _.set(that.options.data, t.data('field'), t[t.data('fc')]('value'));
-                        });
-                    };
                     that.hide = function(){
+                        self.trigger(that.data._triggers.hide);
                         self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function(){
+                            self.addClass('modal_hidden');
+                        });
+                        self.trigger(that.data._triggers.hidden);
+                        that.data.show = false;
+                    };
+                    that.hidden = function(){
+                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        self.addClass('modal_hidden');
+                        that.data.show = false;
                     };
                     that.show = function(){
-                        self.find('.modal__dialog').removeClass('modal__dialog_hidden');
+                        self.trigger(that.data._triggers.show);
+                        self.removeClass('modal_hidden');
+                        setTimeout(function(){
+                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
+                            self.trigger(that.data._triggers.shown);
+                        }, 0);
+                        that.data.show = true;
                     };
+
                     that.render_view = function(){
-                        self.append(that.el.modal__view
-                            .append(that.el.modal__backdrop, that.el.modal__dialog
-                                .append(that.el.card
-                                    .append(that.el.card__header
-                                        .append(that.el.card__header_row_caption, that.el.card__header_row_name, that.el.card__header_row_tabs
-                                            .append(that.el.tabs__list)),
-                                    that.el.card__main
-                                        .append(that.el.card__middle
-                                            .append(that.el.card__middle_scroll
-                                                .append(that.el.card__middle_inner)))))));
+                        self.append(that.data._el.modal__view
+                            .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
+                                .append(that.data._el.card
+                                    .append(that.data._el.card__header
+                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name, that.data._el.card__header_row_tabs
+                                            .append(that.data._el.tabs__list)),
+                                    that.data._el.card__main
+                                        .append(that.data._el.card__middle
+                                            .append(that.data._el.card__middle_scroll
+                                                .append(that.data._el.card__middle_inner)))))));
                     };
                     that.render_header = function(){
                         that.render_header_caption();
@@ -89,62 +111,62 @@
                         that.render_header_caption_buttons();
                     };
                     that.render_header_caption_name = function(){
-                        that.el.card__header_row_caption.append($(
+                        that.data._el.card__header_row_caption.append($(
                             '<div class="card__header-column">' +
                                 '<label class="card__caption">' +
-                                    '<span class="card__caption-text">' + that.options.header.caption + '</span>' +
+                                    '<span class="card__caption-text">' + that.data.header.caption + '</span>' +
                                 '</label>' +
                             '</div>'
                         ));
                     };
                     that.render_header_caption_buttons = function(){
                         var $buttons_column = $('<div class="card__header-column"></div>');
-                        that.el.card__header_row_caption.append($buttons_column);
-                        that.options.header.buttons.forEach(function(button){
+                        that.data._el.card__header_row_caption.append($buttons_column);
+                        that.data.buttons.forEach(function(button){
                             var $button = $(
                                 '<button class="button button__' + button.name + '" data-fc="button">' +
-                                    (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
-                                    (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
-                                    '<span class="button__anim"></span>' +
+                                (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
+                                (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
                                 '</button>'
                             );
                             if (button.action) {
-                                $button.on('click', that[button.action]);
-                            }
-                            if (typeof(button.event) === "function") {
-                                $button.on('click', function(){
-                                    button.event(that.options.data);
-                                    that.destroy();
-                                });
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
                             }
                             $buttons_column.append($button);
                         });
                     };
                     that.render_header_name = function(){
-                        that.el.card__header_row_name.append($(
+                        that.data._el.card__header_row_name.append($(
                             '<div class="card__header-column">' +
                                 '<label class="card__name">' +
-                                    '<span class="card__name-text">' + that.options.header.name + '</span>' +
+                                    '<span class="card__name-text">' + that.data.header.name + '</span>' +
                                 '</label>' +
                             '</div>'
                         ));
                     };
                     that.render_tabs = function(){
-                        if (that.options.content.tabs.length == 1) {
-                            that.options.content.tabs[0].active = true;
+                        if (that.data.content.tabs.length == 1) {
+                            that.data.content.tabs[0].active = true;
                         } else {
                             var has_active_tab = false;
-                            that.options.content.tabs.forEach(function(tab) {
+                            that.data.content.tabs.forEach(function(tab) {
                                 if (tab.active) {
                                     has_active_tab = true;
                                 }
                             });
                             if (!has_active_tab) {
-                                that.options.content.tabs[0].active = true;
+                                that.data.content.tabs[0].active = true;
                             }
                         }
-                        that.options.content.tabs.forEach(function(tab){
-                            that.el.tabs__list.append($(
+                        that.data.content.tabs.forEach(function(tab){
+                            that.data._el.tabs__list.append($(
                                 (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
                                     '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
                                         '<button class="button" data-fc="button">' +
@@ -154,41 +176,72 @@
                                     '</a>' +
                                 '</li>'
                             ));
-                            that.el.card__middle_inner.append(
-                                that.el.tabs_pane.clone()
+                            that.data._el.card__middle_inner.append(
+                                that.data._el.tabs_pane.clone()
                                     .attr('id', tab.id)
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))
                                     .html(tab.content));
                         });
                     };
+
+                    that.bind = function(){
+                        self.find('.modal__backdrop').on('click', that.destroy);
+                    };
+                    that.bind_buttons = function(){
+                        that.data.buttons.forEach(function(button){
+                            var $button = $(button.selector);
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
+                            }
+                        });
+                    };
+
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
                         self.find('[data-fc="button"]').button();
                         self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="input"]').input();
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
                     };
-                    that.bind = function(){
-                        self.find('.button_close').on('click', that.destroy);
-                        self.find('.modal__backdrop').on('click', that.destroy);
-                    };
                     that.init = function(){
                         self.remove().appendTo('body');
+                        self.data(that.data);
                         if (self.children().length == 0) {
                             that.render_view();
                             that.render_header();
                             that.render_tabs();
+                            that.init_components();
+                        } else {
+                            that.init_components();
+                            that.bind_buttons();
                         }
-                        that.init_components();
                         that.bind();
-                        setTimeout(that.show, 0);
+                        self.trigger(that.data._triggers.loaded);
+                        if (that.data.show) {
+                            that.show();
+                        } else {
+                            that.hidden();
+                        }
                     };
                     that.init();
                 }
                 return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
             });
         },
         hide : function() {
@@ -199,11 +252,6 @@
         show : function() {
             return this.each(function() {
                 this.obj.show();
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
             });
         }
     };
@@ -217,9 +265,3 @@
         }
     };
 })( jQuery );
-
-/*
-$(function(){
-    $('[data-fc="modal"]').modal();
-});
-*/

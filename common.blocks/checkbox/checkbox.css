@@ -31,8 +31,9 @@
 }
 
 .checkbox__input:checked + .checkbox__label::before {
-    border: solid 2px #4983c4;
-    background-color: #4983c4;
+    border: solid 2px #5a97f2;
+    background-color: #5a97f2;
+    /*background-color: #4983c4;*/
 }
 .checkbox__input:checked + .checkbox__label:after {
     content: '';
@@ -57,7 +58,7 @@
     opacity: .5;
 }
 .checkbox__input:checked:disabled + .checkbox__label::before {
-    background-color: #4983c4;
+    background-color: #5a97f2;
     opacity: .5;
 }
 

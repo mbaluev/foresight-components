@@ -1,23 +1,15 @@
-$.fn.bindFirst = function(name, selector, data, handler) {
-    this.on(name, selector, data, handler);
-    this.each(function() {
-        var handlers = $._data(this, 'events')[name.split('.')[0]];
-        var handler = handlers.pop();
-        handlers.splice(0, 0, handler);
-    });
-};
-
 (function($){
     var methods = {
         init : function(options) {
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'alertbox', target : self });
+                    self.data('_widget', { type: 'input', target : self });
                     var that = this.obj = {};
                     that.defaults = {
                         disabled: false,
-                        hidden: false
+                        hidden: false,
+                        width: '100%'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -26,8 +18,10 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                     self.data(that.options);
 
                     that.data._handlers = null;
+                    that.data._handlers_input = null;
                     that.data._el = {
-                        button: self.find('button')
+                        button: self.find('button'),
+                        input: self.find('.input__control')
                     };
 
                     that.destroy = function(){
@@ -38,6 +32,10 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         self.remove();
                     };
                     that.disable = function(){
+                        self.addClass('input_disabled');
+                        self.attr('data-disabled','true');
+                        that.data._el.input.attr('disabled', 'disabled');
+                        that.data._el.input.prop('disabled', true);
                         that.data.disabled = true;
                         //save handlers and unbind events
                         if ($._data(self[0], "events")) {
@@ -51,8 +49,13 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('disable');
                         }
+                        that.disable_input();
                     };
                     that.enable = function(){
+                        self.removeClass('input_disabled');
+                        self.removeAttr('data-disabled');
+                        that.data._el.input.removeAttr('disabled');
+                        that.data._el.input.prop('disabled', false);
                         that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
@@ -66,23 +69,62 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.enable_input();
                     };
                     that.hide = function(){
-                        self.addClass('alertbox_hidden');
+                        self.addClass('input_hidden');
                         that.data.hidden = true;
                     };
                     that.show = function(){
-                        self.removeClass('alertbox_hidden');
+                        self.removeClass('input_hidden');
                         that.data.hidden = false;
                     };
 
-                    that.bind = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.on('click', function(e){
-                                e.preventDefault();
-                                that.destroy();
-                            });
+                    that.focus = function(){
+                        that.data._el.input.trigger('focus');
+                    };
+                    that.clear = function(){
+                        that.data._el.input.val('');
+                        that.focus();
+                    };
+
+                    that.disable_input = function(){
+                        if ($._data(that.data._el.input[0], "events")) {
+                            that.data._handlers_input = {};
+                            for (var type in $._data(that.data._el.input[0], "events")) {
+                                that.data._handlers_input[type] = $._data(that.data._el.input[0], "events")[type].slice(0);
+                            }
+                            that.data._el.input.off();
                         }
+                    };
+                    that.enable_input = function(){
+                        if (that.data._handlers_input) {
+                            for (var type in that.data._handlers_input) {
+                                that.data._handlers_input[type].forEach(function(ev){
+                                    that.data._el.input.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                    };
+
+                    that.focusin = function(){
+                        self.addClass('input_focused');
+                    };
+                    that.focusout = function(){
+                        self.removeClass('input_focused');
+                    };
+
+                    that.set_width = function(){
+                        self.css('width', that.data.width);
+                    };
+
+                    that.bind = function(){
+                        that.data._el.input.bindFirst('focusin.input__control', null, null, that.focusin);
+                        that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
+                        that.data._el.button.on('click.input__clear', null, null, function(e){
+                            e.preventDefault();
+                            that.clear();
+                        })
                     };
 
                     that.init_components = function(){
@@ -103,6 +145,7 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         } else {
                             that.show();
                         }
+                        that.set_width();
                     };
                     that.init();
                 }
@@ -133,19 +176,44 @@ $.fn.bindFirst = function(name, selector, data, handler) {
             return this.each(function() {
                 this.obj.show();
             });
+        },
+        focus: function() {
+            return this.each(function() {
+                this.obj.focus();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.data._el.input.val();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.data._el.input.val());
+                });
+                return _arr;
+            }
         }
     };
-    $.fn.alertbox = function( method ) {
+    $.fn.input = function( method ) {
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on $.alertbox' );
+            $.error( 'Method ' +  method + ' does not exist on $.input' );
         }
     };
 })( jQuery );
 
 $(function(){
-    $('[data-fc="alertbox"]').alertbox();
+    $('[data-fc="input"]').input();
 });

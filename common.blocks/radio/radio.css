@@ -30,8 +30,8 @@
     border-radius: 7px;
 }
 .radio__input:checked + .radio__label::before {
-    border: solid 2px #4983c4;
-    background-color: #4983c4;
+    border: solid 2px #5a97f2;
+    background-color: #5a97f2;
 }
 .radio__input:checked + .radio__label::after {
     content: "";
@@ -55,8 +55,8 @@
     opacity: .5;
 }
 .radio__input:checked:disabled + .radio__label::before {
-    background-color: #4983c4;
-    border-color: #4983c4;
+    background-color: #5a97f2;
+    border-color: #5a97f2;
     opacity: .5;
 }
 
