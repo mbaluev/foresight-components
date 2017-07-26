@@ -54,11 +54,6 @@
             return this.each(function() {
                 this.obj.show();
             });
-        },
-        set: function() {
-            return this.each(function() {
-                this.obj.set();
-            });
         }
     };
     $.fn.date_picker = function( method ) {

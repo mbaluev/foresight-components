@@ -2436,8 +2436,7 @@ $(function(){
                             .modal(modal_options)
                             .on('save.fc.modal', function(){
                                 $(this).find('[data-field]').each(function(){
-                                    var t = $(this),
-                                        val = t[t.data('fc').replace('-','_')]('value');
+                                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
                                     _.set(that.data, t.data('field'), val);
                                 });
                                 that.trigger_toggle();
@@ -2574,11 +2573,6 @@ $(function(){
         show: function() {
             return this.each(function() {
                 this.obj.show();
-            });
-        },
-        set: function() {
-            return this.each(function() {
-                this.obj.set();
             });
         }
     };
