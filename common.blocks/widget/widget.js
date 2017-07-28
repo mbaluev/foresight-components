@@ -290,9 +290,9 @@
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<input type="text" class="input__control">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -331,9 +331,9 @@
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" >' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<input type="text" class="input__control">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +

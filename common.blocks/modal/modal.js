@@ -171,7 +171,6 @@
                                     '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
                                         '<button class="button" data-fc="button">' +
                                             '<span class="button__text">' + tab.name + '</span>' +
-                                            '<span class="button__anim"></span>' +
                                         '</button>' +
                                     '</a>' +
                                 '</li>'
@@ -213,7 +212,6 @@
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
-                        self.find('[data-fc="date-picker"]').date_picker();
                     };
                     that.init = function(){
                         self.remove().appendTo('body');

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="third/gridstack/gridstack.css" type="text/css" media="all">
     <link rel="stylesheet" href="third/air-datepicker/datepicker.css" type="text/css" media="all">
+    <link rel="stylesheet" href="third/chosen/chosen.css" type="text/css" media="all">
+    <link rel="stylesheet" href="third/multiple-select/multiple-select.css" type="text/css" media="all">
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
 </head>
 <body class="page proximanova">
@@ -79,12 +81,36 @@
                         </span>
                         <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
                     </span>
-                    <button class="header__column-item button" data-fc="button">
+                    <button class="header__column-item button" data-fc="button" data-toggle="popup" data-target="#account">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
                         <span class="icon icon_svg_down"></span>
-                        <span class="button__anim"></span>
                     </button>
+                    <div class="popup" id="account" data-position="bottom right" data-width="auto">
+                        <ul class="popup__list">
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="icon icon_svg_settings"></span>
+                                    <span class="popup__text">Профиль</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Центр настроек</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Администрирование</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -297,6 +323,76 @@
 
                         <div class="article" data-title="modal" id="modal">
                             <div class="modal"></div>
+                        </div>
+
+                        <div class="article" data-title="popup" id="popup">
+                            <div class="heading heading_2">popup</div>
+                            <p class="paragraph paragraph_color_grey">Всплывающее окно</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">popup</span>
+                            </div>
+
+                            <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup1">
+                                <span class="button__text">График</span>
+                                <span class="icon icon_svg_down"></span>
+                            </button>
+                            <div class="popup popup_select" id="popup1" data-select="true">
+                                <ul class="popup__list">
+                                    <li class="popup__list-item">
+                                        <button class="popup__link">
+                                            <span class="icon icon_svg_settings"></span>
+                                            <span class="popup__text">Круговая диаграмма</span>
+                                        </button>
+                                    </li>
+                                    <li class="popup__list-item">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">Диаграмма с областями</span>
+                                        </a>
+                                    </li>
+                                    <li class="popup__list-item popup__list-item_checked">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">График</span>
+                                        </a>
+                                    </li>
+                                    <li class="popup__list-item">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">Столбчатая диаграмма</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="article" data-title="select" id="select">
+                            <div class="heading heading_2">select</div>
+                            <p class="paragraph paragraph_color_grey">Выпадающий список</p>
+                            <p class="paragraph paragraph_color_red">IE 7+, Chrome 8+, Firefox 10+, Safari 3+, Opera 10.6+</p>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">single</span>
+                            </div>
+
+                            <select class="select" multiple="" data-placeholder="Сортировка" style="display: none;">
+                                <option value="colorByLevelId">Цвет: по уровню КТ</option>
+                                <option value="colorByPortfolioId">Цвет: по портфелю</option>
+                                <option value="colorByProjectId">Цвет: по проекту</option>
+                                <option value="colorByStatusId">Цвет: по статусу КТ</option>
+                                <option value="colorByLeaderId">Цвет: по ответственному</option>
+                            </select>
+
+                            <div class="heading heading_5">
+                                <span class="heading__info">multiple</span>
+                            </div>
+
+                            <select class="multiple-select" multiple="" data-placeholder="Уровень" style="display: none;">
+                                <option value="3">Уровень 1</option>
+                                <option value="4">Уровень 2</option>
+                                <option value="20003">Уровень 3</option>
+                                <option value="20004">Уровень 4</option>
+                            </select>
                         </div>
 
                         <div class="article" data-title="control" id="control">
@@ -518,9 +614,9 @@
                                 <span class="heading__info">datepicker</span>
                             </div>
 
-                            <span class="input input__has-clear" data-fc="input" data-width="200">
+                            <span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">
                                 <span class="input__box">
-                                    <input type="text" class="input__control date-picker" data-fc="date-picker">
+                                    <input type="text" class="input__control" value="Выберите дату">
                                     <button class="button" type="button" data-fc="button">
                                         <span class="icon icon_svg_close"></span>
                                     </button>
@@ -565,7 +661,6 @@
                                                 <a class="tabs__link link" href="#general" data-fc="tab">
                                                     <button class="button" data-fc="button">
                                                         <span class="button__text">Основные</span>
-                                                        <span class="button__anim"></span>
                                                     </button>
                                                 </a>
                                             </li>
@@ -573,15 +668,6 @@
                                                 <a class="tabs__link link" href="#datasource" data-fc="tab">
                                                     <button class="button" data-fc="button">
                                                         <span class="button__text">Источник данных</span>
-                                                        <span class="button__anim"></span>
-                                                    </button>
-                                                </a>
-                                            </li>
-                                            <li class="tabs__tab">
-                                                <a class="tabs__link link" href="#advanced" data-fc="tab">
-                                                    <button class="button" data-fc="button">
-                                                        <span class="button__text">Расширенные</span>
-                                                        <span class="button__anim"></span>
                                                     </button>
                                                 </a>
                                             </li>
@@ -599,7 +685,6 @@
                                                     </label>
                                                 </div>
                                                 <div class="tabs__pane" id="datasource"></div>
-                                                <div class="tabs__pane" id="advanced"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1385,66 +1470,6 @@
         <div class="modal__view">
             <div class="modal__backdrop"></div>
             <div class="modal__dialog modal__dialog_hidden">
-                <div class="card" data-fc="card">
-                    <div class="card__header">
-                        <div class="card__header-row">
-                            <div class="card__header-column">
-                                <label class="card__caption">
-                                    <span class="card__caption-text">Модальное окно</span>
-                                </label>
-                            </div>
-                            <div class="card__header-column">
-                                <button class="button" data-fc="button">
-                                    <span class="icon icon_svg_ok"></span>
-                                    <span class="button__anim"></span>
-                                </button>
-                                <button class="button button_close" data-fc="button">
-                                    <span class="icon icon_svg_close"></span>
-                                    <span class="button__anim"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="card__header-row">
-                            <div class="card__header-column">
-                                <label class="card__name">
-                                    <span class="card__name-text">Карточка</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="card__header-row tabs" data-fc="tabs">
-                            <ul class="tabs__list">
-                                <li class="tabs__tab tabs__tab_active">
-                                    <a class="tabs__link link" href="#general">
-                                        <button class="button" data-fc="button">
-                                            <span class="button__text">Главная</span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </a>
-                                </li>
-                                <li class="tabs__tab">
-                                    <a class="tabs__link link" href="#advance">
-                                        <button class="button" data-fc="button">
-                                            <span class="button__text">Вкладка 2</span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card__main">
-                        <div class="card__middle">
-                            <div class="card__middle-scroll">
-                                <div class="card__middle-inner">
-                                    <div class="tabs__pane tabs__pane_active" id="general">Основные настройки</div>
-                                    <div class="tabs__pane" id="advance">Расширенные настройки</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card__backdrop"></div>
-                        <div class="card__right"></div>
-                    </div>
-                </div>
             </div>
         </div>
     </span>
@@ -1455,7 +1480,29 @@
     <script src="third/lodash.min.js"></script>
     <script src="third/gridstack/gridstack.js"></script>
     <script src="third/gridstack/gridstack.jQueryUI.js"></script>
-    <script src="third/air-datepicker/datepicker.js"></script>
-    <script src="foresight.components.min.js"></script>
+    <script src="third/air-datepicker/datepicker.min.js"></script>
+    <script src="third/chosen/chosen.jquery.js"></script>
+    <script src="third/multiple-select/multiple-select.js"></script>
+    <script src="foresight.components.debug.js"></script>
+
+    <script>
+        $(function(){
+            var opt = {
+                width: '300px',
+                filter: true,
+                addTitle: true,
+                noMatchesFound: "Ничего не найдено!",
+                selectAll: false,
+                selectAllText: "Выбрать все",
+                allSelected: "Выбрано все",
+                countSelected: "Выбрано # из %",
+                minimumCountSelected: 1,
+                multiple: false,
+                onClose: function() {}
+            };
+            $('.select').multipleSelect( $.extend(true, {}, opt, { single: true } ));
+            $('.multiple-select').multipleSelect( $.extend(true, {}, opt, {} ));
+        });
+    </script>
 </body>
 </html>

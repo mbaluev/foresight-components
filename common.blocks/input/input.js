@@ -9,7 +9,9 @@
                     that.defaults = {
                         disabled: false,
                         hidden: false,
-                        width: '100%'
+                        width: '100%',
+                        auto_close: true,
+                        popup_animation: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -19,14 +21,19 @@
 
                     that.data._handlers = null;
                     that.data._handlers_input = null;
+                    that.data._datepicker = null;
                     that.data._el = {
                         button: self.find('button'),
-                        input: self.find('.input__control')
+                        input: self.find('.input__control'),
+                        popup: $('<div class="popup"></div>')
                     };
 
                     that.destroy = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
+                        }
+                        if (that.data._el.popup.data('_widget')) {
+                            that.data._el.popup.popup('destroy');
                         }
                         self.data = null;
                         self.remove();
@@ -82,6 +89,7 @@
 
                     that.focus = function(){
                         that.data._el.input.trigger('focus');
+                        that.data._el.input.trigger('mousedown');
                     };
                     that.clear = function(){
                         that.data._el.input.val('');
@@ -109,28 +117,75 @@
 
                     that.focusin = function(){
                         self.addClass('input_focused');
+                        that.data.focused = true;
                     };
                     that.focusout = function(){
                         self.removeClass('input_focused');
+                        that.data.focused = false;
                     };
+
+                    /*
+                    that.show_datepicker = function(){
+                        if (that.data._datepicker && !that.data.datepicker_visible) {
+                            that.data._el.datepicker.addClass('input__datepicker_visible_bottom');
+                            that.data.datepicker_visible = true;
+                        }
+                    };
+                    that.hide_datepicker = function(){
+                        if (that.data._datepicker && that.data.datepicker_visible && !that.data.focused) {
+                            that.data._el.datepicker.removeClass('input__datepicker_visible_bottom');
+                            that.data.datepicker_visible = false;
+                        }
+                    };
+                    */
 
                     that.set_width = function(){
                         self.css('width', that.data.width);
                     };
 
                     that.bind = function(){
-                        that.data._el.input.bindFirst('focusin.input__control', null, null, that.focusin);
+                        that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
                         that.data._el.button.on('click.input__clear', null, null, function(e){
                             e.preventDefault();
                             that.clear();
-                        })
+                        });
+                        that.data._el.input.bindFirst('mousedown.input__control', null, null, that.show_datepicker);
+                        $('body').on('mouseup.input__control touchend.input__control', that.hide_datepicker);
                     };
 
                     that.init_components = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button();
                         }
+                        if (that.data.toggle == 'datepicker') {
+                            that.init_datepicker();
+                        }
+                    };
+                    that.init_datepicker = function(){
+                        // init popup
+                        self.after(that.data._el.popup);
+                        that.data._el.popup.popup({
+                            source: self,
+                            animation: that.data.popup_animation,
+                            width: 'auto'
+                        });
+                        // create detepicker
+                        that.data._el.input.attr('readonly', 'readonly');
+                        that.data._el.input.datepicker({
+                            inline: true,
+                            autoClose: that.data.auto_close,
+                            onSelect: function(formattedDate, date, inst){
+                                that.data.date = date;
+                                that.data.formattedDate = formattedDate;
+                                if (that.data.auto_close) {
+                                    that.data._el.popup.popup('hide');
+                                }
+                            }
+                        });
+                        // put datepicker to popup
+                        that.data._datepicker = that.data._el.input.data().datepicker;
+                        that.data._datepicker.$datepicker.parent().appendTo(that.data._el.popup);
                     };
                     that.init = function(){
                         that.init_components();

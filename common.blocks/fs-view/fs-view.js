@@ -1,7 +1,9 @@
 $(function(){
+    /*
     $('.fs-view__middle-scroll').on('scroll', function(){
         $('[data-fc="date-picker"]').date_picker('hide');
-    })
+    });
+    */
     $('#button_toggle-menu').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu');

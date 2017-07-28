@@ -1,7 +1,9 @@
 $(function(){
+    /*
     $('.fs-view__middle-scroll').on('scroll', function(){
         $('[data-fc="date-picker"]').date_picker('hide');
-    })
+    });
+    */
     $('#button_toggle-menu').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu');
@@ -54,7 +56,9 @@ $(function(){
                     that.defaults = {
                         disabled: false,
                         checked: false,
-                        hidden: false
+                        hidden: false,
+                        width: 'auto',
+                        popup_animation: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -63,8 +67,14 @@ $(function(){
                     self.data(that.options);
 
                     that.data._handlers = null;
+                    that.data._el = {
+                        popup: $('<div class="popup"></div>')
+                    };
 
                     that.destroy = function(){
+                        if (that.data._el.popup.data('_widget')) {
+                            that.data._el.popup.popup('destroy');
+                        }
                         self.data = null;
                         self.remove();
                     };
@@ -133,6 +143,10 @@ $(function(){
                         self.removeClass('button_clicked');
                     };
 
+                    that.set_width = function(){
+                        self.css('width', that.data.width);
+                    };
+
                     that.bind = function(){
                         //bind private events
                         self.on('mouseover.button.private', that.hover);
@@ -165,7 +179,18 @@ $(function(){
                         });
                     };
 
+                    that.init_components = function(){
+                        if (that.data.toggle == "popup") {
+                            that.data._el.popup = $(that.data.target);
+                            that.data._el.popup.popup({
+                                source: self,
+                                animation: that.data.popup_animation
+                            });
+                        }
+                    };
                     that.init = function() {
+                        that.set_width();
+                        that.init_components();
                         that.bind();
                         if (self.hasClass('button_toggable_check')) {
                             that.data['_widget']['type'] = 'button.checkbox';
@@ -533,6 +558,198 @@ $(function(){
     $('[data-fc="tumbler"]').tumbler();
 });
 
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'popup', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        source: null,
+                        width: 'full',
+                        position: 'bottom left',
+                        animation: true,
+                        visible: false,
+                        offset: 10,
+                        select: false
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        source: that.data.source,
+                        source_arrow: that.data.source.find('.icon_svg_down')
+                    };
+
+                    that.destroy = function(){
+                        self.data = null;
+                        self.remove();
+                    };
+
+                    that.hide = function(){
+                        self.removeClass('popup_visible_bottom');
+                        that.data.visible = false;
+                        if (typeof that.data._el.source_arrow[0] != 'undefined') {
+                            that.data._el.source_arrow.removeClass('icon_rotate_180deg');
+                        }
+                    };
+                    that.show = function(){
+                        self.addClass('popup_visible_bottom');
+                        that.data.visible = true;
+                        if (typeof that.data._el.source_arrow[0] != 'undefined') {
+                            that.data._el.source_arrow.addClass('icon_rotate_180deg');
+                        }
+                    };
+                    that.toggle = function(){
+                        if (that.data.visible) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                    };
+                    that.mouseup_self = function(e){
+                        e.originalEvent.inFocus = true;
+                    };
+                    that.mouseup_source = function(e){
+                        e.originalEvent.inFocus = true;
+                    };
+                    that.mouseup_body = function(e){
+                        if (!e.originalEvent.inFocus) {
+                            that.hide();
+                        };
+                    };
+
+                    that.set_width = function(){
+                        if (that.data.width == 'full') {
+                            that.data.width = that.data._el.source.outerWidth();
+                        };
+                        self.css('width', that.data.width);
+                    };
+                    that.set_position = function(){
+                        var dims = that.get_dimentions(that.data._el.source),
+                            selfDims = that.get_dimentions(self),
+                            pos = that.data.position.split(' '),
+                            top, left,
+                            offset = that.data.offset,
+                            main = pos[0],
+                            secondary = pos[1];
+                        switch (main) {
+                            case 'top':
+                                top = dims.top - selfDims.height - offset;
+                                break;
+                            case 'right':
+                                left = dims.left + dims.width + offset;
+                                break;
+                            case 'bottom':
+                                top = dims.top + dims.height + offset;
+                                break;
+                            case 'left':
+                                left = dims.left - selfDims.width - offset;
+                                break;
+                        }
+                        switch(secondary) {
+                            case 'top':
+                                top = dims.top;
+                                break;
+                            case 'right':
+                                left = dims.left + dims.width - selfDims.width;
+                                break;
+                            case 'bottom':
+                                top = dims.top + dims.height - selfDims.height;
+                                break;
+                            case 'left':
+                                left = dims.left;
+                                break;
+                            case 'center':
+                                if (/left|right/.test(main)) {
+                                    top = dims.top + dims.height/2 - selfDims.height/2;
+                                } else {
+                                    left = dims.left + dims.width/2 - selfDims.width/2;
+                                }
+                        }
+                        self.css({ left: left, top: top });
+                    };
+
+                    that.get_dimentions = function($el) {
+                        var position = $el.position();
+                        return {
+                            width: $el.outerWidth(),
+                            height: $el.outerHeight(),
+                            left: position.left,
+                            top: position.top
+                        }
+                    };
+
+                    that.bind = function(){
+                        that.data._el.source.on('click.popup.toggle', function(e){
+                            e.preventDefault();
+                            that.set_position();
+                            that.toggle();
+                        });
+                        that.data._el.source.on('mouseup.popup.source touchend.popup.source', that.mouseup_source);
+                        self.on('mouseup.popup.self touchend.popup.self', that.mouseup_self);
+                        $('body').on('mouseup.popup.body touchend.popup.body', that.mouseup_body);
+                    };
+
+                    that.init_components = function(){
+                        if (typeof that.data._el.source_arrow[0] != 'undefined') {
+                            that.data._el.source_arrow.addClass('icon_animate');
+                        }
+                    };
+
+                    that.init = function(){
+                        that.init_components();
+                        that.bind();
+                        if (that.data.animation) {
+                            self.addClass('popup_animation');
+                        }
+                        if (that.data.select) {
+                            self.addClass('popup_select ');
+                        }
+                        if (that.data.visible) {
+                            that.set_position();
+                            that.show();
+                        } else {
+                            that.hide();
+                        }
+                        that.set_width();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        }
+    };
+    $.fn.popup = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.popup' );
+        }
+    };
+})( jQuery );
 (function($){
     var methods = {
         init : function(options) {
@@ -1132,7 +1349,6 @@ $(function(){
                                     '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
                                         '<button class="button" data-fc="button">' +
                                             '<span class="button__text">' + tab.name + '</span>' +
-                                            '<span class="button__anim"></span>' +
                                         '</button>' +
                                     '</a>' +
                                 '</li>'
@@ -1174,7 +1390,6 @@ $(function(){
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
-                        self.find('[data-fc="date-picker"]').date_picker();
                     };
                     that.init = function(){
                         self.remove().appendTo('body');
@@ -1238,7 +1453,9 @@ $(function(){
                     that.defaults = {
                         disabled: false,
                         hidden: false,
-                        width: '100%'
+                        width: '100%',
+                        auto_close: true,
+                        popup_animation: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1248,14 +1465,19 @@ $(function(){
 
                     that.data._handlers = null;
                     that.data._handlers_input = null;
+                    that.data._datepicker = null;
                     that.data._el = {
                         button: self.find('button'),
-                        input: self.find('.input__control')
+                        input: self.find('.input__control'),
+                        popup: $('<div class="popup"></div>')
                     };
 
                     that.destroy = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
+                        }
+                        if (that.data._el.popup.data('_widget')) {
+                            that.data._el.popup.popup('destroy');
                         }
                         self.data = null;
                         self.remove();
@@ -1311,6 +1533,7 @@ $(function(){
 
                     that.focus = function(){
                         that.data._el.input.trigger('focus');
+                        that.data._el.input.trigger('mousedown');
                     };
                     that.clear = function(){
                         that.data._el.input.val('');
@@ -1338,28 +1561,75 @@ $(function(){
 
                     that.focusin = function(){
                         self.addClass('input_focused');
+                        that.data.focused = true;
                     };
                     that.focusout = function(){
                         self.removeClass('input_focused');
+                        that.data.focused = false;
                     };
+
+                    /*
+                    that.show_datepicker = function(){
+                        if (that.data._datepicker && !that.data.datepicker_visible) {
+                            that.data._el.datepicker.addClass('input__datepicker_visible_bottom');
+                            that.data.datepicker_visible = true;
+                        }
+                    };
+                    that.hide_datepicker = function(){
+                        if (that.data._datepicker && that.data.datepicker_visible && !that.data.focused) {
+                            that.data._el.datepicker.removeClass('input__datepicker_visible_bottom');
+                            that.data.datepicker_visible = false;
+                        }
+                    };
+                    */
 
                     that.set_width = function(){
                         self.css('width', that.data.width);
                     };
 
                     that.bind = function(){
-                        that.data._el.input.bindFirst('focusin.input__control', null, null, that.focusin);
+                        that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
                         that.data._el.button.on('click.input__clear', null, null, function(e){
                             e.preventDefault();
                             that.clear();
-                        })
+                        });
+                        that.data._el.input.bindFirst('mousedown.input__control', null, null, that.show_datepicker);
+                        $('body').on('mouseup.input__control touchend.input__control', that.hide_datepicker);
                     };
 
                     that.init_components = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button();
                         }
+                        if (that.data.toggle == 'datepicker') {
+                            that.init_datepicker();
+                        }
+                    };
+                    that.init_datepicker = function(){
+                        // init popup
+                        self.after(that.data._el.popup);
+                        that.data._el.popup.popup({
+                            source: self,
+                            animation: that.data.popup_animation,
+                            width: 'auto'
+                        });
+                        // create detepicker
+                        that.data._el.input.attr('readonly', 'readonly');
+                        that.data._el.input.datepicker({
+                            inline: true,
+                            autoClose: that.data.auto_close,
+                            onSelect: function(formattedDate, date, inst){
+                                that.data.date = date;
+                                that.data.formattedDate = formattedDate;
+                                if (that.data.auto_close) {
+                                    that.data._el.popup.popup('hide');
+                                }
+                            }
+                        });
+                        // put datepicker to popup
+                        that.data._datepicker = that.data._el.input.data().datepicker;
+                        that.data._datepicker.$datepicker.parent().appendTo(that.data._el.popup);
                     };
                     that.init = function(){
                         that.init_components();
@@ -2376,9 +2646,9 @@ $(function(){
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<input type="text" class="input__control">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -2417,9 +2687,9 @@ $(function(){
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" >' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" data-fc="date-picker">' +
+                                        '<input type="text" class="input__control">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -2517,78 +2787,6 @@ $(function(){
 
 $(function(){
     $('[data-fc="widget"]').widget();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'date_picker', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        position: 'bottom left'
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._datepicker = null;
-
-                    that.destroy = function(){
-                        that.data._datepicker.destroy();
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.hide = function(){
-                        if (that.data._datepicker.visible)
-                            that.data._datepicker.hide();
-                    };
-                    that.show = function(){
-                        if (!that.data._datepicker.visible)
-                            that.data._datepicker.show();
-                    };
-
-                    that.init = function(){
-                        self.datepicker(that.data);
-                        that.data._datepicker = that.data.datepicker;
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        hide: function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show: function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        }
-    };
-    $.fn.date_picker = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.date_picker' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="date-picker"]').date_picker();
 });
 (function($){
     var methods = {

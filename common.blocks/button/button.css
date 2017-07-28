@@ -15,7 +15,7 @@
     -webkit-tap-highlight-color: transparent;
     font-size: 13px;
     line-height: 30px;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .button:before {
@@ -35,6 +35,8 @@
     text-overflow: ellipsis;
     vertical-align: top;
     margin: 0 10px;
+    flex: 1 1 auto;
+    text-align: left;
 }
 
 .button.button_hidden { display: none; visibility: hidden; }

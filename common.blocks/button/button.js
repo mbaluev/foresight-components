@@ -9,7 +9,9 @@
                     that.defaults = {
                         disabled: false,
                         checked: false,
-                        hidden: false
+                        hidden: false,
+                        width: 'auto',
+                        popup_animation: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -18,8 +20,14 @@
                     self.data(that.options);
 
                     that.data._handlers = null;
+                    that.data._el = {
+                        popup: $('<div class="popup"></div>')
+                    };
 
                     that.destroy = function(){
+                        if (that.data._el.popup.data('_widget')) {
+                            that.data._el.popup.popup('destroy');
+                        }
                         self.data = null;
                         self.remove();
                     };
@@ -88,6 +96,10 @@
                         self.removeClass('button_clicked');
                     };
 
+                    that.set_width = function(){
+                        self.css('width', that.data.width);
+                    };
+
                     that.bind = function(){
                         //bind private events
                         self.on('mouseover.button.private', that.hover);
@@ -120,7 +132,18 @@
                         });
                     };
 
+                    that.init_components = function(){
+                        if (that.data.toggle == "popup") {
+                            that.data._el.popup = $(that.data.target);
+                            that.data._el.popup.popup({
+                                source: self,
+                                animation: that.data.popup_animation
+                            });
+                        }
+                    };
                     that.init = function() {
+                        that.set_width();
+                        that.init_components();
                         that.bind();
                         if (self.hasClass('button_toggable_check')) {
                             that.data['_widget']['type'] = 'button.checkbox';

@@ -11,7 +11,6 @@
             '<div class="datepicker--content"></div>' +
             '</div>',
         defaults = {
-            container: 'body',
             classes: '',
             inline: false,
             language: 'ru',
@@ -108,7 +107,7 @@
         this.opts = $.extend(true, {}, defaults, options, this.$el.data());
 
         if ($body == undefined) {
-            $body = $(this.opts.container);
+            $body = $('body');
         }
 
         if (!this.opts.startDate) {
@@ -723,14 +722,13 @@
         },
 
         _getDimensions: function ($el) {
-            var offset = $el.offset(),
-                bodyOffset = $body.offset();
+            var offset = $el.offset();
 
             return {
                 width: $el.outerWidth(),
                 height: $el.outerHeight(),
                 left: offset.left,
-                top: offset.top - bodyOffset.top
+                top: offset.top
             }
         },
 
