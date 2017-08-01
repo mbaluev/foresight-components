@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd5d191-3cef-498c-a4bd-b8837896517e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/button/button.css" afterPath="$PROJECT_DIR$/common.blocks/button/button.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/icon/icon.css" afterPath="$PROJECT_DIR$/common.blocks/icon/icon.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.debug.js" afterPath="$PROJECT_DIR$/public/foresight.components.debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.min.js" afterPath="$PROJECT_DIR$/public/foresight.components.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" afterPath="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -65,42 +66,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="widget.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/widget/widget.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="298" column="36" selection-start-line="298" selection-start-column="36" selection-end-line="298" selection-end-column="36" />
-              <folding>
-                <element signature="e#360#856#0" expanded="false" />
-                <element signature="e#894#1217#0" expanded="false" />
-                <element signature="e#1496#1730#0" expanded="false" />
-                <element signature="e#1778#2493#0" expanded="false" />
-                <element signature="e#2540#4790#0" expanded="false" />
-                <element signature="e#4842#5165#0" expanded="false" />
-                <element signature="e#5213#5345#0" expanded="false" />
-                <element signature="e#5394#5523#0" expanded="false" />
-                <element signature="e#5572#8264#0" expanded="false" />
-                <element signature="e#8315#9388#0" expanded="false" />
-                <element signature="e#9437#9571#0" expanded="false" />
-                <element signature="e#9617#9755#0" expanded="false" />
-                <element signature="e#9801#9954#0" expanded="false" />
-                <element signature="e#10008#10086#0" expanded="false" />
-                <element signature="e#10138#10359#0" expanded="false" />
-                <element signature="e#10409#10750#0" expanded="false" />
-                <element signature="e#10799#11141#0" expanded="false" />
-                <element signature="e#11275#11768#0" expanded="false" />
-                <element signature="e#11806#11952#0" expanded="false" />
-                <element signature="e#12069#18770#0" expanded="false" />
-                <element signature="e#18808#23269#0" expanded="false" />
-                <element signature="e#24193#24571#0" expanded="false" />
-                <element signature="e#24627#24786#0" expanded="false" />
-                <element signature="e#24830#25240#0" expanded="false" />
-                <element signature="e#26215#26574#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="fs-view.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.js">
           <provider selected="true" editor-type-id="text-editor">
@@ -111,113 +76,42 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="select.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/select/select.js">
+      <file leaf-file-name="widget-grid.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.444445">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.08955224">
+              <caret line="265" column="0" selection-start-line="265" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
               <folding>
-                <element signature="e#18561#18920#0" expanded="false" />
+                <element signature="e#32#11342#0" expanded="false" />
+                <element signature="e#368#912#0" expanded="false" />
+                <element signature="e#553#621#0" expanded="false" />
+                <element signature="e#653#890#0" expanded="false" />
+                <element signature="e#1191#1387#0" expanded="false" />
+                <element signature="e#1431#1557#0" expanded="false" />
+                <element signature="e#1605#1904#0" expanded="false" />
+                <element signature="e#1948#2474#0" expanded="false" />
+                <element signature="e#2519#3177#0" expanded="false" />
+                <element signature="e#3223#3302#0" expanded="false" />
+                <element signature="e#3346#3639#0" expanded="false" />
+                <element signature="e#3697#5257#0" expanded="false" />
+                <element signature="e#5327#5672#0" expanded="false" />
+                <element signature="e#5740#6094#0" expanded="false" />
+                <element signature="e#6153#6359#0" expanded="false" />
+                <element signature="e#6422#6526#0" expanded="false" />
+                <element signature="e#6576#6906#0" expanded="false" />
+                <element signature="e#6955#7557#0" expanded="false" />
+                <element signature="e#7604#8045#0" expanded="false" />
+                <element signature="e#8091#8302#0" expanded="false" />
+                <element signature="e#8349#8561#0" expanded="false" />
+                <element signature="e#8613#8704#0" expanded="false" />
+                <element signature="e#8749#8831#0" expanded="false" />
+                <element signature="e#8884#9430#0" expanded="false" />
+                <element signature="e#9483#10360#0" expanded="false" />
+                <element signature="e#10404#10683#0" expanded="false" />
+                <element signature="e#11386#11750#0" expanded="false" />
+                <element signature="e#11797#13120#0" expanded="false" />
+                <element signature="e#13770#14205#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/menu/menu.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="icon.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/icon/icon.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="button.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/common.blocks/button/button.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53731346">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="popup.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/popup/popup.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="76" column="34" selection-start-line="76" selection-start-column="34" selection-end-line="76" selection-end-column="34" />
-              <folding>
-                <element signature="e#985#1136#0" expanded="false" />
-                <element signature="e#1333#1672#0" expanded="false" />
-                <element signature="e#1716#2111#0" expanded="false" />
-                <element signature="e#2157#2370#0" expanded="false" />
-                <element signature="e#2423#2502#0" expanded="false" />
-                <element signature="e#2557#2636#0" expanded="false" />
-                <element signature="e#2689#2836#0" expanded="false" />
-                <element signature="e#2891#3205#0" expanded="false" />
-                <element signature="e#3399#10216#0" expanded="false" />
-                <element signature="e#3944#4653#0" expanded="false" />
-                <element signature="e#4682#5740#0" expanded="false" />
-                <element signature="e#5990#10168#0" expanded="false" />
-                <element signature="e#10275#10615#0" expanded="false" />
-                <element signature="e#10669#11001#0" expanded="false" />
-                <element signature="e#11046#11580#0" expanded="false" />
-                <element signature="e#11636#11849#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="modal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/modal/modal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="211" column="62" selection-start-line="211" selection-start-column="62" selection-end-line="211" selection-end-column="62" />
-              <folding>
-                <element signature="e#362#1144#0" expanded="false" />
-                <element signature="e#397#639#0" expanded="false" />
-                <element signature="e#673#855#0" expanded="false" />
-                <element signature="e#890#1050#0" expanded="false" />
-                <element signature="e#1423#2763#0" expanded="false" />
-                <element signature="e#2807#3074#0" expanded="false" />
-                <element signature="e#3122#3351#0" expanded="false" />
-                <element signature="e#3395#3920#0" expanded="false" />
-                <element signature="e#3966#4178#0" expanded="false" />
-                <element signature="e#4222#4654#0" expanded="false" />
-                <element signature="e#4706#5576#0" expanded="false" />
-                <element signature="e#5629#5757#0" expanded="false" />
-                <element signature="e#5818#5962#0" expanded="false" />
-                <element signature="e#6028#6479#0" expanded="false" />
-                <element signature="e#6548#7946#0" expanded="false" />
-                <element signature="e#8004#8443#0" expanded="false" />
-                <element signature="e#8494#10244#0" expanded="false" />
-                <element signature="e#10289#10393#0" expanded="false" />
-                <element signature="e#10445#11217#0" expanded="false" />
-                <element signature="e#12067#12901#0" expanded="false" />
-                <element signature="e#13448#13806#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="popup.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/popup/popup.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -258,7 +152,6 @@
         <option value="$PROJECT_DIR$/common.blocks/alertbox/alertbox.js" />
         <option value="$PROJECT_DIR$/common.blocks/tabs/tabs.js" />
         <option value="$PROJECT_DIR$/common.blocks/tumbler/tumbler.js" />
-        <option value="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" />
         <option value="$PROJECT_DIR$/mobile.blocks/control/control.css" />
         <option value="$PROJECT_DIR$/common.blocks/control/control.css" />
         <option value="$PROJECT_DIR$/common.blocks/radio-group/radio-group.js" />
@@ -289,6 +182,7 @@
         <option value="$PROJECT_DIR$/common.blocks/menu/menu.css" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/common.blocks/button/button.css" />
+        <option value="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" />
       </list>
     </option>
   </component>
@@ -395,22 +289,8 @@
               <option name="myItemId" value="common.blocks" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-          </PATH>
-          <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="foresight-components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="foresight-components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common.blocks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="icon" />
+              <option name="myItemId" value="widget-grid" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -425,10 +305,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common.blocks" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="button" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -759,47 +635,6 @@
             <element signature="e#5797#5875#0" expanded="false" />
             <element signature="e#5919#6681#0" expanded="false" />
             <element signature="e#8342#8702#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9598214">
-          <caret line="204" column="0" selection-start-line="204" selection-start-column="0" selection-end-line="204" selection-end-column="0" />
-          <folding>
-            <element signature="e#368#912#0" expanded="false" />
-            <element signature="e#553#621#0" expanded="false" />
-            <element signature="e#653#890#0" expanded="false" />
-            <element signature="e#1191#1387#0" expanded="false" />
-            <element signature="e#1431#1557#0" expanded="false" />
-            <element signature="e#1605#1904#0" expanded="false" />
-            <element signature="e#1948#2474#0" expanded="false" />
-            <element signature="e#2519#3177#0" expanded="false" />
-            <element signature="e#3223#3302#0" expanded="false" />
-            <element signature="e#3346#3639#0" expanded="false" />
-            <element signature="e#3697#5257#0" expanded="false" />
-            <element signature="e#5327#5672#0" expanded="false" />
-            <element signature="e#5740#6094#0" expanded="false" />
-            <element signature="e#6153#6359#0" expanded="false" />
-            <element signature="e#6422#6526#0" expanded="false" />
-            <element signature="e#6576#6906#0" expanded="false" />
-            <element signature="e#6955#7557#0" expanded="false" />
-            <element signature="e#7604#8045#0" expanded="false" />
-            <element signature="e#8091#8302#0" expanded="false" />
-            <element signature="e#8349#8561#0" expanded="false" />
-            <element signature="e#8613#8704#0" expanded="false" />
-            <element signature="e#8749#8831#0" expanded="false" />
-            <element signature="e#8884#9430#0" expanded="false" />
-            <element signature="e#9483#10360#0" expanded="false" />
-            <element signature="e#10404#10683#0" expanded="false" />
-            <element signature="e#11386#11750#0" expanded="false" />
-            <element signature="e#11797#13600#0" expanded="false" />
-            <element signature="e#11912#12029#0" expanded="false" />
-            <element signature="e#12154#12341#0" expanded="false" />
-            <element signature="e#12466#12651#0" expanded="false" />
-            <element signature="e#13497#13584#0" expanded="false" />
-            <element signature="e#14250#14685#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1205,14 +1040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/menu/menu.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1234,6 +1061,52 @@
         <state vertical-scroll-proportion="0.53731346">
           <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08955224">
+          <caret line="265" column="0" selection-start-line="265" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
+          <folding>
+            <element signature="e#32#11342#0" expanded="false" />
+            <element signature="e#368#912#0" expanded="false" />
+            <element signature="e#553#621#0" expanded="false" />
+            <element signature="e#653#890#0" expanded="false" />
+            <element signature="e#1191#1387#0" expanded="false" />
+            <element signature="e#1431#1557#0" expanded="false" />
+            <element signature="e#1605#1904#0" expanded="false" />
+            <element signature="e#1948#2474#0" expanded="false" />
+            <element signature="e#2519#3177#0" expanded="false" />
+            <element signature="e#3223#3302#0" expanded="false" />
+            <element signature="e#3346#3639#0" expanded="false" />
+            <element signature="e#3697#5257#0" expanded="false" />
+            <element signature="e#5327#5672#0" expanded="false" />
+            <element signature="e#5740#6094#0" expanded="false" />
+            <element signature="e#6153#6359#0" expanded="false" />
+            <element signature="e#6422#6526#0" expanded="false" />
+            <element signature="e#6576#6906#0" expanded="false" />
+            <element signature="e#6955#7557#0" expanded="false" />
+            <element signature="e#7604#8045#0" expanded="false" />
+            <element signature="e#8091#8302#0" expanded="false" />
+            <element signature="e#8349#8561#0" expanded="false" />
+            <element signature="e#8613#8704#0" expanded="false" />
+            <element signature="e#8749#8831#0" expanded="false" />
+            <element signature="e#8884#9430#0" expanded="false" />
+            <element signature="e#9483#10360#0" expanded="false" />
+            <element signature="e#10404#10683#0" expanded="false" />
+            <element signature="e#11386#11750#0" expanded="false" />
+            <element signature="e#11797#13120#0" expanded="false" />
+            <element signature="e#13770#14205#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

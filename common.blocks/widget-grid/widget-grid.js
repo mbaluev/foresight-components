@@ -310,15 +310,8 @@ $(function(){
             height: 3,
             settings: {
                 name: "Html",
-                collapsed: true,
-                content_type: 'html',
-                content:
-                    '<label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">' +
-                    '<button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">' +
-                    '<span class="button__text">Включить</span>' +
-                    '</button>' +
-                    '<input class="checkbox__input" type="checkbox" name="first" hidden/>' +
-                    '</label>'
+                collapsed: false,
+                content_type: 'html'
             }
         },
         {
