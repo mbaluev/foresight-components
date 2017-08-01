@@ -72,6 +72,9 @@
 .button .icon + .button__text {
     margin-left: 0;
 }
+.button .icon_photo + .button__text {
+    margin-left: 5px;
+}
 .button .button__text + .icon {
     margin-left: -10px;
 }
