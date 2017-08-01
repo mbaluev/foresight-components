@@ -96,8 +96,8 @@
                         self.removeClass('button_clicked');
                     };
 
-                    that.set_width = function(){
-                        self.css('width', that.data.width);
+                    that.set_width = function(value){
+                        self.css('width', value);
                     };
 
                     that.bind = function(){
@@ -142,7 +142,7 @@
                         }
                     };
                     that.init = function() {
-                        that.set_width();
+                        that.set_width(that.data.width);
                         that.init_components();
                         that.bind();
                         if (self.hasClass('button_toggable_check')) {
@@ -165,6 +165,7 @@
                         } else {
                             that.show();
                         }
+                        that.set_width(that.data.width);
                     };
                     that.init_check = function(){
                         if (that.data.checked) {
@@ -201,6 +202,11 @@
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
             });
         },
         check : function() {

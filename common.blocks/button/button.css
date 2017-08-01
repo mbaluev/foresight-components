@@ -28,7 +28,7 @@
     background: #fff;
 }
 
-.button .button__text {
+.button__text {
     position: relative;
     display: inline-block;
     overflow: hidden;
@@ -37,6 +37,10 @@
     margin: 0 10px;
     flex: 1 1 auto;
     text-align: left;
+}
+
+.button__text_placeholder {
+    color: #999;
 }
 
 .button.button_hidden { display: none; visibility: hidden; }

@@ -252,12 +252,13 @@
                                         '</div>' +
                                         '</div>' +
 
+                                        /*
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
                                         '<div class="control__text">Цвет</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">' +
+                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group">' +
                                         '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'data-checked="true"' : '' ) + '>' +
                                         '<button class="button button_toggable_radio" type="button" data-fc="button">' +
                                         '<span class="button__text">Серый</span>' +
@@ -279,28 +280,23 @@
                                         '</span>' +
                                         '</div>' +
                                         '</div>' +
+                                        */
 
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
-                                        '<div class="control__text">Дата создания</div>' +
-                                        '<div class="control__icons">' +
-                                        '<span class="icon icon_svg_star_red"></span>' +
-                                        '<span class="icon icon_svg_star_green"></span>' +
-                                        '<span class="icon icon_svg_info"></span>' +
-                                        '</div>' +
+                                        '<div class="control__text">Цвет</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
+                                        '<select class="select" name="color" data-fc="select" data-field="color">' +
+                                        '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                                        '</select>' +
                                         '</div>' +
                                         '</div>'
                                     },
+                                    /*
                                     {
                                         id: 'advanced', name: 'Расширенные',
                                         content:
@@ -312,7 +308,28 @@
                                         '<div class="control__container">' +
                                         '<span class="input input__has-clear" data-fc="input" data-field="source">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="">' +
+                                        '<input type="text" class="input__control" value="' + that.data.source + '">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата создания</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker" data-field="created">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" value="' + that.data.created + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -331,9 +348,9 @@
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" >' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" data-field="modified">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control">' +
+                                        '<input type="text" class="input__control" value="' + that.data.modified + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -342,6 +359,7 @@
                                         '</div>' +
                                         '</div>'
                                     }
+                                    */
                                 ]
                             },
                             data: that.data

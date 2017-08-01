@@ -143,8 +143,8 @@ $(function(){
                         self.removeClass('button_clicked');
                     };
 
-                    that.set_width = function(){
-                        self.css('width', that.data.width);
+                    that.set_width = function(value){
+                        self.css('width', value);
                     };
 
                     that.bind = function(){
@@ -189,7 +189,7 @@ $(function(){
                         }
                     };
                     that.init = function() {
-                        that.set_width();
+                        that.set_width(that.data.width);
                         that.init_components();
                         that.bind();
                         if (self.hasClass('button_toggable_check')) {
@@ -212,6 +212,7 @@ $(function(){
                         } else {
                             that.show();
                         }
+                        that.set_width(that.data.width);
                     };
                     that.init_check = function(){
                         if (that.data.checked) {
@@ -248,6 +249,11 @@ $(function(){
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
             });
         },
         check : function() {
@@ -569,6 +575,7 @@ $(function(){
                     that.defaults = {
                         source: null,
                         width: 'full',
+                        height: 'auto',
                         position: 'bottom left',
                         animation: true,
                         visible: false,
@@ -599,8 +606,9 @@ $(function(){
                         }
                     };
                     that.show = function(){
-                        self.addClass('popup_visible_bottom');
+                        that.set_position(that.data.position);
                         that.data.visible = true;
+                        self.addClass('popup_visible_bottom');
                         if (typeof that.data._el.source_arrow[0] != 'undefined') {
                             that.data._el.source_arrow.addClass('icon_rotate_180deg');
                         }
@@ -624,55 +632,129 @@ $(function(){
                         };
                     };
 
-                    that.set_width = function(){
-                        if (that.data.width == 'full') {
-                            that.data.width = that.data._el.source.outerWidth();
+                    that.set_width = function(width){
+                        if (width == 'full' || width == '100%') {
+                            width = that.data._el.source.outerWidth();
+                            that.data.width = width;
                         };
-                        self.css('width', that.data.width);
+                        self.css({ 'width': width, 'max-width': width });
                     };
-                    that.set_position = function(){
-                        var dims = that.get_dimentions(that.data._el.source),
-                            selfDims = that.get_dimentions(self),
-                            pos = that.data.position.split(' '),
-                            top, left,
-                            offset = that.data.offset,
-                            main = pos[0],
-                            secondary = pos[1];
-                        switch (main) {
-                            case 'top':
-                                top = dims.top - selfDims.height - offset;
-                                break;
-                            case 'right':
-                                left = dims.left + dims.width + offset;
-                                break;
-                            case 'bottom':
-                                top = dims.top + dims.height + offset;
-                                break;
-                            case 'left':
-                                left = dims.left - selfDims.width - offset;
-                                break;
+                    that.set_height = function(height){
+                        self.css('height', height);
+                    };
+                    that.set_position = function(position, i){
+                        if (typeof i === 'undefined') { i = 0; }
+                        if (i < 10) {
+                            var dims = that.get_dimentions(that.data._el.source),
+                                selfDims = that.get_dimentions(self),
+                                pos = position.split(' '),
+                                top, left,
+                                offset = that.data.offset,
+                                main = pos[0],
+                                secondary = pos[1];
+                            switch (main) {
+                                case 'top':
+                                    top = dims.top - selfDims.height - offset;
+                                    break;
+                                case 'right':
+                                    left = dims.left + dims.width + offset;
+                                    break;
+                                case 'bottom':
+                                    top = dims.top + dims.height + offset;
+                                    break;
+                                case 'left':
+                                    left = dims.left - selfDims.width - offset;
+                                    break;
+                            }
+                            switch(secondary) {
+                                case 'top':
+                                    top = dims.top;
+                                    break;
+                                case 'right':
+                                    left = dims.left + dims.width - selfDims.width;
+                                    break;
+                                case 'bottom':
+                                    top = dims.top + dims.height - selfDims.height;
+                                    break;
+                                case 'left':
+                                    left = dims.left;
+                                    break;
+                                case 'center':
+                                    if (/left|right/.test(main)) {
+                                        top = dims.top + dims.height/2 - selfDims.height/2;
+                                    } else {
+                                        left = dims.left + dims.width/2 - selfDims.width/2;
+                                    }
+                            }
+                            self.css({ left: left, top: top });
+
+                            /* correct popup position relative to the window */
+                            var el = that.get_offset(that.data._el.source);
+                            switch (position) {
+                                case 'bottom right':
+                                    if (el.top + el.height + offset + selfDims.height > $(window).height() ||
+                                        el.left + el.width - selfDims.width < 0) {
+                                        that.set_position('left top', ++i);
+                                    }
+                                    break;
+                                case 'left top':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + selfDims.height > $(window).height()) {
+                                        that.set_position('left center', ++i);
+                                    }
+                                    break;
+                                case 'left center':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + el.height/2 + selfDims.height/2 > $(window).height() ||
+                                        el.top + el.height/2 - selfDims.height/2 < 0) {
+                                        that.set_position('left bottom', ++i);
+                                    }
+                                    break;
+                                case 'left bottom':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + el.height - selfDims.height < 0) {
+                                        that.set_position('top right', ++i);
+                                    }
+                                    break;
+                                case 'top right':
+                                    if (el.top - offset - selfDims.height < 0 ||
+                                        el.left + el.width - selfDims.width < 0) {
+                                        that.set_position('top left', ++i);
+                                    }
+                                    break;
+                                case 'top left':
+                                    if (el.top - offset - selfDims.height < 0 ||
+                                        el.left + selfDims.width > $(window).width()) {
+                                        that.set_position('right bottom', ++i);
+                                    }
+                                    break;
+                                case 'right bottom':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + el.height - selfDims.height < 0) {
+                                        that.set_position('right center', ++i);
+                                    }
+                                    break;
+                                case 'right center':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + el.height/2 + selfDims.height/2 > $(window).height() ||
+                                        el.top + el.height/2 - selfDims.height/2 < 0) {
+                                        that.set_position('right top', ++i);
+                                    }
+                                    break;
+                                case 'right top':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + selfDims.height > $(window).height()) {
+                                        that.set_position('bottom left', ++i);
+                                    }
+                                    break;
+                                case 'bottom left':
+                                    if (el.top + el.height + offset + selfDims.height > $(window).height() ||
+                                        el.left + selfDims.width > $(window).width()) {
+                                        that.set_position('bottom right', ++i);
+                                    }
+                                    break;
+                            }
                         }
-                        switch(secondary) {
-                            case 'top':
-                                top = dims.top;
-                                break;
-                            case 'right':
-                                left = dims.left + dims.width - selfDims.width;
-                                break;
-                            case 'bottom':
-                                top = dims.top + dims.height - selfDims.height;
-                                break;
-                            case 'left':
-                                left = dims.left;
-                                break;
-                            case 'center':
-                                if (/left|right/.test(main)) {
-                                    top = dims.top + dims.height/2 - selfDims.height/2;
-                                } else {
-                                    left = dims.left + dims.width/2 - selfDims.width/2;
-                                }
-                        }
-                        self.css({ left: left, top: top });
                     };
 
                     that.get_dimentions = function($el) {
@@ -684,11 +766,19 @@ $(function(){
                             top: position.top
                         }
                     };
+                    that.get_offset = function($el) {
+                        var offset = $el.offset();
+                        return {
+                            width: $el.outerWidth(),
+                            height: $el.outerHeight(),
+                            left: offset.left,
+                            top: offset.top
+                        }
+                    };
 
                     that.bind = function(){
                         that.data._el.source.on('click.popup.toggle', function(e){
                             e.preventDefault();
-                            that.set_position();
                             that.toggle();
                         });
                         that.data._el.source.on('mouseup.popup.source touchend.popup.source', that.mouseup_source);
@@ -701,7 +791,6 @@ $(function(){
                             that.data._el.source_arrow.addClass('icon_animate');
                         }
                     };
-
                     that.init = function(){
                         that.init_components();
                         that.bind();
@@ -712,12 +801,13 @@ $(function(){
                             self.addClass('popup_select ');
                         }
                         if (that.data.visible) {
-                            that.set_position();
+                            that.set_position(that.data.position);
                             that.show();
                         } else {
                             that.hide();
                         }
-                        that.set_width();
+                        that.set_width(that.data.width);
+                        that.set_height(that.data.height);
                     };
                     that.init();
                 }
@@ -737,6 +827,16 @@ $(function(){
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
+            });
+        },
+        set_height : function(value) {
+            return this.each(function() {
+                this.obj.set_height(value);
             });
         }
     };
@@ -1382,11 +1482,12 @@ $(function(){
 
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="button"]').button({ 'popup_animation': false });
                         self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input();
+                        self.find('[data-fc="input"]').input({ 'popup_animation': false });
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
+                        self.find('[data-fc="select"]').select();
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
@@ -1442,6 +1543,408 @@ $(function(){
         }
     };
 })( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'select', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        name: self.attr('name'),
+                        disabled: false,
+                        hidden: false,
+                        width: '100%',
+                        mode: 'radio',
+                        placeholder: 'Выберите значение',
+                        popup_animation: true,
+                        text: '',
+                        height: 'auto',
+                        count_selected: "Выбрано # из %",
+                        minimum_count_selected: 2
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._value = [];
+                    that.data._handlers = null;
+                    that.data._options = [];
+                    that.data._el = {
+                        select: $('<div class="select__container"></div>'),
+                        button: $([
+                            '<button class="button" data-fc="button">',
+                                '<span class="button__text">' + that.data.placeholder + '</span>',
+                                '<span class="icon icon_svg_down"></span>',
+                            '</button>'
+                        ].join('')),
+                        input: $([
+                            '<span class="input input__has-clear">',
+                                '<span class="input__box">',
+                                    '<span class="alertbox">',
+                                        '<span class="icon icon_svg_search"></span>',
+                                    '</span>',
+                                    '<input type="text" class="input__control">',
+                                    '<button class="button" type="button">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                    '</button>',
+                                '</span>',
+                            '</span>'
+                        ].join('')),
+                        popup: $('<div class="popup"></div>'),
+                        popup__input: $('<div class="popup__input"></div>'),
+                        popup__scroll: $('<div class="popup__scroll"></div>'),
+                        popup__list: $('<ul class="popup__list"></ul>'),
+                        popup__list_items: []
+                    };
+
+                    that.destroy = function(){
+                        if (that.data.widget == 'select') {
+                            that.data._el.button.button('destroy');
+                            that.data._el.input.input('destroy');
+                            that.data._el.popup.popup('destroy');
+                            self.data = null;
+                            self.remove();
+                        }
+                    };
+                    that.disable = function(){
+                        that.data._el.button.button('disable');
+                        that.data._el.input.input('disable');
+                        that.data._el.popup.popup('hide');
+                        that.data.disabled = true;
+                    };
+                    that.enable = function(){
+                        that.data._el.button.button('enable');
+                        that.data._el.input.input('enable');
+                        that.data.disabled = false;
+                    };
+                    that.hide = function(){
+                        that.data._el.button.button('hide');
+                        that.data._el.input.input('hide');
+                        that.data._el.popup.popup('hide');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        that.data._el.button.button('show');
+                        that.data._el.input.input('show');
+                        that.data.hidden = false;
+                    };
+
+                    that.render = function(){
+                        self.find('option').each(function(){
+                            var $option = $(this);
+                            var _option = {};
+                            _option.defaults = {
+                                text: $option.text(),
+                                value: $option.attr('value'),
+                                selected: typeof $option.attr('selected') != 'undefined',
+                                disabled: false,
+                                hidden: false,
+                                icon: ''
+                            };
+
+                            // render popup__list-item
+                            _option.data = $.extend(true, {}, _option.defaults, $option.data());
+                            _option.popup__list_item = $([
+                                '<li class="popup__list-item',
+                                    (_option.data.selected ? ' popup__list-item_checked' : ''),
+                                    (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
+                                    '<button class="popup__link">',
+                                        (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
+                                        '<span class="popup__text">' + _option.data.text + '</span>',
+                                    '</button>',
+                                '</li>'
+                            ].join(''));
+
+                            that.data._options.push($option);
+                            that.data._el.popup__list_items.push(_option.popup__list_item);
+
+                            // checked count of selected items
+                            if (_option.data.selected) {
+                                if (((that.data.mode == 'radio' || that.data.mode == 'radio-check') && (that.data._value.length == 0)) ||
+                                    (that.data.mode == 'check')) {
+                                    that.check_item(_option.popup__list_item, _option.data);
+                                } else {
+                                    _option.data.selected = false;
+                                    that.uncheck_item(_option.popup__list_item, _option.data);
+                                }
+                            }
+
+                            // store data to element
+                            $option.data(_option.data);
+                            _option.popup__list_item.data(_option.data);
+                        });
+                        that.data._el.select.append(
+                            that.data._el.button,
+                            that.data._el.popup.append(
+                                that.data._el.popup__input.append(
+                                    that.data._el.input
+                                ),
+                                that.data._el.popup__scroll.append(
+                                    that.data._el.popup__list.append(
+                                        that.data._el.popup__list_items
+                                    )
+                                )
+                            )
+                        );
+                        that.data._el.select.data(that.data);
+                        that.data._el.select.data({'_widget': '_select'});
+                        self.css('display', 'none');
+                        self.after(that.data._el.select);
+                    };
+
+                    that.focus = function(){
+                        that.data._el.popup.popup('show');
+                    };
+                    that.clear = function(){
+                        that.data._value = [];
+                    };
+
+                    that.focusin = function(){
+                        that.data._el.popup.popup('show');
+                    };
+                    that.focusout = function(){
+                        that.data._el.popup.popup('hide');
+                    };
+
+                    that.set_width = function(value){
+                        that.data._el.select.css('width', value);
+                    };
+                    that.set_value = function(value){
+                        if (that.data._value.indexOf(value) < 0) {
+                            that.data._value.push(value);
+                        }
+                    };
+                    that.del_value = function(value){
+                        that.data._value = that.data._value.filter(function(d){
+                            return d.value != value.value && d.text != value.text;
+                        });
+                    };
+                    that.set_button_text = function(){
+                        if (that.data._value.length == 0) {
+                            that.data._el.button.find('.button__text').addClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').text(
+                                that.data.placeholder
+                            );
+                        } else if (that.data._value.length > that.data.minimum_count_selected) {
+                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').text(
+                                that.data.count_selected.replace('#', that.data._value.length).replace('%', that.data._options.length)
+                            );
+                        } else {
+                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').text(
+                                that.data._value.map(function(d){
+                                    return d.text;
+                                }).join(', ')
+                            );
+                        }
+                    };
+                    that.get_value = function(){
+                        if (that.data.mode == 'radio' || that.data.mode == 'radio-check') {
+                            if (that.data._value.length == 0) {
+                                return null;
+                            } else {
+                                return that.data._value[0].value;
+                            }
+                        }
+                        if (that.data.mode == 'check') {
+                            return that.data._value.map(function(d){
+                                return d.value;
+                            })
+                        }
+                    };
+
+                    that.check_item = function(item, idata){
+                        idata.selected = true;
+                        item.addClass('popup__list-item_checked');
+                        that.set_value({ 'value': idata.value, 'text': idata.text });
+                        that.data._options.forEach(function(option){
+                            if (option.data().value == idata.value) {
+                                option.attr('selected', 'selected');
+                                option.data().selected = idata.selected;
+                            }
+                        });
+                        that.set_button_text();
+                    };
+                    that.uncheck_item = function(item, idata){
+                        idata.selected = false;
+                        item.removeClass('popup__list-item_checked');
+                        that.del_value({ 'value': idata.value, 'text': idata.text });
+                        that.data._options.forEach(function(option){
+                            if (option.data().value == idata.value) {
+                                option.removeAttr('selected');
+                                option.data().selected = idata.selected;
+                            }
+                        });
+                        that.set_button_text();
+                    };
+                    that.check_all = function(){
+                        that.data._value = [];
+                        that.data._el.popup__list_items.forEach(function(item){
+                            item.addClass('popup__list-item_checked');
+                            item.data().selected = true;
+                            that.set_value({ 'value': item.data().value, 'text': item.data().text });
+                        });
+                        that.data._options.forEach(function(option){
+                            option.attr('selected', 'selected');
+                            option.data().selected = true;
+                        });
+                        that.set_button_text();
+                    };
+                    that.uncheck_all = function(){
+                        that.data._el.popup__list_items.forEach(function(item){
+                            item.removeClass('popup__list-item_checked');
+                            item.data().selected = false;
+                            that.del_value({ 'value': item.data().value, 'text': item.data().text });
+                        });
+                        that.data._options.forEach(function(option){
+                            option.removeAttr('selected');
+                            option.data().selected = false;
+                        });
+                        that.set_button_text();
+                    };
+
+                    that.bind = function(){
+                        that.data._el.popup__list_items.forEach(function(item){
+                            var idata = item.data();
+                            if (!idata.disabled) {
+                                item.on('click', function(){
+                                    if (that.data.mode == 'radio') {
+                                        that.uncheck_all();
+                                        idata.selected = true;
+                                        that.check_item(item, idata);
+                                    }
+                                    if (that.data.mode == 'radio-check') {
+                                        var selected = idata.selected;
+                                        that.uncheck_all();
+                                        idata.selected = !selected;
+                                        if (idata.selected) {
+                                            that.check_item(item, idata);
+                                        } else {
+                                            that.uncheck_item(item, idata);
+                                        }
+                                    }
+                                    if (that.data.mode == 'check') {
+                                        idata.selected = !idata.selected;
+                                        if (idata.selected) {
+                                            that.check_item(item, idata);
+                                        } else {
+                                            that.uncheck_item(item, idata);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    };
+
+                    that.init_components = function(){
+                        that.data._el.button.button({
+                            disabled: that.data.disabled,
+                            hidden: that.data.hidden,
+                            width: that.data.width
+                        });
+                        that.data._el.input.input({
+                            width: '100%'
+                        });
+                        that.data._el.popup.popup({
+                            source: that.data._el.button,
+                            width: that.data.width,
+                            height: that.data.height,
+                            animation: true,
+                            select: true
+                        });
+                    };
+                    that.init = function(){
+                        that.render();
+                        that.init_components();
+                        that.bind();
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                        that.set_width(that.data.width);
+                        that.set_button_text();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        focus : function() {
+            return this.each(function() {
+                this.obj.focus();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.get_value();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.get_value());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.select = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.select' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="select"]').select();
+});
 (function($){
     var methods = {
         init : function(options) {
@@ -1568,23 +2071,8 @@ $(function(){
                         that.data.focused = false;
                     };
 
-                    /*
-                    that.show_datepicker = function(){
-                        if (that.data._datepicker && !that.data.datepicker_visible) {
-                            that.data._el.datepicker.addClass('input__datepicker_visible_bottom');
-                            that.data.datepicker_visible = true;
-                        }
-                    };
-                    that.hide_datepicker = function(){
-                        if (that.data._datepicker && that.data.datepicker_visible && !that.data.focused) {
-                            that.data._el.datepicker.removeClass('input__datepicker_visible_bottom');
-                            that.data.datepicker_visible = false;
-                        }
-                    };
-                    */
-
-                    that.set_width = function(){
-                        self.css('width', that.data.width);
+                    that.set_width = function(value){
+                        self.css('width', value);
                     };
 
                     that.bind = function(){
@@ -1615,7 +2103,7 @@ $(function(){
                             width: 'auto'
                         });
                         // create detepicker
-                        that.data._el.input.attr('readonly', 'readonly');
+                        /* that.data._el.input.attr('readonly', 'readonly'); */
                         that.data._el.input.datepicker({
                             inline: true,
                             autoClose: that.data.auto_close,
@@ -1644,7 +2132,7 @@ $(function(){
                         } else {
                             that.show();
                         }
-                        that.set_width();
+                        that.set_width(that.data.width);
                     };
                     that.init();
                 }
@@ -1683,7 +2171,12 @@ $(function(){
         },
         clear : function() {
             return this.each(function() {
-                this.obj.hide();
+                this.obj.clear();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
             });
         },
         value : function() {
@@ -1715,6 +2208,157 @@ $(function(){
 
 $(function(){
     $('[data-fc="input"]').input();
+});
+$.fn.bindFirst = function(name, selector, data, handler) {
+    this.on(name, selector, data, handler);
+    this.each(function() {
+        var handlers = $._data(this, 'events')[name.split('.')[0]];
+        var handler = handlers.pop();
+        handlers.splice(0, 0, handler);
+    });
+};
+
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'alertbox', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        hidden: false
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._el = {
+                        button: self.find('button')
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('disable');
+                        }
+                    };
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('enable');
+                        }
+                    };
+                    that.hide = function(){
+                        self.addClass('alertbox_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('alertbox_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.bind = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.on('click', function(e){
+                                e.preventDefault();
+                                that.destroy();
+                            });
+                        }
+                    };
+
+                    that.init_components = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button();
+                        }
+                    };
+                    that.init = function(){
+                        that.init_components();
+                        that.bind();
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        }
+    };
+    $.fn.alertbox = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.alertbox' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="alertbox"]').alertbox();
 });
 (function($){
     var methods = {
@@ -2608,12 +3252,13 @@ $(function(){
                                         '</div>' +
                                         '</div>' +
 
+                                        /*
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
                                         '<div class="control__text">Цвет</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">' +
+                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group">' +
                                         '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'data-checked="true"' : '' ) + '>' +
                                         '<button class="button button_toggable_radio" type="button" data-fc="button">' +
                                         '<span class="button__text">Серый</span>' +
@@ -2635,28 +3280,23 @@ $(function(){
                                         '</span>' +
                                         '</div>' +
                                         '</div>' +
+                                        */
 
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
-                                        '<div class="control__text">Дата создания</div>' +
-                                        '<div class="control__icons">' +
-                                        '<span class="icon icon_svg_star_red"></span>' +
-                                        '<span class="icon icon_svg_star_green"></span>' +
-                                        '<span class="icon icon_svg_info"></span>' +
-                                        '</div>' +
+                                        '<div class="control__text">Цвет</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
+                                        '<select class="select" name="color" data-fc="select" data-field="color">' +
+                                        '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
+                                        '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                                        '</select>' +
                                         '</div>' +
                                         '</div>'
                                     },
+                                    /*
                                     {
                                         id: 'advanced', name: 'Расширенные',
                                         content:
@@ -2668,7 +3308,28 @@ $(function(){
                                         '<div class="control__container">' +
                                         '<span class="input input__has-clear" data-fc="input" data-field="source">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="">' +
+                                        '<input type="text" class="input__control" value="' + that.data.source + '">' +
+                                        '<button class="button" type="button" data-fc="button">' +
+                                        '<span class="icon icon_svg_close"></span>' +
+                                        '</button>' +
+                                        '</span>' +
+                                        '</span>' +
+                                        '</div>' +
+                                        '</div>' +
+
+                                        '<div class="control">' +
+                                        '<div class="control__caption">' +
+                                        '<div class="control__text">Дата создания</div>' +
+                                        '<div class="control__icons">' +
+                                        '<span class="icon icon_svg_star_red"></span>' +
+                                        '<span class="icon icon_svg_star_green"></span>' +
+                                        '<span class="icon icon_svg_info"></span>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '<div class="control__container">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker" data-field="created">' +
+                                        '<span class="input__box">' +
+                                        '<input type="text" class="input__control" value="' + that.data.created + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -2687,9 +3348,9 @@ $(function(){
                                         '</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" >' +
+                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" data-field="modified">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control">' +
+                                        '<input type="text" class="input__control" value="' + that.data.modified + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -2698,6 +3359,7 @@ $(function(){
                                         '</div>' +
                                         '</div>'
                                     }
+                                    */
                                 ]
                             },
                             data: that.data
@@ -2914,155 +3576,4 @@ $(function(){
 
 $(function(){
     $('[data-fc="tab"]').tabs();
-});
-$.fn.bindFirst = function(name, selector, data, handler) {
-    this.on(name, selector, data, handler);
-    this.each(function() {
-        var handlers = $._data(this, 'events')[name.split('.')[0]];
-        var handler = handlers.pop();
-        handlers.splice(0, 0, handler);
-    });
-};
-
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'alertbox', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        hidden: false
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._el = {
-                        button: self.find('button')
-                    };
-
-                    that.destroy = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('disable');
-                        }
-                    };
-                    that.enable = function(){
-                        that.data.disabled = false;
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('enable');
-                        }
-                    };
-                    that.hide = function(){
-                        self.addClass('alertbox_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('alertbox_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.bind = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.on('click', function(e){
-                                e.preventDefault();
-                                that.destroy();
-                            });
-                        }
-                    };
-
-                    that.init_components = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button();
-                        }
-                    };
-                    that.init = function(){
-                        that.init_components();
-                        that.bind();
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        }
-    };
-    $.fn.alertbox = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.alertbox' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="alertbox"]').alertbox();
 });

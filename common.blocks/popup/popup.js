@@ -9,6 +9,7 @@
                     that.defaults = {
                         source: null,
                         width: 'full',
+                        height: 'auto',
                         position: 'bottom left',
                         animation: true,
                         visible: false,
@@ -39,8 +40,9 @@
                         }
                     };
                     that.show = function(){
-                        self.addClass('popup_visible_bottom');
+                        that.set_position(that.data.position);
                         that.data.visible = true;
+                        self.addClass('popup_visible_bottom');
                         if (typeof that.data._el.source_arrow[0] != 'undefined') {
                             that.data._el.source_arrow.addClass('icon_rotate_180deg');
                         }
@@ -64,55 +66,129 @@
                         };
                     };
 
-                    that.set_width = function(){
-                        if (that.data.width == 'full') {
-                            that.data.width = that.data._el.source.outerWidth();
+                    that.set_width = function(width){
+                        if (width == 'full' || width == '100%') {
+                            width = that.data._el.source.outerWidth();
+                            that.data.width = width;
                         };
-                        self.css('width', that.data.width);
+                        self.css({ 'width': width, 'max-width': width });
                     };
-                    that.set_position = function(){
-                        var dims = that.get_dimentions(that.data._el.source),
-                            selfDims = that.get_dimentions(self),
-                            pos = that.data.position.split(' '),
-                            top, left,
-                            offset = that.data.offset,
-                            main = pos[0],
-                            secondary = pos[1];
-                        switch (main) {
-                            case 'top':
-                                top = dims.top - selfDims.height - offset;
-                                break;
-                            case 'right':
-                                left = dims.left + dims.width + offset;
-                                break;
-                            case 'bottom':
-                                top = dims.top + dims.height + offset;
-                                break;
-                            case 'left':
-                                left = dims.left - selfDims.width - offset;
-                                break;
+                    that.set_height = function(height){
+                        self.css('height', height);
+                    };
+                    that.set_position = function(position, i){
+                        if (typeof i === 'undefined') { i = 0; }
+                        if (i < 10) {
+                            var dims = that.get_dimentions(that.data._el.source),
+                                selfDims = that.get_dimentions(self),
+                                pos = position.split(' '),
+                                top, left,
+                                offset = that.data.offset,
+                                main = pos[0],
+                                secondary = pos[1];
+                            switch (main) {
+                                case 'top':
+                                    top = dims.top - selfDims.height - offset;
+                                    break;
+                                case 'right':
+                                    left = dims.left + dims.width + offset;
+                                    break;
+                                case 'bottom':
+                                    top = dims.top + dims.height + offset;
+                                    break;
+                                case 'left':
+                                    left = dims.left - selfDims.width - offset;
+                                    break;
+                            }
+                            switch(secondary) {
+                                case 'top':
+                                    top = dims.top;
+                                    break;
+                                case 'right':
+                                    left = dims.left + dims.width - selfDims.width;
+                                    break;
+                                case 'bottom':
+                                    top = dims.top + dims.height - selfDims.height;
+                                    break;
+                                case 'left':
+                                    left = dims.left;
+                                    break;
+                                case 'center':
+                                    if (/left|right/.test(main)) {
+                                        top = dims.top + dims.height/2 - selfDims.height/2;
+                                    } else {
+                                        left = dims.left + dims.width/2 - selfDims.width/2;
+                                    }
+                            }
+                            self.css({ left: left, top: top });
+
+                            /* correct popup position relative to the window */
+                            var el = that.get_offset(that.data._el.source);
+                            switch (position) {
+                                case 'bottom right':
+                                    if (el.top + el.height + offset + selfDims.height > $(window).height() ||
+                                        el.left + el.width - selfDims.width < 0) {
+                                        that.set_position('left top', ++i);
+                                    }
+                                    break;
+                                case 'left top':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + selfDims.height > $(window).height()) {
+                                        that.set_position('left center', ++i);
+                                    }
+                                    break;
+                                case 'left center':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + el.height/2 + selfDims.height/2 > $(window).height() ||
+                                        el.top + el.height/2 - selfDims.height/2 < 0) {
+                                        that.set_position('left bottom', ++i);
+                                    }
+                                    break;
+                                case 'left bottom':
+                                    if (el.left - offset - selfDims.width < 0 ||
+                                        el.top + el.height - selfDims.height < 0) {
+                                        that.set_position('top right', ++i);
+                                    }
+                                    break;
+                                case 'top right':
+                                    if (el.top - offset - selfDims.height < 0 ||
+                                        el.left + el.width - selfDims.width < 0) {
+                                        that.set_position('top left', ++i);
+                                    }
+                                    break;
+                                case 'top left':
+                                    if (el.top - offset - selfDims.height < 0 ||
+                                        el.left + selfDims.width > $(window).width()) {
+                                        that.set_position('right bottom', ++i);
+                                    }
+                                    break;
+                                case 'right bottom':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + el.height - selfDims.height < 0) {
+                                        that.set_position('right center', ++i);
+                                    }
+                                    break;
+                                case 'right center':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + el.height/2 + selfDims.height/2 > $(window).height() ||
+                                        el.top + el.height/2 - selfDims.height/2 < 0) {
+                                        that.set_position('right top', ++i);
+                                    }
+                                    break;
+                                case 'right top':
+                                    if (el.left + el.width + offset + selfDims.width > $(window).width() ||
+                                        el.top + selfDims.height > $(window).height()) {
+                                        that.set_position('bottom left', ++i);
+                                    }
+                                    break;
+                                case 'bottom left':
+                                    if (el.top + el.height + offset + selfDims.height > $(window).height() ||
+                                        el.left + selfDims.width > $(window).width()) {
+                                        that.set_position('bottom right', ++i);
+                                    }
+                                    break;
+                            }
                         }
-                        switch(secondary) {
-                            case 'top':
-                                top = dims.top;
-                                break;
-                            case 'right':
-                                left = dims.left + dims.width - selfDims.width;
-                                break;
-                            case 'bottom':
-                                top = dims.top + dims.height - selfDims.height;
-                                break;
-                            case 'left':
-                                left = dims.left;
-                                break;
-                            case 'center':
-                                if (/left|right/.test(main)) {
-                                    top = dims.top + dims.height/2 - selfDims.height/2;
-                                } else {
-                                    left = dims.left + dims.width/2 - selfDims.width/2;
-                                }
-                        }
-                        self.css({ left: left, top: top });
                     };
 
                     that.get_dimentions = function($el) {
@@ -124,11 +200,19 @@
                             top: position.top
                         }
                     };
+                    that.get_offset = function($el) {
+                        var offset = $el.offset();
+                        return {
+                            width: $el.outerWidth(),
+                            height: $el.outerHeight(),
+                            left: offset.left,
+                            top: offset.top
+                        }
+                    };
 
                     that.bind = function(){
                         that.data._el.source.on('click.popup.toggle', function(e){
                             e.preventDefault();
-                            that.set_position();
                             that.toggle();
                         });
                         that.data._el.source.on('mouseup.popup.source touchend.popup.source', that.mouseup_source);
@@ -141,7 +225,6 @@
                             that.data._el.source_arrow.addClass('icon_animate');
                         }
                     };
-
                     that.init = function(){
                         that.init_components();
                         that.bind();
@@ -152,12 +235,13 @@
                             self.addClass('popup_select ');
                         }
                         if (that.data.visible) {
-                            that.set_position();
+                            that.set_position(that.data.position);
                             that.show();
                         } else {
                             that.hide();
                         }
-                        that.set_width();
+                        that.set_width(that.data.width);
+                        that.set_height(that.data.height);
                     };
                     that.init();
                 }
@@ -177,6 +261,16 @@
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
+            });
+        },
+        set_height : function(value) {
+            return this.each(function() {
+                this.obj.set_height(value);
             });
         }
     };

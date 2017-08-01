@@ -124,23 +124,8 @@
                         that.data.focused = false;
                     };
 
-                    /*
-                    that.show_datepicker = function(){
-                        if (that.data._datepicker && !that.data.datepicker_visible) {
-                            that.data._el.datepicker.addClass('input__datepicker_visible_bottom');
-                            that.data.datepicker_visible = true;
-                        }
-                    };
-                    that.hide_datepicker = function(){
-                        if (that.data._datepicker && that.data.datepicker_visible && !that.data.focused) {
-                            that.data._el.datepicker.removeClass('input__datepicker_visible_bottom');
-                            that.data.datepicker_visible = false;
-                        }
-                    };
-                    */
-
-                    that.set_width = function(){
-                        self.css('width', that.data.width);
+                    that.set_width = function(value){
+                        self.css('width', value);
                     };
 
                     that.bind = function(){
@@ -171,7 +156,7 @@
                             width: 'auto'
                         });
                         // create detepicker
-                        that.data._el.input.attr('readonly', 'readonly');
+                        /* that.data._el.input.attr('readonly', 'readonly'); */
                         that.data._el.input.datepicker({
                             inline: true,
                             autoClose: that.data.auto_close,
@@ -200,7 +185,7 @@
                         } else {
                             that.show();
                         }
-                        that.set_width();
+                        that.set_width(that.data.width);
                     };
                     that.init();
                 }
@@ -239,7 +224,12 @@
         },
         clear : function() {
             return this.each(function() {
-                this.obj.hide();
+                this.obj.clear();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
             });
         },
         value : function() {

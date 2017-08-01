@@ -107,6 +107,14 @@
     opacity: 1;
 }
 
+.input__box .alertbox,
+.input__box .alertbox:before {
+    background: transparent;
+}
+.input__box .alertbox + .input__control {
+    padding-left: 0;
+}
+
 .input__datepicker {
     position: absolute;
     z-index: 100;
