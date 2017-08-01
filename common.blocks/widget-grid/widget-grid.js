@@ -264,7 +264,8 @@
     };
 })( jQuery );
 
-$(function(){
+//$(function(){
+    /*
     var items = [
         {
             x: 0,
@@ -349,7 +350,7 @@ $(function(){
         .on('save.fc.widget-grid', function(e, data){
             console.log(data);
         });
-
+    */
     /*
     $('#tumbler_edit-page')
         .on('on.fc.tumbler', function(){
@@ -363,4 +364,4 @@ $(function(){
             grid.widget_grid('view_mode');
         });
     */
-});
+//});

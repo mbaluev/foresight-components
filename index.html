@@ -1622,6 +1622,95 @@
     <script src="third/air-datepicker/datepicker.min.js"></script>
     <script src="foresight.components.min.js"></script>
 
+    <script>
+        $(function(){
+            var items = [
+                {
+                    x: 0,
+                    y: 0,
+                    width: 3,
+                    height: 6,
+                    settings: {
+                        name: "Текст",
+                        collapsed: false,
+                        content: 'Диаграмма'
+                    }
+                },
+                {
+                    x: 3,
+                    y: 0,
+                    width: 3,
+                    height: 6,
+                    settings: {
+                        name: "Фиолетовый",
+                        collapsed: false,
+                        content_type: 'count',
+                        content: 666,
+                        color: '#8e6bf5'
+                    }
+                },
+                {
+                    x: 6,
+                    y: 0,
+                    width: 3,
+                    height: 6,
+                    settings: {
+                        name: "Количество",
+                        collapsed: false,
+                        content_type: 'count',
+                        content: 5,
+                        color: '#5a97f2'
+                    }
+                },
+                {
+                    x: 9,
+                    y: 0,
+                    width: 3,
+                    height: 3,
+                    settings: {
+                        name: "Html",
+                        collapsed: false,
+                        content_type: 'html'
+                    }
+                },
+                {
+                    x: 9,
+                    y: 3,
+                    width: 3,
+                    height: 3,
+                    settings: {
+                        name: "Пустой виджет",
+                        collapsed: false
+                    }
+                }
+            ];
+            var widget_grid_options = {
+                items: items,
+                buttons: [
+                    {
+                        selector: '#button_add-widget',
+                        action: 'add'
+                    },
+                    {
+                        selector: '#button_save-grid',
+                        action: 'save'
+                    }
+                ],
+                tumbler: {
+                    selector: '#tumbler_edit-page'
+                }
+            };
+            var grid = $('#widget-grid')
+                    .widget_grid(widget_grid_options)
+                    .on('add.fc.widget-grid', function(e, data){
+                        console.log(data);
+                    })
+                    .on('save.fc.widget-grid', function(e, data){
+                        console.log(data);
+                    });
+        });
+    </script>
+
     <!--
     <script>
         $(function(){
