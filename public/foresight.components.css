@@ -1323,7 +1323,7 @@ body {
 }
 
 .spinner:after {
-  border: 2px solid #ff5940;
+  border: 2px solid;
   content: " ";
   display: block;
   height: 30px;
@@ -2237,6 +2237,10 @@ body {
 
 .widget__body-data_color_red {
   color: #ff5940;
+}
+
+.widget__body-data_color_default .spinner {
+  color: #aaa;
 }
 
 .widget__header .button {
