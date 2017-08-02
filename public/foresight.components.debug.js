@@ -3123,6 +3123,7 @@ $(function(){
                             $bodydata = self.find('.widget__body-data');
                         $body.addClass('widget__body_align_center');
                         $bodydata.html(that.const.CONTENT_LOADING);
+                        /*
                         setTimeout(function(){
                             $body.removeClass('widget__body_align_center');
                             $bodydata.html('');
@@ -3142,16 +3143,11 @@ $(function(){
                             }
                             if (that.data.content === that.const.CONTENT_NODATA) {
                                 $body.addClass('widget__body_align_center');
-                                /*
-                                 $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                                 $border.addClass('widget__border_color_nodata');
-                                 $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                                 $bodydata.addClass('widget__body-data_color_nodata');
-                                 */
                                 $bodydata.addClass('widget__body-data_type_text');
                                 $bodydata.text(that.data.content);
                             }
                         }, 1000);
+                        */
                     };
 
                     that.collapse = function(){
