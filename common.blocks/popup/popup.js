@@ -40,6 +40,9 @@
                         }
                     };
                     that.show = function(){
+                        if (that.data.animation) {
+                            self.addClass('popup_animation');
+                        }
                         that.set_position(that.data.position);
                         that.data.visible = true;
                         self.addClass('popup_visible_bottom');
@@ -228,14 +231,10 @@
                     that.init = function(){
                         that.init_components();
                         that.bind();
-                        if (that.data.animation) {
-                            self.addClass('popup_animation');
-                        }
                         if (that.data.select) {
                             self.addClass('popup_select ');
                         }
                         if (that.data.visible) {
-                            that.set_position(that.data.position);
                             that.show();
                         } else {
                             that.hide();

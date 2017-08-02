@@ -601,6 +601,9 @@ $(function(){
                         }
                     };
                     that.show = function(){
+                        if (that.data.animation) {
+                            self.addClass('popup_animation');
+                        }
                         that.set_position(that.data.position);
                         that.data.visible = true;
                         self.addClass('popup_visible_bottom');
@@ -789,14 +792,10 @@ $(function(){
                     that.init = function(){
                         that.init_components();
                         that.bind();
-                        if (that.data.animation) {
-                            self.addClass('popup_animation');
-                        }
                         if (that.data.select) {
                             self.addClass('popup_select ');
                         }
                         if (that.data.visible) {
-                            that.set_position(that.data.position);
                             that.show();
                         } else {
                             that.hide();
@@ -3109,12 +3108,6 @@ $(function(){
                             $border.addClass('widget__border_color_default');
                             $bodydata.addClass('widget__body-data_color_default');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_NODATA) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_nodata');
-                            $bodydata.addClass('widget__body-data_color_nodata');
-                        }
                         if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
@@ -3126,6 +3119,12 @@ $(function(){
                             $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
                             $bodydata.addClass('widget__body-data_color_red');
+                        }
+                        if (!that.data.color) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_nodata');
+                            $bodydata.addClass('widget__body-data_color_nodata');
                         }
                     };
                     that.set_content = function(){

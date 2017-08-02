@@ -120,12 +120,6 @@
                             $border.addClass('widget__border_color_default');
                             $bodydata.addClass('widget__body-data_color_default');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_NODATA) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_nodata');
-                            $bodydata.addClass('widget__body-data_color_nodata');
-                        }
                         if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
@@ -137,6 +131,12 @@
                             $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
                             $bodydata.addClass('widget__body-data_color_red');
+                        }
+                        if (!that.data.color) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_nodata');
+                            $bodydata.addClass('widget__body-data_color_nodata');
                         }
                     };
                     that.set_content = function(){
