@@ -968,7 +968,9 @@ $(function(){
                                 y: node.y,
                                 width: node.width,
                                 height: node.height,
-                                settings: node.widget.data()
+                                settings: _.omitBy(node.widget.data(), function(val, key){
+                                    return (key.substring(0,1) == '_') || (key == 'mode');
+                                })
                             };
                         }, this);
                         self.trigger(that.data._triggers.save, [that.data.items]);
@@ -2995,8 +2997,9 @@ $(function(){
                     self.data('_widget', { type: 'widget', target : self });
                     var that = this.obj = {};
                     that.const = {
-                        NO_DATA: 'Нет данных',
-                        ERROR_DATA: 'Ошибка загрузки',
+                        CONTENT_LOADING: '<span class="spinner"></span>',
+                        CONTENT_NODATA: 'Нет данных',
+                        CONTENT_ERROR: 'Ошибка загрузки',
                         BORDER_COLOR_BLUE: '#5a97f2',
                         BORDER_COLOR_DEFAULT: '#ccc',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
@@ -3010,8 +3013,8 @@ $(function(){
                         collapsed: false,
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content_type: that.const.CONTENT_TYPE_TEXT,
-                        content: that.const.NO_DATA,
-                        mode: ''
+                        content: that.const.CONTENT_NODATA,
+                        mode: 'view'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3133,7 +3136,7 @@ $(function(){
                             $bodydata.addClass('widget__body-data_type_html');
                             $bodydata.html(that.data.content);
                         }
-                        if (that.data.content === that.const.NO_DATA) {
+                        if (that.data.content === that.const.CONTENT_NODATA) {
                             $body.addClass('widget__body_align_center');
                             /*
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));

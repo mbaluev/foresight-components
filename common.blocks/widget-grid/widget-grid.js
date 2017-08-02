@@ -69,7 +69,9 @@
                                 y: node.y,
                                 width: node.width,
                                 height: node.height,
-                                settings: node.widget.data()
+                                settings: _.omitBy(node.widget.data(), function(val, key){
+                                    return (key.substring(0,1) == '_') || (key == 'mode');
+                                })
                             };
                         }, this);
                         self.trigger(that.data._triggers.save, [that.data.items]);
