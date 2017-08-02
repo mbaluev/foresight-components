@@ -3118,31 +3118,31 @@ $(function(){
                     that.set_content = function(){
                         var $body = self.find('.widget__body'),
                             $bodydata = self.find('.widget__body-data');
+
+                        if (that.data.content_type === that.const.CONTENT_TYPE_COUNT) {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_count');
+                            $bodydata.text(that.data.content);
+                        }
+                        if (that.data.content_type === that.const.CONTENT_TYPE_TEXT) {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_text');
+                            $bodydata.text(that.data.content);
+                        }
+                        if (that.data.content_type === that.const.CONTENT_TYPE_HTML) {
+                            $bodydata.addClass('widget__body-data_type_html');
+                            $bodydata.html(that.data.content);
+                        }
                         if (that.data.content === that.const.NO_DATA) {
                             $body.addClass('widget__body_align_center');
                             /*
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_nodata');
-                            */
                             $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
                             $bodydata.addClass('widget__body-data_color_nodata');
+                            */
                             $bodydata.addClass('widget__body-data_type_text');
                             $bodydata.text(that.data.content);
-                        } else {
-                            if (that.data.content_type === that.const.CONTENT_TYPE_COUNT) {
-                                $body.addClass('widget__body_align_center');
-                                $bodydata.addClass('widget__body-data_type_count');
-                                $bodydata.text(that.data.content);
-                            }
-                            if (that.data.content_type === that.const.CONTENT_TYPE_TEXT) {
-                                $body.addClass('widget__body_align_center');
-                                $bodydata.addClass('widget__body-data_type_text');
-                                $bodydata.text(that.data.content);
-                            }
-                            if (that.data.content_type === that.const.CONTENT_TYPE_HTML) {
-                                $bodydata.addClass('widget__body-data_type_html');
-                                $bodydata.html(that.data.content);
-                            }
                         }
                     };
 
