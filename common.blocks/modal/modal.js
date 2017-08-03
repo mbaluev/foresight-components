@@ -215,7 +215,7 @@
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="select"]').select({
                             popup_animation: false,
-                            autoclose: true
+                            autoclose: false
                         });
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
