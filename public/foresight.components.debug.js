@@ -970,7 +970,7 @@ $(function(){
                                 width: node.width,
                                 height: node.height,
                                 settings: _.omitBy(node.widget.data(), function(val, key){
-                                    return (key.substring(0,1) == '_') || (key == 'mode');
+                                    return (key.substring(0,1) == '_') || (key == 'mode') || (key == 'loader');
                                 })
                             };
                         }, this);
@@ -3311,19 +3311,18 @@ $(function(){
                                         '</div>' +
                                         '</div>'
                                     },
-                                    /*
                                     {
-                                        id: 'advanced', name: 'Расширенные',
+                                        id: 'source', name: 'Источник данных',
                                         content:
 
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
-                                        '<div class="control__text">Источник данных</div>' +
+                                        '<div class="control__text">Библиотека виджетов</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-field="source">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-field="pagename">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.source + '">' +
+                                        '<input type="text" class="input__control" value="' + that.data.pagename + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -3334,38 +3333,12 @@ $(function(){
 
                                         '<div class="control">' +
                                         '<div class="control__caption">' +
-                                        '<div class="control__text">Дата создания</div>' +
-                                        '<div class="control__icons">' +
-                                        '<span class="icon icon_svg_star_red"></span>' +
-                                        '<span class="icon icon_svg_star_green"></span>' +
-                                        '<span class="icon icon_svg_info"></span>' +
-                                        '</div>' +
+                                        '<div class="control__text">Виджет</div>' +
                                         '</div>' +
                                         '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker" data-field="created">' +
+                                        '<span class="input input__has-clear" data-fc="input" data-field="elementname">' +
                                         '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.created + '">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
-                                        '</div>' +
-                                        '</div>' +
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Дата редактирования</div>' +
-                                        '<div class="control__icons">' +
-                                        '<span class="icon icon_svg_star_red"></span>' +
-                                        '<span class="icon icon_svg_star_green"></span>' +
-                                        '<span class="icon icon_svg_info"></span>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-width="200px" data-toggle="datepicker" data-field="modified">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.modified + '">' +
+                                        '<input type="text" class="input__control" value="' + that.data.elementname + '">' +
                                         '<button class="button" type="button" data-fc="button">' +
                                         '<span class="icon icon_svg_close"></span>' +
                                         '</button>' +
@@ -3374,7 +3347,6 @@ $(function(){
                                         '</div>' +
                                         '</div>'
                                     }
-                                    */
                                 ]
                             },
                             data: that.data
