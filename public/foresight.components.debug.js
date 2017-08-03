@@ -1479,12 +1479,13 @@ $(function(){
 
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button({ 'popup_animation': false });
+                        self.find('[data-fc="button"]').button({ popup_animation: false });
                         self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input({ 'popup_animation': false });
+                        self.find('[data-fc="input"]').input({ popup_animation: false });
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
-                        self.find('[data-fc="select"]').select();
+                        self.find('[data-fc="select"]').select({ popup_animation: false });
+                        self.find('.select').select({ popup_animation: false });
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
                         self.find('[data-fc="widget"]').widget();
@@ -3336,7 +3337,7 @@ $(function(){
                             '<div class="control__text">Цвет</div>' +
                             '</div>' +
                             '<div class="control__container">' +
-                            '<select class="select" name="color" data-fc="select" data-field="color">' +
+                            '<select class="select" name="color" data-field="color">' +
                             '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
                             '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
                             '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
@@ -3354,7 +3355,7 @@ $(function(){
                                     '<div class="control__text">Библиотека виджетов</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-autoclose="true"></select>',
+                                    '<select class="select" name="pagename" data-field="pagename" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -3364,7 +3365,7 @@ $(function(){
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-autoclose="true"></select>',
+                                    '<select class="select" name="elementname" data-field="elementname" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));
