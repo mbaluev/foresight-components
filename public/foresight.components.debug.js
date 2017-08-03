@@ -1559,7 +1559,8 @@ $(function(){
                         text: '',
                         height: 'auto',
                         count_selected: "Выбрано # из %",
-                        minimum_count_selected: 2
+                        minimum_count_selected: 2,
+                        autoclose: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1851,6 +1852,9 @@ $(function(){
                                         } else {
                                             that.uncheck_item(item, idata);
                                         }
+                                    }
+                                    if (that.data.autoclose) {
+                                        that.hide();
                                     }
                                 });
                             }
@@ -3350,7 +3354,7 @@ $(function(){
                                     '<div class="control__text">Библиотека виджетов</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename"></select>',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -3360,7 +3364,7 @@ $(function(){
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname"></select>',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));

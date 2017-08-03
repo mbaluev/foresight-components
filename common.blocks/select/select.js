@@ -17,7 +17,8 @@
                         text: '',
                         height: 'auto',
                         count_selected: "Выбрано # из %",
-                        minimum_count_selected: 2
+                        minimum_count_selected: 2,
+                        autoclose: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -309,6 +310,9 @@
                                         } else {
                                             that.uncheck_item(item, idata);
                                         }
+                                    }
+                                    if (that.data.autoclose) {
+                                        that.hide();
                                     }
                                 });
                             }

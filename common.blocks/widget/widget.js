@@ -329,7 +329,7 @@
                                     '<div class="control__text">Библиотека виджетов</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename"></select>',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -339,7 +339,7 @@
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname"></select>',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-autoclose="true"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));
