@@ -43,6 +43,7 @@
                         if (that.data.animation) {
                             self.addClass('popup_animation');
                         }
+                        that.set_width(that.data.width);
                         that.set_position(that.data.position);
                         that.data.visible = true;
                         self.addClass('popup_visible_bottom');

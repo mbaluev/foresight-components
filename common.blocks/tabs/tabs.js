@@ -53,7 +53,6 @@
                         that.data._el.tabs__pane.addClass('tabs__pane_active');
                         that.data.active = true;
                         that.data.disabled = true;
-                        //that.update_components();
                     };
 
                     that.check_active = function(){
@@ -79,9 +78,6 @@
 
                     that.init_components = function(){
                         that.data._el.button.button();
-                    };
-                    that.update_components = function(){
-                        that.data._el.tabs__pane.find('.popup').popup('set_width', '100%');
                     };
                     that.init = function(){
                         that.init_components();
