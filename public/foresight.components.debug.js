@@ -3045,7 +3045,8 @@ $(function(){
                         mode: 'view',
                         pagename: '',
                         elementname: '',
-                        loader: null
+                        loader: null,
+                        library: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3255,130 +3256,12 @@ $(function(){
                                 caption: 'Настройки виджета',
                                 name: that.data.name
                             },
-                            content: {
-                                tabs: [
-                                    {
-                                        id: 'general', name: 'Основные', active: true,
-                                        content:
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Скрывать по умолчанию</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
-                                        (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
-                                        '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
-                                        '<label class="checkbox__label"></label>' +
-                                        '</label>' +
-                                        '</div>' +
-                                        '</div>' +
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Заголовок</div>' +
-                                        '<div class="control__icons">' +
-                                        '<span class="icon icon_svg_star_red"></span>' +
-                                        '<span class="icon icon_svg_star_green"></span>' +
-                                        '<span class="icon icon_svg_info"></span>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-field="name">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.name + '">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
-                                        '</div>' +
-                                        '</div>' +
-
-                                        /*
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Цвет</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<span class="radio-group radio-group_type_button" data-fc="radio-group">' +
-                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'data-checked="true"' : '' ) + '>' +
-                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
-                                        '<span class="button__text">Серый</span>' +
-                                        '</button>' +
-                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_DEFAULT + '" hidden/>' +
-                                        '</label>' +
-                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'data-checked="true"' : '' ) + '>' +
-                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
-                                        '<span class="button__text">Синий</span>' +
-                                        '</button>' +
-                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_BLUE + '" hidden/>' +
-                                        '</label>' +
-                                        '<label class="radio radio_type_button" data-fc="radio" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'data-checked="true"' : '' ) + '>' +
-                                        '<button class="button button_toggable_radio" type="button" data-fc="button">' +
-                                        '<span class="button__text">Красный</span>' +
-                                        '</button>' +
-                                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + that.const.BORDER_COLOR_RED + '" hidden/>' +
-                                        '</label>' +
-                                        '</span>' +
-                                        '</div>' +
-                                        '</div>' +
-                                        */
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Цвет</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<select class="select" name="color" data-fc="select" data-field="color">' +
-                                        '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
-                                        '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
-                                        '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
-                                        '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
-                                        '</select>' +
-                                        '</div>' +
-                                        '</div>'
-                                    },
-                                    {
-                                        id: 'source', name: 'Источник данных',
-                                        content:
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Библиотека виджетов</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-field="pagename">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.pagename + '">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
-                                        '</div>' +
-                                        '</div>' +
-
-                                        '<div class="control">' +
-                                        '<div class="control__caption">' +
-                                        '<div class="control__text">Виджет</div>' +
-                                        '</div>' +
-                                        '<div class="control__container">' +
-                                        '<span class="input input__has-clear" data-fc="input" data-field="elementname">' +
-                                        '<span class="input__box">' +
-                                        '<input type="text" class="input__control" value="' + that.data.elementname + '">' +
-                                        '<button class="button" type="button" data-fc="button">' +
-                                        '<span class="icon icon_svg_close"></span>' +
-                                        '</button>' +
-                                        '</span>' +
-                                        '</span>' +
-                                        '</div>' +
-                                        '</div>'
-                                    }
-                                ]
-                            },
+                            content: { tabs: [] },
                             data: that.data
                         };
+                        that.render_general_tab(modal_options.content.tabs);
+                        that.render_source_tab(modal_options.content.tabs);
+
                         $('<span class="modal"></span>').appendTo('body')
                             .modal(modal_options)
                             .on('save.fc.modal', function(){
@@ -3400,6 +3283,103 @@ $(function(){
                                 }
                                 $(this).modal('destroy');
                             });
+                    };
+                    that.render_general_tab = function(tabs){
+                        tabs.push({
+                            id: 'general',
+                            name: 'Основные',
+                            active: true,
+                            content:
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Скрывать по умолчанию</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
+                            (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
+                            '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
+                            '<label class="checkbox__label"></label>' +
+                            '</label>' +
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Заголовок</div>' +
+                            '<div class="control__icons">' +
+                            '<span class="icon icon_svg_star_red"></span>' +
+                            '<span class="icon icon_svg_star_green"></span>' +
+                            '<span class="icon icon_svg_info"></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<span class="input input__has-clear" data-fc="input" data-field="name">' +
+                            '<span class="input__box">' +
+                            '<input type="text" class="input__control" value="' + that.data.name + '">' +
+                            '<button class="button" type="button" data-fc="button">' +
+                            '<span class="icon icon_svg_close"></span>' +
+                            '</button>' +
+                            '</span>' +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Цвет</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<select class="select" name="color" data-fc="select" data-field="color">' +
+                            '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                            '</select>' +
+                            '</div>' +
+                            '</div>'
+                        });
+                    };
+                    that.render_source_tab = function(tabs){
+                        if (that.data.library) {
+                            var $control__library = $([
+                                    '<div class="control">',
+                                    '<div class="control__caption">',
+                                    '<div class="control__text">Библиотека виджетов</div>',
+                                    '</div>',
+                                    '<div class="control__container">',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename"></select>',
+                                    '</div>',
+                                    '</div>'
+                                ].join('')),
+                                $control__widgets = $([
+                                    '<div class="control">',
+                                    '<div class="control__caption">',
+                                    '<div class="control__text">Виджет</div>',
+                                    '</div>',
+                                    '<div class="control__container">',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname"></select>',
+                                    '</div>',
+                                    '</div>'
+                                ].join(''));
+                            that.data.library.forEach(function(item, i, arr){
+                                $control__library.find('.select').append($(
+                                    '<option value="' + item.value + '">' + item.text + '</option>'
+                                ));
+                                item.items.forEach(function(item, i, arr){
+                                    $control__widgets.find('.select').append($(
+                                        '<option value="' + item.value + '">' + item.text + '</option>'
+                                    ));
+                                });
+                            });
+                            tabs.push({
+                                id: 'source',
+                                name: 'Источник данных',
+                                content:
+                                    $control__library[0].outerHTML +
+                                    $control__widgets[0].outerHTML
+                            });
+                        }
                     };
 
                     that.bind = function(){
