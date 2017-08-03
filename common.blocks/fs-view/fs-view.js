@@ -1,4 +1,7 @@
 $(function(){
+    $('.fs-view__middle').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+        $(window).trigger('resize');
+    });
     $('#button_toggle-menu').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu');
