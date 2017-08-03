@@ -626,13 +626,13 @@ $(function(){
                         }
                     };
                     that.mouseup_self = function(e){
-                        that.data._inFocus = true;
+                        e.originalEvent.inFocus = true;
                     };
                     that.mouseup_source = function(e){
                         that.data._inFocus = true;
                     };
                     that.mouseup_body = function(e){
-                        if (!that.data._inFocus) {
+                        if (!that.data._inFocus && !e.originalEvent.inFocus) {
                             that.hide();
                         }
                     };
@@ -926,7 +926,22 @@ $(function(){
                             resizable: { handles: 'e, se, s, sw, w' }
                         },
                         loader: null,
-                        library: null
+                        library: [
+                            {
+                                value: 'WidgetLibrary',
+                                text: 'WidgetLibrary',
+                                items: [
+                                    {
+                                        value: 'widget1',
+                                        text: 'widget1'
+                                    },
+                                    {
+                                        value: 'widget2',
+                                        text: 'widget2'
+                                    }
+                                ]
+                            }
+                        ]
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);

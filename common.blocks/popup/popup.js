@@ -62,13 +62,13 @@
                         }
                     };
                     that.mouseup_self = function(e){
-                        that.data._inFocus = true;
+                        e.originalEvent.inFocus = true;
                     };
                     that.mouseup_source = function(e){
                         that.data._inFocus = true;
                     };
                     that.mouseup_body = function(e){
-                        if (!that.data._inFocus) {
+                        if (!that.data._inFocus && !e.originalEvent.inFocus) {
                             that.hide();
                         }
                     };
