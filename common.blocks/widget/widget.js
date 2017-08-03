@@ -326,7 +326,7 @@
                             var $control__library = $([
                                     '<div class="control">',
                                     '<div class="control__caption">',
-                                    '<div class="control__text">Библиотека виджетов</div>',
+                                    '<div class="control__text">Источник данных</div>',
                                     '</div>',
                                     '<div class="control__container">',
                                     '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check"></select>',
