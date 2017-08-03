@@ -63,6 +63,7 @@
                     };
                     that.mouseup_source = function(e){
                         e.originalEvent.inFocus = true;
+                        $('[data-fc="popup"]').popup('hide');
                     };
                     that.mouseup_body = function(e){
                         if (!e.originalEvent.inFocus) {

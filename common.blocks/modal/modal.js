@@ -204,9 +204,13 @@
 
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button({ popup_animation: false });
+                        self.find('[data-fc="button"]').button({
+                            popup_animation: false
+                        });
                         self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input({ popup_animation: false });
+                        self.find('[data-fc="input"]').input({
+                            popup_animation: false
+                        });
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="select"]').select({

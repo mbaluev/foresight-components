@@ -55,7 +55,7 @@
                                 '</span>',
                             '</span>'
                         ].join('')),
-                        popup: $('<div class="popup"></div>'),
+                        popup: $('<div class="popup" data-fc="popup"></div>'),
                         popup__input: $('<div class="popup__input"></div>'),
                         popup__scroll: $('<div class="popup__scroll"></div>'),
                         popup__list: $('<ul class="popup__list"></ul>'),

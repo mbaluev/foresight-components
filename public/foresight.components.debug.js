@@ -627,6 +627,7 @@ $(function(){
                     };
                     that.mouseup_source = function(e){
                         e.originalEvent.inFocus = true;
+                        $('[data-fc="popup"]').popup('hide');
                     };
                     that.mouseup_body = function(e){
                         if (!e.originalEvent.inFocus) {
@@ -1479,9 +1480,13 @@ $(function(){
 
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button({ popup_animation: false });
+                        self.find('[data-fc="button"]').button({
+                            popup_animation: false
+                        });
                         self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input({ popup_animation: false });
+                        self.find('[data-fc="input"]').input({
+                            popup_animation: false
+                        });
                         self.find('[data-fc="radio"]').radio();
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="select"]').select({
@@ -1600,7 +1605,7 @@ $(function(){
                                 '</span>',
                             '</span>'
                         ].join('')),
-                        popup: $('<div class="popup"></div>'),
+                        popup: $('<div class="popup" data-fc="popup"></div>'),
                         popup__input: $('<div class="popup__input"></div>'),
                         popup__scroll: $('<div class="popup__scroll"></div>'),
                         popup__list: $('<ul class="popup__list"></ul>'),
