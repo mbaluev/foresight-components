@@ -311,7 +311,7 @@
                             '<div class="control__text">Цвет</div>' +
                             '</div>' +
                             '<div class="control__container">' +
-                            '<select class="select" name="color" data-field="color">' +
+                            '<select class="select" name="color" data-fc="select" data-field="color">' +
                             '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
                             '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
                             '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
@@ -329,7 +329,7 @@
                                     '<div class="control__text">Библиотека виджетов</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-field="pagename" data-mode="radio-check" data-autoclose="true"></select>',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -339,7 +339,7 @@
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-field="elementname" data-mode="radio-check" data-autoclose="true"></select>',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));

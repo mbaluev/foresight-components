@@ -330,7 +330,7 @@
                         });
                         that.data._el.popup.popup({
                             source: that.data._el.button,
-                            width: that.data.width,
+                            width: '100%',
                             height: that.data.height,
                             animation: true,
                             select: true
