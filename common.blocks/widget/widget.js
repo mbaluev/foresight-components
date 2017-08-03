@@ -135,6 +135,7 @@
                             $bodydata = self.find('.widget__body-data');
                         if (typeof that.data.loader == 'function') {
                             $body.addClass('widget__body_align_center');
+                            $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
                             that.data.content = new that.data.loader({
                                 pagename: that.data.pagename,
@@ -366,7 +367,7 @@
                                 $(this).find('[data-field]').each(function(){
                                     var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
                                     _.set(that.data, t.data('field'), val);
-                                    if ((t.data('field') == 'pagename' || t.data('field') == 'elementname') && t.data('field') != val) {
+                                    if ((t.data('field') == 'pagename' || t.data('field') == 'elementname') && that.data[t.data('field')] != val) {
                                         reload = true;
                                     }
                                 });
