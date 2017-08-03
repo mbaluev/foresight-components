@@ -186,3 +186,18 @@
     transform: rotate(270deg);
 }
 /* icon animations -end */
+
+/* icon spinner -begin */
+.icon .spinner {
+    color: #ff5940;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.icon .spinner:after {
+    height: 16px;
+    width: 16px;
+}
+/* icon spinner -end */

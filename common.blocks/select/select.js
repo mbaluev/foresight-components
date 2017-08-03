@@ -36,6 +36,11 @@
                                 '<span class="icon icon_svg_down"></span>',
                             '</button>'
                         ].join('')),
+                        spinner: $([
+                            '<span class="icon">',
+                                '<span class="spinner"></span>',
+                            '</span>'
+                        ].join('')),
                         input: $([
                             '<span class="input input__has-clear">',
                                 '<span class="input__box">',
@@ -149,6 +154,20 @@
                         that.data._el.select.data({'_widget': '_select'});
                         self.css('display', 'none');
                         self.after(that.data._el.select);
+                    };
+                    that.update = function(data){
+                        that.data._el.button.find('.button__text').after(that.data._el.spinner);
+                        self.html('');
+                        that.data._options = [];
+                        that.data._el.popup__list.html('');
+                        that.data._el.popup__list_items = [];
+                        data.forEach(function(item, i, arr){
+                            var $option = $('<option value="' + item.value + '">' + item.text + '</option>');
+                            self.append($option);
+                        });
+                        that.clear();
+                        that.init();
+                        that.data._el.spinner.remove();
                     };
 
                     that.focus = function(){
@@ -358,6 +377,11 @@
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        update : function(data) {
+            return this.each(function() {
+                this.obj.update(data);
             });
         },
         focus : function() {
