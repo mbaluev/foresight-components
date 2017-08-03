@@ -637,7 +637,6 @@ $(function(){
                     that.set_width = function(width){
                         if (width == 'full' || width == '100%') {
                             width = that.data._el.source.outerWidth();
-                            that.data.width = width;
                         };
                         self.css({ 'width': width, 'max-width': width });
                     };
