@@ -142,11 +142,11 @@
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
-                                    $bodydata.text(content);
+                                    $bodydata.html(content);
                                 },
                                 error: function(msg){
                                     $bodydata.addClass('widget__body-data_type_text');
-                                    $bodydata.text(msg);
+                                    $bodydata.html(msg);
                                 }
                             });
                             that.data.content.loadContent();
