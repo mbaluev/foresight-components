@@ -331,7 +331,7 @@
                         that.data._el.popup.popup({
                             source: that.data._el.button,
                             height: that.data.height,
-                            animation: true,
+                            animation: that.data.popup_animation,
                             select: true
                         });
                     };
