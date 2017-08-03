@@ -3354,13 +3354,20 @@ $(function(){
                         $('<span class="modal"></span>').appendTo('body')
                             .modal(modal_options)
                             .on('save.fc.modal', function(){
+                                var reload = false;
                                 $(this).find('[data-field]').each(function(){
                                     var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
                                     _.set(that.data, t.data('field'), val);
+                                    if ((t.data('field') == 'pagename' || t.data('field') == 'elementname') && t.data('field') != val) {
+                                        reload = true;
+                                    }
                                 });
                                 that.trigger_toggle();
                                 that.set_name();
                                 that.set_color();
+                                if (reload) {
+                                    that.set_content();
+                                }
                                 $(this).modal('destroy');
                             });
                     };
