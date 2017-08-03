@@ -3136,9 +3136,9 @@ $(function(){
                                     $bodydata.addClass('widget__body-data_type_html');
                                     $bodydata.text(content);
                                 },
-                                error: function(data){
+                                error: function(msg){
                                     $bodydata.addClass('widget__body-data_type_text');
-                                    $bodydata.text(that.const.CONTENT_ERROR);
+                                    $bodydata.text(msg);
                                 }
                             });
                             that.data.content.loadContent();
