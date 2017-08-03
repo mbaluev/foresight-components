@@ -19,7 +19,8 @@
                             disableDrag: true,
                             disableResize: true,
                             resizable: { handles: 'e, se, s, sw, w' }
-                        }
+                        },
+                        loader: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -92,6 +93,7 @@
 
                         node._id = that.data._el.nodesCount;
                         node._height = node.height;
+                        node.settings.loader = that.data.loader;
                         node.widget = $('<div class="widget" id="widget' + that.data._el.nodesCount + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
                         _.unset(node, 'settings');

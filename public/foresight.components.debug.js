@@ -918,7 +918,8 @@ $(function(){
                             disableDrag: true,
                             disableResize: true,
                             resizable: { handles: 'e, se, s, sw, w' }
-                        }
+                        },
+                        loader: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -991,6 +992,7 @@ $(function(){
 
                         node._id = that.data._el.nodesCount;
                         node._height = node.height;
+                        node.settings.loader = that.data.loader;
                         node.widget = $('<div class="widget" id="widget' + that.data._el.nodesCount + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
                         _.unset(node, 'settings');
@@ -3012,9 +3014,11 @@ $(function(){
                         name: 'Виджет',
                         collapsed: false,
                         color: that.const.BORDER_COLOR_DEFAULT,
-                        content_type: that.const.CONTENT_TYPE_TEXT,
                         content: that.const.CONTENT_NODATA,
-                        mode: 'view'
+                        mode: 'view',
+                        pagename: '',
+                        elementname: '',
+                        loader: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3121,8 +3125,27 @@ $(function(){
                     that.set_content = function(){
                         var $body = self.find('.widget__body'),
                             $bodydata = self.find('.widget__body-data');
-                        $body.addClass('widget__body_align_center');
-                        $bodydata.html(that.const.CONTENT_LOADING);
+                        if (typeof that.data.loader == 'function') {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.html(that.const.CONTENT_LOADING);
+                            that.data.content = new that.data.loader({
+                                pagename: that.data.pagename,
+                                elementname: that.data.elementname,
+                                success: function(content){
+                                    $body.removeClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_html');
+                                    $bodydata.text(content);
+                                },
+                                error: function(data){
+                                    $bodydata.addClass('widget__body-data_type_text');
+                                    $bodydata.text(that.const.CONTENT_ERROR);
+                                }
+                            });
+                            that.data.content.loadContent();
+                        } else {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.html(that.const.CONTENT_NODATA);
+                        }
                         /*
                         setTimeout(function(){
                             $body.removeClass('widget__body_align_center');
