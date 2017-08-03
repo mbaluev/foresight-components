@@ -345,11 +345,11 @@
                                 ].join(''));
                             that.data.library.forEach(function(item, i, arr){
                                 $control__library.find('.select').append($(
-                                    '<option value="' + item.value + '">' + item.text + '</option>'
+                                    '<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>'
                                 ));
                                 item.items.forEach(function(item, i, arr){
                                     $control__widgets.find('.select').append($(
-                                        '<option value="' + item.value + '">' + item.text + '</option>'
+                                        '<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>'
                                     ));
                                 });
                             });
