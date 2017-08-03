@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/widget/widget.js" afterPath="$PROJECT_DIR$/common.blocks/widget/widget.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.debug.js" afterPath="$PROJECT_DIR$/public/foresight.components.debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.min.js" afterPath="$PROJECT_DIR$/public/foresight.components.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/index.html" afterPath="$PROJECT_DIR$/public/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/modal/modal.js" afterPath="$PROJECT_DIR$/common.blocks/modal/modal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/popup/popup.js" afterPath="$PROJECT_DIR$/common.blocks/popup/popup.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,13 +32,13 @@
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-20.125">
-              <caret line="1630" column="41" selection-start-line="1630" selection-start-column="38" selection-end-line="1630" selection-end-column="41" />
+              <caret line="1630" column="43" selection-start-line="1630" selection-start-column="43" selection-end-line="1630" selection-end-column="43" />
               <folding>
                 <element signature="n#div#0;n#div#0;n#body#0;n#!!top" expanded="false" />
                 <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="false" />
                 <element signature="e#108759#109001#0" expanded="false" />
                 <element signature="n#script#7;n#body#0;n#!!top" expanded="false" />
-                <element signature="e#112150#112863#0" expanded="false" />
+                <element signature="e#112152#112865#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -43,8 +48,9 @@
         <entry file="file://$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
               <folding>
+                <element signature="e#368#989#0" expanded="false" />
                 <element signature="e#1268#1464#0" expanded="false" />
                 <element signature="e#1508#1634#0" expanded="false" />
                 <element signature="e#1682#1981#0" expanded="false" />
@@ -74,13 +80,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="widget.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="widget.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/widget/widget.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13488372">
-              <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
+            <state vertical-scroll-proportion="-22.222221">
+              <caret line="323" column="59" selection-start-line="323" selection-start-column="59" selection-end-line="323" selection-end-column="59" />
               <folding>
                 <element signature="e#360#940#0" expanded="false" />
+                <element signature="e#978#1400#0" expanded="false" />
                 <element signature="e#1679#1913#0" expanded="false" />
                 <element signature="e#1961#2676#0" expanded="false" />
                 <element signature="e#2723#4712#0" expanded="false" />
@@ -100,7 +107,9 @@
                 <element signature="e#12653#14945#0" expanded="false" />
                 <element signature="e#12738#13231#0" expanded="false" />
                 <element signature="e#15007#18538#0" expanded="false" />
+                <element signature="e#18599#21210#0" expanded="false" />
                 <element signature="e#21255#21633#0" expanded="false" />
+                <element signature="e#21689#21848#0" expanded="false" />
                 <element signature="e#21892#22302#0" expanded="false" />
               </folding>
             </state>
@@ -111,7 +120,7 @@
         <entry file="file://$PROJECT_DIR$/common.blocks/modal/modal.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="218" column="27" selection-start-line="218" selection-start-column="27" selection-end-line="218" selection-end-column="27" />
+              <caret line="217" column="44" selection-start-line="217" selection-start-column="44" selection-end-line="217" selection-end-column="44" />
               <folding>
                 <element signature="e#362#1144#0" expanded="false" />
                 <element signature="e#1423#2763#0" expanded="false" />
@@ -129,7 +138,7 @@
                 <element signature="e#8494#10244#0" expanded="false" />
                 <element signature="e#10289#10393#0" expanded="false" />
                 <element signature="e#10445#11217#0" expanded="false" />
-                <element signature="e#12290#13124#0" expanded="false" />
+                <element signature="e#12291#13125#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -172,40 +181,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="popup.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="popup.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common.blocks/popup/popup.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.55803573">
+              <caret line="69" column="51" selection-start-line="69" selection-start-column="51" selection-end-line="69" selection-end-column="51" />
               <folding>
                 <element signature="e#362#706#0" expanded="false" />
-                <element signature="e#985#1136#0" expanded="false" />
-                <element signature="e#1184#1288#0" expanded="false" />
-                <element signature="e#1333#1672#0" expanded="false" />
-                <element signature="e#1716#2307#0" expanded="false" />
-                <element signature="e#2353#2566#0" expanded="false" />
-                <element signature="e#2619#2698#0" expanded="false" />
-                <element signature="e#2753#2894#0" expanded="false" />
-                <element signature="e#2947#3094#0" expanded="false" />
-                <element signature="e#3149#3410#0" expanded="false" />
-                <element signature="e#3466#3545#0" expanded="false" />
-                <element signature="e#3608#10425#0" expanded="false" />
-                <element signature="e#10484#10824#0" expanded="false" />
-                <element signature="e#10878#11210#0" expanded="false" />
-                <element signature="e#11255#11789#0" expanded="false" />
-                <element signature="e#11845#12058#0" expanded="false" />
-                <element signature="e#12102#12650#0" expanded="false" />
+                <element signature="e#1033#1184#0" expanded="false" />
+                <element signature="e#1232#1336#0" expanded="false" />
+                <element signature="e#1381#1772#0" expanded="false" />
+                <element signature="e#1816#2459#0" expanded="false" />
+                <element signature="e#2505#2718#0" expanded="false" />
+                <element signature="e#2771#2845#0" expanded="false" />
+                <element signature="e#2900#2974#0" expanded="false" />
+                <element signature="e#3027#3168#0" expanded="false" />
+                <element signature="e#3223#3484#0" expanded="false" />
+                <element signature="e#3540#3619#0" expanded="false" />
+                <element signature="e#3682#10499#0" expanded="false" />
+                <element signature="e#10558#10898#0" expanded="false" />
+                <element signature="e#10952#11284#0" expanded="false" />
+                <element signature="e#11329#11863#0" expanded="false" />
+                <element signature="e#11919#12132#0" expanded="false" />
+                <element signature="e#12176#12724#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="icon.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/icon/icon.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="200" column="16" selection-start-line="200" selection-start-column="16" selection-end-line="200" selection-end-column="16" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -221,12 +220,12 @@
         <option value="$PROJECT_DIR$/common.blocks/fs-view/fs-view.js" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/common.blocks/tabs/tabs.js" />
-        <option value="$PROJECT_DIR$/common.blocks/popup/popup.js" />
         <option value="$PROJECT_DIR$/common.blocks/select/select.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" />
-        <option value="$PROJECT_DIR$/common.blocks/modal/modal.js" />
         <option value="$PROJECT_DIR$/common.blocks/widget/widget.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/common.blocks/modal/modal.js" />
+        <option value="$PROJECT_DIR$/common.blocks/popup/popup.js" />
+        <option value="$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js" />
       </list>
     </option>
   </component>
@@ -285,6 +284,104 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="third" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="third" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="multiple-select" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="third" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="chosen" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="third" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="air-datepicker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -511,7 +608,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13670695" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21676737" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
@@ -558,16 +655,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/tabs/tabs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66964287">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding>
+            <element signature="e#360#462#0" expanded="false" />
+            <element signature="e#822#1141#0" expanded="false" />
+            <element signature="e#1189#1445#0" expanded="false" />
+            <element signature="e#1492#1630#0" expanded="false" />
+            <element signature="e#1676#1808#0" expanded="false" />
+            <element signature="e#1852#2647#0" expanded="false" />
+            <element signature="e#2700#2874#0" expanded="false" />
+            <element signature="e#2927#3179#0" expanded="false" />
+            <element signature="e#3224#3561#0" expanded="false" />
+            <element signature="e#3617#3695#0" expanded="false" />
+            <element signature="e#3739#3938#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-20.125">
-          <caret line="1630" column="41" selection-start-line="1630" selection-start-column="38" selection-end-line="1630" selection-end-column="41" />
+          <caret line="1630" column="43" selection-start-line="1630" selection-start-column="43" selection-end-line="1630" selection-end-column="43" />
           <folding>
             <element signature="n#div#0;n#div#0;n#body#0;n#!!top" expanded="false" />
             <element signature="n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="false" />
             <element signature="e#108759#109001#0" expanded="false" />
             <element signature="n#script#7;n#body#0;n#!!top" expanded="false" />
-            <element signature="e#112150#112863#0" expanded="false" />
+            <element signature="e#112152#112865#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/third/multiple-select/multiple-select.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="324" column="40" selection-start-line="324" selection-start-column="37" selection-end-line="324" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/third/chosen/chosen.jquery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="526" column="42" selection-start-line="526" selection-start-column="35" selection-end-line="526" selection-end-column="42" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/widget/widget.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.222221">
+          <caret line="323" column="59" selection-start-line="323" selection-start-column="59" selection-end-line="323" selection-end-column="59" />
+          <folding>
+            <element signature="e#360#940#0" expanded="false" />
+            <element signature="e#978#1400#0" expanded="false" />
+            <element signature="e#1679#1913#0" expanded="false" />
+            <element signature="e#1961#2676#0" expanded="false" />
+            <element signature="e#2723#4712#0" expanded="false" />
+            <element signature="e#4764#5087#0" expanded="false" />
+            <element signature="e#5135#5267#0" expanded="false" />
+            <element signature="e#5316#5445#0" expanded="false" />
+            <element signature="e#5494#7678#0" expanded="false" />
+            <element signature="e#7729#10851#0" expanded="false" />
+            <element signature="e#9286#10829#0" expanded="false" />
+            <element signature="e#10900#11034#0" expanded="false" />
+            <element signature="e#11080#11218#0" expanded="false" />
+            <element signature="e#11264#11417#0" expanded="false" />
+            <element signature="e#11471#11549#0" expanded="false" />
+            <element signature="e#11601#11822#0" expanded="false" />
+            <element signature="e#11872#12213#0" expanded="false" />
+            <element signature="e#12262#12604#0" expanded="false" />
+            <element signature="e#12653#14945#0" expanded="false" />
+            <element signature="e#12738#13231#0" expanded="false" />
+            <element signature="e#15007#18538#0" expanded="false" />
+            <element signature="e#18599#21210#0" expanded="false" />
+            <element signature="e#21255#21633#0" expanded="false" />
+            <element signature="e#21689#21848#0" expanded="false" />
+            <element signature="e#21892#22302#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -575,8 +744,9 @@
     <entry file="file://$PROJECT_DIR$/common.blocks/widget-grid/widget-grid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
           <folding>
+            <element signature="e#368#989#0" expanded="false" />
             <element signature="e#1268#1464#0" expanded="false" />
             <element signature="e#1508#1634#0" expanded="false" />
             <element signature="e#1682#1981#0" expanded="false" />
@@ -605,22 +775,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/tabs/tabs.js">
+    <entry file="file://$PROJECT_DIR$/common.blocks/modal/modal.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66964287">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="217" column="44" selection-start-line="217" selection-start-column="44" selection-end-line="217" selection-end-column="44" />
           <folding>
-            <element signature="e#360#462#0" expanded="false" />
-            <element signature="e#822#1141#0" expanded="false" />
-            <element signature="e#1189#1445#0" expanded="false" />
-            <element signature="e#1492#1630#0" expanded="false" />
-            <element signature="e#1676#1808#0" expanded="false" />
-            <element signature="e#1852#2647#0" expanded="false" />
-            <element signature="e#2700#2874#0" expanded="false" />
-            <element signature="e#2927#3179#0" expanded="false" />
-            <element signature="e#3224#3561#0" expanded="false" />
-            <element signature="e#3617#3695#0" expanded="false" />
-            <element signature="e#3739#3938#0" expanded="false" />
+            <element signature="e#362#1144#0" expanded="false" />
+            <element signature="e#1423#2763#0" expanded="false" />
+            <element signature="e#2807#3074#0" expanded="false" />
+            <element signature="e#3122#3351#0" expanded="false" />
+            <element signature="e#3395#3920#0" expanded="false" />
+            <element signature="e#3966#4178#0" expanded="false" />
+            <element signature="e#4222#4654#0" expanded="false" />
+            <element signature="e#4706#5576#0" expanded="false" />
+            <element signature="e#5629#5757#0" expanded="false" />
+            <element signature="e#5818#5962#0" expanded="false" />
+            <element signature="e#6028#6479#0" expanded="false" />
+            <element signature="e#6548#7946#0" expanded="false" />
+            <element signature="e#8004#8443#0" expanded="false" />
+            <element signature="e#8494#10244#0" expanded="false" />
+            <element signature="e#10289#10393#0" expanded="false" />
+            <element signature="e#10445#11217#0" expanded="false" />
+            <element signature="e#12291#13125#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -660,85 +836,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/third/air-datepicker/datepicker.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="1161" column="20" selection-start-line="1161" selection-start-column="8" selection-end-line="1161" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/popup/popup.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="63" column="53" selection-start-line="63" selection-start-column="53" selection-end-line="63" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.55803573">
+          <caret line="69" column="51" selection-start-line="69" selection-start-column="51" selection-end-line="69" selection-end-column="51" />
           <folding>
             <element signature="e#362#706#0" expanded="false" />
-            <element signature="e#985#1136#0" expanded="false" />
-            <element signature="e#1184#1288#0" expanded="false" />
-            <element signature="e#1333#1672#0" expanded="false" />
-            <element signature="e#1716#2307#0" expanded="false" />
-            <element signature="e#2353#2566#0" expanded="false" />
-            <element signature="e#2619#2698#0" expanded="false" />
-            <element signature="e#2753#2894#0" expanded="false" />
-            <element signature="e#2947#3094#0" expanded="false" />
-            <element signature="e#3149#3410#0" expanded="false" />
-            <element signature="e#3466#3545#0" expanded="false" />
-            <element signature="e#3608#10425#0" expanded="false" />
-            <element signature="e#10484#10824#0" expanded="false" />
-            <element signature="e#10878#11210#0" expanded="false" />
-            <element signature="e#11255#11789#0" expanded="false" />
-            <element signature="e#11845#12058#0" expanded="false" />
-            <element signature="e#12102#12650#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/modal/modal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="218" column="27" selection-start-line="218" selection-start-column="27" selection-end-line="218" selection-end-column="27" />
-          <folding>
-            <element signature="e#362#1144#0" expanded="false" />
-            <element signature="e#1423#2763#0" expanded="false" />
-            <element signature="e#2807#3074#0" expanded="false" />
-            <element signature="e#3122#3351#0" expanded="false" />
-            <element signature="e#3395#3920#0" expanded="false" />
-            <element signature="e#3966#4178#0" expanded="false" />
-            <element signature="e#4222#4654#0" expanded="false" />
-            <element signature="e#4706#5576#0" expanded="false" />
-            <element signature="e#5629#5757#0" expanded="false" />
-            <element signature="e#5818#5962#0" expanded="false" />
-            <element signature="e#6028#6479#0" expanded="false" />
-            <element signature="e#6548#7946#0" expanded="false" />
-            <element signature="e#8004#8443#0" expanded="false" />
-            <element signature="e#8494#10244#0" expanded="false" />
-            <element signature="e#10289#10393#0" expanded="false" />
-            <element signature="e#10445#11217#0" expanded="false" />
-            <element signature="e#12290#13124#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/widget/widget.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13488372">
-          <caret line="328" column="0" selection-start-line="328" selection-start-column="0" selection-end-line="328" selection-end-column="0" />
-          <folding>
-            <element signature="e#360#940#0" expanded="false" />
-            <element signature="e#1679#1913#0" expanded="false" />
-            <element signature="e#1961#2676#0" expanded="false" />
-            <element signature="e#2723#4712#0" expanded="false" />
-            <element signature="e#4764#5087#0" expanded="false" />
-            <element signature="e#5135#5267#0" expanded="false" />
-            <element signature="e#5316#5445#0" expanded="false" />
-            <element signature="e#5494#7678#0" expanded="false" />
-            <element signature="e#7729#10851#0" expanded="false" />
-            <element signature="e#9286#10829#0" expanded="false" />
-            <element signature="e#10900#11034#0" expanded="false" />
-            <element signature="e#11080#11218#0" expanded="false" />
-            <element signature="e#11264#11417#0" expanded="false" />
-            <element signature="e#11471#11549#0" expanded="false" />
-            <element signature="e#11601#11822#0" expanded="false" />
-            <element signature="e#11872#12213#0" expanded="false" />
-            <element signature="e#12262#12604#0" expanded="false" />
-            <element signature="e#12653#14945#0" expanded="false" />
-            <element signature="e#12738#13231#0" expanded="false" />
-            <element signature="e#15007#18538#0" expanded="false" />
-            <element signature="e#21255#21633#0" expanded="false" />
-            <element signature="e#21892#22302#0" expanded="false" />
+            <element signature="e#1033#1184#0" expanded="false" />
+            <element signature="e#1232#1336#0" expanded="false" />
+            <element signature="e#1381#1772#0" expanded="false" />
+            <element signature="e#1816#2459#0" expanded="false" />
+            <element signature="e#2505#2718#0" expanded="false" />
+            <element signature="e#2771#2845#0" expanded="false" />
+            <element signature="e#2900#2974#0" expanded="false" />
+            <element signature="e#3027#3168#0" expanded="false" />
+            <element signature="e#3223#3484#0" expanded="false" />
+            <element signature="e#3540#3619#0" expanded="false" />
+            <element signature="e#3682#10499#0" expanded="false" />
+            <element signature="e#10558#10898#0" expanded="false" />
+            <element signature="e#10952#11284#0" expanded="false" />
+            <element signature="e#11329#11863#0" expanded="false" />
+            <element signature="e#11919#12132#0" expanded="false" />
+            <element signature="e#12176#12724#0" expanded="false" />
           </folding>
         </state>
       </provider>

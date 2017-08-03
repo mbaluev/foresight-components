@@ -586,6 +586,7 @@ $(function(){
                     /* save widget options to self.data */
                     self.data(that.options);
 
+                    that.data._inFocus = false;
                     that.data._el = {
                         source: that.data.source,
                         source_arrow: that.data.source.find('.icon_svg_down')
@@ -599,6 +600,7 @@ $(function(){
                     that.hide = function(){
                         self.removeClass('popup_visible_bottom');
                         that.data.visible = false;
+                        that.data._inFocus = false;
                         if (typeof that.data._el.source_arrow[0] != 'undefined') {
                             that.data._el.source_arrow.removeClass('icon_rotate_180deg');
                         }
@@ -610,6 +612,7 @@ $(function(){
                         that.set_width(that.data.width);
                         that.set_position(that.data.position);
                         that.data.visible = true;
+                        that.data._inFocus = false;
                         self.addClass('popup_visible_bottom');
                         if (typeof that.data._el.source_arrow[0] != 'undefined') {
                             that.data._el.source_arrow.addClass('icon_rotate_180deg');
@@ -623,16 +626,15 @@ $(function(){
                         }
                     };
                     that.mouseup_self = function(e){
-                        e.originalEvent.inFocus = true;
+                        that.data._inFocus = true;
                     };
                     that.mouseup_source = function(e){
-                        e.originalEvent.inFocus = true;
-                        $('[data-fc="popup"]').popup('hide');
+                        that.data._inFocus = true;
                     };
                     that.mouseup_body = function(e){
-                        if (!e.originalEvent.inFocus) {
+                        if (!that.data._inFocus) {
                             that.hide();
-                        };
+                        }
                     };
 
                     that.set_width = function(width){
@@ -1491,7 +1493,7 @@ $(function(){
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="select"]').select({
                             popup_animation: false,
-                            autoclose: true
+                            autoclose: false
                         });
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
