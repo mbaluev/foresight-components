@@ -923,7 +923,22 @@ $(function(){
                             resizable: { handles: 'e, se, s, sw, w' }
                         },
                         loader: null,
-                        library: null
+                        library: [
+                            {
+                                value: 'WidgetLibrary',
+                                text: 'WidgetLibrary',
+                                items: [
+                                    {
+                                        value: 'widget1',
+                                        text: 'widget1'
+                                    },
+                                    {
+                                        value: 'widget2',
+                                        text: 'widget2'
+                                    }
+                                ]
+                            }
+                        ]
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
