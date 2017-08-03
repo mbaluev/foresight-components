@@ -3358,10 +3358,12 @@ $(function(){
                                 var reload = false;
                                 $(this).find('[data-field]').each(function(){
                                     var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                                    _.set(that.data, t.data('field'), val);
-                                    if ((t.data('field') == 'pagename' || t.data('field') == 'elementname') && that.data[t.data('field')] != val) {
+                                    if ((t.data('field') == 'pagename' ||
+                                         t.data('field') == 'elementname') &&
+                                        that.data[t.data('field')] != val) {
                                         reload = true;
                                     }
+                                    _.set(that.data, t.data('field'), val);
                                 });
                                 that.trigger_toggle();
                                 that.set_name();
