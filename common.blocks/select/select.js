@@ -312,7 +312,7 @@
                                         }
                                     }
                                     if (that.data.autoclose) {
-                                        that.hide();
+                                        that.focusout();
                                     }
                                 });
                             }
