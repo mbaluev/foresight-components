@@ -142,8 +142,12 @@
                                 pagename: that.data.pagename,
                                 elementname: that.data.elementname,
                                 success: function(content){
-                                    $body.removeClass('widget__body_align_center');
-                                    $bodydata.addClass('widget__body-data_type_html');
+                                    if (isNaN(content)) {
+                                        $body.removeClass('widget__body_align_center');
+                                        $bodydata.addClass('widget__body-data_type_html');
+                                    } else {
+                                        $bodydata.addClass('widget__body-data_type_count');
+                                    }
                                     $bodydata.html(content);
                                 },
                                 error: function(msg){
