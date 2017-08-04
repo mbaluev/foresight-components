@@ -11,11 +11,11 @@
                         disabled: false,
                         hidden: false,
                         width: '100%',
+                        height: 'auto',
                         mode: 'radio',
                         placeholder: 'Выберите значение',
                         popup_animation: true,
                         text: '',
-                        height: 'auto',
                         count_selected: "Выбрано # из %",
                         minimum_count_selected: 2,
                         autoclose: false

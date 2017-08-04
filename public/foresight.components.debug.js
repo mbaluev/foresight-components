@@ -1569,11 +1569,11 @@ $(function(){
                         disabled: false,
                         hidden: false,
                         width: '100%',
+                        height: 'auto',
                         mode: 'radio',
                         placeholder: 'Выберите значение',
                         popup_animation: true,
                         text: '',
-                        height: 'auto',
                         count_selected: "Выбрано # из %",
                         minimum_count_selected: 2,
                         autoclose: false
@@ -3372,7 +3372,7 @@ $(function(){
                                     '<div class="control__text">Источник данных</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check"></select>',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -3382,7 +3382,7 @@ $(function(){
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check"></select>',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));

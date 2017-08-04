@@ -331,7 +331,7 @@
                                     '<div class="control__text">Источник данных</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check"></select>',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join('')),
@@ -341,7 +341,7 @@
                                     '<div class="control__text">Виджет</div>',
                                     '</div>',
                                     '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check"></select>',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
                                     '</div>',
                                     '</div>'
                                 ].join(''));
