@@ -84,7 +84,7 @@
                     };
                     that.set_position = function(position, i){
                         if (typeof i === 'undefined') { i = 0; }
-                        if (i < 10) {
+                        if (i < 11) {
                             var dims = that.get_dimentions(that.data._el.source),
                                 selfDims = that.get_dimentions(self),
                                 pos = position.split(' '),

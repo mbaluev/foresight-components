@@ -314,6 +314,7 @@
                                     if (that.data.autoclose) {
                                         that.focusout();
                                     }
+                                    self.trigger('change');
                                 });
                             }
                         });

@@ -270,7 +270,7 @@
                             id: 'general',
                             name: 'Основные',
                             active: true,
-                            content:
+                            content: $([
 
                             '<div class="control">' +
                             '<div class="control__caption">' +
@@ -319,6 +319,8 @@
                             '</select>' +
                             '</div>' +
                             '</div>'
+
+                            ].join(''))
                         });
                     };
                     that.render_source_tab = function(tabs){
@@ -344,21 +346,34 @@
                                     '</div>'
                                 ].join(''));
                             that.data.library.forEach(function(item, i, arr){
-                                $control__library.find('.select').append($(
-                                    '<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>'
-                                ));
-                                item.items.forEach(function(item, i, arr){
-                                    $control__widgets.find('.select').append($(
-                                        '<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>'
-                                    ));
+                                var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                                if (item.value == that.data.pagename) {
+                                    item.items.forEach(function(item, i, arr){
+                                        var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                                        $control__widgets.find('.select').append($option);
+                                    });
+                                }
+                                $control__library.find('.select').append($option);
+                            });
+                            $control__library.find('.select').on('change', function(e){
+                                var values = $(this).data('_value'),
+                                    items = [];
+                                values.forEach(function(item, i, arr){
+                                    var library = that.data.library.filter(function(d){ return d.value == item.value; });
+                                    if (library.length > 0) {
+                                        library = library[0];
+                                        if (library.items) {
+                                            items.push.apply(items, library.items)
+                                        }
+                                    }
                                 });
+                                $control__widgets.find('.select').select('update', items);
                             });
                             tabs.push({
                                 id: 'source',
                                 name: 'Источник данных',
                                 content:
-                                    $control__library[0].outerHTML +
-                                    $control__widgets[0].outerHTML
+                                    $('<div></div>').append($control__library, $control__widgets)
                             });
                         }
                     };

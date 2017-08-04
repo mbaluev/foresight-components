@@ -21,7 +21,10 @@
                         },
                         content: {
                             tabs: [
-                                { id: "general", name: 'Главная' }
+                                {
+                                    id: "general",
+                                    name: 'Главная'
+                                }
                             ]
                         },
                         data: null,
@@ -179,7 +182,7 @@
                                 that.data._el.tabs_pane.clone()
                                     .attr('id', tab.id)
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))
-                                    .html(tab.content));
+                                    .append(tab.content));
                         });
                     };
 
@@ -215,7 +218,7 @@
                         self.find('[data-fc="radio-group"]').radio_group();
                         self.find('[data-fc="select"]').select({
                             popup_animation: false,
-                            autoclose: false
+                            autoclose: true
                         });
                         self.find('[data-fc="tab"]').tabs();
                         self.find('[data-fc="tumbler"]').tumbler();
