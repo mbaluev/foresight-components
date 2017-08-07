@@ -3145,31 +3145,22 @@ $(function(){
                         that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
                     };
                     that.set_color = function(){
-                        var $border = self.find('.widget__border'),
-                            $bodydata = self.find('.widget__body-data');
+                        var $border = self.find('.widget__border');
                         if (that.data.color === that.const.BORDER_COLOR_BLUE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $bodydata.addClass('widget__body-data_color_blue');
                         }
                         if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_default');
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $bodydata.addClass('widget__body-data_color_default');
                         }
                         if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_purple');
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $bodydata.addClass('widget__body-data_color_purple');
                         }
                         if (that.data.color === that.const.BORDER_COLOR_RED) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
-                            $bodydata.attr('class',$bodydata.attr('class').replace(/\widget__body-data_color_.*?\b/g, ''));
-                            $bodydata.addClass('widget__body-data_color_red');
                         }
                     };
                     that.set_content = function(){
@@ -3201,31 +3192,6 @@ $(function(){
                             $body.addClass('widget__body_align_center');
                             $bodydata.html(that.const.CONTENT_NODATA);
                         }
-                        /*
-                        setTimeout(function(){
-                            $body.removeClass('widget__body_align_center');
-                            $bodydata.html('');
-                            if (that.data.content_type === that.const.CONTENT_TYPE_COUNT) {
-                                $body.addClass('widget__body_align_center');
-                                $bodydata.addClass('widget__body-data_type_count');
-                                $bodydata.text(that.data.content);
-                            }
-                            if (that.data.content_type === that.const.CONTENT_TYPE_TEXT) {
-                                $body.addClass('widget__body_align_center');
-                                $bodydata.addClass('widget__body-data_type_text');
-                                $bodydata.text(that.data.content);
-                            }
-                            if (that.data.content_type === that.const.CONTENT_TYPE_HTML) {
-                                $bodydata.addClass('widget__body-data_type_html');
-                                $bodydata.html(that.data.content);
-                            }
-                            if (that.data.content === that.const.CONTENT_NODATA) {
-                                $body.addClass('widget__body_align_center');
-                                $bodydata.addClass('widget__body-data_type_text');
-                                $bodydata.text(that.data.content);
-                            }
-                        }, 1000);
-                        */
                     };
 
                     that.collapse = function(){
