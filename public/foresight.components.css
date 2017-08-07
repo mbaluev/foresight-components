@@ -2243,17 +2243,19 @@ body {
 
 .widget__body-data_type_html {
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
 }
 
+/*
 .widget__body-data_type_count {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 40px;
-  font-style: italic;
-  padding: 0 10px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 40px;
+    font-style: italic;
+    padding: 0 10px 10px;
 }
+*/
 
 .widget__header .button {
   font-size: 15px;

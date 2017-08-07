@@ -134,6 +134,7 @@
                                 elementname: that.data.elementname,
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_html');
                                     $bodydata.html(content);
                                     /*
                                     if (isNaN(content)) {
