@@ -2263,17 +2263,17 @@ body {
           align-items: center;
 }
 
-.widget__content-count {
+.widget__content_scroll {
+  overflow: auto;
+}
+
+.widget__count {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 40px;
   font-style: italic;
   padding: 0 10px 10px;
-}
-
-.widget__content-scroll {
-  overflow: auto;
 }
 
 .widget__header .button {
