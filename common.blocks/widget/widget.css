@@ -69,6 +69,8 @@
     background-color: #fff;
     overflow: hidden;
     position: relative;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
 .widget__body_align_center {
     display: flex;
@@ -84,11 +86,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 20px 10px 10px;
+    padding: 0 10px 10px;
 }
 .widget__body-data_type_html {
-    height: 100%;
-    padding-top: 20px;
+    overflow: auto;
 }
 .widget__body-data_type_count {
     white-space: nowrap;
@@ -96,7 +97,7 @@
     text-overflow: ellipsis;
     font-size: 40px;
     font-style: italic;
-    padding: 20px 10px 10px;
+    padding: 0 10px 10px;
 }
 
 

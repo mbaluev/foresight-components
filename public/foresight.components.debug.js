@@ -3176,6 +3176,7 @@ $(function(){
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
+                                    $bodydata.html(content);
                                     /*
                                     if (isNaN(content)) {
                                         $bodydata.addClass('widget__body-data_type_html');
@@ -3183,9 +3184,9 @@ $(function(){
                                         $bodydata.addClass('widget__body-data_type_count');
                                     }
                                     */
-                                    $bodydata.html(content);
                                 },
                                 error: function(msg){
+                                    $body.addClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_text');
                                     $bodydata.html(msg);
                                 }
@@ -3193,6 +3194,7 @@ $(function(){
                             that.data.content.loadContent();
                         } else {
                             $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_text');
                             $bodydata.html(that.const.CONTENT_NODATA);
                         }
                     };
