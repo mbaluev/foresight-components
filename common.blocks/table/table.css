@@ -6,14 +6,18 @@
 }
 .table td {
     border-top: solid 1px #eee;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
     vertical-align: top;
     text-align: left;
+}
+.table td:last-child {
+    padding-right: 10px;
 }
 .table thead td {
     border-top: solid 1px #ddd;
     border-bottom: solid 1px #ddd;
     background-color: #fafafa;
+    font-weight: bold;
 }
 .table td.align_right {
     text-align: right;
