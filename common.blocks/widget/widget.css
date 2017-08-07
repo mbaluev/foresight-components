@@ -93,8 +93,16 @@
     overflow: hidden;
 }
 
-/*
-.widget__body-data_type_count {
+.widget__content {
+    height: 100%;
+    box-sizing: border-box;
+}
+.widget__content_align_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.widget__content-count {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -102,7 +110,9 @@
     font-style: italic;
     padding: 0 10px 10px;
 }
-*/
+.widget__content-scroll {
+    overflow: auto;
+}
 
 .widget__header .button {
     font-size: 15px;

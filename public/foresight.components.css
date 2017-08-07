@@ -2246,16 +2246,35 @@ body {
   overflow: hidden;
 }
 
-/*
-.widget__body-data_type_count {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 40px;
-    font-style: italic;
-    padding: 0 10px 10px;
+.widget__content {
+  height: 100%;
+  box-sizing: border-box;
 }
-*/
+
+.widget__content_align_center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.widget__content-count {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 40px;
+  font-style: italic;
+  padding: 0 10px 10px;
+}
+
+.widget__content-scroll {
+  overflow: auto;
+}
 
 .widget__header .button {
   font-size: 15px;
