@@ -1543,7 +1543,8 @@ body {
   border-collapse: collapse;
   border-spacing: 0;
   color: #333;
-  /*font-size: 12px;*/
+  max-width: 100%;
+  min-width: 100%;
 }
 
 .table td {

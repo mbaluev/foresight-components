@@ -72,7 +72,11 @@
                                 width: node.width,
                                 height: node.height,
                                 settings: _.omitBy(node.widget.data(), function(val, key){
-                                    return (key.substring(0,1) == '_') || (key == 'mode') || (key == 'loader') || (key == 'library');
+                                    return (key.substring(0,1) == '_') ||
+                                        (key == 'mode') ||
+                                        (key == 'loader') ||
+                                        (key == 'library') ||
+                                        (key == 'content');
                                 })
                             };
                         }, this);

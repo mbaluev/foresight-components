@@ -136,13 +136,6 @@
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
                                     $bodydata.html(content);
-                                    /*
-                                    if (isNaN(content)) {
-                                        $bodydata.addClass('widget__body-data_type_html');
-                                    } else {
-                                        $bodydata.addClass('widget__body-data_type_count');
-                                    }
-                                    */
                                 },
                                 error: function(msg){
                                     $body.addClass('widget__body_align_center');

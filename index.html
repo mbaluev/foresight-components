@@ -391,7 +391,6 @@
                                                 <table class="table">
                                                     <thead>
                                                     <tr>
-                                                        <td></td>
                                                         <td>Название</td>
                                                         <td class="mobile mobile_hide">Ответственный</td>
                                                         <td class="mobile mobile_hide">План, м.р.</td>
@@ -400,56 +399,48 @@
                                                     </thead>
                                                     <tbody>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/19.svg" title="Приостановлен / расторгнут / не заключен" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/156652?mode=view&amp;back=/">700-001. Осуществление строительных работ "Лыжная база"</a></td>
                                                         <td class="mobile mobile_hide">Алферов Павел Александрович</td>
                                                         <td class="mobile mobile_hide">1,50</td>
                                                         <td class="mobile mobile_hide">1,80</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочен" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/167691?mode=view&amp;back=/">700-003. Обновление 1С до новой версии</a></td>
                                                         <td class="mobile mobile_hide">Бочкарев Денис Юрьевич</td>
                                                         <td class="mobile mobile_hide">456,00</td>
                                                         <td class="mobile mobile_hide">567,00</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочен" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/167702?mode=view&amp;back=/">700-004. Разработка и внедрение системы кадастрового учета и мониторинга</a></td>
                                                         <td class="mobile mobile_hide">Алферов Павел Александрович</td>
                                                         <td class="mobile mobile_hide">250,00</td>
                                                         <td class="mobile mobile_hide">242,00</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/0.svg" title="В работе" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/167707?mode=view&amp;back=/">700-006. Разработка документации по внедрению единого реестра городских справочников</a></td>
                                                         <td class="mobile mobile_hide">Бугров Александр Владимирович</td>
                                                         <td class="mobile mobile_hide">45,00</td>
                                                         <td class="mobile mobile_hide">9223372036854776,00</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/0.svg" title="В работе" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/167709?mode=view&amp;back=/">700-008. Разработка проектной документации для формирования раздела</a></td>
                                                         <td class="mobile mobile_hide">Виланд Анастасия Владимировна</td>
                                                         <td class="mobile mobile_hide">567,00</td>
                                                         <td class="mobile mobile_hide">569,00</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/0.svg" title="В работе" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/167717?mode=view&amp;back=/">700-010. Печать УЭК</a></td>
                                                         <td class="mobile mobile_hide">Функциональный Администратор</td>
                                                         <td class="mobile mobile_hide">45,00</td>
                                                         <td class="mobile mobile_hide"> </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочен" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/191258?mode=view&amp;back=/">700-014. Контракт тест</a></td>
                                                         <td class="mobile mobile_hide">Функциональный Администратор</td>
                                                         <td class="mobile mobile_hide">23,00</td>
                                                         <td class="mobile mobile_hide"> </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><img src="/asyst/gantt/img/svg/0.svg" title="В работе" class="indicator"></td>
                                                         <td><a class="link" href="/asyst/Contract/form/auto/201978?mode=view&amp;back=/">700-015. контракт на поставку</a></td>
                                                         <td class="mobile mobile_hide">Функциональный Администратор</td>
                                                         <td class="mobile mobile_hide">44444,00</td>
@@ -1719,6 +1710,8 @@
     <script src="third/gridstack/gridstack.js"></script>
     <script src="third/gridstack/gridstack.jQueryUI.js"></script>
     <script src="third/air-datepicker/datepicker.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script src="third/_loader.js"></script>
     <script src="foresight.components.min.js"></script>
     <script>
         $(function(){
@@ -1726,58 +1719,70 @@
                 {
                     x: 0,
                     y: 0,
-                    width: 3,
+                    width: 2,
                     height: 6,
                     settings: {
-                        name: "Текст",
+                        name: "Логотип",
                         collapsed: false,
-                        content: 'Диаграмма'
+                        pagename: 'WidgetLibrary',
+                        elementname: 'Logo'
                     }
                 },
                 {
-                    x: 3,
+                    x: 2,
                     y: 0,
-                    width: 3,
+                    width: 2,
                     height: 6,
                     settings: {
-                        name: "Фиолетовый",
+                        name: "Мои КТ",
                         collapsed: false,
-                        content_type: 'count',
-                        content: 666,
-                        color: '#8e6bf5'
+                        pagename: 'WidgetLibrary',
+                        elementname: 'MyPoints'
+                    }
+                },
+                {
+                    x: 4,
+                    y: 0,
+                    width: 2,
+                    height: 6,
+                    settings: {
+                        name: "КТ от меня",
+                        collapsed: false,
+                        pagename: 'WidgetLibrary',
+                        elementname: 'PointsFromMe'
                     }
                 },
                 {
                     x: 6,
                     y: 0,
-                    width: 3,
+                    width: 2,
                     height: 6,
                     settings: {
-                        name: "Количество",
+                        name: "Мои совещания",
                         collapsed: false,
-                        content_type: 'count',
-                        content: 5,
-                        color: '#5a97f2'
+                        pagename: 'WidgetLibrary',
+                        elementname: 'MyMeetings'
                     }
                 },
                 {
-                    x: 9,
+                    x: 8,
                     y: 0,
-                    width: 3,
-                    height: 3,
+                    width: 2,
+                    height: 6,
                     settings: {
-                        name: "Html",
+                        name: "Риски моих контрактов",
                         collapsed: false,
-                        content_type: 'html'
+                        pagename: 'WidgetLibrary',
+                        elementname: 'MyRisksPie'
                     }
                 },
                 {
-                    x: 9,
-                    y: 3,
-                    width: 3,
-                    height: 3,
+                    x: 10,
+                    y: 0,
+                    width: 2,
+                    height: 6,
                     settings: {
-                        name: "Пустой виджет",
+                        name: "Пустой",
                         collapsed: false
                     }
                 }
@@ -1796,7 +1801,34 @@
                 ],
                 tumbler: {
                     selector: '#tumbler_edit-page'
-                }
+                },
+                loader: Loader,
+                library: [{
+                    text: 'Библиотека виджетов',
+                    value: 'WidgetLibrary',
+                    items: [
+                        {
+                            text: 'Логотип',
+                            value: 'Logo'
+                        },
+                        {
+                            text: 'Мои КТ',
+                            value: 'MyPoints'
+                        },
+                        {
+                            text: 'КТ от меня',
+                            value: 'PointsFromMe'
+                        },
+                        {
+                            text: 'Мои совещания',
+                            value: 'MyMeetings'
+                        },
+                        {
+                            text: 'Риски моих контрактов',
+                            value: 'MyRisksPie'
+                        },
+                    ]
+                }]
             };
             var grid = $('#widget-grid')
                     .widget_grid(widget_grid_options)

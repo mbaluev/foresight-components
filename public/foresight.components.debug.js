@@ -980,7 +980,11 @@ $(function(){
                                 width: node.width,
                                 height: node.height,
                                 settings: _.omitBy(node.widget.data(), function(val, key){
-                                    return (key.substring(0,1) == '_') || (key == 'mode') || (key == 'loader') || (key == 'library');
+                                    return (key.substring(0,1) == '_') ||
+                                        (key == 'mode') ||
+                                        (key == 'loader') ||
+                                        (key == 'library') ||
+                                        (key == 'content');
                                 })
                             };
                         }, this);
@@ -1694,13 +1698,6 @@ $(function(){
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
                                     $bodydata.html(content);
-                                    /*
-                                    if (isNaN(content)) {
-                                        $bodydata.addClass('widget__body-data_type_html');
-                                    } else {
-                                        $bodydata.addClass('widget__body-data_type_count');
-                                    }
-                                    */
                                 },
                                 error: function(msg){
                                     $body.addClass('widget__body_align_center');
