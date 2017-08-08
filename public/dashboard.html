@@ -1,0 +1,450 @@
+<!doctype html>
+<head>
+    <title>foresight-dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="third/gridstack/gridstack.css" type="text/css" media="all">
+    <link rel="stylesheet" href="third/air-datepicker/datepicker.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+</head>
+<body class="page proximanova">
+    <div class="fs-view">
+        <div class="fs-view__header">
+            <div class="header">
+                <div class="header__column">
+                    <button class="header__column-item button" type="button" data-fc="button" id="button_toggle-menu">
+                        <span class="icon icon_css_animate">
+                            <span class="icon__menu" data-fc="icon__menu">
+                                <span class="icon__menu-global icon__menu-top"></span>
+                                <span class="icon__menu-global icon__menu-middle"></span>
+                                <span class="icon__menu-global icon__menu-bottom"></span>
+                            </span>
+                        </span>
+                        <span class="button__anim"></span>
+                    </button>
+                    <button class="header__column-item button" type="button" data-fc="button">
+                        <span class="icon icon_svg_search"></span>
+                        <span class="button__anim"></span>
+                    </button>
+                </div>
+                <div class="header__column">
+                    <span class="button-group header__column-item" data-fc="button-group">
+                        <button class="button button_hidden" type="button" data-fc="button" data-hidden="true" id="button_add-widget">
+                            <span class="icon icon_svg_plus"></span>
+                            <span class="button__text mobile mobile_hide">Добавить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                        <button class="button button_hidden" type="button" data-fc="button" data-hidden="true" id="button_save-grid">
+                            <span class="icon icon_svg_save"></span>
+                            <span class="button__text mobile mobile_hide">Сохранить</span>
+                            <span class="button__anim"></span>
+                        </button>
+                    </span>
+                    <span class="header__column-item tumbler" data-fc="tumbler" id="tumbler_edit-page">
+                        <span class="tumbler__box">
+                            <div class="tumbler__sticker tumbler__sticker_position_left">
+                                <div class="tumbler__sticker-label">Вкл</div>
+                            </div>
+                            <div class="tumbler__sticker tumbler__sticker_position_right">
+                                <div class="tumbler__sticker-label">Выкл</div>
+                            </div>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_edit"></span>
+                                <span class="button__anim"></span>
+                            </button>
+                        </span>
+                        <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
+                    </span>
+                    <button class="header__column-item button" data-fc="button" data-toggle="popup" data-target="#account">
+                        <span class="icon icon_svg_settings"></span>
+                        <span class="button__text mobile mobile_hide">Функциональный администратор</span>
+                        <span class="icon icon_svg_down"></span>
+                    </button>
+                    <div class="popup" id="account" data-position="bottom left" data-width="auto">
+                        <ul class="popup__list">
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="icon icon_svg_settings"></span>
+                                    <span class="popup__text">Профиль</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Центр настроек</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Администрирование</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fs-view__main">
+            <div class="fs-view__left fs-view__left_hidden">
+                <div class="menu" data-fc="menu">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр портфелей</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр проектов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр КТ и этапов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Лист открытых вопросов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Коммуникации</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="icon icon_svg_settings_white"></span>
+                                                <span class="menu__item-text">Поручения</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Совещания</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Вопросы совещаний</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">База знаний и документов</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="icon icon_svg_settings_white"></span>
+                                                <span class="menu__item-text">Панель базы знаний и документов</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Извлеченные уроки</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Итоговые выводы</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Нормативные документы</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Библиотека документов</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Расширенный поиск</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Отчеты</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Аналитика</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Справочники</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Сотрудники</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Подразделения</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Подрядчики</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Внешние организации</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Курсы</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Отчет на ПК</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Администрирование</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fs-view__middle fs-view__middle_full">
+                <div class="fs-view__middle-scroll">
+                    <div class="fs-view__middle-inner">
+                        <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="third/jquery-3.2.1.min.js"></script>
+    <script src="third/jquery-ui.min.js"></script>
+    <script src="third/lodash.min.js"></script>
+    <script src="third/gridstack/gridstack.js"></script>
+    <script src="third/gridstack/gridstack.jQueryUI.js"></script>
+    <script src="third/air-datepicker/datepicker.min.js"></script>
+    <script src="third/_loader.js"></script>
+    <script src="third/highcharts.js"></script>
+    <script src="third/d3.min.js"></script>
+    <script src="foresight.components.min.js"></script>
+    <script>
+        $(function(){
+            var items = [{"x":0,"y":0,"width":3,"height":5,"settings":{"name":"Логотип","collapsed":false,"color":"#ccc","pagename":"LibraryMisc","elementname":"Logo"}},{"x":3,"y":0,"width":3,"height":9,"settings":{"name":"Календарь","collapsed":false,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":6,"y":0,"width":3,"height":5,"settings":{"name":"Мои совещания","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyMeetings"}},{"x":9,"y":0,"width":3,"height":5,"settings":{"name":"Риски моих проектов","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyRisksPie"}},{"x":6,"y":22,"width":6,"height":12,"settings":{"name":"Мои контракты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyContracts"}},{"x":0,"y":5,"width":3,"height":4,"settings":{"name":"Сообщения для меня","collapsed":false,"color":"#ff5940","pagename":null,"elementname":null}},{"x":6,"y":5,"width":3,"height":5,"settings":{"name":"Мои поручения","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyOrders"}},{"x":9,"y":5,"width":3,"height":5,"settings":{"name":"Инициативы для меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"ForMeInitiative"}},{"x":0,"y":9,"width":3,"height":5,"settings":{"name":"Мои КТ","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyPoints"}},{"x":3,"y":9,"width":3,"height":5,"settings":{"name":"КТ от меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"PointsFromMe"}},{"x":6,"y":10,"width":3,"height":5,"settings":{"name":"Бабл чарт моих контрактов","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyContractBubble"}},{"x":9,"y":10,"width":3,"height":5,"settings":{"name":"Мои инициативы","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyInitiative"}},{"x":0,"y":22,"width":6,"height":12,"settings":{"name":"Мои проекты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyProjects"}},{"x":0,"y":14,"width":3,"height":4,"settings":{"name":"Панель руководителя","collapsed":false,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":3,"y":14,"width":1,"height":4,"settings":{"name":"Мои статус-отчеты","collapsed":false,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":6,"y":15,"width":6,"height":7,"settings":{"name":"Матрица рисков","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"RiskMatrix"}},{"x":0,"y":18,"width":1,"height":4,"settings":{"name":"ОВ для меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyLov"}},{"x":2,"y":18,"width":1,"height":4,"settings":{"name":"Мои инициативы на рассмотрении ЦПО","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyInitCPO"}},{"x":4,"y":18,"width":1,"height":4,"settings":{"name":"ОВ от меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"LovFromMe"}},{"x":5,"y":14,"width":1,"height":4,"settings":{"name":"Проекты на стадию","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"MyProjectMoveToNextPhase"}},{"x":1,"y":18,"width":1,"height":4,"settings":{"name":"Запросы на изменение от меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"ChReqFromMe"}},{"x":3,"y":18,"width":1,"height":4,"settings":{"name":"Мои документы","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyDocs"}},{"x":4,"y":14,"width":1,"height":4,"settings":{"name":"Запросы на изменение для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChReqForMe"}},{"x":5,"y":18,"width":1,"height":4,"settings":{"name":"Чек-листы для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChListForMe"}}];
+            var widget_grid_options = {
+                items: items,
+                buttons: [
+                    {
+                        selector: '#button_add-widget',
+                        action: 'add'
+                    },
+                    {
+                        selector: '#button_save-grid',
+                        action: 'save'
+                    }
+                ],
+                tumbler: {
+                    selector: '#tumbler_edit-page'
+                },
+                loader: Loader,
+                library: [
+                    {
+                        text: 'Количественные виджеты',
+                        value: 'LibraryCount',
+                        items: [
+                            {
+                                text: 'ОВ для меня',
+                                value: 'MyLov'
+                            },
+                            {
+                                text: 'ОВ от меня',
+                                value: 'LovFromMe'
+                            },
+                            {
+                                text: 'Запросы на изменение для меня',
+                                value: 'ChReqForMe'
+                            },
+                            {
+                                text: 'Запросы на изменение от меня',
+                                value: 'ChReqFromMe'
+                            },
+                            {
+                                text: 'Мои инициативы на рассмотрении ЦПО',
+                                value: 'MyInitCPO'
+                            },
+                            {
+                                text: 'Чек-листы для меня',
+                                value: 'ChListForMe'
+                            },
+                            {
+                                text: 'Мои документы',
+                                value: 'MyDocs'
+                            },
+                            {
+                                text: 'Проекты на стадию',
+                                value: 'MyProjectMoveToNextPhase'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Графики',
+                        value: 'LibraryChart',
+                        items: [
+                            {
+                                text: 'Мои КТ',
+                                value: 'MyPoints'
+                            },
+                            {
+                                text: 'КТ от меня',
+                                value: 'PointsFromMe'
+                            },
+                            {
+                                text: 'Мои совещания',
+                                value: 'MyMeetings'
+                            },
+                            {
+                                text: 'Мои поручения',
+                                value: 'MyOrders'
+                            },
+                            {
+                                text: 'Мои инициативы',
+                                value: 'MyInitiative'
+                            },
+                            {
+                                text: 'Инициативы для меня',
+                                value: 'ForMeInitiative'
+                            },
+                            {
+                                text: 'Риски моих проектов',
+                                value: 'MyRisksPie'
+                            },
+                            {
+                                text: 'Матрица рисков',
+                                value: 'RiskMatrix'
+                            },
+                            {
+                                text: 'Бабл чарт моих контрактов',
+                                value: 'MyContractBubble'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Таблицы',
+                        value: 'LibraryTable',
+                        items: [
+                            {
+                                text: 'Мои проекты',
+                                value: 'MyProjects'
+                            },
+                            {
+                                text: 'Мои контракты',
+                                value: 'MyContracts'
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Прочие',
+                        value: 'LibraryMisc',
+                        items: [
+                            {
+                                text: 'Логотип',
+                                value: 'Logo'
+                            }
+                        ]
+                    },
+                ]
+            };
+            var grid = $('#widget-grid')
+                    .widget_grid(widget_grid_options)
+                    .on('add.fc.widget-grid', function(e, data){
+                        console.log(data);
+                    })
+                    .on('save.fc.widget-grid', function(e, data){
+                        console.log(JSON.stringify(data));
+                    });
+        });
+    </script>
+</body>
+</html>
+
