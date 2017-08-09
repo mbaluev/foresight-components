@@ -61,7 +61,7 @@
                         var $template = $(
                                 '<div class="widget__header">' +
                                     '<div class="widget__header-name">' +
-                                        '<button class="button button_collapse" type="button" data-fc="button">' +
+                                        '<button class="button button_collapse" type="button" data-fc="button" data-tooltip="' + that.data.name + '">' +
                                             '<span class="button__text">' + that.data.name + '</span>' +
                                             '<span class="icon icon_svg_down"></span>' +
                                             '<span class="button__anim"></span>' +
@@ -86,7 +86,9 @@
 
                         self.append($template);
                         that.set_color();
-                        that.set_content();
+                        if (!that.data.collapsed) {
+                            that.set_content();
+                        }
                     };
 
                     that.get_buttons = function(){
@@ -158,6 +160,11 @@
                     that.expand = function(){
                         self.removeClass('widget_collapsed');
                         that.data.collapsed = false;
+                        if (that.data.content == that.const.CONTENT_NODATA) {
+                            setTimeout(function(){
+                                that.set_content();
+                            }, 501);
+                        }
                     };
                     that.toggle = function(){
                         self.toggleClass('widget_collapsed');
@@ -356,6 +363,7 @@
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
                         self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-tooltip]').tooltip();
                     };
                     that.init = function(){
                         if (self.children().length == 0) {

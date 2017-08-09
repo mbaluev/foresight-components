@@ -1566,30 +1566,12 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'widget', target : self });
+                    self.data('_widget', { type: 'checkbox', target : self });
                     var that = this.obj = {};
-                    that.const = {
-                        CONTENT_LOADING: '<span class="spinner"></span>',
-                        CONTENT_NODATA: 'Нет данных',
-                        CONTENT_ERROR: 'Ошибка загрузки',
-                        BORDER_COLOR_BLUE: '#5a97f2',
-                        BORDER_COLOR_DEFAULT: '#ccc',
-                        BORDER_COLOR_PURPLE: '#8e6bf5',
-                        BORDER_COLOR_RED: '#ff5940',
-                        CONTENT_TYPE_TEXT: 'text',
-                        CONTENT_TYPE_HTML: 'html',
-                        CONTENT_TYPE_COUNT: 'count'
-                    };
                     that.defaults = {
-                        name: 'Виджет',
-                        collapsed: false,
-                        color: that.const.BORDER_COLOR_DEFAULT,
-                        content: that.const.CONTENT_NODATA,
-                        mode: 'view',
-                        pagename: '',
-                        elementname: '',
-                        loader: null,
-                        library: null
+                        disabled: false,
+                        checked: false,
+                        hidden: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1597,338 +1579,147 @@ $(function(){
                     /* save widget options to self.data */
                     self.data(that.options);
 
+                    that.data._handlers = null;
                     that.data._el = {
-                        buttons: {
-                            button_collapse: null,
-                            button_settings: null,
-                            button_remove: null
-                        }
+                        input: self.find('.checkbox__input'),
+                        label: self.find('.checkbox__label'),
+                        button: self.find('button')
                     };
 
                     that.destroy = function(){
-                        if (typeof that.data._el.buttons.button_collapse[0] != "undefined") {
-                            that.data._el.buttons.button_collapse.button('destroy');
-                        }
-                        if (typeof that.data._el.buttons.button_settings[0] != "undefined") {
-                            that.data._el.buttons.button_settings.button('destroy');
-                        }
-                        if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
-                            that.data._el.buttons.button_remove.button('destroy');
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('destroy');
                         }
                         self.data = null;
                         self.remove();
                     };
-
-                    that.render = function(){
-                        var $template = $(
-                                '<div class="widget__header">' +
-                                    '<div class="widget__header-name">' +
-                                        '<button class="button button_collapse" type="button" data-fc="button">' +
-                                            '<span class="button__text">' + that.data.name + '</span>' +
-                                            '<span class="icon icon_svg_down"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                    '</div>' +
-                                    '<div class="widget__header-actions">' +
-                                        '<button class="button button_settings" type="button" data-fc="button">' +
-                                            '<span class="icon icon_svg_settings"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                        '<button class="button button_remove" type="button" data-fc="button">' +
-                                            '<span class="icon icon_svg_trash"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="widget__border">' +
-                                    '<div class="widget__body">' +
-                                        '<div class="widget__body-data"></div>' +
-                                    '</div>' +
-                                '</div>');
-
-                        self.append($template);
-                        that.set_color();
-                        that.set_content();
-                    };
-
-                    that.get_buttons = function(){
-                        that.data._el.buttons = {
-                            button_collapse: self.find('.button_collapse'),
-                            button_settings: self.find('.button_settings'),
-                            button_remove: self.find('.button_remove')
-                        };
-                    };
-                    that.get_name = function(){
-                        that.data.name = that.data._el.buttons.button_collapse.find('.button__text').text();
-                    };
-
-                    that.set_name = function(){
-                        that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
-                    };
-                    that.set_color = function(){
-                        var $border = self.find('.widget__border');
-                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_blue');
+                    that.disable = function(){
+                        self.addClass('checkbox_disabled');
+                        self.attr('data-disabled','true');
+                        that.data._el.input.attr('disabled', 'disabled');
+                        that.data._el.input.prop('disabled', true);
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_default');
-                        }
-                        if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_purple');
-                        }
-                        if (that.data.color === that.const.BORDER_COLOR_RED) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_red');
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('disable');
                         }
                     };
-                    that.set_content = function(){
-                        var $body = self.find('.widget__body'),
-                            $bodydata = self.find('.widget__body-data');
-                        if (typeof that.data.loader == 'function') {
-                            $body.addClass('widget__body_align_center');
-                            $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
-                            $bodydata.html(that.const.CONTENT_LOADING);
-                            that.data.content = new that.data.loader({
-                                pagename: that.data.pagename,
-                                elementname: that.data.elementname,
-                                success: function(content){
-                                    $body.removeClass('widget__body_align_center');
-                                    $bodydata.addClass('widget__body-data_type_html');
-                                    $bodydata.html(content);
-                                },
-                                error: function(msg){
-                                    $body.addClass('widget__body_align_center');
-                                    $bodydata.addClass('widget__body-data_type_text');
-                                    $bodydata.html(msg);
-                                }
-                            });
-                            that.data.content.loadContent();
-                        } else {
-                            $body.addClass('widget__body_align_center');
-                            $bodydata.addClass('widget__body-data_type_text');
-                            $bodydata.html(that.const.CONTENT_NODATA);
-                        }
-                    };
-
-                    that.collapse = function(){
-                        self.addClass('widget_collapsed');
-                        that.data.collapsed = true;
-                    };
-                    that.expand = function(){
-                        self.removeClass('widget_collapsed');
-                        that.data.collapsed = false;
-                    };
-                    that.toggle = function(){
-                        self.toggleClass('widget_collapsed');
-                        that.data.collapsed = !that.data.collapsed;
-                    };
-                    that.trigger_toggle = function(){
-                        self.trigger('toggle.widget');
-                    };
-                    that.check_toggle = function(){
-                        if (that.data.collapsed) {
-                            that.collapse();
-                        } else {
-                            that.expand();
-                        }
-                    };
-
-                    that.edit_mode = function(){
-                        that.data._el.buttons.button_collapse.button('disable');
-                        that.data._el.buttons.button_settings.button('show').button('enable');
-                        that.data._el.buttons.button_remove.button('show').button('enable');
-                        that.data.mode = 'edit';
-                    };
-                    that.view_mode = function(){
-                        that.data._el.buttons.button_collapse.button('enable');
-                        that.data._el.buttons.button_settings.button('hide').button('disable');
-                        that.data._el.buttons.button_remove.button('hide').button('disable');
-                        that.data.mode = 'view';
-                    };
-
-                    that.settings = function(){
-                        var modal_options = {
-                            buttons: [
-                                {
-                                    name: 'save',
-                                    action: 'save',
-                                    icon: 'icon_svg_ok'
-                                },
-                                {
-                                    name: 'destroy',
-                                    action: 'destroy',
-                                    icon: 'icon_svg_close'
-                                }
-                            ],
-                            header: {
-                                caption: 'Настройки виджета',
-                                name: that.data.name
-                            },
-                            content: { tabs: [] },
-                            data: that.data
-                        };
-                        that.render_general_tab(modal_options.content.tabs);
-                        that.render_source_tab(modal_options.content.tabs);
-
-                        $('<span class="modal"></span>').appendTo('body')
-                            .modal(modal_options)
-                            .on('save.fc.modal', function(){
-                                var reload = false;
-                                $(this).find('[data-field]').each(function(){
-                                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                                    if ((t.data('field') == 'pagename' ||
-                                         t.data('field') == 'elementname') &&
-                                        that.data[t.data('field')] != val) {
-                                        reload = true;
-                                    }
-                                    _.set(that.data, t.data('field'), val);
+                    that.enable = function(){
+                        self.removeClass('checkbox_disabled');
+                        self.removeAttr('data-disabled');
+                        that.data._el.input.removeAttr('disabled');
+                        that.data._el.input.prop('disabled', false);
+                        that.data.disabled = false;
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
-                                that.trigger_toggle();
-                                that.set_name();
-                                that.set_color();
-                                if (reload) {
-                                    that.set_content();
-                                }
-                                $(this).modal('destroy');
-                            });
-                    };
-                    that.render_general_tab = function(tabs){
-                        tabs.push({
-                            id: 'general',
-                            name: 'Основные',
-                            active: true,
-                            content: $([
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Скрывать по умолчанию</div>' +
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
-                            (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
-                            '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
-                            '<label class="checkbox__label"></label>' +
-                            '</label>' +
-                            '</div>' +
-                            '</div>' +
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Заголовок</div>' +
-                            '<div class="control__icons">' +
-                            '<span class="icon icon_svg_star_red"></span>' +
-                            '<span class="icon icon_svg_star_green"></span>' +
-                            '<span class="icon icon_svg_info"></span>' +
-                            '</div>' +
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<span class="input input__has-clear" data-fc="input" data-field="name">' +
-                            '<span class="input__box">' +
-                            '<input type="text" class="input__control" value="' + that.data.name + '">' +
-                            '<button class="button" type="button" data-fc="button">' +
-                            '<span class="icon icon_svg_close"></span>' +
-                            '</button>' +
-                            '</span>' +
-                            '</span>' +
-                            '</div>' +
-                            '</div>' +
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Цвет</div>' +
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<select class="select" name="color" data-fc="select" data-field="color">' +
-                            '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
-                            '</select>' +
-                            '</div>' +
-                            '</div>'
-
-                            ].join(''))
-                        });
-                    };
-                    that.render_source_tab = function(tabs){
-                        if (that.data.library) {
-                            var $control__library = $([
-                                    '<div class="control">',
-                                    '<div class="control__caption">',
-                                    '<div class="control__text">Источник данных</div>',
-                                    '</div>',
-                                    '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
-                                    '</div>',
-                                    '</div>'
-                                ].join('')),
-                                $control__widgets = $([
-                                    '<div class="control">',
-                                    '<div class="control__caption">',
-                                    '<div class="control__text">Виджет</div>',
-                                    '</div>',
-                                    '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
-                                    '</div>',
-                                    '</div>'
-                                ].join(''));
-                            that.data.library.forEach(function(item, i, arr){
-                                var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                                if (item.value == that.data.pagename) {
-                                    item.items.forEach(function(item, i, arr){
-                                        var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                                        $control__widgets.find('.select').append($option);
-                                    });
-                                }
-                                $control__library.find('.select').append($option);
-                            });
-                            $control__library.find('.select').on('change', function(e){
-                                var values = $(this).data('_value'),
-                                    items = [];
-                                values.forEach(function(item, i, arr){
-                                    var library = that.data.library.filter(function(d){ return d.value == item.value; });
-                                    if (library.length > 0) {
-                                        library = library[0];
-                                        if (library.items) {
-                                            items.push.apply(items, library.items)
-                                        }
-                                    }
-                                });
-                                $control__widgets.find('.select').select('update', items);
-                            });
-                            tabs.push({
-                                id: 'source',
-                                name: 'Источник данных',
-                                content:
-                                    $('<div></div>').append($control__library, $control__widgets)
-                            });
+                            }
                         }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('enable');
+                        }
+                    };
+                    that.hide = function(){
+                        self.addClass('checkbox_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('checkbox_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.check = function(){
+                        self.addClass('checkbox_checked');
+                        self.attr('data-checked','true');
+                        that.data._el.input.attr('checked', 'checked');
+                        that.data._el.input.prop('checked', true);
+                        that.data.checked = true;
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('check');
+                        }
+                    };
+                    that.uncheck = function(){
+                        self.removeClass('checkbox_checked');
+                        self.removeAttr('data-checked');
+                        that.data._el.input.removeAttr('checked');
+                        that.data._el.input.prop('checked', false);
+                        that.data.checked = false;
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('uncheck');
+                        }
+                    };
+
+                    that.hover = function(){
+                        self.addClass('checkbox_hovered');
+                    };
+                    that.unhover = function(){
+                        self.removeClass('checkbox_hovered');
+                    };
+                    that.click = function(){
+                        self.addClass('checkbox_clicked');
+                        $('body').one('mouseup.checkbox touchend.checkbox', that.unclick);
+                    };
+                    that.unclick = function(){
+                        self.removeClass('checkbox_clicked');
                     };
 
                     that.bind = function(){
-                        self.on('toggle.widget', that.check_toggle);
-                        that.data._el.buttons.button_collapse.on('click.widget', that.toggle);
-                        that.data._el.buttons.button_settings.on('click.widget', that.settings);
-                        that.data._el.buttons.button_remove.on('click.widget', that.destroy);
+                        //bind private events
+                        self.on('mouseover.checkbox', that.hover);
+                        self.on('mouseout.checkbox', that.unhover);
+                        self.on('mousedown.checkbox touchstart.checkbox', that.click);
+                        if (typeof that.data._el.label[0] != "undefined") {
+                            that.data['_widget']['type'] = 'checkbox.label';
+                            self.bindFirst('click.checkbox', '.checkbox__label', null, function (e) {
+                                e.preventDefault();
+                                that.data.checked ? that.uncheck() : that.check();
+                            })
+                        }
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data['_widget']['type'] = 'checkbox.button';
+                            self.bindFirst('click.checkbox', 'button', null, function (e) {
+                                e.preventDefault();
+                                that.data.checked ? that.uncheck() : that.check();
+                            })
+                        }
                     };
 
                     that.init_components = function(){
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="checkbox"]').checkbox();
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button();
+                        }
                     };
                     that.init = function(){
-                        if (self.children().length == 0) {
-                            that.render();
-                            that.get_buttons();
-                        } else {
-                            that.get_buttons();
-                            that.get_name();
-                        }
+                        that.data.name = that.data._el.input.attr('name');
                         that.init_components();
                         that.bind();
+                        if (that.data.checked) {
+                            that.check();
+                        } else {
+                            that.uncheck();
+                        }
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
                     };
                     that.init();
                 }
@@ -1940,45 +1731,887 @@ $(function(){
                 this.obj.destroy();
             });
         },
-        collapse : function() {
+        disable : function() {
             return this.each(function() {
-                this.obj.collapse();
+                this.obj.disable();
             });
         },
-        expand : function() {
+        enable : function() {
             return this.each(function() {
-                this.obj.expand();
+                this.obj.enable();
             });
         },
-        toggle : function() {
+        hide : function() {
             return this.each(function() {
-                this.obj.toggle();
+                this.obj.hide();
             });
         },
-        edit_mode : function() {
+        show : function() {
             return this.each(function() {
-                this.obj.edit_mode();
+                this.obj.show();
             });
         },
-        view_mode : function() {
+        check : function() {
             return this.each(function() {
-                this.obj.view_mode();
+                this.obj.check();
             });
         },
+        uncheck : function() {
+            return this.each(function() {
+                this.obj.uncheck();
+            });
+        },
+        checked : function() {
+            if (this.length == 1) {
+                var _checked = false;
+                this.each(function() {
+                    _checked = this.obj.data.checked;
+                });
+                return _checked;
+            } else {
+                var checked_arr = [];
+                this.each(function() {
+                    checked_arr.push(this.obj.data.checked);
+                });
+                return checked_arr;
+            }
+        },
+        value : function() {
+            return this.checkbox('checked');
+        }
     };
-    $.fn.widget = function( method ) {
+    $.fn.checkbox = function( method ) {
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on $.widget' );
+            $.error( 'Method ' +  method + ' does not exist on $.checkbox' );
         }
     };
 })( jQuery );
 
 $(function(){
-    $('[data-fc="widget"]').widget();
+    $('[data-fc="checkbox"]').checkbox();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'radio', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        checked: false,
+                        hidden: false,
+                        value: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._el = {
+                        input: self.find('.radio__input'),
+                        label: self.find('.radio__label'),
+                        button: self.find('button')
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        self.addClass('radio_disabled');
+                        self.attr('data-disabled','true');
+                        that.data._el.input.attr('disabled', 'disabled');
+                        that.data._el.input.prop('disabled', true);
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('disable');
+                        }
+                    };
+                    that.enable = function(){
+                        self.removeClass('radio_disabled');
+                        self.removeAttr('data-disabled');
+                        that.data._el.input.removeAttr('disabled');
+                        that.data._el.input.prop('disabled', false);
+                        that.data.disabled = false;
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('enable');
+                        }
+                    };
+                    that.hide = function(){
+                        self.addClass('radio_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('radio_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.check = function(){
+                        self.addClass('radio_checked');
+                        self.attr('data-checked','true');
+                        that.data._el.input.attr('checked', 'checked');
+                        that.data._el.input.prop('checked', true);
+                        that.data.checked = true;
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('check');
+                        }
+                    };
+                    that.uncheck = function(){
+                        self.removeClass('radio_checked');
+                        self.removeAttr('data-checked');
+                        that.data._el.input.removeAttr('checked');
+                        that.data._el.input.prop('checked', false);
+                        that.data.checked = false;
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('uncheck');
+                        }
+                    };
+
+                    that.hover = function(){
+                        self.addClass('radio_hovered');
+                    };
+                    that.unhover = function(){
+                        self.removeClass('radio_hovered');
+                    };
+                    that.click = function(){
+                        self.addClass('radio_clicked');
+                        $('body').one('mouseup.radio touchend.radio', that.unclick);
+                    };
+                    that.unclick = function(){
+                        self.removeClass('radio_clicked');
+                    };
+
+                    that.bind = function(){
+                        //bind private events
+                        self.on('mouseover.radio', that.hover);
+                        self.on('mouseout.radio', that.unhover);
+                        self.on('mousedown.radio touchstart.radio', that.click);
+                        if (typeof that.data._el.label[0] != "undefined") {
+                            that.data['_widget']['type'] = 'radio.label';
+                            self.bindFirst('click.radio', '.radio__label', null, function (e) {
+                                e.preventDefault();
+                                if (!that.data.checked) that.check();
+                            })
+                        }
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data['_widget']['type'] = 'radio.button';
+                            self.bindFirst('click.radio', 'button', null, function (e) {
+                                e.preventDefault();
+                                if (!that.data.checked) that.check();
+                            })
+                        }
+                    };
+
+                    that.init_components = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button();
+                        }
+                    };
+                    that.init = function(){
+                        that.data.name = that.data._el.input.attr('name');
+                        that.data.value = that.data._el.input.attr('value');
+                        that.init_components();
+                        that.bind();
+                        if (that.data.checked) {
+                            that.check();
+                        } else {
+                            that.uncheck();
+                        }
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        check : function() {
+            return this.each(function() {
+                this.obj.check();
+            });
+        },
+        uncheck : function() {
+            return this.each(function() {
+                this.obj.uncheck();
+            });
+        },
+        checked : function() {
+            if (this.length == 1) {
+                var _checked = false;
+                this.each(function() {
+                    _checked = this.obj.data.checked;
+                });
+                return _checked;
+            } else {
+                var checked_arr = [];
+                this.each(function() {
+                    checked_arr.push(this.obj.data.checked);
+                });
+                return checked_arr;
+            }
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.data.value;
+                });
+                return _val;
+            } else {
+                var value_arr = [];
+                this.each(function() {
+                    value_arr.push(this.obj.data.value);
+                });
+                return value_arr;
+            }
+        }
+    };
+    $.fn.radio = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.radio' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="radio"]').radio();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'radio_group', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        checked: false,
+                        hidden: false,
+                        value: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._el = {
+                        radio_list: self.find('.radio')
+                    };
+
+                    that.destroy = function(){
+                        that.data._el.radio_list.each(function(){
+                            $(this).radio('destroy');
+                        });
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        that.data._el.radio_list.each(function(){
+                            $(this).radio('disable');
+                        });
+                        that.data.disabled = true;
+                    };
+                    that.enable = function(){
+                        that.data._el.radio_list.each(function(){
+                            $(this).radio('enable');
+                        });
+                        that.data.disabled = false;
+                    };
+                    that.hide = function(){
+                        that.data._el.radio_list.each(function(){
+                            $(this).radio('hide');
+                        });
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        that.data._el.radio_list.each(function(){
+                            $(this).radio('show');
+                        });
+                        that.data.hidden = false;
+                    };
+
+                    that.init = function(){
+                        that.data.disabled = true;
+                        that.data._el.radio_list.each(function(){
+                            var radio = {};
+                            radio.self = $(this);
+                            radio.data = radio.self.data();
+                            radio.self.radio();
+                            if (radio.data.checked && that.data.checked) { radio.self.radio('uncheck'); }
+                            if (radio.data.checked) {
+                                that.data.checked = true;
+                                that.data.value = radio.self.radio('value');
+                            }
+                            if (!radio.data.disabled) { that.data.disabled = false; }
+                            radio.self.on('click.radio_group', null, null, function(e){
+                                that.data._el.radio_list.each(function(){
+                                    $(this).radio('uncheck');
+                                });
+                                radio.self.radio('check');
+                                that.data.checked = true;
+                                that.data.value = radio.self.radio('value');
+                            });
+                            if (radio.data.disabled) { radio.self.radio('disable'); }
+                        });
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        checked : function() {
+            if (this.length == 1) {
+                var _checked = false;
+                this.each(function() {
+                    _checked = this.obj.data.checked;
+                });
+                return _checked;
+            } else {
+                var checked_arr = [];
+                this.each(function() {
+                    checked_arr.push(this.obj.data.checked);
+                });
+                return checked_arr;
+            }
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.data.value;
+                });
+                return _val;
+            } else {
+                var value_arr = [];
+                this.each(function() {
+                    value_arr.push(this.obj.data.value);
+                });
+                return value_arr;
+            }
+        }
+    };
+    $.fn.radio_group = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.radio_group' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="radio-group"]').radio_group();
+});
+$.fn.bindFirst = function(name, selector, data, handler) {
+    this.on(name, selector, data, handler);
+    this.each(function() {
+        var handlers = $._data(this, 'events')[name.split('.')[0]];
+        var handler = handlers.pop();
+        handlers.splice(0, 0, handler);
+    });
+};
+
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'alertbox', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        hidden: false
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._el = {
+                        button: self.find('button')
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('disable');
+                        }
+                    };
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('enable');
+                        }
+                    };
+                    that.hide = function(){
+                        self.addClass('alertbox_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('alertbox_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.bind = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.on('click', function(e){
+                                e.preventDefault();
+                                that.destroy();
+                            });
+                        }
+                    };
+
+                    that.init_components = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button();
+                        }
+                    };
+                    that.init = function(){
+                        that.init_components();
+                        that.bind();
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        }
+    };
+    $.fn.alertbox = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.alertbox' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="alertbox"]').alertbox();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'input', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        hidden: false,
+                        width: '100%',
+                        auto_close: true,
+                        popup_animation: true
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._handlers_input = null;
+                    that.data._datepicker = null;
+                    that.data._el = {
+                        button: self.find('button'),
+                        input: self.find('.input__control'),
+                        popup: $('<div class="popup"></div>')
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('destroy');
+                        }
+                        if (that.data._el.popup.data('_widget')) {
+                            that.data._el.popup.popup('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        self.addClass('input_disabled');
+                        self.attr('data-disabled','true');
+                        that.data._el.input.attr('disabled', 'disabled');
+                        that.data._el.input.prop('disabled', true);
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('disable');
+                        }
+                        that.disable_input();
+                    };
+                    that.enable = function(){
+                        self.removeClass('input_disabled');
+                        self.removeAttr('data-disabled');
+                        that.data._el.input.removeAttr('disabled');
+                        that.data._el.input.prop('disabled', false);
+                        that.data.disabled = false;
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                        //button enable
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button('enable');
+                        }
+                        that.enable_input();
+                    };
+                    that.hide = function(){
+                        self.addClass('input_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('input_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.focus = function(){
+                        that.data._el.input.trigger('focus');
+                        that.data._el.input.trigger('mousedown');
+                    };
+                    that.clear = function(){
+                        that.data._el.input.val('');
+                        that.focus();
+                    };
+
+                    that.disable_input = function(){
+                        if ($._data(that.data._el.input[0], "events")) {
+                            that.data._handlers_input = {};
+                            for (var type in $._data(that.data._el.input[0], "events")) {
+                                that.data._handlers_input[type] = $._data(that.data._el.input[0], "events")[type].slice(0);
+                            }
+                            that.data._el.input.off();
+                        }
+                    };
+                    that.enable_input = function(){
+                        if (that.data._handlers_input) {
+                            for (var type in that.data._handlers_input) {
+                                that.data._handlers_input[type].forEach(function(ev){
+                                    that.data._el.input.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                    };
+
+                    that.focusin = function(){
+                        self.addClass('input_focused');
+                        that.data.focused = true;
+                    };
+                    that.focusout = function(){
+                        self.removeClass('input_focused');
+                        that.data.focused = false;
+                    };
+
+                    that.set_width = function(value){
+                        self.css('width', value);
+                    };
+
+                    that.bind = function(){
+                        that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
+                        that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
+                        that.data._el.button.on('click.input__clear', null, null, function(e){
+                            e.preventDefault();
+                            that.clear();
+                        });
+                        that.data._el.input.bindFirst('mousedown.input__control', null, null, that.show_datepicker);
+                        $('body').on('mouseup.input__control touchend.input__control', that.hide_datepicker);
+                    };
+
+                    that.init_components = function(){
+                        if (typeof that.data._el.button[0] != "undefined") {
+                            that.data._el.button.button();
+                        }
+                        if (that.data.toggle == 'datepicker') {
+                            that.init_datepicker();
+                        }
+                    };
+                    that.init_datepicker = function(){
+                        // init popup
+                        self.after(that.data._el.popup);
+                        that.data._el.popup.popup({
+                            source: self,
+                            animation: that.data.popup_animation,
+                            width: 'auto'
+                        });
+                        // create detepicker
+                        /* that.data._el.input.attr('readonly', 'readonly'); */
+                        that.data._el.input.datepicker({
+                            inline: true,
+                            autoClose: that.data.auto_close,
+                            onSelect: function(formattedDate, date, inst){
+                                that.data.date = date;
+                                that.data.formattedDate = formattedDate;
+                                if (that.data.auto_close) {
+                                    that.data._el.popup.popup('hide');
+                                }
+                            }
+                        });
+                        // put datepicker to popup
+                        that.data._datepicker = that.data._el.input.data().datepicker;
+                        that.data._datepicker.$datepicker.parent().appendTo(that.data._el.popup);
+                    };
+                    that.init = function(){
+                        that.init_components();
+                        that.bind();
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                        that.set_width(that.data.width);
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        focus: function() {
+            return this.each(function() {
+                this.obj.focus();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
+            });
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.data._el.input.val();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.data._el.input.val());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.input = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.input' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="input"]').input();
 });
 (function($){
     var methods = {
@@ -2416,1059 +3049,6 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'input', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        hidden: false,
-                        width: '100%',
-                        auto_close: true,
-                        popup_animation: true
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._handlers_input = null;
-                    that.data._datepicker = null;
-                    that.data._el = {
-                        button: self.find('button'),
-                        input: self.find('.input__control'),
-                        popup: $('<div class="popup"></div>')
-                    };
-
-                    that.destroy = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('destroy');
-                        }
-                        if (that.data._el.popup.data('_widget')) {
-                            that.data._el.popup.popup('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        self.addClass('input_disabled');
-                        self.attr('data-disabled','true');
-                        that.data._el.input.attr('disabled', 'disabled');
-                        that.data._el.input.prop('disabled', true);
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('disable');
-                        }
-                        that.disable_input();
-                    };
-                    that.enable = function(){
-                        self.removeClass('input_disabled');
-                        self.removeAttr('data-disabled');
-                        that.data._el.input.removeAttr('disabled');
-                        that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('enable');
-                        }
-                        that.enable_input();
-                    };
-                    that.hide = function(){
-                        self.addClass('input_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('input_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.focus = function(){
-                        that.data._el.input.trigger('focus');
-                        that.data._el.input.trigger('mousedown');
-                    };
-                    that.clear = function(){
-                        that.data._el.input.val('');
-                        that.focus();
-                    };
-
-                    that.disable_input = function(){
-                        if ($._data(that.data._el.input[0], "events")) {
-                            that.data._handlers_input = {};
-                            for (var type in $._data(that.data._el.input[0], "events")) {
-                                that.data._handlers_input[type] = $._data(that.data._el.input[0], "events")[type].slice(0);
-                            }
-                            that.data._el.input.off();
-                        }
-                    };
-                    that.enable_input = function(){
-                        if (that.data._handlers_input) {
-                            for (var type in that.data._handlers_input) {
-                                that.data._handlers_input[type].forEach(function(ev){
-                                    that.data._el.input.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                    };
-
-                    that.focusin = function(){
-                        self.addClass('input_focused');
-                        that.data.focused = true;
-                    };
-                    that.focusout = function(){
-                        self.removeClass('input_focused');
-                        that.data.focused = false;
-                    };
-
-                    that.set_width = function(value){
-                        self.css('width', value);
-                    };
-
-                    that.bind = function(){
-                        that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
-                        that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
-                        that.data._el.button.on('click.input__clear', null, null, function(e){
-                            e.preventDefault();
-                            that.clear();
-                        });
-                        that.data._el.input.bindFirst('mousedown.input__control', null, null, that.show_datepicker);
-                        $('body').on('mouseup.input__control touchend.input__control', that.hide_datepicker);
-                    };
-
-                    that.init_components = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button();
-                        }
-                        if (that.data.toggle == 'datepicker') {
-                            that.init_datepicker();
-                        }
-                    };
-                    that.init_datepicker = function(){
-                        // init popup
-                        self.after(that.data._el.popup);
-                        that.data._el.popup.popup({
-                            source: self,
-                            animation: that.data.popup_animation,
-                            width: 'auto'
-                        });
-                        // create detepicker
-                        /* that.data._el.input.attr('readonly', 'readonly'); */
-                        that.data._el.input.datepicker({
-                            inline: true,
-                            autoClose: that.data.auto_close,
-                            onSelect: function(formattedDate, date, inst){
-                                that.data.date = date;
-                                that.data.formattedDate = formattedDate;
-                                if (that.data.auto_close) {
-                                    that.data._el.popup.popup('hide');
-                                }
-                            }
-                        });
-                        // put datepicker to popup
-                        that.data._datepicker = that.data._el.input.data().datepicker;
-                        that.data._datepicker.$datepicker.parent().appendTo(that.data._el.popup);
-                    };
-                    that.init = function(){
-                        that.init_components();
-                        that.bind();
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                        that.set_width(that.data.width);
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        focus: function() {
-            return this.each(function() {
-                this.obj.focus();
-            });
-        },
-        clear : function() {
-            return this.each(function() {
-                this.obj.clear();
-            });
-        },
-        set_width : function(value) {
-            return this.each(function() {
-                this.obj.set_width(value);
-            });
-        },
-        value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.data._el.input.val();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.data._el.input.val());
-                });
-                return _arr;
-            }
-        }
-    };
-    $.fn.input = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.input' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="input"]').input();
-});
-$.fn.bindFirst = function(name, selector, data, handler) {
-    this.on(name, selector, data, handler);
-    this.each(function() {
-        var handlers = $._data(this, 'events')[name.split('.')[0]];
-        var handler = handlers.pop();
-        handlers.splice(0, 0, handler);
-    });
-};
-
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'alertbox', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        hidden: false
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._el = {
-                        button: self.find('button')
-                    };
-
-                    that.destroy = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('disable');
-                        }
-                    };
-                    that.enable = function(){
-                        that.data.disabled = false;
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('enable');
-                        }
-                    };
-                    that.hide = function(){
-                        self.addClass('alertbox_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('alertbox_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.bind = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.on('click', function(e){
-                                e.preventDefault();
-                                that.destroy();
-                            });
-                        }
-                    };
-
-                    that.init_components = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button();
-                        }
-                    };
-                    that.init = function(){
-                        that.init_components();
-                        that.bind();
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        }
-    };
-    $.fn.alertbox = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.alertbox' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="alertbox"]').alertbox();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'radio_group', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        checked: false,
-                        hidden: false,
-                        value: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._el = {
-                        radio_list: self.find('.radio')
-                    };
-
-                    that.destroy = function(){
-                        that.data._el.radio_list.each(function(){
-                            $(this).radio('destroy');
-                        });
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        that.data._el.radio_list.each(function(){
-                            $(this).radio('disable');
-                        });
-                        that.data.disabled = true;
-                    };
-                    that.enable = function(){
-                        that.data._el.radio_list.each(function(){
-                            $(this).radio('enable');
-                        });
-                        that.data.disabled = false;
-                    };
-                    that.hide = function(){
-                        that.data._el.radio_list.each(function(){
-                            $(this).radio('hide');
-                        });
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        that.data._el.radio_list.each(function(){
-                            $(this).radio('show');
-                        });
-                        that.data.hidden = false;
-                    };
-
-                    that.init = function(){
-                        that.data.disabled = true;
-                        that.data._el.radio_list.each(function(){
-                            var radio = {};
-                            radio.self = $(this);
-                            radio.data = radio.self.data();
-                            radio.self.radio();
-                            if (radio.data.checked && that.data.checked) { radio.self.radio('uncheck'); }
-                            if (radio.data.checked) {
-                                that.data.checked = true;
-                                that.data.value = radio.self.radio('value');
-                            }
-                            if (!radio.data.disabled) { that.data.disabled = false; }
-                            radio.self.on('click.radio_group', null, null, function(e){
-                                that.data._el.radio_list.each(function(){
-                                    $(this).radio('uncheck');
-                                });
-                                radio.self.radio('check');
-                                that.data.checked = true;
-                                that.data.value = radio.self.radio('value');
-                            });
-                            if (radio.data.disabled) { radio.self.radio('disable'); }
-                        });
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        checked : function() {
-            if (this.length == 1) {
-                var _checked = false;
-                this.each(function() {
-                    _checked = this.obj.data.checked;
-                });
-                return _checked;
-            } else {
-                var checked_arr = [];
-                this.each(function() {
-                    checked_arr.push(this.obj.data.checked);
-                });
-                return checked_arr;
-            }
-        },
-        value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.data.value;
-                });
-                return _val;
-            } else {
-                var value_arr = [];
-                this.each(function() {
-                    value_arr.push(this.obj.data.value);
-                });
-                return value_arr;
-            }
-        }
-    };
-    $.fn.radio_group = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.radio_group' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="radio-group"]').radio_group();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'radio', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        checked: false,
-                        hidden: false,
-                        value: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._el = {
-                        input: self.find('.radio__input'),
-                        label: self.find('.radio__label'),
-                        button: self.find('button')
-                    };
-
-                    that.destroy = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        self.addClass('radio_disabled');
-                        self.attr('data-disabled','true');
-                        that.data._el.input.attr('disabled', 'disabled');
-                        that.data._el.input.prop('disabled', true);
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('disable');
-                        }
-                    };
-                    that.enable = function(){
-                        self.removeClass('radio_disabled');
-                        self.removeAttr('data-disabled');
-                        that.data._el.input.removeAttr('disabled');
-                        that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('enable');
-                        }
-                    };
-                    that.hide = function(){
-                        self.addClass('radio_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('radio_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.check = function(){
-                        self.addClass('radio_checked');
-                        self.attr('data-checked','true');
-                        that.data._el.input.attr('checked', 'checked');
-                        that.data._el.input.prop('checked', true);
-                        that.data.checked = true;
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('check');
-                        }
-                    };
-                    that.uncheck = function(){
-                        self.removeClass('radio_checked');
-                        self.removeAttr('data-checked');
-                        that.data._el.input.removeAttr('checked');
-                        that.data._el.input.prop('checked', false);
-                        that.data.checked = false;
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('uncheck');
-                        }
-                    };
-
-                    that.hover = function(){
-                        self.addClass('radio_hovered');
-                    };
-                    that.unhover = function(){
-                        self.removeClass('radio_hovered');
-                    };
-                    that.click = function(){
-                        self.addClass('radio_clicked');
-                        $('body').one('mouseup.radio touchend.radio', that.unclick);
-                    };
-                    that.unclick = function(){
-                        self.removeClass('radio_clicked');
-                    };
-
-                    that.bind = function(){
-                        //bind private events
-                        self.on('mouseover.radio', that.hover);
-                        self.on('mouseout.radio', that.unhover);
-                        self.on('mousedown.radio touchstart.radio', that.click);
-                        if (typeof that.data._el.label[0] != "undefined") {
-                            that.data['_widget']['type'] = 'radio.label';
-                            self.bindFirst('click.radio', '.radio__label', null, function (e) {
-                                e.preventDefault();
-                                if (!that.data.checked) that.check();
-                            })
-                        }
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data['_widget']['type'] = 'radio.button';
-                            self.bindFirst('click.radio', 'button', null, function (e) {
-                                e.preventDefault();
-                                if (!that.data.checked) that.check();
-                            })
-                        }
-                    };
-
-                    that.init_components = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button();
-                        }
-                    };
-                    that.init = function(){
-                        that.data.name = that.data._el.input.attr('name');
-                        that.data.value = that.data._el.input.attr('value');
-                        that.init_components();
-                        that.bind();
-                        if (that.data.checked) {
-                            that.check();
-                        } else {
-                            that.uncheck();
-                        }
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        check : function() {
-            return this.each(function() {
-                this.obj.check();
-            });
-        },
-        uncheck : function() {
-            return this.each(function() {
-                this.obj.uncheck();
-            });
-        },
-        checked : function() {
-            if (this.length == 1) {
-                var _checked = false;
-                this.each(function() {
-                    _checked = this.obj.data.checked;
-                });
-                return _checked;
-            } else {
-                var checked_arr = [];
-                this.each(function() {
-                    checked_arr.push(this.obj.data.checked);
-                });
-                return checked_arr;
-            }
-        },
-        value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.data.value;
-                });
-                return _val;
-            } else {
-                var value_arr = [];
-                this.each(function() {
-                    value_arr.push(this.obj.data.value);
-                });
-                return value_arr;
-            }
-        }
-    };
-    $.fn.radio = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.radio' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="radio"]').radio();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'checkbox', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        checked: false,
-                        hidden: false
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-                    that.data._el = {
-                        input: self.find('.checkbox__input'),
-                        label: self.find('.checkbox__label'),
-                        button: self.find('button')
-                    };
-
-                    that.destroy = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('destroy');
-                        }
-                        self.data = null;
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        self.addClass('checkbox_disabled');
-                        self.attr('data-disabled','true');
-                        that.data._el.input.attr('disabled', 'disabled');
-                        that.data._el.input.prop('disabled', true);
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('disable');
-                        }
-                    };
-                    that.enable = function(){
-                        self.removeClass('checkbox_disabled');
-                        self.removeAttr('data-disabled');
-                        that.data._el.input.removeAttr('disabled');
-                        that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        //button enable
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('enable');
-                        }
-                    };
-                    that.hide = function(){
-                        self.addClass('checkbox_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('checkbox_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.check = function(){
-                        self.addClass('checkbox_checked');
-                        self.attr('data-checked','true');
-                        that.data._el.input.attr('checked', 'checked');
-                        that.data._el.input.prop('checked', true);
-                        that.data.checked = true;
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('check');
-                        }
-                    };
-                    that.uncheck = function(){
-                        self.removeClass('checkbox_checked');
-                        self.removeAttr('data-checked');
-                        that.data._el.input.removeAttr('checked');
-                        that.data._el.input.prop('checked', false);
-                        that.data.checked = false;
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button('uncheck');
-                        }
-                    };
-
-                    that.hover = function(){
-                        self.addClass('checkbox_hovered');
-                    };
-                    that.unhover = function(){
-                        self.removeClass('checkbox_hovered');
-                    };
-                    that.click = function(){
-                        self.addClass('checkbox_clicked');
-                        $('body').one('mouseup.checkbox touchend.checkbox', that.unclick);
-                    };
-                    that.unclick = function(){
-                        self.removeClass('checkbox_clicked');
-                    };
-
-                    that.bind = function(){
-                        //bind private events
-                        self.on('mouseover.checkbox', that.hover);
-                        self.on('mouseout.checkbox', that.unhover);
-                        self.on('mousedown.checkbox touchstart.checkbox', that.click);
-                        if (typeof that.data._el.label[0] != "undefined") {
-                            that.data['_widget']['type'] = 'checkbox.label';
-                            self.bindFirst('click.checkbox', '.checkbox__label', null, function (e) {
-                                e.preventDefault();
-                                that.data.checked ? that.uncheck() : that.check();
-                            })
-                        }
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data['_widget']['type'] = 'checkbox.button';
-                            self.bindFirst('click.checkbox', 'button', null, function (e) {
-                                e.preventDefault();
-                                that.data.checked ? that.uncheck() : that.check();
-                            })
-                        }
-                    };
-
-                    that.init_components = function(){
-                        if (typeof that.data._el.button[0] != "undefined") {
-                            that.data._el.button.button();
-                        }
-                    };
-                    that.init = function(){
-                        that.data.name = that.data._el.input.attr('name');
-                        that.init_components();
-                        that.bind();
-                        if (that.data.checked) {
-                            that.check();
-                        } else {
-                            that.uncheck();
-                        }
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        check : function() {
-            return this.each(function() {
-                this.obj.check();
-            });
-        },
-        uncheck : function() {
-            return this.each(function() {
-                this.obj.uncheck();
-            });
-        },
-        checked : function() {
-            if (this.length == 1) {
-                var _checked = false;
-                this.each(function() {
-                    _checked = this.obj.data.checked;
-                });
-                return _checked;
-            } else {
-                var checked_arr = [];
-                this.each(function() {
-                    checked_arr.push(this.obj.data.checked);
-                });
-                return checked_arr;
-            }
-        },
-        value : function() {
-            return this.checkbox('checked');
-        }
-    };
-    $.fn.checkbox = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.checkbox' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="checkbox"]').checkbox();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'tab', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -3589,4 +3169,544 @@ $(function(){
 
 $(function(){
     $('[data-fc="tab"]').tabs();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'widget', target : self });
+                    var that = this.obj = {};
+                    that.const = {
+                        CONTENT_LOADING: '<span class="spinner"></span>',
+                        CONTENT_NODATA: 'Нет данных',
+                        CONTENT_ERROR: 'Ошибка загрузки',
+                        BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_PURPLE: '#8e6bf5',
+                        BORDER_COLOR_RED: '#ff5940',
+                        CONTENT_TYPE_TEXT: 'text',
+                        CONTENT_TYPE_HTML: 'html',
+                        CONTENT_TYPE_COUNT: 'count'
+                    };
+                    that.defaults = {
+                        name: 'Виджет',
+                        collapsed: false,
+                        color: that.const.BORDER_COLOR_DEFAULT,
+                        content: that.const.CONTENT_NODATA,
+                        mode: 'view',
+                        pagename: '',
+                        elementname: '',
+                        loader: null,
+                        library: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        buttons: {
+                            button_collapse: null,
+                            button_settings: null,
+                            button_remove: null
+                        }
+                    };
+
+                    that.destroy = function(){
+                        if (typeof that.data._el.buttons.button_collapse[0] != "undefined") {
+                            that.data._el.buttons.button_collapse.button('destroy');
+                        }
+                        if (typeof that.data._el.buttons.button_settings[0] != "undefined") {
+                            that.data._el.buttons.button_settings.button('destroy');
+                        }
+                        if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
+                            that.data._el.buttons.button_remove.button('destroy');
+                        }
+                        self.data = null;
+                        self.remove();
+                    };
+
+                    that.render = function(){
+                        var $template = $(
+                                '<div class="widget__header">' +
+                                    '<div class="widget__header-name">' +
+                                        '<button class="button button_collapse" type="button" data-fc="button" data-tooltip="' + that.data.name + '">' +
+                                            '<span class="button__text">' + that.data.name + '</span>' +
+                                            '<span class="icon icon_svg_down"></span>' +
+                                            '<span class="button__anim"></span>' +
+                                        '</button>' +
+                                    '</div>' +
+                                    '<div class="widget__header-actions">' +
+                                        '<button class="button button_settings" type="button" data-fc="button">' +
+                                            '<span class="icon icon_svg_settings"></span>' +
+                                            '<span class="button__anim"></span>' +
+                                        '</button>' +
+                                        '<button class="button button_remove" type="button" data-fc="button">' +
+                                            '<span class="icon icon_svg_trash"></span>' +
+                                            '<span class="button__anim"></span>' +
+                                        '</button>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="widget__border">' +
+                                    '<div class="widget__body">' +
+                                        '<div class="widget__body-data"></div>' +
+                                    '</div>' +
+                                '</div>');
+
+                        self.append($template);
+                        that.set_color();
+                        if (!that.data.collapsed) {
+                            that.set_content();
+                        }
+                    };
+
+                    that.get_buttons = function(){
+                        that.data._el.buttons = {
+                            button_collapse: self.find('.button_collapse'),
+                            button_settings: self.find('.button_settings'),
+                            button_remove: self.find('.button_remove')
+                        };
+                    };
+                    that.get_name = function(){
+                        that.data.name = that.data._el.buttons.button_collapse.find('.button__text').text();
+                    };
+
+                    that.set_name = function(){
+                        that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
+                    };
+                    that.set_color = function(){
+                        var $border = self.find('.widget__border');
+                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_blue');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_default');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_purple');
+                        }
+                        if (that.data.color === that.const.BORDER_COLOR_RED) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_red');
+                        }
+                    };
+                    that.set_content = function(){
+                        var $body = self.find('.widget__body'),
+                            $bodydata = self.find('.widget__body-data');
+                        if (typeof that.data.loader == 'function') {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
+                            $bodydata.html(that.const.CONTENT_LOADING);
+                            that.data.content = new that.data.loader({
+                                pagename: that.data.pagename,
+                                elementname: that.data.elementname,
+                                success: function(content){
+                                    $body.removeClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_html');
+                                    $bodydata.html(content);
+                                },
+                                error: function(msg){
+                                    $body.addClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_text');
+                                    $bodydata.html(msg);
+                                }
+                            });
+                            that.data.content.loadContent();
+                        } else {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_text');
+                            $bodydata.html(that.const.CONTENT_NODATA);
+                        }
+                    };
+
+                    that.collapse = function(){
+                        self.addClass('widget_collapsed');
+                        that.data.collapsed = true;
+                    };
+                    that.expand = function(){
+                        self.removeClass('widget_collapsed');
+                        that.data.collapsed = false;
+                        if (that.data.content == that.const.CONTENT_NODATA) {
+                            setTimeout(function(){
+                                that.set_content();
+                            }, 501);
+                        }
+                    };
+                    that.toggle = function(){
+                        self.toggleClass('widget_collapsed');
+                        that.data.collapsed = !that.data.collapsed;
+                    };
+                    that.trigger_toggle = function(){
+                        self.trigger('toggle.widget');
+                    };
+                    that.check_toggle = function(){
+                        if (that.data.collapsed) {
+                            that.collapse();
+                        } else {
+                            that.expand();
+                        }
+                    };
+
+                    that.edit_mode = function(){
+                        that.data._el.buttons.button_collapse.button('disable');
+                        that.data._el.buttons.button_settings.button('show').button('enable');
+                        that.data._el.buttons.button_remove.button('show').button('enable');
+                        that.data.mode = 'edit';
+                    };
+                    that.view_mode = function(){
+                        that.data._el.buttons.button_collapse.button('enable');
+                        that.data._el.buttons.button_settings.button('hide').button('disable');
+                        that.data._el.buttons.button_remove.button('hide').button('disable');
+                        that.data.mode = 'view';
+                    };
+
+                    that.settings = function(){
+                        var modal_options = {
+                            buttons: [
+                                {
+                                    name: 'save',
+                                    action: 'save',
+                                    icon: 'icon_svg_ok'
+                                },
+                                {
+                                    name: 'destroy',
+                                    action: 'destroy',
+                                    icon: 'icon_svg_close'
+                                }
+                            ],
+                            header: {
+                                caption: 'Настройки виджета',
+                                name: that.data.name
+                            },
+                            content: { tabs: [] },
+                            data: that.data
+                        };
+                        that.render_general_tab(modal_options.content.tabs);
+                        that.render_source_tab(modal_options.content.tabs);
+
+                        $('<span class="modal"></span>').appendTo('body')
+                            .modal(modal_options)
+                            .on('save.fc.modal', function(){
+                                var reload = false;
+                                $(this).find('[data-field]').each(function(){
+                                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
+                                    if ((t.data('field') == 'pagename' ||
+                                         t.data('field') == 'elementname') &&
+                                        that.data[t.data('field')] != val) {
+                                        reload = true;
+                                    }
+                                    _.set(that.data, t.data('field'), val);
+                                });
+                                that.trigger_toggle();
+                                that.set_name();
+                                that.set_color();
+                                if (reload) {
+                                    that.set_content();
+                                }
+                                $(this).modal('destroy');
+                            });
+                    };
+                    that.render_general_tab = function(tabs){
+                        tabs.push({
+                            id: 'general',
+                            name: 'Основные',
+                            active: true,
+                            content: $([
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Скрывать по умолчанию</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
+                            (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
+                            '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
+                            '<label class="checkbox__label"></label>' +
+                            '</label>' +
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Заголовок</div>' +
+                            '<div class="control__icons">' +
+                            '<span class="icon icon_svg_star_red"></span>' +
+                            '<span class="icon icon_svg_star_green"></span>' +
+                            '<span class="icon icon_svg_info"></span>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<span class="input input__has-clear" data-fc="input" data-field="name">' +
+                            '<span class="input__box">' +
+                            '<input type="text" class="input__control" value="' + that.data.name + '">' +
+                            '<button class="button" type="button" data-fc="button">' +
+                            '<span class="icon icon_svg_close"></span>' +
+                            '</button>' +
+                            '</span>' +
+                            '</span>' +
+                            '</div>' +
+                            '</div>' +
+
+                            '<div class="control">' +
+                            '<div class="control__caption">' +
+                            '<div class="control__text">Цвет</div>' +
+                            '</div>' +
+                            '<div class="control__container">' +
+                            '<select class="select" name="color" data-fc="select" data-field="color">' +
+                            '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
+                            '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                            '</select>' +
+                            '</div>' +
+                            '</div>'
+
+                            ].join(''))
+                        });
+                    };
+                    that.render_source_tab = function(tabs){
+                        if (that.data.library) {
+                            var $control__library = $([
+                                    '<div class="control">',
+                                    '<div class="control__caption">',
+                                    '<div class="control__text">Источник данных</div>',
+                                    '</div>',
+                                    '<div class="control__container">',
+                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
+                                    '</div>',
+                                    '</div>'
+                                ].join('')),
+                                $control__widgets = $([
+                                    '<div class="control">',
+                                    '<div class="control__caption">',
+                                    '<div class="control__text">Виджет</div>',
+                                    '</div>',
+                                    '<div class="control__container">',
+                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
+                                    '</div>',
+                                    '</div>'
+                                ].join(''));
+                            that.data.library.forEach(function(item, i, arr){
+                                var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                                if (item.value == that.data.pagename) {
+                                    item.items.forEach(function(item, i, arr){
+                                        var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                                        $control__widgets.find('.select').append($option);
+                                    });
+                                }
+                                $control__library.find('.select').append($option);
+                            });
+                            $control__library.find('.select').on('change', function(e){
+                                var values = $(this).data('_value'),
+                                    items = [];
+                                values.forEach(function(item, i, arr){
+                                    var library = that.data.library.filter(function(d){ return d.value == item.value; });
+                                    if (library.length > 0) {
+                                        library = library[0];
+                                        if (library.items) {
+                                            items.push.apply(items, library.items)
+                                        }
+                                    }
+                                });
+                                $control__widgets.find('.select').select('update', items);
+                            });
+                            tabs.push({
+                                id: 'source',
+                                name: 'Источник данных',
+                                content:
+                                    $('<div></div>').append($control__library, $control__widgets)
+                            });
+                        }
+                    };
+
+                    that.bind = function(){
+                        self.on('toggle.widget', that.check_toggle);
+                        that.data._el.buttons.button_collapse.on('click.widget', that.toggle);
+                        that.data._el.buttons.button_settings.on('click.widget', that.settings);
+                        that.data._el.buttons.button_remove.on('click.widget', that.destroy);
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-tooltip]').tooltip();
+                    };
+                    that.init = function(){
+                        if (self.children().length == 0) {
+                            that.render();
+                            that.get_buttons();
+                        } else {
+                            that.get_buttons();
+                            that.get_name();
+                        }
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        collapse : function() {
+            return this.each(function() {
+                this.obj.collapse();
+            });
+        },
+        expand : function() {
+            return this.each(function() {
+                this.obj.expand();
+            });
+        },
+        toggle : function() {
+            return this.each(function() {
+                this.obj.toggle();
+            });
+        },
+        edit_mode : function() {
+            return this.each(function() {
+                this.obj.edit_mode();
+            });
+        },
+        view_mode : function() {
+            return this.each(function() {
+                this.obj.view_mode();
+            });
+        },
+    };
+    $.fn.widget = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.widget' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="widget"]').widget();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_tooltip');
+                if (!data) {
+                    var that = this.tooltip = {};
+                    that.defaults = {};
+                    that.data = self.data();
+                    that.options = $.extend(that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._tooltip = {
+                        tooltip: $('<div class="tooltip"></div>'),
+                        tooltip__text: $('<div class="tooltip__text"></div>'),
+                        tooltip__arrow: $('<div class="tooltip__arrow"></div>')
+                    };
+
+                    that.destroy = function () {
+                        that.data._tooltip.tooltip.remove();
+                    };
+                    that.hide = function () {
+                        that.destroy();
+                    };
+                    that.show = function (e) {
+                        that.render();
+                        that.update(e);
+                    };
+                    that.update = function (e) {
+                        that.data._tooltip.tooltip.addClass('tooltip_visible');
+                        that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_bottom');
+                        that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_top');
+                        var yOffset = 25;
+                        var padding = 10;
+                        var ttw = Math.ceil(that.data._tooltip.tooltip.outerWidth());
+                        var tth = Math.ceil(that.data._tooltip.tooltip.outerHeight());
+                        var wscrY = $(window).scrollTop();
+                        var wscrX = $(window).scrollLeft();
+                        var curX = (document.all) ? e.clientX + wscrX : e.pageX;
+                        var curY = (document.all) ? e.clientY + wscrY : e.pageY;
+                        var ttleft = curX - ttw / 2;
+                        var tttop = curY - tth - yOffset;
+                        if (ttleft - padding < 0) {
+                            ttleft = padding;
+                            if (ttleft + ttw + padding > $(window).width()) {
+                                newttw = $(window).width() - padding * 2;
+                            }
+                        } else if (ttleft + ttw + padding > $(window).width()) {
+                            ttleft = $(window).width() - padding - ttw;
+                            if (ttleft - padding < 0) {
+                                newttw = $(window).width() - padding * 2;
+                            }
+                        }
+                        if (tttop - padding < 0) {
+                            tttop = curY + yOffset;
+                            that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_top');
+                            that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_bottom');
+                        }
+                        var taleft = curX - ttleft - 5;
+                        if (taleft < padding) {
+                            taleft = padding;
+                        }
+                        if (taleft > ttw - padding * 2) {
+                            taleft = ttw - padding * 2;
+                        }
+                        that.data._tooltip.tooltip.css({
+                            top: tttop,
+                            left: ttleft,
+                            width: ttw
+                        });
+                        that.data._tooltip.tooltip__arrow.css({
+                            left: taleft + 'px'
+                        });
+                    };
+                    that.render = function () {
+                        $('body').append(
+                            that.data._tooltip.tooltip.append(
+                                that.data._tooltip.tooltip__text.html(that.data.tooltip),
+                                that.data._tooltip.tooltip__arrow
+                            )
+                        );
+                    };
+                    that.bind = function () {
+                        self.on('mouseover', that.show);
+                        self.on('mousemove', that.update);
+                        self.on('mouseout', that.hide);
+                    };
+                    that.init = function () {
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        }
+    };
+    $.fn.tooltip = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.tooltip' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-tooltip]').tooltip();
 });
