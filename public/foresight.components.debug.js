@@ -3628,10 +3628,12 @@ $(function(){
                     };
                     that.hide = function () {
                         that.destroy();
+                        self.off('mousemove.tooltip');
                     };
                     that.show = function (e) {
                         that.render();
                         that.update(e);
+                        self.on('mousemove.tooltip', that.update);
                     };
                     that.update = function (e) {
                         that.data._tooltip.tooltip.addClass('tooltip_visible');
@@ -3692,9 +3694,8 @@ $(function(){
                         );
                     };
                     that.bind = function () {
-                        self.on('mouseover', that.show);
-                        //self.on('mousemove', that.update);
-                        self.on('mouseout', that.hide);
+                        self.on('mouseover.tooltip', that.show);
+                        self.on('mouseout.tooltip', that.hide);
                     };
                     that.init = function () {
                         that.bind();
