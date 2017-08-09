@@ -27,61 +27,6 @@
   /* Legacy iOS */
 }
 
-.header {
-  font-family: 'ProximaNova-Regular';
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  background-color: #fff;
-}
-
-.header__column {
-  padding: 10px 0 0 0;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-}
-
-.header__column:first-child {
-  padding-left: 10px;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-}
-
-.header__column:last-child {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.header__column-item {
-  margin: 0 10px 10px 0 !important;
-}
-
-.header__name {
-  display: inline-block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: top;
-  white-space: nowrap;
-  line-height: 30px;
-  font-size: 20px;
-}
-
 html,
 body {
   height: 100%;
@@ -179,6 +124,61 @@ body {
 .fs-view__backdrop {
   display: none;
   visibility: hidden;
+}
+
+.header {
+  font-family: 'ProximaNova-Regular';
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  background-color: #fff;
+}
+
+.header__column {
+  padding: 10px 0 0 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.header__column:first-child {
+  padding-left: 10px;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.header__column:last-child {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.header__column-item {
+  margin: 0 10px 10px 0 !important;
+}
+
+.header__name {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  white-space: nowrap;
+  line-height: 30px;
+  font-size: 20px;
 }
 
 .button {

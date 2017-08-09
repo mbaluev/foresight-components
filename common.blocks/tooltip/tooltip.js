@@ -62,7 +62,7 @@
                         if (taleft < padding) {
                             taleft = padding;
                         }
-                        if (taleft > ttw - padding *) {
+                        if (taleft > ttw - padding * 2) {
                             taleft = ttw - padding * 2;
                         }
                         that.data._tooltip.tooltip.css({
