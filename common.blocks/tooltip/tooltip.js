@@ -20,6 +20,9 @@
 
                     that.destroy = function () {
                         that.data._tooltip.tooltip.remove();
+                        that.data._tooltip.tooltip.css({
+                            width: 'auto'
+                        });
                     };
                     that.hide = function () {
                         that.destroy();
@@ -42,6 +45,7 @@
                         var curY = (document.all) ? e.clientY + wscrY : e.pageY;
                         var ttleft = curX - ttw / 2;
                         var tttop = curY - tth - yOffset;
+
                         if (ttleft - padding < 0) {
                             ttleft = padding;
                             if (ttleft + ttw + padding > $(window).width()) {
@@ -53,11 +57,13 @@
                                 newttw = $(window).width() - padding * 2;
                             }
                         }
+
                         if (tttop < 0) {
                             tttop = curY + yOffset;
                             that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_top');
                             that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_bottom');
                         }
+
                         var taleft = curX - ttleft - 5;
                         if (taleft < padding) {
                             taleft = padding;
@@ -65,13 +71,14 @@
                         if (taleft > ttw - padding * 2) {
                             taleft = ttw - padding * 2;
                         }
+
                         that.data._tooltip.tooltip.css({
                             top: tttop,
                             left: ttleft,
                             width: ttw
                         });
                         that.data._tooltip.tooltip__arrow.css({
-                            left: taleft + 'px'
+                            left: taleft
                         });
                     };
                     that.render = function () {
