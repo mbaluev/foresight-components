@@ -53,7 +53,7 @@
                                 newttw = $(window).width() - padding * 2;
                             }
                         }
-                        if (tttop - padding < 0) {
+                        if (tttop < 0) {
                             tttop = curY + yOffset;
                             that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_top');
                             that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_bottom');
@@ -62,7 +62,7 @@
                         if (taleft < padding) {
                             taleft = padding;
                         }
-                        if (taleft > ttw - padding * 2) {
+                        if (taleft > ttw - padding *) {
                             taleft = ttw - padding * 2;
                         }
                         that.data._tooltip.tooltip.css({
