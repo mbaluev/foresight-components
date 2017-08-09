@@ -104,6 +104,8 @@
 
                     that.set_name = function(){
                         that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
+                        that.data._el.buttons.button_collapse.attr('data-tooltip', that.data.name);
+                        that.data._el.buttons.button_collapse.data('tooltip', that.data.name);
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');
