@@ -3639,8 +3639,8 @@ $(function(){
                         that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_top');
                         var yOffset = 25;
                         var padding = 10;
-                        var ttw = Math.ceil(that.data._tooltip.tooltip.width());
-                        var tth = Math.ceil(that.data._tooltip.tooltip.height());
+                        var ttw = Math.ceil(that.data._tooltip.tooltip.outerWidth());
+                        var tth = Math.ceil(that.data._tooltip.tooltip.outerHeight());
                         var wscrY = $(window).scrollTop();
                         var wscrX = $(window).scrollLeft();
                         var curX = (document.all) ? e.clientX + wscrX : e.pageX;
@@ -3693,7 +3693,7 @@ $(function(){
                     };
                     that.bind = function () {
                         self.on('mouseover', that.show);
-                        self.on('mousemove', that.update);
+                        //self.on('mousemove', that.update);
                         self.on('mouseout', that.hide);
                     };
                     that.init = function () {
