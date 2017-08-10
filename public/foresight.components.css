@@ -1,5 +1,5 @@
 .page {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular' !important;
   font-size: 13px;
   font-weight: normal;
   margin: 0px;
@@ -1118,6 +1118,7 @@ body {
       flex-shrink: 0;
   border-bottom: solid 1px rgba(255,255,255,0.15);
   width: 100%;
+  line-height: 16px;
 }
 
 .menu__item-link {
