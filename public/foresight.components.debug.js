@@ -988,6 +988,7 @@ $(function(){
                                 })
                             };
                         }, this);
+                        that.data._el.tumbler.tumbler('uncheck');
                         self.trigger(that.data._triggers.save, [that.data.items]);
                     };
                     that.clear = function() {
