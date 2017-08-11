@@ -117,7 +117,7 @@ body {
 }
 
 .fs-view__middle-inner {
-  padding: 20px 10px;
+  /*padding: 20px 10px;*/
   box-sizing: border-box;
   position: relative;
 }
@@ -1214,7 +1214,10 @@ body {
   border: none;
 }
 
-
+.widget-grid {
+  margin: 20px 10px;
+  box-sizing: content-box;
+}
 
 .article {
   font-family: 'ProximaNova-Regular';
