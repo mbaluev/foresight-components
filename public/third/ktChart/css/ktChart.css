@@ -59,8 +59,8 @@
 .panel-legend { box-sizing: border-box; overflow-y: auto; overflow-x: hidden; padding: 5px 0; }
 .panel-legend .legend-item { display: flex; justify-content: flex-start; padding: 5px 10px; }
 .panel-legend .legend-item:hover { cursor: pointer; opacity: .5; }
-.panel-legend .legend-circle { background-color: #666; border: solid 1px #666; box-sizing: border-box; width: 8px !important; height: 8px; border-radius: 4px; flex-shrink: 0; margin: 3px 10px 0 0; }
-.panel-legend .legend-name {}
+.panel-legend .legend-circle { background-color: #666; border: solid 1px #666; box-sizing: border-box; width: 8px !important; height: 8px; border-radius: 4px; flex-shrink: 0; margin: 4px 10px 0 0; }
+.panel-legend .legend-name { color: #333; }
 
 .panel-legend  .legend-item.legend-hidden .legend-circle { background-color: #fff !important; }
 .panel-legend  .legend-item.legend-hidden .legend-name { color: #ccc; }
@@ -89,7 +89,7 @@
 
 .panel-info .tabs__pane { padding: 0; }
 .panel-info .tabs__pane { overflow-y: auto; height: 100%; }
-.panel-info .tabs__pane a.dcjq-parent { padding: 10px 10px; border-bottom: solid 1px #ddd; color: #333; font-weight: bold; display: flex; align-items: flex-start; justify-content: space-between; }
+.panel-info .tabs__pane a.dcjq-parent { padding: 10px 10px; border-bottom: solid 1px #ddd; color: #333; display: flex; align-items: flex-start; justify-content: space-between; }
 .panel-info .tabs__pane a.dcjq-parent .counts { display: flex; justify-content: flex-end; }
 .panel-info .tabs__pane a.dcjq-parent .dcjq-icon { display: none; }
 
