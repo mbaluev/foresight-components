@@ -114,7 +114,7 @@
                     filtered: $([
                         '<li class="tabs__tab tabs__tab_active">',
                             '<a class="tabs__link link" href="#filtered" data-fc="tab">',
-                                '<button class="button" data-fc="button">',
+                                '<button class="button" data-fc="button" data-width="110">',
                                     '<span class="button__text">Точки (0)</span>',
                                 '</button>',
                             '</a>',
@@ -123,7 +123,7 @@
                     selected: $([
                         '<li class="tabs__tab">',
                             '<a class="tabs__link link" href="#selected" data-fc="tab">',
-                                '<button class="button" data-fc="button">',
+                                '<button class="button" data-fc="button" data-width="120">',
                                     '<span class="button__text">Выбранные (0)</span>',
                                 '</button>',
                             '</a>',
@@ -132,7 +132,7 @@
                     connected: $([
                         '<li class="tabs__tab">',
                             '<a class="tabs__link link" href="#connected" data-fc="tab">',
-                                '<button class="button" data-fc="button" data-width="170">',
+                                '<button class="button" data-fc="button" data-width="130">',
                                     '<span class="button__text">Точка</span>',
                                 '</button>',
                             '</a>',
@@ -1381,7 +1381,7 @@
                     options.yfieldPosition = "_level_position_index";
                     options.yTickData = "level";
                     //self.functions.colorCounts = self.functions.colors['colorByLevelId'];
-                    self.functions.colorCounts = function(){ return "#888"; };
+                    self.functions.colorCounts = function(){ return "#333"; };
                 },
                 byPortfolio: function(objects){
                     options.maxY = options.maxPortfolio_filtered;
@@ -1390,7 +1390,7 @@
                     options.yfieldPosition = "_portfolio_position_index";
                     options.yTickData = "portfolio_filtered";
                     //self.functions.colorCounts = self.functions.colors['colorByPortfolioId'];
-                    self.functions.colorCounts = function(){ return "#888"; };
+                    self.functions.colorCounts = function(){ return "#333"; };
                 },
                 byProject: function(objects){
                     options.maxY = options.maxProject_filtered;
@@ -1399,7 +1399,7 @@
                     options.yfieldPosition = "_project_position_index";
                     options.yTickData = "project_filtered";
                     //self.functions.colorCounts = self.functions.colors['colorByProjectId'];
-                    self.functions.colorCounts = function(){ return "#888"; };
+                    self.functions.colorCounts = function(){ return "#333"; };
                 },
                 byStatus: function(objects){
                     options.maxY = options.maxStatus_filtered;
@@ -1408,7 +1408,7 @@
                     options.yfieldPosition = "_status_position_index";
                     options.yTickData = "status_filtered";
                     //self.functions.colorCounts = self.functions.colors['colorByStatusId'];
-                    self.functions.colorCounts = function(){ return "#888"; };
+                    self.functions.colorCounts = function(){ return "#333"; };
                 },
                 byLeader: function(objects){
                     options.maxY = options.maxLeader_filtered;
@@ -1417,7 +1417,7 @@
                     options.yfieldPosition = "_leader_position_index";
                     options.yTickData = "leader_filtered";
                     //self.functions.colorCounts = self.functions.colors['colorByLeaderId'];
-                    self.functions.colorCounts = function(){ return "#888"; };
+                    self.functions.colorCounts = function(){ return "#333"; };
                 },
             };
 
