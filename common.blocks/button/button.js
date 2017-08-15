@@ -99,6 +99,9 @@
                     that.set_width = function(value){
                         self.css('width', value);
                     };
+                    that.set_text = function(value){
+                        self.find('.button__text').text(value);
+                    };
 
                     that.bind = function(){
                         //bind private events
@@ -207,6 +210,11 @@
         set_width : function(value) {
             return this.each(function() {
                 this.obj.set_width(value);
+            });
+        },
+        set_text : function(value) {
+            return this.each(function() {
+                this.obj.set_text(value);
             });
         },
         check : function() {

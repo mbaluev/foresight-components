@@ -67,6 +67,10 @@
                         });
                     };
 
+                    that.set_text = function(value){
+                        that.data._el.button.button('set_text', value);
+                    };
+
                     that.bind = function(){
                         that.data._el.tabs__link.on('click', function(e){
                             e.preventDefault();
@@ -108,6 +112,11 @@
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        set_text : function(value) {
+            return this.each(function() {
+                this.obj.set_text(value);
             });
         }
     };

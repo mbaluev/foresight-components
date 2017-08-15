@@ -5,7 +5,9 @@
                 var self = $(this), data = self.data('_tooltip');
                 if (!data) {
                     var that = this.tooltip = {};
-                    that.defaults = {};
+                    that.defaults = {
+                        follow: true
+                    };
                     that.data = self.data();
                     that.options = $.extend(that.defaults, that.data, options);
 
@@ -30,16 +32,63 @@
                     };
                     that.show = function (e) {
                         that.render();
-                        that.update(e);
-                        self.on('mousemove.tooltip', that.update);
+                        if (that.data.follow) {
+                            that.follow(e);
+                            self.on('mousemove.tooltip', that.follow);
+                        } else {
+                            that.put(e);
+                        }
                     };
-                    that.update = function (e) {
+                    that.put = function(e) {
+                        that.data._tooltip.tooltip.addClass('tooltip_visible');
+                        that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_bottom');
+                        that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_top');
+                        var yOffset = 10;
+                        var padding = 10;
+                        var ttw = Math.ceil(that.data._tooltip.tooltip.width());
+                        var tth = Math.ceil(that.data._tooltip.tooltip.outerHeight());
+                        var curX = self.offset().left + self[0].getBoundingClientRect().width/2;
+                        var curY = self.offset().top;
+                        var ttleft = curX - ttw / 2;
+                        var tttop = curY - tth - yOffset;
+                        if (ttleft - padding < 0) {
+                            ttleft = padding;
+                            if (ttleft + ttw + padding > $(window).width()) {
+                                ttw = $(window).width() - padding * 2;
+                            }
+                        } else if (ttleft + ttw + padding > $(window).width()) {
+                            ttleft = $(window).width() - padding - ttw;
+                            if (ttleft - padding < 0) {
+                                ttw = $(window).width() - padding * 2;
+                            }
+                        }
+                        if (tttop < 0) {
+                            tttop = curY + self[0].getBoundingClientRect().height + yOffset;
+                            that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_top');
+                            that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_bottom');
+                        }
+                        var taleft = curX - ttleft - 5;
+                        if (taleft < padding) {
+                            taleft = padding;
+                        }
+                        if (taleft > ttw - padding * 2) {
+                            taleft = ttw - padding * 2;
+                        }
+                        that.data._tooltip.tooltip.css({
+                            top: tttop,
+                            left: ttleft
+                        });
+                        that.data._tooltip.tooltip__arrow.css({
+                            left: taleft
+                        });
+                    };
+                    that.follow = function (e) {
                         that.data._tooltip.tooltip.addClass('tooltip_visible');
                         that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_bottom');
                         that.data._tooltip.tooltip__arrow.addClass('tooltip__arrow_top');
                         var yOffset = 25;
                         var padding = 10;
-                        var ttw = Math.ceil(that.data._tooltip.tooltip.outerWidth());
+                        var ttw = Math.ceil(that.data._tooltip.tooltip.width());
                         var tth = Math.ceil(that.data._tooltip.tooltip.outerHeight());
                         var wscrY = $(window).scrollTop();
                         var wscrX = $(window).scrollLeft();
@@ -51,12 +100,12 @@
                         if (ttleft - padding < 0) {
                             ttleft = padding;
                             if (ttleft + ttw + padding > $(window).width()) {
-                                newttw = $(window).width() - padding * 2;
+                                ttw = $(window).width() - padding * 2;
                             }
                         } else if (ttleft + ttw + padding > $(window).width()) {
                             ttleft = $(window).width() - padding - ttw;
                             if (ttleft - padding < 0) {
-                                newttw = $(window).width() - padding * 2;
+                                ttw = $(window).width() - padding * 2;
                             }
                         }
 
@@ -76,8 +125,7 @@
 
                         that.data._tooltip.tooltip.css({
                             top: tttop,
-                            left: ttleft,
-                            width: ttw
+                            left: ttleft
                         });
                         that.data._tooltip.tooltip__arrow.css({
                             left: taleft
@@ -101,6 +149,16 @@
                     that.init();
                 }
                 return this;
+            });
+        },
+        hide : function(e) {
+            return this.each(function() {
+                this.tooltip.hide(e);
+            });
+        },
+        show : function(e) {
+            return this.each(function() {
+                this.tooltip.show(e);
             });
         }
     };

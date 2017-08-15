@@ -63,10 +63,11 @@
                     };
 
                     that.destroy = function(){
-                        if (that.data.widget == 'select') {
+                        if (that.data._widget.type == 'select') {
                             that.data._el.button.button('destroy');
                             that.data._el.input.input('destroy');
                             that.data._el.popup.popup('destroy');
+                            that.data._el.select.remove();
                             self.data = null;
                             self.remove();
                         }
@@ -176,6 +177,8 @@
                     };
                     that.clear = function(){
                         that.data._value = [];
+                        that.uncheck_all();
+                        self.trigger('change');
                     };
 
                     that.focusin = function(){
@@ -283,6 +286,41 @@
                         that.set_button_text();
                     };
 
+                    that.check = function(value){
+                        var _trigger = false;
+                        that.data._el.popup__list_items.forEach(function(item) {
+                            if (!item.data().selected) {
+                                if (item.data().value == value || value == "all") {
+                                    _trigger = true;
+                                    if (that.data.mode == 'radio') {
+                                        that.uncheck_all();
+                                    }
+                                    if (that.data.mode == 'radio-check') {
+                                        that.uncheck_all();
+                                    }
+                                    that.check_item(item, item.data());
+                                }
+                            }
+                        });
+                        if (_trigger) {
+                            self.trigger('change');
+                        }
+                    };
+                    that.uncheck = function(value){
+                        var _trigger = false;
+                        that.data._el.popup__list_items.forEach(function(item) {
+                            if (item.data().value == value || value == 'all') {
+                                if (that.data.mode != 'radio') {
+                                    _trigger = true;
+                                    that.uncheck_item(item, item.data());
+                                }
+                            }
+                        });
+                        if (_trigger) {
+                            self.trigger('change');
+                        }
+                    };
+
                     that.bind = function(){
                         that.data._el.popup__list_items.forEach(function(item){
                             var idata = item.data();
@@ -319,6 +357,18 @@
                             }
                         });
                     };
+                    that.bind_input = function(){
+                        that.data._el.input.find('.input__control').on('keyup', function(){
+                            var value = that.data._el.input.input('value');
+                            that.data._el.popup__list_items.forEach(function(item) {
+                                if (item.data().text.toLowerCase().includes(value.toLowerCase())) {
+                                    item.removeClass('popup__list-item_hidden');
+                                } else {
+                                    item.addClass('popup__list-item_hidden');
+                                }
+                            });
+                        });
+                    };
 
                     that.init_components = function(){
                         that.data._el.button.button({
@@ -340,6 +390,7 @@
                         that.render();
                         that.init_components();
                         that.bind();
+                        that.bind_input();
                         if (that.data.disabled) {
                             that.disable();
                         } else {
@@ -391,6 +442,16 @@
         focus : function() {
             return this.each(function() {
                 this.obj.focus();
+            });
+        },
+        check : function(value) {
+            return this.each(function() {
+                this.obj.check(value);
+            });
+        },
+        uncheck : function(value) {
+            return this.each(function() {
+                this.obj.uncheck(value);
             });
         },
         clear : function() {

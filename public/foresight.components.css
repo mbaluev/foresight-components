@@ -993,6 +993,10 @@ body {
   margin: 0;
 }
 
+.popup__list-item_hidden {
+  display: none;
+}
+
 .popup__list-item {
   border-bottom: solid 1px #eee;
 }
@@ -1215,15 +1219,80 @@ body {
   border: none;
 }
 
-.widget-grid {
-  margin: 20px 10px;
-  box-sizing: content-box;
-}
-
 .article {
   font-family: 'ProximaNova-Regular';
   /*margin-bottom: 50px;*/
   margin: 0 10px 50px;
+}
+
+.heading {
+  font-family: 'ProximaNova-Regular';
+  font-weight: normal;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+.heading__info {
+  margin-right: 10px;
+}
+
+.heading__link {
+  font-size: 13px;
+}
+
+.heading_1 {
+  font-size: 49px;
+  line-height: 64px;
+  margin: 0 0 43px -2px;
+}
+
+.heading_2 {
+  font-size: 36px;
+  line-height: 48px;
+  margin: 50px 0 14px -1px;
+}
+
+.heading_3 {
+  font-size: 28px;
+  line-height: 48px;
+  margin: 37px 0 11px;
+}
+
+.heading_4 {
+  font-size: 20px;
+  line-height: 32px;
+  margin: 31px 0 17px;
+}
+
+.heading_5 {
+  font-size: 18px;
+  line-height: 32px;
+  margin: 31px 0 16px;
+}
+
+.paragraph {
+  font-style: italic;
+  line-height: 1.5;
+  margin: 5px 0;
+  font-size: 13px;
+}
+
+.paragraph_color_grey {
+  color: #999;
+}
+
+.paragraph_color_red {
+  color: #ff5940;
+}
+
+.select {
+  display: none;
+}
+
+.widget-grid {
+  margin: 20px 10px;
+  box-sizing: content-box;
 }
 
 
@@ -1287,67 +1356,6 @@ body {
 .modal__dialog_hidden {
   margin-top: -100%;
   opacity: 0;
-}
-
-.heading {
-  font-family: 'ProximaNova-Regular';
-  font-weight: normal;
-  position: relative;
-  z-index: 1;
-  padding: 0;
-}
-
-.heading__info {
-  margin-right: 10px;
-}
-
-.heading__link {
-  font-size: 13px;
-}
-
-.heading_1 {
-  font-size: 49px;
-  line-height: 64px;
-  margin: 0 0 43px -2px;
-}
-
-.heading_2 {
-  font-size: 36px;
-  line-height: 48px;
-  margin: 50px 0 14px -1px;
-}
-
-.heading_3 {
-  font-size: 28px;
-  line-height: 48px;
-  margin: 37px 0 11px;
-}
-
-.heading_4 {
-  font-size: 20px;
-  line-height: 32px;
-  margin: 31px 0 17px;
-}
-
-.heading_5 {
-  font-size: 18px;
-  line-height: 32px;
-  margin: 31px 0 16px;
-}
-
-.paragraph {
-  font-style: italic;
-  line-height: 1.5;
-  margin: 5px 0;
-  font-size: 13px;
-}
-
-.paragraph_color_grey {
-  color: #999;
-}
-
-.paragraph_color_red {
-  color: #ff5940;
 }
 
 .spinner {
@@ -2134,10 +2142,6 @@ body {
 
 /*multiple select*/
 
-.select {
-  display: none;
-}
-
 .control {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2697,7 +2701,9 @@ body {
   padding: 5px 0;
   display: none;
   position: absolute;
-  z-index: 2000;
+  z-index: 9999;
+  opacity: 1;
+  max-width: 300px;
 }
 
 .tooltip_visible {

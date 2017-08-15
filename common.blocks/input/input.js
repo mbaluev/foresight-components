@@ -93,6 +93,7 @@
                     };
                     that.clear = function(){
                         that.data._el.input.val('');
+                        that.data._el.input.trigger('keyup');
                         that.focus();
                     };
 

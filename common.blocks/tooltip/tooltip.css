@@ -2,7 +2,9 @@
     padding: 5px 0;
     display: none;
     position: absolute;
-    z-index: 2000;
+    z-index: 9999;
+    opacity: 1;
+    max-width: 300px;
 }
 .tooltip_visible {
     display: block;
