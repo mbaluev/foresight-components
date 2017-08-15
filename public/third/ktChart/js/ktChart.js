@@ -242,6 +242,8 @@
             self.filter_obj.objects.btn_legend = $btn;
 
             self.dom.card__header.find('.' + self.class.panel_filter_buttons).append($btngroup);
+            self.dom.card__header.find('.' + self.class.panel_filter_buttons).find('[data-fc="button"]').button();
+            self.dom.card__header.find('.' + self.class.panel_filter_buttons).find('[data-tooltip]').tooltip();
 
             /*-------------*/
             /*filter fileds*/
