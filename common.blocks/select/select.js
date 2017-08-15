@@ -102,7 +102,7 @@
                             _option.defaults = {
                                 text: $option.text(),
                                 value: $option.attr('value'),
-                                selected: typeof $option.attr('selected') != 'undefined',
+                                selected: $option[0].hasAttribute("selected"),
                                 disabled: false,
                                 hidden: false,
                                 icon: ''
