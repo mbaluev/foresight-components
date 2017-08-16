@@ -121,7 +121,7 @@ var Loader = function(options){
             elementname: 'MyContractBubble',
             content: [
                 '<link href="third/bubble/bubble.css" rel="stylesheet">',
-                '<script src="third/bubble/bubbleChart.js" type="text/javascript"></script>',
+                '<script src="third/bubble/bubble_chart.js" type="text/javascript"></script>',
                 '<div id="MyContractBubble" style="height:100%;"></div>',
                 '<script>$(function(){var o="MyContractBubble",t=o+"_"+Date.now();$("#"+o).attr("id",t),chart=new BubbleChart("#"+t,[{id:93561,projectid:93561,projectcode:"500-010",projectname:"Автоматизация деятельности Департамента торговли и услуг",contractscount:1,total_amount:45,plansum:45,group:3,indicatorid:3,indicatorcolor:"#ff6666"},{id:93587,projectid:93587,projectcode:"500-036",projectname:"Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием",contractscount:1,total_amount:45,plansum:45,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:168799,projectid:168799,projectcode:"500-218",projectname:"Повышение скорости работы сайта организации",contractscount:1,total_amount:44444,plansum:44444,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:191257,projectid:191257,projectcode:"500-226",projectname:"Проект АВ",contractscount:1,total_amount:23,plansum:23,group:3,indicatorid:3,indicatorcolor:"#ff6666"}])});</script>'
             ].join('')
