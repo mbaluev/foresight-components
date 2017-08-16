@@ -3518,11 +3518,13 @@ $(function(){
                             '<div class="control">' +
                             '<div class="control__caption">' +
                             '<div class="control__text">Заголовок</div>' +
+                            /*
                             '<div class="control__icons">' +
                             '<span class="icon icon_svg_star_red"></span>' +
                             '<span class="icon icon_svg_star_green"></span>' +
                             '<span class="icon icon_svg_info"></span>' +
                             '</div>' +
+                            */
                             '</div>' +
                             '<div class="control__container">' +
                             '<span class="input input__has-clear" data-fc="input" data-field="name">' +
