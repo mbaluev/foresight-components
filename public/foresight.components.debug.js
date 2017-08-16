@@ -1830,6 +1830,10 @@ $(function(){
                         label: self.find('.radio__label'),
                         button: self.find('button')
                     };
+                    that.data._triggers = {
+                        check: 'check.fc.radio',
+                        uncheck: 'uncheck.fc.radio'
+                    };
 
                     that.destroy = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
@@ -1894,6 +1898,7 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('check');
                         }
+                        self.trigger(that.data._triggers.check);
                     };
                     that.uncheck = function(){
                         self.removeClass('radio_checked');
@@ -1904,6 +1909,7 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('uncheck');
                         }
+                        self.trigger(that.data._triggers.uncheck);
                     };
 
                     that.hover = function(){

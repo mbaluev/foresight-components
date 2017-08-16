@@ -717,6 +717,21 @@ body {
 
 /* icon spinner -end */
 
+.icon__circle {
+  margin: 11px;
+  box-sizing: border-box;
+  width: 8px !important;
+  min-width: 8px !important;
+  line-height: 8px;
+  border-radius: 4px;
+  background-color: #333;
+}
+
+.icon__circle:empty:after {
+  visibility: hidden;
+  content: '\00A0';
+}
+
 .button-group {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
