@@ -1298,7 +1298,7 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'modal', target : self });
+                    self.data('_widget', { type: 'modal__', target : self });
                     var that = this.obj = {};
                     that.defaults = {
                         buttons: [
@@ -1559,13 +1559,13 @@ $(function(){
             });
         }
     };
-    $.fn.modal = function( method ) {
+    $.fn.modal__ = function( method ) {
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on $.modal' );
+            $.error( 'Method ' +  method + ' does not exist on $.modal__' );
         }
     };
 })( jQuery );
@@ -3472,8 +3472,8 @@ $(function(){
                         that.render_general_tab(modal_options.content.tabs);
                         that.render_source_tab(modal_options.content.tabs);
 
-                        $('<span class="modal"></span>').appendTo('body')
-                            .modal(modal_options)
+                        $('<span class="modal__"></span>').appendTo('body')
+                            .modal__(modal_options)
                             .on('save.fc.modal', function(){
                                 var reload = false;
                                 $(this).find('[data-field]').each(function(){
@@ -3491,7 +3491,7 @@ $(function(){
                                 if (reload) {
                                     that.set_content();
                                 }
-                                $(this).modal('destroy');
+                                $(this).modal__('destroy');
                             });
                     };
                     that.render_general_tab = function(tabs){

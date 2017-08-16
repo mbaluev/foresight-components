@@ -4,7 +4,7 @@
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'modal', target : self });
+                    self.data('_widget', { type: 'modal__', target : self });
                     var that = this.obj = {};
                     that.defaults = {
                         buttons: [
@@ -265,13 +265,13 @@
             });
         }
     };
-    $.fn.modal = function( method ) {
+    $.fn.modal__ = function( method ) {
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on $.modal' );
+            $.error( 'Method ' +  method + ' does not exist on $.modal__' );
         }
     };
 })( jQuery );

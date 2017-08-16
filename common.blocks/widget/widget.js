@@ -220,8 +220,8 @@
                         that.render_general_tab(modal_options.content.tabs);
                         that.render_source_tab(modal_options.content.tabs);
 
-                        $('<span class="modal"></span>').appendTo('body')
-                            .modal(modal_options)
+                        $('<span class="modal__"></span>').appendTo('body')
+                            .modal__(modal_options)
                             .on('save.fc.modal', function(){
                                 var reload = false;
                                 $(this).find('[data-field]').each(function(){
@@ -239,7 +239,7 @@
                                 if (reload) {
                                     that.set_content();
                                 }
-                                $(this).modal('destroy');
+                                $(this).modal__('destroy');
                             });
                     };
                     that.render_general_tab = function(tabs){

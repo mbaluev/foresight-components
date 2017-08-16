@@ -2806,21 +2806,6 @@ body {
 }
 
 @media (max-width: 768px) {
-  .modal__view {
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
-  }
-
-  .modal__dialog {
-    max-width: 100%;
-    margin-left: 10px;
-    margin-right: 10px;
-    max-height: 100%;
-  }
-}
-
-@media (max-width: 768px) {
   .control {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
