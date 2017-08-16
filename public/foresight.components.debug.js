@@ -931,6 +931,7 @@ $(function(){
                             selector: ''
                         },
                         grid: {
+                            verticalMargin: 20,
                             cellHeight: 20,
                             disableDrag: true,
                             disableResize: true,

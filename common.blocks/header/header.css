@@ -6,16 +6,19 @@
     background-color: #fff;
 }
 
+.header_second {
+    background-color: #fafafa;
+}
+
 .header__column {
     padding: 10px 0 0 0;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: flex-start;
     justify-content: flex-start;
 }
 .header__column:first-child {
     padding-left: 10px;
-    flex-wrap: nowrap;
 }
 .header__column:last-child {
     justify-content: flex-end;
@@ -23,6 +26,9 @@
 
 .header__column-item {
     margin: 0 10px 10px 0 !important;
+}
+.header__column-item.radio-group.radio-group_type_buttons {
+    margin-bottom: 0 !important;
 }
 
 .header__name {

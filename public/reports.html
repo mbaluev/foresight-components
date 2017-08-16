@@ -1,12 +1,10 @@
 <!doctype html>
 <head>
-    <title>foresight-ktchart</title>
+    <title>foresight-bubble</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="third/air-datepicker/datepicker.css" type="text/css" media="all">
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="third/ktChart/css/ktChart.css">
 </head>
 <body class="page proximanova">
     <div class="fs-view">
@@ -118,9 +116,90 @@
                 </div>
             </div>
             <div class="fs-view__middle fs-view__middle_full">
-                <div class="fs-view__middle-scroll">
-                    <div class="fs-view__middle-inner">
-                        <div id="wrapper"></div>
+                <div class="fs-view">
+                    <div class="fs-view__header">
+                        <div class="header header_second">
+                            <div class="header__column">
+                                <span class="header__column-item radio-group radio-group_type_buttons" data-fc="radio-group">
+                                    <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                            <span class="button__text">Все отчеты</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Администрирование</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Аналитика по активностям</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="3" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Исполнительская дисциплина</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="4" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                            <span class="button__text">Коммуникации</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="5" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                            <span class="button__text">Отчеты для ФОИВ</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="6" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                            <span class="button__text">Цели и показатели</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="7" hidden/>
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="header__column">
+                                <span class="header__column-item input input__has-clear" data-fc="input" data-width="200">
+                                    <span class="input__box">
+                                        <span class="alertbox" data-fc="alertbox">
+                                            <span class="icon icon_svg_search"></span>
+                                        </span>
+                                        <input type="text" class="input__control">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                                <span class="header__column-item tumbler" data-fc="tumbler">
+                                    <span class="tumbler__box">
+                                        <div class="tumbler__sticker tumbler__sticker_position_left">
+                                            <div class="tumbler__sticker-label">Вкл</div>
+                                        </div>
+                                        <div class="tumbler__sticker tumbler__sticker_position_right">
+                                            <div class="tumbler__sticker-label">Выкл</div>
+                                        </div>
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_star_green"></span>
+                                        </button>
+                                    </span>
+                                    <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fs-view__main">
+                        <div class="fs-view__middle fs-view__middle_full">
+                            <div class="fs-view__middle-scroll">
+                                <div class="fs-view__middle-inner"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -129,18 +208,5 @@
     <script src="third/jquery-3.2.1.min.js"></script>
     <script src="third/lodash.min.js"></script>
     <script src="foresight.components.min.js"></script>
-    <script src="third/d3.v4.min.js"></script>
-    <script src="third/ktChart/data/pointData.js"></script>
-    <script src="third/ktChart/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="third/ktChart/js/sortable.js"></script>
-    <script src="third/ktChart/js/ktChart.js"></script>
-    <script src="third/ktChart/js/ktChart.model.js"></script>
-    <script>
-        $('.fs-view__middle-inner').css({
-            overflow: 'hidden',
-            height: '100%',
-            width: '100%'
-        });
-    </script>
 </body>
 </html>

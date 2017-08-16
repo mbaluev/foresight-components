@@ -1,12 +1,11 @@
 <!doctype html>
 <head>
-    <title>foresight-ktchart</title>
+    <title>foresight-bubble</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="third/air-datepicker/datepicker.css" type="text/css" media="all">
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="third/ktChart/css/ktChart.css">
+    <link rel="stylesheet" href="third/bubble/bubble.css">
 </head>
 <body class="page proximanova">
     <div class="fs-view">
@@ -127,20 +126,21 @@
         </div>
     </div>
     <script src="third/jquery-3.2.1.min.js"></script>
-    <script src="third/lodash.min.js"></script>
     <script src="foresight.components.min.js"></script>
     <script src="third/d3.v4.min.js"></script>
-    <script src="third/ktChart/data/pointData.js"></script>
-    <script src="third/ktChart/js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="third/ktChart/js/sortable.js"></script>
-    <script src="third/ktChart/js/ktChart.js"></script>
-    <script src="third/ktChart/js/ktChart.model.js"></script>
+    <script src="third/bubble/bubble_chart.js"></script>
     <script>
         $('.fs-view__middle-inner').css({
             overflow: 'hidden',
             height: '100%',
             width: '100%'
         });
+        $('#wrapper').css({
+            overflow: 'hidden',
+            height: '100%',
+            width: '100%'
+        });
+        $(function(){var o="wrapper",t=o+"_"+Date.now();$("#"+o).attr("id",t),chart=new BubbleChart("#"+t,[{id:93561,projectid:93561,projectcode:"500-010",projectname:"Автоматизация деятельности Департамента торговли и услуг",contractscount:1,total_amount:45,plansum:45,group:3,indicatorid:3,indicatorcolor:"#ff6666"},{id:93587,projectid:93587,projectcode:"500-036",projectname:"Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием",contractscount:1,total_amount:45,plansum:45,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:168799,projectid:168799,projectcode:"500-218",projectname:"Повышение скорости работы сайта организации",contractscount:1,total_amount:44444,plansum:44444,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:191257,projectid:191257,projectcode:"500-226",projectname:"Проект АВ",contractscount:1,total_amount:23,plansum:23,group:3,indicatorid:3,indicatorcolor:"#ff6666"}])});
     </script>
 </body>
 </html>

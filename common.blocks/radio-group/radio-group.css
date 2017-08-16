@@ -20,3 +20,12 @@
 .radio-group_type_button .radio:first-child .button:before { border-radius: 2px 0 0 2px; }
 .radio-group_type_button .radio:last-child .button { border-radius: 0 3px 3px 0; }
 .radio-group_type_button .radio:last-child .button:before { border-radius: 0 2px 2px 0; }
+
+.radio-group_type_buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+.radio-group_type_buttons .radio {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
