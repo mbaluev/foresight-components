@@ -6,7 +6,15 @@ Asyst.Reports = function(options){
         //user: Asyst.Workspace.currentUser,
         //page: Asyst.Workspace.currentPage,
         filters: [],
-        reports: []
+        reports: [],
+        itemWidth: 3,
+        itemHeight: 5,
+        grid: null,
+        items: [],
+        x: 0,
+        y: 0,
+        reportingCategoryId: 0,
+        favorite: false
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -62,7 +70,6 @@ Asyst.Reports = function(options){
         ].join('')),
         grid: null
     };
-
     that.render = function(){
         that.data._el.content.find('#filter').append(
             that.data._el.radiogroup,
@@ -98,17 +105,93 @@ Asyst.Reports = function(options){
             ].join('')));
         });
     };
+    that.render_grid = function(){
+        var widget_grid_options = {
+            items: that.data.items,
+            loader: null,
+            library: null
+        };
+        that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
+    };
     that.render_reports = function(){
-
+        that.data.reports.forEach(function(report, i){
+            report.visible = true;
+            that.add_report(report);
+            that.data.x += that.data.itemWidth;
+            if (that.data.x >= 12) {
+                that.data.x = 0;
+                that.data.y += that.data.itemHeight;
+            }
+        });
+        that.data.grid.widget_grid('view_mode');
+    };
+    that.remove_reports = function(){
+        that.data.items = [];
+        that.data.x = 0;
+        that.data.y = 0;
+        that.data.grid.widget_grid('destroy');
+    };
+    that.remove_report = function(report){
+        report.visible = false;
+        that.data.grid.widget_grid('removeWidget', report.reportingId);
+        that.data.items = that.data.items.filter(function(d){ return d._id != report.reportingId; });
+    };
+    that.add_report = function(report){
+        report.visible = true;
+        var item = {
+            x: that.data.x,
+            y: that.data.y,
+            width: that.data.itemWidth,
+            height: that.data.itemHeight,
+            settings: {
+                id: report.reportingId,
+                name: report.title,
+                collapsed: false,
+                color: report.color
+            }
+        };
+        that.data.items.push(item);
+        that.data.grid.widget_grid('addWidget', item);
+    };
+    that.update_report = function(report){
+        that.data.grid.widget_grid('updateWidget',
+            report.reportingId, that.data.x, that.data.y, that.data.itemWidth, that.data.itemHeight);
+    };
+    that.filter_reports = function(){
+        that.data.x = 0;
+        that.data.y = 0;
+        that.data.reports.forEach(function(report){
+            if ((+report.reportingCategoryId == +that.data.reportingCategoryId || +that.data.reportingCategoryId == 0) &&
+                (that.data.favorite && report.repFavoriteId || !that.data.favorite)) {
+                if (!report.visible) {
+                    that.add_report(report);
+                } else {
+                    that.update_report(report);
+                }
+                that.data.x += that.data.itemWidth;
+                if (that.data.x >= 12) {
+                    that.data.x = 0;
+                    that.data.y += that.data.itemHeight;
+                }
+            } else {
+                if (report.visible) {
+                    that.remove_report(report);
+                }
+            }
+        });
+        that.data.grid.widget_grid('view_mode');
     };
     that.bind = function(){
         that.data._el.radiogroup.find('[data-fc="radio"]').on('click', function(){
-            console.log('click');
+            that.data.reportingCategoryId = $(this).radio_group('value');
+            that.filter_reports();
         });
         that.data._el.tumbler.on('on.fc.tumbler', function(){
-            console.log('on');
+            that.data.favorite = true;
+            that.filter_reports();
         }).on('off.fc.tumbler', function(){
-            console.log('off');
+            that.data.favorite = false;
+            that.filter_reports();
         });
     };
     that.init_components = function(){
@@ -126,6 +209,7 @@ Asyst.Reports = function(options){
         $(function(){
             that.render();
             that.render_filters();
+            that.render_grid();
             that.render_reports();
             that.init_components();
             that.bind();
@@ -134,7 +218,6 @@ Asyst.Reports = function(options){
     that.init();
     return that;
 };
-
 Asyst.ReportLoader = function(options){
     var that = this._loader = {};
     that.data = {

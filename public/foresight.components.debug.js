@@ -949,7 +949,6 @@ $(function(){
                     that.data._el = {
                         grid: null,
                         nodes: [],
-                        nodesCount: 0,
                         tumbler: $(that.data.tumbler.selector)
                     };
                     that.data._triggers = {
@@ -958,12 +957,11 @@ $(function(){
                     };
 
                     that.destroy = function(){
-                        that.clearGrid();
+                        that.clear();
                         _.each(that.data._nodes, function(node) {
                             node.widget.widget('destroy');
                         });
-                        self.data = null;
-                        self.remove();
+                        self.removeData();
                     };
                     that.add = function() {
                         var item = {
@@ -1012,13 +1010,15 @@ $(function(){
                     };
 
                     that.create_widget = function(node){
-                        that.data._el.nodesCount++;
-
-                        node._id = that.data._el.nodesCount;
+                        if (node.settings.id) {
+                            node._id = node.settings.id;
+                        } else {
+                            node._id = Date.now();
+                        }
                         node._height = node.height;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
-                        node.widget = $('<div class="widget" id="widget' + that.data._el.nodesCount + '"></div>').widget(node.settings);
+                        node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
                         _.unset(node, 'settings');
 
@@ -1065,6 +1065,22 @@ $(function(){
                     };
                     that.update_widget = function(el, height){
                         that.data._el.grid.update(el, null, null, null, height);
+                    };
+
+                    that.removeWidget = function(_id) {
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) { node = node[0]; }
+                        that.data._el.grid.removeWidget(node.el);
+                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                    };
+                    that.addWidget = function(item){
+                        that.create_widget(item);
+                        self.trigger(that.data._triggers.add, [item]);
+                    };
+                    that.updateWidget = function(_id, x, y, width, height){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) { node = node[0]; }
+                        that.data._el.grid.update(node.el, x, y, width, height);
                     };
 
                     that.edit_mode = function(){
@@ -1178,6 +1194,26 @@ $(function(){
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        removeWidget : function(_id) {
+            return this.each(function() {
+                this.obj.removeWidget(_id);
+            });
+        },
+        addWidget : function(item) {
+            return this.each(function() {
+                this.obj.addWidget(item);
+            });
+        },
+        updateWidget : function(_id, x, y, width, height) {
+            return this.each(function() {
+                this.obj.updateWidget(_id, x, y, width, height);
             });
         }
     };
@@ -3372,17 +3408,21 @@ $(function(){
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                        else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_default');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                        else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_purple');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_RED) {
+                        else if (that.data.color === that.const.BORDER_COLOR_RED) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
+                        }
+                        else {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.css({ 'border-color': that.data.color });
                         }
                     };
                     that.set_content = function(){

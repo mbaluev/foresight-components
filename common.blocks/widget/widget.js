@@ -113,17 +113,21 @@
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                        else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_default');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                        else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_purple');
                         }
-                        if (that.data.color === that.const.BORDER_COLOR_RED) {
+                        else if (that.data.color === that.const.BORDER_COLOR_RED) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
+                        }
+                        else {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.css({ 'border-color': that.data.color });
                         }
                     };
                     that.set_content = function(){

@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="third/gridstack/gridstack.css" type="text/css" media="all">
+    <link rel="stylesheet" href="third/air-datepicker/datepicker.css" type="text/css" media="all">
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
 </head>
 <body class="page proximanova">
@@ -123,12 +125,17 @@
         </div>
     </div>
     <script src="third/jquery-3.2.1.min.js"></script>
+    <script src="third/jquery-ui.min.js"></script>
     <script src="third/lodash.min.js"></script>
-    <script src="foresight.components.min.js"></script>
+    <script src="third/gridstack/gridstack.js"></script>
+    <script src="third/gridstack/gridstack.jQueryUI.js"></script>
+    <script src="foresight.components.debug.js"></script>
     <script src="asyst/asyst.reports.js"></script>
     <script>
+        var reportCenter;
         $(function(){
-            var reportCenter = Asyst.Reports({
+            $('#container').css({ height: '100%' });
+            reportCenter = Asyst.Reports({
                 containerid: 'container',
                 filters: [
                     {
