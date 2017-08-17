@@ -14,7 +14,9 @@ Asyst.Reports = function(options){
         x: 0,
         y: 0,
         reportingCategoryId: 0,
-        favorite: false
+        favorite: false,
+        searchText: '',
+        searchTimer: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -72,8 +74,7 @@ Asyst.Reports = function(options){
     };
     that.render = function(){
         that.data._el.content.find('#filter').append(
-            that.data._el.radiogroup,
-            that.data._el.input
+            that.data._el.radiogroup
         );
         that.data._el.content.find('#tumbler').append(
             that.data._el.tumbler
@@ -93,7 +94,7 @@ Asyst.Reports = function(options){
         ].join('')));
         that.data.filters.forEach(function(filter){
             that.data._el.radiogroup.append($([
-                '<label class="radio radio_type_button" data-fc="radio">',
+                '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + filter.reportingCategoryName + '">',
                     '<button class="button button_toggable_radio" type="button" data-fc="button">',
                         '<span class="button__text">' + filter.reportingCategoryName + '</span>',
                         '<span class="icon">',
@@ -104,6 +105,9 @@ Asyst.Reports = function(options){
                 '</label>'
             ].join('')));
         });
+        that.data._el.radiogroup.append(
+            that.data._el.input
+        );
     };
     that.render_grid = function(){
         var widget_grid_options = {
@@ -116,6 +120,7 @@ Asyst.Reports = function(options){
     that.render_reports = function(){
         that.data.reports.forEach(function(report, i){
             report.visible = true;
+            report.collapsed = false;
             that.add_report(report);
             that.data.x += that.data.itemWidth;
             if (that.data.x >= 12) {
@@ -133,6 +138,7 @@ Asyst.Reports = function(options){
     };
     that.remove_report = function(report){
         report.visible = false;
+        report.collapsed = $('#' + report.reportingId).data().collapsed;
         that.data.grid.widget_grid('removeWidget', report.reportingId);
         that.data.items = that.data.items.filter(function(d){ return d._id != report.reportingId; });
     };
@@ -146,7 +152,7 @@ Asyst.Reports = function(options){
             settings: {
                 id: report.reportingId,
                 name: report.title,
-                collapsed: false,
+                collapsed: report.collapsed,
                 color: report.color
             }
         };
@@ -162,7 +168,8 @@ Asyst.Reports = function(options){
         that.data.y = 0;
         that.data.reports.forEach(function(report){
             if ((+report.reportingCategoryId == +that.data.reportingCategoryId || +that.data.reportingCategoryId == 0) &&
-                (that.data.favorite && report.repFavoriteId || !that.data.favorite)) {
+                (that.data.favorite && report.repFavoriteId || !that.data.favorite) &&
+                (report.title.toLowerCase().includes(that.data.searchText.toLowerCase()))) {
                 if (!report.visible) {
                     that.add_report(report);
                 } else {
@@ -196,6 +203,13 @@ Asyst.Reports = function(options){
         if (that.data.favorite) {
             that.data._el.tumbler.tumbler('check');
         }
+        that.data._el.input.on('keyup', function(){
+            clearTimeout(that.data.searchTimer);
+            that.data.searchText = $(this).input('value');
+            that.data.searchTimer = setTimeout(function(){
+                that.filter_reports();
+            }, 300);
+        });
     };
     that.init_components = function(){
         that.data._el.radiogroup.radio_group();

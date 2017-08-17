@@ -76,7 +76,7 @@ $(function(){
                         if (that.data._el.popup.data('_widget')) {
                             that.data._el.popup.popup('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -104,6 +104,7 @@ $(function(){
                                 });
                             }
                         }
+                        that.data._handlers = null;
                         that.data.disabled = false;
                     };
                     that.hide = function(){
@@ -2123,7 +2124,7 @@ $(function(){
                         that.data._el.radio_list.each(function(){
                             $(this).radio('destroy');
                         });
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -2151,6 +2152,9 @@ $(function(){
                         that.data.hidden = false;
                     };
 
+                    that.init_components = function(){
+                        self.find('[data-tooltip]').tooltip();
+                    };
                     that.init = function(){
                         that.data.disabled = true;
                         that.data._el.radio_list.each(function(){
@@ -2174,6 +2178,7 @@ $(function(){
                             });
                             if (radio.data.disabled) { radio.self.radio('disable'); }
                         });
+                        that.init_components();
                     };
                     that.init();
                 }
@@ -3348,7 +3353,7 @@ $(function(){
                         if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
                             that.data._el.buttons.button_remove.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
 

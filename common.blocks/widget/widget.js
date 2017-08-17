@@ -53,7 +53,7 @@
                         if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
                             that.data._el.buttons.button_remove.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
 

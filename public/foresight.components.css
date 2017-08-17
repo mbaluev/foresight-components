@@ -2866,6 +2866,12 @@ body {
 }
 
 @media (max-width: 768px) {
+  .radio-group_type_buttons .radio {
+    max-width: 95px;
+  }
+}
+
+@media (max-width: 768px) {
   .control {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;

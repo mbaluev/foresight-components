@@ -27,7 +27,7 @@
                         that.data._el.radio_list.each(function(){
                             $(this).radio('destroy');
                         });
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -55,6 +55,9 @@
                         that.data.hidden = false;
                     };
 
+                    that.init_components = function(){
+                        self.find('[data-tooltip]').tooltip();
+                    };
                     that.init = function(){
                         that.data.disabled = true;
                         that.data._el.radio_list.each(function(){
@@ -78,6 +81,7 @@
                             });
                             if (radio.data.disabled) { radio.self.radio('disable'); }
                         });
+                        that.init_components();
                     };
                     that.init();
                 }

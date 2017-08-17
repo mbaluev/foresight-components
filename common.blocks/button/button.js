@@ -28,7 +28,7 @@
                         if (that.data._el.popup.data('_widget')) {
                             that.data._el.popup.popup('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -56,6 +56,7 @@
                                 });
                             }
                         }
+                        that.data._handlers = null;
                         that.data.disabled = false;
                     };
                     that.hide = function(){
