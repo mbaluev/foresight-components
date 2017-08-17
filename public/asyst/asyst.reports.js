@@ -7,7 +7,7 @@ Asyst.Reports = function(options){
         //page: Asyst.Workspace.currentPage,
         filters: [],
         reports: [],
-        itemWidth: 3,
+        itemWidth: 2,
         itemHeight: 5,
         grid: null,
         items: [],
@@ -193,6 +193,9 @@ Asyst.Reports = function(options){
             that.data.favorite = false;
             that.filter_reports();
         });
+        if (that.data.favorite) {
+            that.data._el.tumbler.tumbler('check');
+        }
     };
     that.init_components = function(){
         that.data._el.radiogroup.radio_group();
