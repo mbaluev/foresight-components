@@ -1,4 +1,5 @@
 if (typeof Asyst == typeof undefined) { Asyst = {}; }
+
 Asyst.Reports = function(options){
     var that = this._reports = {};
     that.data = {
@@ -236,6 +237,7 @@ Asyst.Reports = function(options){
     that.init();
     return that;
 };
+
 Asyst.ImageLoader = function(options){
     var that = this._loader = {};
     that.data = {

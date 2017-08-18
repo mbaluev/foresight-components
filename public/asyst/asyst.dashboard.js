@@ -1,3 +1,5 @@
+if (typeof Asyst == typeof undefined) { Asyst = {}; }
+
 Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
@@ -98,7 +100,7 @@ Asyst.Dashboard = function(options){
                 $.extend({}, that.data.grid_options,
                     {
                         items: that.data.items,
-                        loader: Asyst.MetaElementLoader({ fields: ['pagename', 'elementname'] }),
+                        loader: Asyst.MetaElementLoader,
                         library: that.data.library
                     }
                 )
@@ -128,7 +130,7 @@ Asyst.MetaElementLoader = function(options){
         error: null,
         content: null,
         template: {},
-        templateData: {},
+        templateData: {}
     };
     that.data = $.extend(that.data, options);
     that.loadTemplate = function(callback){
