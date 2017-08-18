@@ -98,7 +98,7 @@ Asyst.Dashboard = function(options){
                 $.extend({}, that.data.grid_options,
                     {
                         items: that.data.items,
-                        loader: Asyst.MetaElementLoader,
+                        loader: Asyst.MetaElementLoader({ fields: ['pagename', 'elementname'] }),
                         library: that.data.library
                     }
                 )
@@ -123,21 +123,20 @@ Asyst.Dashboard = function(options){
 Asyst.MetaElementLoader = function(options){
     var that = this._loader = {};
     that.data = {
-        pagename: null,
-        elementname: null,
+        data: null,
+        success: null,
+        error: null,
+        content: null,
         template: {},
         templateData: {},
-        content: null,
-        success: null,
-        error: null
     };
     that.data = $.extend(that.data, options);
     that.loadTemplate = function(callback){
         Asyst.APIv2.DataSet.load({
             name: 'DashboardWidgetContent',
             data: {
-                PageName: that.data.pagename,
-                ElementName: that.data.elementname
+                PageName: that.data.data.pagename,
+                ElementName: that.data.data.elementname
             },
             success: function(data){
                 if (data[0][0]) {
@@ -165,8 +164,8 @@ Asyst.MetaElementLoader = function(options){
         };
         Asyst.APIv2.DataSource.load({
             sourceType: 'page',
-            sourceName: that.data.pagename,
-            elementName: that.data.elementname,
+            sourceName: that.data.data.pagename,
+            elementName: that.data.data.elementname,
             data: null,
             success: success,
             error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },

@@ -2715,6 +2715,26 @@ body {
   border-color: #5a97f2 !important;
 }
 
+.widget__image {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transition: opacity 500ms ease-out;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.widget__image_hidden {
+  opacity: 0;
+  display: none;
+}
+
+.widget__image_visible {
+  opacity: 1;
+  display: block;
+}
+
 .table {
   border-collapse: collapse;
   border-spacing: 0;

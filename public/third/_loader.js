@@ -1,11 +1,10 @@
 var Loader = function(options){
     var that = this.loader = {};
     that.defaults = {
-        pagename: null,
-        elementname: null,
-        content: null,
+        data: null,
         success: null,
-        error: null
+        error: null,
+        content: null,
     };
     that.data = $.extend(true, {}, that.defaults, options);
     that.contents = [
@@ -153,7 +152,7 @@ var Loader = function(options){
     ];
     that.loadContent = function(){
         var elem = that.contents.filter(function(d){
-            return d.pagename == that.data.pagename && d.elementname == that.data.elementname;
+            return d.pagename == that.data.data.pagename && d.elementname == that.data.data.elementname;
         });
         if (elem.length > 0) {
             that.data.content = elem[0].content;

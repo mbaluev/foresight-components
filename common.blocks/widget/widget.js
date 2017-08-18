@@ -127,7 +127,10 @@
                         }
                         else {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.css({ 'border-color': that.data.color });
+                            $border.css({
+                                'border-color': that.data.color,
+                                //'color': that.data.color
+                            });
                         }
                     };
                     that.set_content = function(){
@@ -138,8 +141,8 @@
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
                             that.data.content = new that.data.loader({
-                                pagename: that.data.pagename,
-                                elementname: that.data.elementname,
+                                data: that.data,
+                                target: self,
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
