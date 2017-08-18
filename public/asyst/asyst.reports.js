@@ -238,61 +238,20 @@ Asyst.Reports = function(options){
 Asyst.ReportLoader = function(options){
     var that = this._loader = {};
     that.data = {
-        pagename: null,
-        elementname: null,
-        template: {},
-        templateData: {},
-        content: null,
+        url: null,
         success: null,
-        error: null
+        error: null,
+        content: null
     };
     that.data = $.extend(that.data, options);
-    that.loadTemplate = function(callback){
-        Asyst.APIv2.DataSet.load({
-            name: 'DashboardWidgetContent',
-            data: {
-                PageName: that.data.pagename,
-                ElementName: that.data.elementname
-            },
-            success: function(data){
-                if (data[0][0]) {
-                    that.data.template = data[0][0];
-                    if (typeof callback == 'function') { callback(); }
-                } else {
-                    if (typeof that.data.error == 'function') { that.data.error('Нет данных'); }
-                }
-            },
-            error: function(data){
-                if (typeof that.data.error == 'function') { that.data.error('Ошибка загрузки'); }
-            }
-        });
-    };
-    that.proccessTemplate = function(){
-        return ProcessTemplate(that.data.template.Content, that.data.templateData, {});
-    };
-    that.buildContent = function(){
-        var success = function(data) {
-            that.data.templateData = data;
-            that.data.content = that.proccessTemplate();
-            if (typeof that.data.success == 'function') {
-                that.data.success(that.data.content);
-            }
-        };
-        Asyst.APIv2.DataSource.load({
-            sourceType: 'page',
-            sourceName: that.data.pagename,
-            elementName: that.data.elementname,
-            data: null,
-            success: success,
-            error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
-            async: true,
-            isPicklist: false
-        });
-    };
     that.loadContent = function(){
-        that.loadTemplate(
-            that.buildContent
-        );
+        that.data.content = '';
+        if (typeof that.data.error == 'function') {
+            that.data.error('Нет данных');
+        }
+        if (typeof that.data.success == 'function') {
+            that.data.success(that.data.content);
+        }
     };
     return that;
 };
