@@ -141,7 +141,9 @@
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
                             that.data.content = new that.data.loader({
-                                data: that.data,
+                                data: _.omitBy(that.data, function(val, key){
+                                    return (key.substring(0,1) == '_');
+                                }),
                                 target: self,
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
@@ -222,7 +224,9 @@
                                 name: that.data.name
                             },
                             content: { tabs: [] },
-                            data: that.data
+                            data: _.omitBy(that.data, function(val, key){
+                                return (key.substring(0,1) == '_');
+                            })
                         };
                         that.render_general_tab(modal_options.content.tabs);
                         that.render_source_tab(modal_options.content.tabs);
