@@ -319,14 +319,12 @@ $(function(){
                         that.data._el.menu_middle.toggleClass('icon__menu-middle_click');
                         that.data._el.menu_bottom.toggleClass('icon__menu-bottom_click');
                     };
-
                     that.bind = function() {
                         that.data._el.ham.on('toggle.icon__menu', function(e){
                             that.toggle(e);
                             e.preventDefault();
                         });
                     };
-
                     that.init = function() {
                         that.bind();
                     };
@@ -388,7 +386,7 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -415,7 +413,6 @@ $(function(){
                         self.removeAttr('data-disabled');
                         that.data._el.input.removeAttr('disabled');
                         that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -428,6 +425,8 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                     };
                     that.hide = function(){
                         self.addClass('tumbler_hidden');
@@ -605,7 +604,7 @@ $(function(){
                     };
 
                     that.destroy = function(){
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
 
@@ -1397,7 +1396,7 @@ $(function(){
                     that.destroy = function(){
                         that.hide();
                         setTimeout(function(){
-                            self.data = null;
+                            self.removeData();
                             self.remove();
                         }, 500);
                     };
@@ -1637,7 +1636,7 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -1664,7 +1663,6 @@ $(function(){
                         self.removeAttr('data-disabled');
                         that.data._el.input.removeAttr('disabled');
                         that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -1677,6 +1675,8 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                     };
                     that.hide = function(){
                         self.addClass('checkbox_hidden');
@@ -1876,7 +1876,7 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -1903,7 +1903,6 @@ $(function(){
                         self.removeAttr('data-disabled');
                         that.data._el.input.removeAttr('disabled');
                         that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -1916,6 +1915,8 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                     };
                     that.hide = function(){
                         self.addClass('radio_hidden');
@@ -2291,7 +2292,7 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -2310,7 +2311,6 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         }
                     };
                     that.enable = function(){
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -2323,6 +2323,8 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                     };
                     that.hide = function(){
                         self.addClass('alertbox_hidden');
@@ -2443,7 +2445,7 @@ $(function(){
                         if (that.data._el.popup.data('_widget')) {
                             that.data._el.popup.popup('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -2471,7 +2473,6 @@ $(function(){
                         self.removeAttr('data-disabled');
                         that.data._el.input.removeAttr('disabled');
                         that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -2484,6 +2485,8 @@ $(function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                         that.enable_input();
                     };
                     that.hide = function(){
@@ -2741,7 +2744,7 @@ $(function(){
                             that.data._el.input.input('destroy');
                             that.data._el.popup.popup('destroy');
                             that.data._el.select.remove();
-                            self.data = null;
+                            self.removeData();
                             self.remove();
                         }
                     };
@@ -3193,7 +3196,7 @@ $(function(){
                         that.data._neighbors.forEach(function(el){
                             el.button.button('destroy');
                         });
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){

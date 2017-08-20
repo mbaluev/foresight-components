@@ -29,7 +29,7 @@
                         that.data._neighbors.forEach(function(el){
                             el.button.button('destroy');
                         });
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){

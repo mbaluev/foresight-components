@@ -35,7 +35,7 @@
                         if (that.data._el.popup.data('_widget')) {
                             that.data._el.popup.popup('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -63,7 +63,6 @@
                         self.removeAttr('data-disabled');
                         that.data._el.input.removeAttr('disabled');
                         that.data._el.input.prop('disabled', false);
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -76,6 +75,8 @@
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                         that.enable_input();
                     };
                     that.hide = function(){

@@ -29,7 +29,7 @@
                     };
 
                     that.destroy = function(){
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
 

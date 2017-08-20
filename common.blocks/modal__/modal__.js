@@ -65,7 +65,7 @@
                     that.destroy = function(){
                         that.hide();
                         setTimeout(function(){
-                            self.data = null;
+                            self.removeData();
                             self.remove();
                         }, 500);
                     };

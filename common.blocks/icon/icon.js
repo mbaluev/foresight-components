@@ -26,14 +26,12 @@
                         that.data._el.menu_middle.toggleClass('icon__menu-middle_click');
                         that.data._el.menu_bottom.toggleClass('icon__menu-bottom_click');
                     };
-
                     that.bind = function() {
                         that.data._el.ham.on('toggle.icon__menu', function(e){
                             that.toggle(e);
                             e.preventDefault();
                         });
                     };
-
                     that.init = function() {
                         that.bind();
                     };

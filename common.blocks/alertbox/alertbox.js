@@ -34,7 +34,7 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('destroy');
                         }
-                        self.data = null;
+                        self.removeData();
                         self.remove();
                     };
                     that.disable = function(){
@@ -53,7 +53,6 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         }
                     };
                     that.enable = function(){
-                        that.data.disabled = false;
                         //bind disabled handlers
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
@@ -66,6 +65,8 @@ $.fn.bindFirst = function(name, selector, data, handler) {
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.button('enable');
                         }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
                     };
                     that.hide = function(){
                         self.addClass('alertbox_hidden');

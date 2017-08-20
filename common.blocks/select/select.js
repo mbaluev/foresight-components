@@ -68,7 +68,7 @@
                             that.data._el.input.input('destroy');
                             that.data._el.popup.popup('destroy');
                             that.data._el.select.remove();
-                            self.data = null;
+                            self.removeData();
                             self.remove();
                         }
                     };
