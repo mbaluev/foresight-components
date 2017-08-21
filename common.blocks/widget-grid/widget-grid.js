@@ -6,23 +6,32 @@
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
                     var that = this.obj = {};
+                    that.const = {
+                        CONTENT_LOADING: '<span class="spinner"></span>',
+                        CONTENT_NODATA: 'Нет данных',
+                        CONTENT_ERROR: 'Ошибка загрузки',
+                        BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_PURPLE: '#8e6bf5',
+                        BORDER_COLOR_RED: '#ff5940',
+                        CONTENT_TYPE_TEXT: 'text',
+                        CONTENT_TYPE_HTML: 'html',
+                        CONTENT_TYPE_COUNT: 'count'
+                    };
                     that.defaults = {
+                        items: [],
+                        loader: null,
+                        library: null,
+                        widget_buttons: [],
                         mode: 'view',
                         disabled: true,
-                        items: [],
-                        buttons: [],
-                        tumbler: {
-                            selector: ''
-                        },
                         grid: {
                             verticalMargin: 20,
                             cellHeight: 20,
                             disableDrag: true,
                             disableResize: true,
                             resizable: { handles: 'e, se, s, sw, w' }
-                        },
-                        loader: null,
-                        library: null
+                        }
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -32,12 +41,7 @@
 
                     that.data._el = {
                         grid: null,
-                        nodes: [],
-                        tumbler: $(that.data.tumbler.selector)
-                    };
-                    that.data._triggers = {
-                        add: 'add.fc.widget-grid',
-                        save: 'save.fc.widget-grid'
+                        nodes: []
                     };
 
                     that.destroy = function(){
@@ -46,22 +50,12 @@
                             node.widget.widget('destroy');
                         });
                         self.removeData();
+                        self.remove();
                     };
-                    that.add = function(){
-                        var item = {
-                            x: 0,
-                            y: 0,
-                            width: 2,
-                            height: 4,
-                            settings: {
-                                name: "Новый виджет",
-                                collapsed: false
-                            }
-                        };
-                        that.create_widget(item);
-                        self.trigger(that.data._triggers.add, [item]);
+                    that.clear = function(){
+                        that.data._el.grid.removeAll();
                     };
-                    that.save = function(){
+                    that.save = function(callback){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
                             el = $(el);
                             var node = that.get(el);
@@ -75,31 +69,33 @@
                                         (key == 'mode') ||
                                         (key == 'loader') ||
                                         (key == 'library') ||
-                                        (key == 'content');
+                                        (key == 'content') ||
+                                        (key == 'buttons') ||
+                                        (key == 'id') ||
+                                        (key == 'reloadable');
                                 })
                             };
                         }, this);
-                        that.data._el.tumbler.tumbler('uncheck');
-                        self.trigger(that.data._triggers.save, [that.data.items]);
+                        if (typeof callback == "function") { callback(that.data.items); }
                     };
-                    that.clear = function(){
-                        that.data._el.grid.removeAll();
-                    };
+
                     that.load = function(){
                         that.data._el.grid.removeAll();
                         var items = GridStackUI.Utils.sort(that.data.items);
                         _.each(items, function(item) {
-                            that.create_widget(item);
+                            that.load_widget(item);
                         });
                     };
-
-                    that.create_widget = function(node){
+                    that.load_widget = function(node){
                         if (node.settings.id) {
                             node._id = node.settings.id;
                         } else {
                             node._id = Date.now();
+                            node.settings.id = node._id;
                         }
                         node._height = node.height;
+                        node.settings.buttons = that.data.widget_buttons;
+                        node.settings.reloadable = true;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
@@ -107,18 +103,13 @@
                         _.unset(node, 'settings');
 
                         node.el.find('.grid-stack-item-content').append(node.widget);
-
-                        node.widget.off('toggle.widget');
-                        node.widget.data()._el.buttons.button_collapse.off('click.widget');
-                        node.widget.data()._el.buttons.button_collapse.on('click.widget-grid', function(){
+                        node.widget.data()._el.button_collapse.off('click.widget');
+                        node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
                             if (node.widget.data().collapsed) {
-                                that.expand_widget(node, true);
+                                that.expand_widget(node._id, true);
                             } else {
-                                that.collapse_widget(node, true);
+                                that.collapse_widget(node._id, true);
                             }
-                        });
-                        node.widget.data()._el.buttons.button_remove.on('click.widget-grid', function(){
-                            that.remove_widget(node);
                         });
                         node.widget.widget('edit_mode');
 
@@ -126,52 +117,58 @@
                         that.data._el.nodes.push(node);
                         that.set(node.el, node);
                     };
-                    that.collapse_widget = function(node, saveState){
-                        var _collapsed = node.widget.data().collapsed;
-                        that.update_widget(node.el, 1);
-                        node.widget.widget('collapse');
-                        if (!saveState) {
-                            node.widget.data().collapsed = _collapsed;
-                        }
-                    };
-                    that.expand_widget = function(node, saveState){
-                        var _collapsed = node.widget.data().collapsed;
-                        that.update_widget(node.el, node._height);
-                        node.widget.widget('expand');
-                        if (!saveState) {
-                            node.widget.data().collapsed = _collapsed;
-                        }
-                    };
 
-                    that.remove_widget = function(node){
-                        that.data._el.grid.removeWidget(node.el);
-                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                    that.add_widget = function(item, callback){
+                        that.load_widget(item);
+                        if (typeof callback == "function") { callback(item); }
                     };
-                    that.update_widget = function(el, height){
-                        that.data._el.grid.update(el, null, null, null, height);
-                    };
-
-                    that.removeWidget = function(_id) {
+                    that.remove_widget = function(_id, callback) {
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
                         if (node.length > 0) { node = node[0]; }
                         that.data._el.grid.removeWidget(node.el);
                         that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                        if (typeof callback == "function") { callback(item); }
                     };
-                    that.addWidget = function(item){
-                        that.create_widget(item);
-                        self.trigger(that.data._triggers.add, [item]);
-                    };
-                    that.updateWidget = function(_id, x, y, width, height){
+                    that.update_widget = function(_id, x, y, width, height, callback){
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
                         if (node.length > 0) { node = node[0]; }
                         that.data._el.grid.update(node.el, x, y, width, height);
+                        if (typeof callback == "function") { callback(item); }
+                    };
+
+                    that.collapse_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, 1);
+                            node.widget.widget('collapse');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
+                    };
+                    that.expand_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, node._height);
+                            node.widget.widget('expand');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
                     };
 
                     that.edit_mode = function(){
                         that.data.mode = 'edit';
                         _.each(that.data._el.nodes, function(node) {
                             node.widget.widget('edit_mode');
-                            that.expand_widget(node, false);
+                            node.widget.data()._el.buttons.forEach(function(button){
+                                button.button('show');
+                            });
+                            that.expand_widget(node._id, false);
                         });
                         that.enable();
                     };
@@ -180,10 +177,13 @@
                         _.each(that.data._el.nodes, function(node) {
                             node._height = that.get(node.el).height;
                             node.widget.widget('view_mode');
+                            node.widget.data()._el.buttons.forEach(function(button){
+                                button.button('hide');
+                            });
                             if (node.widget.data().collapsed) {
-                                that.collapse_widget(node, false);
+                                that.collapse_widget(node._id, false);
                             } else {
-                                that.expand_widget(node, false);
+                                that.expand_widget(node._id, false);
                             }
                         });
                         that.disable();
@@ -217,62 +217,19 @@
                         return el.data('_gridstack_node');
                     };
 
-                    that.bind_buttons = function(){
-                        that.data.buttons.forEach(function(button){
-                            var $button = $(button.selector);
-                            if (button.action) {
-                                if (typeof that[button.action] === "function") {
-                                    $button.on('click', function(){
-                                        that[button.action]();
-                                    });
-                                }
-                            }
-                        });
-                    };
-
-                    that.init_tumbler = function(){
-                        if (typeof that.data._el.tumbler[0] != "undefined") {
-                            that.data._el.tumbler
-                                .on('on.fc.tumbler', function(){
-                                    that.data.buttons.forEach(function(button){
-                                        $(button.selector).button('show');
-                                    });
-                                    that.edit_mode();
-                                })
-                                .on('off.fc.tumbler', function(){
-                                    that.data.buttons.forEach(function(button){
-                                        $(button.selector).button('hide');
-                                    });
-                                    that.view_mode();
-                                });
-                        }
-                    };
                     that.init = function(){
                         if (that.create()) {
                             that.load();
-                            that.view_mode();
-                            that.bind_buttons();
-                            that.init_tumbler();
+                            if (that.data.mode == 'view') {
+                                that.view_mode();
+                            } else {
+                                that.edit_mode();
+                            }
                         }
                     };
                     that.init();
                 }
                 return this;
-            });
-        },
-        view_mode : function() {
-            return this.each(function() {
-                this.obj.view_mode();
-            });
-        },
-        edit_mode : function() {
-            return this.each(function() {
-                this.obj.edit_mode();
-            });
-        },
-        save : function() {
-            return this.each(function() {
-                this.obj.save();
             });
         },
         destroy : function() {
@@ -285,19 +242,34 @@
                 this.obj.clear();
             });
         },
-        removeWidget : function(_id) {
+        edit_mode : function() {
             return this.each(function() {
-                this.obj.removeWidget(_id);
+                this.obj.edit_mode();
             });
         },
-        addWidget : function(item) {
+        view_mode : function() {
             return this.each(function() {
-                this.obj.addWidget(item);
+                this.obj.view_mode();
             });
         },
-        updateWidget : function(_id, x, y, width, height) {
+        save : function(callback) {
             return this.each(function() {
-                this.obj.updateWidget(_id, x, y, width, height);
+                this.obj.save(callback);
+            });
+        },
+        add_widget : function(item, callback) {
+            return this.each(function() {
+                this.obj.add_widget(item, callback);
+            });
+        },
+        remove_widget : function(_id, callback) {
+            return this.each(function() {
+                this.obj.remove_widget(_id, callback);
+            });
+        },
+        update_widget : function(_id, x, y, width, height, callback) {
+            return this.each(function() {
+                this.obj.update_widget(_id, x, y, width, height, callback);
             });
         }
     };
@@ -311,105 +283,3 @@
         }
     };
 })( jQuery );
-
-//$(function(){
-    /*
-    var items = [
-        {
-            x: 0,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Текст",
-                collapsed: false,
-                content: 'Диаграмма'
-            }
-        },
-        {
-            x: 3,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Фиолетовый",
-                collapsed: false,
-                content_type: 'count',
-                content: 666,
-                color: '#8e6bf5'
-            }
-        },
-        {
-            x: 6,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Количество",
-                collapsed: false,
-                content_type: 'count',
-                content: 5,
-                color: '#5a97f2'
-            }
-        },
-        {
-            x: 9,
-            y: 0,
-            width: 3,
-            height: 3,
-            settings: {
-                name: "Html",
-                collapsed: false,
-                content_type: 'html'
-            }
-        },
-        {
-            x: 9,
-            y: 3,
-            width: 3,
-            height: 3,
-            settings: {
-                name: "Пустой виджет",
-                collapsed: false
-            }
-        }
-    ];
-    var widget_grid_options = {
-        items: items,
-        buttons: [
-            {
-                selector: '#button_add-widget',
-                action: 'add'
-            },
-            {
-                selector: '#button_save-grid',
-                action: 'save'
-            }
-        ],
-        tumbler: {
-            selector: '#tumbler_edit-page'
-        }
-    };
-    var grid = $('#widget-grid')
-        .widget_grid(widget_grid_options)
-        .on('add.fc.widget-grid', function(e, data){
-            console.log(data);
-        })
-        .on('save.fc.widget-grid', function(e, data){
-            console.log(data);
-        });
-    */
-    /*
-    $('#tumbler_edit-page')
-        .on('on.fc.tumbler', function(){
-            $("#button_add-widget").button('show');
-            $("#button_save-grid").button('show');
-            grid.widget_grid('edit_mode');
-        })
-        .on('off.fc.tumbler', function(){
-            $("#button_add-widget").button('hide');
-            $("#button_save-grid").button('hide');
-            grid.widget_grid('view_mode');
-        });
-    */
-//});

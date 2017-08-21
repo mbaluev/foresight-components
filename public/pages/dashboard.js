@@ -1,48 +1,291 @@
-Asyst.Dashboard = function(options){
+var Dashboard = function(options){
     var that = this._dashboard = {};
+    that.const = {
+        CONTENT_LOADING: '<span class="spinner"></span>',
+        CONTENT_NODATA: 'Нет данных',
+        CONTENT_ERROR: 'Ошибка загрузки',
+        BORDER_COLOR_BLUE: '#5a97f2',
+        BORDER_COLOR_DEFAULT: '#ccc',
+        BORDER_COLOR_PURPLE: '#8e6bf5',
+        BORDER_COLOR_RED: '#ff5940',
+        CONTENT_TYPE_TEXT: 'text',
+        CONTENT_TYPE_HTML: 'html',
+        CONTENT_TYPE_COUNT: 'count'
+    };
     that.data = {
+        containerid: 'widget-grid',
         items: [],
         library: [],
-        grid_options: {
-            buttons: [
-                { selector: '#button_add-widget', action: 'add' },
-                { selector: '#button_save-grid', action: 'save' }
-            ],
-            tumbler: { selector: '#tumbler_edit-page' }
-        },
-        grid: null,
-        grid_selector: '#widget-grid',
-        library_pagename: null,
-        library_title: null
+        loader: null,
+        grid: null
     };
     that.data = $.extend(that.data, options);
-    that.getItems = function(){
-        return that.data.items;
-    };
-    that.setItems = function(items){
-        that.data.items = items;
+    that.data._el = {
+        tumbler: $([
+            '<span class="header__column-item tumbler" id="tumbler_edit-page">',
+            '<span class="tumbler__box">',
+            '<div class="tumbler__sticker tumbler__sticker_position_left">',
+            '<div class="tumbler__sticker-label">Вкл</div>',
+            '</div>',
+            '<div class="tumbler__sticker tumbler__sticker_position_right">',
+            '<div class="tumbler__sticker-label">Выкл</div>',
+            '</div>',
+            '<button class="button" type="button" data-fc="button">',
+            '<span class="icon icon_svg_edit"></span>',
+            '<span class="button__anim"></span>',
+            '</button>',
+            '</span>',
+            '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
+            '</span>'
+        ].join('')).tumbler(),
+        button_group: $('<span class="button-group header__column-item"></span>'),
+        button_add: $([
+            '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
+            '<span class="icon icon_svg_plus"></span>',
+            '<span class="button__text mobile mobile_hide">Добавить</span>',
+            '<span class="button__anim"></span>',
+            '</button>'
+        ].join('')).button(),
+        button_save: $([
+            '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
+            '<span class="icon icon_svg_save"></span>',
+            '<span class="button__text mobile mobile_hide">Сохранить</span>',
+            '<span class="button__anim"></span>',
+            '</button>',
+        ].join('')).button()
     };
 
-    that.renderGrid = function(){
-        that.data.grid = $(that.data.grid_selector)
-            .widget_grid(
-                $.extend({}, that.data.grid_options,
-                    {
-                        items: that.data.items,
-                        loader: that.data.loader,
-                        library: that.data.library
-                    }
-                )
-            )
-            .on('add.fc.widget-grid', function(e, data){
-                console.log(JSON.stringify(data));
+    that.renderTumbler = function(){
+        that.data._el.tumbler
+            .on('on.fc.tumbler', function(){
+                that.data._el.button_add.button('show');
+                that.data._el.button_save.button('show');
+                that.data.grid.widget_grid('edit_mode');
             })
-            .on('save.fc.widget-grid', function(e, data){
-                that.setItems(data);
-                console.log(JSON.stringify(data));
+            .on('off.fc.tumbler', function(){
+                that.data._el.button_add.button('hide');
+                that.data._el.button_save.button('hide');
+                that.data.grid.widget_grid('view_mode');
+            });
+        $('.header__column-right').prepend(that.data._el.tumbler);
+    };
+    that.renderButtons = function(){
+        that.data._el.button_add.on('click', function(){
+            var item = {
+                x: 0,
+                y: 0,
+                width: 2,
+                height: 4,
+                settings: {
+                    name: "Новый виджет",
+                    collapsed: false
+                }
+            };
+            that.data.grid.widget_grid('add_widget', item, function(data){
+                console.log(data);
+            });
+        });
+        that.data._el.button_save.on('click', function(){
+            that.data.grid.widget_grid('save', function(data){
+                that.data._el.tumbler.tumbler('uncheck');
+                console.log(data);
+            });
+        });
+        that.data._el.button_group.append(
+            that.data._el.button_add,
+            that.data._el.button_save
+        );
+        $('.header__column-right').prepend(that.data._el.button_group);
+    };
+    that.renderGrid = function(){
+        that.data.grid = $('#' + that.data.containerid)
+            .widget_grid({
+                items: that.data.items,
+                loader: that.data.loader,
+                library: that.data.library,
+                widget_buttons: [
+                    {
+                        id: 'button_settings',
+                        icon: 'icon_svg_settings',
+                        click: function(widget, data){
+                            that.settings(widget, data);
+                        }
+                    },
+                    {
+                        id: 'button_remove',
+                        icon: 'icon_svg_trash',
+                        click: function(widget, data){
+                            debugger;
+                            that.data.grid.widget_grid('remove_widget', data.id);
+                        }
+                    }
+                ]
             });
     };
+
+    /* modal for settings - begin */
+    that.settings = function(widget, data){
+        var modal_options = {
+            buttons: [
+                {
+                    name: 'save',
+                    action: 'save',
+                    icon: 'icon_svg_ok'
+                },
+                {
+                    name: 'destroy',
+                    action: 'destroy',
+                    icon: 'icon_svg_close'
+                }
+            ],
+            header: {
+                caption: 'Настройки виджета',
+                name: data.name
+            },
+            content: { tabs: [] },
+            data: data
+        };
+        that.settings_render_general_tab(data, modal_options.content.tabs);
+        that.settings_render_source_tab(data, modal_options.content.tabs);
+
+        $('<span class="modal__"></span>').appendTo('body')
+            .modal__(modal_options)
+            .on('save.fc.modal', function(){
+                var reload = false;
+                $(this).find('[data-field]').each(function(){
+                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
+                    if ((t.data('field') == 'pagename' ||
+                        t.data('field') == 'elementname') &&
+                        data[t.data('field')] != val) {
+                        reload = true;
+                    }
+                    _.set(widget.data(), t.data('field'), val);
+                });
+                widget.widget('set_name');
+                widget.widget('set_color');
+                if (reload) {
+                    widget.widget('set_content');
+                }
+                $(this).modal__('destroy');
+            });
+    };
+    that.settings_render_general_tab = function(data, tabs){
+        tabs.push({
+            id: 'general',
+            name: 'Основные',
+            active: true,
+            content: $([
+
+                '<div class="control">' +
+                '<div class="control__caption">' +
+                '<div class="control__text">Скрывать по умолчанию</div>' +
+                '</div>' +
+                '<div class="control__container">' +
+                '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
+                (data.collapsed ? 'data-checked="true"' : '') + '>' +
+                '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
+                '<label class="checkbox__label"></label>' +
+                '</label>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="control">' +
+                '<div class="control__caption">' +
+                '<div class="control__text">Заголовок</div>' +
+                    //'<div class="control__icons">' +
+                    //'<span class="icon icon_svg_star_red"></span>' +
+                    //'<span class="icon icon_svg_star_green"></span>' +
+                    //'<span class="icon icon_svg_info"></span>' +
+                    //'</div>' +
+                '</div>' +
+                '<div class="control__container">' +
+                '<span class="input input__has-clear" data-fc="input" data-field="name">' +
+                '<span class="input__box">' +
+                '<input type="text" class="input__control" value="' + data.name + '">' +
+                '<button class="button" type="button" data-fc="button">' +
+                '<span class="icon icon_svg_close"></span>' +
+                '</button>' +
+                '</span>' +
+                '</span>' +
+                '</div>' +
+                '</div>' +
+
+                '<div class="control">' +
+                '<div class="control__caption">' +
+                '<div class="control__text">Цвет</div>' +
+                '</div>' +
+                '<div class="control__container">' +
+                '<select class="select" name="color" data-fc="select" data-field="color">' +
+                '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
+                '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
+                '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                '</select>' +
+                '</div>' +
+                '</div>'
+
+            ].join(''))
+        });
+    };
+    that.settings_render_source_tab = function(data, tabs){
+        if (data.library) {
+            var $control__library = $([
+                    '<div class="control">',
+                    '<div class="control__caption">',
+                    '<div class="control__text">Источник данных</div>',
+                    '</div>',
+                    '<div class="control__container">',
+                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
+                    '</div>',
+                    '</div>'
+                ].join('')),
+                $control__widgets = $([
+                    '<div class="control">',
+                    '<div class="control__caption">',
+                    '<div class="control__text">Виджет</div>',
+                    '</div>',
+                    '<div class="control__container">',
+                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
+                    '</div>',
+                    '</div>'
+                ].join(''));
+            data.library.forEach(function(item){
+                var $option = $('<option value="' + item.value + '" ' + (item.value == data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                if (item.value == data.pagename) {
+                    item.items.forEach(function(item){
+                        var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                        $control__widgets.find('.select').append($option);
+                    });
+                }
+                $control__library.find('.select').append($option);
+            });
+            $control__library.find('.select').on('change', function(e){
+                var values = $(this).data('_value'),
+                    items = [];
+                values.forEach(function(item){
+                    var library = data.library.filter(function(d){ return d.value == item.value; });
+                    if (library.length > 0) {
+                        library = library[0];
+                        if (library.items) {
+                            items.push.apply(items, library.items)
+                        }
+                    }
+                });
+                $control__widgets.find('.select').select('update', items);
+            });
+            tabs.push({
+                id: 'source',
+                name: 'Источник данных',
+                content:
+                    $('<div></div>').append($control__library, $control__widgets)
+            });
+        }
+    };
+    /* modal for settings - end */
+
     that.init = function(){
+        that.renderTumbler();
+        that.renderButtons();
         that.renderGrid();
     };
     that.init();
@@ -159,8 +402,8 @@ var Loader = function(options){
             pagename: 'LibraryChart',
             elementname: 'RiskMatrix',
             content: [
-                '<link href="third/riskmatrix/jquery.riskmatrix.css"/>',
-                '<script src="third/riskmatrix/jquery.riskmatrix.js" type="text/javascript"></script>',
+                '<link href="charts/riskmatrix/jquery.riskmatrix.css"/>',
+                '<script src="charts/riskmatrix/jquery.riskmatrix.js" type="text/javascript"></script>',
                 '<div id="RiskMatrix" style="height:100%;"></div>',
                 '<script>$(function(){var a="RiskMatrix",i=a+"_"+Date.now();$("#"+a).attr("id",i),$("#"+i).createRiskMatrix({OXName:"Вероятность",OYName:"Влияние",Probability:["Низкая","Средняя","Высокая"],Impact:["Низкое","Среднее","Высокое"],Color:["riskBGGreen","riskBGGreen","riskBGYellow","riskBGRed","riskBGRed","riskBGRed"],Data:[{Code:"Р-0001",Name:"",Probability:"Низкая",Impact:"Среднее",CSS:"riskBadgeGreen",URL:"/asyst/Risk/form/auto/10024?mode=view&back=/"},{Code:"Р-0002",Name:"",Probability:"Средняя",Impact:"Высокое",CSS:"riskBadgeRed",URL:"/asyst/Risk/form/auto/10025?mode=view&back=/"},{Code:"Р-0009",Name:"",Probability:"Низкая",Impact:"Высокое",CSS:"riskBadgeYellow",URL:"/asyst/Risk/form/auto/10032?mode=view&back=/"},{Code:"Р-0014",Name:"",Probability:"Низкая",Impact:"Высокое",CSS:"riskBadgeYellow",URL:"/asyst/Risk/form/auto/10037?mode=view&back=/"},{Code:"Р-0015",Name:"",Probability:"Высокая",Impact:"Высокое",CSS:"riskBadgeRed",URL:"/asyst/Risk/form/auto/10038?mode=view&back=/"},{Code:"Р-0022",Name:"",Probability:"Низкая",Impact:"Среднее",CSS:"riskBadgeGreen",URL:"/asyst/Risk/form/auto/30045?mode=view&back=/"},{Code:"Р-0042",Name:"",Probability:"Низкая",Impact:"Среднее",CSS:"riskBadgeGreen",URL:"/asyst/Risk/form/auto/40068?mode=view&back=/"}]}),$("#"+i+" .riskCell").each(function(){var a=$(this).find(".riskBadge").length;a>3&&($(this).find(".riskBadge").slice(3).addClass("riskBadgeHide"),$(this).append(\'<span class="riskBadgeCount">и еще \'+(a-3)+" ...</span>"))});var e=$("#"+i+" .riskTotalLabel").html();$(".riskTable").on("click",".riskBadgeCount",function(){var a=$(this).parent().find(".riskBadge").length;$("#"+i+" .riskTotalLabel").html(a);var e=$(this).parent().parent().find(".riskRowLabel").not("[rowspan]").find("div").text();$("#"+i+" tr .riskRowLabel").not("[rowspan]").find("div").not(":contains("+e+")").css("fontSize","0");var t=$(this).parent().index();4==t&&(t=3);var s=$("#"+i+" .riskColLabel").eq(t-1).text();$("#"+i+" .riskColLabel").not("[colspan]").not(":contains("+s+")").css("fontSize","0");var r=$(this).parent().attr("class");r=r.split(" "),r=r[1];var o=$(this).parent().html(),d=$(".riskTable").width(),l=$("#"+i+" .riskTotalLabel").width();$(".riskTable").append(\'<div style="width:\'+(d-l)+\'" class="riskBadges \'+r+\'"><div>\'+o+"<p>Назад</p></div></div>")}),$(".riskTable").on("click",".riskBadges",function(){$(this).remove(),$("#"+i+" .riskTotalLabel").html(e),$("#"+i+" tr .riskRowLabel").not("[rowspan]").find("div").attr("style",""),$("#"+i+" tr .riskColLabel").not("[rowspan]").attr("style","")}),$(window).resize(function(){var a=$(".riskTable").width(),e=$("#"+i+" .riskTotalLabel").width();$(".riskTable .riskBadges").width(a-e)})});</script>',
                 '<style>.riskBadges{height: 382px;height: 338px;position: absolute;top: 0;right: 0;width: 100%;cursor:pointer;text-align: center;overflow-y: auto;}.riskBadgeHide{ display:none !important; }.riskBadges .riskBadgeHide{ display:inline-block !important; }.riskBadgeCount{ display: inline-block;width: 100%;text-align: center;color: #fff;cursor:pointer;font-size: 14px;/*height: 100%;line-height: 112px;*/ }.riskBadges .riskBadgeCount{ display:none; }.riskBadges > div{padding:15px 0;}.riskBadges > div p{color:#fff;font-size: 18px;margin-top: 7px;}.riskBadges .riskBadge{float:none;display: inline-block;}.riskTable { border-collapse: collapse; }.riskTable > tbody> tr > td:first-child { border-left: none; }.riskTable > tbody> tr > td:last-child { border-right: none; }.riskBadge { font-size: 10px; margin: 3px; padding: 2px 5px; line-height:20px; cursor: pointer; }.riskBadgeGreen { color: #5faf61; border: solid 1px #5faf61; }.riskBadgeYellow { color: #fa8f42; border: solid 1px #fa8f42; }.riskBadgeRed { color: #ff5940; border: solid 1px #ff5940; }.riskBGGreen {}.riskBGYellow {}.riskBGRed {}.riskCell { border: 1px solid #ddd; width: 30%; text-align: center; }.riskTotalLabel { border: 1px solid #ddd; background-color: #fafafa; font-size: 40px; padding: 5px 0; text-align: center; color: #333; width: 25px !important; }.riskColLabel { border-left: 1px solid #ddd; background-color: #fafafa; border: 1px solid #ddd; font-size: 12px; text-align: center; height: 22px; }.riskRowLabel { border: 1px solid #ddd; background-color: #fafafa; font-size: 12px; text-align: center; }.riskVert { -ms-transform:rotate(270deg); -moz-transform:rotate(270deg);  -webkit-transform:rotate(270deg); -o-transform:rotate(270deg); }</style>'
@@ -170,8 +413,8 @@ var Loader = function(options){
             pagename: 'LibraryChart',
             elementname: 'MyContractBubble',
             content: [
-                '<link href="third/bubble/bubble.css" rel="stylesheet">',
-                '<script src="third/bubble/bubble_chart.js" type="text/javascript"></script>',
+                '<link href="charts/bubble/bubble.css" rel="stylesheet">',
+                '<script src="charts/bubble/bubble_chart.js" type="text/javascript"></script>',
                 '<div id="MyContractBubble" style="height:100%;"></div>',
                 '<script>$(function(){var o="MyContractBubble",t=o+"_"+Date.now();$("#"+o).attr("id",t),chart=new BubbleChart("#"+t,[{id:93561,projectid:93561,projectcode:"500-010",projectname:"Автоматизация деятельности Департамента торговли и услуг",contractscount:1,total_amount:45,plansum:45,group:3,indicatorid:3,indicatorcolor:"#ff6666"},{id:93587,projectid:93587,projectcode:"500-036",projectname:"Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием",contractscount:1,total_amount:45,plansum:45,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:168799,projectid:168799,projectcode:"500-218",projectname:"Повышение скорости работы сайта организации",contractscount:1,total_amount:44444,plansum:44444,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:191257,projectid:191257,projectcode:"500-226",projectname:"Проект АВ",contractscount:1,total_amount:23,plansum:23,group:3,indicatorid:3,indicatorcolor:"#ff6666"}])});</script>'
             ].join('')

@@ -922,23 +922,32 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
                     var that = this.obj = {};
+                    that.const = {
+                        CONTENT_LOADING: '<span class="spinner"></span>',
+                        CONTENT_NODATA: 'Нет данных',
+                        CONTENT_ERROR: 'Ошибка загрузки',
+                        BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_PURPLE: '#8e6bf5',
+                        BORDER_COLOR_RED: '#ff5940',
+                        CONTENT_TYPE_TEXT: 'text',
+                        CONTENT_TYPE_HTML: 'html',
+                        CONTENT_TYPE_COUNT: 'count'
+                    };
                     that.defaults = {
+                        items: [],
+                        loader: null,
+                        library: null,
+                        widget_buttons: [],
                         mode: 'view',
                         disabled: true,
-                        items: [],
-                        buttons: [],
-                        tumbler: {
-                            selector: ''
-                        },
                         grid: {
                             verticalMargin: 20,
                             cellHeight: 20,
                             disableDrag: true,
                             disableResize: true,
                             resizable: { handles: 'e, se, s, sw, w' }
-                        },
-                        loader: null,
-                        library: null
+                        }
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -948,12 +957,7 @@ $(function(){
 
                     that.data._el = {
                         grid: null,
-                        nodes: [],
-                        tumbler: $(that.data.tumbler.selector)
-                    };
-                    that.data._triggers = {
-                        add: 'add.fc.widget-grid',
-                        save: 'save.fc.widget-grid'
+                        nodes: []
                     };
 
                     that.destroy = function(){
@@ -962,22 +966,12 @@ $(function(){
                             node.widget.widget('destroy');
                         });
                         self.removeData();
+                        self.remove();
                     };
-                    that.add = function(){
-                        var item = {
-                            x: 0,
-                            y: 0,
-                            width: 2,
-                            height: 4,
-                            settings: {
-                                name: "Новый виджет",
-                                collapsed: false
-                            }
-                        };
-                        that.create_widget(item);
-                        self.trigger(that.data._triggers.add, [item]);
+                    that.clear = function(){
+                        that.data._el.grid.removeAll();
                     };
-                    that.save = function(){
+                    that.save = function(callback){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
                             el = $(el);
                             var node = that.get(el);
@@ -991,31 +985,33 @@ $(function(){
                                         (key == 'mode') ||
                                         (key == 'loader') ||
                                         (key == 'library') ||
-                                        (key == 'content');
+                                        (key == 'content') ||
+                                        (key == 'buttons') ||
+                                        (key == 'id') ||
+                                        (key == 'reloadable');
                                 })
                             };
                         }, this);
-                        that.data._el.tumbler.tumbler('uncheck');
-                        self.trigger(that.data._triggers.save, [that.data.items]);
+                        if (typeof callback == "function") { callback(that.data.items); }
                     };
-                    that.clear = function(){
-                        that.data._el.grid.removeAll();
-                    };
+
                     that.load = function(){
                         that.data._el.grid.removeAll();
                         var items = GridStackUI.Utils.sort(that.data.items);
                         _.each(items, function(item) {
-                            that.create_widget(item);
+                            that.load_widget(item);
                         });
                     };
-
-                    that.create_widget = function(node){
+                    that.load_widget = function(node){
                         if (node.settings.id) {
                             node._id = node.settings.id;
                         } else {
                             node._id = Date.now();
+                            node.settings.id = node._id;
                         }
                         node._height = node.height;
+                        node.settings.buttons = that.data.widget_buttons;
+                        node.settings.reloadable = true;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
@@ -1023,18 +1019,13 @@ $(function(){
                         _.unset(node, 'settings');
 
                         node.el.find('.grid-stack-item-content').append(node.widget);
-
-                        node.widget.off('toggle.widget');
-                        node.widget.data()._el.buttons.button_collapse.off('click.widget');
-                        node.widget.data()._el.buttons.button_collapse.on('click.widget-grid', function(){
+                        node.widget.data()._el.button_collapse.off('click.widget');
+                        node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
                             if (node.widget.data().collapsed) {
-                                that.expand_widget(node, true);
+                                that.expand_widget(node._id, true);
                             } else {
-                                that.collapse_widget(node, true);
+                                that.collapse_widget(node._id, true);
                             }
-                        });
-                        node.widget.data()._el.buttons.button_remove.on('click.widget-grid', function(){
-                            that.remove_widget(node);
                         });
                         node.widget.widget('edit_mode');
 
@@ -1042,52 +1033,58 @@ $(function(){
                         that.data._el.nodes.push(node);
                         that.set(node.el, node);
                     };
-                    that.collapse_widget = function(node, saveState){
-                        var _collapsed = node.widget.data().collapsed;
-                        that.update_widget(node.el, 1);
-                        node.widget.widget('collapse');
-                        if (!saveState) {
-                            node.widget.data().collapsed = _collapsed;
-                        }
-                    };
-                    that.expand_widget = function(node, saveState){
-                        var _collapsed = node.widget.data().collapsed;
-                        that.update_widget(node.el, node._height);
-                        node.widget.widget('expand');
-                        if (!saveState) {
-                            node.widget.data().collapsed = _collapsed;
-                        }
-                    };
 
-                    that.remove_widget = function(node){
-                        that.data._el.grid.removeWidget(node.el);
-                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                    that.add_widget = function(item, callback){
+                        that.load_widget(item);
+                        if (typeof callback == "function") { callback(item); }
                     };
-                    that.update_widget = function(el, height){
-                        that.data._el.grid.update(el, null, null, null, height);
-                    };
-
-                    that.removeWidget = function(_id) {
+                    that.remove_widget = function(_id, callback) {
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
                         if (node.length > 0) { node = node[0]; }
                         that.data._el.grid.removeWidget(node.el);
                         that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                        if (typeof callback == "function") { callback(item); }
                     };
-                    that.addWidget = function(item){
-                        that.create_widget(item);
-                        self.trigger(that.data._triggers.add, [item]);
-                    };
-                    that.updateWidget = function(_id, x, y, width, height){
+                    that.update_widget = function(_id, x, y, width, height, callback){
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
                         if (node.length > 0) { node = node[0]; }
                         that.data._el.grid.update(node.el, x, y, width, height);
+                        if (typeof callback == "function") { callback(item); }
+                    };
+
+                    that.collapse_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, 1);
+                            node.widget.widget('collapse');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
+                    };
+                    that.expand_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, node._height);
+                            node.widget.widget('expand');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
                     };
 
                     that.edit_mode = function(){
                         that.data.mode = 'edit';
                         _.each(that.data._el.nodes, function(node) {
                             node.widget.widget('edit_mode');
-                            that.expand_widget(node, false);
+                            node.widget.data()._el.buttons.forEach(function(button){
+                                button.button('show');
+                            });
+                            that.expand_widget(node._id, false);
                         });
                         that.enable();
                     };
@@ -1096,10 +1093,13 @@ $(function(){
                         _.each(that.data._el.nodes, function(node) {
                             node._height = that.get(node.el).height;
                             node.widget.widget('view_mode');
+                            node.widget.data()._el.buttons.forEach(function(button){
+                                button.button('hide');
+                            });
                             if (node.widget.data().collapsed) {
-                                that.collapse_widget(node, false);
+                                that.collapse_widget(node._id, false);
                             } else {
-                                that.expand_widget(node, false);
+                                that.expand_widget(node._id, false);
                             }
                         });
                         that.disable();
@@ -1133,62 +1133,19 @@ $(function(){
                         return el.data('_gridstack_node');
                     };
 
-                    that.bind_buttons = function(){
-                        that.data.buttons.forEach(function(button){
-                            var $button = $(button.selector);
-                            if (button.action) {
-                                if (typeof that[button.action] === "function") {
-                                    $button.on('click', function(){
-                                        that[button.action]();
-                                    });
-                                }
-                            }
-                        });
-                    };
-
-                    that.init_tumbler = function(){
-                        if (typeof that.data._el.tumbler[0] != "undefined") {
-                            that.data._el.tumbler
-                                .on('on.fc.tumbler', function(){
-                                    that.data.buttons.forEach(function(button){
-                                        $(button.selector).button('show');
-                                    });
-                                    that.edit_mode();
-                                })
-                                .on('off.fc.tumbler', function(){
-                                    that.data.buttons.forEach(function(button){
-                                        $(button.selector).button('hide');
-                                    });
-                                    that.view_mode();
-                                });
-                        }
-                    };
                     that.init = function(){
                         if (that.create()) {
                             that.load();
-                            that.view_mode();
-                            that.bind_buttons();
-                            that.init_tumbler();
+                            if (that.data.mode == 'view') {
+                                that.view_mode();
+                            } else {
+                                that.edit_mode();
+                            }
                         }
                     };
                     that.init();
                 }
                 return this;
-            });
-        },
-        view_mode : function() {
-            return this.each(function() {
-                this.obj.view_mode();
-            });
-        },
-        edit_mode : function() {
-            return this.each(function() {
-                this.obj.edit_mode();
-            });
-        },
-        save : function() {
-            return this.each(function() {
-                this.obj.save();
             });
         },
         destroy : function() {
@@ -1201,19 +1158,34 @@ $(function(){
                 this.obj.clear();
             });
         },
-        removeWidget : function(_id) {
+        edit_mode : function() {
             return this.each(function() {
-                this.obj.removeWidget(_id);
+                this.obj.edit_mode();
             });
         },
-        addWidget : function(item) {
+        view_mode : function() {
             return this.each(function() {
-                this.obj.addWidget(item);
+                this.obj.view_mode();
             });
         },
-        updateWidget : function(_id, x, y, width, height) {
+        save : function(callback) {
             return this.each(function() {
-                this.obj.updateWidget(_id, x, y, width, height);
+                this.obj.save(callback);
+            });
+        },
+        add_widget : function(item, callback) {
+            return this.each(function() {
+                this.obj.add_widget(item, callback);
+            });
+        },
+        remove_widget : function(_id, callback) {
+            return this.each(function() {
+                this.obj.remove_widget(_id, callback);
+            });
+        },
+        update_widget : function(_id, x, y, width, height, callback) {
+            return this.each(function() {
+                this.obj.update_widget(_id, x, y, width, height, callback);
             });
         }
     };
@@ -1227,108 +1199,6 @@ $(function(){
         }
     };
 })( jQuery );
-
-//$(function(){
-    /*
-    var items = [
-        {
-            x: 0,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Текст",
-                collapsed: false,
-                content: 'Диаграмма'
-            }
-        },
-        {
-            x: 3,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Фиолетовый",
-                collapsed: false,
-                content_type: 'count',
-                content: 666,
-                color: '#8e6bf5'
-            }
-        },
-        {
-            x: 6,
-            y: 0,
-            width: 3,
-            height: 6,
-            settings: {
-                name: "Количество",
-                collapsed: false,
-                content_type: 'count',
-                content: 5,
-                color: '#5a97f2'
-            }
-        },
-        {
-            x: 9,
-            y: 0,
-            width: 3,
-            height: 3,
-            settings: {
-                name: "Html",
-                collapsed: false,
-                content_type: 'html'
-            }
-        },
-        {
-            x: 9,
-            y: 3,
-            width: 3,
-            height: 3,
-            settings: {
-                name: "Пустой виджет",
-                collapsed: false
-            }
-        }
-    ];
-    var widget_grid_options = {
-        items: items,
-        buttons: [
-            {
-                selector: '#button_add-widget',
-                action: 'add'
-            },
-            {
-                selector: '#button_save-grid',
-                action: 'save'
-            }
-        ],
-        tumbler: {
-            selector: '#tumbler_edit-page'
-        }
-    };
-    var grid = $('#widget-grid')
-        .widget_grid(widget_grid_options)
-        .on('add.fc.widget-grid', function(e, data){
-            console.log(data);
-        })
-        .on('save.fc.widget-grid', function(e, data){
-            console.log(data);
-        });
-    */
-    /*
-    $('#tumbler_edit-page')
-        .on('on.fc.tumbler', function(){
-            $("#button_add-widget").button('show');
-            $("#button_save-grid").button('show');
-            grid.widget_grid('edit_mode');
-        })
-        .on('off.fc.tumbler', function(){
-            $("#button_add-widget").button('hide');
-            $("#button_save-grid").button('hide');
-            grid.widget_grid('view_mode');
-        });
-    */
-//});
 (function($){
     var methods = {
         init : function(options) {
@@ -3327,35 +3197,30 @@ $(function(){
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
-                        pagename: '',
-                        elementname: '',
                         loader: null,
-                        library: null
+                        reloadable: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
 
                     /* save widget options to self.data */
                     self.data(that.options);
-
                     that.data._el = {
-                        buttons: {
-                            button_collapse: null,
-                            button_settings: null,
-                            button_remove: null
-                        }
+                        button_collapse: $([
+                            '<button class="button button_collapse" type="button" data-tooltip="' + that.data.name + '">',
+                            '<span class="button__text">' + that.data.name + '</span>',
+                            '<span class="icon icon_svg_down"></span>',
+                            '<span class="button__anim"></span>',
+                            '</button>'
+                        ].join('')).button(),
+                        buttons: []
                     };
 
                     that.destroy = function(){
-                        if (typeof that.data._el.buttons.button_collapse[0] != "undefined") {
-                            that.data._el.buttons.button_collapse.button('destroy');
-                        }
-                        if (typeof that.data._el.buttons.button_settings[0] != "undefined") {
-                            that.data._el.buttons.button_settings.button('destroy');
-                        }
-                        if (typeof that.data._el.buttons.button_remove[0] != "undefined") {
-                            that.data._el.buttons.button_remove.button('destroy');
-                        }
+                        that.data._el.button_collapse.button('destroy');
+                        that.data._el.buttons.forEach(function(button){
+                            button.button('destroy');
+                        });
                         self.removeData();
                         self.remove();
                     };
@@ -3363,52 +3228,45 @@ $(function(){
                     that.render = function(){
                         var $template = $(
                                 '<div class="widget__header">' +
-                                    '<div class="widget__header-name">' +
-                                        '<button class="button button_collapse" type="button" data-fc="button" data-tooltip="' + that.data.name + '">' +
-                                            '<span class="button__text">' + that.data.name + '</span>' +
-                                            '<span class="icon icon_svg_down"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                    '</div>' +
-                                    '<div class="widget__header-actions">' +
-                                        '<button class="button button_settings" type="button" data-fc="button">' +
-                                            '<span class="icon icon_svg_settings"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                        '<button class="button button_remove" type="button" data-fc="button">' +
-                                            '<span class="icon icon_svg_trash"></span>' +
-                                            '<span class="button__anim"></span>' +
-                                        '</button>' +
-                                    '</div>' +
+                                    '<div class="widget__header-name"></div>' +
+                                    '<div class="widget__header-actions"></div>' +
                                 '</div>' +
                                 '<div class="widget__border">' +
                                     '<div class="widget__body">' +
                                         '<div class="widget__body-data"></div>' +
                                     '</div>' +
                                 '</div>');
-
                         self.append($template);
                         that.set_color();
                         if (!that.data.collapsed) {
                             that.set_content();
                         }
                     };
-
-                    that.get_buttons = function(){
-                        that.data._el.buttons = {
-                            button_collapse: self.find('.button_collapse'),
-                            button_settings: self.find('.button_settings'),
-                            button_remove: self.find('.button_remove')
-                        };
-                    };
-                    that.get_name = function(){
-                        that.data.name = that.data._el.buttons.button_collapse.find('.button__text').text();
+                    that.render_buttons = function(){
+                        self.find('.widget__header-name').append(that.data._el.button_collapse);
+                        if (that.data.buttons){
+                            that.data.buttons.forEach(function(button){
+                                var $button = $([
+                                    '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
+                                    '<span class="icon ' + button.icon + '"></span>',
+                                    '<span class="button__anim"></span>',
+                                    '</button>'
+                                ].join('')).button();
+                                $button.on('click', function(){
+                                    button.click(self, _.omitBy(that.data, function(val, key){
+                                        return (key.substring(0,1) == '_');
+                                    }));
+                                });
+                                self.find('.widget__header-actions').append($button);
+                                that.data._el.buttons.push($button);
+                            });
+                        }
                     };
 
                     that.set_name = function(){
-                        that.data._el.buttons.button_collapse.find('.button__text').text(that.data.name);
-                        that.data._el.buttons.button_collapse.attr('data-tooltip', that.data.name);
-                        that.data._el.buttons.button_collapse.data('tooltip', that.data.name);
+                        that.data._el.button_collapse.find('.button__text').text(that.data.name);
+                        that.data._el.button_collapse.attr('data-tooltip', that.data.name);
+                        that.data._el.button_collapse.data('tooltip', that.data.name);
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');
@@ -3474,7 +3332,7 @@ $(function(){
                     that.expand = function(){
                         self.removeClass('widget_collapsed');
                         that.data.collapsed = false;
-                        if (that.data.content == that.const.CONTENT_NODATA) {
+                        if (that.data.content == that.const.CONTENT_NODATA && that.data.reloadable) {
                             setTimeout(function(){
                                 that.set_content();
                             }, 501);
@@ -3483,11 +3341,6 @@ $(function(){
                     that.toggle = function(){
                         self.toggleClass('widget_collapsed');
                         that.data.collapsed = !that.data.collapsed;
-                    };
-                    that.trigger_toggle = function(){
-                        self.trigger('toggle.widget');
-                    };
-                    that.check_toggle = function(){
                         if (that.data.collapsed) {
                             that.collapse();
                         } else {
@@ -3496,186 +3349,16 @@ $(function(){
                     };
 
                     that.edit_mode = function(){
-                        that.data._el.buttons.button_collapse.button('disable');
-                        that.data._el.buttons.button_settings.button('show').button('enable');
-                        that.data._el.buttons.button_remove.button('show').button('enable');
+                        that.data._el.button_collapse.button('disable');
                         that.data.mode = 'edit';
                     };
                     that.view_mode = function(){
-                        that.data._el.buttons.button_collapse.button('enable');
-                        that.data._el.buttons.button_settings.button('hide').button('disable');
-                        that.data._el.buttons.button_remove.button('hide').button('disable');
+                        that.data._el.button_collapse.button('enable');
                         that.data.mode = 'view';
                     };
 
-                    that.settings = function(){
-                        var modal_options = {
-                            buttons: [
-                                {
-                                    name: 'save',
-                                    action: 'save',
-                                    icon: 'icon_svg_ok'
-                                },
-                                {
-                                    name: 'destroy',
-                                    action: 'destroy',
-                                    icon: 'icon_svg_close'
-                                }
-                            ],
-                            header: {
-                                caption: 'Настройки виджета',
-                                name: that.data.name
-                            },
-                            content: { tabs: [] },
-                            data: _.omitBy(that.data, function(val, key){
-                                return (key.substring(0,1) == '_');
-                            })
-                        };
-                        that.render_general_tab(modal_options.content.tabs);
-                        that.render_source_tab(modal_options.content.tabs);
-
-                        $('<span class="modal__"></span>').appendTo('body')
-                            .modal__(modal_options)
-                            .on('save.fc.modal', function(){
-                                var reload = false;
-                                $(this).find('[data-field]').each(function(){
-                                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                                    if ((t.data('field') == 'pagename' ||
-                                         t.data('field') == 'elementname') &&
-                                        that.data[t.data('field')] != val) {
-                                        reload = true;
-                                    }
-                                    _.set(that.data, t.data('field'), val);
-                                });
-                                that.trigger_toggle();
-                                that.set_name();
-                                that.set_color();
-                                if (reload) {
-                                    that.set_content();
-                                }
-                                $(this).modal__('destroy');
-                            });
-                    };
-                    that.render_general_tab = function(tabs){
-                        tabs.push({
-                            id: 'general',
-                            name: 'Основные',
-                            active: true,
-                            content: $([
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Скрывать по умолчанию</div>' +
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
-                            (that.data.collapsed ? 'data-checked="true"' : '') + '>' +
-                            '<input class="checkbox__input" type="checkbox" name="collapsed"/>' +
-                            '<label class="checkbox__label"></label>' +
-                            '</label>' +
-                            '</div>' +
-                            '</div>' +
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Заголовок</div>' +
-                            /*
-                            '<div class="control__icons">' +
-                            '<span class="icon icon_svg_star_red"></span>' +
-                            '<span class="icon icon_svg_star_green"></span>' +
-                            '<span class="icon icon_svg_info"></span>' +
-                            '</div>' +
-                            */
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<span class="input input__has-clear" data-fc="input" data-field="name">' +
-                            '<span class="input__box">' +
-                            '<input type="text" class="input__control" value="' + that.data.name + '">' +
-                            '<button class="button" type="button" data-fc="button">' +
-                            '<span class="icon icon_svg_close"></span>' +
-                            '</button>' +
-                            '</span>' +
-                            '</span>' +
-                            '</div>' +
-                            '</div>' +
-
-                            '<div class="control">' +
-                            '<div class="control__caption">' +
-                            '<div class="control__text">Цвет</div>' +
-                            '</div>' +
-                            '<div class="control__container">' +
-                            '<select class="select" name="color" data-fc="select" data-field="color">' +
-                            '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (that.data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (that.data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (that.data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
-                            '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (that.data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
-                            '</select>' +
-                            '</div>' +
-                            '</div>'
-
-                            ].join(''))
-                        });
-                    };
-                    that.render_source_tab = function(tabs){
-                        if (that.data.library) {
-                            var $control__library = $([
-                                    '<div class="control">',
-                                    '<div class="control__caption">',
-                                    '<div class="control__text">Источник данных</div>',
-                                    '</div>',
-                                    '<div class="control__container">',
-                                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
-                                    '</div>',
-                                    '</div>'
-                                ].join('')),
-                                $control__widgets = $([
-                                    '<div class="control">',
-                                    '<div class="control__caption">',
-                                    '<div class="control__text">Виджет</div>',
-                                    '</div>',
-                                    '<div class="control__container">',
-                                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
-                                    '</div>',
-                                    '</div>'
-                                ].join(''));
-                            that.data.library.forEach(function(item, i, arr){
-                                var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                                if (item.value == that.data.pagename) {
-                                    item.items.forEach(function(item, i, arr){
-                                        var $option = $('<option value="' + item.value + '" ' + (item.value == that.data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                                        $control__widgets.find('.select').append($option);
-                                    });
-                                }
-                                $control__library.find('.select').append($option);
-                            });
-                            $control__library.find('.select').on('change', function(e){
-                                var values = $(this).data('_value'),
-                                    items = [];
-                                values.forEach(function(item, i, arr){
-                                    var library = that.data.library.filter(function(d){ return d.value == item.value; });
-                                    if (library.length > 0) {
-                                        library = library[0];
-                                        if (library.items) {
-                                            items.push.apply(items, library.items)
-                                        }
-                                    }
-                                });
-                                $control__widgets.find('.select').select('update', items);
-                            });
-                            tabs.push({
-                                id: 'source',
-                                name: 'Источник данных',
-                                content:
-                                    $('<div></div>').append($control__library, $control__widgets)
-                            });
-                        }
-                    };
-
                     that.bind = function(){
-                        self.on('toggle.widget', that.check_toggle);
-                        that.data._el.buttons.button_collapse.on('click.widget', that.toggle);
-                        that.data._el.buttons.button_settings.on('click.widget', that.settings);
-                        that.data._el.buttons.button_remove.on('click.widget', that.destroy);
+                        that.data._el.button_collapse.on('click.widget', that.toggle);
                     };
 
                     that.init_components = function(){
@@ -3686,13 +3369,15 @@ $(function(){
                     that.init = function(){
                         if (self.children().length == 0) {
                             that.render();
-                            that.get_buttons();
-                        } else {
-                            that.get_buttons();
-                            that.get_name();
                         }
+                        that.render_buttons();
                         that.init_components();
                         that.bind();
+                        if (that.data.mode == 'view') {
+                            that.view_mode();
+                        } else {
+                            that.edit_mode();
+                        }
                     };
                     that.init();
                 }
@@ -3729,6 +3414,21 @@ $(function(){
                 this.obj.view_mode();
             });
         },
+        set_name : function() {
+            return this.each(function() {
+                this.obj.set_name();
+            });
+        },
+        set_color : function() {
+            return this.each(function() {
+                this.obj.set_color();
+            });
+        },
+        set_content : function() {
+            return this.each(function() {
+                this.obj.set_content();
+            });
+        }
     };
     $.fn.widget = function( method ) {
         if ( methods[method] ) {
