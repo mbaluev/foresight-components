@@ -40,6 +40,7 @@
                             that.put(e);
                         }
                     };
+
                     that.put = function(e) {
                         that.data._tooltip.tooltip.addClass('tooltip_visible');
                         that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_bottom');
@@ -132,6 +133,7 @@
                             left: taleft
                         });
                     };
+
                     that.render = function () {
                         $('body').append(
                             that.data._tooltip.tooltip.append(
@@ -140,10 +142,15 @@
                             )
                         );
                     };
+                    that.update = function(tooltip){
+                        that.data.tooltip = tooltip;
+                    };
+
                     that.bind = function () {
                         self.on('mouseover.tooltip', that.show);
                         self.on('mouseout.tooltip', that.hide);
                     };
+
                     that.init = function () {
                         that.bind();
                     };
@@ -160,6 +167,11 @@
         show : function(e) {
             return this.each(function() {
                 this.tooltip.show(e);
+            });
+        },
+        update : function(tooltip) {
+            return this.each(function() {
+                this.tooltip.update(tooltip);
             });
         }
     };

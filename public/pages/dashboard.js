@@ -13,7 +13,6 @@ var Dashboard = function(options){
         CONTENT_TYPE_COUNT: 'count'
     };
     that.data = {
-        containerid: 'widget-grid',
         items: [],
         library: [],
         loader: null,
@@ -21,6 +20,7 @@ var Dashboard = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
+        target: $('#' + that.data.containerid),
         tumbler: $([
             '<span class="header__column-item tumbler" id="tumbler_edit-page">',
             '<span class="tumbler__box">',
@@ -52,10 +52,11 @@ var Dashboard = function(options){
             '<span class="button__text mobile mobile_hide">Сохранить</span>',
             '<span class="button__anim"></span>',
             '</button>',
-        ].join('')).button()
+        ].join('')).button(),
+        loader: $('<span class="spinner"></span>')
     };
 
-    that.renderTumbler = function(){
+    that.render_tumbler = function(){
         that.data._el.tumbler
             .on('on.fc.tumbler', function(){
                 that.data._el.button_add.button('show');
@@ -69,7 +70,7 @@ var Dashboard = function(options){
             });
         $('.header__column-right').prepend(that.data._el.tumbler);
     };
-    that.renderButtons = function(){
+    that.render_buttons = function(){
         that.data._el.button_add.on('click', function(){
             var item = {
                 x: 0,
@@ -97,8 +98,8 @@ var Dashboard = function(options){
         );
         $('.header__column-right').prepend(that.data._el.button_group);
     };
-    that.renderGrid = function(){
-        that.data.grid = $('#' + that.data.containerid)
+    that.render_grid = function(){
+        that.data.grid = that.data._el.target
             .widget_grid({
                 items: that.data.items,
                 loader: that.data.loader,
@@ -107,6 +108,7 @@ var Dashboard = function(options){
                     {
                         id: 'button_settings',
                         icon: 'icon_svg_settings',
+                        mode: 'edit',
                         click: function(widget, data){
                             that.settings(widget, data);
                         }
@@ -114,6 +116,7 @@ var Dashboard = function(options){
                     {
                         id: 'button_remove',
                         icon: 'icon_svg_trash',
+                        mode: 'edit',
                         click: function(widget, data){
                             debugger;
                             that.data.grid.widget_grid('remove_widget', data.id);
@@ -283,10 +286,25 @@ var Dashboard = function(options){
     };
     /* modal for settings - end */
 
+    that.loader_add = function(){
+        $('.fs-view__main').each(function(i, item){
+            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
+                $(this).append(that.data._el.loader);
+            }
+        });
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
+    };
+
     that.init = function(){
-        that.renderTumbler();
-        that.renderButtons();
-        that.renderGrid();
+        that.loader_add();
+        setTimeout(function(){
+            that.render_tumbler();
+            that.render_buttons();
+            that.render_grid();
+            that.loader_remove();
+        }, 100);
     };
     that.init();
     return that;

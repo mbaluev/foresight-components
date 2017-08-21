@@ -922,18 +922,6 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
                     var that = this.obj = {};
-                    that.const = {
-                        CONTENT_LOADING: '<span class="spinner"></span>',
-                        CONTENT_NODATA: 'Нет данных',
-                        CONTENT_ERROR: 'Ошибка загрузки',
-                        BORDER_COLOR_BLUE: '#5a97f2',
-                        BORDER_COLOR_DEFAULT: '#ccc',
-                        BORDER_COLOR_PURPLE: '#8e6bf5',
-                        BORDER_COLOR_RED: '#ff5940',
-                        CONTENT_TYPE_TEXT: 'text',
-                        CONTENT_TYPE_HTML: 'html',
-                        CONTENT_TYPE_COUNT: 'count'
-                    };
                     that.defaults = {
                         items: [],
                         loader: null,
@@ -962,14 +950,14 @@ $(function(){
 
                     that.destroy = function(){
                         that.clear();
-                        _.each(that.data._nodes, function(node) {
-                            node.widget.widget('destroy');
-                        });
                         self.removeData();
                         self.remove();
                     };
                     that.clear = function(){
                         that.data._el.grid.removeAll();
+                        _.each(that.data._nodes, function(node) {
+                            node.widget.widget('destroy');
+                        });
                     };
                     that.save = function(callback){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
@@ -1010,7 +998,7 @@ $(function(){
                             node.settings.id = node._id;
                         }
                         node._height = node.height;
-                        node.settings.buttons = that.data.widget_buttons;
+                        node.settings.buttons = $.extend(that.data.widget_buttons, node.settings.buttons);
                         node.settings.reloadable = true;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
@@ -1082,7 +1070,12 @@ $(function(){
                         _.each(that.data._el.nodes, function(node) {
                             node.widget.widget('edit_mode');
                             node.widget.data()._el.buttons.forEach(function(button){
-                                button.button('show');
+                                if (button.mode == 'edit') {
+                                    button.button('show');
+                                }
+                                if (button.mode == 'view') {
+                                    button.button('hide');
+                                }
                             });
                             that.expand_widget(node._id, false);
                         });
@@ -1094,7 +1087,12 @@ $(function(){
                             node._height = that.get(node.el).height;
                             node.widget.widget('view_mode');
                             node.widget.data()._el.buttons.forEach(function(button){
-                                button.button('hide');
+                                if (button.mode == 'edit') {
+                                    button.button('hide');
+                                }
+                                if (button.mode == 'view') {
+                                    button.button('show');
+                                }
                             });
                             if (node.widget.data().collapsed) {
                                 that.collapse_widget(node._id, false);
@@ -3486,6 +3484,7 @@ $(function(){
                             that.put(e);
                         }
                     };
+
                     that.put = function(e) {
                         that.data._tooltip.tooltip.addClass('tooltip_visible');
                         that.data._tooltip.tooltip__arrow.removeClass('tooltip__arrow_bottom');
@@ -3578,6 +3577,7 @@ $(function(){
                             left: taleft
                         });
                     };
+
                     that.render = function () {
                         $('body').append(
                             that.data._tooltip.tooltip.append(
@@ -3586,10 +3586,15 @@ $(function(){
                             )
                         );
                     };
+                    that.update = function(tooltip){
+                        that.data.tooltip = tooltip;
+                    };
+
                     that.bind = function () {
                         self.on('mouseover.tooltip', that.show);
                         self.on('mouseout.tooltip', that.hide);
                     };
+
                     that.init = function () {
                         that.bind();
                     };
@@ -3606,6 +3611,11 @@ $(function(){
         show : function(e) {
             return this.each(function() {
                 this.tooltip.show(e);
+            });
+        },
+        update : function(tooltip) {
+            return this.each(function() {
+                this.tooltip.update(tooltip);
             });
         }
     };

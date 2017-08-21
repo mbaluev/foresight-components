@@ -135,51 +135,49 @@
     <script src="third/gridstack/gridstack.js"></script>
     <script src="third/gridstack/gridstack.jQueryUI.js"></script>
     <script src="foresight.components.debug.js"></script>
-    <script src="asyst/asyst.reports.js"></script>
+    <script src="pages/reports.js"></script>
+    <script src="asyst/asyst.imageloader.js"></script>
     <script>
-        var reportCenter;
         $(function(){
             $('#container').css({ height: '100%' });
-            reportCenter = Asyst.Reports({
-                containerid: 'container',
-                filters: [
-                    {
-                        reportingCategoryId: 6,
-                        reportingCategoryName: 'Администрирование',
-                        color: '#718396'
-                    },
-                    {
-                        reportingCategoryId: 2,
-                        reportingCategoryName: 'Аналитика по активностям',
-                        color: '#02cfaa'
-                    },
-                    {
-                        reportingCategoryId: 3,
-                        reportingCategoryName: 'Исполнительская дисциплина',
-                        color: '#ff6666'
-                    },
-                    {
-                        reportingCategoryId: 4,
-                        reportingCategoryName: 'Коммуникации',
-                        color: '#9a60c2'
-                    },
-                    {
-                        reportingCategoryId: 1,
-                        reportingCategoryName: 'Отчеты для ФОИВ',
-                        color: '#00a1f4'
-                    },
-                    {
-                        reportingCategoryId: 7,
-                        reportingCategoryName: 'Цели и показатели',
-                        color: '#7cccc7'
-                    },
-                    {
-                        reportingCategoryId: 5,
-                        reportingCategoryName: 'Эффективность',
-                        color: '#58c9f3'
-                    }
-                ],
-                reports: [
+            var filters = [
+                {
+                    reportingCategoryId: 6,
+                    reportingCategoryName: 'Администрирование',
+                    color: '#718396'
+                },
+                {
+                    reportingCategoryId: 2,
+                    reportingCategoryName: 'Аналитика по активностям',
+                    color: '#02cfaa'
+                },
+                {
+                    reportingCategoryId: 3,
+                    reportingCategoryName: 'Исполнительская дисциплина',
+                    color: '#ff6666'
+                },
+                {
+                    reportingCategoryId: 4,
+                    reportingCategoryName: 'Коммуникации',
+                    color: '#9a60c2'
+                },
+                {
+                    reportingCategoryId: 1,
+                    reportingCategoryName: 'Отчеты для ФОИВ',
+                    color: '#00a1f4'
+                },
+                {
+                    reportingCategoryId: 7,
+                    reportingCategoryName: 'Цели и показатели',
+                    color: '#7cccc7'
+                },
+                {
+                    reportingCategoryId: 5,
+                    reportingCategoryName: 'Эффективность',
+                    color: '#58c9f3'
+                }
+            ];
+            var reports = [
                 {
                     "reportingId": "5120ff60-5991-46bf-80ec-e876a88815e5",
                     "name": "AccessReport_UserRoleAccess",
@@ -648,8 +646,14 @@
                     "color": "#7cccc7",
                     "repFavoriteId": null
                 }
-            ],
-                favorite: true
+            ];
+            var reports = new Reports({
+                containerid: 'container',
+                filters: filters,
+                reports: reports,
+                defaults: {
+                    favorite: true
+                }
             });
         });
     </script>
