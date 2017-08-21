@@ -59,14 +59,22 @@ var Dashboard = function(options){
     that.render_tumbler = function(){
         that.data._el.tumbler
             .on('on.fc.tumbler', function(){
-                that.data._el.button_add.button('show');
-                that.data._el.button_save.button('show');
-                that.data.grid.widget_grid('edit_mode');
+                that.loader_add();
+                setTimeout(function(){
+                    that.data._el.button_add.button('show');
+                    that.data._el.button_save.button('show');
+                    that.data.grid.widget_grid('edit_mode');
+                    that.loader_remove();
+                }, 100);
             })
             .on('off.fc.tumbler', function(){
-                that.data._el.button_add.button('hide');
-                that.data._el.button_save.button('hide');
-                that.data.grid.widget_grid('view_mode');
+                that.loader_add();
+                setTimeout(function(){
+                    that.data._el.button_add.button('hide');
+                    that.data._el.button_save.button('hide');
+                    that.data.grid.widget_grid('view_mode');
+                    that.loader_remove();
+                }, 100);
             });
         $('.header__column-right').prepend(that.data._el.tumbler);
     };
