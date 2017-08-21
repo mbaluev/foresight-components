@@ -47,7 +47,7 @@
                         });
                         self.removeData();
                     };
-                    that.add = function() {
+                    that.add = function(){
                         var item = {
                             x: 0,
                             y: 0,
@@ -61,7 +61,7 @@
                         that.create_widget(item);
                         self.trigger(that.data._triggers.add, [item]);
                     };
-                    that.save = function() {
+                    that.save = function(){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
                             el = $(el);
                             var node = that.get(el);
@@ -82,7 +82,7 @@
                         that.data._el.tumbler.tumbler('uncheck');
                         self.trigger(that.data._triggers.save, [that.data.items]);
                     };
-                    that.clear = function() {
+                    that.clear = function(){
                         that.data._el.grid.removeAll();
                     };
                     that.load = function(){
@@ -143,7 +143,7 @@
                         }
                     };
 
-                    that.remove_widget = function(node) {
+                    that.remove_widget = function(node){
                         that.data._el.grid.removeWidget(node.el);
                         that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
                     };

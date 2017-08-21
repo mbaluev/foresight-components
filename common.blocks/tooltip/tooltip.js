@@ -6,7 +6,8 @@
                 if (!data) {
                     var that = this.tooltip = {};
                     that.defaults = {
-                        follow: true
+                        follow: true,
+                        tooltip: self.attr('data-tooltip')
                     };
                     that.data = self.data();
                     that.options = $.extend(that.defaults, that.data, options);

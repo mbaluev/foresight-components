@@ -71,7 +71,8 @@ Asyst.Reports = function(options){
                 '</div>',
             '</div>'
         ].join('')),
-        grid: null
+        grid: null,
+        loader: $('<span class="spinner"></span>')
     };
     that.render = function(){
         that.data._el.content.find('#filter').append(
@@ -166,6 +167,7 @@ Asyst.Reports = function(options){
             report.reportingId, that.data.x, that.data.y, that.data.itemWidth, that.data.itemHeight);
     };
     that.filter_reports = function(){
+        that.loader_add();
         that.data.x = 0;
         that.data.y = 0;
         that.data.reports.forEach(function(report){
@@ -189,6 +191,17 @@ Asyst.Reports = function(options){
             }
         });
         that.data.grid.widget_grid('view_mode');
+        that.loader_remove();
+    };
+    that.loader_add = function(){
+        $('.fs-view__main').each(function(i, item){
+            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
+                $(this).append(that.data._el.loader);
+            }
+        });
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
     };
     that.bind = function(){
         that.data._el.radiogroup.find('[data-fc="radio"]').on('click', function(){
@@ -225,6 +238,7 @@ Asyst.Reports = function(options){
         });
     };
     that.init = function(){
+        that.loader_add();
         $(function(){
             that.render();
             that.render_filters();
@@ -232,6 +246,7 @@ Asyst.Reports = function(options){
             that.render_reports();
             that.init_components();
             that.bind();
+            that.loader_remove();
         })
     };
     that.init();

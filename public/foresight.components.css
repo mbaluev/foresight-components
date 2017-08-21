@@ -133,6 +133,15 @@ body {
   border-bottom: solid 1px #ddd;
 }
 
+.fs-view__main > .spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  z-index: 9999;
+}
+
 .header {
   font-family: 'ProximaNova-Regular';
   display: -webkit-box;

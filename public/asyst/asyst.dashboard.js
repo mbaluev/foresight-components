@@ -13,7 +13,9 @@ Asyst.Dashboard = function(options){
             tumbler: { selector: '#tumbler_edit-page' }
         },
         grid: null,
-        grid_selector: '#widget-grid'
+        grid_selector: '#widget-grid',
+        library_pagename: null,
+        library_title: null
     };
     that.data = $.extend(that.data, options);
     that.getItems = function(){
@@ -22,6 +24,20 @@ Asyst.Dashboard = function(options){
     that.setItems = function(items){
         that.data.items = items;
     };
+    that.saveItems = function(){
+        Asyst.APIv2.Entity.save({
+            dataId: that.data.userdashboardid,
+            entityName: 'UserDashboard',
+            data: {
+                AccountId: that.data.user.Id,
+                PageName: that.data.page.pageName,
+                Items: JSON.stringify(that.data.items)
+            },
+            success: function(data){ console.log(data); },
+            error: function(data){ console.log(data); }
+        });
+    };
+
     that.loadDefaults = function(callback){
         Asyst.APIv2.DataSet.load({
             name: 'UserDashboard',
@@ -57,33 +73,20 @@ Asyst.Dashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.saveItems = function(){
-        Asyst.APIv2.Entity.save({
-            dataId: that.data.userdashboardid,
-            entityName: 'UserDashboard',
-            data: {
-                AccountId: that.data.user.Id,
-                PageName: that.data.page.pageName,
-                Items: JSON.stringify(that.data.items)
-            },
-            success: function(data){ console.log(data); },
-            error: function(data){ console.log(data); }
-        });
-    };
-    that.loadLibrary = function(item, success){
+    that.loadLibrary = function(lib, success){
         Asyst.APIv2.DataSet.load({
             name: 'WidgetLibrary',
             data: {
-                PageName: item.pagename
+                PageName: lib.pagename
             },
             success: function(data){
                 var items = [];
                 if (data[0]) {
                     items = data[0];
                 }
-                that.data.library.push({
-                    value: item.pagename,
-                    text: item.title,
+                that.data.lib.push({
+                    value: lib.pagename,
+                    text: lib.title,
                     items: items
                 });
                 if (typeof success == 'function') { success(); }
@@ -92,8 +95,9 @@ Asyst.Dashboard = function(options){
         });
     };
     that.loadGrid = function(){
-        that.loadLibrary({ pagename: 'WidgetLibrary', title: 'Библиотека виджетов' }, that.renderGrid);
+        that.loadLibrary({ pagename: that.data.library_pagename, title: that.data.library_title }, that.renderGrid);
     };
+
     that.renderGrid = function(){
         that.data.grid = $(that.data.grid_selector)
             .widget_grid(
