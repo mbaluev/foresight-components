@@ -84,7 +84,7 @@ Asyst.Dashboard = function(options){
                 if (data[0]) {
                     items = data[0];
                 }
-                that.data.lib.push({
+                that.data.library.push({
                     value: lib.pagename,
                     text: lib.title,
                     items: items
