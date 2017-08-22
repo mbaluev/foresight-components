@@ -155,12 +155,12 @@
     line-height: 28px;
     padding: 0 10px;
     background: none;
-    margin: 10px 10px 0 10px;
+    margin: 10px 0 0 10px;
     border: solid 1px #ddd;
     font-size: 13px;
 }
 #viewHeader .btn-toolbar {
-    padding: 0 0 10px 0;
+    padding: 0 10px 10px 0;
 }
 #viewHeader .btn-toolbar:after {
     clear: both;
@@ -188,7 +188,7 @@
     padding: 0 10px;
 }
 #viewHeader .btn-group {
-    margin: 10px 10px 0 0;
+    margin: 10px 0 0 10px;
     padding: 0 !important;
 }
 #viewHeader .btn-group .btn {
