@@ -4,7 +4,7 @@ var Reports = function(options){
         items: [],
         filters: [],
         reports: [],
-        grid: null,
+        loader: null,
         defaults: {
             itemWidth: 2,
             itemHeight: 5,
@@ -16,7 +16,8 @@ var Reports = function(options){
         search: {
             text: '',
             timer: null
-        }
+        },
+        grid: null
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -113,7 +114,7 @@ var Reports = function(options){
     that.render_grid = function(){
         var widget_grid_options = {
             items: that.data.items,
-            loader: Asyst.ImageLoader
+            loader: that.data.loader
         };
         that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
     };

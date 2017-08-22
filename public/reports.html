@@ -647,10 +647,11 @@
                     "repFavoriteId": null
                 }
             ];
-            var reports = new Reports({
+            var reportcenter = new Reports({
                 containerid: 'container',
                 filters: filters,
                 reports: reports,
+                loader: Asyst.ImageLoader,
                 defaults: {
                     favorite: true
                 }
