@@ -73,6 +73,7 @@ Asyst.Reports = function(options){
         grid: null,
         loader: $('<span class="spinner"></span>')
     };
+
     that.render = function(){
         that.data._el.content.find('#filter').append(
             that.data._el.radiogroup
@@ -130,6 +131,7 @@ Asyst.Reports = function(options){
         });
         that.data.grid.widget_grid('view_mode');
     };
+
     that.remove_reports = function(){
         that.data.items = [];
         that.data.x = 0;
@@ -201,6 +203,7 @@ Asyst.Reports = function(options){
         that.data.grid.widget_grid('view_mode');
         that.loader_remove();
     };
+
     that.loader_add = function(){
         $('.fs-view__main').each(function(i, item){
             if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
@@ -211,6 +214,7 @@ Asyst.Reports = function(options){
     that.loader_remove = function(){
         that.data._el.loader.remove();
     };
+
     that.bind = function(){
         that.data._el.radiogroup.find('[data-fc="radio"]').on('click', function(){
             that.data.reportingCategoryId = $(this).radio_group('value');
@@ -234,6 +238,7 @@ Asyst.Reports = function(options){
             }, 300);
         });
     };
+
     that.init_components = function(){
         that.data._el.radiogroup.radio_group();
         that.data._el.input.input();

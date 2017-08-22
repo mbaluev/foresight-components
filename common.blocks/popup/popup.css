@@ -130,3 +130,14 @@
     overflow: auto;
     flex: 1 1 auto;
 }
+
+.popup .datepicker {
+    opacity: 1;
+    visibility: visible;
+    display: block;
+    border: none;
+    box-shadow: none;
+}
+.popup .datepicker--pointer {
+    display: none;
+}

@@ -23,13 +23,37 @@ var params = {
     levels: ['common.blocks', 'mobile.blocks']
 };
 
+var third_js = [
+    'public/third/jquery-3.2.1.min.js',
+    'public/third/jquery-ui.min.js',
+    'public/third/lodash.min.js',
+    'public/third/d3.v4.min.js',
+    'public/third/highcharts.js',
+    'public/third/air-datepicker/datepicker.min.js',
+    'public/third/bubble/bubble_chart.js',
+    'public/third/gridstack/gridstack.js',
+    'public/third/gridstack/gridstack.jQueryUI.js',
+    'public/third/riskmatrix/jquery.riskmatrix.js'
+];
+var third_css = [
+    'public/third/air-datepicker/datepicker.min.css',
+    'public/third/jquery.riskmatrix.css',
+    'public/third/gridstack/gridstack.css'
+];
+var pages_js = [
+    'public/pages/dashboard.js',
+    'public/pages/reports.js'
+];
+
 var getFileNames = require('html2bl').getFileNames(params);
 
-gulp.task('default', ['server', 'build']);
+gulp.task('default', ['server', 'build', 'misc']);
 
 gulp.task('server', function(){
     browserSync.init({
-        server: params.out
+        server: params.out,
+        open: 'local',
+        browser: 'google chrome'
     });
     gulp.watch('*.html', ['html']);
     gulp.watch(params.levels.map(function(level){
@@ -40,7 +64,9 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['js']);
+    gulp.watch('public/pages/*.js', ['pages']);
 });
+
 
 gulp.task('build', ['html', 'css', 'images', 'js']);
 
@@ -105,4 +131,50 @@ gulp.task('js', function() {
             .pipe(reload({ stream: true }));
     })
     .done();
+});
+
+
+gulp.task('misc', ['third', 'pages']);
+
+gulp.task('third', function(){
+    gulp.src(third_css)
+        .pipe(concat('foresight.third.css'))
+        .pipe(postcss([ autoprefixer() ]))
+        .pipe(gulp.dest(params.out))
+        .pipe(reload({ stream: true }));
+
+    gulp.src(third_css)
+        .pipe(concat('foresight.third.css'))
+        .pipe(postcss([ autoprefixer() ]))
+        .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+            console.log(details.name + ': ' + details.stats.originalSize);
+            console.log(details.name + ': ' + details.stats.minifiedSize);
+        }))
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest(params.out))
+        .pipe(reload({ stream: true }));
+
+    gulp.src(third_js)
+        .pipe(concat('foresight.third.js'))
+        .pipe(minify({
+            ext:{
+                src:'.debug.js',
+                min:'.min.js'
+            }
+        }))
+        .pipe(gulp.dest(params.out))
+        .pipe(reload({ stream: true }));
+});
+
+gulp.task('pages', function(){
+    gulp.src(pages_js)
+        .pipe(concat('foresight.pages.js'))
+        .pipe(minify({
+            ext:{
+                src:'.debug.js',
+                min:'.min.js'
+            }
+        }))
+        .pipe(gulp.dest(params.out))
+        .pipe(reload({ stream: true }));
 });
