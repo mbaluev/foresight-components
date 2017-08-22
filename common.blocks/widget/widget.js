@@ -19,7 +19,6 @@
                         CONTENT_TYPE_COUNT: 'count'
                     };
                     that.defaults = {
-                        name: 'Виджет',
                         collapsed: false,
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content: that.const.CONTENT_NODATA,
@@ -70,7 +69,9 @@
                         }
                     };
                     that.render_buttons = function(){
-                        self.find('.widget__header-name').append(that.data._el.button_collapse);
+                        if (that.data.name) {
+                            self.find('.widget__header-name').append(that.data._el.button_collapse);
+                        }
                         if (that.data.buttons){
                             that.data.buttons.forEach(function(button){
                                 var $button = $([
@@ -176,16 +177,22 @@
                     };
 
                     that.edit_mode = function(){
-                        that.data._el.button_collapse.button('disable');
+                        if (that.data.name) {
+                            that.data._el.button_collapse.button('disable');
+                        }
                         that.data.mode = 'edit';
                     };
                     that.view_mode = function(){
-                        that.data._el.button_collapse.button('enable');
+                        if (that.data.name) {
+                            that.data._el.button_collapse.button('enable');
+                        }
                         that.data.mode = 'view';
                     };
 
                     that.bind = function(){
-                        that.data._el.button_collapse.on('click.widget', that.toggle);
+                        if (that.data.name) {
+                            that.data._el.button_collapse.on('click.widget', that.toggle);
+                        }
                     };
 
                     that.init_components = function(){
