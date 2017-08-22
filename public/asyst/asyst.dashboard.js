@@ -108,7 +108,10 @@ Asyst.Dashboard = function(options){
                     containerid: that.data.containerid,
                     items: that.data.items,
                     library: that.data.library,
-                    loader: Asyst.MetaElementLoader
+                    loader: Asyst.MetaElementLoader,
+                    save: function(items){
+                        that.saveItems(items);
+                    }
                 });
             });
         });
