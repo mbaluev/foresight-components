@@ -13,6 +13,9 @@ Asyst.Dashboard = function(options){
         dashboard: null
     };
     that.data = $.extend(that.data, options);
+    that.data._el = {
+        loader: $('<span class="spinner"></span>')
+    };
 
     that.saveItems = function(items){
         that.data.items = items;
@@ -85,19 +88,30 @@ Asyst.Dashboard = function(options){
         });
     };
 
+    that.loader_add = function(){
+        $('.fs-view__main').each(function(i, item){
+            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
+                $(this).append(that.data._el.loader);
+            }
+        });
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
+    };
+
     that.init = function(){
-        $(function(){
-            that.loadItems(
-                that.loadLibrary(
-                    that.data.dashboard = new Dashboard({
-                        containerid: that.data.containerid,
-                        items: that.data.items,
-                        library: that.data.library,
-                        loader: Asyst.MetaElementLoader
-                    })
-                )
-            );
-        })
+        that.loader_add();
+        that.loadItems(function(){
+            that.loadLibrary(function(){
+                that.loader_remove();
+                that.data.dashboard = new Dashboard({
+                    containerid: that.data.containerid,
+                    items: that.data.items,
+                    library: that.data.library,
+                    loader: Asyst.MetaElementLoader
+                });
+            });
+        });
     };
     that.init();
     return that;
