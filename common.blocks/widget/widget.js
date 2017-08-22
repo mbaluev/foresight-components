@@ -86,6 +86,7 @@
                                     }));
                                 });
                                 self.find('.widget__header-actions').append($button);
+                                button._el = $button;
                                 that.data._el.buttons.push($button);
                             });
                         }

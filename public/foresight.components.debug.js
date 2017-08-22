@@ -849,12 +849,12 @@ $(function(){
                         that.data.mode = 'edit';
                         _.each(that.data._el.nodes, function(node) {
                             node.widget.widget('edit_mode');
-                            node.widget.data()._el.buttons.forEach(function(button){
+                            node.widget.data().buttons.forEach(function(button){
                                 if (button.mode == 'edit') {
-                                    button.button('show');
+                                    button._el.button('show');
                                 }
                                 if (button.mode == 'view') {
-                                    button.button('hide');
+                                    button._el.button('hide');
                                 }
                             });
                             that.expand_widget(node._id, false);
@@ -866,12 +866,12 @@ $(function(){
                         _.each(that.data._el.nodes, function(node) {
                             node._height = that.get(node.el).height;
                             node.widget.widget('view_mode');
-                            node.widget.data()._el.buttons.forEach(function(button){
+                            node.widget.data().buttons.forEach(function(button){
                                 if (button.mode == 'edit') {
-                                    button.button('hide');
+                                    button._el.button('hide');
                                 }
                                 if (button.mode == 'view') {
-                                    button.button('show');
+                                    button._el.button('show');
                                 }
                             });
                             if (node.widget.data().collapsed) {
@@ -3257,6 +3257,7 @@ $(function(){
                                     }));
                                 });
                                 self.find('.widget__header-actions').append($button);
+                                button._el = $button;
                                 that.data._el.buttons.push($button);
                             });
                         }
