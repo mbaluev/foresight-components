@@ -1,7 +1,3 @@
-/**
- * Created by mbaluev on 01.06.2017.
- */
-
 var gulp = require('gulp'),
     concat = require('gulp-concat'),
     rename = require('gulp-rename'),
@@ -24,11 +20,8 @@ var params = {
 };
 
 var third_js = [
-    'public/third/jquery-3.2.1.min.js',
-    'public/third/jquery-ui.min.js',
     'public/third/lodash.min.js',
     'public/third/d3.v4.min.js',
-    'public/third/highcharts.js',
     'public/third/air-datepicker/datepicker.min.js',
     'public/third/bubble/bubble_chart.js',
     'public/third/gridstack/gridstack.js',
