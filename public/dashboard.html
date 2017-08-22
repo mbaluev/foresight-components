@@ -254,7 +254,11 @@
                 containerid: 'widget-grid',
                 items: items,
                 library: library,
-                loader: DashboardLoader
+                loader: DashboardLoader,
+                add: function(data){},
+                save: function(data){
+                    console.log(JSON.stringify(data));
+                }
             });
         });
     </script>

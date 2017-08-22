@@ -16,7 +16,9 @@ var Dashboard = function(options){
         items: [],
         library: [],
         loader: null,
-        grid: null
+        grid: null,
+        add: function(data){},
+        save: function(data){}
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -91,13 +93,17 @@ var Dashboard = function(options){
                 }
             };
             that.data.grid.widget_grid('add_widget', item, function(data){
-                console.log(data);
+                if (typeof that.data.add == 'function') {
+                    that.data.add(data);
+                };
             });
         });
         that.data._el.button_save.on('click', function(){
             that.data.grid.widget_grid('save', function(data){
+                if (typeof that.data.save == 'function') {
+                    that.data.save(data);
+                };
                 that.data._el.tumbler.tumbler('uncheck');
-                console.log(data);
             });
         });
         that.data._el.button_group.append(
