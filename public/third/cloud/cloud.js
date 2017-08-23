@@ -23,8 +23,8 @@
                 cloudid = "#" + options.cloud_id;
                 width = el.width();
                 height = el.height();
-                min_size = d3.min(options.data, function(d) { return parseInt(d.size); });
-                max_size = d3.max(options.data, function(d) { return parseInt(d.size); });
+                min_size = d3.min(options.data, function(d) { return parseInt(d.count); });
+                max_size = d3.max(options.data, function(d) { return parseInt(d.count); });
                 word_scale = d3.scaleLinear().domain([min_size, max_size]).range([options.min_font_size/options.font_factor, options.max_font_size/options.font_factor]).clamp(true);
                 word_color = d3.scaleLinear().domain([options.min_font_size, options.max_font_size]).range([options.min_color, options.max_color]);
             };
@@ -55,7 +55,7 @@
                 d3.layout.cloud().size([width, height])
                     .words(options.data)
                     .rotate(function() { return ~~(Math.random() * 2) * 0; })
-                    .fontSize(function(d) { return word_scale(d.size); })
+                    .fontSize(function(d) { return word_scale(d.count); })
                     .on("end", draw)
                     .start();
             };
