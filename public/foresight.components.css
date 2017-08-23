@@ -1968,6 +1968,18 @@ body {
   visibility: hidden;
 }
 
+.input__has-error {
+  background: #ff5940;
+}
+
+.input__has-error:before,
+.input__has-error .button:before {
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+}
+
 .input_focused {
   background: #5a97f2;
 }
@@ -1980,24 +1992,6 @@ body {
 }
 
 .input_focused .button:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
-.input__has-error {
-  background: #ff5940;
-}
-
-.input__has-error:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
-.input__has-error .button:before {
   top: 2px;
   right: 2px;
   bottom: 2px;
@@ -2107,6 +2101,12 @@ body {
           flex: 0 0 auto;
 }
 
+.control__error {
+  padding: 7px 0;
+  color: #ff5940;
+  line-height: normal;
+}
+
 .control__text {
   padding-right: 10px;
 }
@@ -2128,6 +2128,19 @@ body {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   line-height: 30px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.control__container_vertical {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .control__container_text-align_right {
@@ -2146,6 +2159,10 @@ body {
 }
 
 
+
+.control_vertical .control__icons {
+  padding: 0;
+}
 
 .card {
   font-family: ProximaNova-Regular;

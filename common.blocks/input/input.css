@@ -38,6 +38,15 @@
     visibility: hidden;
 }
 
+.input__has-error { background: #ff5940; }
+.input__has-error:before,
+.input__has-error .button:before {
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+}
+
 .input_focused {
     background: #5a97f2;
 }
@@ -48,23 +57,6 @@
     left: 2px;
 }
 .input_focused .button:before {
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
-}
-
-.input__has-error {
-    background: #ff5940;
-}
-.input__has-error:before {
-    top: 2px;
-    right: 2px;
-    bottom: 2px;
-    left: 2px;
-}
-
-.input__has-error .button:before {
     top: 2px;
     right: 2px;
     bottom: 2px;
