@@ -8,7 +8,9 @@
     min-height: 20px;
     transition: 0.5s;
 }
-
+.widget_shadow {
+    box-shadow: 0 10px 20px -5px rgba(51,51,51,.2);
+}
 
 .widget__header {
     position: absolute;
@@ -37,6 +39,9 @@
     box-sizing: border-box;
     height: 100%;
     overflow: hidden;
+}
+.widget__border_none {
+    border: none;
 }
 .widget__border_color_blue {
     color: #5a97f2;
@@ -92,6 +97,9 @@
 .widget__body-data_type_html {
     height: 100%;
     overflow: hidden;
+}
+.widget__body-data_type_form {
+    padding: 10px 20px;
 }
 
 .widget__content {

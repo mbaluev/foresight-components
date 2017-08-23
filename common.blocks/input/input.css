@@ -47,8 +47,24 @@
     bottom: 2px;
     left: 2px;
 }
-
 .input_focused .button:before {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}
+
+.input__has-error {
+    background: #ff5940;
+}
+.input__has-error:before {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}
+
+.input__has-error .button:before {
     top: 2px;
     right: 2px;
     bottom: 2px;

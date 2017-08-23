@@ -73,6 +73,15 @@ html, body {
     left: 0;
 }
 
+.fs-view__middle_login {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 0;
+    box-sizing: border-box;
+}
+
 .fs-view__middle-scroll {
     position: relative;
     width: 100%;

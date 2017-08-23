@@ -29,3 +29,14 @@
     flex: 1 1 auto;
     line-height: 30px;
 }
+.control__container_text-align_right {
+    text-align: right;
+}
+
+.control_vertical {
+    flex-direction: column;
+}
+.control_vertical .control__caption {
+    width: 100%;
+}
+.control_vertical .control__text {}

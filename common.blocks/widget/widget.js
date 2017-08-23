@@ -153,6 +153,20 @@
                             $bodydata.html(that.const.CONTENT_NODATA);
                         }
                     };
+                    that.set_width = function(){
+                        if (that.data.width) {
+                            self.css({
+                                width: that.data.width
+                            });
+                        }
+                    };
+                    that.set_height = function(){
+                        if (that.data.height) {
+                            self.css({
+                                height: that.data.height
+                            });
+                        }
+                    };
 
                     that.collapse = function(){
                         self.addClass('widget_collapsed');
@@ -213,6 +227,8 @@
                         } else {
                             that.edit_mode();
                         }
+                        that.set_width();
+                        that.set_height();
                     };
                     that.init();
                 }
