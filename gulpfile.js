@@ -24,6 +24,8 @@ var third_js = [
     'public/third/d3.v4.min.js',
     'public/third/air-datepicker/datepicker.min.js',
     'public/third/bubble/bubble_chart.js',
+    'public/third/cloud/d3.v4.layout.cloud.js',
+    'public/third/cloud/cloud.js',
     'public/third/gridstack/gridstack.js',
     'public/third/gridstack/gridstack.jQueryUI.js',
     'public/third/riskmatrix/jquery.riskmatrix.js'

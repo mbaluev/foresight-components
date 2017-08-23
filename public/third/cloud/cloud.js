@@ -25,8 +25,8 @@
                 height = el.height();
                 min_size = d3.min(options.data, function(d) { return parseInt(d.size); });
                 max_size = d3.max(options.data, function(d) { return parseInt(d.size); });
-                word_scale = d3.scale.linear().domain([min_size, max_size]).range([options.min_font_size/options.font_factor, options.max_font_size/options.font_factor]).clamp(true);
-                word_color = d3.scale.linear().domain([options.min_font_size, options.max_font_size]).range([options.min_color, options.max_color]);
+                word_scale = d3.scaleLinear().domain([min_size, max_size]).range([options.min_font_size/options.font_factor, options.max_font_size/options.font_factor]).clamp(true);
+                word_color = d3.scaleLinear().domain([options.min_font_size, options.max_font_size]).range([options.min_color, options.max_color]);
             };
             function create_vis(){
                 vis = d3.select(containerid).append("svg").attr("width", width).attr("height", height).attr("id", options.cloud_id);
@@ -84,9 +84,6 @@
                 return d3.select(element)
                     .style("text-decoration", "none");
             };
-            /*function mouse_click(data){
-                return console.log(data.text);
-            };*/
         };
         return this.each(make);
     };
