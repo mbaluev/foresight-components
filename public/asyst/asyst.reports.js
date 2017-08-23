@@ -27,7 +27,16 @@ Asyst.Reports = function(options){
     };
 
     that.init = function(){
-        that.loader_add();
+        that.data.reportcenter = new Reports({
+            containerid: that.data.containerid,
+            filters: that.data.filters,
+            reports: that.data.reports,
+            loader: Asyst.ImageLoader,
+            defaults: {
+                favorite: that.data.favorite
+            }
+        });
+        /*
         that.loadFilters(function(){
             that.loadReports(function(){
                 that.loader_remove();
@@ -42,6 +51,7 @@ Asyst.Reports = function(options){
                 });
             });
         });
+        */
     };
     that.init();
     return that;
