@@ -7,42 +7,36 @@
 <body>
 <script src="charts/ktChart/data/orgChartData.js"></script>
 <script>
-    var data = orgChartData,
-        n = 0,
-        maxn = 0,
-        root = data.filter(function(d){ return d.parent == null; });
-
-    function level(array, n){
+    var data = orgChartData;
+    calculate_y(data.filter(function(d){ return d.parent == null; }), 1);
+    calculate_x();
+    function calculate_y(array, n){
         if (array.length != 0) {
-            if (maxn < n) {
-                maxn = n;
-            }
             array.forEach(function(item) {
-                item.level = n;
+                item.y = n;
                 var children = data.filter(function(d){ return d.parent == item.id; });
-                level(children, n+1, maxn);
+                calculate_y(children, n+1);
             });
         }
-    };
-
-    level(root, n+1, maxn);
-
-    var hist = {};
-    data.map(function(a){ if (a.level in hist) hist[a.level].push(a); else hist[a.level] = []; });
-    console.log(hist);
-
-    var max_count = 0,
-        max_count_level = 0;
-    for (var key in hist) {
-        var count = hist[key].length;
-        if (count > max_count) {
-            max_count = count;
-            max_count_level = key;
-        }
     }
-    console.log(max_count_level);
-    console.log(max_count);
-
+    function calculate_x(){
+        var data_count_by_y = {};
+        data.map(function(a){
+            if (a.y in data_count_by_y) {
+                a.x = data_count_by_y[a.y];
+                data_count_by_y[a.y] ++;
+            } else {
+                a.x = 0;
+                data_count_by_y[a.y] = 0;
+            }
+        });
+        var arr = Object.keys( data_count_by_y ).map(function ( key ) { return data_count_by_y[key]; });
+        var min = Math.min.apply( null, arr );
+        var max = Math.max.apply( null, arr );
+        data.map(function(item){
+            item.x = item.x + max/2 - data_count_by_y[item.y]/2;
+        });
+    }
 </script>
 </body>
 </html>
