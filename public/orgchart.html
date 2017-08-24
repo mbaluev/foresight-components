@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="charts/ktChart/data/orgChartData.js"></script>
+<script>
+    var data = orgChartData,
+        n = 0,
+        maxn = 0,
+        root = data.filter(function(d){ return d.parent == null; });
+    level(root, n+1, maxn);
+    function level(array, n){
+        if (array.length != 0) {
+            if (maxn < n) {
+                maxn = n;
+            }
+            array.forEach(function(item) {
+                item.level = n;
+                var children = data.filter(function(d){ return d.parent == item.id; });
+                level(children, n+1, maxn);
+            });
+        }
+    };
+</script>
+</body>
+</html>
