@@ -11,7 +11,7 @@
         n = 0,
         maxn = 0,
         root = data.filter(function(d){ return d.parent == null; });
-    level(root, n+1, maxn);
+
     function level(array, n){
         if (array.length != 0) {
             if (maxn < n) {
@@ -24,6 +24,25 @@
             });
         }
     };
+
+    level(root, n+1, maxn);
+
+    var hist = {};
+    data.map(function(a){ if (a.level in hist) hist[a.level].push(a); else hist[a.level] = []; });
+    console.log(hist);
+
+    var max_count = 0,
+        max_count_level = 0;
+    for (var key in hist) {
+        var count = hist[key].length;
+        if (count > max_count) {
+            max_count = count;
+            max_count_level = key;
+        }
+    }
+    console.log(max_count_level);
+    console.log(max_count);
+
 </script>
 </body>
 </html>
