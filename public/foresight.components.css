@@ -2037,6 +2037,25 @@ body {
           flex: 1 1 auto;
 }
 
+.input .input__control {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  transition: unset;
+  height: auto;
+  margin: 0;
+  line-height: 30px;
+  padding: 0 10px;
+  font-size: 13px;
+  color: #333;
+  font-family: 'ProximaNova-Regular' !important;
+}
+
+.input.input_focused .input__control {
+  box-shadow: none;
+}
+
 .input__control::-ms-clear {
   display: none;
 }
