@@ -3,8 +3,7 @@ Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
         containerid: null,
-        library_pagename: null,
-        library_title: null,
+        libraries: null,
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
@@ -70,19 +69,36 @@ Asyst.Dashboard = function(options){
         Asyst.APIv2.DataSet.load({
             name: 'WidgetLibrary',
             data: {
-                PageName: that.data.library_pagename
+                PageName: that.data.libraries.join(',')
             },
             success: function(data){
                 var items = [];
                 if (data[0]) {
-                    items = data[0];
+                    var libs = {};
+                    data[0].map(function(d){
+                        if (d.pageId in libs) {
+                            libs[d.pageId].items.push({
+                                value: d.metaPageElementName,
+                                text: d.metaPageElementTitle
+                            });
+                        } else {
+                            libs[d.pageId] = {
+                                value: d.metaPageName,
+                                text: d.metaPageTitle,
+                                items: [{
+                                    value: d.metaPageElementName,
+                                    text: d.metaPageElementTitle
+                                }]
+                            };
+                        }
+                    });
+                    for (var pageId in libs) {
+                        that.data.library.push(libs[pageId]);
+                    }
+                    if (typeof callback == 'function') { callback(); }
+                } else {
+                    console.log(data);
                 }
-                that.data.library.push({
-                    value: that.data.library_pagename,
-                    text: that.data.library_title,
-                    items: items
-                });
-                if (typeof callback == 'function') { callback(); }
             },
             error: function(data){ console.log(data); }
         });
