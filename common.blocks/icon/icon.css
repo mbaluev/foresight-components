@@ -229,9 +229,15 @@
     min-width: 8px !important;
     line-height: 8px;
     border-radius: 4px;
-    background-color: #333;
+    background-color: #ddd;
 }
 .icon__circle:empty:after {
     visibility: hidden;
     content: '\00A0';
+}
+.icon__circle_grey {
+    background-color: #ddd;
+}
+.icon__circle_blue {
+    background-color: #5a97f2;
 }

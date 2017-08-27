@@ -1260,6 +1260,713 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'widget', target : self });
+                    var that = this.obj = {};
+                    that.const = {
+                        CONTENT_LOADING: '<span class="spinner"></span>',
+                        CONTENT_NODATA: 'Нет данных',
+                        CONTENT_ERROR: 'Ошибка загрузки',
+                        BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_PURPLE: '#8e6bf5',
+                        BORDER_COLOR_RED: '#ff5940',
+                        CONTENT_TYPE_TEXT: 'text',
+                        CONTENT_TYPE_HTML: 'html',
+                        CONTENT_TYPE_COUNT: 'count'
+                    };
+                    that.defaults = {
+                        collapsed: false,
+                        color: that.const.BORDER_COLOR_DEFAULT,
+                        content: that.const.CONTENT_NODATA,
+                        mode: 'view',
+                        loader: null,
+                        reloadable: false
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+                    that.data._el = {
+                        button_collapse: $([
+                            '<button class="button button_collapse" type="button" data-tooltip="' + that.data.name + '">',
+                            '<span class="button__text">' + that.data.name + '</span>',
+                            '<span class="icon icon_svg_down"></span>',
+                            '<span class="button__anim"></span>',
+                            '</button>'
+                        ].join('')).button(),
+                        buttons: []
+                    };
+
+                    that.destroy = function(){
+                        that.data._el.button_collapse.button('destroy');
+                        that.data._el.buttons.forEach(function(button){
+                            button.button('destroy');
+                        });
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.render = function(){
+                        var $template = $(
+                                '<div class="widget__header">' +
+                                    '<div class="widget__header-name"></div>' +
+                                    '<div class="widget__header-actions"></div>' +
+                                '</div>' +
+                                '<div class="widget__border">' +
+                                    '<div class="widget__body">' +
+                                        '<div class="widget__body-data"></div>' +
+                                    '</div>' +
+                                '</div>');
+                        self.append($template);
+                        that.set_color();
+                        if (!that.data.collapsed) {
+                            that.set_content();
+                        }
+                    };
+                    that.render_buttons = function(){
+                        if (that.data.name) {
+                            self.find('.widget__header-name').append(that.data._el.button_collapse);
+                        }
+                        if (that.data.buttons){
+                            that.data.buttons.forEach(function(button){
+                                var $button = $([
+                                    '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
+                                    '<span class="icon ' + button.icon + '"></span>',
+                                    '<span class="button__anim"></span>',
+                                    '</button>'
+                                ].join('')).button();
+                                $button.on('click', function(){
+                                    button.click(self, _.omitBy(that.data, function(val, key){
+                                        return (key.substring(0,1) == '_');
+                                    }));
+                                });
+                                self.find('.widget__header-actions').append($button);
+                                button._el = $button;
+                                that.data._el.buttons.push($button);
+                            });
+                        }
+                    };
+
+                    that.set_name = function(){
+                        that.data._el.button_collapse.find('.button__text').text(that.data.name);
+                        that.data._el.button_collapse.attr('data-tooltip', that.data.name);
+                        that.data._el.button_collapse.data('tooltip', that.data.name);
+                    };
+                    that.set_color = function(){
+                        var $border = self.find('.widget__border');
+                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_default');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_purple');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_RED) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_red');
+                        }
+                        else {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.css({
+                                'border-color': that.data.color,
+                                //'color': that.data.color
+                            });
+                        }
+                    };
+                    that.set_content = function(){
+                        var $body = self.find('.widget__body'),
+                            $bodydata = self.find('.widget__body-data');
+                        if (typeof that.data.loader == 'function') {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
+                            $bodydata.html(that.const.CONTENT_LOADING);
+                            that.data.content = new that.data.loader({
+                                data: _.omitBy(that.data, function(val, key){
+                                    return (key.substring(0,1) == '_');
+                                }),
+                                target: self,
+                                success: function(content){
+                                    $body.removeClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_html');
+                                    $bodydata.html(content);
+                                },
+                                error: function(msg){
+                                    $body.addClass('widget__body_align_center');
+                                    $bodydata.addClass('widget__body-data_type_text');
+                                    $bodydata.html(msg);
+                                }
+                            });
+                            that.data.content.loadContent();
+                        } else {
+                            $body.addClass('widget__body_align_center');
+                            $bodydata.addClass('widget__body-data_type_text');
+                            $bodydata.html(that.const.CONTENT_NODATA);
+                        }
+                    };
+                    that.set_width = function(){
+                        if (that.data.width) {
+                            self.css({
+                                width: that.data.width
+                            });
+                        }
+                    };
+                    that.set_height = function(){
+                        if (that.data.height) {
+                            self.css({
+                                height: that.data.height
+                            });
+                        }
+                    };
+
+                    that.collapse = function(){
+                        self.addClass('widget_collapsed');
+                        that.data.collapsed = true;
+                    };
+                    that.expand = function(){
+                        self.removeClass('widget_collapsed');
+                        that.data.collapsed = false;
+                        if (that.data.content == that.const.CONTENT_NODATA && that.data.reloadable) {
+                            setTimeout(function(){
+                                that.set_content();
+                            }, 501);
+                        }
+                    };
+                    that.toggle = function(){
+                        self.toggleClass('widget_collapsed');
+                        that.data.collapsed = !that.data.collapsed;
+                        if (that.data.collapsed) {
+                            that.collapse();
+                        } else {
+                            that.expand();
+                        }
+                    };
+
+                    that.edit_mode = function(){
+                        if (that.data.name) {
+                            that.data._el.button_collapse.button('disable');
+                        }
+                        that.data.mode = 'edit';
+                    };
+                    that.view_mode = function(){
+                        if (that.data.name) {
+                            that.data._el.button_collapse.button('enable');
+                        }
+                        that.data.mode = 'view';
+                    };
+
+                    that.bind = function(){
+                        if (that.data.name) {
+                            that.data._el.button_collapse.on('click.widget', that.toggle);
+                        }
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-tooltip]').tooltip();
+                    };
+                    that.init = function(){
+                        if (self.children().length == 0) {
+                            that.render();
+                        }
+                        that.render_buttons();
+                        that.init_components();
+                        that.bind();
+                        if (that.data.mode == 'view') {
+                            that.view_mode();
+                        } else {
+                            that.edit_mode();
+                        }
+                        that.set_width();
+                        that.set_height();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        collapse : function() {
+            return this.each(function() {
+                this.obj.collapse();
+            });
+        },
+        expand : function() {
+            return this.each(function() {
+                this.obj.expand();
+            });
+        },
+        toggle : function() {
+            return this.each(function() {
+                this.obj.toggle();
+            });
+        },
+        edit_mode : function() {
+            return this.each(function() {
+                this.obj.edit_mode();
+            });
+        },
+        view_mode : function() {
+            return this.each(function() {
+                this.obj.view_mode();
+            });
+        },
+        set_name : function() {
+            return this.each(function() {
+                this.obj.set_name();
+            });
+        },
+        set_color : function() {
+            return this.each(function() {
+                this.obj.set_color();
+            });
+        },
+        set_content : function() {
+            return this.each(function() {
+                this.obj.set_content();
+            });
+        }
+    };
+    $.fn.widget = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.widget' );
+        }
+    };
+})( jQuery );
+
+$(function(){
+    $('[data-fc="widget"]').widget();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'carousel', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        autoPlay: true,
+                        autoPlayDelay: 2500,
+                        animationSpeed: 500,
+                        allowPlayOnHover: false,
+                        circleEnable: true,
+                        circlePosition: 'bottom'
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+                    that.data._el = {
+                        carousel__container: null,
+                        carousel__items: null,
+                        button_prev: null,
+                        button_next: null,
+                        carousel__circles: null,
+                        carousel__item_list: [],
+                        button_circle_list: []
+                    };
+                    that.data._private = {
+                        sliderTimer: null,
+                        allowManipulations: true,
+                        i: 0,
+                        j: 0,
+                        n: 0
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.set_width = function(value){
+                        self.css({ width: value });
+                    };
+                    that.set_height = function(value){
+                        self.css({ height: value });
+                    };
+
+                    that.render_carousel = function(){
+                        that.data._el.carousel__container = $('<div class="carousel__container"></div>');
+                        that.data._el.carousel__items = $('<div class="carousel__items"></div>');
+                        that.data._el.button_prev = $([
+                            '<button class="button button_prev" type="button" data-fc="button">',
+                            '<span class="icon icon_svg_left"></span>',
+                            '</button>'
+                        ].join(''));
+                        that.data._el.button_next = $([
+                            '<button class="button button_next" type="button" data-fc="button">',
+                            '<span class="icon icon_svg_right"></span>',
+                            '</button>'
+                        ].join(''));
+                        that.data._el.carousel__circles = $('<div class="carousel__circles"></div>');
+                        that.data.items.forEach(function(item){
+                            var $item = $([
+                                '<div class="carousel__item">',
+                                '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
+                                '</div>'
+                            ].join(''));
+                            that.data._el.carousel__items.append($item);
+                            that.data._el.carousel__item_list.push($item);
+                            var $button = $([
+                                '<button class="button button_circle" type="button" data-fc="button">',
+                                '<span class="icon">',
+                                '<span class="icon icon__circle"></span>',
+                                '</span>',
+                                '</button>'
+                            ].join('')).button();
+                            that.data._el.carousel__circles.append($button);
+                            that.data._el.button_circle_list.push($button);
+                        });
+                        self.append(
+                            that.data._el.carousel__container.append(
+                                that.data._el.button_prev,
+                                that.data._el.carousel__items,
+                                that.data._el.button_next
+                            ),
+                            that.data._el.carousel__circles
+                        );
+                    };
+
+                    that.activate = function(){
+                        that.data._private.i = that.data._el.carousel__item_list.length;
+                        that.data._private.j = 0;
+                        that.data._private.n = that.data._el.carousel__item_list.length;
+                        initialize();
+                        initSwipe();
+                        function initialize(){
+                            if (that.data._private.n > 1) {
+                                that.data._el.carousel__item_list.forEach(function(item, i){
+                                    $(item).css('display', 'none');
+                                })
+                                $(that.data._el.carousel__item_list[0]).removeAttr('style');
+                                if (that.data.circleEnable) {
+                                    bindCircles();
+                                    bindArrows();
+                                }
+                                if (that.data.autoPlay) {
+                                    that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                    if (!that.data.allowPlayOnHover) {
+                                        self.hover(function() {
+                                            clearInterval(that.data._private.sliderTimer);
+                                        },function() {
+                                            that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                        });
+                                    }
+                                }
+                            }
+                        }
+                        function bindCircles(){
+                            that.data._el.button_circle_list.forEach(function(button, i){
+                                var $circle = $(button).find('.icon__circle');
+                                $circle.attr('class',$circle.attr('class').replace(/\icon__circle_.*?\b/g, ''));
+                                $circle.addClass('icon__circle_grey');
+                                if (i == 0) {
+                                    $circle.addClass('icon__circle_blue');
+                                }
+                                $(button).bind({
+                                    'click': function(){
+                                        if (that.data._private.allowManipulations) {
+                                            if (that.data._private.j != i) {
+                                                if (!that.data.allowPlayOnHover) {
+                                                    that.data._private.i = that.data._private.j;
+                                                    that.data._private.j = i;
+                                                    goToSlide(that.data._private.i, that.data._private.j);
+                                                } else {
+                                                    clearInterval(that.data._private.sliderTimer);
+                                                    that.data._private.i = that.data._private.j;
+                                                    that.data._private.j = i;
+                                                    goToSlide(that.data._private.i, that.data._private.j, function(){
+                                                        that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    },
+                                });
+                            });
+                        }
+                        function bindArrows(){
+                            that.data._el.button_prev.bind({
+                                'click': function(){
+                                    if (that.data._private.allowManipulations) {
+                                        prev();
+                                        if (!that.data.allowPlayOnHover) {
+                                            goToSlide(that.data._private.i, that.data._private.j);
+                                        } else {
+                                            clearInterval(that.data._private.sliderTimer);
+                                            goToSlide(that.data._private.i, that.data._private.j, function(){
+                                                that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                            that.data._el.button_next.bind({
+                                'click': function(){
+                                    if (that.data._private.allowManipulations) {
+                                        next();
+                                        if (!that.data.allowPlayOnHover) {
+                                            goToSlide(that.data._private.i, that.data._private.j);
+                                        } else {
+                                            clearInterval(that.data._private.sliderTimer);
+                                            goToSlide(that.data._private.i, that.data._private.j, function(){
+                                                that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        function initSwipe(){
+                            that.data._el.carousel__item_list.forEach(function(item){
+                                $(item).touchwipe({
+                                    wipeLeft: function() {
+                                        if (that.data._private.allowManipulations) {
+                                            if (that.data._private.i < that.data._private.n-1) {
+                                                clearInterval(that.data._private.sliderTimer);
+                                                goToSlide(that.data._private.i, that.data._private.i+1, function(){
+                                                    that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                                });
+                                            }
+                                        }
+                                    },
+                                    wipeRight: function() {
+                                        if (that.data._private.allowManipulations) {
+                                            if (that.data._private.i > 0) {
+                                                clearInterval(that.data._private.sliderTimer);
+                                                goToSlide(that.data._private.i, that.data._private.i-1, function(){
+                                                    that.data._private.sliderTimer = setInterval(iterate, that.data.autoPlayDelay);
+                                                });
+                                            }
+                                        }
+                                    },
+                                    preventDefaultEvents: false
+                                });
+                            })
+                        }
+                        function iterate(){
+                            next();
+                            goToSlide(that.data._private.i, that.data._private.j);
+                        }
+                        function next(){
+                            var j = that.data._private.j;
+                            that.data._private.i = j;
+                            j++;
+                            if (j == that.data._private.n) { j = 0; }
+                            that.data._private.j = j;
+
+                        };
+                        function prev(){
+                            var j = that.data._private.j;
+                            that.data._private.i = j;
+                            j--;
+                            if (j < 0) { j = that.data._private.n - 1; }
+                            that.data._private.j = j;
+                        };
+                        function goToSlide(gti, gtj, callback){
+                            that.data._private.allowManipulations = false;
+                            var $circlei = $(that.data._el.button_circle_list[gti]).find('.icon__circle');
+                            var $circlej = $(that.data._el.button_circle_list[gtj]).find('.icon__circle');
+                            if (gti < gtj) {
+                                $(that.data._el.carousel__item_list[gti])
+                                    .animate({left: '-100%'}, that.data.animationSpeed, function(){
+                                        $(this).css('display','none').css('left','0');
+                                        if (that.data.circleEnable) {
+                                            $circlei.attr('class',$circlei.attr('class').replace(/\icon__circle_.*?\b/g, ''));
+                                            $circlei.addClass('icon__circle_grey');
+                                        }
+                                    });
+                                $(that.data._el.carousel__item_list[gtj]).removeAttr('style').css('left','100%')
+                                    .animate({left: '0'}, that.data.animationSpeed, function(){
+                                        if (that.data.circleEnable) {
+                                            $circlej.attr('class',$circlej.attr('class').replace(/\icon__circle_.*?\b/g, ''));
+                                            $circlej.addClass('icon__circle_blue');
+                                        }
+                                        if (callback) { callback(); }
+                                        that.data._private.allowManipulations = true;
+                                    });
+                            } else {
+                                $(that.data._el.carousel__item_list[gti])
+                                    .animate({left: '100%'}, that.data.animationSpeed, function(){
+                                        $(this).css('display','none').css('left','0');
+                                        if (that.data.circleEnable) {
+                                            $circlei.attr('class',$circlei.attr('class').replace(/\icon__circle_.*?\b/g, ''));
+                                            $circlei.addClass('icon__circle_grey');
+                                        }
+                                    });
+                                $(that.data._el.carousel__item_list[gtj]).removeAttr('style').css('left','-100%')
+                                    .animate({left: '0'}, that.data.animationSpeed, function(){
+                                        if (that.data.circleEnable) {
+                                            $circlej.attr('class',$circlej.attr('class').replace(/\icon__circle_.*?\b/g, ''));
+                                            $circlej.addClass('icon__circle_blue');
+                                        }
+                                        if (callback) { callback(); }
+                                        that.data._private.allowManipulations = true;
+                                    });
+                            }
+                        }
+                    };
+
+                    that.init_carousel = function(){
+                        that.data._el.carousel__container = self.find('.carousel__container');
+                        that.data._el.carousel__items = self.find('.carousel__items');
+                        that.data._el.button_prev = self.find('.button_prev');
+                        that.data._el.button_next = self.find('.button_next');
+                        that.data._el.carousel__circles = self.find('.carousel__circles');
+                        self.find('.carousel__item').each(function(i, item){
+                            that.data._el.carousel__item_list.push($(item));
+                        });
+                        self.find('.button_circle').each(function(i, button){
+                            that.data._el.button_circle_list.push($(button));
+                        });
+                        if (that.data._el.carousel__item_list.length != that.data._el.button_circle_list.length) {
+                            that.data._el.carousel__item_list.forEach(function(item, i){
+                                if (typeof that.data._el.button_circle_list[i] == typeof undefined) {
+                                    var $button = $([
+                                        '<button class="button button_circle" type="button" data-fc="button">',
+                                        '<span class="icon">',
+                                        '<span class="icon icon__circle"></span>',
+                                        '</span>',
+                                        '</button>'
+                                    ].join('')).button();
+                                    that.data._el.carousel__circles.append($button);
+                                    that.data._el.button_circle_list.push($button);
+                                }
+                            });
+                            that.data._el.button_circle_list.forEach(function(button, i){
+                                if (typeof that.data._el.carousel__item_list[i] == typeof undefined) {
+                                    $(button).remove();
+                                }
+                            });
+                        }
+                    };
+                    that.init_components = function(){
+                        self.find('[data-fc="button"]').button();
+                    };
+                    that.init = function() {
+                        that.set_width(that.data.width);
+                        that.set_height(that.data.height);
+                        if (self.children().length == 0) {
+                            that.render_carousel();
+                        } else {
+                            that.init_carousel();
+                        }
+                        that.init_components();
+                        that.activate();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.carousel = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.carousel' );
+        }
+    };
+})( jQuery );
+
+(function($) {
+    $.fn.touchwipe = function(settings) {
+        var config = {
+            min_move_x: 20,
+            min_move_y: 20,
+            wipeLeft: function() { },
+            wipeRight: function() { },
+            wipeUp: function() { },
+            wipeDown: function() { },
+            preventDefaultEvents: true
+        };
+        if (settings) $.extend(config, settings);
+        this.each(function() {
+            var startX;
+            var startY;
+            var isMoving = false;
+            function cancelTouch() {
+                this.removeEventListener('touchmove', onTouchMove);
+                startX = null;
+                isMoving = false;
+            }
+            function onTouchMove(e) {
+                if(config.preventDefaultEvents) {
+                    e.preventDefault();
+                }
+                if(isMoving) {
+                    var x = e.touches[0].pageX;
+                    var y = e.touches[0].pageY;
+                    var dx = startX - x;
+                    var dy = startY - y;
+                    if(Math.abs(dx) >= config.min_move_x) {
+                        cancelTouch();
+                        if(dx > 0) {
+                            config.wipeLeft();
+                        } else {
+                            config.wipeRight();
+                        }
+                    }
+                    else if(Math.abs(dy) >= config.min_move_y) {
+                        cancelTouch();
+                        if(dy > 0) {
+                            config.wipeDown();
+                        } else {
+                            config.wipeUp();
+                        }
+                    }
+                }
+            }
+            function onTouchStart(e) {
+                if (e.touches.length == 1) {
+                    startX = e.touches[0].pageX;
+                    startY = e.touches[0].pageY;
+                    isMoving = true;
+                    this.addEventListener('touchmove', onTouchMove, false);
+                }
+            }
+            if ('ontouchstart' in document.documentElement) {
+                this.addEventListener('touchstart', onTouchStart, false);
+            }
+        });
+        return this;
+    };
+})(jQuery);
+
+$(function(){
+    $('[data-fc="carousel"]').carousel();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'checkbox', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -3168,303 +3875,6 @@ $(function(){
 
 $(function(){
     $('[data-fc="tab"]').tabs();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'widget', target : self });
-                    var that = this.obj = {};
-                    that.const = {
-                        CONTENT_LOADING: '<span class="spinner"></span>',
-                        CONTENT_NODATA: 'Нет данных',
-                        CONTENT_ERROR: 'Ошибка загрузки',
-                        BORDER_COLOR_BLUE: '#5a97f2',
-                        BORDER_COLOR_DEFAULT: '#ccc',
-                        BORDER_COLOR_PURPLE: '#8e6bf5',
-                        BORDER_COLOR_RED: '#ff5940',
-                        CONTENT_TYPE_TEXT: 'text',
-                        CONTENT_TYPE_HTML: 'html',
-                        CONTENT_TYPE_COUNT: 'count'
-                    };
-                    that.defaults = {
-                        collapsed: false,
-                        color: that.const.BORDER_COLOR_DEFAULT,
-                        content: that.const.CONTENT_NODATA,
-                        mode: 'view',
-                        loader: null,
-                        reloadable: false
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-                    that.data._el = {
-                        button_collapse: $([
-                            '<button class="button button_collapse" type="button" data-tooltip="' + that.data.name + '">',
-                            '<span class="button__text">' + that.data.name + '</span>',
-                            '<span class="icon icon_svg_down"></span>',
-                            '<span class="button__anim"></span>',
-                            '</button>'
-                        ].join('')).button(),
-                        buttons: []
-                    };
-
-                    that.destroy = function(){
-                        that.data._el.button_collapse.button('destroy');
-                        that.data._el.buttons.forEach(function(button){
-                            button.button('destroy');
-                        });
-                        self.removeData();
-                        self.remove();
-                    };
-
-                    that.render = function(){
-                        var $template = $(
-                                '<div class="widget__header">' +
-                                    '<div class="widget__header-name"></div>' +
-                                    '<div class="widget__header-actions"></div>' +
-                                '</div>' +
-                                '<div class="widget__border">' +
-                                    '<div class="widget__body">' +
-                                        '<div class="widget__body-data"></div>' +
-                                    '</div>' +
-                                '</div>');
-                        self.append($template);
-                        that.set_color();
-                        if (!that.data.collapsed) {
-                            that.set_content();
-                        }
-                    };
-                    that.render_buttons = function(){
-                        if (that.data.name) {
-                            self.find('.widget__header-name').append(that.data._el.button_collapse);
-                        }
-                        if (that.data.buttons){
-                            that.data.buttons.forEach(function(button){
-                                var $button = $([
-                                    '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
-                                    '<span class="icon ' + button.icon + '"></span>',
-                                    '<span class="button__anim"></span>',
-                                    '</button>'
-                                ].join('')).button();
-                                $button.on('click', function(){
-                                    button.click(self, _.omitBy(that.data, function(val, key){
-                                        return (key.substring(0,1) == '_');
-                                    }));
-                                });
-                                self.find('.widget__header-actions').append($button);
-                                button._el = $button;
-                                that.data._el.buttons.push($button);
-                            });
-                        }
-                    };
-
-                    that.set_name = function(){
-                        that.data._el.button_collapse.find('.button__text').text(that.data.name);
-                        that.data._el.button_collapse.attr('data-tooltip', that.data.name);
-                        that.data._el.button_collapse.data('tooltip', that.data.name);
-                    };
-                    that.set_color = function(){
-                        var $border = self.find('.widget__border');
-                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_blue');
-                        }
-                        else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_default');
-                        }
-                        else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_purple');
-                        }
-                        else if (that.data.color === that.const.BORDER_COLOR_RED) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_red');
-                        }
-                        else {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.css({
-                                'border-color': that.data.color,
-                                //'color': that.data.color
-                            });
-                        }
-                    };
-                    that.set_content = function(){
-                        var $body = self.find('.widget__body'),
-                            $bodydata = self.find('.widget__body-data');
-                        if (typeof that.data.loader == 'function') {
-                            $body.addClass('widget__body_align_center');
-                            $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
-                            $bodydata.html(that.const.CONTENT_LOADING);
-                            that.data.content = new that.data.loader({
-                                data: _.omitBy(that.data, function(val, key){
-                                    return (key.substring(0,1) == '_');
-                                }),
-                                target: self,
-                                success: function(content){
-                                    $body.removeClass('widget__body_align_center');
-                                    $bodydata.addClass('widget__body-data_type_html');
-                                    $bodydata.html(content);
-                                },
-                                error: function(msg){
-                                    $body.addClass('widget__body_align_center');
-                                    $bodydata.addClass('widget__body-data_type_text');
-                                    $bodydata.html(msg);
-                                }
-                            });
-                            that.data.content.loadContent();
-                        } else {
-                            $body.addClass('widget__body_align_center');
-                            $bodydata.addClass('widget__body-data_type_text');
-                            $bodydata.html(that.const.CONTENT_NODATA);
-                        }
-                    };
-                    that.set_width = function(){
-                        if (that.data.width) {
-                            self.css({
-                                width: that.data.width
-                            });
-                        }
-                    };
-                    that.set_height = function(){
-                        if (that.data.height) {
-                            self.css({
-                                height: that.data.height
-                            });
-                        }
-                    };
-
-                    that.collapse = function(){
-                        self.addClass('widget_collapsed');
-                        that.data.collapsed = true;
-                    };
-                    that.expand = function(){
-                        self.removeClass('widget_collapsed');
-                        that.data.collapsed = false;
-                        if (that.data.content == that.const.CONTENT_NODATA && that.data.reloadable) {
-                            setTimeout(function(){
-                                that.set_content();
-                            }, 501);
-                        }
-                    };
-                    that.toggle = function(){
-                        self.toggleClass('widget_collapsed');
-                        that.data.collapsed = !that.data.collapsed;
-                        if (that.data.collapsed) {
-                            that.collapse();
-                        } else {
-                            that.expand();
-                        }
-                    };
-
-                    that.edit_mode = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.button('disable');
-                        }
-                        that.data.mode = 'edit';
-                    };
-                    that.view_mode = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.button('enable');
-                        }
-                        that.data.mode = 'view';
-                    };
-
-                    that.bind = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.on('click.widget', that.toggle);
-                        }
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-tooltip]').tooltip();
-                    };
-                    that.init = function(){
-                        if (self.children().length == 0) {
-                            that.render();
-                        }
-                        that.render_buttons();
-                        that.init_components();
-                        that.bind();
-                        if (that.data.mode == 'view') {
-                            that.view_mode();
-                        } else {
-                            that.edit_mode();
-                        }
-                        that.set_width();
-                        that.set_height();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        collapse : function() {
-            return this.each(function() {
-                this.obj.collapse();
-            });
-        },
-        expand : function() {
-            return this.each(function() {
-                this.obj.expand();
-            });
-        },
-        toggle : function() {
-            return this.each(function() {
-                this.obj.toggle();
-            });
-        },
-        edit_mode : function() {
-            return this.each(function() {
-                this.obj.edit_mode();
-            });
-        },
-        view_mode : function() {
-            return this.each(function() {
-                this.obj.view_mode();
-            });
-        },
-        set_name : function() {
-            return this.each(function() {
-                this.obj.set_name();
-            });
-        },
-        set_color : function() {
-            return this.each(function() {
-                this.obj.set_color();
-            });
-        },
-        set_content : function() {
-            return this.each(function() {
-                this.obj.set_content();
-            });
-        }
-    };
-    $.fn.widget = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.widget' );
-        }
-    };
-})( jQuery );
-
-$(function(){
-    $('[data-fc="widget"]').widget();
 });
 (function($){
     var methods = {
