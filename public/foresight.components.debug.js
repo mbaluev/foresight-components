@@ -1565,7 +1565,9 @@ $(function(){
                         animationSpeed: 500,
                         allowPlayOnHover: false,
                         circleEnable: true,
-                        circlePosition: 'bottom'
+                        circlePosition: 'bottom',
+                        maxTextLength: 100,
+                        items: []
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1618,6 +1620,9 @@ $(function(){
                         ].join(''));
                         that.data._el.carousel__circles = $('<div class="carousel__circles"></div>');
                         that.data.items.forEach(function(item){
+                            if (item.text.length > that.data.maxTextLength) {
+                                item.text = item.text.substr(0, that.data.maxTextLength) + '...';
+                            }
                             var $item = $([
                                 '<div class="carousel__item">',
                                 '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
@@ -1832,6 +1837,15 @@ $(function(){
                         that.data._el.button_next = self.find('.button_next');
                         that.data._el.carousel__circles = self.find('.carousel__circles');
                         self.find('.carousel__item').each(function(i, item){
+                            var it = {
+                                text: $(this).find('.carousel__item-text').text(),
+                                url: $(this).find('.carousel__item-text').attr('href')
+                            };
+                            that.data.items.push(it);
+                            if (it.text.length > that.data.maxTextLength) {
+                                it.text = it.text.substr(0, that.data.maxTextLength) + '...';
+                                $(this).find('.carousel__item-text').text(it.text);
+                            }
                             that.data._el.carousel__item_list.push($(item));
                         });
                         self.find('.button_circle').each(function(i, button){
