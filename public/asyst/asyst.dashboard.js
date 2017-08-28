@@ -26,7 +26,9 @@ Asyst.Dashboard = function(options){
                 PageName: that.data.page.pageName,
                 Items: JSON.stringify(that.data.items)
             },
-            success: function(data){ console.log(data); },
+            success: function(data){
+                that.data.userdashboardid = data.id;
+            },
             error: function(data){ console.log(data); }
         });
     };
