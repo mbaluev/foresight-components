@@ -246,6 +246,16 @@ $(function(){
                 this.obj.enable();
             });
         },
+        unhover : function() {
+            return this.each(function() {
+                this.obj.unhover();
+            });
+        },
+        hover : function() {
+            return this.each(function() {
+                this.obj.hover();
+            });
+        },
         hide : function() {
             return this.each(function() {
                 this.obj.hide();
@@ -704,6 +714,7 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         items: [],
+                        single: false,
                         loader: null,
                         library: null,
                         widget_buttons: [],
@@ -885,6 +896,9 @@ $(function(){
 
                     that.create = function(){
                         if (self.hasClass('grid-stack')) {
+                            if (that.data.single) {
+                                self.addClass('widget-grid_single');
+                            }
                             self.gridstack(that.data.grid);
                             that.data._el.grid = self.data('gridstack');
                             return true;
@@ -944,6 +958,16 @@ $(function(){
         view_mode : function() {
             return this.each(function() {
                 this.obj.view_mode();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
             });
         },
         save : function(callback) {

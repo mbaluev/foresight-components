@@ -3,6 +3,7 @@ Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
         containerid: null,
+        multiple: true,
         libraries: null,
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
@@ -124,6 +125,7 @@ Asyst.Dashboard = function(options){
                 that.loader_remove();
                 that.data.dashboard = new Dashboard({
                     containerid: that.data.containerid,
+                    single: false,
                     items: that.data.items,
                     library: that.data.library,
                     loader: Asyst.MetaElementLoader,

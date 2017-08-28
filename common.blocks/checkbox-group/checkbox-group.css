@@ -16,7 +16,7 @@
 
 .checkbox-group_type_button .checkbox .button { border-radius: 0; }
 .checkbox-group_type_button .checkbox .button:before { border-radius: 0; }
-.checkbox-group_type_button .checkbox:first-child .button { border-radius: 3px 0 0 3px; }
-.checkbox-group_type_button .checkbox:first-child .button:before { border-radius: 2px 0 0 2px; }
-.checkbox-group_type_button .checkbox:last-child .button { border-radius: 0 3px 3px 0; }
-.checkbox-group_type_button .checkbox:last-child .button:before { border-radius: 0 2px 2px 0; }
+.checkbox-group_type_button .checkbox:first-child .button { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+.checkbox-group_type_button .checkbox:first-child .button:before { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.checkbox-group_type_button .checkbox:last-child .button { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+.checkbox-group_type_button .checkbox:last-child .button:before { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }

@@ -16,10 +16,10 @@
 
 .radio-group_type_button .radio .button { border-radius: 0; }
 .radio-group_type_button .radio .button:before { border-radius: 0; }
-.radio-group_type_button .radio:first-child .button { border-radius: 3px 0 0 3px; }
-.radio-group_type_button .radio:first-child .button:before { border-radius: 2px 0 0 2px; }
-.radio-group_type_button .radio:last-child .button { border-radius: 0 3px 3px 0; }
-.radio-group_type_button .radio:last-child .button:before { border-radius: 0 2px 2px 0; }
+.radio-group_type_button .radio:first-child .button { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+.radio-group_type_button .radio:first-child .button:before { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.radio-group_type_button .radio:last-child .button { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+.radio-group_type_button .radio:last-child .button:before { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
 
 .radio-group_type_buttons {
     display: flex;

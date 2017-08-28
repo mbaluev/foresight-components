@@ -198,6 +198,16 @@
                 this.obj.enable();
             });
         },
+        unhover : function() {
+            return this.each(function() {
+                this.obj.unhover();
+            });
+        },
+        hover : function() {
+            return this.each(function() {
+                this.obj.hover();
+            });
+        },
         hide : function() {
             return this.each(function() {
                 this.obj.hide();
