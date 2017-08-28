@@ -1583,7 +1583,12 @@ $(function(){
                         button_next: null,
                         carousel__circles: null,
                         carousel__item_list: [],
-                        button_circle_list: []
+                        button_circle_list: [],
+                        widget__content_nodata: $([
+                            '<div class="widget__content widget__content_align_center">',
+                            '<div class="widget__text">Нет данных</div>',
+                            '</div>'
+                        ].join(''))
                     };
                     that.data._private = {
                         sliderTimer: null,
@@ -1648,6 +1653,14 @@ $(function(){
                             ),
                             that.data._el.carousel__circles
                         );
+                    };
+                    that.render_nodata = function(){
+                        if (that.data.items.length == 0) {
+                            self.parent().append(that.data._el.widget__content_nodata);
+                            self.remove();
+                            self = that.data._el.widget__content_nodata;
+                            self.data(that.data);
+                        }
                     };
 
                     that.activate = function(){
@@ -1883,6 +1896,7 @@ $(function(){
                         } else {
                             that.init_carousel();
                         }
+                        that.render_nodata();
                         that.init_components();
                         that.activate();
                     };

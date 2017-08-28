@@ -1499,6 +1499,13 @@ body {
   padding: 0 10px 10px;
 }
 
+.widget__text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px 10px;
+}
+
 .widget__header .button {
   font-size: 15px;
   line-height: 20px;
