@@ -782,6 +782,9 @@ $(function(){
                         });
                     };
                     that.load_widget = function(node){
+                        if (that.data.single) {
+                            node.settings.name = that.data.pagename;
+                        }
                         if (node.settings.id) {
                             node._id = node.settings.id;
                         } else {

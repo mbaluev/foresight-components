@@ -14,6 +14,7 @@ var Dashboard = function(options){
     };
     that.data = {
         single: false,
+        pagename: '',
         items: [],
         library: [],
         loader: null,
@@ -97,7 +98,7 @@ var Dashboard = function(options){
                 width: 2,
                 height: 4,
                 settings: {
-                    name: "Новый виджет",
+                    name: (that.data.single ? that.data.pagename : 'Новый виджет'),
                     collapsed: false
                 }
             };
@@ -142,6 +143,7 @@ var Dashboard = function(options){
         that.data.grid = that.data._el.target
             .widget_grid({
                 single: that.data.single,
+                pagename: that.data.pagename,
                 items: that.data.items,
                 loader: that.data.loader,
                 library: that.data.library,
@@ -185,15 +187,18 @@ var Dashboard = function(options){
                 }
             ],
             header: {
-                caption: 'Настройки виджета',
+                caption: (that.data.single ? 'Настройки страницы' : 'Настройки виджета'),
                 name: data.name
             },
             content: { tabs: [] },
             data: data
         };
-        that.settings_render_general_tab(data, modal_options.content.tabs);
-        that.settings_render_source_tab(data, modal_options.content.tabs);
-
+        if (that.data.single) {
+            that.settings_render_source_tab(data, modal_options.content.tabs, true);
+        } else {
+            that.settings_render_general_tab(data, modal_options.content.tabs, true);
+            that.settings_render_source_tab(data, modal_options.content.tabs, false);
+        }
         $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
@@ -215,11 +220,11 @@ var Dashboard = function(options){
                 $(this).modal__('destroy');
             });
     };
-    that.settings_render_general_tab = function(data, tabs){
+    that.settings_render_general_tab = function(data, tabs, active){
         tabs.push({
             id: 'general',
             name: 'Основные',
-            active: true,
+            active: active,
             content: $([
 
                 '<div class="control">' +
@@ -273,7 +278,7 @@ var Dashboard = function(options){
             ].join(''))
         });
     };
-    that.settings_render_source_tab = function(data, tabs){
+    that.settings_render_source_tab = function(data, tabs, active){
         if (data.library) {
             var $control__library = $([
                     '<div class="control">',
@@ -322,6 +327,7 @@ var Dashboard = function(options){
             tabs.push({
                 id: 'source',
                 name: 'Источник данных',
+                active: active,
                 content:
                     $('<div></div>').append($control__library, $control__widgets)
             });

@@ -126,6 +126,7 @@ Asyst.Dashboard = function(options){
                 that.data.dashboard = new Dashboard({
                     containerid: that.data.containerid,
                     single: false,
+                    pagename: that.data.page.pageName,
                     items: that.data.items,
                     library: that.data.library,
                     loader: Asyst.MetaElementLoader,
