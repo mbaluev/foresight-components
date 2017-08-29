@@ -675,7 +675,7 @@ var Settings = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid),
+        target: $('#' + that.data.containerid).addClass('widget-grid grid-stack').attr('data-gs-animate', 'true'),
         tumbler: $([
             '<span class="header__column-item tumbler" id="tumbler_edit-page">',
             '<span class="tumbler__box">',
