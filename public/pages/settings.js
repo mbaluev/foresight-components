@@ -2,8 +2,6 @@ var Settings = function(options){
     var that = this._settings = {};
     that.data = {
         settings: [],
-        widgets: [],
-        items: [],
         loader: null,
         defaults: {
             itemWidth: 2,
@@ -11,7 +9,9 @@ var Settings = function(options){
             x: 0,
             y: 0
         },
-        grid: null
+        grid: null,
+        widgets: [],
+        items: []
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -48,7 +48,7 @@ var Settings = function(options){
     that.render_grid = function(){
         var widget_grid_options = {
             items: that.data.items,
-            loader: ContentLoader
+            loader: that.data.loader
         };
         that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
     };
@@ -102,27 +102,5 @@ var Settings = function(options){
         }, 100);
     };
     that.init();
-    return that;
-};
-
-var ContentLoader = function(options){
-    var that = this.loader = {};
-    that.defaults = {
-        data: null,
-        success: null,
-        error: null,
-        content: null
-    };
-    that.data = $.extend(true, {}, that.defaults, options);
-    that.loadContent = function(){
-        if (that.data.data.content) {
-            that.data.content = that.data.data.content;
-            if (typeof that.data.success == 'function') { that.data.success(that.data.content); }
-        } else {
-            that.data.content = 'Нет данных';
-            if (typeof that.data.error == 'function') { that.data.error(that.data.content); }
-        }
-        return that.data.content;
-    };
     return that;
 };
