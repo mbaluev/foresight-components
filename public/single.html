@@ -136,7 +136,7 @@
             </div>
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
-                    <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
+                    <div class="widget-grid grid-stack" id="container" data-gs-animate="true"></div>
                 </div>
             </div>
         </div>
@@ -260,8 +260,9 @@
                 },
             ];
             var dashboard = new Dashboard({
-                containerid: 'widget-grid',
+                containerid: 'container',
                 single: true,
+                editable: false,
                 pagename: 'Single',
                 items: items,
                 library: library,

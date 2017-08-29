@@ -14,6 +14,7 @@ var Dashboard = function(options){
     };
     that.data = {
         single: false,
+        editable: true,
         pagename: '',
         items: [],
         library: [],
@@ -349,8 +350,10 @@ var Dashboard = function(options){
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
-            that.render_tumbler();
-            that.render_buttons();
+            if (that.data.editable) {
+                that.render_tumbler();
+                that.render_buttons();
+            }
             that.render_single();
             that.render_grid();
             that.loader_remove();

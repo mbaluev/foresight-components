@@ -4,6 +4,7 @@ Asyst.Dashboard = function(options){
     that.data = {
         containerid: null,
         single: false,
+        editable: true,
         libraries: null,
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
@@ -126,6 +127,7 @@ Asyst.Dashboard = function(options){
                 that.data.dashboard = new Dashboard({
                     containerid: that.data.containerid,
                     single: that.data.single,
+                    editable: that.data.editable,
                     pagename: that.data.page.pageName,
                     items: that.data.items,
                     library: that.data.library,
