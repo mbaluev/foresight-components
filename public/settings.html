@@ -150,7 +150,416 @@
     <script src="asyst/asyst.htmlloader.js"></script>
     <script>
         $(function(){
-            var settings = [];
+            var settings = [
+
+                {
+                    name: "Стадии жизненного цикла",
+                    url: "/asyst/browse/ActivityPhase?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Типовые КТ",
+                    url: "/asyst/browse/PointTemplate?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Типовые документы сущностей",
+                    url: "/asyst/browse/Document?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Циклы согласования",
+                    url: "/asyst/browse/ReviewCycle?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Согласующие",
+                    url: "/asyst/browse/Reviewer?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Отчетные мероприятия",
+                    url: "/asyst/browse/repType?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Календарь отчетных мероприятий",
+                    url: "/asyst/browse/repTypeCalendar?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Контрольный список приемки",
+                    url: "/asyst/browse/PointTemplateQuestion?showadmin=true",
+                    urltype: "_top",
+                    category: "Бизнес настройки",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Тип проекта",
+                    url: "/asyst/browse/ProjectType?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Приоритет",
+                    url: "/asyst/browse/Priority?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Цель",
+                    url: "/asyst/browse/Goal?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Тип КТ",
+                    url: "/asyst/browse/PointType?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Состояние совещания",
+                    url: "/asyst/browse/MeetingStatus?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Состояние поручения",
+                    url: "/asyst/browse/OrderStatus?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Категория риска",
+                    url: "/asyst/browse/Riskcategory?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Влияние риска",
+                    url: "/asyst/browse/RiskImpact?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Вероятность риска",
+                    url: "/asyst/browse/RiskProbability?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Состояние риска",
+                    url: "/asyst/browse/RiskState?showadmin=true",
+                    urltype: "_top",
+                    category: "Справочники системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Активность",
+                    url: "/asyst/browse/Activity?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Портфель",
+                    url: "/asyst/browse/Portfolio?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Проект",
+                    url: "/asyst/browse/Project?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "КТ",
+                    url: "/asyst/browse/Point?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Совещание",
+                    url: "/asyst/browse/Meeting?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Вопросы",
+                    url: "/asyst/browse/Question?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Поручения",
+                    url: "/asyst/browse/Order?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Риски",
+                    url: "/asyst/browse/Risk?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Мероприятия реагирования на риск",
+                    url: "/asyst/browse/RiskResponding?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Мероприятия ослабления риска",
+                    url: "/asyst/browse/RiskMitigation?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Статус-отчеты",
+                    url: "/asyst/browse/repReport?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Запросы на изменения",
+                    url: "/asyst/browse/ChangeRequest?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Документы. Файлы",
+                    url: "/asyst/browse/DocumentFile?showadmin=true",
+                    urltype: "_top",
+                    category: "Сущности системы",
+                    color: "#02cfaa"
+                },
+
+                {
+                    name: "Правила",
+                    url: "/asyst/browse/Rule?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Правила матрицы доступа",
+                    url: "/asyst/browse/AccessRule?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Матрица доступа",
+                    url: "/asyst/AccessMatrix.aspx?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Формы сбора отчетов",
+                    url: "/asyst/browse/repFormType?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Центр настроек. Категории",
+                    url: "/asyst/browse/SettingsListcategory?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Центр настроек",
+                    url: "/asyst/browse/SettingsList?showadmin=true",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Настройки почты",
+                    url: "#",
+                    urltype: "_top",
+                    category: "Системные настройки",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Пользователи системы",
+                    url: "/asyst/browse/User?showadmin=true",
+                    urltype: "_top",
+                    category: "Пользователи и разрешения",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Группы безопасности",
+                    url: "/asyst/browse/Group?showadmin=true",
+                    urltype: "_top",
+                    category: "Пользователи и разрешения",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Оргструктура",
+                    url: "/asyst/browse/OrgUnit?showadmin=true",
+                    urltype: "_top",
+                    category: "Пользователи и разрешения",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Центр справочников. Категории ",
+                    url: "/asyst/browse/EnumListcategory?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройки галерей",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Центр отчетов",
+                    url: "/asyst/browse/ReportList?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройки галерей",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Центр отчетов. Категории",
+                    url: "/asyst/browse/ReportListcategory?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройки галерей",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Центр справочников",
+                    url: "/asyst/browse/EnumList?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройки галерей",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Месяцы",
+                    url: "/asyst/browse/D_Month?showadmin=true",
+                    urltype: "_top",
+                    category: "Глобальные системные настройки",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Переводы",
+                    url: "/asyst/browse/MetaTranslation?showadmin=true",
+                    urltype: "_top",
+                    category: "Глобальные системные настройки",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Изменения переводчика",
+                    url: "/asyst/browse/MLChangeLog?showadmin=true",
+                    urltype: "_top",
+                    category: "Глобальные системные настройки",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Олицетворение подразделений",
+                    url: "/asyst/browse/ImpersonateRole?showadmin=true",
+                    urltype: "_top",
+                    category: "Глобальные системные настройки",
+                    color: "#58c9f3"
+                },
+
+                {
+                    name: "Страницы",
+                    url: "/asyst/browse/MetaPage?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройка интерфейсов",
+                    color: "#ff6666"
+                },
+
+                {
+                    name: "Элементы страниц",
+                    url: "/asyst/browse/MetaPageElement?showadmin=true",
+                    urltype: "_top",
+                    category: "Настройка интерфейсов",
+                    color: "#ff6666"
+                },
+            ];
             var settingscenter = new Settings({
                 containerid: 'container',
                 settings: settings,
