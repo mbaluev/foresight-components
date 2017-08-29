@@ -21,7 +21,7 @@ var Reports = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid),
+        target: $('#' + that.data.containerid).css({ height: '100%' }),
         tumbler: $([
             '<span class="header__column-item tumbler">',
             '<span class="tumbler__box">',

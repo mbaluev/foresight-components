@@ -147,10 +147,9 @@
     <script src="foresight.components.min.js"></script>
     <script src="foresight.pages.min.js"></script>
 
-    <script src="asyst/asyst.imageloader.js"></script>
+    <script src="asyst.loaders/asyst.imageloader.js"></script>
     <script>
         $(function(){
-            $('#container').css({ height: '100%' });
             var filters = [
                 {
                     reportingCategoryId: 6,
@@ -663,9 +662,7 @@
                 filters: filters,
                 reports: reports,
                 loader: Asyst.ImageLoader,
-                defaults: {
-                    favorite: true
-                }
+                defaults: { favorite: true }
             });
         });
     </script>

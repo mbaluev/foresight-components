@@ -1409,24 +1409,33 @@ $(function(){
                     that.set_content = function(){
                         var $body = self.find('.widget__body'),
                             $bodydata = self.find('.widget__body-data');
-                        if (typeof that.data.loader == 'function') {
+                        if (typeof that.data.loader == 'object') {
                             $body.addClass('widget__body_align_center');
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
-                            that.data.content = new that.data.loader({
+
+                            that.data.content = new that.data.loader.obj();
+                            if (that.data.loader.contents) {
+                                that.data.content.extend({
+                                    contents: that.data.loader.contents
+                                });
+                            }
+                            that.data.content.extend({
+                                target: self,
                                 data: _.omitBy(that.data, function(val, key){
                                     return (key.substring(0,1) == '_');
                                 }),
-                                target: self,
                                 success: function(content){
                                     $body.removeClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_html');
                                     $bodydata.html(content);
+                                    that.data.content = content;
                                 },
                                 error: function(msg){
                                     $body.addClass('widget__body_align_center');
                                     $bodydata.addClass('widget__body-data_type_text');
                                     $bodydata.html(msg);
+                                    that.data.content = msg;
                                 }
                             });
                             that.data.content.loadContent();
