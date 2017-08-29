@@ -31,7 +31,7 @@
                         <span class="button__anim"></span>
                     </button>
                 </div>
-                <div class="header__column">
+                <div class="header__column header__column-right">
                     <button class="header__column-item button" data-fc="button" data-toggle="popup" data-target="#account">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
@@ -135,7 +135,9 @@
                 </div>
             </div>
             <div class="fs-view__middle fs-view__middle_full">
-                <div id="container"></div>
+                <div class="fs-view__middle-scroll">
+                    <div class="widget-grid grid-stack" id="container" data-gs-animate="true"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -144,8 +146,8 @@
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
-    <script src="foresight.components.min.js"></script>
-    <script src="foresight.pages.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
+    <script src="foresight.pages.debug.js"></script>
 
     <script src="asyst/asyst.htmlloader.js"></script>
     <script>

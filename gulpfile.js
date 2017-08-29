@@ -37,7 +37,8 @@ var third_css = [
 ];
 var pages_js = [
     'public/pages/dashboard.js',
-    'public/pages/reports.js'
+    'public/pages/reports.js',
+    'public/pages/settings.js'
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);

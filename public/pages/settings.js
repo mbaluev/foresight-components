@@ -5,17 +5,43 @@ var Settings = function(options){
         loader: null,
         defaults: {
             itemWidth: 2,
-            itemHeight: 5,
+            itemHeight: 7,
             x: 0,
             y: 0
         },
         grid: null,
         widgets: [],
-        items: []
+        items: [],
+        editable: true
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
+        tumbler: $([
+            '<span class="header__column-item tumbler" id="tumbler_edit-page">',
+            '<span class="tumbler__box">',
+            '<div class="tumbler__sticker tumbler__sticker_position_left">',
+            '<div class="tumbler__sticker-label">Вкл</div>',
+            '</div>',
+            '<div class="tumbler__sticker tumbler__sticker_position_right">',
+            '<div class="tumbler__sticker-label">Выкл</div>',
+            '</div>',
+            '<button class="button" type="button" data-fc="button">',
+            '<span class="icon icon_svg_edit"></span>',
+            '<span class="button__anim"></span>',
+            '</button>',
+            '</span>',
+            '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
+            '</span>'
+        ].join('')).tumbler(),
+        button_group: $('<span class="button-group header__column-item"></span>'),
+        button_save: $([
+            '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
+            '<span class="icon icon_svg_save"></span>',
+            '<span class="button__text mobile mobile_hide">Сохранить</span>',
+            '<span class="button__anim"></span>',
+            '</button>',
+        ].join('')).button(),
         loader: $('<span class="spinner"></span>')
     };
 
@@ -43,14 +69,65 @@ var Settings = function(options){
                     });
                 }
             });
+            that.data.widgets.map(function(w){
+                var rows = '';
+                w.items.map(function(a){
+                    rows += '<tr><td><a class="link" href="' + a.url + '" target="' + a.urltype + '">' + a.name + '</a></td></tr>';
+                });
+                w.html = [
+                    '<div class="widget__content widget__content_scroll">',
+                    '<table class="table">',
+                    '<tbody>' + rows + '</tbody>',
+                    '</table>',
+                    '</div>'
+                ].join('');
+            });
         }
+    };
+
+    that.render_tumbler = function(){
+        that.data._el.tumbler
+            .on('on.fc.tumbler', function(){
+                that.loader_add();
+                setTimeout(function(){
+                    that.data._el.button_save.button('show');
+                    that.data.grid.widget_grid('edit_mode');
+                    that.loader_remove();
+                }, 100);
+            })
+            .on('off.fc.tumbler', function(){
+                that.loader_add();
+                setTimeout(function(){
+                    that.data._el.button_save.button('hide');
+                    that.data.grid.widget_grid('view_mode');
+                    that.loader_remove();
+                }, 100);
+            });
+        $('.header__column-right').prepend(that.data._el.tumbler);
+    };
+    that.render_buttons = function(){
+        that.render_button_save();
+        $('.header__column-right').prepend(that.data._el.button_group);
+    };
+    that.render_button_save = function(){
+        that.data._el.button_save.on('click', function(){
+            that.data.grid.widget_grid('save', function(data){
+                if (typeof that.data.save == 'function') {
+                    that.data.save(data);
+                };
+                that.data._el.tumbler.tumbler('uncheck');
+            });
+        });
+        that.data._el.button_group.append(
+            that.data._el.button_save
+        );
     };
     that.render_grid = function(){
         var widget_grid_options = {
             items: that.data.items,
             loader: that.data.loader
         };
-        that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
+        that.data.grid = that.data._el.target.widget_grid(widget_grid_options);
     };
     that.render_widgets = function(){
         that.data.widgets.forEach(function(widget, i){
@@ -73,8 +150,8 @@ var Settings = function(options){
             settings: {
                 name: widget.category,
                 color: widget.color,
-                content: widget.content,
-                collapsed: false
+                collapsed: false,
+                html: widget.html,
             }
         };
         that.data.items.push(item);
@@ -96,8 +173,12 @@ var Settings = function(options){
         that.loader_add();
         setTimeout(function(){
             that.process_settings();
+            if (that.data.editable) {
+                that.render_tumbler();
+                that.render_buttons();
+            }
             that.render_grid();
-            //that.render_widgets();
+            that.render_widgets();
             that.loader_remove();
         }, 100);
     };
