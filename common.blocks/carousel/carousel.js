@@ -13,7 +13,6 @@
                         allowPlayOnHover: false,
                         circleEnable: true,
                         circlePosition: 'bottom',
-                        maxTextLength: 50,
                         items: []
                     };
                     that.data = self.data();
@@ -72,9 +71,6 @@
                         ].join(''));
                         that.data._el.carousel__circles = $('<div class="carousel__circles"></div>');
                         that.data.items.forEach(function(item){
-                            if (item.text.length > that.data.maxTextLength) {
-                                item.text = item.text.substr(0, that.data.maxTextLength) + '...';
-                            }
                             var $item = $([
                                 '<div class="carousel__item">',
                                 '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
@@ -108,6 +104,18 @@
                             self = that.data._el.widget__content_nodata;
                             self.data(that.data);
                         }
+                    };
+                    that.render_dotdotdot = function(){
+                        that.data._el.carousel__item_list.map(function(item){
+                            item.dotdotdot();
+                        });
+                        $(window).resize(function(){
+                            setTimeout(function(){
+                                that.data._el.carousel__item_list.map(function(item){
+                                    item.trigger('update');
+                                });
+                            }, 100);
+                        });
                     };
 
                     that.activate = function(){
@@ -302,10 +310,6 @@
                                 url: $(this).find('.carousel__item-text').attr('href')
                             };
                             that.data.items.push(it);
-                            if (it.text.length > that.data.maxTextLength) {
-                                it.text = it.text.substr(0, that.data.maxTextLength) + '...';
-                                $(this).find('.carousel__item-text').text(it.text);
-                            }
                             that.data._el.carousel__item_list.push($(item));
                         });
                         self.find('.button_circle').each(function(i, button){
@@ -344,6 +348,7 @@
                             that.init_carousel();
                         }
                         that.render_nodata();
+                        that.render_dotdotdot();
                         that.init_components();
                         that.activate();
                     };

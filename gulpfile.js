@@ -28,7 +28,8 @@ var third_js = [
     'public/third/cloud/cloud.js',
     'public/third/gridstack/gridstack.js',
     'public/third/gridstack/gridstack.jQueryUI.js',
-    'public/third/riskmatrix/jquery.riskmatrix.js'
+    'public/third/riskmatrix/jquery.riskmatrix.js',
+    'public/third/jquery.dotdotdot.js'
 ];
 var third_css = [
     'public/third/air-datepicker/datepicker.min.css',
