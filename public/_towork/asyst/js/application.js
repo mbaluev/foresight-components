@@ -3186,7 +3186,6 @@ function showBrowser(selector, viewName, viewSampleId) {
     expires.setFullYear(expires.getFullYear() + 1);
     setPageCookie("CurrentViewName", viewName, expires);
 
-    //Loader.show(selector);
     Loader.show();
 
     var params = $.extend(splitGETString(), null);
@@ -3212,7 +3211,6 @@ function showBrowser(selector, viewName, viewSampleId) {
                 column.formatter = Grid.DefaultFormatter;
         }
 
-
         viewEl[0].innerHtml = "";
 
         if (viewEl.height() === 0) {
@@ -3221,27 +3219,18 @@ function showBrowser(selector, viewName, viewSampleId) {
                 var resizeContainer = function (event) {
                     var hasScroll = false;
                     var widthScroll = 0;
-
                     for (var el = viewEl; !hasScroll && el.length > 0; el = el.parent()) {
                         var sw = el[0].scrollWidth, ow = el[0].offsetWidth;
-
                         if (sw != ow) {
                             hasScroll = true;
                             widthScroll = el[0].offsetHeight - el[0].clientHeight;
                         }
                     }
-
-                    //if (cont.length > 0)
-                    //    viewEl.height(Math.max(cont[0].scrollHeight + cont.offset().top - 55, $(window).height()-3) - viewEl.offset().top);
-                    //else
                     viewEl.height($(window).height() - viewEl.offset().top - 3 - widthScroll);
-                    if (grid)
-                        grid.resizeCanvas();
+                    if (grid) grid.resizeCanvas();
                 };
-
                 $(window).resize(resizeContainer);
                 $(window).resize();
-
             } catch (error) {
             }
         }
@@ -3254,7 +3243,6 @@ function showBrowser(selector, viewName, viewSampleId) {
             wideString: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
             initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed,
             rowSelectionModel: new Asyst.RowSelectionModel()
-
         };
 
         //todo replace
@@ -3312,15 +3300,11 @@ function showBrowser(selector, viewName, viewSampleId) {
         else
             $('.ext-filter-menu').hide();
 
-
         $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         $('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
             window[viewName].CollapseAllGroups();
         }
-        //if (success)
-        //    success();
-
 
         if (params.hasOwnProperty("ExpandGroup"))
             if (params.ExpandGroup == "true")
@@ -3343,11 +3327,10 @@ function showBrowser(selector, viewName, viewSampleId) {
         } else {
             view.QuickFilterClear();
             ToggleClearFilterButton(false);
-
             !(!!data.EditFormName) && Grid.ClearExtFilter(view);
         }
 
-        if (filterArgs && /*!filterArgs.hasOwnProperty('oper') && */filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
+        if (filterArgs && /*!filterArgs.hasOwnProperty('oper') && */ filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
             $('#BrowseSearch').val(filterArgs.searchString);
             view.UpdateQuickFilter(filterArgs.searchString);
             ToggleClearFilterButton(true);
@@ -3385,7 +3368,6 @@ function showBrowser(selector, viewName, viewSampleId) {
             }, 100);
         }
         Loader.hide();
-
     },
     error: function () {
         Loader.hide();
