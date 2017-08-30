@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="PRIZ.Main" %>
+<%@ Import Namespace="PMPractice.Db" %>
+<%InitMLU();%>
+
+<!DOCTYPE html>
+<html lang="ru">
+  <head runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta charset="utf-8"/>
+    <title>MAP</title>
+        
+    <link href="/asyst/css/asyst.third.min.css" rel="stylesheet">
+
+    <link href="/asyst/css/asyst.global.css" rel="stylesheet">
+	  
+    <script src="/asyst/js/asyst.globalization.js" type="text/javascript"></script>
+      
+    <script src="/asyst/js/asyst.third.js" type="text/javascript"></script>
+
+
+    <script src="/asyst/js/asyst.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.workspace.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.number.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.globalsearch.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.board.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.utils.js"></script>
+    <script src="/asyst/js/application.js" type="text/javascript"></script>
+    <script src="/asyst/js/application.model.js" type="text/javascript"></script>
+    <script src="/asyst/js/application.documents.js" type="text/javascript"></script>
+    <script src="/asyst/js/application.points.js" type="text/javascript"></script>
+    <script src="/asyst/js/asyst.changerequest.js" type="text/javascript"></script>
+    
+     
+    <style>
+      body {
+        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner top-nav-map">
+        <div>
+          <div class="nav-collapse">
+            <ul class="nav" style="background-color: #2d89ef;">
+              <li class="active" style="border-right: 3px solid #ffffff;"><a href="/asyst/default.aspx" title="<%=MultiLanguageUtils.Resources.ASPXHome%>"><i class="icon-home icon-white"></i></a></li>
+              <li style="border-right: 3px solid #ffffff;"><a href="/asyst/AccessMatrix.aspx" title="<%=MultiLanguageUtils.Resources.ASPXAccessMatrix%>"><i class="icon-th icon-white"></i></a></li>
+              <li style="border-right: 3px solid #ffffff;"><a href="#" target="_blank" title="<%=MultiLanguageUtils.Resources.ASPXChat%>" onclick="OpenBoard(); return false; " id="chat"><i class="icon-comment icon-white"></i></a></li>
+            </ul>
+
+            <form class="navbar-search pull-left" action="" style="background-color: #7e3878; width: 300px; margin: 0px; font-size: 15px; height: 40px; padding-left: 25px">
+            <%=MultiLanguageUtils.Resources.ASPXFind%> <input id="globalSearchQuery" class="search-query span2" style="background-color: #ffffff; color: #262626; width: 220px; margin-top: 5px;" type="text" placeholder="<%=MultiLanguageUtils.Resources.ASPXFindTooltip%>">
+            </form>
+
+            <p class="navbar-text pull-right" style="color: #262626;"><%=MultiLanguageUtils.Resources.ASPXYouEnterAs%> <asp:Literal ID="UserNameLogin" runat="server"></asp:Literal>&nbsp;&nbsp;</p>
+
+
+          </div><!--/.nav-collapse -->
+
+          <a class="brand" href="/asyst/default.aspx" style="margin-left: 30px;">MAP. Management. Asyst. Project</a>
+            
+          
+
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size: 14px;">
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+
+    </div> <!-- /container -->
+
+    <asp:ContentPlaceHolder ID="JSPlaceHolder" runat="server">
+    </asp:ContentPlaceHolder>
+  </body>
+
+  <script type="text/javascript">
+      Asyst.globalSearch.input('#globalSearchQuery', 'entitysearch, filesearch, documentnamesearch');
+      Asyst.board.setIndicator('#chat');
+  </script>
+    
+<%ReleaseMLU();%>
+</html>

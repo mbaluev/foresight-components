@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UpdagePackage Date="2017-08-30T15:52:55.2141728+03:00" AppVersion="1.27.12.0">
+  <Server Name="TestSRV061.PPMPlus" ConnectionString="Data Source=TestSRV061;Initial Catalog=PPMPlus;User ID=sa;Password=zXcvbnm512" />
+  <Folder>F:\проектная практика - work5 - 2017\2017.02.10 - mishgan.demo.pmpractice.ru\testsrv061\backup 2017.08.30</Folder>
+  <NeedTranslates>false</NeedTranslates>
+  <IsSingeFile>false</IsSingeFile>
+  <AccessMatrix IsUseFixedFileOrder="false" AllMatrix="false" />
+  <DataHandlers />
+  <Entites IsUseFixedFileOrder="false">
+    <!--TestSRV061.PPMPlus\Настройки дашборда пользователя-->
+    <Entity>43cfcc71-3cef-4ec4-86a4-90d51288a7a3</Entity>
+  </Entites>
+  <Forms />
+  <Handlers />
+  <HTMLParts />
+  <MailSettings />
+  <Programmabilitys IsUseFixedFileOrder="false" />
+  <Rules />
+  <JavaScripts />
+  <Tables IsUseFixedFileOrder="false">
+    <!--UserDashboard-->
+    <Table>UserDashboard</Table>
+  </Tables>
+  <TableData IsUseFixedFileOrder="false">
+    <!--UserDashboard-->
+    <Table Name="UserDashboard" TableScriptType="ClearAndInsert"></Table>
+  </TableData>
+  <Views />
+  <Reports Server="" Login="" Password="" />
+  <AsystFiles AsystFilesPath="\\testsrv061\c$\inetpub\wwwroot\Asyst\asyst\">
+    <!--\\testsrv061\c$\inetpub\wwwroot\Asyst\asyst\components-->
+    <Path>\\testsrv061\c$\inetpub\wwwroot\Asyst\asyst\components</Path>
+  </AsystFiles>
+  <FileStorages />
+  <MetaPages>
+    <!--ForesightMaster.page [!ForesightMaster]-->
+    <MetaPage>21977fe6-51a4-4ed3-9bf4-9cb22478b77f</MetaPage>
+    <!--Библиотека виджетов для главной страницы [_LibraryIndex]-->
+    <MetaPage>82cf27d0-781f-48ce-ab78-4ea103324f96</MetaPage>
+    <!--Центр отчетов [ReportCenter]-->
+    <MetaPage>37b9f496-a867-40aa-b680-2fb73ccdd619</MetaPage>
+    <!--Центр настроек [SettingsCenter]-->
+    <MetaPage>38f22486-9ad3-4e16-ab6f-d23f9f771639</MetaPage>
+    <!--Типы КТ [PointType]-->
+    <MetaPage>e16e0e37-a4f8-462a-8831-564c3a659a4f</MetaPage>
+    <!--Тип проекта [ProjectType]-->
+    <MetaPage>df1d05c0-f1f2-4660-965d-3fa5b1c292c8</MetaPage>
+    <!--Статус-отчеты [StatusReport]-->
+    <MetaPage>67f3cee3-f8af-44d8-9405-a916e582353c</MetaPage>
+    <!--Состояния поручений [OrderStatus]-->
+    <MetaPage>31ab6f88-1f1a-4e58-b561-fb2d4c60fc7f</MetaPage>
+    <!--Состояния поручений [MeetingStatus]-->
+    <MetaPage>a0e52a15-bbb0-40f3-9250-cbfc59048fb3</MetaPage>
+    <!--Состояние риска  [RiskState]-->
+    <MetaPage>8bcbdcd5-47bc-4a46-9f47-21839f24a297</MetaPage>
+    <!--Сообщения [Messages]-->
+    <MetaPage>9c01ce98-8776-48e9-8733-802e1632aa06</MetaPage>
+    <!--Риски  [Risk]-->
+    <MetaPage>2055cae0-030e-42fc-bcf1-5ccbd65fc0bf</MetaPage>
+    <!--Реестр целей [Goal]-->
+    <MetaPage>11e94e27-80bc-412d-bdaa-ab2a5abf6344</MetaPage>
+    <!--Реестр совещаний [Meeting]-->
+    <MetaPage>004de3d5-5c3d-42de-b8af-aaec0da0bcc9</MetaPage>
+    <!--Реестр пунктов чек-листов [Checklist]-->
+    <MetaPage>83ef2463-4984-46fe-a5c2-27e4cf4b228c</MetaPage>
+    <!--Реестр проектов [Project2]-->
+    <MetaPage>85268722-aee7-4f04-aa19-6b4b7a987f2d</MetaPage>
+    <!--Реестр проектов [Project]-->
+    <MetaPage>93a64ade-e24b-4fe8-91af-85bc98ed6a6d</MetaPage>
+    <!--Реестр проектных инициатив [Initiative]-->
+    <MetaPage>d349c71a-7418-4736-95b8-8df89793347b</MetaPage>
+    <!--Реестр поручений [Order]-->
+    <MetaPage>4570c6cf-5992-45d2-830c-36d7cdf60eeb</MetaPage>
+    <!--Реестр показателей [KPI]-->
+    <MetaPage>6c17553c-a19e-4107-8cee-8884624f1d99</MetaPage>
+    <!--Реестр обучения сотрудников [CourseWork]-->
+    <MetaPage>30fdd0bf-60d0-420b-9a54-a77c4947b154</MetaPage>
+    <!--Реестр НМД [LegalDoc]-->
+    <MetaPage>85d23f77-67a8-42c3-b609-a94841c34f08</MetaPage>
+    <!--Реестр КТ [Point]-->
+    <MetaPage>92d3fd49-8ef1-4df7-a2fc-81d27207c22b</MetaPage>
+    <!--Реестр замещений [Substitution]-->
+    <MetaPage>472583f7-0f24-471e-a9b7-cc04c28e4810</MetaPage>
+    <!--Реестр госпрограмм и объектов госпрограмм [GProgram]-->
+    <MetaPage>f8863ecb-8b0b-45f5-9c5a-d056f723cc11</MetaPage>
+    <!--Распределения для риска [RiskDistribution]-->
+    <MetaPage>4ec5081a-7b65-4ea2-84ce-40a14250af9f</MetaPage>
+    <!--Профиль [Profile]-->
+    <MetaPage>dcc53678-43fd-42da-8ba8-466a564ed724</MetaPage>
+    <!--Приоритет проекта [Priority]-->
+    <MetaPage>7cefea51-ddbc-4cc5-b8ba-0ff89323f7c1</MetaPage>
+    <!--Портфели [Portfolio]-->
+    <MetaPage>816c5eff-a63c-448d-9384-be5e905645a1</MetaPage>
+    <!--Пользователи [User]-->
+    <MetaPage>3239518d-a84e-49bc-b5ed-f5e20e75e368</MetaPage>
+    <!--Поиск по документам [__DocSearch]-->
+    <MetaPage>cda4aba2-da11-4441-849a-ed583c7f8202</MetaPage>
+    <!--Подрядчики [Contractor]-->
+    <MetaPage>b9ed2a94-3551-405e-8c97-312783f4953d</MetaPage>
+    <!--Подразделения [OrgUnit]-->
+    <MetaPage>afcdfec1-2f36-475d-b519-b2e4a51fee6b</MetaPage>
+    <!--Панель базы знаний и документов [DocPanel]-->
+    <MetaPage>eb1d0c35-29e1-47f3-812c-24e36211d8f9</MetaPage>
+    <!--Открытые вопросы [LOV]-->
+    <MetaPage>d10b7128-634b-46e5-bb28-988621a01b82</MetaPage>
+    <!--Организационная структура [OrgStruct]-->
+    <MetaPage>e6ee0082-7e3e-497c-a7aa-c6ff9e8a4868</MetaPage>
+    <!--Мероприятия реагирования [RiskResponding]-->
+    <MetaPage>ca875efa-1234-476f-a0f8-d6b1ccf792b4</MetaPage>
+    <!--Мероприятия ослабления [RiskMitigation]-->
+    <MetaPage>934384e3-cae8-4293-b9d0-8d8bc8e471c8</MetaPage>
+    <!--Мастер.page [!MainMaster]-->
+    <MetaPage>84259629-bce6-4c26-a66f-e5e1f30aa8f2</MetaPage>
+    <!--Курсы проектного управления [Course]-->
+    <MetaPage>a1396284-3a9c-425c-a08e-41d198321672</MetaPage>
+    <!--Контракты [Contract]-->
+    <MetaPage>2412c9b9-8ec1-47e4-b4ad-8913882844c5</MetaPage>
+    <!--Категория риска  [RiskCategory]-->
+    <MetaPage>bb32771b-5a63-495f-8c6f-7734acb83663</MetaPage>
+    <!--Итоговые выводы [Summary]-->
+    <MetaPage>fd88112a-2e3b-4e05-a991-bd43e2c4e924</MetaPage>
+    <!--Извлеченные уроки [Lesson]-->
+    <MetaPage>f70deb3b-45f8-4cbb-b91f-5ca225a77745</MetaPage>
+    <!--Запросы на изменение [ChangeRequest]-->
+    <MetaPage>34d51725-0c71-4f59-b07f-029e46fe3d88</MetaPage>
+    <!--Дерево целей и показателей [GoalTree]-->
+    <MetaPage>78563a1e-9cae-484d-aa4d-729597186fee</MetaPage>
+    <!--Группы [Group]-->
+    <MetaPage>3533d41f-e70d-4ea8-87e1-65c6c772742b</MetaPage>
+    <!--Главная [Index]-->
+    <MetaPage>e0ff710b-ec53-47f0-ab92-4d99bb4e85c1</MetaPage>
+    <!--Вопросы [Question]-->
+    <MetaPage>29c1a71b-43be-45f9-b03a-906f515aa3c6</MetaPage>
+    <!--Воздействие риска  [RiskImpact]-->
+    <MetaPage>9e15bdc7-e987-47c5-8537-f60b99ba76d7</MetaPage>
+    <!--Внешние организации [Organization]-->
+    <MetaPage>36ca6205-2624-42d3-a6af-5b30988bc638</MetaPage>
+    <!--Визуализация иерархии КТ [KtChart]-->
+    <MetaPage>5b67ca3d-d10f-4939-8d9e-815a51ae275c</MetaPage>
+    <!--Вероятность риска  [RiskProbability]-->
+    <MetaPage>8dca4206-4079-4ba9-b163-1bc7d015991e</MetaPage>
+    <!--Библиотека реестров [_LibraryRegister]-->
+    <MetaPage>7415c761-9336-4fd0-a7c0-699482bd38ae</MetaPage>
+    <!--Библиотека документов [DocLib]-->
+    <MetaPage>327af50b-a6a4-408c-a914-3044931f23d2</MetaPage>
+    <!--Библиотека виджетов прочих страниц [_LibraryMisc]-->
+    <MetaPage>7f91e837-1682-4b2f-a922-a474f9c557ea</MetaPage>
+    <!--Библиотека виджетов для панели документов [_LibraryDocPanel]-->
+    <MetaPage>9b94c4da-6694-4f00-9c20-b62db64317ba</MetaPage>
+  </MetaPages>
+  <MetaModels />
+  <MenuLists>
+    <!--Главная-->
+    <MenuList>10040</MenuList>
+    <!--Реестры-->
+    <MenuList>1</MenuList>
+    <!--Госпрограммы и объекты госпрограмм-->
+    <MenuList>22</MenuList>
+    <!--Портфели-->
+    <MenuList>2</MenuList>
+    <!--Проектные инициативы-->
+    <MenuList>10024</MenuList>
+    <!--Контракты-->
+    <MenuList>10034</MenuList>
+    <!--Проекты-->
+    <MenuList>3</MenuList>
+    <!--Этапы / Работы / КТ-->
+    <MenuList>4</MenuList>
+    <!--Открытые вопросы-->
+    <MenuList>10023</MenuList>
+  </MenuLists>
+  <PageElements />
+  <DataSets>
+    <!--TestSRV061.PPMPlus\Дашборд. Библиотека виджетов-->
+    <DataSet>7698abd5-e1c8-4427-b1c1-7cc2b8422dea</DataSet>
+    <!--TestSRV061.PPMPlus\Дашборд. Контент виджета-->
+    <DataSet>5b85db5c-4a76-42ac-ba9d-bbfa7ff43b0d</DataSet>
+    <!--TestSRV061.PPMPlus\Дашборд. Настройки-->
+    <DataSet>704fd6a7-1127-4ec8-92f7-c5506a42ac4f</DataSet>
+  </DataSets>
+  <Reportings />
+  <TemplatePoints />
+  <ActivityPhases />
+  <Documents />
+</UpdagePackage>
