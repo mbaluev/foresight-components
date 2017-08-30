@@ -1602,7 +1602,7 @@ $(function(){
                         allowPlayOnHover: false,
                         circleEnable: true,
                         circlePosition: 'bottom',
-                        maxTextLength: 100,
+                        maxTextLength: 50,
                         items: []
                     };
                     that.data = self.data();
