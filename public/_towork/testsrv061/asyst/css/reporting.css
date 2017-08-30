@@ -1,0 +1,234 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    vertical-align: baseline;
+    background: transparent;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+html {
+    overflow: hidden;
+}
+
+body {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+#ReportViewer1_ctl05 {
+	background: #f1f2f7 !important;
+}
+
+.main-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+}
+
+.parameters {
+    font-family: Verdana;
+
+	/*override font-family*/
+	font-family: 'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important;
+
+    font-size: 12px;
+	position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.parameters .parameters-form {
+	display: block;
+	margin: 0;
+    padding: 15px 15px 0px;
+	width: 100%;
+    background-color: #f1f2f7;
+	box-sizing: border-box;
+}
+
+.parameters .parameter-title {
+	margin-bottom: 9px;
+	text-align: right;
+	line-height: 16px;
+}
+
+.parameters .parameter {
+	width: 90% !important;
+	position: relative;
+}
+
+.parameters input.parameter {
+	width: 92%;
+}
+
+.parameters select.parameter {
+	width: 92%;
+	position: relative;
+}
+
+.parameters .parameter-wrap {
+	position: relative;
+}
+
+.required-input {
+    color: #B94A48;
+    font-family: Times New Roman;
+
+	/*override font-family*/
+	font-family: 'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important;
+
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 1px;
+    background-image: url("/content/field-notify-star-red.png");
+    min-width: 11px;
+    min-height: 11px;
+    display: inline-block;
+    margin-top: 0;
+    background-repeat: no-repeat;
+}
+
+.parameters-toggle {
+    width: 100%;
+    height: 8px;
+    background: #58c9f3;
+    cursor: pointer;
+}
+
+.parameters-toggle:hover {
+	opacity: 0.6;
+}
+
+.parameters-toggle-in {
+    width: 50px;
+    margin: 0 auto;
+    height: 8px;
+    background: #00a1f4;
+    font-size: 5px;
+    color: #fff;
+    line-height: 8px;
+    text-align: center;
+}
+
+.parameters-toggle:hover .parameters-toggle-in {
+}
+
+.report-container {
+    position: relative;
+    padding-top: 0px;
+    margin-top: 0;
+    overflow: auto;
+    width: 100%;
+    height: 900px;
+    font-size: 8pt;
+	font-family: Verdana
+
+	/*override font-family*/
+	font-family: 'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important;
+
+}
+
+.report-container.active {
+	overflow: inherit;
+}
+
+.ms-drop ul > li label {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 18px;
+}
+
+/*
+.ms-drop.bottom:after{content: '';position: absolute;bottom: 0;right: 0;width: 14px;height: 14px;background: #000;}
+*/
+
+/* resize??? */
+
+.ms-drop.bottom { resize: both; padding-bottom: 15px; }
+.ms-drop.bottom > * { resize: none; }
+.ms-drop ul {}
+.ms-drop.bottom ul {}
+
+/*
+.single .ms-drop ul > li.selected {
+    background-color: blue;
+    color: white;
+}
+*/
+
+.single .ms-drop ul > li:hover {
+	background-color: #00a1f4;
+	color: #fff;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+.ms-drop ul > li input[type=radio] {
+    display: none;
+}
+
+/************/
+/* controls */
+
+.control-group { margin-bottom: 15px; }
+.control-label { float: left; width: 170px; text-align: right; color: #aaa; margin-top: 6px; }
+.controls { margin-left: 190px; }
+
+.controls input[type=color], .controls input[type=date], .controls input[type=datetime-local], .controls input[type=datetime],
+.controls input[type=email], .controls input[type=month], .controls input[type=number], .controls input[type=password],
+.controls input[type=search], .controls input[type=tel], .controls input[type=text], .controls input[type=time],
+.controls input[type=url], .controls input[type=week] {
+    display: inline-block;
+    height: 18px;
+    padding: 4px;
+    margin-bottom: 9px;
+	margin-bottom: 0;
+	font-family: Verdana;
+
+	/*override font-family*/
+	font-family: 'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important;
+
+    font-size: 12px;
+    line-height: 18px;
+    color: #555;
+    background-color: #fff;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    border: 1px solid #ccc;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-transition: border linear .2s,box-shadow linear .2s;
+    -moz-transition: border linear .2s,box-shadow linear .2s;
+    -ms-transition: border linear .2s,box-shadow linear .2s;
+    -o-transition: border linear .2s,box-shadow linear .2s;
+    transition: border linear .2s,box-shadow linear .2s;
+    box-sizing: content-box;
+}
+
+.controls input[type=color]:focus, .controls input[type=date]:focus, .controls input[type=datetime-local]:focus,
+.controls input[type=datetime]:focus, .controls input[type=email]:focus, .controls input[type=month]:focus, .controls input[type=number]:focus,
+.controls input[type=password]:focus, .controls input[type=search]:focus, .controls input[type=tel]:focus, .controls input[type=text]:focus,
+.controls input[type=time]:focus, .controls input[type=url]:focus, .controls input[type=week]:focus {
+    border-color: rgba(82,168,236,.8);
+    outline: 0;
+    outline: thin dotted \9;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(82,168,236,.6);
+}

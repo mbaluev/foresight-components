@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Тип авторизации</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link href="anon/systemPages.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+		<div class="row">
+			<div class="col-400">
+				<a class="panel clickable gradient height-0-75" id="winLogin" href="/asyst/WindowsLogin.aspx?authSelect=true">
+					<div class="tile-content">
+						<div class="tile-content-error small-text black">Windows<br>авторизация</div>
+					</div>
+				</a>
+			</div>
+
+			<div class="col-400">
+				<a class="panel clickable gradient height-0-75" id="formLogin" href="/asyst/logon.aspx">
+					<div class="tile-content">
+						<div class="tile-content-error small-text blue">Форм<br>авторизация</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+	<script>        
+        var d = document.getElementById("formLogin");
+        d.setAttribute("href", "/asyst/logon.aspx" + location.search);
+        d = document.getElementById("winLogin");
+        d.setAttribute("href", "/asyst/WindowsLogin.aspx?authSelect=true&" + location.search.substring(1));
+    </script>
+
+</body>
+</html>
