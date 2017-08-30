@@ -1,5 +1,4 @@
 if (typeof Asyst == typeof undefined) { Asyst = {}; }
-
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
@@ -124,7 +123,7 @@ Asyst.SettingsDashboard = function(options){
                 var rows = '';
                 settings.map(function(s){
                     if (s.category == li.value) {
-                        rows += '<tr><td><a class="link" href="' + s.url + '" target="' + s.urltype + '">' + s.name + '</a></td></tr>';
+                        rows += '<tr><td><a class="link" href="' + s.url + '" target="_blank">' + s.name + '</a></td></tr>';
                     }
                 });
                 contents.push({
