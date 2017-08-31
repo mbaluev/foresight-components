@@ -80,7 +80,6 @@ gulp.task('server', function(){
     gulp.watch('public/pages/*.js', ['pages']);
 });
 
-
 gulp.task('build', ['html', 'css', 'images', 'js']);
 
 gulp.task('html', function(){
@@ -145,7 +144,6 @@ gulp.task('js', function() {
     })
     .done();
 });
-
 
 gulp.task('misc', ['third', 'pages']);
 

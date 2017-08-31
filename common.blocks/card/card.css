@@ -1,6 +1,7 @@
 .card {
     font-family: ProximaNova-Regular;
     width: 100%;
+    height: 100%;
     z-index: 99;
     position: relative;
 
@@ -10,9 +11,10 @@
 }
 
 .card__header {
-    z-index: 1;
+    z-index: 2;
     position: relative;
-    border-bottom: solid 1px #ccc;
+    border-bottom: solid 1px #ddd;
+    padding: 10px 0 0 10px;
 
     flex: 0 0 auto;
     background-color: #fafafa;
@@ -23,18 +25,16 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-top: 10px;
+    flex-wrap: wrap;
 }
 .card__header-column {
     display: inline-flex;
-}
-.card__header-column:first-child {
-    padding-left: 10px;
+    flex-wrap: wrap;
 }
 .card__header-column > * {
     flex-wrap: nowrap;
     flex: 0 0 auto;
-    margin-right: 10px;
+    margin: 0 10px 10px 0;
 }
 
 .card__caption {
@@ -113,17 +113,15 @@
 .card__header .alertbox:before,
 .card__header .button:before,
 .card__header .checkbox:before {
-    background-color: #fafafa;
+    /*background-color: #fafafa;*/
 }
 
 .card__main {
-    z-index: 2;
+    z-index: 1;
     position: relative;
     flex: 1 1 auto;
-
     display: flex;
     flex-direction: column;
-    overflow: auto;
     overflow: visible;
 }
 
@@ -135,9 +133,14 @@
 .card__right > * {}
 .card__right_hidden {}
 
-.card__middle {}
+.card__middle {
+    flex: 1 1 auto;
+    display: flex;
+}
 .card__middle_full {}
-.card__middle-scroll {}
+.card__middle-scroll {
+    flex: 1 1 auto;
+}
 .card__middle-inner {}
 
 .card__backdrop {

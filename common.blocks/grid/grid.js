@@ -22,6 +22,7 @@
 
                     that.init_components = function () {};
                     that.init = function () {
+                        self.addClass('grid');
                         that.init_components();
                     };
                     that.init();

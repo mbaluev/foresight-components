@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-    <title>foresight-dashboard</title>
+    <title>foresight-grid</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -136,7 +136,50 @@
             </div>
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
-                    <div id="container"></div>
+                    <div id="container">
+                        <div class="card" data-fc="card">
+                            <div class="card__header">
+                                <div class="card__header-row">
+                                    <div class="card__header-column">
+                                        <select class="select" data-fc="select" data-width="200" data-mode="radio"
+                                                data-autoclose="true">
+                                            <option value="" selected>Мои проекты</option>
+                                            <option value="">Все проекты</option>
+                                            <option value="">Активные</option>
+                                            <option value="">Архивные</option>
+                                            <option value="">Бюджеты проектов</option>
+                                            <option value="">Проекты без целей</option>
+                                        </select>
+                                    </div>
+                                    <div class="card__header-column">
+                                        <button class="button" data-fc="button">
+                                            <span class="icon icon_svg_settings"></span>
+                                            <span class="button__text">Обновить</span>
+                                        </button>
+                                        <button class="button" data-fc="button">
+                                            <span class="icon icon_svg_settings"></span>
+                                        </button>
+                                        <span class="input input__has-clear" data-fc="input" data-width="200">
+                                            <span class="input__box">
+                                                <span class="alertbox">
+                                                    <span class="icon icon_svg_search"></span>
+                                                </span>
+                                                <input type="text" class="input__control">
+                                                <button class="button" type="button">
+                                                    <span class="icon icon_svg_close"></span>
+                                                </button>
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card__main">
+                                <div class="card__middle">
+                                    <div class="card__middle-scroll"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,11 +189,11 @@
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
-    <script src="foresight.components.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
     <script src="foresight.pages.min.js"></script>
     <script>
         $(function(){
-
+            $('#container').grid();
         });
     </script>
 </body>

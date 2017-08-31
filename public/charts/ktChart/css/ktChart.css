@@ -51,9 +51,9 @@
 .panel-filter .card__header .pf-filters > span { margin-bottom: 10px; }
 
 .panel-filter .card__header .button:before,
-.panel-filter .card__header .checkbox:before { background-color: #fff; }
-.panel-filter .card__header .alertbox:before { background-color: transparent; }
-.panel-filter .card__header .button-group .button:before { background-color: #fafafa; }
+.panel-filter .card__header .checkbox:before {}
+.panel-filter .card__header .alertbox:before {}
+.panel-filter .card__header .button-group .button:before {}
 
 /*panel-legend*/
 .panel-legend { box-sizing: border-box; overflow-y: auto; overflow-x: hidden; padding: 5px 0; }

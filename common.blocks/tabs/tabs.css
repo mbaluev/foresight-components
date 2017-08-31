@@ -1,6 +1,6 @@
 .tabs {
     display: block;
-    padding: 15px 0 0 10px;
+    padding: 0 0 0 0;
     box-sizing: border-box;
 }
 .tabs__list {
@@ -61,4 +61,8 @@
 .tabs__pane_active {
     display: block;
     visibility: visible;
+}
+
+.tabs__pane .control:last-child {
+    padding-bottom: 0;
 }
