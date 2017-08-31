@@ -1,5 +1,5 @@
 .header {
-    font-family: 'ProximaNova-Regular';
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -26,9 +26,6 @@
 
 .header__column > * {
     margin: 0 10px 10px 0 !important;
-}
-.header__column > .radio-group.radio-group_type_buttons {
-    margin-bottom: 0 !important;
 }
 
 .header__name {

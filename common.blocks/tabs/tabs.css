@@ -1,6 +1,7 @@
 .tabs {
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     display: block;
-    padding: 0 0 0 0;
+    padding: 0 10px 0 0;
     box-sizing: border-box;
 }
 .tabs__list {
@@ -8,6 +9,7 @@
     padding: 0;
     margin: 0;
     display: flex;
+    /*overflow: hidden;*/
 }
 .tabs__tab {
     position: relative;
@@ -19,18 +21,6 @@
 .tabs__tab_active .button:before {
     bottom: 0;
 }
-
-/*
-.tabs__tab_active:before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    bottom: -1px;
-    left: 1px;
-    right: 1px;
-    background-color: #fff;
-}
-*/
 
 .tabs__tab .button {
     border-radius: 3px 3px 0 0;

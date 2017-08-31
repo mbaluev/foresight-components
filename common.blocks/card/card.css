@@ -1,12 +1,10 @@
 .card {
-    font-family: ProximaNova-Regular;
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     width: 100%;
     height: 100%;
     z-index: 99;
     position: relative;
-
     display: flex;
-    /*overflow: hidden;*/
     flex-direction: column;
 }
 
@@ -15,7 +13,6 @@
     position: relative;
     border-bottom: solid 1px #ddd;
     padding: 10px 0 0 10px;
-
     flex: 0 0 auto;
     background-color: #fafafa;
     overflow: visible;
@@ -25,16 +22,25 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: nowrap;
+}
+.card__header-row_wrap {
     flex-wrap: wrap;
 }
 .card__header-column {
     display: inline-flex;
     flex-wrap: wrap;
 }
+.card__header-column_stretch {
+    width: 100%;
+}
 .card__header-column > * {
-    flex-wrap: nowrap;
-    flex: 0 0 auto;
+    flex-wrap: wrap;
     margin: 0 10px 10px 0;
+}
+.card__header-column > .radio-group.radio-group_type_buttons {
+    flex-wrap: wrap;
+    margin-bottom: 0 !important;
 }
 
 .card__caption {
@@ -80,10 +86,6 @@
     color: #333;
     border: 0;
     outline: 0;
-    /*
-    text-align: center;
-    white-space: nowrap;
-    */
     -webkit-tap-highlight-color: transparent;
     font-size: 20px;
     line-height: 30px;
@@ -98,9 +100,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: top;
-    margin: 0 10px;
-    font-size: 20px;
-    line-height: 30px;
+    margin: 4px 10px;
+    font-size: 18px;
+    line-height: normal;
 }
 .card__name .icon {
     width: 20px;
@@ -113,7 +115,6 @@
 .card__header .alertbox:before,
 .card__header .button:before,
 .card__header .checkbox:before {
-    /*background-color: #fafafa;*/
 }
 
 .card__main {
@@ -140,6 +141,7 @@
 .card__middle_full {}
 .card__middle-scroll {
     flex: 1 1 auto;
+    overflow: auto;
 }
 .card__middle-inner {}
 

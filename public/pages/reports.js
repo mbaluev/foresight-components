@@ -23,7 +23,7 @@ var Reports = function(options){
     that.data._el = {
         target: $('#' + that.data.containerid).css({ height: '100%' }),
         tumbler: $([
-            '<span class="header__column-item tumbler">',
+            '<span class="tumbler">',
             '<span class="tumbler__box">',
             '<div class="tumbler__sticker tumbler__sticker_position_left">',
             '<div class="tumbler__sticker-label">Вкл</div>',
@@ -39,7 +39,7 @@ var Reports = function(options){
             '</span>'
         ].join('')),
         input: $([
-            '<span class="header__column-item input input__has-clear" data-width="200">',
+            '<span class="input input__has-clear" data-width="200">',
             '<span class="input__box">',
             '<span class="alertbox" data-fc="alertbox">',
             '<span class="icon icon_svg_search"></span>',
@@ -51,24 +51,22 @@ var Reports = function(options){
             '</span>',
             '</span>'
         ].join('')),
-        radiogroup: $('<span class="header__column-item radio-group radio-group_type_buttons"></span>'),
+        radiogroup: $('<span class="radio-group radio-group_type_buttons"></span>'),
         content: $([
-            '<div class="fs-view">',
-            '<div class="fs-view__header">',
-            '<div class="header header_second">',
-            '<div class="header__column" id="filter"></div>',
-            '<div class="header__column" id="tumbler"></div>',
-            '</div>',
-            '</div>',
-            '<div class="fs-view__main">',
-            '<div class="fs-view__middle fs-view__middle_full">',
-            '<div class="fs-view__middle-scroll">',
-            '<div class="fs-view__middle-inner">',
-            '<div id="widget-grid" class="widget-grid grid-stack" data-gs-animate="true"></div>',
-            '</div>',
-            '</div>',
-            '</div>',
-            '</div>',
+            '<div class="card">',
+                '<div class="card__header">',
+                    '<div class="card__header-row">',
+                        '<div class="card__header-column" id="filter"></div>',
+                        '<div class="card__header-column" id="tumbler"></div>',
+                    '</div>',
+                '</div>',
+                '<div class="card__main">',
+                    '<div class="card__middle">',
+                        '<div class="card__middle-scroll">',
+                            '<div id="widget-grid" class="widget-grid grid-stack" data-gs-animate="true"></div>',
+                        '</div>',
+                    '</div>',
+                '</div>',
             '</div>'
         ].join('')),
         loader: $('<span class="spinner"></span>')
@@ -271,9 +269,6 @@ var Reports = function(options){
         that.data._el.radiogroup.radio_group();
         that.data._el.input.input();
         that.data._el.tumbler.tumbler();
-        that.data._el.content.find('#filter').css({
-            'flex-wrap': 'wrap'
-        });
         that.data._el.input.css({
             flex: '0 0 auto'
         });

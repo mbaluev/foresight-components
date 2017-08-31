@@ -49,7 +49,6 @@
                         card__main: $('<div class="card__main"></div>'),
                         card__middle: $('<div class="card__middle"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
                         card__backdrop: $('<div class="card__backdrop"></div>'),
                         card__right: $('<div class="card__right"></div>'),
                         tabs_pane: $('<div class="tabs__pane"></div>')
@@ -102,8 +101,7 @@
                                             .append(that.data._el.tabs__list)),
                                     that.data._el.card__main
                                         .append(that.data._el.card__middle
-                                            .append(that.data._el.card__middle_scroll
-                                                .append(that.data._el.card__middle_inner)))))));
+                                            .append(that.data._el.card__middle_scroll))))));
                     };
                     that.render_header = function(){
                         that.render_header_caption();
@@ -178,7 +176,7 @@
                                     '</a>' +
                                 '</li>'
                             ));
-                            that.data._el.card__middle_inner.append(
+                            that.data._el.card__middle_scroll.append(
                                 that.data._el.tabs_pane.clone()
                                     .attr('id', tab.id)
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))

@@ -161,69 +161,8 @@
                     <div class="card" data-fc="card">
                         <div class="card__header">
                             <div class="card__header-row card__header-row_wrap">
-                                <div class="card__header-column">
-                                    <label class="card__name">
-                                        <span class="card__name-text">Проекты</span>
-                                    </label>
-                                    <select class="select" data-fc="select" data-width="200" data-mode="radio"
-                                            data-autoclose="true">
-                                        <option value="" selected>Мои проекты</option>
-                                        <option value="">Все проекты</option>
-                                        <option value="">Активные</option>
-                                        <option value="">Архивные</option>
-                                        <option value="">Бюджеты проектов</option>
-                                        <option value="">Проекты без целей</option>
-                                    </select>
-                                </div>
-                                <div class="card__header-column">
-                                    <button class="button" data-fc="button">
-                                        <span class="icon icon_svg_refresh"></span>
-                                    </button>
-                                    <button class="button" data-fc="button" data-toggle="popup" data-target="#grid_settings">
-                                        <span class="icon icon_svg_settings"></span>
-                                        <span class="icon icon_svg_down"></span>
-                                    </button>
-                                    <div class="popup" id="grid_settings" data-position="bottom left" data-width="auto">
-                                        <ul class="popup__list">
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_plus"></span>
-                                                    <span class="popup__text">Добавить</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item popup__list-item_separate">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_trash"></span>
-                                                    <span class="popup__text">Удалить</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_expand"></span>
-                                                    <span class="popup__text">Развернуть все группы</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item popup__list-item_separate">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_collapse"></span>
-                                                    <span class="popup__text">Свернуть все группы</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_export"></span>
-                                                    <span class="popup__text">Выгрузка</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_search"></span>
-                                                    <span class="popup__text">Расширенный фильтр</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <span class="input input__has-clear" data-fc="input" data-width="200">
+                                <div class="card__header-column card__header-column_stretch">
+                                    <span class="input input__has-clear" data-fc="input">
                                         <span class="input__box">
                                             <span class="alertbox">
                                                 <span class="icon icon_svg_search"></span>
@@ -256,10 +195,5 @@
     <script src="foresight.third.min.js"></script>
     <script src="foresight.components.debug.js"></script>
     <script src="foresight.pages.min.js"></script>
-    <script>
-        $(function(){
-            $('#container').grid();
-        });
-    </script>
 </body>
 </html>

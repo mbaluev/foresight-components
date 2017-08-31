@@ -1,5 +1,5 @@
 .page {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   font-size: 13px;
   font-weight: normal;
   line-height: normal;
@@ -38,7 +38,7 @@ body {
 }
 
 .fs-view {
-  font-family: ProximaNova-Regular;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   height: 100%;
   width: 100%;
   z-index: 99;
@@ -60,7 +60,6 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  /*overflow: hidden;*/
 }
 
 .fs-view__main {
@@ -133,12 +132,7 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-}
-
-.fs-view__middle-inner {
-  /*padding: 20px 10px;*/
-  box-sizing: border-box;
-  position: relative;
+  overflow-x: hidden;
 }
 
 .fs-view__backdrop {
@@ -161,7 +155,7 @@ body {
 }
 
 .header {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -207,10 +201,6 @@ body {
   margin: 0 10px 10px 0 !important;
 }
 
-.header__column > .radio-group.radio-group_type_buttons {
-  margin-bottom: 0 !important;
-}
-
 .header__name {
   display: inline-block;
   overflow: hidden;
@@ -222,7 +212,7 @@ body {
 }
 
 .button {
-  font-family: 'ProximaNova-Regular' !important;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: relative;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -244,7 +234,6 @@ body {
   font-size: 13px;
   line-height: 30px;
   text-decoration: none;
-  /*overflow: hidden;*/
 }
 
 .button:before {
@@ -840,6 +829,7 @@ body {
 }
 
 .popup {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: absolute;
   z-index: 100;
   left: 0;
@@ -963,7 +953,7 @@ body {
 }
 
 .popup__list-item_separate {
-  border-bottom: solid 1px #ccc;
+  border-bottom: solid 1px #ddd;
 }
 
 .popup__list > .popup__list-item:last-child {
@@ -979,7 +969,7 @@ body {
   box-sizing: border-box;
   background-color: transparent;
   margin: 0;
-  /*padding: 0 5px;*/
+  padding: 0 5px;
   color: #333;
   text-decoration: none;
   border: 0;
@@ -1067,7 +1057,7 @@ body {
 .menu * {
   position: relative;
   box-sizing: border-box;
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 
 .menu {
@@ -1173,7 +1163,7 @@ body {
 }
 
 .link {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   text-decoration: none;
   color: #4983c4;
   border: none;
@@ -1186,7 +1176,7 @@ body {
 }
 
 .link_code {
-  font-family: 'Courier New',monospace;
+  font-family: 'Courier New', monospace;
 }
 
 .link:hover {
@@ -1250,12 +1240,12 @@ body {
 }
 
 .article {
-  font-family: 'ProximaNova-Regular';
-  /*margin-bottom: 50px;*/
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   margin: 0 20px 50px;
 }
 
 .grid {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100%;
   height: 100%;
 }
@@ -1324,7 +1314,7 @@ body {
 }
 
 .heading {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   font-weight: normal;
   position: relative;
   z-index: 1;
@@ -1370,6 +1360,7 @@ body {
 }
 
 .paragraph {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   font-style: italic;
   line-height: 1.5;
   margin: 5px 0;
@@ -1385,8 +1376,8 @@ body {
 }
 
 .widget {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: relative;
-  height: auto;
   padding-top: 10px;
   height: 100%;
   box-sizing: border-box;
@@ -1662,6 +1653,7 @@ body {
 }
 
 .carousel {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100%;
   height: 100%;
   display: -webkit-box;
@@ -1737,7 +1729,6 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-  margin: 0 10px;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -1855,7 +1846,7 @@ body {
 }
 
 .checkbox {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
 }
@@ -1894,7 +1885,6 @@ body {
 .checkbox__input:checked + .checkbox__label::before {
   border: solid 2px #5a97f2;
   background-color: #5a97f2;
-  /*background-color: #4983c4;*/
 }
 
 .checkbox__input:checked + .checkbox__label:after {
@@ -1990,7 +1980,7 @@ body {
 }
 
 .radio {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 
 .radio.radio_hidden {
@@ -2136,7 +2126,7 @@ body {
 }
 
 .tumbler {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: inline-block;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -2156,7 +2146,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  /*border-radius: 3px;*/
 }
 
 .tumbler__box:before,
@@ -2169,18 +2158,11 @@ body {
   padding: 0;
   content: '';
   background-clip: padding-box;
-  /*border-radius: 3px;*/
 }
 
 .tumbler__box:before {
   background: #fff;
 }
-
-/*
-.tumbler__box:after {
-    border: solid 1px #ccc;
-}
-*/
 
 .tumbler__sticker {
   position: relative;
@@ -2229,7 +2211,6 @@ body {
       -ms-flex-order: 3;
           order: 3;
   transition: 0.5s;
-  /*border-radius: 0 3px 3px 0;*/
 }
 
 .tumbler__sticker_position_right:before {
@@ -2252,19 +2233,11 @@ body {
       -ms-flex-order: 2;
           order: 2;
   z-index: 2;
-  /*
-    background: #aaa;
-    border-radius: 3px;
-    */
 }
 
-.tumbler__box .button_hovered:hover {
-  /*background: #999;*/
-}
 
-.tumbler__box .button:before {
-  /*border-radius: 2px;*/
-}
+
+
 
 .tumbler.tumbler_hidden {
   display: none;
@@ -2281,7 +2254,7 @@ body {
 }
 
 .alertbox {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: relative;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -2289,7 +2262,6 @@ body {
   max-width: 100%;
   margin: 0;
   padding: 0;
-  /*user-select: none;*/
   color: #333;
   border: 0;
   outline: 0;
@@ -2419,7 +2391,7 @@ body {
 }
 
 .input {
-  font-family: 'ProximaNova-Regular';
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: relative;
   padding: 0;
   -webkit-user-select: none;
@@ -2587,6 +2559,7 @@ body {
 }
 
 .control {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -2681,7 +2654,7 @@ body {
 }
 
 .card {
-  font-family: ProximaNova-Regular;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100%;
   height: 100%;
   z-index: 99;
@@ -2689,7 +2662,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  /*overflow: hidden;*/
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -2718,6 +2690,11 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
+
+.card__header-row_wrap {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -2730,13 +2707,20 @@ body {
       flex-wrap: wrap;
 }
 
+.card__header-column_stretch {
+  width: 100%;
+}
+
 .card__header-column > * {
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   margin: 0 10px 10px 0;
+}
+
+.card__header-column > .radio-group.radio-group_type_buttons {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-bottom: 0 !important;
 }
 
 .card__caption {
@@ -2790,10 +2774,6 @@ body {
   color: #333;
   border: 0;
   outline: 0;
-  /*
-    text-align: center;
-    white-space: nowrap;
-    */
   -webkit-tap-highlight-color: transparent;
   font-size: 20px;
   line-height: 30px;
@@ -2810,9 +2790,9 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: top;
-  margin: 0 10px;
-  font-size: 20px;
-  line-height: 30px;
+  margin: 4px 10px;
+  font-size: 18px;
+  line-height: normal;
 }
 
 .card__name .icon {
@@ -2824,11 +2804,7 @@ body {
   margin-left: 5px;
 }
 
-.card__header .alertbox:before,
-.card__header .button:before,
-.card__header .checkbox:before {
-  /*background-color: #fafafa;*/
-}
+
 
 .card__main {
   z-index: 1;
@@ -2871,6 +2847,7 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  overflow: auto;
 }
 
 
@@ -2890,8 +2867,9 @@ body {
 }
 
 .tabs {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: block;
-  padding: 0 0 0 0;
+  padding: 0 10px 0 0;
   box-sizing: border-box;
 }
 
@@ -2902,6 +2880,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  /*overflow: hidden;*/
 }
 
 .tabs__tab {
@@ -2916,18 +2895,6 @@ body {
 .tabs__tab_active .button:before {
   bottom: 0;
 }
-
-/*
-.tabs__tab_active:before {
-    content: '';
-    position: absolute;
-    top: 100%;
-    bottom: -1px;
-    left: 1px;
-    right: 1px;
-    background-color: #fff;
-}
-*/
 
 .tabs__tab .button {
   border-radius: 3px 3px 0 0;
@@ -2977,6 +2944,7 @@ body {
 }
 
 .table {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   border-collapse: collapse;
   border-spacing: 0;
   color: #333;
@@ -3012,6 +2980,7 @@ body {
 }
 
 .tooltip {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   padding: 5px 0;
   display: none;
   position: absolute;

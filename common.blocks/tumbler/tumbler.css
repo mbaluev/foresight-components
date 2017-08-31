@@ -1,5 +1,5 @@
 .tumbler {
-    font-family: 'ProximaNova-Regular';
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     display: inline-block;
     user-select: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -13,7 +13,6 @@
     width: 80px;
     box-sizing: border-box;
     display: flex;
-    /*border-radius: 3px;*/
 }
 
 .tumbler__box:before,
@@ -26,18 +25,11 @@
     padding: 0;
     content: '';
     background-clip: padding-box;
-    /*border-radius: 3px;*/
 }
 
 .tumbler__box:before {
     background: #fff;
 }
-
-/*
-.tumbler__box:after {
-    border: solid 1px #ccc;
-}
-*/
 
 .tumbler__sticker {
     position: relative;
@@ -80,7 +72,6 @@
 .tumbler__sticker_position_right {
     order: 3;
     transition: 0.5s;
-    /*border-radius: 0 3px 3px 0;*/
 }
 
 .tumbler__sticker_position_right:before {
@@ -101,19 +92,10 @@
 .tumbler__box .button {
     order: 2;
     z-index: 2;
-    /*
-    background: #aaa;
-    border-radius: 3px;
-    */
 }
 
-.tumbler__box .button_hovered:hover {
-    /*background: #999;*/
-}
-
-.tumbler__box .button:before {
-    /*border-radius: 2px;*/
-}
+.tumbler__box .button_hovered:hover {}
+.tumbler__box .button:before {}
 
 .tumbler.tumbler_hidden { display: none; visibility: hidden; }
 
