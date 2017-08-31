@@ -100,6 +100,9 @@
 .button .button__text + .icon {
     margin-left: -10px;
 }
+.button .icon + .icon {
+    margin-left: -10px;
+}
 
 /* button__anim */
 .button__anim {

@@ -11,8 +11,8 @@
     <div class="fs-view">
         <div class="fs-view__header">
             <div class="header">
-                <div class="header__column">
-                    <button class="header__column-item button" type="button" data-fc="button" id="button_toggle-menu">
+                <div class="header__column header__column-left">
+                    <button class="button" type="button" data-fc="button" id="button_toggle-menu">
                         <span class="icon icon_css_animate">
                             <span class="icon__menu" data-fc="icon__menu">
                                 <span class="icon__menu-global icon__menu-top"></span>
@@ -22,28 +22,17 @@
                         </span>
                         <span class="button__anim"></span>
                     </button>
-                    <a class="header__column-item button" href="dashboard.html" data-fc="button">
+                    <a class="button" href="dashboard.html" data-fc="button">
                         <span class="icon icon_svg_home"></span>
                         <span class="button__anim"></span>
                     </a>
-                    <button class="header__column-item button" type="button" data-fc="button">
+                    <button class="button" type="button" data-fc="button">
                         <span class="icon icon_svg_search"></span>
                         <span class="button__anim"></span>
                     </button>
                 </div>
-                <!--<div class="header__column">
-                    <label class="header__column-item header__name mobile mobile_hide">ПМ Форсайт</label>
-                </div>-->
-                <div class="header__column">
-                    <!--<label class="header__column-item alert alert_color_red" data-fc="alert">
-                        <span class="alert__text mobile mobile_hide">Лицензия заканчивается через 30 дней</span>
-                        <span class="alert__text mobile mobile_show">30 дней</span>
-                        <button class="button" type="button" data-fc="button">
-                            <span class="icon icon_svg_close_white"></span>
-                            <span class="button__anim"></span>
-                        </button>
-                    </label>-->
-                    <button class="header__column-item button" data-fc="button" data-toggle="popup" data-target="#account">
+                <div class="header__column header__column-right">
+                    <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
                         <span class="icon icon_svg_down"></span>
@@ -57,7 +46,7 @@
                                 </a>
                             </li>
                             <li class="popup__list-item">
-                                <a class="popup__link" href="#">
+                                <a class="popup__link" href="settings.html">
                                     <span class="popup__text">Центр настроек</span>
                                 </a>
                             </li>
@@ -88,9 +77,30 @@
                             </a>
                         </li>
                         <li class="menu__item">
+                            <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="grid.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
                             <a class="menu__item-link link" href="dashboard.html">
                                 <span class="menu__item-link-content">
                                     <span class="menu__item-text">Дашборд</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
                                 </span>
                             </a>
                         </li>
@@ -1638,15 +1648,6 @@
             </div>
         </div>
     </div>
-    <!--
-    <span class="modal__" data-fc="modal__">
-        <div class="modal__view">
-            <div class="modal__backdrop"></div>
-            <div class="modal__dialog modal__dialog_hidden">
-            </div>
-        </div>
-    </span>
-    -->
     <script src="third/jquery-3.2.1.min.js"></script>
     <script src="third/jquery-ui.min.js"></script>
     <script src="third/highcharts.js"></script>

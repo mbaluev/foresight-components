@@ -11,8 +11,8 @@
     <div class="fs-view">
         <div class="fs-view__header">
             <div class="header">
-                <div class="header__column">
-                    <button class="header__column-item button" type="button" data-fc="button" id="button_toggle-menu">
+                <div class="header__column header__column-left">
+                    <button class="button" type="button" data-fc="button" id="button_toggle-menu">
                         <span class="icon icon_css_animate">
                             <span class="icon__menu" data-fc="icon__menu">
                                 <span class="icon__menu-global icon__menu-top"></span>
@@ -22,17 +22,24 @@
                         </span>
                         <span class="button__anim"></span>
                     </button>
-                    <a class="header__column-item button" href="dashboard.html" data-fc="button">
+                    <a class="button" href="dashboard.html" data-fc="button">
                         <span class="icon icon_svg_home"></span>
                         <span class="button__anim"></span>
                     </a>
-                    <button class="header__column-item button" type="button" data-fc="button">
+                    <button class="button" type="button" data-fc="button">
                         <span class="icon icon_svg_search"></span>
                         <span class="button__anim"></span>
                     </button>
                 </div>
-                <div class="header__column">
-                    <button class="header__column-item button" data-fc="button" data-toggle="popup" data-target="#account">
+                <div class="header__column header__column-right">
+                    <label class="alertbox alertbox_color_red" data-fc="alertbox">
+                        <span class="alertbox__text mobile mobile_hide">Лицензия заканчивается через 30 дней</span>
+                        <span class="alertbox__text mobile mobile_show">30 дней</span>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_close_white"></span>
+                        </button>
+                    </label>
+                    <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
                         <span class="icon icon_svg_settings"></span>
                         <span class="button__text mobile mobile_hide">Функциональный администратор</span>
                         <span class="icon icon_svg_down"></span>
@@ -46,7 +53,7 @@
                                 </a>
                             </li>
                             <li class="popup__list-item">
-                                <a class="popup__link" href="#">
+                                <a class="popup__link" href="settings.html">
                                     <span class="popup__text">Центр настроек</span>
                                 </a>
                             </li>
@@ -77,9 +84,30 @@
                             </a>
                         </li>
                         <li class="menu__item">
+                            <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="grid.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
                             <a class="menu__item-link link" href="dashboard.html">
                                 <span class="menu__item-link-content">
                                     <span class="menu__item-text">Дашборд</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
                                 </span>
                             </a>
                         </li>
@@ -136,1385 +164,1383 @@
             </div>
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
-                    <div class="fs-view__middle-inner">
-                        <div class="article" data-title="title" id="title">
-                            <div class="heading heading_1">components</div>
+                    <div class="article" data-title="title" id="title">
+                        <div class="heading heading_1">components</div>
+                    </div>
+                    <div class="article" data-title="icon" id="icon">
+                        <div class="heading heading_2">icon</div>
+                        <p class="paragraph paragraph_color_grey">Используется в качестве вспомогательного декоративного изображения в других блоках.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Иконка</span>
                         </div>
-                        <div class="article" data-title="icon" id="icon">
-                            <div class="heading heading_2">icon</div>
-                            <p class="paragraph paragraph_color_grey">Используется в качестве вспомогательного декоративного изображения в других блоках.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-                            <div class="heading heading_5">
-                                <span class="heading__info">Иконка</span>
-                            </div>
+                        <span class="icon icon_svg_settings"></span>
+                    </div>
+                    <div class="article" data-title="spinner" id="spinner">
+                        <div class="heading heading_2">spinner</div>
+                        <p class="paragraph paragraph_color_grey">Используется для отображения процесса загрузки.</p>
+                        <p class="paragraph paragraph_color_red">IE 11+</p>
+                        <div class="heading heading_5">
+                            <span class="heading__info">spinner</span>
+                        </div>
+                        <span class="spinner"></span>
+                    </div>
+                    <div class="article" data-title="button" id="button">
+                        <div class="heading heading_2">button</div>
+                        <p class="paragraph paragraph_color_grey">Кнопка</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка</span>
+                        </div>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="button__text">Сохранить</span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка с эффектом</span>
+                        </div>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="button__text">Сохранить</span>
+                            <span class="button__anim"></span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка c картинкой</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
+                        </div>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_up"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_right"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_down"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_left"></span>
+                        </button>
+                        <br><br>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_bars"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_search"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_close"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_plus"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_move"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
                             <span class="icon icon_svg_settings"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_trash"></span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка c картинкой и текстом</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
                         </div>
-                        <div class="article" data-title="spinner" id="spinner">
-                            <div class="heading heading_2">spinner</div>
-                            <p class="paragraph paragraph_color_grey">Используется для отображения процесса загрузки.</p>
-                            <p class="paragraph paragraph_color_red">IE 11+</p>
-                            <div class="heading heading_5">
-                                <span class="heading__info">spinner</span>
-                            </div>
-                            <span class="spinner"></span>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_bars"></span>
+                            <span class="button__text">Меню</span>
+                        </button>
+                        <br><br>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_settings"></span>
+                            <span class="button__text">Настройки</span>
+                        </button>
+                        <br><br>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_move"></span>
+                            <span class="button__text">Переместить</span>
+                        </button>
+                        <br><br>
+
+                        <button class="button button_disabled" type="button" data-fc="button" data-disabled="disabled">
+                            <span class="icon icon_svg_close"></span>
+                            <span class="button__text">Закрыть</span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка анимационная</span>
                         </div>
-                        <div class="article" data-title="button" id="button">
-                            <div class="heading heading_2">button</div>
-                            <p class="paragraph paragraph_color_grey">Кнопка</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка</span>
-                            </div>
+                        <button class="button" type="button"
+                                data-fc="button" data-trigger="toggle" data-triggercontainer="icon__menu">
+                                <span class="icon icon_css_animate">
+                                    <span class="icon__menu" data-fc="icon__menu">
+                                        <span class="icon__menu-global icon__menu-top"></span>
+                                        <span class="icon__menu-global icon__menu-middle"></span>
+                                        <span class="icon__menu-global icon__menu-bottom"></span>
+                                    </span>
+                                </span>
+                            <span class="button__text">Меню</span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка-чекбокс</span>
+                            <p class="paragraph paragraph_color_grey">Используется внутри блока <a class="link link_code" href="#checkbox">checkbox</a></p>
+                        </div>
+
+                        <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                            <span class="button__text">Включить в объект госпрограммы</span>
+                        </button>
+                        <br><br>
+
+                        <button class="button button_toggable_check" type="button" data-fc="button" data-checked="false">
+                            <span class="icon icon_svg_trash"></span>
+                            <span class="button__text">Исключить</span>
+                        </button>
+                        <br><br>
+
+                        <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                            <span class="button__text">Удалить</span>
+                            <span class="icon icon_svg_close"></span>
+                        </button>
+                        <br><br>
+
+                        <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                            <span class="button__text">Удалить</span>
+                            <span class="icon icon_svg_close"></span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопка-радио</span>
+                            <p class="paragraph paragraph_color_grey">Используется внутри блока <a class="link link_code" href="#radio">radio</a></p>
+                        </div>
+
+                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                            <span class="button__text">Я залипла</span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Группа кнопок</span>
+                        </div>
+
+                        <span class="button-group" data-fc="button-group">
                             <button class="button" type="button" data-fc="button">
-                                <span class="button__text">Сохранить</span>
+                                <span class="icon icon_svg_left"></span>
                             </button>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка с эффектом</span>
-                            </div>
-
                             <button class="button" type="button" data-fc="button">
-                                <span class="button__text">Сохранить</span>
-                                <span class="button__anim"></span>
+                                <span class="button__text">Июнь</span>
                             </button>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_right"></span>
+                            </button>
+                        </span>
+                        <br><br>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка c картинкой</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
-                            </div>
-
+                        <span class="button-group" data-fc="button-group">
                             <button class="button" type="button" data-fc="button">
                                 <span class="icon icon_svg_up"></span>
                             </button>
-                            <button class="button" type="button" data-fc="button">
+                            <button class="button" type="button" data-fc="button" data-disabled="true">
                                 <span class="icon icon_svg_right"></span>
                             </button>
                             <button class="button" type="button" data-fc="button">
                                 <span class="icon icon_svg_down"></span>
                             </button>
-                            <button class="button" type="button" data-fc="button">
+                            <button class="button" type="button" data-fc="button" data-disabled="true">
                                 <span class="icon icon_svg_left"></span>
                             </button>
-                            <br><br>
+                        </span>
+                    </div>
+                    <div class="article" data-title="checkbox" id="checkbox">
+                        <div class="heading heading_2">checkbox</div>
+                        <p class="paragraph paragraph_color_grey">Чекбокс</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_bars"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_search"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_close"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_plus"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_move"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_settings"></span>
-                            </button>
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_trash"></span>
-                            </button>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Чекбокс</span>
+                        </div>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка c картинкой и текстом</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
-                            </div>
+                        <label class="checkbox" data-fc="checkbox" data-checked="true">
+                            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            <label class="checkbox__label">Checked checkbox</label>
+                        </label>
+                        <br><br>
+                        <label class="checkbox" data-fc="checkbox">
+                            <input class="checkbox__input" type="checkbox" name="second" hidden/>
+                            <label class="checkbox__label">Unchecked checkbox</label>
+                        </label>
+                        <br><br>
+                        <label class="checkbox" data-fc="checkbox" data-disabled="true">
+                            <input class="checkbox__input" type="checkbox" name="third" hidden/>
+                            <label class="checkbox__label">Disabled checkbox</label>
+                        </label>
+                        <br><br>
+                        <label class="checkbox" data-fc="checkbox" data-disabled="true" data-checked="true">
+                            <input class="checkbox__input" type="checkbox" name="last" hidden/>
+                            <label class="checkbox__label">Disabled checked checkbox</label>
+                        </label>
 
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_bars"></span>
-                                <span class="button__text">Меню</span>
-                            </button>
-                            <br><br>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Чекбокс-кнопка</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
+                        </div>
 
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_settings"></span>
-                                <span class="button__text">Настройки</span>
-                            </button>
-                            <br><br>
-
-                            <button class="button" type="button" data-fc="button">
-                                <span class="icon icon_svg_move"></span>
-                                <span class="button__text">Переместить</span>
-                            </button>
-                            <br><br>
-
-                            <button class="button button_disabled" type="button" data-fc="button" data-disabled="disabled">
-                                <span class="icon icon_svg_close"></span>
-                                <span class="button__text">Закрыть</span>
-                            </button>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка анимационная</span>
-                            </div>
-
-                            <button class="button" type="button"
-                                    data-fc="button" data-trigger="toggle" data-triggercontainer="icon__menu">
-                                    <span class="icon icon_css_animate">
-                                        <span class="icon__menu" data-fc="icon__menu">
-                                            <span class="icon__menu-global icon__menu-top"></span>
-                                            <span class="icon__menu-global icon__menu-middle"></span>
-                                            <span class="icon__menu-global icon__menu-bottom"></span>
-                                        </span>
-                                    </span>
-                                <span class="button__text">Меню</span>
-                            </button>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка-чекбокс</span>
-                                <p class="paragraph paragraph_color_grey">Используется внутри блока <a class="link link_code" href="#checkbox">checkbox</a></p>
-                            </div>
-
+                        <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
                             <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
                                 <span class="button__text">Включить в объект госпрограммы</span>
                             </button>
-                            <br><br>
+                            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                        </label>
+                        <br><br>
 
-                            <button class="button button_toggable_check" type="button" data-fc="button" data-checked="false">
+                        <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                            <button class="button button_toggable_check" type="button" data-fc="button">
                                 <span class="icon icon_svg_trash"></span>
                                 <span class="button__text">Исключить</span>
                             </button>
-                            <br><br>
+                            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                        </label>
+                        <br><br>
 
+                        <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
                             <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
                                 <span class="button__text">Удалить</span>
                                 <span class="icon icon_svg_close"></span>
                             </button>
-                            <br><br>
+                            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                        </label>
+                        <br><br>
 
-                            <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                        <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true" data-disabled="true">
+                            <button class="button button_toggable_check button_checked" type="button" data-fc="button" data-checked="true" data-disabled="true">
                                 <span class="button__text">Удалить</span>
                                 <span class="icon icon_svg_close"></span>
                             </button>
+                            <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                        </label>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Кнопка-радио</span>
-                                <p class="paragraph paragraph_color_grey">Используется внутри блока <a class="link link_code" href="#radio">radio</a></p>
-                            </div>
-
-                            <button class="button button_toggable_radio" type="button" data-fc="button">
-                                <span class="button__text">Я залипла</span>
-                            </button>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Группа кнопок</span>
-                            </div>
-
-                            <span class="button-group" data-fc="button-group">
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_left"></span>
-                                </button>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="button__text">Июнь</span>
-                                </button>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_right"></span>
-                                </button>
-                            </span>
-                            <br><br>
-
-                            <span class="button-group" data-fc="button-group">
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_up"></span>
-                                </button>
-                                <button class="button" type="button" data-fc="button" data-disabled="true">
-                                    <span class="icon icon_svg_right"></span>
-                                </button>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_down"></span>
-                                </button>
-                                <button class="button" type="button" data-fc="button" data-disabled="true">
-                                    <span class="icon icon_svg_left"></span>
-                                </button>
-                            </span>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Группа чекбоксов</span>
                         </div>
-                        <div class="article" data-title="checkbox" id="checkbox">
-                            <div class="heading heading_2">checkbox</div>
-                            <p class="paragraph paragraph_color_grey">Чекбокс</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Чекбокс</span>
-                            </div>
-
-                            <label class="checkbox" data-fc="checkbox" data-checked="true">
+                        <span class="checkbox-group checkbox-group_type_line" data-fc="checkbox-group">
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true">
                                 <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                <label class="checkbox__label">Checked checkbox</label>
+                                <label class="checkbox__label">Вверх</label>
                             </label>
-                            <br><br>
-                            <label class="checkbox" data-fc="checkbox">
+                            <br>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox">
                                 <input class="checkbox__input" type="checkbox" name="second" hidden/>
-                                <label class="checkbox__label">Unchecked checkbox</label>
+                                <label class="checkbox__label">Вправо</label>
                             </label>
-                            <br><br>
-                            <label class="checkbox" data-fc="checkbox" data-disabled="true">
+                            <br>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-disabled="true">
                                 <input class="checkbox__input" type="checkbox" name="third" hidden/>
-                                <label class="checkbox__label">Disabled checkbox</label>
+                                <label class="checkbox__label">Вниз</label>
                             </label>
-                            <br><br>
-                            <label class="checkbox" data-fc="checkbox" data-disabled="true" data-checked="true">
+                            <br>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true" data-disabled="true">
                                 <input class="checkbox__input" type="checkbox" name="last" hidden/>
-                                <label class="checkbox__label">Disabled checked checkbox</label>
+                                <label class="checkbox__label">Влево</label>
                             </label>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Чекбокс-кнопка</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
-
-                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                    <span class="button__text">Включить в объект госпрограммы</span>
-                                </button>
+                        </span>
+                        <br><br>
+                        <span class="checkbox-group checkbox-group_type_line" data-fc="checkbox-group">
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true">
                                 <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                                <label class="checkbox__label">Вверх</label>
                             </label>
-                            <br><br>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox">
+                                <input class="checkbox__input" type="checkbox" name="second" hidden/>
+                                <label class="checkbox__label">Вправо</label>
+                            </label>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-disabled="true">
+                                <input class="checkbox__input" type="checkbox" name="third" hidden/>
+                                <label class="checkbox__label">Вниз</label>
+                            </label>
+                            <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true" data-disabled="true">
+                                <input class="checkbox__input" type="checkbox" name="last" hidden/>
+                                <label class="checkbox__label">Влево</label>
+                            </label>
+                        </span>
 
+                        <div class="heading heading_5">
+                            <span class="heading__info">Группа чекбоксов-кнопок</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
+                        </div>
+
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
                             <label class="checkbox checkbox_type_button" data-fc="checkbox">
                                 <button class="button button_toggable_check" type="button" data-fc="button">
-                                    <span class="icon icon_svg_trash"></span>
-                                    <span class="button__text">Исключить</span>
+                                    <span class="button__text">Вверх</span>
                                 </button>
                                 <input class="checkbox__input" type="checkbox" name="first" hidden/>
                             </label>
-                            <br><br>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
                             <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
                                 <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                    <span class="button__text">Удалить</span>
-                                    <span class="icon icon_svg_close"></span>
+                                    <span class="button__text">Вверх</span>
                                 </button>
                                 <input class="checkbox__input" type="checkbox" name="first" hidden/>
                             </label>
-                            <br><br>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Вверх</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
+
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
                             <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true" data-disabled="true">
-                                <button class="button button_toggable_check button_checked" type="button" data-fc="button" data-checked="true" data-disabled="true">
-                                    <span class="button__text">Удалить</span>
-                                    <span class="icon icon_svg_close"></span>
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                                    <span class="button__text">Вверх</span>
                                 </button>
                                 <input class="checkbox__input" type="checkbox" name="first" hidden/>
                             </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox">
+                                <button class="button button_toggable_check" type="button" data-fc="button">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Группа чекбоксов</span>
-                            </div>
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Вверх</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
-                            <span class="checkbox-group checkbox-group_type_line" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true">
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                    <label class="checkbox__label">Вверх</label>
-                                </label>
-                                <br>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox">
-                                    <input class="checkbox__input" type="checkbox" name="second" hidden/>
-                                    <label class="checkbox__label">Вправо</label>
-                                </label>
-                                <br>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-disabled="true">
-                                    <input class="checkbox__input" type="checkbox" name="third" hidden/>
-                                    <label class="checkbox__label">Вниз</label>
-                                </label>
-                                <br>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true" data-disabled="true">
-                                    <input class="checkbox__input" type="checkbox" name="last" hidden/>
-                                    <label class="checkbox__label">Влево</label>
-                                </label>
-                            </span>
-                            <br><br>
-                            <span class="checkbox-group checkbox-group_type_line" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true">
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                    <label class="checkbox__label">Вверх</label>
-                                </label>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox">
-                                    <input class="checkbox__input" type="checkbox" name="second" hidden/>
-                                    <label class="checkbox__label">Вправо</label>
-                                </label>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-disabled="true">
-                                    <input class="checkbox__input" type="checkbox" name="third" hidden/>
-                                    <label class="checkbox__label">Вниз</label>
-                                </label>
-                                <label class="checkbox checkbox_type_line" data-fc="checkbox" data-checked="true" data-disabled="true">
-                                    <input class="checkbox__input" type="checkbox" name="last" hidden/>
-                                    <label class="checkbox__label">Влево</label>
-                                </label>
-                            </span>
+                        <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Вверх</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Вправо</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Вниз</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                            <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
+                                <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Влево</span>
+                                </button>
+                                <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="article" data-title="radio" id="radio">
+                        <div class="heading heading_2">radio</div>
+                        <p class="paragraph paragraph_color_grey">Радио</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Группа чекбоксов-кнопок</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true" data-disabled="true">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox">
-                                    <button class="button button_toggable_check" type="button" data-fc="button">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-disabled="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="checkbox-group checkbox-group_type_button" data-fc="checkbox-group">
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Вверх</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Вправо</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Вниз</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                                <label class="checkbox checkbox_type_button" data-fc="checkbox" data-checked="true">
-                                    <button class="button button_toggable_check" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Влево</span>
-                                    </button>
-                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                </label>
-                            </span>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Радио</span>
                         </div>
-                        <div class="article" data-title="radio" id="radio">
-                            <div class="heading heading_2">radio</div>
-                            <p class="paragraph paragraph_color_grey">Радио</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Радио</span>
-                            </div>
+                        <label class="radio" data-fc="radio" data-checked="true">
+                            <input class="radio__input" type="radio" name="radio-checked" hidden />
+                            <label class="radio__label">Checked radio</label>
+                        </label>
+                        <br><br>
 
-                            <label class="radio" data-fc="radio" data-checked="true">
-                                <input class="radio__input" type="radio" name="radio-checked" hidden />
-                                <label class="radio__label">Checked radio</label>
-                            </label>
-                            <br><br>
+                        <label class="radio" data-fc="radio">
+                            <input class="radio__input" type="radio" name="radio-unchecked" hidden />
+                            <label class="radio__label">Unchecked radio</label>
+                        </label>
+                        <br><br>
 
-                            <label class="radio" data-fc="radio">
-                                <input class="radio__input" type="radio" name="radio-unchecked" hidden />
-                                <label class="radio__label">Unchecked radio</label>
-                            </label>
-                            <br><br>
+                        <label class="radio" data-fc="radio" data-disabled="true">
+                            <input class="radio__input" type="radio" name="radio-disabled" hidden/>
+                            <label class="radio__label">Disabled radio</label>
+                        </label>
+                        <br><br>
 
-                            <label class="radio" data-fc="radio" data-disabled="true">
-                                <input class="radio__input" type="radio" name="radio-disabled" hidden/>
-                                <label class="radio__label">Disabled radio</label>
-                            </label>
-                            <br><br>
+                        <label class="radio" data-fc="radio" data-checked="true" data-disabled="true">
+                            <input class="radio__input" type="radio" name="radio-disabled-checked" hidden/>
+                            <label class="radio__label">Disabled checked radio</label>
+                        </label>
 
+                        <div class="heading heading_5">
+                            <span class="heading__info">Радио-кнопка</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
+                        </div>
+
+                        <label class="radio radio_type_button" data-fc="radio">
+                            <button class="button button_toggable_radio" type="button" data-fc="button">
+                                <span class="icon icon_svg_settings"></span>
+                                <span class="button__text">Я принимаю уловия договора</span>
+                            </button>
+                            <input class="radio__input" type="radio" name="radio-button-1" hidden/>
+                        </label>
+                        <br><br>
+
+                        <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                            <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                                <span class="button__text">Я принимаю уловия договора</span>
+                            </button>
+                            <input class="radio__input" type="radio" name="radio-button-2" hidden/>
+                        </label>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Группа радио</span>
+                        </div>
+
+                        <span class="radio-group radio-group_type_line" data-fc="radio-group">
                             <label class="radio" data-fc="radio" data-checked="true" data-disabled="true">
-                                <input class="radio__input" type="radio" name="radio-disabled-checked" hidden/>
-                                <label class="radio__label">Disabled checked radio</label>
+                                <input class="radio__input" type="radio" name="radio-group" value="1" hidden />
+                                <label class="radio__label">Проект</label>
                             </label>
+                            <br>
+                            <label class="radio" data-fc="radio" data-disabled="true">
+                                <input class="radio__input" type="radio" name="radio-group" value="2" hidden />
+                                <label class="radio__label">Портфель</label>
+                            </label>
+                            <br>
+                            <label class="radio" data-fc="radio" data-disabled="true">
+                                <input class="radio__input" type="radio" name="radio-group" value="3" hidden/>
+                                <label class="radio__label">Программа</label>
+                            </label>
+                        </span>
+                        <br><br>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Радио-кнопка</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
+                        <span class="radio-group radio-group_type_line" data-fc="radio-group">
+                            <label class="radio" data-fc="radio" data-checked="true">
+                                <input class="radio__input" type="radio" name="radio-group-disabled" value="1" hidden />
+                                <label class="radio__label">Проект</label>
+                            </label>
+                            <br>
+                            <label class="radio" data-fc="radio">
+                                <input class="radio__input" type="radio" name="radio-group-disabled" value="2" hidden />
+                                <label class="radio__label">Портфель</label>
+                            </label>
+                            <br>
+                            <label class="radio" data-fc="radio" data-disabled="true">
+                                <input class="radio__input" type="radio" name="radio-group-disabled" value="3" hidden/>
+                                <label class="radio__label">Программа</label>
+                            </label>
+                        </span>
+                        <br><br>
 
+                        <span class="radio-group radio-group_type_line" data-fc="radio-group">
+                            <label class="radio radio_type_line" data-fc="radio" data-checked="true">
+                                <input class="radio__input" type="radio" name="radio-group-inline" value="1" hidden/>
+                                <label class="radio__label">Проект</label>
+                            </label>
+                            <label class="radio radio_type_line" data-fc="radio">
+                                <input class="radio__input" type="radio" name="radio-group-inline" value="2" hidden/>
+                                <label class="radio__label">Портфель</label>
+                            </label>
+                            <label class="radio radio_type_line" data-fc="radio" data-disabled="true">
+                                <input class="radio__input" type="radio" name="radio-group-inline" value="3" hidden/>
+                                <label class="radio__label">Программа</label>
+                            </label>
+                        </span>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Группа радио-кнопок</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
+                        </div>
+
+                        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+                            <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Я</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>
+                            </label>
                             <label class="radio radio_type_button" data-fc="radio">
                                 <button class="button button_toggable_radio" type="button" data-fc="button">
-                                    <span class="icon icon_svg_settings"></span>
-                                    <span class="button__text">Я принимаю уловия договора</span>
+                                    <span class="button__text">Принимаю</span>
                                 </button>
-                                <input class="radio__input" type="radio" name="radio-button-1" hidden/>
+                                <input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>
                             </label>
-                            <br><br>
+                            <label class="radio radio_type_button" data-fc="radio">
+                                <button class="button button_toggable_radio" type="button" data-fc="button">
+                                    <span class="button__text">Условия</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button" value="3" hidden/>
+                            </label>
+                            <label class="radio radio_type_button" data-fc="radio">
+                                <button class="button button_toggable_radio" type="button" data-fc="button">
+                                    <span class="button__text">Договора</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button" value="4" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
+                        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+                            <label class="radio radio_type_button" data-fc="radio">
+                                <button class="button button_toggable_radio" type="button" data-fc="button">
+                                    <span class="button__text">Я</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-2" value="1" hidden/>
+                            </label>
                             <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
                                 <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
-                                    <span class="button__text">Я принимаю уловия договора</span>
+                                    <span class="button__text">Принимаю</span>
                                 </button>
-                                <input class="radio__input" type="radio" name="radio-button-2" hidden/>
+                                <input class="radio__input" type="radio" name="radio-group-button-2" value="2" hidden/>
                             </label>
+                            <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
+                                    <span class="button__text">Условия</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-2" value="3" hidden/>
+                            </label>
+                            <label class="radio radio_type_button" data-fc="radio">
+                                <button class="button button_toggable_radio" type="button" data-fc="button">
+                                    <span class="button__text">Договора</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-2" value="4" hidden/>
+                            </label>
+                        </span>
+                        <br><br>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Группа радио</span>
-                            </div>
+                        <span class="radio-group radio-group_type_button" data-fc="radio-group">
+                            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Я</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-3" value="1" hidden/>
+                            </label>
+                            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Принимаю</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-3" value="2" hidden/>
+                            </label>
+                            <label class="radio radio_type_button" data-fc="radio" data-checked="true" data-disabled="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true" data-disabled="true">
+                                    <span class="button__text">Условия</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-3" value="3" hidden/>
+                            </label>
+                            <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
+                                <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
+                                    <span class="button__text">Договора</span>
+                                </button>
+                                <input class="radio__input" type="radio" name="radio-group-button-3" value="4" hidden/>
+                            </label>
+                        </span>
+                    </div>
+                    <div class="article" data-title="tumbler" id="tumbler">
+                        <div class="heading heading_2">tumbler</div>
+                        <p class="paragraph paragraph_color_grey">Используется для активации какого либо элемента (вкл./выкл.).</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <span class="radio-group radio-group_type_line" data-fc="radio-group">
-                                <label class="radio" data-fc="radio" data-checked="true" data-disabled="true">
-                                    <input class="radio__input" type="radio" name="radio-group" value="1" hidden />
-                                    <label class="radio__label">Проект</label>
-                                </label>
-                                <br>
-                                <label class="radio" data-fc="radio" data-disabled="true">
-                                    <input class="radio__input" type="radio" name="radio-group" value="2" hidden />
-                                    <label class="radio__label">Портфель</label>
-                                </label>
-                                <br>
-                                <label class="radio" data-fc="radio" data-disabled="true">
-                                    <input class="radio__input" type="radio" name="radio-group" value="3" hidden/>
-                                    <label class="radio__label">Программа</label>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="radio-group radio-group_type_line" data-fc="radio-group">
-                                <label class="radio" data-fc="radio" data-checked="true">
-                                    <input class="radio__input" type="radio" name="radio-group-disabled" value="1" hidden />
-                                    <label class="radio__label">Проект</label>
-                                </label>
-                                <br>
-                                <label class="radio" data-fc="radio">
-                                    <input class="radio__input" type="radio" name="radio-group-disabled" value="2" hidden />
-                                    <label class="radio__label">Портфель</label>
-                                </label>
-                                <br>
-                                <label class="radio" data-fc="radio" data-disabled="true">
-                                    <input class="radio__input" type="radio" name="radio-group-disabled" value="3" hidden/>
-                                    <label class="radio__label">Программа</label>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="radio-group radio-group_type_line" data-fc="radio-group">
-                                <label class="radio radio_type_line" data-fc="radio" data-checked="true">
-                                    <input class="radio__input" type="radio" name="radio-group-inline" value="1" hidden/>
-                                    <label class="radio__label">Проект</label>
-                                </label>
-                                <label class="radio radio_type_line" data-fc="radio">
-                                    <input class="radio__input" type="radio" name="radio-group-inline" value="2" hidden/>
-                                    <label class="radio__label">Портфель</label>
-                                </label>
-                                <label class="radio radio_type_line" data-fc="radio" data-disabled="true">
-                                    <input class="radio__input" type="radio" name="radio-group-inline" value="3" hidden/>
-                                    <label class="radio__label">Программа</label>
-                                </label>
-                            </span>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Группа радио-кнопок</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
-
-                            <span class="radio-group radio-group_type_button" data-fc="radio-group">
-                                <label class="radio radio_type_button" data-fc="radio" data-checked="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Я</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button">
-                                        <span class="button__text">Принимаю</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button">
-                                        <span class="button__text">Условия</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button" value="3" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button">
-                                        <span class="button__text">Договора</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button" value="4" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="radio-group radio-group_type_button" data-fc="radio-group">
-                                <label class="radio radio_type_button" data-fc="radio">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button">
-                                        <span class="button__text">Я</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-2" value="1" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Принимаю</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-2" value="2" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio" data-checked="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">
-                                        <span class="button__text">Условия</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-2" value="3" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button">
-                                        <span class="button__text">Договора</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-2" value="4" hidden/>
-                                </label>
-                            </span>
-                            <br><br>
-
-                            <span class="radio-group radio-group_type_button" data-fc="radio-group">
-                                <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Я</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-3" value="1" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Принимаю</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-3" value="2" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio" data-checked="true" data-disabled="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true" data-disabled="true">
-                                        <span class="button__text">Условия</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-3" value="3" hidden/>
-                                </label>
-                                <label class="radio radio_type_button" data-fc="radio" data-disabled="true">
-                                    <button class="button button_toggable_radio" type="button" data-fc="button" data-disabled="true">
-                                        <span class="button__text">Договора</span>
-                                    </button>
-                                    <input class="radio__input" type="radio" name="radio-group-button-3" value="4" hidden/>
-                                </label>
-                            </span>
+                        <div class="heading heading_5">
+                            <span class="heading__info">Тумблер</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
                         </div>
-                        <div class="article" data-title="tumbler" id="tumbler">
-                            <div class="heading heading_2">tumbler</div>
-                            <p class="paragraph paragraph_color_grey">Используется для активации какого либо элемента (вкл./выкл.).</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">Тумблер</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
-
-                            <span class="tumbler" data-fc="tumbler">
-                                <span class="tumbler__box">
-                                    <div class="tumbler__sticker tumbler__sticker_position_left">
-                                        <div class="tumbler__sticker-label">Вкл</div>
-                                    </div>
-                                    <div class="tumbler__sticker tumbler__sticker_position_right">
-                                        <div class="tumbler__sticker-label">Выкл</div>
-                                    </div>
-                                    <button class="button" type="button" data-fc="button">
-                                        <span class="icon icon_svg_edit"></span>
-                                    </button>
-                                </span>
-                                <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
-                            </span>
-                        </div>
-                        <div class="article" data-title="alertbox" id="alertbox">
-                            <div class="heading heading_2">alert</div>
-                            <p class="paragraph paragraph_color_grey">Используется для отображения плашки с информацией.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Алерт</span>
-                            </div>
-
-                            <label class="alertbox" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                            </label>
-                            <br><br>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Алерт с иконкой и разных цветов</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
-                            </div>
-
-                            <label class="alertbox" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                                <span class="icon icon_svg_settings"></span>
-                            </label>
-                            <br><br>
-
-                            <label class="alertbox alertbox_color_blue" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                                <span class="icon icon_svg_settings_white"></span>
-                            </label>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Алерт с кнопкой закрыть и разных цветов</span>
-                                <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
-                            </div>
-
-                            <label class="alertbox alertbox_color_cyan" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_close_white"></span>
-                                </button>
-                            </label>
-                            <br><br>
-
-                            <label class="alertbox alertbox_color_blue" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_close_white"></span>
-                                </button>
-                            </label>
-                            <br><br>
-
-                            <label class="alertbox alertbox_color_red" data-fc="alertbox">
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_close_white"></span>
-                                </button>
-                            </label>
-                            <br><br>
-
-                            <label class="alertbox alertbox_color_red" data-fc="alertbox">
-                                <button class="button" type="button" data-fc="button">
-                                    <span class="icon icon_svg_close_white"></span>
-                                </button>
-                                <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
-                            </label>
-                        </div>
-                        <div class="article" data-title="popup" id="popup">
-                            <div class="heading heading_2">popup</div>
-                            <p class="paragraph paragraph_color_grey">Всплывающее окно</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">bottom left</span>
-                                <p class="paragraph paragraph_color_grey">data-position="bottom left"</p>
-                                <p class="paragraph paragraph_color_grey">data-select="true"</p>
-                            </div>
-
-                            <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup1">
-                                <span class="button__text">График</span>
-                                <span class="icon icon_svg_down"></span>
-                            </button>
-                            <div class="popup" id="popup1" data-select="true" data-position="bottom left">
-                                <div class="popup__input">
-                                    <span class="input input__has-clear" data-fc="input">
-                                        <span class="input__box">
-                                            <span class="alertbox" data-fc="alertbox">
-                                                <span class="icon icon_svg_search"></span>
-                                            </span>
-                                            <input type="text" class="input__control">
-                                            <button class="button" type="button" data-fc="button">
-                                                <span class="icon icon_svg_close"></span>
-                                            </button>
-                                        </span>
-                                    </span>
+                        <span class="tumbler" data-fc="tumbler">
+                            <span class="tumbler__box">
+                                <div class="tumbler__sticker tumbler__sticker_position_left">
+                                    <div class="tumbler__sticker-label">Вкл</div>
                                 </div>
-                                <div class="popup__scroll">
-                                    <ul class="popup__list">
-                                        <li class="popup__list-item">
-                                            <button class="popup__link">
-                                                <span class="icon icon_svg_settings"></span>
-                                                <span class="popup__text">Круговая диаграмма</span>
-                                            </button>
-                                        </li>
-                                        <li class="popup__list-item">
-                                            <a class="popup__link" href="#">
-                                                <span class="popup__text">Диаграмма с областями</span>
+                                <div class="tumbler__sticker tumbler__sticker_position_right">
+                                    <div class="tumbler__sticker-label">Выкл</div>
+                                </div>
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_edit"></span>
+                                </button>
+                            </span>
+                            <input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>
+                        </span>
+                    </div>
+                    <div class="article" data-title="alertbox" id="alertbox">
+                        <div class="heading heading_2">alert</div>
+                        <p class="paragraph paragraph_color_grey">Используется для отображения плашки с информацией.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Алерт</span>
+                        </div>
+
+                        <label class="alertbox" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                        </label>
+                        <br><br>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Алерт с иконкой и разных цветов</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#icon">icon</a></p>
+                        </div>
+
+                        <label class="alertbox" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                            <span class="icon icon_svg_settings"></span>
+                        </label>
+                        <br><br>
+
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                            <span class="icon icon_svg_settings_white"></span>
+                        </label>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Алерт с кнопкой закрыть и разных цветов</span>
+                            <p class="paragraph paragraph_color_grey">Используется вместе с блоком <a class="link link_code" href="#button">button</a></p>
+                        </div>
+
+                        <label class="alertbox alertbox_color_cyan" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_close_white"></span>
+                            </button>
+                        </label>
+                        <br><br>
+
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_close_white"></span>
+                            </button>
+                        </label>
+                        <br><br>
+
+                        <label class="alertbox alertbox_color_red" data-fc="alertbox">
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_close_white"></span>
+                            </button>
+                        </label>
+                        <br><br>
+
+                        <label class="alertbox alertbox_color_red" data-fc="alertbox">
+                            <button class="button" type="button" data-fc="button">
+                                <span class="icon icon_svg_close_white"></span>
+                            </button>
+                            <span class="alertbox__text">Лицензия заканчивается через 30 дней</span>
+                        </label>
+                    </div>
+                    <div class="article" data-title="popup" id="popup">
+                        <div class="heading heading_2">popup</div>
+                        <p class="paragraph paragraph_color_grey">Всплывающее окно</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">bottom left</span>
+                            <p class="paragraph paragraph_color_grey">data-position="bottom left"</p>
+                            <p class="paragraph paragraph_color_grey">data-select="true"</p>
+                        </div>
+
+                        <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup1">
+                            <span class="button__text">График</span>
+                            <span class="icon icon_svg_down"></span>
+                        </button>
+                        <div class="popup" id="popup1" data-select="true" data-position="bottom left">
+                            <div class="popup__input">
+                                <span class="input input__has-clear" data-fc="input">
+                                    <span class="input__box">
+                                        <span class="alertbox" data-fc="alertbox">
+                                            <span class="icon icon_svg_search"></span>
+                                        </span>
+                                        <input type="text" class="input__control">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="popup__scroll">
+                                <ul class="popup__list">
+                                    <li class="popup__list-item">
+                                        <button class="popup__link">
+                                            <span class="icon icon_svg_settings"></span>
+                                            <span class="popup__text">Круговая диаграмма</span>
+                                        </button>
+                                    </li>
+                                    <li class="popup__list-item">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">Диаграмма с областями</span>
+                                        </a>
+                                    </li>
+                                    <li class="popup__list-item popup__list-item_checked">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">График</span>
+                                        </a>
+                                    </li>
+                                    <li class="popup__list-item">
+                                        <a class="popup__link" href="#">
+                                            <span class="popup__text">Столбчатая диаграмма</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">top left</span>
+                            <p class="paragraph paragraph_color_grey">data-position="top left"</p>
+                            <p class="paragraph paragraph_color_grey">data-select="true"</p>
+                            <p class="paragraph paragraph_color_grey">data-width="auto"</p>
+                        </div>
+
+                        <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup2">
+                            <span class="button__text">График</span>
+                            <span class="icon icon_svg_down"></span>
+                        </button>
+                        <div class="popup" id="popup2" data-select="true" data-position="top left" data-width="auto">
+                            <ul class="popup__list">
+                                <li class="popup__list-item">
+                                    <button class="popup__link">
+                                        <span class="icon icon_svg_settings"></span>
+                                        <span class="popup__text">Круговая диаграмма</span>
+                                    </button>
+                                </li>
+                                <li class="popup__list-item">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">Диаграмма с областями</span>
+                                    </a>
+                                </li>
+                                <li class="popup__list-item popup__list-item_checked">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">График</span>
+                                    </a>
+                                </li>
+                                <li class="popup__list-item">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">Столбчатая диаграмма</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">right top</span>
+                            <p class="paragraph paragraph_color_grey">data-position="right top"</p>
+                            <p class="paragraph paragraph_color_grey">data-select="true"</p>
+                            <p class="paragraph paragraph_color_grey">data-width="auto"</p>
+                        </div>
+
+                        <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup3">
+                            <span class="button__text">График</span>
+                            <span class="icon icon_svg_down"></span>
+                        </button>
+                        <div class="popup" id="popup3" data-select="true" data-position="right top" data-width="auto">
+                            <ul class="popup__list">
+                                <li class="popup__list-item">
+                                    <button class="popup__link">
+                                        <span class="icon icon_svg_settings"></span>
+                                        <span class="popup__text">Круговая диаграмма</span>
+                                    </button>
+                                </li>
+                                <li class="popup__list-item">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">Диаграмма с областями</span>
+                                    </a>
+                                </li>
+                                <li class="popup__list-item popup__list-item_checked">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">График</span>
+                                    </a>
+                                </li>
+                                <li class="popup__list-item">
+                                    <a class="popup__link" href="#">
+                                        <span class="popup__text">Столбчатая диаграмма</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="article" data-title="input" id="input">
+                        <div class="heading heading_2">input</div>
+                        <p class="paragraph paragraph_color_grey">Поле ввода.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">disabled</span>
+                        </div>
+
+                        <span class="input input__has-clear" data-fc="input" data-width="200" data-disabled="true">
+                            <span class="input__box">
+                                <input type="text" class="input__control" value="Привет">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_close"></span>
+                                </button>
+                            </span>
+                        </span>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">200px</span>
+                        </div>
+
+                        <span class="input input__has-clear" data-fc="input" data-width="200">
+                            <span class="input__box">
+                                <input type="text" class="input__control" value="Привет">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_close"></span>
+                                </button>
+                            </span>
+                        </span>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">На всю ширину</span>
+                        </div>
+
+                        <span class="input input__has-clear" data-fc="input">
+                            <span class="input__box">
+                                <input type="text" class="input__control" value="Привет">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_close"></span>
+                                </button>
+                            </span>
+                        </span>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">datepicker</span>
+                        </div>
+
+                        <span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">
+                            <span class="input__box">
+                                <input type="text" class="input__control" value="Выберите дату">
+                                <button class="button" type="button" data-fc="button">
+                                    <span class="icon icon_svg_close"></span>
+                                </button>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="article" data-title="select" id="select">
+                        <div class="heading heading_2">select</div>
+                        <p class="paragraph paragraph_color_grey">Выпадающий список</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">single</span>
+                        </div>
+                        <select class="select" name="portfolio" data-fc="select" id="s1"
+                                data-placeholder="Портфель" data-height="350" data-mode="radio">
+                            <option value="93092">Государственные услуги в социальной сфере</option>
+                            <option value="93093">Энергетическая инфраструктура ТОР «Надеждинский»</option>
+                            <option value="93111" selected="selected">Общегородские системы обеспечения предоставления государственных услуг</option>
+                            <option value="93113">Общегородские реестры, регистры, справочники и классификаторы</option>
+                            <option value="93114">Государственные услуги в социальной сфере</option>
+                            <option value="93115">Государственные услуги в сфере имущественных отношений, землепользования и градостроительства</option>
+                            <option value="93116">Дополнительные государственные услуги, подлежащие переводу на предоставление в электронном виде</option>
+                            <option value="93117">Универсальная электронная карта (УЭК)</option>
+                            <option value="93118">Социальная сфера города</option>
+                            <option value="93119">Образование</option>
+                            <option value="93120">Здравоохранение</option>
+                            <option value="93121">Жилищно-коммунальное хозяйство и благоустройство</option>
+                            <option value="93122">Экономическая политика и развитие города, финансы</option>
+                            <option value="93123">Имущество и земельные ресурсы города</option>
+                            <option value="93124">Социальная политика</option>
+                            <option value="93125">Информационные технологии</option>
+                            <option value="93126">Оперативные службы города</option>
+                            <option value="93127">Обеспечение выдачи УЭК</option>
+                            <option value="93128">Градостроительная политика и строительство</option>
+                            <option value="93129">СМИ, межрегиональное сотрудничество, спорт и туризм, реклама</option>
+                            <option value="93130">Природопользование и охрана окружающей среды</option>
+                            <option value="93131">Обеспечение информационной безопасности</option>
+                            <option value="93132">Департамент культурного наследия</option>
+                            <option value="93133">Органы местного самоуправления города</option>
+                            <option value="93134">Управление по обеспечению деятельности мировых судей</option>
+                            <option value="93135">Развитие Единого информационного пространства Москвы</option>
+                            <option value="93136">Телекоммуникационные услуги</option>
+                            <option value="93137">Административно-хозяйственное обеспечение</option>
+                            <option value="93138">Эксплуатация информационных систем и ресурсов</option>
+                            <option value="169360">Новый</option>
+                            <option value="191730">Женечкин портфель</option>
+                            <option value="212363">Портфель</option>
+                        </select>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">multiple</span>
+                        </div>
+                        <select class="select" name="portfolio" data-fc="select" id="s2"
+                                data-placeholder="Портфель" data-mode="check" data-width="400" data-height="350">
+                            <option value="93092">Государственные услуги в социальной сфере</option>
+                            <option value="93093">Энергетическая инфраструктура ТОР «Надеждинский»</option>
+                            <option value="93117">Универсальная электронная карта (УЭК)</option>
+                            <option value="93118" selected="selected">Социальная сфера города</option>
+                            <option value="93119" selected="selected">Образование</option>
+                            <option value="93120" selected="selected">Здравоохранение</option>
+                            <option value="93121">Жилищно-коммунальное хозяйство и благоустройство</option>
+                            <option value="93122">Экономическая политика и развитие города, финансы</option>
+                            <option value="93123">Имущество и земельные ресурсы города</option>
+                            <option value="93124">Социальная политика</option>
+                            <option value="93125">Информационные технологии</option>
+                            <option value="93126">Оперативные службы города</option>
+                            <option value="93127">Обеспечение выдачи УЭК</option>
+                            <option value="93128">Градостроительная политика и строительство</option>
+                            <option value="93129">СМИ, межрегиональное сотрудничество, спорт и туризм, реклама</option>
+                            <option value="93130">Природопользование и охрана окружающей среды</option>
+                            <option value="93131">Обеспечение информационной безопасности</option>
+                            <option value="93132">Департамент культурного наследия</option>
+                            <option value="93133">Органы местного самоуправления города</option>
+                            <option value="93134">Управление по обеспечению деятельности мировых судей</option>
+                            <option value="93135">Развитие Единого информационного пространства Москвы</option>
+                            <option value="93136">Телекоммуникационные услуги</option>
+                            <option value="93137">Административно-хозяйственное обеспечение</option>
+                            <option value="93138">Эксплуатация информационных систем и ресурсов</option>
+                            <option value="169360">Новый</option>
+                            <option value="191730">Женечкин портфель</option>
+                            <option value="212363">Портфель</option>
+                        </select>
+                    </div>
+                    <div class="article" data-title="control" id="control">
+                        <div class="heading heading_2">control</div>
+                        <p class="paragraph paragraph_color_grey">Строка с контролом</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">С заголовком</span>
+                        </div>
+
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Название</div>
+                                <div class="control__icons">
+                                    <span class="icon icon_svg_star_red"></span>
+                                    <span class="icon icon_svg_info"></span>
+                                </div>
+                            </div>
+                            <div class="control__container">
+                                <span class="input input__has-clear input__has-error" data-fc="input">
+                                    <span class="input__box">
+                                        <input type="text" class="input__control" value="Проект 07-11-2016 11:15 (Chrome)">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon">
+                                                <span class="spinner"></span>
+                                            </span>
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                                <div class="control__error">
+                                    <div class="control__text">Введите название</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Взаимодействие с другими проектами</div>
+                                <div class="control__icons">
+                                    <span class="icon icon_svg_star_green"></span>
+                                </div>
+                            </div>
+                            <div class="control__container">
+                                <span class="input input__has-clear" data-fc="input">
+                                    <span class="input__box">
+                                        <input type="text" class="input__control" value="Привет">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Период реализации проекта</div>
+                                <div class="control__icons">
+                                    <span class="icon icon_svg_star_green"></span>
+                                    <span class="icon icon_svg_info"></span>
+                                </div>
+                            </div>
+                            <div class="control__container">
+                                <span class="input input__has-clear" data-fc="input">
+                                    <span class="input__box">
+                                        <input type="text" class="input__control" value="07.12.2016 - 07.03.2017">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Цвет</div>
+                            </div>
+                            <div class="control__container">
+                                <span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">
+                                    <label class="radio radio_type_button" data-fc="radio" data-checked="true">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Серый</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Синий</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Фиолетовый</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                    </label>
+                                    <label class="radio radio_type_button" data-fc="radio">
+                                        <button class="button button_toggable_radio" type="button" data-fc="button">
+                                            <span class="button__text">Красный</span>
+                                        </button>
+                                        <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Полный профиль</div>
+                            </div>
+                            <div class="control__container">
+                                <label class="checkbox" data-fc="checkbox" data-checked="true">
+                                    <input class="checkbox__input" type="checkbox" name="first" hidden/>
+                                    <label class="checkbox__label"></label>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="control">
+                            <div class="control__caption">
+                                <div class="control__text">Радио-группа</div>
+                            </div>
+                            <div class="control__container">
+                                <span class="radio-group radio-group_type_line" data-fc="radio-group">
+                                    <label class="radio" data-fc="radio" data-checked="true">
+                                        <input class="radio__input" type="radio" name="radios-1" value="1" hidden>
+                                        <label class="radio__label">Проект</label>
+                                    </label>
+                                    <br>
+                                    <label class="radio" data-fc="radio">
+                                        <input class="radio__input" type="radio" name="radios-1" value="2" hidden>
+                                        <label class="radio__label">Портфель</label>
+                                    </label>
+                                    <br>
+                                    <label class="radio" data-fc="radio" data-disabled="true">
+                                        <input class="radio__input" type="radio" name="radios-1" value="3" hidden>
+                                        <label class="radio__label">Программа</label>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article" data-title="tabs" id="tabs">
+                        <div class="heading heading_2">tabs</div>
+                        <p class="paragraph paragraph_color_grey">Вкладки.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Вкладки в карточке / модальном окне</span>
+                        </div>
+
+                        <div class="card" data-fc="card">
+                            <div class="card__header">
+                                <div class="card__header-row">
+                                    <div class="card__header-column">
+                                        <label class="card__caption">
+                                            <span class="card__caption-text">Карточка</span>
+                                        </label>
+                                    </div>
+                                    <div class="card__header-column">
+                                        <button class="button" data-fc="button">
+                                            <span class="icon icon_svg_edit"></span>
+                                            <span class="button__anim"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card__header-row">
+                                    <div class="card__header-column">
+                                        <label class="card__name">
+                                            <span class="card__name-text">Название</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="card__header-row tabs">
+                                    <ul class="tabs__list">
+                                        <li class="tabs__tab tabs__tab_active">
+                                            <a class="tabs__link link" href="#general" data-fc="tab">
+                                                <button class="button" data-fc="button">
+                                                    <span class="button__text">Основные</span>
+                                                </button>
                                             </a>
                                         </li>
-                                        <li class="popup__list-item popup__list-item_checked">
-                                            <a class="popup__link" href="#">
-                                                <span class="popup__text">График</span>
-                                            </a>
-                                        </li>
-                                        <li class="popup__list-item">
-                                            <a class="popup__link" href="#">
-                                                <span class="popup__text">Столбчатая диаграмма</span>
+                                        <li class="tabs__tab">
+                                            <a class="tabs__link link" href="#datasource" data-fc="tab">
+                                                <button class="button" data-fc="button">
+                                                    <span class="button__text">Источник данных</span>
+                                                </button>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">top left</span>
-                                <p class="paragraph paragraph_color_grey">data-position="top left"</p>
-                                <p class="paragraph paragraph_color_grey">data-select="true"</p>
-                                <p class="paragraph paragraph_color_grey">data-width="auto"</p>
-                            </div>
-
-                            <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup2">
-                                <span class="button__text">График</span>
-                                <span class="icon icon_svg_down"></span>
-                            </button>
-                            <div class="popup" id="popup2" data-select="true" data-position="top left" data-width="auto">
-                                <ul class="popup__list">
-                                    <li class="popup__list-item">
-                                        <button class="popup__link">
-                                            <span class="icon icon_svg_settings"></span>
-                                            <span class="popup__text">Круговая диаграмма</span>
-                                        </button>
-                                    </li>
-                                    <li class="popup__list-item">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">Диаграмма с областями</span>
-                                        </a>
-                                    </li>
-                                    <li class="popup__list-item popup__list-item_checked">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">График</span>
-                                        </a>
-                                    </li>
-                                    <li class="popup__list-item">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">Столбчатая диаграмма</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">right top</span>
-                                <p class="paragraph paragraph_color_grey">data-position="right top"</p>
-                                <p class="paragraph paragraph_color_grey">data-select="true"</p>
-                                <p class="paragraph paragraph_color_grey">data-width="auto"</p>
-                            </div>
-
-                            <button class="button" data-fc="button" data-width="300" data-toggle="popup" data-target="#popup3">
-                                <span class="button__text">График</span>
-                                <span class="icon icon_svg_down"></span>
-                            </button>
-                            <div class="popup" id="popup3" data-select="true" data-position="right top" data-width="auto">
-                                <ul class="popup__list">
-                                    <li class="popup__list-item">
-                                        <button class="popup__link">
-                                            <span class="icon icon_svg_settings"></span>
-                                            <span class="popup__text">Круговая диаграмма</span>
-                                        </button>
-                                    </li>
-                                    <li class="popup__list-item">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">Диаграмма с областями</span>
-                                        </a>
-                                    </li>
-                                    <li class="popup__list-item popup__list-item_checked">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">График</span>
-                                        </a>
-                                    </li>
-                                    <li class="popup__list-item">
-                                        <a class="popup__link" href="#">
-                                            <span class="popup__text">Столбчатая диаграмма</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div class="article" data-title="input" id="input">
-                            <div class="heading heading_2">input</div>
-                            <p class="paragraph paragraph_color_grey">Поле ввода.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">disabled</span>
-                            </div>
-
-                            <span class="input input__has-clear" data-fc="input" data-width="200" data-disabled="true">
-                                <span class="input__box">
-                                    <input type="text" class="input__control" value="Привет">
-                                    <button class="button" type="button" data-fc="button">
-                                        <span class="icon icon_svg_close"></span>
-                                    </button>
-                                </span>
-                            </span>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">200px</span>
-                            </div>
-
-                            <span class="input input__has-clear" data-fc="input" data-width="200">
-                                <span class="input__box">
-                                    <input type="text" class="input__control" value="Привет">
-                                    <button class="button" type="button" data-fc="button">
-                                        <span class="icon icon_svg_close"></span>
-                                    </button>
-                                </span>
-                            </span>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">На всю ширину</span>
-                            </div>
-
-                            <span class="input input__has-clear" data-fc="input">
-                                <span class="input__box">
-                                    <input type="text" class="input__control" value="Привет">
-                                    <button class="button" type="button" data-fc="button">
-                                        <span class="icon icon_svg_close"></span>
-                                    </button>
-                                </span>
-                            </span>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">datepicker</span>
-                            </div>
-
-                            <span class="input input__has-clear" data-fc="input" data-width="200" data-toggle="datepicker">
-                                <span class="input__box">
-                                    <input type="text" class="input__control" value="Выберите дату">
-                                    <button class="button" type="button" data-fc="button">
-                                        <span class="icon icon_svg_close"></span>
-                                    </button>
-                                </span>
-                            </span>
-                        </div>
-                        <div class="article" data-title="select" id="select">
-                            <div class="heading heading_2">select</div>
-                            <p class="paragraph paragraph_color_grey">Выпадающий список</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">single</span>
-                            </div>
-                            <select class="select" name="portfolio" data-fc="select" id="s1"
-                                    data-placeholder="Портфель" data-height="350" data-mode="radio">
-                                <option value="93092">Государственные услуги в социальной сфере</option>
-                                <option value="93093">Энергетическая инфраструктура ТОР «Надеждинский»</option>
-                                <option value="93111" selected="selected">Общегородские системы обеспечения предоставления государственных услуг</option>
-                                <option value="93113">Общегородские реестры, регистры, справочники и классификаторы</option>
-                                <option value="93114">Государственные услуги в социальной сфере</option>
-                                <option value="93115">Государственные услуги в сфере имущественных отношений, землепользования и градостроительства</option>
-                                <option value="93116">Дополнительные государственные услуги, подлежащие переводу на предоставление в электронном виде</option>
-                                <option value="93117">Универсальная электронная карта (УЭК)</option>
-                                <option value="93118">Социальная сфера города</option>
-                                <option value="93119">Образование</option>
-                                <option value="93120">Здравоохранение</option>
-                                <option value="93121">Жилищно-коммунальное хозяйство и благоустройство</option>
-                                <option value="93122">Экономическая политика и развитие города, финансы</option>
-                                <option value="93123">Имущество и земельные ресурсы города</option>
-                                <option value="93124">Социальная политика</option>
-                                <option value="93125">Информационные технологии</option>
-                                <option value="93126">Оперативные службы города</option>
-                                <option value="93127">Обеспечение выдачи УЭК</option>
-                                <option value="93128">Градостроительная политика и строительство</option>
-                                <option value="93129">СМИ, межрегиональное сотрудничество, спорт и туризм, реклама</option>
-                                <option value="93130">Природопользование и охрана окружающей среды</option>
-                                <option value="93131">Обеспечение информационной безопасности</option>
-                                <option value="93132">Департамент культурного наследия</option>
-                                <option value="93133">Органы местного самоуправления города</option>
-                                <option value="93134">Управление по обеспечению деятельности мировых судей</option>
-                                <option value="93135">Развитие Единого информационного пространства Москвы</option>
-                                <option value="93136">Телекоммуникационные услуги</option>
-                                <option value="93137">Административно-хозяйственное обеспечение</option>
-                                <option value="93138">Эксплуатация информационных систем и ресурсов</option>
-                                <option value="169360">Новый</option>
-                                <option value="191730">Женечкин портфель</option>
-                                <option value="212363">Портфель</option>
-                            </select>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">multiple</span>
-                            </div>
-                            <select class="select" name="portfolio" data-fc="select" id="s2"
-                                    data-placeholder="Портфель" data-mode="check" data-width="400" data-height="350">
-                                <option value="93092">Государственные услуги в социальной сфере</option>
-                                <option value="93093">Энергетическая инфраструктура ТОР «Надеждинский»</option>
-                                <option value="93117">Универсальная электронная карта (УЭК)</option>
-                                <option value="93118" selected="selected">Социальная сфера города</option>
-                                <option value="93119" selected="selected">Образование</option>
-                                <option value="93120" selected="selected">Здравоохранение</option>
-                                <option value="93121">Жилищно-коммунальное хозяйство и благоустройство</option>
-                                <option value="93122">Экономическая политика и развитие города, финансы</option>
-                                <option value="93123">Имущество и земельные ресурсы города</option>
-                                <option value="93124">Социальная политика</option>
-                                <option value="93125">Информационные технологии</option>
-                                <option value="93126">Оперативные службы города</option>
-                                <option value="93127">Обеспечение выдачи УЭК</option>
-                                <option value="93128">Градостроительная политика и строительство</option>
-                                <option value="93129">СМИ, межрегиональное сотрудничество, спорт и туризм, реклама</option>
-                                <option value="93130">Природопользование и охрана окружающей среды</option>
-                                <option value="93131">Обеспечение информационной безопасности</option>
-                                <option value="93132">Департамент культурного наследия</option>
-                                <option value="93133">Органы местного самоуправления города</option>
-                                <option value="93134">Управление по обеспечению деятельности мировых судей</option>
-                                <option value="93135">Развитие Единого информационного пространства Москвы</option>
-                                <option value="93136">Телекоммуникационные услуги</option>
-                                <option value="93137">Административно-хозяйственное обеспечение</option>
-                                <option value="93138">Эксплуатация информационных систем и ресурсов</option>
-                                <option value="169360">Новый</option>
-                                <option value="191730">Женечкин портфель</option>
-                                <option value="212363">Портфель</option>
-                            </select>
-                        </div>
-                        <div class="article" data-title="control" id="control">
-                            <div class="heading heading_2">control</div>
-                            <p class="paragraph paragraph_color_grey">Строка с контролом</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">С заголовком</span>
-                            </div>
-
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Название</div>
-                                    <div class="control__icons">
-                                        <span class="icon icon_svg_star_red"></span>
-                                        <span class="icon icon_svg_info"></span>
-                                    </div>
-                                </div>
-                                <div class="control__container">
-                                    <span class="input input__has-clear input__has-error" data-fc="input">
-                                        <span class="input__box">
-                                            <input type="text" class="input__control" value="Проект 07-11-2016 11:15 (Chrome)">
-                                            <button class="button" type="button" data-fc="button">
-                                                <span class="icon">
-                                                    <span class="spinner"></span>
-                                                </span>
-                                                <span class="icon icon_svg_close"></span>
-                                            </button>
-                                        </span>
-                                    </span>
-                                    <div class="control__error">
-                                        <div class="control__text">Введите название</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Взаимодействие с другими проектами</div>
-                                    <div class="control__icons">
-                                        <span class="icon icon_svg_star_green"></span>
-                                    </div>
-                                </div>
-                                <div class="control__container">
-                                    <span class="input input__has-clear" data-fc="input">
-                                        <span class="input__box">
-                                            <input type="text" class="input__control" value="Привет">
-                                            <button class="button" type="button" data-fc="button">
-                                                <span class="icon icon_svg_close"></span>
-                                            </button>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Период реализации проекта</div>
-                                    <div class="control__icons">
-                                        <span class="icon icon_svg_star_green"></span>
-                                        <span class="icon icon_svg_info"></span>
-                                    </div>
-                                </div>
-                                <div class="control__container">
-                                    <span class="input input__has-clear" data-fc="input">
-                                        <span class="input__box">
-                                            <input type="text" class="input__control" value="07.12.2016 - 07.03.2017">
-                                            <button class="button" type="button" data-fc="button">
-                                                <span class="icon icon_svg_close"></span>
-                                            </button>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Цвет</div>
-                                </div>
-                                <div class="control__container">
-                                    <span class="radio-group radio-group_type_button" data-fc="radio-group" data-field="color">
-                                        <label class="radio radio_type_button" data-fc="radio" data-checked="true">
-                                            <button class="button button_toggable_radio" type="button" data-fc="button">
-                                                <span class="button__text">Серый</span>
-                                            </button>
-                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
-                                        </label>
-                                        <label class="radio radio_type_button" data-fc="radio">
-                                            <button class="button button_toggable_radio" type="button" data-fc="button">
-                                                <span class="button__text">Синий</span>
-                                            </button>
-                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
-                                        </label>
-                                        <label class="radio radio_type_button" data-fc="radio">
-                                            <button class="button button_toggable_radio" type="button" data-fc="button">
-                                                <span class="button__text">Фиолетовый</span>
-                                            </button>
-                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
-                                        </label>
-                                        <label class="radio radio_type_button" data-fc="radio">
-                                            <button class="button button_toggable_radio" type="button" data-fc="button">
-                                                <span class="button__text">Красный</span>
-                                            </button>
-                                            <input class="radio__input" type="radio" name="radio-group-button" value="" hidden/>
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Полный профиль</div>
-                                </div>
-                                <div class="control__container">
-                                    <label class="checkbox" data-fc="checkbox" data-checked="true">
-                                        <input class="checkbox__input" type="checkbox" name="first" hidden/>
-                                        <label class="checkbox__label"></label>
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="control">
-                                <div class="control__caption">
-                                    <div class="control__text">Радио-группа</div>
-                                </div>
-                                <div class="control__container">
-                                    <span class="radio-group radio-group_type_line" data-fc="radio-group">
-                                        <label class="radio" data-fc="radio" data-checked="true">
-                                            <input class="radio__input" type="radio" name="radios-1" value="1" hidden>
-                                            <label class="radio__label">Проект</label>
-                                        </label>
-                                        <br>
-                                        <label class="radio" data-fc="radio">
-                                            <input class="radio__input" type="radio" name="radios-1" value="2" hidden>
-                                            <label class="radio__label">Портфель</label>
-                                        </label>
-                                        <br>
-                                        <label class="radio" data-fc="radio" data-disabled="true">
-                                            <input class="radio__input" type="radio" name="radios-1" value="3" hidden>
-                                            <label class="radio__label">Программа</label>
-                                        </label>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article" data-title="tabs" id="tabs">
-                            <div class="heading heading_2">tabs</div>
-                            <p class="paragraph paragraph_color_grey">Вкладки.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">Вкладки в карточке / модальном окне</span>
-                            </div>
-
-                            <div class="card" data-fc="card">
-                                <div class="card__header">
-                                    <div class="card__header-row">
-                                        <div class="card__header-column">
-                                            <label class="card__caption">
-                                                <span class="card__caption-text">Карточка</span>
-                                            </label>
-                                        </div>
-                                        <div class="card__header-column">
-                                            <button class="button" data-fc="button">
-                                                <span class="icon icon_svg_edit"></span>
-                                                <span class="button__anim"></span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card__header-row">
-                                        <div class="card__header-column">
-                                            <label class="card__name">
-                                                <span class="card__name-text">Название</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="card__header-row tabs">
-                                        <ul class="tabs__list">
-                                            <li class="tabs__tab tabs__tab_active">
-                                                <a class="tabs__link link" href="#general" data-fc="tab">
-                                                    <button class="button" data-fc="button">
-                                                        <span class="button__text">Основные</span>
-                                                    </button>
-                                                </a>
-                                            </li>
-                                            <li class="tabs__tab">
-                                                <a class="tabs__link link" href="#datasource" data-fc="tab">
-                                                    <button class="button" data-fc="button">
-                                                        <span class="button__text">Источник данных</span>
-                                                    </button>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="card__main">
-                                    <div class="card__middle card__middle_full">
-                                        <div class="card__middle-scroll">
-                                            <div class="card__middle-inner tabs__content">
-                                                <div class="tabs__pane tabs__pane_active" id="general">
-                                                    <label class="checkbox" data-fc="checkbox" data-field="collapsed">
-                                                        <input class="checkbox__input" type="checkbox" name="collapsed">
-                                                        <label class="checkbox__label">Скрывать по умолчанию</label>
-                                                    </label>
-                                                </div>
-                                                <div class="tabs__pane" id="datasource"></div>
+                            <div class="card__main">
+                                <div class="card__middle card__middle_full">
+                                    <div class="card__middle-scroll">
+                                        <div class="card__middle-inner tabs__content">
+                                            <div class="tabs__pane tabs__pane_active" id="general">
+                                                <label class="checkbox" data-fc="checkbox" data-field="collapsed">
+                                                    <input class="checkbox__input" type="checkbox" name="collapsed">
+                                                    <label class="checkbox__label">Скрывать по умолчанию</label>
+                                                </label>
                                             </div>
+                                            <div class="tabs__pane" id="datasource"></div>
                                         </div>
                                     </div>
-                                    <div class="card__backdrop"></div>
-                                    <div class="card__right"></div>
                                 </div>
+                                <div class="card__backdrop"></div>
+                                <div class="card__right"></div>
                             </div>
                         </div>
-                        <div class="article" data-title="widget" id="widget">
-                            <div class="heading heading_2">widget</div>
-                            <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
+                    </div>
+                    <div class="article" data-title="widget" id="widget">
+                        <div class="heading heading_2">widget</div>
+                        <p class="paragraph paragraph_color_grey">Обертка для виджета.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">виджет без заголовка</span>
-                            </div>
-                            <div class="widget" data-fc="widget">
-                                <div class="widget__header">
-                                    <div class="widget__header-name"></div>
-                                    <div class="widget__header-actions">
-                                        <button class="button button_settings" type="button" data-fc="button">
-                                            <span class="icon icon_svg_settings"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                        <button class="button button_remove" type="button" data-fc="button">
-                                            <span class="icon icon_svg_trash"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="widget__border widget__border_color_default">
-                                    <div class="widget__body">
-                                        <div class="widget__body-data widget__body-data_type_html">
-                                            <div class="widget__content widget__content_align_center">
-                                                <div class="widget__count">xxx</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="heading heading_5">
+                            <span class="heading__info">виджет без заголовка</span>
+                        </div>
+                        <div class="widget" data-fc="widget">
+                            <div class="widget__header">
+                                <div class="widget__header-name"></div>
+                                <div class="widget__header-actions">
+                                    <button class="button button_settings" type="button" data-fc="button">
+                                        <span class="icon icon_svg_settings"></span>
+                                        <span class="button__anim"></span>
+                                    </button>
+                                    <button class="button button_remove" type="button" data-fc="button">
+                                        <span class="icon icon_svg_trash"></span>
+                                        <span class="button__anim"></span>
+                                    </button>
                                 </div>
                             </div>
-
-                            <div class="heading heading_5">
-                                <span class="heading__info">виджет с таблицей</span>
-                            </div>
-                            <div class="widget" data-fc="widget" data-name="Мои контракты">
-                                <div class="widget__header">
-                                    <div class="widget__header-name"></div>
-                                    <div class="widget__header-actions">
-                                        <button class="button button_settings" type="button" data-fc="button">
-                                            <span class="icon icon_svg_settings"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                        <button class="button button_remove" type="button" data-fc="button">
-                                            <span class="icon icon_svg_trash"></span>
-                                            <span class="button__anim"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="widget__border widget__border_color_default">
-                                    <div class="widget__body">
-                                        <div class="widget__body-data widget__body-data_type_html">
-                                            <div class="widget__content widget__content_scroll">
-                                                <table class="table">
-                                                    <thead>
-                                                    <tr>
-                                                        <td>Название</td>
-                                                        <td class="mobile mobile_hide">Ответственный</td>
-                                                        <td class="mobile mobile_hide">План, м.р.</td>
-                                                        <td class="mobile mobile_hide">Стоимость, м.р.</td>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/156652?mode=view&amp;back=/">700-001. Осуществление строительных работ "Лыжная база"</a></td>
-                                                        <td class="mobile mobile_hide">Алферов Павел Александрович</td>
-                                                        <td class="mobile mobile_hide">1,50</td>
-                                                        <td class="mobile mobile_hide">1,80</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/167691?mode=view&amp;back=/">700-003. Обновление 1С до новой версии</a></td>
-                                                        <td class="mobile mobile_hide">Бочкарев Денис Юрьевич</td>
-                                                        <td class="mobile mobile_hide">456,00</td>
-                                                        <td class="mobile mobile_hide">567,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/167702?mode=view&amp;back=/">700-004. Разработка и внедрение системы кадастрового учета и мониторинга</a></td>
-                                                        <td class="mobile mobile_hide">Алферов Павел Александрович</td>
-                                                        <td class="mobile mobile_hide">250,00</td>
-                                                        <td class="mobile mobile_hide">242,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/167707?mode=view&amp;back=/">700-006. Разработка документации по внедрению единого реестра городских справочников</a></td>
-                                                        <td class="mobile mobile_hide">Бугров Александр Владимирович</td>
-                                                        <td class="mobile mobile_hide">45,00</td>
-                                                        <td class="mobile mobile_hide">9223372036854776,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/167709?mode=view&amp;back=/">700-008. Разработка проектной документации для формирования раздела</a></td>
-                                                        <td class="mobile mobile_hide">Виланд Анастасия Владимировна</td>
-                                                        <td class="mobile mobile_hide">567,00</td>
-                                                        <td class="mobile mobile_hide">569,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/167717?mode=view&amp;back=/">700-010. Печать УЭК</a></td>
-                                                        <td class="mobile mobile_hide">Функциональный Администратор</td>
-                                                        <td class="mobile mobile_hide">45,00</td>
-                                                        <td class="mobile mobile_hide"> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/191258?mode=view&amp;back=/">700-014. Контракт тест</a></td>
-                                                        <td class="mobile mobile_hide">Функциональный Администратор</td>
-                                                        <td class="mobile mobile_hide">23,00</td>
-                                                        <td class="mobile mobile_hide"> </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><a class="link" href="/asyst/Contract/form/auto/201978?mode=view&amp;back=/">700-015. контракт на поставку</a></td>
-                                                        <td class="mobile mobile_hide">Функциональный Администратор</td>
-                                                        <td class="mobile mobile_hide">44444,00</td>
-                                                        <td class="mobile mobile_hide"> </td>
-                                                    </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                            <div class="widget__border widget__border_color_default">
+                                <div class="widget__body">
+                                    <div class="widget__body-data widget__body-data_type_html">
+                                        <div class="widget__content widget__content_align_center">
+                                            <div class="widget__count">xxx</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="article" data-title="tooltip" id="tooltip">
-                            <div class="heading heading_2">tooltip</div>
-                            <p class="paragraph paragraph_color_grey">Всплывающая подсказка.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
 
-                            <div class="heading heading_5">
-                                <span class="heading__info">tooltip</span>
+                        <div class="heading heading_5">
+                            <span class="heading__info">виджет с таблицей</span>
+                        </div>
+                        <div class="widget" data-fc="widget" data-name="Мои контракты">
+                            <div class="widget__header">
+                                <div class="widget__header-name"></div>
+                                <div class="widget__header-actions">
+                                    <button class="button button_settings" type="button" data-fc="button">
+                                        <span class="icon icon_svg_settings"></span>
+                                        <span class="button__anim"></span>
+                                    </button>
+                                    <button class="button button_remove" type="button" data-fc="button">
+                                        <span class="icon icon_svg_trash"></span>
+                                        <span class="button__anim"></span>
+                                    </button>
+                                </div>
                             </div>
-                            <span class="tooltip"></span>
-                            <button class="button" type="button" data-fc="button" data-tooltip="Пример подсказки">
-                                <span class="icon icon_svg_bars"></span>
-                                <span class="button__text">Меню</span>
-                            </button>
+                            <div class="widget__border widget__border_color_default">
+                                <div class="widget__body">
+                                    <div class="widget__body-data widget__body-data_type_html">
+                                        <div class="widget__content widget__content_scroll">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <td>Название</td>
+                                                    <td class="mobile mobile_hide">Ответственный</td>
+                                                    <td class="mobile mobile_hide">План, м.р.</td>
+                                                    <td class="mobile mobile_hide">Стоимость, м.р.</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/156652?mode=view&amp;back=/">700-001. Осуществление строительных работ "Лыжная база"</a></td>
+                                                    <td class="mobile mobile_hide">Алферов Павел Александрович</td>
+                                                    <td class="mobile mobile_hide">1,50</td>
+                                                    <td class="mobile mobile_hide">1,80</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/167691?mode=view&amp;back=/">700-003. Обновление 1С до новой версии</a></td>
+                                                    <td class="mobile mobile_hide">Бочкарев Денис Юрьевич</td>
+                                                    <td class="mobile mobile_hide">456,00</td>
+                                                    <td class="mobile mobile_hide">567,00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/167702?mode=view&amp;back=/">700-004. Разработка и внедрение системы кадастрового учета и мониторинга</a></td>
+                                                    <td class="mobile mobile_hide">Алферов Павел Александрович</td>
+                                                    <td class="mobile mobile_hide">250,00</td>
+                                                    <td class="mobile mobile_hide">242,00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/167707?mode=view&amp;back=/">700-006. Разработка документации по внедрению единого реестра городских справочников</a></td>
+                                                    <td class="mobile mobile_hide">Бугров Александр Владимирович</td>
+                                                    <td class="mobile mobile_hide">45,00</td>
+                                                    <td class="mobile mobile_hide">9223372036854776,00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/167709?mode=view&amp;back=/">700-008. Разработка проектной документации для формирования раздела</a></td>
+                                                    <td class="mobile mobile_hide">Виланд Анастасия Владимировна</td>
+                                                    <td class="mobile mobile_hide">567,00</td>
+                                                    <td class="mobile mobile_hide">569,00</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/167717?mode=view&amp;back=/">700-010. Печать УЭК</a></td>
+                                                    <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                                    <td class="mobile mobile_hide">45,00</td>
+                                                    <td class="mobile mobile_hide"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/191258?mode=view&amp;back=/">700-014. Контракт тест</a></td>
+                                                    <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                                    <td class="mobile mobile_hide">23,00</td>
+                                                    <td class="mobile mobile_hide"> </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a class="link" href="/asyst/Contract/form/auto/201978?mode=view&amp;back=/">700-015. контракт на поставку</a></td>
+                                                    <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                                    <td class="mobile mobile_hide">44444,00</td>
+                                                    <td class="mobile mobile_hide"> </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="article" data-title="modal" id="modal">
-                            <div class="modal"></div>
+                    </div>
+                    <div class="article" data-title="tooltip" id="tooltip">
+                        <div class="heading heading_2">tooltip</div>
+                        <p class="paragraph paragraph_color_grey">Всплывающая подсказка.</p>
+                        <p class="paragraph paragraph_color_red">IE 10+</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">tooltip</span>
                         </div>
+                        <span class="tooltip"></span>
+                        <button class="button" type="button" data-fc="button" data-tooltip="Пример подсказки">
+                            <span class="icon icon_svg_bars"></span>
+                            <span class="button__text">Меню</span>
+                        </button>
+                    </div>
+                    <div class="article" data-title="modal" id="modal">
+                        <div class="modal"></div>
                     </div>
                 </div>
             </div>

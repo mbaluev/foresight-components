@@ -65,6 +65,10 @@
     border-bottom: solid 1px #eee
 }
 
+.popup__list-item_separate {
+    border-bottom: solid 1px #ccc
+}
+
 .popup__list > .popup__list-item:last-child {
     border-bottom: none;
 }
@@ -76,7 +80,7 @@
     box-sizing: border-box;
     background-color: transparent;
     margin: 0;
-    padding: 0 5px;
+    /*padding: 0 5px;*/
     color: #333;
     text-decoration: none;
     border: 0;
@@ -113,7 +117,7 @@
     vertical-align: top;
     margin: 0 10px;
     font-size: 13px;
-    line-height: 1.4;
+    line-height: 20px;
     padding: 10px 0;
 }
 

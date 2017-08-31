@@ -1,6 +1,6 @@
 <!doctype html>
 <head>
-    <title>foresight-bubble</title>
+    <title>foresight-card</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -157,7 +157,102 @@
             </div>
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
-                    <div id="container"></div>
+                    <div class="card" data-fc="card">
+                        <div class="card__header">
+                            <div class="card__header-row">
+                                <div class="card__header-column">
+                                    <label class="card__caption">
+                                        <span class="card__caption-text">Проект</span>
+                                    </label>
+                                </div>
+                                <div class="card__header-column">
+                                    <button class="button" data-fc="button">
+                                        <span class="icon icon_svg_save_red"></span>
+                                    </button>
+                                    <button class="button" data-fc="button">
+                                        <span class="icon icon_svg_edit"></span>
+                                    </button>
+                                    <button class="button" data-fc="button">
+                                        <span class="icon icon_svg_close"></span>
+                                    </button>
+                                    <button class="button" data-fc="button" data-toggle="popup" data-target="#more">
+                                        <span class="icon icon_svg_down"></span>
+                                    </button>
+                                    <div class="popup" id="more" data-position="bottom right" data-width="auto">
+                                        <ul class="popup__list">
+                                            <li class="popup__list-item">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_plus"></span>
+                                                    <span class="popup__text">Добавить</span>
+                                                </a>
+                                            </li>
+                                            <li class="popup__list-item popup__list-item_separate">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_trash"></span>
+                                                    <span class="popup__text">Удалить</span>
+                                                </a>
+                                            </li>
+                                            <li class="popup__list-item">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_expand"></span>
+                                                    <span class="popup__text">Развернуть все группы</span>
+                                                </a>
+                                            </li>
+                                            <li class="popup__list-item popup__list-item_separate">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_collapse"></span>
+                                                    <span class="popup__text">Свернуть все группы</span>
+                                                </a>
+                                            </li>
+                                            <li class="popup__list-item">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_export"></span>
+                                                    <span class="popup__text">Выгрузка</span>
+                                                </a>
+                                            </li>
+                                            <li class="popup__list-item">
+                                                <a class="popup__link" href="#">
+                                                    <span class="icon icon_svg_search"></span>
+                                                    <span class="popup__text">Расширенный фильтр</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card__header-row">
+                                <div class="card__header-column">
+                                    <label class="card__name">
+                                        <span class="card__name-text">500-231. Отредактированный тестовый проект 07-11-2016 11:15 (Chrome). Закупка. Планирование. Министерство торговли и предпринимательства.</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="card__header-row tabs">
+                                <ul class="tabs__list">
+                                    <li class="tabs__tab tabs__tab_active">
+                                        <a class="tabs__link link" href="#general" data-fc="tab">
+                                            <button class="button" data-fc="button">
+                                                <span class="button__text">Основные</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="tabs__tab">
+                                        <a class="tabs__link link" href="#datasource" data-fc="tab">
+                                            <button class="button" data-fc="button">
+                                                <span class="button__text">Источник данных</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card__main">
+                            <div class="card__middle">
+                                <div class="card__middle-scroll"></div>
+                            </div>
+                            <span class="spinner"></span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,15 +262,7 @@
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
-    <script src="foresight.components.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
     <script src="foresight.pages.min.js"></script>
-    <script>
-        $('#container').css({
-            overflow: 'hidden',
-            height: '100%',
-            width: '100%'
-        });
-        $(function(){var o="container",t=o+"_"+Date.now();$("#"+o).attr("id",t),chart=new BubbleChart("#"+t,[{id:93561,projectid:93561,projectcode:"500-010",projectname:"Автоматизация деятельности Департамента торговли и услуг",contractscount:1,total_amount:45,plansum:45,group:3,indicatorid:3,indicatorcolor:"#ff6666"},{id:93587,projectid:93587,projectcode:"500-036",projectname:"Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием",contractscount:1,total_amount:45,plansum:45,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:168799,projectid:168799,projectcode:"500-218",projectname:"Повышение скорости работы сайта организации",contractscount:1,total_amount:44444,plansum:44444,group:0,indicatorid:0,indicatorcolor:"#718396"},{id:191257,projectid:191257,projectcode:"500-226",projectname:"Проект АВ",contractscount:1,total_amount:23,plansum:23,group:3,indicatorid:3,indicatorcolor:"#ff6666"}])});
-    </script>
 </body>
 </html>
