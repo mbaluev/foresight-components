@@ -91,6 +91,13 @@
                             </a>
                         </li>
                         <li class="menu__item">
+                            <a class="menu__item-link link" href="docsearch.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Расширенный поиск документов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
                             <a class="menu__item-link link" href="dashboard.html">
                                 <span class="menu__item-link-content">
                                     <span class="menu__item-text">Дашборд</span>
@@ -162,15 +169,18 @@
             </div>
         </div>
     </div>
+
     <script src="third/jquery-3.2.1.min.js"></script>
     <script src="third/jquery-ui.min.js"></script>
+    <script src="third/jquery.event.drag-2.3.0.js"></script>
+    <script src="third/jquery.event.drop-2.3.0.js"></script>
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
     <script src="foresight.components.min.js"></script>
     <script src="foresight.pages.min.js"></script>
 
-    <script src="asyst.loaders/asyst.contentloader.js"></script>
+    <script src="foresight.loaders/foresight.contentloader.js"></script>
     <script>
         $(function(){
             var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"name":"Логотип","collapsed":false,"color":"#ccc","pagename":"LibraryMisc","elementname":"Logo"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"name":"Календарь","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":4,"y":0,"width":2,"height":5,"settings":{"name":"Мои совещания","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyMeetings"}},{"x":6,"y":0,"width":2,"height":5,"settings":{"name":"Риски моих проектов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyRisksPie"}},{"x":0,"y":5,"width":2,"height":3,"settings":{"name":"Сообщения для меня","collapsed":true,"color":"#ff5940","pagename":null,"elementname":null}},{"x":6,"y":5,"width":2,"height":5,"settings":{"name":"Мои поручения","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyOrders"}},{"x":4,"y":5,"width":2,"height":5,"settings":{"name":"Инициативы для меня","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"ForMeInitiative"}},{"x":0,"y":8,"width":2,"height":5,"settings":{"name":"Мои КТ","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyPoints"}},{"x":2,"y":8,"width":2,"height":5,"settings":{"name":"КТ от меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"PointsFromMe"}},{"x":6,"y":10,"width":2,"height":5,"settings":{"name":"Бабл чарт моих контрактов","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyContractBubble"}},{"x":4,"y":10,"width":2,"height":5,"settings":{"name":"Мои инициативы","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyInitiative"}},{"x":1,"y":13,"width":3,"height":3,"settings":{"name":"Панель руководителя","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":0,"y":13,"width":1,"height":3,"settings":{"name":"Мои статус-отчеты","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":2,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChReqForMe"}},{"x":3,"y":19,"width":1,"height":3,"settings":{"name":"Проекты на стадию","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"MyProjectMoveToNextPhase"}},{"x":4,"y":15,"width":4,"height":7,"settings":{"name":"Матрица рисков","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"RiskMatrix"}},{"x":0,"y":16,"width":1,"height":3,"settings":{"name":"ОВ для меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyLov"}},{"x":1,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение от меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"ChReqFromMe"}},{"x":0,"y":19,"width":1,"height":3,"settings":{"name":"Мои инициативы на рассмотрении ЦПО","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyInitCPO"}},{"x":1,"y":19,"width":1,"height":3,"settings":{"name":"Мои документы","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyDocs"}},{"x":3,"y":16,"width":1,"height":3,"settings":{"name":"ОВ от меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"LovFromMe"}},{"x":2,"y":19,"width":1,"height":3,"settings":{"name":"Чек-листы для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChListForMe"}},{"x":8,"y":0,"width":4,"height":9,"settings":{"name":"Мои проекты","collapsed":true,"color":"#ccc","pagename":"LibraryTable","elementname":"MyProjects"}},{"x":8,"y":9,"width":4,"height":13,"settings":{"name":"Мои контракты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyContracts"}}];

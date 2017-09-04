@@ -975,6 +975,9 @@ body {
   -webkit-tap-highlight-color: transparent;
   font-size: 13px;
   line-height: 40px;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
 .popup_select .popup__link {
@@ -1244,6 +1247,154 @@ body {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100%;
   height: 100%;
+}
+
+.grid input[type="checkbox"] {
+  margin: 0;
+}
+
+/* Slick Grid */
+
+.slick-row .slick-cell-checkboxsel {
+  padding-left: 10px;
+}
+
+.slick-header.ui-state-default {
+  border-radius: 0 0 0 0;
+  border-width: 0 0 1px;
+  border-bottom: 1px solid #dddddd;
+  background-color: #fafafa;
+}
+
+.slick-header-column.ui-state-default {
+  border-style: none;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  font-size: 11px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.slick-header-column.ui-state-default:first-child .slick-column-name {
+  padding-left: 6px;
+}
+
+.slick-row.ui-widget-content:hover,
+.slick-row.ui-state-active {
+  background-color: #fafafa;
+}
+
+.slick-top-panel {
+  height: 25px;
+}
+
+.slick-headerrow-columns {
+  height: 25px;
+}
+
+.slick-row {
+  height: 25px;
+}
+
+.slick-cell {
+  border-style: none;
+  border-bottom: 1px solid #eee;
+  font-size: 11px;
+  padding: 0 4px;
+  line-height: 25px;
+  box-sizing: border-box;
+  height: 25px !important;
+}
+
+.slick-cell.selected {
+  color: #ffffff;
+  background-color: #4983c4;
+}
+
+.slick-row .selected a {
+  color: #ff5940;
+  text-decoration: none;
+}
+
+.slick-cell.grid-align-right {
+  text-align: right;
+}
+
+.slick-cell.grid-align-left {
+  text-align: left;
+}
+
+.slick-cell.grid-align-center {
+  text-align: center;
+}
+
+.slick-group {
+  font-weight: bold;
+  color: #4983c4;
+}
+
+.slick-group-toggle {
+  min-width: 12px;
+  margin-right: 8px;
+  border-style: none;
+  font-size: 11px;
+  padding-left: 0;
+  display: inline;
+  /*попробуем так, чтобы не разъезжались широкие строки и переносы*/
+  background: center no-repeat;
+}
+
+.slick-group-toggle.expanded {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+  display: inline-block;
+  padding-left: 0;
+}
+
+.slick-group-toggle.collapsed {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+  display: inline-block;
+  padding-left: 0;
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.slick-group-toggle.expanded:after,
+.slick-group-toggle.collapsed:after {
+  visibility: hidden;
+  content: '\00A0';
+}
+
+.slick-columnpicker {
+  padding: 10px 15px 10px 10px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.5);
+}
+
+.slick-columnpicker hr {
+  margin: 15px -15px 15px -10px;
+  box-shadow: none;
+  border-top: solid 1px #ddd;
+  border-bottom: none;
+}
+
+.slick-row a {
+  color: #4983c4;
+  text-decoration: none;
+}
+
+.slick-row .selected a {
+  text-decoration: none;
+}
+
+.slick-row a:hover {
+  text-decoration: none;
+  color: #ff5940;
+}
+
+.slick-row .selected a:hover {
+  text-decoration: none;
+  color: #fff !important;
 }
 
 
@@ -2969,6 +3120,10 @@ body {
   border-bottom: solid 1px #ddd;
   background-color: #fafafa;
   font-weight: bold;
+}
+
+.table thead td.table__td_no_border {
+  border: none;
 }
 
 .table td.align_right {

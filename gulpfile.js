@@ -29,33 +29,37 @@ var third_js = [
     'public/third/gridstack/gridstack.js',
     'public/third/gridstack/gridstack.jQueryUI.js',
     'public/third/riskmatrix/jquery.riskmatrix.js',
-    'public/third/jquery.dotdotdot.js',
-    'public/slickgrid/slick.core.js',
-    'public/slickgrid/slick.formatters.js',
-    'public/slickgrid/slick.editors.js',
-    'public/slickgrid/plugins/slick.cellrangeselector.js',
-    'public/slickgrid/plugins/slick.cellselectionmodel.js',
-    'public/slickgrid/plugins/slick.rowselectionmodel.js',
-    'public/slickgrid/plugins/asyst.rowselectionmodel.js',
-    'public/slickgrid/plugins/slick.checkboxselectcolumn.js',
-    'public/slickgrid/slick.grid.js',
-    'public/slickgrid/slick.groupitemmetadataprovider.js',
-    'public/slickgrid/slick.dataview.js',
-    'public/slickgrid/controls/slick.pager.js',
-    'public/slickgrid/controls/slick.columnpicker.js'
+    'public/third/jquery.dotdotdot.js'
+    /*
+    'public/third/slickgrid/slick.core.js',
+    'public/third/slickgrid/slick.formatters.js',
+    'public/third/slickgrid/slick.editors.js',
+    'public/third/slickgrid/plugins/slick.cellrangeselector.js',
+    'public/third/slickgrid/plugins/slick.cellselectionmodel.js',
+    'public/third/slickgrid/plugins/slick.rowselectionmodel.js',
+    'public/third/slickgrid/plugins/asyst.rowselectionmodel.js',
+    'public/third/slickgrid/plugins/slick.checkboxselectcolumn.js',
+    'public/third/slickgrid/slick.grid.js',
+    'public/third/slickgrid/slick.groupitemmetadataprovider.js',
+    'public/third/slickgrid/slick.dataview.js',
+    'public/third/slickgrid/controls/slick.pager.js',
+    'public/third/slickgrid/controls/slick.columnpicker.js'
+    */
 ];
 var third_css = [
     'public/third/air-datepicker/datepicker.min.css',
     'public/third/jquery.riskmatrix.css',
-    'public/third/gridstack/gridstack.css',
-    'public/slickgrid/slick.grid.css',
-    'public/slickgrid/controls/slick.pager.css',
-    'public/slickgrid/controls/slick.columnpicker.css'
+    'public/third/gridstack/gridstack.css'
+    /*
+    'public/third/slickgrid/slick.grid.css',
+    'public/third/slickgrid/controls/slick.pager.css',
+    'public/third/slickgrid/controls/slick.columnpicker.css'
+    */
 ];
 var pages_js = [
     'public/pages/dashboard.js',
-    'public/pages/reports.js',
-    'public/pages/settings.js'
+    'public/pages/docsearch.js',
+    'public/pages/reports.js'
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);
