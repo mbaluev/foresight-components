@@ -168,7 +168,7 @@ var DocSearch = function(options){
         that.data._private.fdata.ForEach(function(item){
             that.data._el.table.find('tbody').append($([
                 '<tr>',
-                '<td><img src="' + item.icon + '"></td>',
+                '<td><img class="doctype" src="' + item.icon + '"></td>',
                 '<td><a class="link" href="' + item.url + '" target="_blank">' + item.name + item.ext + '</a></td>',
                 '<td>' + item.userName + '</td>',
                 '<td>' + item.entityTitle + '</td>',
