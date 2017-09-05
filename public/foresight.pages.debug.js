@@ -415,13 +415,13 @@ var DocSearch = function(options){
             '<table class="table">',
             '<thead>',
             '<tr>',
-                '<td>&nbsp;</td>',
-                '<td>Наименование</td>',
-                '<td>Автор</td>',
-                '<td>Сущность</td>',
-                '<td>Дата изменения</td>',
-                '<td>Размер</td>',
-                '<td>Версия</td>',
+                '<td class="table__td_no_border">Тип</td>',
+                '<td class="table__td_no_border">Наименование</td>',
+                '<td class="table__td_no_border">Автор</td>',
+                '<td class="table__td_no_border">Сущность</td>',
+                '<td class="table__td_no_border">Дата изменения</td>',
+                '<td class="table__td_no_border">Размер</td>',
+                '<td class="table__td_no_border">Версия</td>',
             '</tr>',
             '</thead>',
             '<tbody></tbody>',
@@ -467,6 +467,12 @@ var DocSearch = function(options){
         that.data._el.content.find('#doc__header').append(
             that.data._el.row_search
         );
+        that.data._el.input.find('.input__control').val(that.get_url_parameter('text'));
+        that.data._el.input.find('.input__control').keypress(function(e){
+            if (e.which == 13) {
+                window.location.href = that.set_url_parameter(window.location.href, 'text', $(this).val());
+            }
+        })
     };
     that.render_filters = function(){
         if (that.data._private.uniqueExtensions.Count() > 0){
@@ -526,15 +532,20 @@ var DocSearch = function(options){
             that.data._el.table.find('tbody').append($([
                 '<tr>',
                 '<td><img src="' + item.icon + '"></td>',
-                '<td>' + item.name + '.' + item.ext + '</td>',
+                '<td><a class="link" href="' + item.url + '" target="_blank">' + item.name + '.' + item.ext + '</a></td>',
                 '<td>' + item.userName + '</td>',
-                '<td>' + item.entityName + ': ' + item.entityTitle + '</td>',
+                '<td>' + item.entityTitle + ': ' + item.dataName + '</td>',
                 '<td>' + item.creationDate + '</td>',
                 '<td>' + filesize(item.fileLength, {base: 2}) + '</td>',
                 '<td>' + item.vers + '</td>',
                 '</tr>'
             ].join('')));
         });
+        if (typeof(that.data._el.content.find('#doc__table .table')[0]) == typeof(undefined)) {
+            that.data._el.content.find('#doc__table').append(
+                that.data._el.table
+            );
+        }
     };
 
     that.set_filter = function(){
