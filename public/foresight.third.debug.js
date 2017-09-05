@@ -2749,3 +2749,152 @@ function d(a){c.GridStackDragDropPlugin.call(this,a)}window;return c.GridStackDr
 !function(t,e){"use strict";function n(t,e,n){var r=t.children(),o=!1;t.empty();for(var i=0,d=r.length;d>i;i++){var l=r.eq(i);if(t.append(l),n&&t.append(n),a(t,e)){l.remove(),o=!0;break}n&&n.detach()}return o}function r(e,n,i,d,l){var s=!1,c="a, table, thead, tbody, tfoot, tr, col, colgroup, object, embed, param, ol, ul, dl, blockquote, select, optgroup, option, textarea, script, style",u="script, .dotdotdot-keep";return e.contents().detach().each(function(){var f=this,h=t(f);if("undefined"==typeof f)return!0;if(h.is(u))e.append(h);else{if(s)return!0;e.append(h),!l||h.is(d.after)||h.find(d.after).length||e[e.is(c)?"after":"append"](l),a(i,d)&&(s=3==f.nodeType?o(h,n,i,d,l):r(h,n,i,d,l)),s||l&&l.detach()}}),a(i,d)&&r(i,n,i,d,l),n.addClass("is-truncated"),s}function o(e,n,r,o,d){var c=e[0];if(!c)return!1;var f=s(c),h=-1!==f.indexOf(" ")?" ":"　",p="letter"==o.wrap?"":h,g=f.split(p),v=-1,w=-1,m=0,y=g.length-1;if(o.fallbackToLetter&&0===m&&0===y&&(p="",g=f.split(p),y=g.length-1),o.maxLength)f=i(f.trim().substr(0,o.maxLength),o),l(c,f);else{for(;y>=m&&(0!==m||0!==y);){var b=Math.floor((m+y)/2);if(b==w)break;w=b,l(c,g.slice(0,w+1).join(p)+o.ellipsis),r.children().each(function(){t(this).toggle().toggle()}),a(r,o)?(y=w,o.fallbackToLetter&&0===m&&0===y&&(p="",g=g[0].split(p),v=-1,w=-1,m=0,y=g.length-1)):(v=w,m=w)}if(-1==v||1===g.length&&0===g[0].length){var x=e.parent();e.detach();var T=d&&d.closest(x).length?d.length:0;if(x.contents().length>T?c=u(x.contents().eq(-1-T),n):(c=u(x,n,!0),T||x.detach()),c&&(f=i(s(c),o),l(c,f),T&&d)){var C=d.parent();t(c).parent().append(d),t.trim(C.html())||C.remove()}}else f=i(g.slice(0,v+1).join(p),o),l(c,f)}return!0}function a(t,e){return t.innerHeight()>e.maxHeight||e.maxLength&&t.text().trim().length>e.maxLength}function i(e,n){for(;t.inArray(e.slice(-1),n.lastCharacter.remove)>-1;)e=e.slice(0,-1);return t.inArray(e.slice(-1),n.lastCharacter.noEllipsis)<0&&(e+=n.ellipsis),e}function d(t){return{width:t.innerWidth(),height:t.innerHeight()}}function l(t,e){t.innerText?t.innerText=e:t.nodeValue?t.nodeValue=e:t.textContent&&(t.textContent=e)}function s(t){return t.innerText?t.innerText:t.nodeValue?t.nodeValue:t.textContent?t.textContent:""}function c(t){do t=t.previousSibling;while(t&&1!==t.nodeType&&3!==t.nodeType);return t}function u(e,n,r){var o,a=e&&e[0];if(a){if(!r){if(3===a.nodeType)return a;if(t.trim(e.text()))return u(e.contents().last(),n)}for(o=c(a);!o;){if(e=e.parent(),e.is(n)||!e.length)return!1;o=c(e[0])}if(o)return u(t(o),n)}return!1}function f(e,n){return e?"string"==typeof e?(e=t(e,n),e.length?e:!1):e.jquery?e:!1:!1}function h(t){for(var e=t.innerHeight(),n=["paddingTop","paddingBottom"],r=0,o=n.length;o>r;r++){var a=parseInt(t.css(n[r]),10);isNaN(a)&&(a=0),e-=a}return e}if(!t.fn.dotdotdot){t.fn.dotdotdot=function(e){if(0===this.length)return t.fn.dotdotdot.debug('No element found for "'+this.selector+'".'),this;if(this.length>1)return this.each(function(){t(this).dotdotdot(e)});var o=t(window),i=this;i.data("dotdotdot")&&i.trigger("destroy.dot");var l=i.contents();i.data("dotdotdot-style",i.attr("style")||""),i.css("word-wrap","break-word"),"nowrap"===i.css("white-space")&&i.css("white-space","normal"),i.bind_events=function(){return i.on("update.dot",function(e,o){switch(i.removeClass("is-truncated"),e.preventDefault(),e.stopPropagation(),typeof s.height){case"number":s.maxHeight=s.height;break;case"function":s.maxHeight=s.height.call(i[0]);break;default:s.maxHeight=h(i)}s.maxHeight+=s.tolerance,"undefined"!=typeof o&&(("string"==typeof o||"nodeType"in o&&1===o.nodeType)&&(o=t("<div />").append(o).contents()),o instanceof t&&(l=o)),v=i.wrapInner('<div class="dotdotdot" />').children(),v.contents().detach().end().append(l.clone(!0)).find("br").replaceWith("  <br />  ").end().css({height:"auto",width:"auto",border:"none",padding:0,margin:0});var d=!1,u=!1;return c.afterElement&&(d=c.afterElement.clone(!0),d.show(),c.afterElement.detach()),a(v,s)&&(u="children"==s.wrap?n(v,s,d):r(v,i,v,s,d)),v.replaceWith(v.contents()),v=null,t.isFunction(s.callback)&&s.callback.call(i[0],u,l),c.isTruncated=u,u}).on("isTruncated.dot",function(t,e){return t.preventDefault(),t.stopPropagation(),"function"==typeof e&&e.call(i[0],c.isTruncated),c.isTruncated}).on("originalContent.dot",function(t,e){return t.preventDefault(),t.stopPropagation(),"function"==typeof e&&e.call(i[0],l),l}).on("destroy.dot",function(t){t.preventDefault(),t.stopPropagation(),i.unwatch().unbind_events().contents().detach().end().append(l).attr("style",i.data("dotdotdot-style")||"").removeClass("is-truncated").data("dotdotdot",!1)}),i},i.unbind_events=function(){return i.off(".dot"),i},i.watch=function(){if(i.unwatch(),"window"==s.watch){var t=o.width(),e=o.height();o.on("resize.dot"+c.dotId,function(){var n=o.width(),r=o.height();t==n&&e==r&&s.windowResizeFix||(t=n,e=r,g&&clearInterval(g),g=setTimeout(function(){i.trigger("update.dot")},100))})}else u=d(i),g=setInterval(function(){if(i.is(":visible")){var t=d(i);u.width==t.width&&u.height==t.height||(i.trigger("update.dot"),u=t)}},500);return i},i.unwatch=function(){return t(window).off("resize.dot"+c.dotId),g&&clearInterval(g),i};var s=t.extend(!0,{},t.fn.dotdotdot.defaults,e),c={},u={},g=null,v=null;return s.lastCharacter.remove instanceof Array||(s.lastCharacter.remove=t.fn.dotdotdot.defaultArrays.lastCharacter.remove),s.lastCharacter.noEllipsis instanceof Array||(s.lastCharacter.noEllipsis=t.fn.dotdotdot.defaultArrays.lastCharacter.noEllipsis),c.afterElement=f(s.after,i),c.isTruncated=!1,c.dotId=p++,i.data("dotdotdot",!0).bind_events().trigger("update.dot"),s.watch&&i.watch(),i},t.fn.dotdotdot.defaults={ellipsis:"… ",wrap:"word",fallbackToLetter:!0,lastCharacter:{},tolerance:0,callback:null,after:null,height:null,watch:!1,windowResizeFix:!0,maxLength:null},t.fn.dotdotdot.defaultArrays={lastCharacter:{remove:[" ","　",",",";",".","!","?"],noEllipsis:[]}},t.fn.dotdotdot.debug=function(t){};var p=1}}(jQuery);
 return true;
 }));
+
+/**
+ * filesize
+ *
+ * @author Jason Mulligan <jason.mulligan@avoidwork.com>
+ * @copyright 2014 Jason Mulligan
+ * @license BSD-3 <https://raw.github.com/avoidwork/filesize.js/master/LICENSE>
+ * @link http://filesizejs.com
+ * @module filesize
+ * @version 2.0.4
+ */
+( function ( global ) {
+"use strict";
+
+var bit   = /b$/,
+    radix = 10,
+    left  = /.*\./,
+    zero  = /^0$/;
+
+/**
+ * filesize
+ *
+ * @method filesize
+ * @param  {Mixed}   arg        String, Int or Float to transform
+ * @param  {Object}  descriptor [Optional] Flags
+ * @return {String}             Readable file size String
+ */
+function filesize ( arg, descriptor ) {
+	var result = "",
+	    skip   = false,
+	    val    = 0,
+	    e, base, bits, ceil, neg, num, round, unix, spacer, suffix, z, suffixes;
+
+	if ( isNaN( arg ) ) {
+		throw new Error( "Invalid arguments" );
+	}
+
+	descriptor = descriptor || {};
+	bits       = ( descriptor.bits === true );
+	unix       = ( descriptor.unix === true );
+	base       = descriptor.base     !== undefined ? descriptor.base     : unix ? 2  : 10;
+	round      = descriptor.round    !== undefined ? descriptor.round    : unix ? 1  : 2;
+	spacer     = descriptor.spacer   !== undefined ? descriptor.spacer   : unix ? "" : " ";
+	suffixes   = descriptor.suffixes !== undefined ? descriptor.suffixes : {};
+	num        = Number( arg );
+	neg        = ( num < 0 );
+	ceil       = base > 2 ? 1000 : 1024;
+
+	// Flipping a negative number to determine the size
+	if ( neg ) {
+		num = -num;
+	}
+
+	// Zero is now a special case because bytes divide by 1
+	if ( num === 0 ) {
+		if ( unix ) {
+			result = "0";
+		}
+		else {
+			suffix = "B";
+			result = "0" + spacer + ( suffixes[suffix] || suffix );
+		}
+	}
+	else {
+		e = Math.floor( Math.log( num ) / Math.log( 1000 ) );
+
+		// Exceeding supported length, time to reduce & multiply
+		if ( e > 8 ) {
+			val = val * ( 1000 * ( e - 8 ) );
+			e   = 8;
+		}
+
+		if ( base === 2 ) {
+			val = num / Math.pow( 2, ( e * 10 ) );
+		}
+		else {
+			val = num / Math.pow( 1000, e );
+		}
+
+		if ( bits ) {
+			val = ( val * 8 );
+
+			if ( val > ceil ) {
+				val = val / ceil;
+				e++;
+			}
+		}
+
+		result = val.toFixed( e > 0 ? round : 0 );
+		suffix = si[bits ? "bits" : "bytes"][e];
+
+		if ( !skip && unix ) {
+			if ( bits && bit.test( suffix ) ) {
+				suffix = suffix.toLowerCase();
+			}
+
+			suffix = suffix.charAt( 0 );
+			z      = result.replace( left, "" );
+
+			if ( suffix === "B" ) {
+				suffix = "";
+			}
+			else if ( !bits && suffix === "k" ) {
+				suffix = "K";
+			}
+
+			if ( zero.test( z ) ) {
+				result = parseInt( result, radix ).toString();
+			}
+
+			result += spacer + ( suffixes[suffix] || suffix );
+		}
+		else if ( !unix ) {
+			result += spacer + ( suffixes[suffix] || suffix );
+		}
+	}
+
+	// Decorating a 'diff'
+	if ( neg ) {
+		result = "-" + result;
+	}
+
+	return result;
+}
+
+/**
+ * SI suffixes
+ *
+ * @type {Object}
+ */
+var si = {
+	bits  : ["B", "kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb"],
+	bytes : ["B", "kB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
+};
+
+// CommonJS, AMD, script tag
+if ( typeof exports !== "undefined" ) {
+	module.exports = filesize;
+}
+else if ( typeof define === "function" ) {
+	define( function () {
+		return filesize;
+	} );
+}
+else {
+	global.filesize = filesize;
+}
+
+} )( this );

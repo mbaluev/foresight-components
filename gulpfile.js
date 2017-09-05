@@ -29,7 +29,8 @@ var third_js = [
     'public/third/gridstack/gridstack.js',
     'public/third/gridstack/gridstack.jQueryUI.js',
     'public/third/riskmatrix/jquery.riskmatrix.js',
-    'public/third/jquery.dotdotdot.js'
+    'public/third/jquery.dotdotdot.js',
+    'public/third/filesize.js'
     /*
     'public/third/slickgrid/slick.core.js',
     'public/third/slickgrid/slick.formatters.js',
