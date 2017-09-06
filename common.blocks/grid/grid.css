@@ -10,6 +10,9 @@
 /* Slick Grid */
 .slick-row .slick-cell-checkboxsel {
     padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 .slick-header.ui-state-default {
     border-radius: 0 0 0 0;
