@@ -3,7 +3,7 @@ Asyst.GridView = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: 'container',
-        name: null,
+        viewname: null,
         gridview: null,
         title: null,
         data: null,
@@ -99,7 +99,16 @@ Asyst.GridView = function(options){
 
     that.init_data = function(){};
     that.load_data = function(callback){
-        if (typeof callback == 'function') { callback(); }
+        var params = {
+            ExpandGroup: false
+        };
+        Asyst.APIv2.View.load({
+            viewName: that.data.viewname,
+            data: params,
+            success: function(data){
+                if (typeof callback == 'function') { callback(data); }
+            }
+        });
     };
     that.render_data = function(){
         var container = that.data.gridview.data._el.container;
@@ -1035,8 +1044,10 @@ Asyst.GridView = function(options){
             ]
         };
         var viewName = 'MyProjects';
-        var params = $.extend(splitGETString(), { viewSampleId: null });
-        load(container, data);
+        var params = {
+            ExpandGroup: false
+        };
+        load(container, that.data.data);
         function load(container, data){
 
             var filterArgs = filterDataByGET(data, data.columns);
@@ -1197,12 +1208,12 @@ Asyst.GridView = function(options){
     that.init = function(){
         that.loader_add();
         that.init_data();
-        that.load_data(function(){
+        that.load_data(function(data){
             that.loader_remove();
             that.data.gridview = new GridView({
                 containerid: that.data.containerid,
                 title: that.data.title,
-                data: that.data.data,
+                data: data,
                 header: that.data.header,
                 render: that.render_data
             });
