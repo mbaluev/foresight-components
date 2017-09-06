@@ -1,52 +1,21 @@
+if (typeof viewName == typeof undefined) { var viewName = ''; }
 if (typeof Asyst == typeof undefined) { Asyst = {}; }
 Asyst.GridView = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: 'container',
         entityname: null,
+        entitytitle: null,
         viewname: null,
         viewtitle: null,
         params: { ExpandGroup: false },
         views: {},
         gridview: null,
+        grid: null,
         data: null,
         header: {
-            views: [
-                {
-                    name: 'Мои проекты',
-                    value: 'MyProjects',
-                    selected: true,
-                    onclick: function(){}
-                },
-                {
-                    name: 'Все проекты',
-                    value: 'AllProjects',
-                    onclick: function(){}
-                },
-                {
-                    name: 'Активные',
-                    value: 'Active',
-                    onclick: function(){}
-                },
-                {
-                    name: 'Архивные',
-                    value: 'Archive',
-                    onclick: function(){}
-                },
-                {
-                    name: 'Бюджеты проектов',
-                    value: 'Budgets',
-                    onclick: function(){}
-                },
-                {
-                    name: 'Проекты без целей',
-                    value: 'NoGoals',
-                    onclick: function(){}
-                }
-            ],
-            reload: {
-                onclick: function(){ console.log('reload'); }
-            },
+            views: [],
+            reload: {},
             settings: [
                 {
                     icon: 'icon_svg_plus',
@@ -79,10 +48,7 @@ Asyst.GridView = function(options){
                     onclick: function(){}
                 }
             ],
-            search: {
-                onkeyup: function(){ console.log('searching'); },
-                onclear: function(){ console.log('clear'); }
-            }
+            search: {}
         }
     };
     that.data = $.extend(that.data, options);
@@ -117,6 +83,7 @@ Asyst.GridView = function(options){
                         if (i == 0) {
                             that.data.viewname = view.viewName;
                             that.data.viewtitle = view.viewTitle;
+                            that.data.entitytitle = view.entityTitle;
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
                             Asyst.Workspace.addView({
@@ -154,16 +121,18 @@ Asyst.GridView = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.load_view = function(callback){
+    that.load_view = function(container){
+        that.loader_add();
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
             data: that.data.params,
             success: function(data){
-                if (typeof callback == 'function') { callback(data); }
+                that.render_view(container, data);
+                that.loader_remove();
             }
         });
     };
-    that.render_data = function(container, data){
+    that.render_view = function(container, data){
 
         var filterArgs = filterDataByGET(data, data.columns);
         if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
@@ -189,10 +158,14 @@ Asyst.GridView = function(options){
             editable: false,
             autoHeight: false,
             doClick: true,
-            wideString: that.data.view.isWideString,
-            initiallyCollapsed: that.data.view.isInitiallyCollapsed,
+            wideString: Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isWideString,
+            initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isInitiallyCollapsed,
             rowSelectionModel: new Asyst.RowSelectionModel()
         };
+
+        //todo replace
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].hasOwnProperty('preprocessFunction'))
+            Asyst.Workspace.views[that.data.viewname].preprocessFunction(viewEl, data.data, data.columns, options, data.groups);
 
         if (data.EditFormName) {
             viewEl.css("overflow", "hidden");
@@ -214,35 +187,38 @@ Asyst.GridView = function(options){
                     var item = grid.getDataItem(cell.row);
                     if (item.__nonDataRow) return;
                     var column = grid.getColumns()[cell.cell];
+
+                    viewName = that.data.viewname;
+                    window[viewName] = view;
                     ViewClick(dataView, item, column, e);
                 });
             }
         }
         view.viewName = that.data.viewname;
+        that.data.grid = view;
 
         /*
-        if (that.data.view.isEditable) {
-        } else {
-        }
+        if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
+            $('#menuItemAdd').hide();
+        else
+            $('#menuItemAdd').show();
 
-        if (that.data.view.isExtFilterVisible) {
-        } else {
-        }
+        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible)
+            $('.ext-filter-menu').show();
+        else
+            $('.ext-filter-menu').hide();
 
         $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         $('.search-clear').click(window[viewName].QuickFilterClear);
-
-        if (that.data.view.isInitiallyCollapsed) {
+        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
             window[viewName].CollapseAllGroups();
         }
 
-        if (params.hasOwnProperty("ExpandGroup")) {
-            if (params.ExpandGroup == "true") {
+        if (params.hasOwnProperty("ExpandGroup"))
+            if (params.ExpandGroup == "true")
                 view.ExpandAllGroups();
-            } else {
+            else
                 view.CollapseAllGroups();
-            }
-        }
 
         var needInvalidate = false;
 
@@ -252,9 +228,9 @@ Asyst.GridView = function(options){
             view.DataView.setFilterArgs(filterArgs);
             view.DataView.refresh();
             needInvalidate = true;
-            if (!params.hideFilterPanel) {
+            //$('#BrowseSearchGroup').hide();
+            if (!params.hideFilterPanel)
                 MakeFilterLine(filterArgs);
-            }
             ToggleClearFilterButton(true);
         } else {
             view.QuickFilterClear();
@@ -291,21 +267,56 @@ Asyst.GridView = function(options){
         if (needInvalidate) {
             view.Grid.invalidate();
         }
+
+        //быстрокостыль для нового хрома и ширины реестра
+        {
+            $('#view').css({width: '1200px'});
+            setTimeout(function () {
+                $('#view').css({width: '100%'});
+            }, 100);
+        }
+        Loader.hide();
         */
     };
 
+    that.init_header = function(){
+        $.each(that.data.views, function(key, view){
+            that.data.header.views.push({
+                name: view.title,
+                value: key,
+                selected: that.data.viewname == key,
+                onclick: function(){
+                    that.data.viewname = key;
+                    that.load_view(that.data.gridview.data._el.container);
+                }
+            });
+        });
+        that.data.header.reload.onclick = function(){
+            that.load_view(that.data.gridview.data._el.container);
+        };
+        that.data.header.search = {
+            onkeyup: function(e){
+                var value = $(this).val();
+                Slick.GlobalEditorLock.cancelCurrentEdit();
+                if (e.which == 27) { value = ''; }
+                that.data.grid.UpdateQuickFilter(value);
+            },
+            onclear: function(e){
+                Slick.GlobalEditorLock.cancelCurrentEdit();
+                that.data.grid.UpdateQuickFilter('');
+            }
+        };
+    };
     that.init = function(){
         that.loader_add();
         that.load_metaview(function(){
-            that.load_view(function(data){
-                that.loader_remove();
-                that.data.gridview = new GridView({
-                    containerid: that.data.containerid,
-                    title: that.data.title,
-                    data: data,
-                    header: that.data.header,
-                    render: that.render_data
-                });
+            that.init_header();
+            that.loader_remove();
+            that.data.gridview = new GridView({
+                containerid: that.data.containerid,
+                title: that.data.entitytitle,
+                header: that.data.header,
+                render: that.load_view
             });
         });
     };

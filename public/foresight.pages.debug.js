@@ -830,7 +830,7 @@ var GridView = function(options){
 
     that.init_components = function(){
         that.data._el.select_view.select({
-            width: 200,
+            width: 300,
             mode: 'radio',
             autoclose: true,
             placeholder: 'Представление'
@@ -843,10 +843,10 @@ var GridView = function(options){
         that.loader_add();
         setTimeout(function(){
             that.render();
+            that.init_components();
             if (typeof that.data.render == 'function') {
                 that.data.render(that.data._el.container, that.data.data);
             }
-            that.init_components();
             that.loader_remove();
         }, 100);
     };
