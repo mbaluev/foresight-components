@@ -169,95 +169,7 @@
             </div>
             <div class="fs-view__middle fs-view__middle_full">
                 <div class="fs-view__middle-scroll">
-
-                    <div class="card" data-fc="card">
-                        <div class="card__header">
-                            <div class="card__header-row card__header-row_wrap">
-                                <div class="card__header-column">
-                                    <label class="card__name">
-                                        <span class="card__name-text card__name-text_no-margin">Проекты</span>
-                                    </label>
-                                    <select class="select" data-fc="select" data-width="200" data-mode="radio"
-                                            data-autoclose="true">
-                                        <option value="" selected>Мои проекты</option>
-                                        <option value="">Все проекты</option>
-                                        <option value="">Активные</option>
-                                        <option value="">Архивные</option>
-                                        <option value="">Бюджеты проектов</option>
-                                        <option value="">Проекты без целей</option>
-                                    </select>
-                                </div>
-                                <div class="card__header-column">
-                                    <button class="button" data-fc="button">
-                                        <span class="icon icon_svg_refresh"></span>
-                                    </button>
-                                    <button class="button" data-fc="button" data-toggle="popup" data-target="#grid_settings">
-                                        <span class="icon icon_svg_settings"></span>
-                                        <span class="icon icon_svg_down"></span>
-                                    </button>
-                                    <div class="popup" id="grid_settings" data-position="bottom left" data-width="auto">
-                                        <ul class="popup__list">
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_plus"></span>
-                                                    <span class="popup__text">Добавить</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item popup__list-item_separate">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_trash"></span>
-                                                    <span class="popup__text">Удалить</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_expand"></span>
-                                                    <span class="popup__text">Развернуть все группы</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item popup__list-item_separate">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_collapse"></span>
-                                                    <span class="popup__text">Свернуть все группы</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_export"></span>
-                                                    <span class="popup__text">Выгрузка</span>
-                                                </a>
-                                            </li>
-                                            <li class="popup__list-item">
-                                                <a class="popup__link" href="#">
-                                                    <span class="icon icon_svg_search"></span>
-                                                    <span class="popup__text">Расширенный фильтр</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <span class="input input__has-clear" data-fc="input" data-width="200">
-                                        <span class="input__box">
-                                            <span class="alertbox">
-                                                <span class="icon icon_svg_search"></span>
-                                            </span>
-                                            <input type="text" class="input__control">
-                                            <button class="button" type="button">
-                                                <span class="icon icon_svg_close"></span>
-                                            </button>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card__main">
-                            <div class="card__middle">
-                                <div class="card__middle-scroll">
-                                    <div id="container"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    <div id="container"></div>
                 </div>
             </div>
         </div>
@@ -288,13 +200,9 @@
 
     <script src="foresight.third.min.js"></script>
     <script src="foresight.components.min.js"></script>
-    <script src="foresight.pages.min.js"></script>
+    <script src="foresight.pages.debug.js"></script>
     <script>
         $(function(){
-            $('#container').grid();
-
-            var viewName = 'MyProjects';
-            var params = $.extend(splitGETString(), { viewSampleId: null });
             var project = {
                 "EntityId":"46caa4ad-02b8-4d70-a1db-196bab860742",
                 "EntityName":"Project",
@@ -1226,374 +1134,246 @@
                     }
                 ]
             };
-            var portfolio = {
-                "EntityId":"bfed1f68-33a7-4428-855f-799640070a53",
-                "EntityName":"Portfolio",
-                "KeyName":"PortfolioId",
-                "EditFormName":null,
-                "columns":[
-                    {
-                        "id":"IndicatorId",
-                        "name":" ",
-                        "field":"IndicatorId",
-                        "width":30,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"",
-                        "expression":"'<img class=\"s18 p2\" src=\"/asyst/gantt/img/svg/' + IndicatorId + '.svg\" alt=\"'+ IndicatorTitle + '\" title=\"' + IndicatorTitle +'\">'",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
+            var gridview = new GridView({
+                containerid: 'container',
+                title: 'Проекты',
+                data: project,
+                header: {
+                    views: [
+                        {
+                            name: 'Мои проекты',
+                            value: 'MyProjects',
+                            selected: true,
+                            onclick: function(){}
+                        },
+                        {
+                            name: 'Все проекты',
+                            value: 'AllProjects',
+                            onclick: function(){}
+                        },
+                        {
+                            name: 'Активные',
+                            value: 'Active',
+                            onclick: function(){}
+                        },
+                        {
+                            name: 'Архивные',
+                            value: 'Archive',
+                            onclick: function(){}
+                        },
+                        {
+                            name: 'Бюджеты проектов',
+                            value: 'Budgets',
+                            onclick: function(){}
+                        },
+                        {
+                            name: 'Проекты без целей',
+                            value: 'NoGoals',
+                            onclick: function(){}
+                        }
+                    ],
+                    reload: {
+                        onclick: function(){ console.log('reload'); }
                     },
-                    {
-                        "id":"Code",
-                        "name":"Код",
-                        "field":"Code",
-                        "width":80,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
-                    },
-                    {
-                        "id":"Name",
-                        "name":"Название",
-                        "field":"Name",
-                        "width":350,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
-                    },
-                    {
-                        "id":"portfolioStartDate",
-                        "name":"Начало",
-                        "field":"portfolioStartDate",
-                        "width":80,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"dd.MM.yyyy",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
-                    },
-                    {
-                        "id":"portfolioFinishDate",
-                        "name":"Окончание",
-                        "field":"portfolioFinishDate",
-                        "width":80,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"dd.MM.yyyy",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
-                    },
-                    {
-                        "id":"PortfolioOwner",
-                        "name":"Владелец",
-                        "field":"PortfolioOwner",
-                        "width":200,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
-                    },
-                    {
-                        "id":"PortfolioAdministrator",
-                        "name":"Администратор",
-                        "field":"PortfolioAdministrator",
-                        "width":200,
-                        "sortable":true,
-                        "kind":"text",
-                        "format":"",
-                        "cssClass":"",
-                        "editField":"",
-                        "isNullable":true
+                    settings: [
+                        {
+                            icon: 'icon_svg_plus',
+                            name: 'Добавить',
+                            onclick: function(){ console.log('add'); }
+                        },
+                        {
+                            icon: 'icon_svg_trash',
+                            name: 'Удалить',
+                            onclick: function(){}
+                        },
+                        {
+                            icon: 'icon_svg_expand',
+                            name: 'Развернуть все группы',
+                            onclick: function(){}
+                        },
+                        {
+                            icon: 'icon_svg_collapse',
+                            name: 'Свернуть все группы',
+                            onclick: function(){}
+                        },
+                        {
+                            icon: 'icon_svg_export',
+                            name: 'Экспорт',
+                            onclick: function(){}
+                        },
+                        {
+                            icon: 'icon_svg_search',
+                            name: 'Расширенный фильтр',
+                            onclick: function(){}
+                        }
+                    ],
+                    search: {
+                        onkeyup: function(){ console.log('searching'); },
+                        onclear: function(){ console.log('clear'); }
                     }
-                ],
-                "filters":[
-                    {
-                        "order":1,
-                        "title":" ",
-                        "fieldName":"IndicatorId",
-                        "width":30,
-                        "kind":"text"
-                    },
-                    {
-                        "order":2,
-                        "title":"Код",
-                        "fieldName":"Code",
-                        "width":80,
-                        "kind":"text"
-                    },
-                    {
-                        "order":3,
-                        "title":"Название",
-                        "fieldName":"Name",
-                        "width":350,
-                        "kind":"text"
-                    },
-                    {
-                        "order":4,
-                        "title":"Начало",
-                        "fieldName":"portfolioStartDate",
-                        "width":80,
-                        "kind":"text"
-                    },
-                    {
-                        "order":5,
-                        "title":"Окончание",
-                        "fieldName":"portfolioFinishDate",
-                        "width":80,
-                        "kind":"text"
-                    },
-                    {
-                        "order":6,
-                        "title":"Владелец",
-                        "fieldName":"PortfolioOwner",
-                        "width":200,
-                        "kind":"text"
-                    },
-                    {
-                        "order":7,
-                        "title":"Администратор",
-                        "fieldName":"PortfolioAdministrator",
-                        "width":200,
-                        "kind":"text"
+                },
+                render: render_grid
+            });
+            function render_grid(){
+                var container = gridview.data._el.container;
+                var data = gridview.data.data;
+                var viewName = 'MyProjects';
+                var params = $.extend(splitGETString(), { viewSampleId: null });
+                load(container, data);
+                function load(container, data){
+
+                    var filterArgs = filterDataByGET(data, data.columns);
+                    if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
+                        filterArgs = data.viewSample.filterArgs;
+                        restoreDatesInFilterArgs(filterArgs, data.columns);
                     }
-                ],
-                "groups":[
 
-                ],
-                "data":[
-                    {
-                        "id":1,
-                        "IndicatorTitle":"Просрочено",
-                        "IndicatorId":"3",
-                        "IndicatorColor":"#ff6666",
-                        "IndicatorOrder":1,
-                        "PortfolioId":93114,
-                        "Code":"900-005",
-                        "Name":"Государственные услуги в социальной сфере",
-                        "PortfolioOwner":"Функциональный Администратор",
-                        "PortfolioAdministrator":"Суринов Александр Евгеньевич",
-                        "PortfolioConcernedSide":"Иванов Иван",
-                        "portfolioStartDate":"\/Date(1412985600000)\/",
-                        "portfolioFinishDate":"\/Date(1448928000000)\/",
-                        "MyRole":"Куратор"
-                    },
-                    {
-                        "id":2,
-                        "IndicatorTitle":"Просрочено",
-                        "IndicatorId":"3",
-                        "IndicatorColor":"#ff6666",
-                        "IndicatorOrder":1,
-                        "PortfolioId":93139,
-                        "Code":"900-030",
-                        "Name":"Городская целевая программа по созданию окружных и районных центров обслуживания населения и организаций по принципу \"одного окна\"",
-                        "PortfolioOwner":"Полевов Александр Сергеевич",
-                        "PortfolioAdministrator":"Заклязьминский Алексей Львович",
-                        "PortfolioConcernedSide":"Функциональный Администратор, Руководитель П.",
-                        "portfolioStartDate":"\/Date(1426636800000)\/",
-                        "portfolioFinishDate":"\/Date(1460851200000)\/",
-                        "MyRole":"Команда"
-                    },
-                    {
-                        "id":3,
-                        "IndicatorTitle":"В работе",
-                        "IndicatorId":"0",
-                        "IndicatorColor":"#718396",
-                        "IndicatorOrder":3,
-                        "PortfolioId":224675,
-                        "Code":"900-038",
-                        "Name":"Тестируем реестр в новом дизайне",
-                        "PortfolioOwner":"Функциональный Администратор",
-                        "PortfolioAdministrator":"",
-                        "PortfolioConcernedSide":"",
-                        "portfolioStartDate":"",
-                        "portfolioFinishDate":"",
-                        "MyRole":"Куратор"
-                    },
-                    {
-                        "id":4,
-                        "IndicatorTitle":"В работе",
-                        "IndicatorId":"0",
-                        "IndicatorColor":"#718396",
-                        "IndicatorOrder":3,
-                        "PortfolioId":224692,
-                        "Code":"900-039",
-                        "Name":"йцу",
-                        "PortfolioOwner":"Функциональный Администратор",
-                        "PortfolioAdministrator":"Функциональный Администратор",
-                        "PortfolioConcernedSide":"",
-                        "portfolioStartDate":"",
-                        "portfolioFinishDate":"",
-                        "MyRole":"Куратор"
+                    for (var colIdx in data.columns) {
+                        var column = data.columns[colIdx];
+                        if (column.formatter)
+                            column.formatter = eval(column.formatter);
+                        else if (column.url)
+                            column.formatter = Grid.LinkFormatter;
+                        else
+                            column.formatter = Grid.DefaultFormatter;
                     }
-                ]
-            };
 
-            load($("#container"), project);
-            function load(container, data){
+                    var viewEl = container;
+                    viewEl[0].innerHtml = "";
 
-                var filterArgs = filterDataByGET(data, data.columns);
-                if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
-                    filterArgs = data.viewSample.filterArgs;
-                    restoreDatesInFilterArgs(filterArgs, data.columns);
-                }
-
-                for (var colIdx in data.columns) {
-                    var column = data.columns[colIdx];
-                    if (column.formatter)
-                        column.formatter = eval(column.formatter);
-                    else if (column.url)
-                        column.formatter = Grid.LinkFormatter;
-                    else
-                        column.formatter = Grid.DefaultFormatter;
-                }
-
-                var viewEl = container;
-                viewEl[0].innerHtml = "";
-
-                if (viewEl.height() === 0) {
-                    try {
-                        var resizeContainer = function() {
-                            var hasScroll = false;
-                            var widthScroll = 0;
-                            for (var el = viewEl; !hasScroll && el.length > 0; el = el.parent()) {
-                                var sw = el[0].scrollWidth, ow = el[0].offsetWidth;
-                                if (sw != ow) {
-                                    hasScroll = true;
-                                    widthScroll = el[0].offsetHeight - el[0].clientHeight;
+                    if (viewEl.height() === 0) {
+                        try {
+                            var resizeContainer = function() {
+                                var hasScroll = false;
+                                var widthScroll = 0;
+                                for (var el = viewEl; !hasScroll && el.length > 0; el = el.parent()) {
+                                    var sw = el[0].scrollWidth, ow = el[0].offsetWidth;
+                                    if (sw != ow) {
+                                        hasScroll = true;
+                                        widthScroll = el[0].offsetHeight - el[0].clientHeight;
+                                    }
                                 }
-                            }
-                            viewEl.height($(window).height() - viewEl.offset().top - 3 - widthScroll);
-                            if (grid) grid.resizeCanvas();
-                        };
-                        $(window).resize(resizeContainer);
-                        $(window).resize();
-                    } catch (error) {
+                                viewEl.height($(window).height() - viewEl.offset().top - 3 - widthScroll);
+                                if (grid) grid.resizeCanvas();
+                            };
+                            $(window).resize(resizeContainer);
+                            $(window).resize();
+                        } catch (error) {
+                        }
                     }
-                }
 
-                var options = {
-                    enableCellNavigation: true,
-                    editable: false,
-                    autoHeight: false,
-                    doClick: true,
-                    wideString: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
-                    initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed,
-                    rowSelectionModel: new Asyst.RowSelectionModel()
-                };
+                    var options = {
+                        enableCellNavigation: true,
+                        editable: false,
+                        autoHeight: false,
+                        doClick: true,
+                        wideString: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
+                        initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed,
+                        rowSelectionModel: new Asyst.RowSelectionModel()
+                    };
 
-                //todo replace
-                if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].hasOwnProperty('preprocessFunction'))
-                    Asyst.Workspace.views[viewName].preprocessFunction(viewEl, data.data, data.columns, options, data.groups);
+                    //todo replace
+                    if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].hasOwnProperty('preprocessFunction'))
+                        Asyst.Workspace.views[viewName].preprocessFunction(viewEl, data.data, data.columns, options, data.groups);
 
-                if (data.EditFormName) {
-                    viewEl.css("overflow", "hidden");
-                    var EditableGrid = Asyst.Models.EditableView.EditableGrid;
-                    view = EditableGrid.create(viewEl, data.data, data.columns, data.EditFormName, data.KeyName, data.EntityName);
-                } else {
-                    view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, params, data.filters, data.viewSample);
+                    if (data.EditFormName) {
+                        viewEl.css("overflow", "hidden");
+                        var EditableGrid = Asyst.Models.EditableView.EditableGrid;
+                        view = EditableGrid.create(viewEl, data.data, data.columns, data.EditFormName, data.KeyName, data.EntityName);
+                    } else {
+                        view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, params, data.filters, data.viewSample);
 
-                    var grid = view.Grid;
-                    var dataView = view.DataView;
+                        var grid = view.Grid;
+                        var dataView = view.DataView;
 
-                    if (data.EntityId)
-                        grid.EntityId = data.EntityId;
-                    if (data.EntityName)
-                        grid.EntityName = data.EntityName;
-                    if (data.KeyName)
-                        grid.KeyName = data.KeyName;
+                        if (data.EntityId)
+                            grid.EntityId = data.EntityId;
+                        if (data.EntityName)
+                            grid.EntityName = data.EntityName;
+                        if (data.KeyName)
+                            grid.KeyName = data.KeyName;
 
-                    if (options.doClick) {
-                        grid.onClick.subscribe(function (e, args) {
-                            var cell = grid.getCellFromEvent(e);
-                            var item = grid.getDataItem(cell.row);
-                            if (item.__nonDataRow) return;
-                            var column = grid.getColumns()[cell.cell];
-                            ViewClick(dataView, item, column, e);
-                        });
+                        if (options.doClick) {
+                            grid.onClick.subscribe(function (e, args) {
+                                var cell = grid.getCellFromEvent(e);
+                                var item = grid.getDataItem(cell.row);
+                                if (item.__nonDataRow) return;
+                                var column = grid.getColumns()[cell.cell];
+                                ViewClick(dataView, item, column, e);
+                            });
+                        }
                     }
-                }
-                view.viewName = viewName;
-                window[viewName] = view;
+                    view.viewName = viewName;
+                    window[viewName] = view;
 
-                if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
-                    $('#menuItemAdd').hide();
-                else
-                    $('#menuItemAdd').show();
-
-                if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible)
-                    $('.ext-filter-menu').show();
-                else
-                    $('.ext-filter-menu').hide();
-
-                $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
-                $('.search-clear').click(window[viewName].QuickFilterClear);
-                if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
-                    window[viewName].CollapseAllGroups();
-                }
-
-                if (params.hasOwnProperty("ExpandGroup"))
-                    if (params.ExpandGroup == "true")
-                        view.ExpandAllGroups();
+                    if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
+                        $('#menuItemAdd').hide();
                     else
-                        view.CollapseAllGroups();
+                        $('#menuItemAdd').show();
 
-                var needInvalidate = false;
+                    if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible)
+                        $('.ext-filter-menu').show();
+                    else
+                        $('.ext-filter-menu').hide();
 
-                if (filterArgs && filterArgs.hasOwnProperty('oper')) {
-                    view.DataView.setFilter(Grid.ExtFilter);
-                    filterArgs = $.extend(filterArgs, {gridView: view});
-                    view.DataView.setFilterArgs(filterArgs);
-                    view.DataView.refresh();
-                    needInvalidate = true;
-                    if (!params.hideFilterPanel)
-                        MakeFilterLine(filterArgs);
-                    ToggleClearFilterButton(true);
-                } else {
-                    view.QuickFilterClear();
-                    ToggleClearFilterButton(false);
-                    !(!!data.EditFormName) && Grid.ClearExtFilter(view);
-                }
+                    $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
+                    $('.search-clear').click(window[viewName].QuickFilterClear);
+                    if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
+                        window[viewName].CollapseAllGroups();
+                    }
 
-                if (filterArgs && filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
-                    $('#BrowseSearch').val(filterArgs.searchString);
-                    view.UpdateQuickFilter(filterArgs.searchString);
-                    ToggleClearFilterButton(true);
-                    view.DataView.refresh();
-                    needInvalidate = true;
-                }
+                    if (params.hasOwnProperty("ExpandGroup"))
+                        if (params.ExpandGroup == "true")
+                            view.ExpandAllGroups();
+                        else
+                            view.CollapseAllGroups();
 
-                if (data.viewSample && data.viewSample.hasOwnProperty('groups')) {
-                    view.SetGroupsCollapsed(data.viewSample.groups);
-                    needInvalidate = true;
-                }
-                if (data.viewSample && data.viewSample.hasOwnProperty('viewport') && data.viewSample.top != -1) {
-                    view.Grid.scrollToRow(data.viewSample.viewport.top);
-                    needInvalidate = true;
-                }
+                    var needInvalidate = false;
 
-                //восстанавливаем меню.
-                if (Asyst.Workspace.views && Asyst.Workspace.views[viewName])
-                    $('#viewSelectBtn').text(Asyst.Workspace.views[viewName].title);
-                if (data.viewSample && data.viewSample.name != "")
-                    $('#viewSampleSelectBtn').text(data.viewSample.name);
-                else
-                    $('#viewSampleSelectBtn').text(Globa.ViewSample.locale());
-                view.viewSampleMenuRebuild();
+                    if (filterArgs && filterArgs.hasOwnProperty('oper')) {
+                        view.DataView.setFilter(Grid.ExtFilter);
+                        filterArgs = $.extend(filterArgs, {gridView: view});
+                        view.DataView.setFilterArgs(filterArgs);
+                        view.DataView.refresh();
+                        needInvalidate = true;
+                        if (!params.hideFilterPanel)
+                            MakeFilterLine(filterArgs);
+                        ToggleClearFilterButton(true);
+                    } else {
+                        view.QuickFilterClear();
+                        ToggleClearFilterButton(false);
+                        !(!!data.EditFormName) && Grid.ClearExtFilter(view);
+                    }
 
-                if (needInvalidate) {
-                    view.Grid.invalidate();
+                    if (filterArgs && filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
+                        $('#BrowseSearch').val(filterArgs.searchString);
+                        view.UpdateQuickFilter(filterArgs.searchString);
+                        ToggleClearFilterButton(true);
+                        view.DataView.refresh();
+                        needInvalidate = true;
+                    }
+
+                    if (data.viewSample && data.viewSample.hasOwnProperty('groups')) {
+                        view.SetGroupsCollapsed(data.viewSample.groups);
+                        needInvalidate = true;
+                    }
+                    if (data.viewSample && data.viewSample.hasOwnProperty('viewport') && data.viewSample.top != -1) {
+                        view.Grid.scrollToRow(data.viewSample.viewport.top);
+                        needInvalidate = true;
+                    }
+
+                    //восстанавливаем меню.
+                    if (Asyst.Workspace.views && Asyst.Workspace.views[viewName])
+                        $('#viewSelectBtn').text(Asyst.Workspace.views[viewName].title);
+                    if (data.viewSample && data.viewSample.name != "")
+                        $('#viewSampleSelectBtn').text(data.viewSample.name);
+                    else
+                        $('#viewSampleSelectBtn').text(Globa.ViewSample.locale());
+                    view.viewSampleMenuRebuild();
+
+                    if (needInvalidate) {
+                        view.Grid.invalidate();
+                    }
                 }
             }
         });
