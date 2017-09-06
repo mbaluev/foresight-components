@@ -2,7 +2,7 @@ var GridView = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: '',
-        title: 'Заголовок',
+        title: null,
         data: [],
         header: {
             views: [],
@@ -10,10 +10,7 @@ var GridView = function(options){
             settings: [],
             search: null
         },
-        render: function(){},
-
-        views: [],
-        view_onchange: function(){}
+        render: function(){}
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -90,10 +87,12 @@ var GridView = function(options){
         );
     };
     that.render_title = function(){
-        that.data._el.name.find('.card__name-text').text(that.data.title);
-        that.data._el.content.find('#grid__view').append(
-            that.data._el.name
-        );
+        if (that.data.title) {
+            that.data._el.name.find('.card__name-text').text(that.data.title);
+            that.data._el.content.find('#grid__view').append(
+                that.data._el.name
+            );
+        }
     };
     that.render_views = function(){
         if (that.data.header.views.length > 0){

@@ -5,7 +5,7 @@ Asyst.GridView = function(options){
         containerid: 'container',
         name: null,
         gridview: null,
-        title: 'Заголовок',
+        title: null,
         data: null,
         header: {
             views: [
