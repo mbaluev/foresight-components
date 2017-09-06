@@ -1214,9 +1214,7 @@
                 },
                 render: render_grid
             });
-            function render_grid(){
-                var container = gridview.data._el.container;
-                var data = gridview.data.data;
+            function render_grid(container, data){
                 var viewName = 'MyProjects';
                 var params = $.extend(splitGETString(), { viewSampleId: null });
                 load(container, data);

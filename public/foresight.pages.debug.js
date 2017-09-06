@@ -844,7 +844,7 @@ var GridView = function(options){
         setTimeout(function(){
             that.render();
             if (typeof that.data.render == 'function') {
-                that.data.render();
+                that.data.render(that.data._el.container, that.data.data);
             }
             that.init_components();
             that.loader_remove();
