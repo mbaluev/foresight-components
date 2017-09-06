@@ -3,18 +3,11 @@ Asyst.GridView = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: 'container',
+        entityname: null,
         viewname: null,
-        view: {
-            name: '',
-            isWideString: false,
-            isInitiallyCollapsed: false,
-            isEditable: false,
-            isExtFilterVisible: false,
-            title: ''
-        },
-        params: {
-            ExpandGroup: false
-        },
+        viewtitle: null,
+        params: { ExpandGroup: false },
+        views: {},
         gridview: null,
         data: null,
         header: {
@@ -107,9 +100,63 @@ Asyst.GridView = function(options){
         that.data._el.loader.remove();
     };
 
-    that.load_data = function(callback){
+    that.load_metaview = function(callback){
+        Asyst.APIv2.DataSet.load({
+            name: 'MetaView',
+            data: {
+                EntityName: that.data.entityname
+            },
+            success: function(data){
+                var items = [];
+                if (data[0]) {
+                    var metaview = data[0];
+                    if (that.data.viewname) {
+                        metaview = metaview.filter(function(view){ return view.viewName = that.data.viewname; });
+                    }
+                    metaview.map(function(view, i){
+                        if (i == 0) {
+                            that.data.viewname = view.viewName;
+                            that.data.viewtitle = view.viewTitle;
+                        }
+                        if (!Asyst.Workspace.views[view.viewName]) {
+                            Asyst.Workspace.addView({
+                                entity: {
+                                    idName: view.idName,
+                                    isViewProcessLink: view.IsViewProcessLink,
+                                    name: view.entityName,
+                                    title: view.entityTitle
+                                },
+                                title: view.viewTitle,
+                                isExtFilterVisible: view.isExtFilterVisible,
+                                isInitiallyCollapsed: view.isInitiallyCollapsed,
+                                isWideString: view.isWideString,
+                                isEditable: false,
+                                isViewSampled: false,
+                                preprocessFunctionText: '',
+                                viewSamples: {}
+                            }, view.viewName);
+                        }
+                        that.data.views[view.viewName] = {
+                            title: view.viewTitle,
+                            isEditable: false,
+                            isWideString: view.isWideString,
+                            isInitiallyCollapsed: view.isInitiallyCollapsed,
+                            isExtFilterVisible: view.isExtFilterVisible
+                        };
+                    });
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
+                } else {
+                    console.log(data);
+                }
+            },
+            error: function(data){ console.log(data); }
+        });
+    };
+    that.load_view = function(callback){
         Asyst.APIv2.View.load({
-            viewName: that.data.view.name,
+            viewName: that.data.viewname,
             data: that.data.params,
             success: function(data){
                 if (typeof callback == 'function') { callback(data); }
@@ -152,7 +199,7 @@ Asyst.GridView = function(options){
             var EditableGrid = Asyst.Models.EditableView.EditableGrid;
             view = EditableGrid.create(viewEl, data.data, data.columns, data.EditFormName, data.KeyName, data.EntityName);
         } else {
-            view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, params, data.filters, data.viewSample);
+            view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, that.data.params, data.filters, data.viewSample);
             var grid = view.Grid;
             var dataView = view.DataView;
             if (data.EntityId)
@@ -171,7 +218,7 @@ Asyst.GridView = function(options){
                 });
             }
         }
-        view.viewName = viewName;
+        view.viewName = that.data.viewname;
 
         /*
         if (that.data.view.isEditable) {
@@ -249,14 +296,16 @@ Asyst.GridView = function(options){
 
     that.init = function(){
         that.loader_add();
-        that.load_data(function(data){
-            that.loader_remove();
-            that.data.gridview = new GridView({
-                containerid: that.data.containerid,
-                title: that.data.title,
-                data: data,
-                header: that.data.header,
-                render: that.render_data
+        that.load_metaview(function(){
+            that.load_view(function(data){
+                that.loader_remove();
+                that.data.gridview = new GridView({
+                    containerid: that.data.containerid,
+                    title: that.data.title,
+                    data: data,
+                    header: that.data.header,
+                    render: that.render_data
+                });
             });
         });
     };
