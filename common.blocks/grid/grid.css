@@ -121,6 +121,14 @@
     border-top: solid 1px #ddd;
     border-bottom: none;
 }
+.slick-columnpicker label {
+    display: inline-flex;
+    margin-bottom: 5px;
+    line-height: 21px;
+}
+.slick-columnpicker input {
+    margin: 3px 10px 3px 3px;
+}
 .slick-row a {
     color: #4983c4;
     text-decoration: none;
