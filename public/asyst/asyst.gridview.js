@@ -191,7 +191,7 @@ Asyst.GridView = function(options){
             var EditableGrid = Asyst.Models.EditableView.EditableGrid;
             view = EditableGrid.create(viewEl, data.data, data.columns, data.EditFormName, data.KeyName, data.EntityName);
         } else {
-            view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, that.data.params, data.filters, data.viewSample);
+            view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, that.data.params, data.filters, data.viewSample, that.data.viewname);
             var grid = view.Grid;
             var dataView = view.DataView;
             if (data.EntityId)
@@ -307,8 +307,10 @@ Asyst.GridView = function(options){
 
     that.init_header = function(){
         $.each(that.data.views, function(key, view){
+            var title = view.title.replace('##').replace('##');
+            title = title.substr(title.indexOf('\\')+1, title.length-1);
             that.data.header.views.push({
-                name: view.title,
+                name: title,
                 value: key,
                 selected: that.data.viewname == key,
                 onclick: function(){
