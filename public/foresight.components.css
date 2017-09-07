@@ -1324,7 +1324,12 @@ body {
 }
 
 .slick-row .selected a {
-  color: #ff5940;
+  color: #bef;
+  text-decoration: none;
+}
+
+.slick-row .selected a:hover {
+  color: #fff;
   text-decoration: none;
 }
 
