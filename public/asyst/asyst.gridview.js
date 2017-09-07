@@ -8,6 +8,7 @@ Asyst.GridView = function(options){
         entitytitle: null,
         viewname: null,
         viewtitle: null,
+        metaviewnames: null,
         params: { ExpandGroup: false },
         views: {},
         gridview: null,
@@ -39,14 +40,39 @@ Asyst.GridView = function(options){
         that.data._el.loader.remove();
     };
 
-    that.load_metaview = function(callback){
+    that.load_metaViewNames = function(callback){
+        if (that.data.entityname) {
+            Asyst.APIv2.DataSet.load({
+                name: 'MetaViewNames',
+                data: {
+                    EntityName: that.data.entityname
+                },
+                success: function(data){
+                    if (data[0]) {
+                        that.data.metaviewnames = data[0].join(',');
+                    } else {
+                        console.log(data);
+                    }
+                },
+                error: function(data){
+                    console.log(data);
+                    that.loader_remove();
+                }
+            });
+        } else {
+            if (typeof callback == 'function') {
+                that.data.metaviewnames = that.data.viewname;
+                callback();
+            }
+        }
+    };
+    that.load_metaView = function(callback){
         Asyst.APIv2.DataSet.load({
             name: 'MetaView',
             data: {
-                EntityName: that.data.entityname
+                ViewName: that.data.metaviewnames
             },
             success: function(data){
-                var items = [];
                 if (data[0]) {
                     var metaview = data[0];
                     if (that.data.viewname) {
@@ -355,15 +381,17 @@ Asyst.GridView = function(options){
     };
     that.init = function(){
         that.loader_add();
-        that.load_metaview(function(){
-            that.init_header();
-            that.init_settings();
-            that.loader_remove();
-            that.data.gridview = new GridView({
-                containerid: that.data.containerid,
-                title: that.data.entitytitle,
-                header: that.data.header,
-                render: that.load_view
+        that.load_metaViewNames(function(){
+            that.load_metaView(function(){
+                that.init_header();
+                that.init_settings();
+                that.loader_remove();
+                that.data.gridview = new GridView({
+                    containerid: that.data.containerid,
+                    title: that.data.entitytitle,
+                    header: that.data.header,
+                    render: that.load_view
+                });
             });
         });
     };
