@@ -307,7 +307,7 @@ Asyst.GridView = function(options){
 
     that.init_header = function(){
         $.each(that.data.views, function(key, view){
-            var title = view.title.replace('##').replace('##');
+            var title = view.title.replace('##','').replace('##','');
             title = title.substr(title.indexOf('\\')+1, title.length-1);
             that.data.header.views.push({
                 name: title,
