@@ -188,7 +188,7 @@ var GridView = function(options){
     that.init_components = function(){
         that.data._el.select_view.select({
             width: 'auto',
-            popup_width: '300',
+            popup_width: 'auto',
             mode: 'radio',
             autoclose: true,
             placeholder: 'Представление'
@@ -196,7 +196,8 @@ var GridView = function(options){
         that.data._el.button_reload.button();
         that.data._el.button_settings.button();
         that.data._el.popup_settings.popup({
-            source: that.data._el.button_settings
+            source: that.data._el.button_settings,
+            width: 'auto'
         });
         that.data._el.input_search.input();
     };
