@@ -8,7 +8,7 @@ Asyst.GridView = function(options){
         entitytitle: null,
         viewname: null,
         viewtitle: null,
-        metaviewnames: null,
+        metaviewnames: [],
         params: { ExpandGroup: false },
         views: {},
         gridview: null,
