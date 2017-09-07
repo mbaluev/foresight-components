@@ -216,6 +216,9 @@ Asyst.GridView = function(options){
         view.viewName = that.data.viewname;
         that.data.grid = view;
 
+        $(window).resize(function(){
+            that.data.grid.resizeCanvas();
+        });
         /*
         if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
             $('#menuItemAdd').hide();
