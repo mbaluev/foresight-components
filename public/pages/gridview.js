@@ -26,13 +26,13 @@ var GridView = function(options){
             '</button>'
         ].join('')),
         button_settings: $([
-            '<button class="button" data-fc="button" data-toggle="popup" data-target="#grid__settings" style="width: auto;">',
+            '<button class="button" data-fc="button" data-toggle="popup" style="width: auto;">',
             '<span class="icon icon_svg_settings"></span>',
             '<span class="icon icon_svg_down icon_animate"></span>',
             '</button>'
         ].join('')),
         popup_settings: $([
-            '<div class="popup popup_animation" id="grid__settings" data-position="bottom left" data-width="auto" style="width: auto; left: 524px; top: 50px;">',
+            '<div class="popup popup_animation" data-position="bottom left" data-width="auto" style="width: auto; left: 524px; top: 50px;">',
             '<ul class="popup__list"></ul>',
             '</div>'
         ].join('')),
@@ -195,6 +195,9 @@ var GridView = function(options){
         });
         that.data._el.button_reload.button();
         that.data._el.button_settings.button();
+        that.data._el.popup_settings.popup({
+            source: that.data._el.button_settings
+        });
         that.data._el.input_search.input();
     };
     that.init = function(){
