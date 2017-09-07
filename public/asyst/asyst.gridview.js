@@ -25,11 +25,15 @@ Asyst.GridView = function(options){
         loader: $('<span class="spinner"></span>')
     };
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
+        that.data._el.loader.css({
+            'position': 'absolute',
+            'top': '50%',
+            'left': '50%',
+            'margin-left': '-15px',
+            'margin-top': '-15px',
+            'z-index': 9999
         });
+        $('#' + that.data.containerid).append(that.data._el.loader);
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();
