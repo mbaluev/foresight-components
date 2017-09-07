@@ -52,6 +52,9 @@ Asyst.GridView = function(options){
                         data[0].map(function(v){
                             that.data.metaviewnames.push(v.viewName);
                         });
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
                     } else {
                         console.log(data);
                     }
@@ -62,8 +65,8 @@ Asyst.GridView = function(options){
                 }
             });
         } else {
+            that.data.metaviewnames.push(that.data.viewname);
             if (typeof callback == 'function') {
-                that.data.metaviewnames.push(that.data.viewname);
                 callback();
             }
         }
