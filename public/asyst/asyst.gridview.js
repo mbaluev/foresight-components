@@ -49,7 +49,9 @@ Asyst.GridView = function(options){
                 },
                 success: function(data){
                     if (data[0]) {
-                        that.data.metaviewnames = data[0].join(',');
+                        data[0].map(function(v){
+                            that.data.metaviewnames.push(v.viewName);
+                        });
                     } else {
                         console.log(data);
                     }
@@ -61,7 +63,7 @@ Asyst.GridView = function(options){
             });
         } else {
             if (typeof callback == 'function') {
-                that.data.metaviewnames = that.data.viewname;
+                that.data.metaviewnames.push(that.data.viewname);
                 callback();
             }
         }
@@ -70,7 +72,7 @@ Asyst.GridView = function(options){
         Asyst.APIv2.DataSet.load({
             name: 'MetaView',
             data: {
-                ViewName: that.data.metaviewnames
+                ViewName: that.data.metaviewnames.join(',')
             },
             success: function(data){
                 if (data[0]) {
