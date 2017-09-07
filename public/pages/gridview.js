@@ -3,7 +3,6 @@ var GridView = function(options){
     that.data = {
         containerid: '',
         title: null,
-        data: [],
         header: {
             views: [],
             reload: null,
@@ -195,9 +194,7 @@ var GridView = function(options){
         setTimeout(function(){
             that.render();
             that.init_components();
-            if (typeof that.data.render == 'function') {
-                that.data.render(that.data._el.container, that.data.data);
-            }
+            if (typeof that.data.render == 'function') { that.data.render(); }
             that.loader_remove();
         }, 100);
     };

@@ -1251,13 +1251,22 @@ body {
 }
 
 .grid input[type="checkbox"] {
-  margin: 0;
+  margin: 6px 0;
+}
+
+.grid .s18 {
+  width: 14px;
+  padding: 5px 0;
 }
 
 /* Slick Grid */
 
-.slick-row .slick-cell-checkboxsel {
+.slick-row .slick-cell:first-child {
   padding-left: 10px;
+}
+
+.slick-row .slick-cell:last-child {
+  padding-right: 10px;
 }
 
 .slick-header.ui-state-default {
@@ -1301,7 +1310,7 @@ body {
   border-style: none;
   border-bottom: 1px solid #eee;
   font-size: 11px;
-  padding: 0 4px;
+  padding: 0 5px;
   line-height: 25px;
   box-sizing: border-box;
   height: 25px !important;

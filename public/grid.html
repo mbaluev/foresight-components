@@ -1137,7 +1137,6 @@
             var gridview = new GridView({
                 containerid: 'container',
                 title: 'Проекты',
-                data: project,
                 header: {
                     views: [
                         {
@@ -1214,11 +1213,11 @@
                 },
                 render: render_grid
             });
-            function render_grid(container, data){
+            function render_grid(){
                 var viewName = 'MyProjects';
                 var params = $.extend(splitGETString(), { viewSampleId: null });
-                load(container, data);
-                function load(container, data){
+                load(project);
+                function load(data){
 
                     var filterArgs = filterDataByGET(data, data.columns);
                     if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
@@ -1236,7 +1235,7 @@
                             column.formatter = Grid.DefaultFormatter;
                     }
 
-                    var viewEl = container;
+                    var viewEl = gridview.data._el.container;
                     viewEl[0].innerHtml = "";
 
                     if (viewEl.height() === 0) {

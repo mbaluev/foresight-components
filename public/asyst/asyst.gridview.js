@@ -118,21 +118,31 @@ Asyst.GridView = function(options){
                     console.log(data);
                 }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){
+                console.log(data);
+                that.loader_remove();
+            }
         });
     };
-    that.load_view = function(container){
+    that.load_view = function(){
         that.loader_add();
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
             data: that.data.params,
             success: function(data){
-                that.render_view(container, data);
+                that.data.data = data;
+                that.render_view();
+                that.loader_remove();
+            },
+            error: function(data){
+                console.log(data);
                 that.loader_remove();
             }
         });
     };
-    that.render_view = function(container, data){
+    that.render_view = function(){
+        var data = that.data.data;
+        var container = that.data.gridview.data._el.container;
 
         var filterArgs = filterDataByGET(data, data.columns);
         if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
@@ -287,12 +297,12 @@ Asyst.GridView = function(options){
                 selected: that.data.viewname == key,
                 onclick: function(){
                     that.data.viewname = key;
-                    that.load_view(that.data.gridview.data._el.container);
+                    that.load_view();
                 }
             });
         });
         that.data.header.reload.onclick = function(){
-            that.load_view(that.data.gridview.data._el.container);
+            that.load_view();
         };
         that.data.header.search = {
             onkeyup: function(e){
