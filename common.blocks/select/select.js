@@ -15,6 +15,7 @@
                         mode: 'radio',
                         placeholder: 'Выберите значение',
                         popup_animation: true,
+                        popup_width: '100%',
                         text: '',
                         count_selected: "Выбрано # из %",
                         minimum_count_selected: 2,
@@ -382,6 +383,7 @@
                         that.data._el.popup.popup({
                             source: that.data._el.button,
                             height: that.data.height,
+                            width: that.data.popup_width,
                             animation: that.data.popup_animation,
                             select: true
                         });

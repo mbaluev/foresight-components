@@ -128,25 +128,28 @@ var GridView = function(options){
     };
     that.render_settings = function(){
         if (that.data.header.settings.length > 0) {
-            that.data.header.settings.forEach(function(item){
-                var $popup__list_item = $([
-                    '<li class="popup__list-item">',
-                    '<span class="popup__link">',
-                    (item.icon ? '<span class="icon ' + item.icon + '"></span>' : ''),
-                    '<span class="popup__text">' + item.name + '</span>',
-                    '</span>',
-                    '</li>'
-                ].join(''));
-                if (typeof item.onclick == 'function') {
-                    $popup__list_item.on('click', item.onclick);
-                }
-                that.data._el.popup_settings.find('.popup__list').append($popup__list_item);
-            });
             that.data._el.content.find('#grid__actions').append(
                 that.data._el.button_settings,
                 that.data._el.popup_settings
             );
         }
+    };
+    that.render_settings_popup = function(){
+        that.data._el.popup_settings.find('.popup__list').empty();
+        that.data.header.settings.forEach(function(item){
+            var $popup__list_item = $([
+                '<li class="popup__list-item">',
+                '<span class="popup__link">',
+                (item.icon ? '<span class="icon ' + item.icon + '"></span>' : ''),
+                '<span class="popup__text">' + item.name + '</span>',
+                '</span>',
+                '</li>'
+            ].join(''));
+            if (typeof item.onclick == 'function') {
+                $popup__list_item.on('click', item.onclick);
+            }
+            that.data._el.popup_settings.find('.popup__list').append($popup__list_item);
+        });
     };
     that.render_search = function(){
         if (that.data.header.search) {
@@ -180,7 +183,8 @@ var GridView = function(options){
 
     that.init_components = function(){
         that.data._el.select_view.select({
-            width: 300,
+            width: 'auto',
+            popup_width: '300',
             mode: 'radio',
             autoclose: true,
             placeholder: 'Представление'

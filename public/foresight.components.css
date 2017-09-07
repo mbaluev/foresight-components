@@ -1256,7 +1256,7 @@ body {
 
 .grid .s18 {
   width: 14px;
-  padding: 5px 0;
+  height: 24px;
 }
 
 /* Slick Grid */
@@ -1281,8 +1281,10 @@ body {
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
   font-size: 11px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  height: 25px;
+  line-height: 25px;
 }
 
 .slick-header-column.ui-state-default:first-child .slick-column-name {

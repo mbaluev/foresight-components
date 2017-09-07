@@ -16,38 +16,7 @@ Asyst.GridView = function(options){
         header: {
             views: [],
             reload: {},
-            settings: [
-                {
-                    icon: 'icon_svg_plus',
-                    name: 'Добавить',
-                    onclick: function(){ console.log('add'); }
-                },
-                {
-                    icon: 'icon_svg_trash',
-                    name: 'Удалить',
-                    onclick: function(){}
-                },
-                {
-                    icon: 'icon_svg_expand',
-                    name: 'Развернуть все группы',
-                    onclick: function(){}
-                },
-                {
-                    icon: 'icon_svg_collapse',
-                    name: 'Свернуть все группы',
-                    onclick: function(){}
-                },
-                {
-                    icon: 'icon_svg_export',
-                    name: 'Экспорт',
-                    onclick: function(){}
-                },
-                {
-                    icon: 'icon_svg_search',
-                    name: 'Расширенный фильтр',
-                    onclick: function(){}
-                }
-            ],
+            settings: [],
             search: {}
         }
     };
@@ -80,6 +49,9 @@ Asyst.GridView = function(options){
                         metaview = metaview.filter(function(view){ return view.viewName = that.data.viewname; });
                     }
                     metaview.map(function(view, i){
+                        view.IsExtFilterVisible = false; //override
+                        view.IsEditable = false;
+                        view.IsViewSampled = false;
                         if (i == 0) {
                             that.data.viewname = view.viewName;
                             that.data.viewtitle = view.viewTitle;
@@ -94,11 +66,11 @@ Asyst.GridView = function(options){
                                     title: view.entityTitle
                                 },
                                 title: view.viewTitle,
-                                isExtFilterVisible: view.isExtFilterVisible,
-                                isInitiallyCollapsed: view.isInitiallyCollapsed,
-                                isWideString: view.isWideString,
-                                isEditable: false,
-                                isViewSampled: false,
+                                isExtFilterVisible: view.IsExtFilterVisible,
+                                isInitiallyCollapsed: view.IsInitiallyCollapsed,
+                                isWideString: view.IsWideString,
+                                isEditable: view.IsEditable,
+                                isViewSampled: view.IsViewSampled,
                                 preprocessFunctionText: '',
                                 viewSamples: {}
                             }, view.viewName);
@@ -131,7 +103,9 @@ Asyst.GridView = function(options){
             data: that.data.params,
             success: function(data){
                 that.data.data = data;
+                that.init_settings();
                 that.render_view();
+                that.render_settings();
                 that.loader_remove();
             },
             error: function(data){
@@ -288,6 +262,10 @@ Asyst.GridView = function(options){
         Loader.hide();
         */
     };
+    that.render_settings = function(){
+        that.data.gridview.data.header.settings = that.data.header.settings;
+        that.data.gridview.render_settings_popup();
+    };
 
     that.init_header = function(){
         $.each(that.data.views, function(key, view){
@@ -317,10 +295,65 @@ Asyst.GridView = function(options){
             }
         };
     };
+    that.init_settings = function(){
+        that.data.header.settings = [];
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isEditable) {
+            that.data.header.settings.push({
+                icon: 'icon_svg_plus',
+                name: 'Добавить',
+                onclick: function(){
+                    Asyst.Workspace.openEntityDialog(that.data.entityname, that.data.entitytitle, null, function(){
+                        that.load_view();
+                    });
+                }
+            });
+            that.data.header.settings.push({
+                icon: 'icon_svg_trash',
+                name: 'Удалить',
+                onclick: function(){
+                    that.data.grid.DeleteSelected();
+                }
+            });
+        }
+        that.data.header.settings.push({
+            icon: 'icon_svg_expand',
+            name: 'Развернуть все группы',
+            onclick: function(){
+                that.data.grid.ExpandAllGroups();
+            }
+        });
+        that.data.header.settings.push({
+            icon: 'icon_svg_collapse',
+            name: 'Свернуть все группы',
+            onclick: function(){
+                that.data.grid.CollapseAllGroups();
+            }
+        });
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            that.data.header.settings.push({
+                icon: 'icon_svg_search',
+                name: 'Расширенный фильтр',
+                onclick: function(){
+                    that.data.grid.ExtendFilter();
+                }
+            });
+        }
+        that.data.header.settings.push({
+            icon: 'icon_svg_export',
+            name: 'Выгрузка',
+            onclick: function(){
+                Model.CurrentViewName = that.data.viewname;
+                viewName = that.data.viewname;
+                window[viewName] = that.data.grid;
+                Grid.ExportToXlsx();
+            }
+        });
+    };
     that.init = function(){
         that.loader_add();
         that.load_metaview(function(){
             that.init_header();
+            that.init_settings();
             that.loader_remove();
             that.data.gridview = new GridView({
                 containerid: that.data.containerid,
