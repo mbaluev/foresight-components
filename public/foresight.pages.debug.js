@@ -852,7 +852,7 @@ var GridView = function(options){
             that.render();
             that.init_components();
             if (typeof that.data.render == 'function') { that.data.render(); }
-            //that.loader_remove();
+            that.loader_remove();
         }, 100);
     };
     that.init();
