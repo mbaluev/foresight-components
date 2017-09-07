@@ -217,7 +217,9 @@ Asyst.GridView = function(options){
         that.data.grid = view;
 
         $(window).resize(function(){
-            if (grid) grid.resizeCanvas();
+            setTimeout(function(){
+                if (grid) grid.resizeCanvas();
+            }, 100);
         });
         /*
         if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
