@@ -215,6 +215,7 @@ Asyst.Dashboard = function(options){
             success: function(data){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
+                    that.check_items();
                     that.data.userdashboardid = data[0][0].UserDashboardId;
                     if (typeof callback == 'function') { callback(); }
                 } else {
@@ -234,11 +235,26 @@ Asyst.Dashboard = function(options){
             success: function(data){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
+                    that.check_items();
                 }
                 if (typeof callback == 'function') { callback(); }
             },
             error: function(data){ console.log(data); }
         });
+    };
+    that.check_items = function(){
+        var items = [];
+        that.data.items.map(function(item){
+            var lib = that.data.library.filter(function(l){ return l.value == item.settings.pagename; });
+            if (lib.length > 0) {
+                lib = lib[0];
+                var libitem = lib.items.filter(function(i){ return i.value == item.settings.elementname; });
+                if (libitem.length > 0) {
+                    items.push(item);
+                }
+            }
+        });
+        that.data.items = items;
     };
     that.init = function(){
         that.loader_add();
