@@ -27,6 +27,7 @@ Asyst.PageDashboard = function(options){
         Asyst.APIv2.DataSet.load({
             name: 'WidgetLibrary',
             data: {
+                AccountId: that.data.user.Id,
                 PageName: that.data.libraries.join(',')
             },
             success: function(data){
