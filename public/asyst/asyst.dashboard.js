@@ -7,7 +7,8 @@ Asyst.PageDashboard = function(options){
         single: false,
         editable: true,
         library: [],
-        asystDashboard: null
+        asystDashboard: null,
+        user: Asyst.Workspace.currentUser
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
