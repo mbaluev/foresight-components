@@ -8,7 +8,8 @@ var DocSearch = function(options){
             doctypes: [],
             author: -1,
             entitytype: ''
-        }
+        },
+        text: ''
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -98,13 +99,14 @@ var DocSearch = function(options){
         );
     };
     that.render_search_line = function(){
+        that.data.text = that.get_url_parameter('text');
         that.data._el.row_search.find('#doc__input').append(
             that.data._el.input
         );
         that.data._el.content.find('#doc__header').append(
             that.data._el.row_search
         );
-        that.data._el.input.find('.input__control').val(that.get_url_parameter('text'));
+        that.data._el.input.find('.input__control').val(that.data.text);
         that.data._el.input.find('.input__control').keypress(function(e){
             if (e.which == 13) {
                 window.location.href = that.set_url_parameter(window.location.href, 'text', $(this).val());
@@ -179,6 +181,19 @@ var DocSearch = function(options){
                 '</tr>'
             ].join('')));
         });
+        if (typeof(that.data._el.content.find('#doc__table .table')[0]) == typeof(undefined)) {
+            that.data._el.content.find('#doc__table').append(
+                that.data._el.table
+            );
+        }
+    };
+    that.render_nodata = function(){
+        that.data._el.table.find('tbody').empty();
+        that.data._el.table.find('tbody').append($([
+            '<tr>',
+            '<td colspan="8">Не найдено ни одного документа</td>',
+            '</tr>'
+        ].join('')));
         if (typeof(that.data._el.content.find('#doc__table .table')[0]) == typeof(undefined)) {
             that.data._el.content.find('#doc__table').append(
                 that.data._el.table
@@ -275,6 +290,10 @@ var DocSearch = function(options){
                 that.render_filters();
                 that.render_count();
                 that.render_table();
+            } else {
+                if (that.data.text != '') {
+                    that.render_nodata();
+                }
             }
             that.init_components();
             that.loader_remove();
