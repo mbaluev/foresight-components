@@ -10,20 +10,22 @@ Asyst.Reports = function(options){
         user: Asyst.Workspace.currentUser
     };
     that.data = $.extend(that.data, options);
-    that.setFavorite = function(data){
-        debugger;
+    that.setFavorite = function(data, success, error){
         Asyst.API.Entity.save('ReportingFavorite', null, {
             Name: 'Избранный отчет',
             ReportingId: data.id,
             AccountId: that.data.user.Id
-        }, function(data){
-            //repFavoriteId = data.id
+        }, function(successData){
+            if (success) { success(successData); }
+        }, function(errorData){
+            if (error) { error(errorData); }
         });
     };
-    that.removeFavorite = function(data){
-        debugger;
-        Asyst.API.Entity.remove('ReportingFavorite', data.repFavoriteId, function(){
-            //repFavoriteId = null
+    that.removeFavorite = function(data, success, error){
+        Asyst.API.Entity.remove('ReportingFavorite', data.repFavoriteId, function(successData){
+            if (success) { success(successData); }
+        }, function(errorData){
+            if (error) { error(errorData); }
         });
     };
     that.init = function(){

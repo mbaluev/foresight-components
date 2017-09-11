@@ -168,11 +168,27 @@ var Reports = function(options){
                             that.toggle_favorite(widget, data);
                             if (data.repFavoriteId) {
                                 if (that.data.removeFavorite && typeof that.data.removeFavorite == 'function') {
-                                    //that.data.removeFavorite(data);
+                                    that.data.removeFavorite(
+                                        data,
+                                        function(successData){
+                                            that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = null;
+                                        },
+                                        function(errorData){
+                                            that.toggle_favorite(widget, data);
+                                        }
+                                    );
                                 }
                             } else {
                                 if (that.data.setFavorite && typeof that.data.setFavorite == 'function') {
-                                    //that.data.setFavorite(data);
+                                    that.data.setFavorite(
+                                        data,
+                                        function(successData){
+                                            that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = successData.id;
+                                        },
+                                        function(errorData){
+                                            that.toggle_favorite(widget, data);
+                                        }
+                                    );
                                 }
                             }
                         }
