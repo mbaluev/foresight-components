@@ -216,7 +216,7 @@ Asyst.Dashboard = function(options){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
                     that.check_items();
-                    if (that.data.AccountId == that.data.user.Id) {
+                    if (data[0][0].AccountId == that.data.user.Id) {
                         that.data.userdashboardid = data[0][0].UserDashboardId;
                     }
                     if (typeof callback == 'function') { callback(); }
