@@ -35,11 +35,11 @@ Asyst.Reports = function(options){
             reports: that.data.reports,
             loader: Asyst.ImageLoader,
             defaults: { favorite: that.data.favorite },
-            setFavorite: function(data){
-                that.setFavorite(data);
+            setFavorite: function(data, success, error){
+                that.setFavorite(data, success, error);
             },
-            removeFavorite: function(data){
-                that.removeFavorite(data);
+            removeFavorite: function(data, success, error){
+                that.removeFavorite(data, success, error);
             }
         });
     };
