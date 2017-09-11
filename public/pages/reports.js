@@ -13,6 +13,8 @@ var Reports = function(options){
             favorite: false,
             reportingCategoryId: 0
         },
+        setFavorite: null,
+        removeFavorite: null,
         search: {
             text: '',
             timer: null
@@ -164,6 +166,15 @@ var Reports = function(options){
                         mode: 'view',
                         click: function(widget, data){
                             that.toggle_favorite(widget, data);
+                            if (data.repFavoriteId) {
+                                if (that.data.removeFavorite && typeof that.data.removeFavorite == 'function') {
+                                    //that.data.removeFavorite(data);
+                                }
+                            } else {
+                                if (that.data.setFavorite && typeof that.data.setFavorite == 'function') {
+                                    //that.data.setFavorite(data);
+                                }
+                            }
                         }
                     }
                 ]
