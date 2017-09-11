@@ -183,6 +183,7 @@ var Reports = function(options){
                                     that.data.setFavorite(
                                         data,
                                         function(successData){
+                                            widget.data().repFavoriteId = successData.id;
                                             that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = successData.id;
                                         },
                                         function(errorData){
