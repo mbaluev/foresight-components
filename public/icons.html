@@ -1,0 +1,306 @@
+<!doctype html>
+<head>
+    <title>foresight-components</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+    <style>
+        .article > .alertbox,
+        .article > .button { margin: 0 5px 10px 0; }
+    </style>
+</head>
+<body class="page proximanova">
+    <div class="fs-view">
+        <div class="fs-view__header">
+            <div class="header">
+                <div class="header__column header__column-left">
+                    <button class="button" type="button" data-fc="button" id="button_toggle-menu">
+                        <span class="icon icon_css_animate">
+                            <span class="icon__menu" data-fc="icon__menu">
+                                <span class="icon__menu-global icon__menu-top"></span>
+                                <span class="icon__menu-global icon__menu-middle"></span>
+                                <span class="icon__menu-global icon__menu-bottom"></span>
+                            </span>
+                        </span>
+                        <span class="button__anim"></span>
+                    </button>
+                    <a class="button" href="dashboard.html" data-fc="button">
+                        <span class="icon icon_svg_home"></span>
+                        <span class="button__anim"></span>
+                    </a>
+                    <button class="button" type="button" data-fc="button">
+                        <span class="icon icon_svg_search"></span>
+                        <span class="button__anim"></span>
+                    </button>
+                </div>
+                <div class="header__column header__column-right">
+                    <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
+                        <span class="icon icon_svg_settings"></span>
+                        <span class="button__text mobile mobile_hide">Функциональный администратор</span>
+                        <span class="icon icon_svg_down"></span>
+                    </button>
+                    <div class="popup" id="account" data-position="bottom left" data-width="auto">
+                        <ul class="popup__list">
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="icon icon_svg_settings"></span>
+                                    <span class="popup__text">Профиль</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="settings.html">
+                                    <span class="popup__text">Центр настроек</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Администрирование</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="logout.html">
+                                    <span class="popup__text">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fs-view__main">
+            <div class="fs-view__left fs-view__left_hidden">
+                <div class="menu" data-fc="menu">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="index.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Главная</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="grid.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="docsearch.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Расширенный поиск документов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="dashboard.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="reports.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Центр отчетов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="bubble.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Баблчарт моих контрактов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="cloud.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Облако тэгов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="ktchart.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Визуализация иерархии контрольных точек</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Компоненты</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="components.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Все</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fs-view__middle fs-view__middle_full">
+                <div class="fs-view__middle-scroll">
+                    <div class="article" data-title="button" id="button">
+                        <div class="heading heading_2">icons</div>
+                        <p class="paragraph paragraph_color_grey">Икноки</p>
+                        <p class="paragraph paragraph_color_red">svg</p>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Кнопки с икоками</span>
+                        </div>
+
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_bars"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_close"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_collapse"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_controls"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_double_right"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_down"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_edit"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_etc"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_expand"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_export"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_favorite"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_favorite_line"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_favorite_red"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_flag"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_home"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_info"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_move"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_ok"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_player"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_plus"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_profile"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_refresh"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_save"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_save_red"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_search"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_settings"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_star_green"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_star_red"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_support"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_trash"></span>
+                        </button>
+                        <button class="button" type="button" data-fc="button">
+                            <span class="icon icon_svg_windows"></span>
+                        </button>
+
+                        <div class="heading heading_5">
+                            <span class="heading__info">Иконки белые</span>
+                        </div>
+
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="icon icon_svg_close_white"></span>
+                        </label>
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="icon icon_svg_down_white"></span>
+                        </label>
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="icon icon_svg_profile_white"></span>
+                        </label>
+                        <label class="alertbox alertbox_color_blue" data-fc="alertbox">
+                            <span class="icon icon_svg_settings_white"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="third/jquery-3.2.1.min.js"></script>
+    <script src="third/jquery-ui.min.js"></script>
+    <script src="third/jquery.event.drag-2.3.0.js"></script>
+    <script src="third/jquery.event.drop-2.3.0.js"></script>
+    <script src="third/highcharts.js"></script>
+
+    <script src="foresight.third.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
+    <script src="foresight.pages.min.js"></script>
+</body>
+</html>
