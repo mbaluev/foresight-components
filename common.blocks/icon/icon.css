@@ -10,6 +10,11 @@
     content: '\00A0';
 }
 
+/* icon photo */
+.icon_photo {
+    background-size: 20px;
+}
+
 /* icon menu css animate -begin */
 .icon_css_animate {
     display: flex;
@@ -62,9 +67,7 @@
 }
 /* icon menu css animate -end */
 
-.icon_photo {
-    background-size: 20px;
-}
+/* icons -begin */
 .icon_svg_bars {
     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxyZWN0IGZpbGw9IiMzMzMzMzMiIHdpZHRoPSIxMiIgaGVpZ2h0PSIyIi8+PHJlY3QgeT0iNSIgZmlsbD0iIzMzMzMzMyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjIiLz48cmVjdCB5PSIxMCIgZmlsbD0iIzMzMzMzMyIgd2lkdGg9IjEyIiBoZWlnaHQ9IjIiLz48L3N2Zz4=);
 }
@@ -248,6 +251,7 @@
 .icon_svg_phone_white {
     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMiAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwYXRoIGZpbGw9IiNGRkZGRkYiIGQ9Ik05LjUsMTJDNS45MzQsMTItMC4wMjQsNiwwLDIuNUMwLDEuMTE5LDEuMTE5LDAsMi41LDBTNSwxLjExOSw1LDIuNWMwLDEuMTg4LTAuODI4LDIuMTgyLTEuOTM5LDIuNDM3YzAuOTc3LDEuNTAyLDIuNDg4LDMuMDEzLDQuMDAzLDMuOTk4QzcuMzIsNy44MjYsOC4zMTMsNyw5LjUsN0MxMC44ODEsNywxMiw4LjExOSwxMiw5LjVTMTAuODgxLDEyLDkuNSwxMnoiLz48L3N2Zz4=);
 }
+/* icons -end */
 
 /* icon animations -begin */
 .icon_animate {
@@ -282,6 +286,7 @@
 }
 /* icon spinner -end */
 
+/* icon circle -begin */
 .icon__circle {
     margin: 11px;
     box-sizing: border-box;
@@ -301,3 +306,4 @@
 .icon__circle_blue {
     background-color: #5a97f2;
 }
+/* icon circle -end */
