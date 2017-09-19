@@ -309,7 +309,9 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'icon__menu', target : self });
                     var that = this.obj = {};
-                    that.defaults = {};
+                    that.defaults = {
+                        closed: true
+                    };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
 
@@ -337,6 +339,9 @@ $(function(){
                     };
                     that.init = function() {
                         that.bind();
+                        if (!that.data.closed) {
+                            that.toggle();
+                        }
                     };
                     that.init();
                 }

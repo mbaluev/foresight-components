@@ -8,7 +8,8 @@ Asyst.PageDashboard = function(options){
         editable: true,
         library: [],
         asystDashboard: null,
-        user: Asyst.Workspace.currentUser
+        user: Asyst.Workspace.currentUser,
+        page: Asyst.Workspace.currentPage
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -72,7 +73,8 @@ Asyst.PageDashboard = function(options){
                 single: that.data.single,
                 editable: that.data.editable,
                 library: that.data.library,
-                loader: Asyst.MetaElementLoader
+                loader: Asyst.MetaElementLoader,
+                page: that.data.page
             });
         });
     };
@@ -87,7 +89,9 @@ Asyst.SettingsDashboard = function(options){
         editable: true,
         library: [],
         contents: [],
-        asystDashboard: null
+        asystDashboard: null,
+        user: Asyst.Workspace.currentUser,
+        page: Asyst.Workspace.currentPage
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -154,7 +158,8 @@ Asyst.SettingsDashboard = function(options){
                 containerid: that.data.containerid,
                 editable: that.data.editable,
                 library: that.data.library,
-                loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents })
+                loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents }),
+                page: that.data.page
             });
         });
     };
