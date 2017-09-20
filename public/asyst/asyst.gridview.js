@@ -23,6 +23,7 @@ Asyst.GridView = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
+        target: $('#' + that.data.containerid),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
