@@ -1,9 +1,4 @@
 $(function(){
-    var timer_resize;
-    $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-        //clearInterval(timer_resize);
-        $(window).trigger('resize');
-    });
     $('#button_toggle-menu').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu');
@@ -13,7 +8,6 @@ $(function(){
             $backdrop = $('<div class="fs-view__backdrop"></div>'),
             onlyloaded = true;
         function show_menu(){
-            //timer_resize = setInterval(function(){ $(window).trigger('resize'); }, 100);
             $iconmenu.icon__menu('toggle');
             if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
@@ -23,9 +17,14 @@ $(function(){
             $left.after($backdrop);
             $backdrop.on('click', hide_menu_backdrop);
             self.one('click', hide_menu);
+            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
         }
         function hide_menu(){
-            //timer_resize = setInterval(function(){ $(window).trigger('resize'); }, 100);
             $iconmenu.icon__menu('toggle');
             if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
@@ -34,6 +33,12 @@ $(function(){
             $middle.addClass('fs-view__middle_full');
             $backdrop.remove();
             self.one('click', show_menu);
+            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
         }
         function hide_menu_backdrop(){
             self.trigger('click');
