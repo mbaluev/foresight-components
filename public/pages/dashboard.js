@@ -58,7 +58,7 @@ var Dashboard = function(options){
             '<span class="button__anim"></span>',
             '</button>',
         ].join('')).button(),
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
 
     that.render_tumbler = function(){
@@ -337,11 +337,7 @@ var Dashboard = function(options){
     /* modal for settings - end */
 
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
-        });
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();

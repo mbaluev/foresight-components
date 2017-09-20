@@ -145,15 +145,6 @@ body {
   border-bottom: solid 1px #ddd;
 }
 
-.fs-view__main > .spinner {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -15px;
-  margin-top: -15px;
-  z-index: 9999;
-}
-
 .header {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: -webkit-box;
@@ -2104,6 +2095,15 @@ body {
   border-bottom-color: transparent;
   border-radius: 15px;
   box-sizing: border-box;
+}
+
+.spinner_align_center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  z-index: 9999;
 }
 
 @-webkit-keyframes rotate {

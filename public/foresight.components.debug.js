@@ -1328,7 +1328,6 @@ $(function(){
                             '<button class="button button_collapse" type="button" data-tooltip="' + that.data.name + '">',
                             '<span class="button__text">' + that.data.name + '</span>',
                             '<span class="icon icon_svg_down"></span>',
-                            '<span class="button__anim"></span>',
                             '</button>'
                         ].join('')).button(),
                         buttons: []
@@ -3713,7 +3712,7 @@ $(function(){
                         that.data._el.popup.popup({
                             source: that.data._el.button,
                             height: that.data.height,
-                            width: that.data.popup_width,
+
                             animation: that.data.popup_animation,
                             select: true
                         });

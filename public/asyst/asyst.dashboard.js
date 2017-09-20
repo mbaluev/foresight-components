@@ -13,14 +13,10 @@ Asyst.PageDashboard = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
-        });
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();
@@ -95,14 +91,10 @@ Asyst.SettingsDashboard = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
-        });
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();
@@ -182,14 +174,10 @@ Asyst.Dashboard = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
-        });
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();

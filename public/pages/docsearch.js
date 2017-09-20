@@ -75,7 +75,7 @@ var DocSearch = function(options){
             '</div>',
             '</div>'
         ].join('')),
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.data._private = {
         rdata: Enumerable.From(that.data.data),
@@ -250,11 +250,7 @@ var DocSearch = function(options){
     }
 
     that.loader_add = function(){
-        $('.fs-view__main').each(function(i, item){
-            if (('innerHTML' in item) && (i == $('.fs-view__main').length-1)){
-                $(this).append(that.data._el.loader);
-            }
-        });
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();

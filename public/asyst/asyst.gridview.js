@@ -23,18 +23,10 @@ Asyst.GridView = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
-        loader: $('<span class="spinner"></span>')
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
-        that.data._el.loader.css({
-            'position': 'absolute',
-            'top': '50%',
-            'left': '50%',
-            'margin-left': '-15px',
-            'margin-top': '-15px',
-            'z-index': 9999
-        });
-        $('#' + that.data.containerid).append(that.data._el.loader);
+        that.data._el.target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();
