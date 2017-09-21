@@ -22,6 +22,9 @@
 .widget-grid_single > .grid-stack-item > .grid-stack-item-content > .widget > .widget__border {
     border: none !important;
 }
+.widget-grid_single > .grid-stack-item > .grid-stack-item-content > .widget > .widget__border > .widget__body {
+    padding-top: 0 !important;
+}
 .widget-grid_single > .grid-stack-item > .grid-stack-item-content > .widget > .widget__header {
     top: 10px !important;
     right: 0 !important;
@@ -37,7 +40,4 @@
 }
 .widget-grid_single > .grid-stack-item > .grid-stack-item-content > .widget > .widget__header > .widget__header-actions {
     box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.5);
-}
-.widget-grid_single > .grid-stack-item > .grid-stack-item-content > .widget > .widget__body {
-    padding-top: 0 !important;
 }
