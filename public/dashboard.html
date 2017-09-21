@@ -464,6 +464,29 @@
                 add: function(data){},
                 save: function(data){
                     console.log(JSON.stringify(data));
+                },
+                headerExtraControlsRenderer: function(){
+                    var $radiogroup = $([
+                        '<span class="radio-group radio-group_type_button" data-fc="radio-group">',
+                            '<label class="radio radio_type_button" data-fc="radio" data-checked="true">',
+                                '<button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">',
+                                '<span class="button__text">Кнопка 1</span>',
+                                '</button>',
+                                '<input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>',
+                            '</label>',
+                            '<label class="radio radio_type_button" data-fc="radio">',
+                                '<button class="button button_toggable_radio" type="button" data-fc="button">',
+                                '<span class="button__text">Кнопка 2</span>',
+                                '</button>',
+                                '<input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>',
+                            '</label>',
+                        '</span>'
+                    ].join(''));
+                    $radiogroup.radio_group();
+                    $radiogroup.find('[data-fc="radio"]').on('click', function(){
+                        console.log($(this).radio_group('value'));
+                    });
+                    return $radiogroup;
                 }
             });
         });

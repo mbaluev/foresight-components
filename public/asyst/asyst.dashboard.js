@@ -74,7 +74,7 @@ Asyst.PageDashboard = function(options){
             widget.widget.widget('set_content');
         });
     };
-    
+
     that.reload = function(options){
         that.data = $.extend(that.data, options);
         that.init();

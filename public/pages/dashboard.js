@@ -17,15 +17,13 @@ var Dashboard = function(options){
         single: false,
         editable: true,
         pagename: '',
-        header: [
-
-        ],
         items: [],
         library: [],
         loader: null,
         grid: null,
         add: function(data){},
-        save: function(data){}
+        save: function(data){},
+        headerExtraControlsRenderer: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -105,6 +103,12 @@ var Dashboard = function(options){
         if (that.data.editable) {
             that.render_buttons();
             that.render_tumbler();
+            render = true;
+        }
+        if (typeof(that.data.headerExtraControlsRenderer) == 'function') {
+            that.data._el.card__header.find('#actions').append(
+                that.data.headerExtraControlsRenderer()
+            );
             render = true;
         }
         if (render) {
