@@ -13,6 +13,7 @@ var Dashboard = function(options){
         CONTENT_TYPE_COUNT: 'count'
     };
     that.data = {
+        title: null,
         single: false,
         editable: true,
         pagename: '',
@@ -30,6 +31,11 @@ var Dashboard = function(options){
     that.data._el = {
         target: $('#' + that.data.containerid),
         grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
+        title: $([
+            '<label class="card__name">',
+            '<span class="card__name-text card__name-text_no-margin"></span>',
+            '</label>'
+        ].join('')),
         tumbler: $([
             '<span class="header__column-item tumbler" id="tumbler_edit-page">',
             '<span class="tumbler__box">',
@@ -86,17 +92,25 @@ var Dashboard = function(options){
         that.data._el.target.append(
             that.data._el.card
         );
-        if (that.data.editable) {
-            that.render_card_header();
-        }
+        that.render_card_header();
         that.render_card_main();
     };
     that.render_card_header = function(){
-        that.data._el.card.append(
-            that.data._el.card__header
-        );
-        that.render_tumbler();
-        that.render_buttons();
+        var render = false;
+        if (that.data.title) {
+            that.render_title();
+            render = true;
+        }
+        if (that.data.editable) {
+            that.render_buttons();
+            that.render_tumbler();
+            render = true;
+        }
+        if (render) {
+            that.data._el.card.append(
+                that.data._el.card__header
+            );
+        }
     };
     that.render_card_main = function(){
         that.data._el.card__main.find('#card__middle-scroll').append(
@@ -104,6 +118,12 @@ var Dashboard = function(options){
         );
         that.data._el.card.append(
             that.data._el.card__main
+        );
+    };
+    that.render_title = function(){
+        that.data._el.title.find('.card__name-text').html(that.data.title);
+        that.data._el.card__header.find('#name').append(
+            that.data._el.title
         );
     };
     that.render_tumbler = function(){
@@ -136,7 +156,7 @@ var Dashboard = function(options){
     that.render_buttons = function(){
         that.render_button_save();
         that.render_button_add();
-        that.data._el.card__header.find('#actions').prepend(
+        that.data._el.card__header.find('#actions').append(
             that.data._el.button_group
         );
     };
