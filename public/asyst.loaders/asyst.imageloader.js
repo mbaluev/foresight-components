@@ -22,16 +22,16 @@ Asyst.ImageLoader = {
             obj.preloader.onload = function() {
                 obj.spinner.remove();
                 obj.widget__image.css('background-image', 'url('+ that.data.data.previewUrl + ')');
-                obj.widget__image.on('click', function(){
-                    console.log(that.data.data.url);
-                });
-                obj.widget__image.on('mouseover', function(){
-                    that.data.target.css({ cursor: 'pointer' });
-                });
                 that.data.target.find('.widget__body').removeClass('widget__body_align_center');
                 that.data.target.find('.widget__body-data').addClass('widget__body-data_type_html');
-                that.data.target.find('.widget__body-data').css({ padding: '10px 10px 20px' });
+                that.data.target.find('.widget__body-data').css({
+                    padding: '10px 10px 20px',
+                    cursor: 'pointer'
+                });
                 that.data.target.find('.widget__body-data').append(obj.widget__image);
+                that.data.target.find('.widget__body-data').on('click', function(){
+                    window.location.href = that.data.data.url;
+                });
             };
             obj.preloader.onerror = function(){
                 if (typeof that.data.error == 'function') {
