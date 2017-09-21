@@ -62,6 +62,14 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
+    that.reload = function(libraryname){
+        that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
+            if (libraryname) {
+                widget.widget.data().pagename = libraryname;
+            }
+            widget.widget.widget('set_content');
+        });
+    };
     that.init = function(){
         that.loader_add();
         that.loadLibrary(function(){
