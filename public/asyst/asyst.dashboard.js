@@ -62,17 +62,19 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.reload2 = function(libraryname, title){
-        if (title) {
-            that.data.asystDashboard.data.dashboard.set_title(title);
-        }
+
+    that.update_widgets_data = function(options){
         that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
-            if (libraryname) {
-                widget.widget.data().pagename = libraryname;
-            }
+            var data = $.extend(widget.widget.data(), options);
+            widget.widget.data(data);
+        });
+    };
+    that.reload_widgets = function(){
+        that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
             widget.widget.widget('set_content');
         });
     };
+    
     that.reload = function(options){
         that.data = $.extend(that.data, options);
         that.init();
