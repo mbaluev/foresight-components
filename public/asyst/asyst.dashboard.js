@@ -2,6 +2,7 @@ if (typeof Asyst == typeof undefined) { Asyst = {}; }
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
+        title: null,
         containerid: 'container',
         libraries: [],
         single: false,
@@ -66,6 +67,7 @@ Asyst.PageDashboard = function(options){
         that.loadLibrary(function(){
             that.loader_remove();
             that.data.asystDashboard = new Asyst.Dashboard({
+                title: that.data.title,
                 containerid: that.data.containerid,
                 single: that.data.single,
                 editable: that.data.editable,
@@ -81,6 +83,7 @@ Asyst.PageDashboard = function(options){
 Asyst.SettingsDashboard = function(options){
     var that = this._settingsDashboard = {};
     that.data = {
+        title: null,
         containerid: 'container',
         settings: [],
         editable: true,
@@ -149,6 +152,7 @@ Asyst.SettingsDashboard = function(options){
         that.loadLibrary(function(){
             that.loader_remove();
             that.data.asystDashboard = new Asyst.Dashboard({
+                title: that.data.title,
                 containerid: that.data.containerid,
                 editable: that.data.editable,
                 library: that.data.library,
@@ -163,6 +167,7 @@ Asyst.SettingsDashboard = function(options){
 Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
+        title: null,
         containerid: 'container',
         single: false,
         editable: true,
@@ -259,6 +264,7 @@ Asyst.Dashboard = function(options){
         that.loadItems(function(){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
+                title: that.data.title,
                 containerid: that.data.containerid,
                 single: that.data.single,
                 editable: that.data.editable,
