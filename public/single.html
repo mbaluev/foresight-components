@@ -467,7 +467,22 @@
                 },
                 single: true,
                 editable: true,
-                pagename: 'Single'
+                pagename: 'Single',
+                headerExtraControlsRenderer: function(){
+                    var $button = $([
+                        '<button class="button" type="button" data-fc="button">',
+                        '<span class="icon icon_svg_refresh"></span>',
+                        '</button>'
+                    ].join(''));
+                    $button.button();
+                    $button.on('click', function(){
+                        console.log($(this).radio_group('value'));
+                        dashboard.data.grid[0].obj.options.items.map(function(widget){
+                            widget.widget.widget('set_content');
+                        });
+                    });
+                    return $button;
+                }
             });
         });
     </script>

@@ -467,30 +467,31 @@
                     console.log(JSON.stringify(data));
                 },
                 headerExtraControlsRenderer: function(){
-                    var $radiogroup = $([
-                        '<span class="radio-group radio-group_type_button" data-fc="radio-group">',
-                            '<label class="radio radio_type_button" data-fc="radio" data-checked="true">',
-                                '<button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">',
-                                '<span class="button__text">Reload</span>',
-                                '</button>',
-                                '<input class="radio__input" type="radio" name="radio-group-button" value="1" hidden/>',
-                            '</label>',
-                            '<label class="radio radio_type_button" data-fc="radio">',
-                                '<button class="button button_toggable_radio" type="button" data-fc="button">',
-                                '<span class="button__text">Обновить</span>',
-                                '</button>',
-                                '<input class="radio__input" type="radio" name="radio-group-button" value="2" hidden/>',
-                            '</label>',
-                        '</span>'
+                    var $button = $([
+                        '<button class="button" type="button" data-fc="button">',
+                        '<span class="icon icon_svg_refresh"></span>',
+                        '</button>'
                     ].join(''));
-                    $radiogroup.radio_group();
-                    $radiogroup.find('[data-fc="radio"]').on('click', function(){
+                    $button.button();
+                    $button.on('click', function(){
                         console.log($(this).radio_group('value'));
                         dashboard.data.grid[0].obj.options.items.map(function(widget){
                             widget.widget.widget('set_content');
                         });
                     });
-                    return $radiogroup;
+                    var $button2 = $([
+                        '<button class="button" type="button" data-fc="button">',
+                        '<span class="icon icon_svg_home"></span>',
+                        '</button>'
+                    ].join(''));
+                    $button2.button();
+                    $button2.on('click', function(){
+                        console.log($(this).radio_group('value'));
+                        dashboard.data.grid[0].obj.options.items.map(function(widget){
+                            widget.widget.widget('set_content');
+                        });
+                    });
+                    return [$button, $button2];
                 }
             });
         });
