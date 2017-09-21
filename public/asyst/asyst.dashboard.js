@@ -62,7 +62,7 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.reload = function(libraryname, title){
+    that.reload2 = function(libraryname, title){
         if (title) {
             that.data.asystDashboard.data.dashboard.set_title(title);
         }
@@ -72,6 +72,10 @@ Asyst.PageDashboard = function(options){
             }
             widget.widget.widget('set_content');
         });
+    };
+    that.reload = function(options){
+        that.data = $.extend(that.data, options);
+        that.init();
     };
     that.init = function(){
         that.loader_add();
