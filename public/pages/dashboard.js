@@ -89,6 +89,7 @@ var Dashboard = function(options){
     };
 
     that.render_card = function(){
+        that.data._el.target.empty();
         that.data._el.target.append(
             that.data._el.card
         );
