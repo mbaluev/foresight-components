@@ -16,6 +16,9 @@ var Dashboard = function(options){
         single: false,
         editable: true,
         pagename: '',
+        header: [
+
+        ],
         items: [],
         library: [],
         loader: null,
@@ -25,7 +28,8 @@ var Dashboard = function(options){
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).addClass('widget-grid grid-stack').attr('data-gs-animate', 'true'),
+        target: $('#' + that.data.containerid),
+        grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
         tumbler: $([
             '<span class="header__column-item tumbler" id="tumbler_edit-page">',
             '<span class="tumbler__box">',
@@ -58,9 +62,50 @@ var Dashboard = function(options){
             '<span class="button__anim"></span>',
             '</button>',
         ].join('')).button(),
+        card: $('<div class="card"></div>'),
+        card__header: $([
+            '<div class="card__header">',
+            '<div class="card__header-row">',
+                '<div class="card__header-column" id="name"></div>',
+                '<div class="card__header-column" id="actions"></div>',
+            '</div>',
+            '</div>'
+        ].join('')),
+        card__main: $([
+            '<div class="card__main">',
+            '<div class="card__middle">',
+            '<div class="card__middle-scroll" id="card__middle-scroll">',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
 
+    that.render_card = function(){
+        that.data._el.target.append(
+            that.data._el.card
+        );
+        if (that.data.editable) {
+            that.render_card_header();
+        }
+        that.render_card_main();
+    };
+    that.render_card_header = function(){
+        that.data._el.card.append(
+            that.data._el.card__header
+        );
+        that.render_tumbler();
+        that.render_buttons();
+    };
+    that.render_card_main = function(){
+        that.data._el.card__main.find('#card__middle-scroll').append(
+            that.data._el.grid
+        );
+        that.data._el.card.append(
+            that.data._el.card__main
+        );
+    };
     that.render_tumbler = function(){
         that.data._el.tumbler
             .on('on.fc.tumbler', function(){
@@ -84,12 +129,16 @@ var Dashboard = function(options){
                     that.loader_remove();
                 }, 100);
             });
-        $('.header__column-right').prepend(that.data._el.tumbler);
+        that.data._el.card__header.find('#actions').append(
+            that.data._el.tumbler
+        );
     };
     that.render_buttons = function(){
         that.render_button_save();
         that.render_button_add();
-        $('.header__column-right').prepend(that.data._el.button_group);
+        that.data._el.card__header.find('#actions').prepend(
+            that.data._el.button_group
+        );
     };
     that.render_button_add = function(isnew){
         that.data._el.button_add.on('click', function(){
@@ -141,7 +190,7 @@ var Dashboard = function(options){
         }
     };
     that.render_grid = function(){
-        that.data.grid = that.data._el.target
+        that.data.grid = that.data._el.grid
             .widget_grid({
                 single: that.data.single,
                 pagename: that.data.pagename,
@@ -346,10 +395,7 @@ var Dashboard = function(options){
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
-            if (that.data.editable) {
-                that.render_tumbler();
-                that.render_buttons();
-            }
+            that.render_card();
             that.render_single();
             that.render_grid();
             that.loader_remove();
