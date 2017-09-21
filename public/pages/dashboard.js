@@ -33,7 +33,7 @@ var Dashboard = function(options){
         grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
         title: $([
             '<label class="card__name">',
-            '<span class="card__name-text card__name-text_no-margin"></span>',
+            '<span class="card__name-text"></span>',
             '</label>'
         ].join('')),
         tumbler: $([
