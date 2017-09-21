@@ -10,7 +10,8 @@ Asyst.PageDashboard = function(options){
         library: [],
         asystDashboard: null,
         user: Asyst.Workspace.currentUser,
-        page: Asyst.Workspace.currentPage
+        page: Asyst.Workspace.currentPage,
+        headerExtraControlsRenderer: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -90,7 +91,8 @@ Asyst.PageDashboard = function(options){
                 editable: that.data.editable,
                 library: that.data.library,
                 loader: Asyst.MetaElementLoader,
-                page: that.data.page
+                page: that.data.page,
+                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer
             });
         });
     };
@@ -194,7 +196,8 @@ Asyst.Dashboard = function(options){
         page: Asyst.Workspace.currentPage,
         items: [],
         userdashboardid: null,
-        dashboard: null
+        dashboard: null,
+        headerExtraControlsRenderer: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -291,7 +294,8 @@ Asyst.Dashboard = function(options){
                 loader: that.data.loader,
                 save: function(items){
                     that.saveItems(items);
-                }
+                },
+                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer
             });
         });
     };
