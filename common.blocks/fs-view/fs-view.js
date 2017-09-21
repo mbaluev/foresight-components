@@ -43,8 +43,8 @@ $(function(){
         function hide_menu_backdrop(){
             self.trigger('click');
         }
-        if ($(window).outerWidth() > 768) {
-            self.one('click', show_menu);
+        if ($iconmenu.data().clicked) {
+            self.one('click', hide_menu);
             onlyloaded = false;
         } else {
             self.one('click', show_menu);

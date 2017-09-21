@@ -7,7 +7,7 @@
                     self.data('_widget', { type: 'icon__menu', target : self });
                     var that = this.obj = {};
                     that.defaults = {
-                        closed: true
+                        clicked: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -36,7 +36,7 @@
                     };
                     that.init = function() {
                         that.bind();
-                        if (!that.data.closed) {
+                        if (that.data.clicked) {
                             that.toggle();
                         }
                     };
