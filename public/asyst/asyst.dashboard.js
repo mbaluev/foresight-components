@@ -62,7 +62,10 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.reload = function(libraryname){
+    that.reload = function(libraryname, title){
+        if (title) {
+            that.data.asystDashboard.data.dashboard.set_title(title);
+        }
         that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
             if (libraryname) {
                 widget.widget.data().pagename = libraryname;

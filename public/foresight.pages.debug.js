@@ -121,7 +121,7 @@ var Dashboard = function(options){
         );
     };
     that.render_title = function(){
-        that.data._el.title.find('.card__name-text').html(that.data.title);
+        that.set_title(that.data.title);
         that.data._el.card__header.find('#name').append(
             that.data._el.title
         );
@@ -239,6 +239,11 @@ var Dashboard = function(options){
                     }
                 ]
             });
+    };
+
+    that.set_title = function(title){
+        that.data.title = title;
+        that.data._el.title.find('.card__name-text').html(that.data.title);
     };
 
     /* modal for settings - begin */
