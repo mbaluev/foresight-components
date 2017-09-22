@@ -8,7 +8,9 @@ $(function(){
             $backdrop = $('<div class="fs-view__backdrop"></div>'),
             onlyloaded = true;
         function show_menu(){
-            $iconmenu.icon__menu('toggle');
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
             if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
             }
@@ -25,7 +27,9 @@ $(function(){
             });
         }
         function hide_menu(){
-            $iconmenu.icon__menu('toggle');
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
             if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
                 $main.addClass('fs-view__main_transition');
             }
@@ -43,11 +47,11 @@ $(function(){
         function hide_menu_backdrop(){
             self.trigger('click');
         }
-        if ($iconmenu.data().clicked) {
-            self.one('click', hide_menu);
+        if ($left.hasClass('fs-view__left_hidden')) {
+            self.one('click', show_menu);
             onlyloaded = false;
         } else {
-            self.one('click', show_menu);
+            self.one('click', hide_menu);
             onlyloaded = false;
         }
     });
