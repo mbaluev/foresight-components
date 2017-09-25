@@ -76,7 +76,6 @@
                                 var $button = $([
                                     '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
                                     '<span class="icon ' + button.icon + '"></span>',
-                                    '<span class="button__anim"></span>',
                                     '</button>'
                                 ].join('')).button();
                                 $button.on('click', function(){
@@ -88,6 +87,14 @@
                                 button._el = $button;
                                 that.data._el.buttons.push($button);
                             });
+                        }
+                    };
+                    that.get_buttons = function(){
+                        that.data._el.button_collapse = self.find('.button_collapse');
+                        if (typeof that.data._el.button_collapse[0] != 'undefined') {
+                            if (typeof that.data._el.button_collapse.find('.button__text')[0] != 'undefined') {
+                                that.data.name = that.data._el.button_collapse.find('.button__text').text();
+                            }
                         }
                     };
 
@@ -226,8 +233,10 @@
                     that.init = function(){
                         if (self.children().length == 0) {
                             that.render();
+                            that.render_buttons();
+                        } else {
+                            that.get_buttons();
                         }
-                        that.render_buttons();
                         that.init_components();
                         that.bind();
                         if (that.data.mode == 'view') {
@@ -299,7 +308,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="widget"]').widget();
 });

@@ -14,7 +14,12 @@
     border-radius: 15px;
     box-sizing: border-box;
 }
-
+.spinner_white {
+    color: #fff;
+}
+.spinner_red {
+    color: #ff5940;
+}
 .spinner_align_center {
     position: absolute;
     top: 50%;
@@ -23,7 +28,6 @@
     margin-top: -15px;
     z-index: 9999;
 }
-
 @keyframes rotate {
     0% {
         transform: rotate(0deg);

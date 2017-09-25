@@ -10,7 +10,7 @@
                         disabled: false,
                         hidden: false,
                         width: '100%',
-                        auto_close: true,
+                        autoclose: true,
                         popup_animation: true
                     };
                     that.data = self.data();
@@ -161,11 +161,11 @@
                         /* that.data._el.input.attr('readonly', 'readonly'); */
                         that.data._el.input.datepicker({
                             inline: true,
-                            autoClose: that.data.auto_close,
+                            autoClose: that.data.autoclose,
                             onSelect: function(formattedDate, date, inst){
                                 that.data.date = date;
                                 that.data.formattedDate = formattedDate;
-                                if (that.data.auto_close) {
+                                if (that.data.autoclose) {
                                     that.data._el.popup.popup('hide');
                                 }
                             }
@@ -260,7 +260,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="input"]').input();
 });

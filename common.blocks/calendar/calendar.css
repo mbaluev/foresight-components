@@ -1,0 +1,48 @@
+.calendar {
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.calendar__row {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.calendar__row_top {
+    flex: 0 0 auto;
+    padding: 0 0 10px 10px;
+}
+.calendar__row_bottom {
+    flex: 1 1 auto;
+}
+
+.calendar__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    flex-direction: column;
+    padding-right: 10px;
+}
+.calendar__info-day {
+    font-size: 60px;
+    color: #666;
+    font-style: italic;
+}
+.calendar__info-count {
+    padding: 5px 0 20px;
+}
+
+.calendar__datepicker {
+    flex: 0 0 auto;
+    padding-right: 10px;
+}
+.calendar__datepicker .datepicker {
+    width: 300px;
+}
+
+.calendar__table {
+    width: 100%;
+    overflow: auto;
+}

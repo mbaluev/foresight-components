@@ -76,7 +76,7 @@
 }
 
 .input__control {
-    font: inherit;
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     line-height: inherit;
     position: relative;
     display: inline-block;
@@ -102,7 +102,7 @@
     padding: 0 10px;
     font-size: 13px;
     color: #333;
-    font-family: 'ProximaNova-Regular' !important;
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 .input.input_focused .input__control {
     box-shadow: none;
