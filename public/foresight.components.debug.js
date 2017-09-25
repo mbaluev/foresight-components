@@ -1631,7 +1631,7 @@ $(function(){
                     that.data._el = {
                         input: $('<input type="hidden">'),
                         calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
-                        calendar__row_bottom: $('<div class="calendar__row calnder__row_bottom"></div>'),
+                        calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__info: $([
                             '<div class="calendar__info">',
                                 '<div class="calendar__info-day">' + that.data._today.getDate() + '</div>',
