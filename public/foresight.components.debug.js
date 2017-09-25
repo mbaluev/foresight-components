@@ -1629,7 +1629,7 @@ $(function(){
                     that.data._datepicker = null;
                     that.data._selectedItems = [];
                     that.data._el = {
-                        input: $('<input type="hidden">'),
+                        target: self.addClass('calendar'),
                         calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
                         calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__info: $([
@@ -1652,7 +1652,7 @@ $(function(){
                     };
 
                     that.render = function(){
-                        self.append(
+                        that.data._el.target.append(
                             that.data._el.calendar__row_top.append(
                                 that.data._el.calendar__info,
                                 that.data._el.calendar__datepicker
@@ -1732,7 +1732,6 @@ $(function(){
                         self.find('[data-fc="button"]').button();
                     };
                     that.init = function(){
-
                         that.render();
                         that.render_datepicker();
                         that.init_components();
