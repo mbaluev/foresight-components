@@ -6,10 +6,6 @@
   margin: 0px;
 }
 
-.page * {
-  box-sizing: border-box;
-}
-
 @font-face {
   font-family: 'ProximaNova-Regular';
   src: url("images/ProximaNova-Regular/ProximaNova-Regular.eot");
@@ -3612,6 +3608,7 @@ body {
 
 .datepicker__note {
   position: absolute;
+  box-sizing: border-box;
   color: #fff;
   background-color: #ff5940;
   right: 0;
