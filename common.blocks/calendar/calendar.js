@@ -29,7 +29,7 @@
                                 '<div class="calendar__info-date">Среда, Июнь 2017</div>',
                                 '<div class="calendar__info-count">6 событий</div>',
                                 '<button class="button" type="button" data-fc="button">',
-                                    '<span class="button__text">Показать сегодня</span>',
+                                    '<span class="button__text">Сегодня</span>',
                                 '</button>',
                             '</div>'
                         ].join('')),
