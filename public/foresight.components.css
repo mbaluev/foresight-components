@@ -3529,8 +3529,17 @@ body {
 }
 
 .datepicker--cell.-selected-,
-.datepicker--cell.-selected-.-current- {
+.datepicker--cell.-selected-.-current-,
+.-selected-.datepicker--cell-day.-other-month-,
+.-selected-.-focus-.datepicker--cell-day.-other-month-,
+.-selected-.datepicker--cell-year.-other-decade-,
+.-selected-.-focus-.datepicker--cell-year.-other-decade- {
   background: #5a97f2;
+}
+
+.-selected-.datepicker--cell-day.-other-month-,
+.-selected-.datepicker--cell-year.-other-decade- {
+  opacity: 0.75;
 }
 
 .datepicker--cell.-selected-.-weekend- {
