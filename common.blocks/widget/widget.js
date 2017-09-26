@@ -14,6 +14,7 @@
                         BORDER_COLOR_DEFAULT: '#ccc',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
+                        BORDER_COLOR_NONE: 'transparent',
                         CONTENT_TYPE_TEXT: 'text',
                         CONTENT_TYPE_HTML: 'html',
                         CONTENT_TYPE_COUNT: 'count'
@@ -121,11 +122,14 @@
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
                         }
+                        else if (that.data.color === that.const.BORDER_COLOR_NONE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_none');
+                        }
                         else {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.css({
-                                'border-color': that.data.color,
-                                //'color': that.data.color
+                                'border-color': that.data.color
                             });
                         }
                     };

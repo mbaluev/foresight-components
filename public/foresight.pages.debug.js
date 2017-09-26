@@ -8,6 +8,7 @@ var Dashboard = function(options){
         BORDER_COLOR_DEFAULT: '#ccc',
         BORDER_COLOR_PURPLE: '#8e6bf5',
         BORDER_COLOR_RED: '#ff5940',
+        BORDER_COLOR_NONE: 'transparent',
         CONTENT_TYPE_TEXT: 'text',
         CONTENT_TYPE_HTML: 'html',
         CONTENT_TYPE_COUNT: 'count'
@@ -323,11 +324,11 @@ var Dashboard = function(options){
                 '<div class="control">' +
                 '<div class="control__caption">' +
                 '<div class="control__text">Заголовок</div>' +
-                    //'<div class="control__icons">' +
-                    //'<span class="icon icon_svg_star_red"></span>' +
-                    //'<span class="icon icon_svg_star_green"></span>' +
-                    //'<span class="icon icon_svg_info"></span>' +
-                    //'</div>' +
+                //'<div class="control__icons">' +
+                //'<span class="icon icon_svg_star_red"></span>' +
+                //'<span class="icon icon_svg_star_green"></span>' +
+                //'<span class="icon icon_svg_info"></span>' +
+                //'</div>' +
                 '</div>' +
                 '<div class="control__container">' +
                 '<span class="input input__has-clear" data-fc="input" data-field="name">' +
@@ -351,6 +352,7 @@ var Dashboard = function(options){
                 '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
                 '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
                 '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                '<option value="' + that.const.BORDER_COLOR_NONE + '" ' + (data.color == that.const.BORDER_COLOR_NONE ? 'selected' : '' ) + '>Безцветный</option>' +
                 '</select>' +
                 '</div>' +
                 '</div>'
