@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.css" afterPath="$PROJECT_DIR$/public/foresight.components.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.min.css" afterPath="$PROJECT_DIR$/public/foresight.components.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/icon/icon.css" afterPath="$PROJECT_DIR$/common.blocks/icon/icon.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/icons.html" afterPath="$PROJECT_DIR$/public/icons.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/calendar/calendar.css" afterPath="$PROJECT_DIR$/common.blocks/calendar/calendar.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,19 +56,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="calendar.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="calendar.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/common.blocks/calendar/calendar.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.2238806">
+              <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
               <folding>
                 <element signature="e#10#190#0" expanded="false" />
                 <element signature="e#207#252#0" expanded="false" />
                 <element signature="e#272#295#0" expanded="false" />
                 <element signature="e#318#341#0" expanded="false" />
                 <element signature="e#365#405#0" expanded="false" />
-                <element signature="e#440#478#0" expanded="false" />
-                <element signature="e#497#537#0" expanded="false" />
+                <element signature="e#440#513#0" expanded="false" />
+                <element signature="e#532#572#0" expanded="false" />
+                <element signature="e#606#631#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -185,10 +182,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="icons.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="icons.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/icons.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7894737">
+            <state vertical-scroll-proportion="-21.25">
               <caret line="368" column="70" selection-start-line="368" selection-start-column="70" selection-end-line="368" selection-end-column="70" />
               <folding>
                 <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
@@ -470,10 +467,10 @@
         <option value="$PROJECT_DIR$/public/pages/dashboard.js" />
         <option value="$PROJECT_DIR$/common.blocks/card/card.css" />
         <option value="$PROJECT_DIR$/common.blocks/widget/widget.css" />
-        <option value="$PROJECT_DIR$/common.blocks/calendar/calendar.css" />
         <option value="$PROJECT_DIR$/common.blocks/calendar/calendar.js" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/public/icons.html" />
+        <option value="$PROJECT_DIR$/common.blocks/calendar/calendar.css" />
       </list>
     </option>
   </component>
@@ -4899,22 +4896,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/calendar/calendar.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding>
-            <element signature="e#10#190#0" expanded="false" />
-            <element signature="e#207#252#0" expanded="false" />
-            <element signature="e#272#295#0" expanded="false" />
-            <element signature="e#318#341#0" expanded="false" />
-            <element signature="e#365#405#0" expanded="false" />
-            <element signature="e#440#478#0" expanded="false" />
-            <element signature="e#497#537#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/datepicker/datepicker.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -5103,7 +5084,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/icons.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7894737">
+        <state vertical-scroll-proportion="-21.25">
           <caret line="368" column="70" selection-start-line="368" selection-start-column="70" selection-end-line="368" selection-end-column="70" />
           <folding>
             <element signature="n#style#0;n#head#0;n#!!top" expanded="false" />
@@ -5169,6 +5150,23 @@
             <element signature="n#li#1;n#ul#0;n#div#0;n#li#10;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="false" />
             <element signature="n#a#0;n#li#1;n#ul#0;n#div#0;n#li#10;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="false" />
             <element signature="n#span#0;n#a#0;n#li#1;n#ul#0;n#div#0;n#li#10;n#ul#0;n#div#0;n#div#0;n#div#1;n#div#0;n#body#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/calendar/calendar.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2238806">
+          <caret line="33" column="33" selection-start-line="33" selection-start-column="33" selection-end-line="33" selection-end-column="33" />
+          <folding>
+            <element signature="e#10#190#0" expanded="false" />
+            <element signature="e#207#252#0" expanded="false" />
+            <element signature="e#272#295#0" expanded="false" />
+            <element signature="e#318#341#0" expanded="false" />
+            <element signature="e#365#405#0" expanded="false" />
+            <element signature="e#440#513#0" expanded="false" />
+            <element signature="e#532#572#0" expanded="false" />
+            <element signature="e#606#631#0" expanded="false" />
           </folding>
         </state>
       </provider>

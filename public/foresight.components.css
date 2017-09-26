@@ -2099,11 +2099,16 @@ body {
 .calendar__datepicker .datepicker {
   width: 100%;
   border: none;
+  border-bottom: solid 1px #ddd;
 }
 
 .calendar__table {
   width: 100%;
   overflow: auto;
+}
+
+.calendar__table .table thead td {
+  border-top: none;
 }
 
 .table {
