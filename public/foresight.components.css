@@ -2073,7 +2073,6 @@ body {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  padding: 0 0 10px 10px;
 }
 
 .calendar__row_bottom {
@@ -2082,45 +2081,16 @@ body {
           flex: 1 1 auto;
 }
 
-.calendar__info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  padding-right: 10px;
-}
-
-.calendar__info-day {
-  font-size: 60px;
-  color: #666;
-  font-style: italic;
-}
-
-.calendar__info-count {
-  padding: 5px 0 20px;
-}
-
 .calendar__datepicker {
+  width: 100%;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  padding-right: 10px;
 }
 
 .calendar__datepicker .datepicker {
-  /*width: 300px;*/
+  width: 100%;
+  border: none;
 }
 
 .calendar__table {

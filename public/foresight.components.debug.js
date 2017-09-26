@@ -1634,18 +1634,34 @@ $(function(){
                     that.data._selectedItems = [];
                     that.data._el = {
                         target: self.addClass('calendar'),
-                        calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
-                        calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
-                        calendar__info: $([
-                            '<div class="calendar__info">',
-                                '<div class="calendar__info-day">' + that.data._today.getDate() + '</div>',
-                                '<div class="calendar__info-date">Среда, Июнь 2017</div>',
-                                '<div class="calendar__info-count">6 событий</div>',
-                                '<button class="button" type="button" data-fc="button">',
-                                    '<span class="button__text">Сегодня</span>',
-                                '</button>',
+                        card: $('<div class="card"></div>'),
+                        card__header: $([
+                            '<div class="card__header">',
+                            '<div class="card__header-row">',
+                            '<div class="card__header-column" id="name"></div>',
+                            '<div class="card__header-column" id="actions"></div>',
+                            '</div>',
                             '</div>'
                         ].join('')),
+                        button_today: $([
+                            '<button class="button" type="button" data-fc="button">',
+                            '<span class="button__text">Сегодня</span>',
+                            '</button>',
+                        ].join('')),
+                        card__name: $([
+                            '<label class="card__name">',
+                            '<span class="card__name-text">' + that.data._today.getDate() + '</span>',
+                            '</label>',
+                        ].join('')),
+                        card__count: $([
+                            '<label class="card__name">',
+                            '<span class="card__name-text">Событий: 3</span>',
+                            '</label>',
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__middle: $('<div class="card__main"></div>'),
+                        calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
+                        calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
                         calendar__table: $('<div class="calendar__table"></div>')
                     };
@@ -1656,13 +1672,26 @@ $(function(){
                     };
 
                     that.render = function(){
+                        that.data._el.card__header.find('#name').append(
+                            that.data._el.card__name
+                        );
+                        that.data._el.card__header.find('#actions').append(
+                            that.data._el.card__count,
+                            that.data._el.button_today
+                        );
                         that.data._el.target.append(
-                            that.data._el.calendar__row_top.append(
-                                that.data._el.calendar__info,
-                                that.data._el.calendar__datepicker
-                            ),
-                            that.data._el.calendar__row_bottom.append(
-                                that.data._el.calendar__table
+                            that.data._el.card.append(
+                                that.data._el.card__header,
+                                that.data._el.card__main.append(
+                                    that.data._el.card__middle.append(
+                                        that.data._el.calendar__row_top.append(
+                                            that.data._el.calendar__datepicker
+                                        ),
+                                        that.data._el.calendar__row_bottom.append(
+                                            that.data._el.calendar__table
+                                        )
+                                    )
+                                )
                             )
                         );
                     };
@@ -1689,9 +1718,8 @@ $(function(){
                                 });
                                 that.data.date = date;
                                 that.data.formattedDate = formattedDate;
-                                that.data._el.calendar__info.find('.calendar__info-day').text(date.getDate());
-                                that.data._el.calendar__info.find('.calendar__info-date').text(formattedDate);
-                                that.data._el.calendar__info.find('.calendar__info-count').text('Событий: ' + that.data._selectedItems.length);
+                                that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                that.data._el.card__count.find('.card__name-text').text('Событий: ' + that.data._selectedItems.length);
                                 that.render_table();
                             }
                         });
@@ -1727,7 +1755,7 @@ $(function(){
                     };
 
                     that.bind = function(){
-                        that.data._el.calendar__info.find('.button').on('click', function(){
+                        that.data._el.button_today.on('click', function(){
                             that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
                         });
                     };
