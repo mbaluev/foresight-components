@@ -208,7 +208,7 @@ body {
 }
 
 .button {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif !important;
   position: relative;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -2470,6 +2470,7 @@ body {
 
 .radio {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  padding: 0 !important;
 }
 
 .radio.radio_hidden {
