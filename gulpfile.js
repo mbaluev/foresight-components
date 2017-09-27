@@ -59,7 +59,7 @@ var third_css = [
 ];
 var pages_js = [
     'public/pages/dashboard.js',
-    'public/pages/dashboardGrid.js',
+    'public/pages/dashboardgrid.js',
     'public/pages/docsearch.js',
     'public/pages/gridview.js',
     'public/pages/reports.js'

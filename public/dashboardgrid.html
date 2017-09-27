@@ -189,7 +189,27 @@
         $(function(){
             var dashboardgrid = new DashboardGrid({
                 containerid: 'container',
-                loader: Asyst.TitleLoader
+                loader: Asyst.TitleLoader,
+                add: function(success){
+                    var db = {
+                        "PageId":"941c1a59-af4c-4ef2-9a66-d57f13d78d7c",
+                        "Name":"DB-Index",
+                        "Title":"Дэшборд главной страницы",
+                        "Description":"",
+                        editable: 0
+                    };
+                    success(db);
+                },
+                open: function(data){
+                    console.log(data.id);
+                },
+                edit: function(data){
+                    console.log(data.id);
+                },
+                remove: function(data, success){
+                    console.log(data.id);
+                    success();
+                }
             });
         });
     </script>

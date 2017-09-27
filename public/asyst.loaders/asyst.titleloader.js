@@ -18,9 +18,11 @@ Asyst.TitleLoader = {
         };
         that.loadContent = function(){
             if (typeof that.data.success == 'function') {
-                that.data.success(that.loadTitle());
+                that.data.success(that.loadTitle);
                 that.data.target.find('.widget__body').addClass('widget__body_align_center');
                 that.data.target.find('.widget__body-data').removeClass('widget__body-data_type_html');
+                that.data.target.find('.widget__body-data').addClass('widget__body-data_type_text_align_center');
+                that.data.target.find('.widget__body-data').addClass('widget__body-data_type_text_fontsize');
             }
         };
         return that;

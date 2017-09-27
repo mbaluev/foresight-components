@@ -1950,6 +1950,10 @@ body {
   text-align: center;
 }
 
+.widget__body-data_type_text_fontsize {
+  font-size: 15px;
+}
+
 .widget__content {
   height: 100%;
   box-sizing: border-box;
@@ -3210,6 +3214,11 @@ body {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   margin: 0 10px 10px 0;
+}
+
+.card__header-column > .button {
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .card__header-column > .radio-group.radio-group_type_buttons {

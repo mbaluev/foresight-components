@@ -39,6 +39,9 @@
     flex-wrap: wrap;
     margin: 0 10px 10px 0;
 }
+.card__header-column > .button {
+    flex-wrap: nowrap;
+}
 .card__header-column > .radio-group.radio-group_type_buttons {
     flex-wrap: wrap;
     margin-bottom: 0 !important;

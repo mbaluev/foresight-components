@@ -807,7 +807,7 @@ $(function(){
                             node.settings.id = node._id;
                         }
                         node._height = node.height;
-                        node.settings.buttons = $.extend(that.data.widget_buttons, node.settings.buttons);
+                        node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
                         node.settings.reloadable = true;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
