@@ -1677,7 +1677,7 @@ $(function(){
                             that.data._el.card__name
                         );
                         that.data._el.card__header.find('#actions').append(
-                            that.data._el.card__count,
+                            //that.data._el.card__count,
                             that.data._el.button_today
                         );
                         that.data._el.target.append(
