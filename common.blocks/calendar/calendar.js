@@ -20,7 +20,8 @@
                     that.data._datepicker = null;
                     that.data._selectedItems = [];
                     that.data._el = {
-                        target: self.addClass('calendar'),
+                        target: self,
+                        calendar__container: $('<div class="calendar__container"></div>'),
                         card: $('<div class="card"></div>'),
                         card__header: $([
                             '<div class="card__header">',
@@ -63,19 +64,21 @@
                             that.data._el.card__name
                         );
                         that.data._el.card__header.find('#actions').append(
-                            //that.data._el.card__count,
+                            that.data._el.card__count,
                             that.data._el.button_today
                         );
                         that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header,
-                                that.data._el.card__main.append(
-                                    that.data._el.card__middle.append(
-                                        that.data._el.calendar__row_top.append(
-                                            that.data._el.calendar__datepicker
-                                        ),
-                                        that.data._el.calendar__row_bottom.append(
-                                            that.data._el.calendar__table
+                            that.data._el.calendar__container.append(
+                                that.data._el.card.append(
+                                    that.data._el.card__header,
+                                    that.data._el.card__main.append(
+                                        that.data._el.card__middle.append(
+                                            that.data._el.calendar__row_top.append(
+                                                that.data._el.calendar__datepicker
+                                            ),
+                                            that.data._el.calendar__row_bottom.append(
+                                                that.data._el.calendar__table
+                                            )
                                         )
                                     )
                                 )
@@ -106,7 +109,12 @@
                                 that.data.date = date;
                                 that.data.formattedDate = formattedDate;
                                 that.data._el.card__name.find('.card__name-text').text(formattedDate);
-                                that.data._el.card__count.find('.card__name-text').text('Событий: ' + that.data._selectedItems.length);
+                                that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                /*
+                                that.data._el.calendar__info.find('.calendar__info-day').text(date.getDate());
+                                that.data._el.calendar__info.find('.calendar__info-date').text(formattedDate);
+                                that.data._el.calendar__info.find('.calendar__info-count').text('Событий: ' + that.data._selectedItems.length);
+                                */
                                 that.render_table();
                             }
                         });
@@ -132,15 +140,22 @@
                                     that.data._selectedItems.map(function(item){
                                         return $tr.clone().append(
                                             that.data.columns.map(function(column){
-                                                var html = item[column.fieldname];
-                                                if (html == null || html == 'null') {
-                                                    html = '';
+                                                var td_content = item[column.fieldname];
+                                                if (td_content == null || td_content == 'null') {
+                                                    td_content = '';
                                                 } else {
                                                     if (column.link) {
-                                                        html = '<a class="link" href="' + item.url + '">' + html + '</a>';
+                                                        if (!item.url) {
+                                                            item.url = '#';
+                                                        }
+                                                        td_content = [
+                                                            '<a class="link" href="' + item.url + '">',
+                                                            td_content,
+                                                            '</a>'
+                                                        ].join('');
                                                     }
                                                 }
-                                                return $td.clone().html(html);
+                                                return $td.clone().html(td_content);
                                             })
                                         )
                                     })
