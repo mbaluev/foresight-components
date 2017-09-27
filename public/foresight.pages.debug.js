@@ -658,6 +658,7 @@ var DashboardGrid = function(options){
             height: that.data.defaults.itemHeight,
             settings: {
                 id: db.PageId,
+                pagename: db.name,
                 collapsed: db.collapsed,
                 color: db.color,
                 descriptions: db.Description,

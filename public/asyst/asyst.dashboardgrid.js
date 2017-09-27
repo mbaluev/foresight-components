@@ -9,6 +9,10 @@ Asyst.DashboardGrid = function(options){
         allowedDashboards: [],
         allowedText: 'Только просмотр',
         allowedColor: null,
+        add: null,
+        open: null,
+        edit: null,
+        remove: null,
         dashboardgrid: null,
         user: Asyst.Workspace.currentUser
     };
@@ -38,15 +42,6 @@ Asyst.DashboardGrid = function(options){
         });
     };
 
-    that.add = function(data, success, error){
-    };
-    that.open = function(data, success, error){
-    };
-    that.edit = function(data, success, error){
-    };
-    that.remove = function(data, success, error){
-    };
-
     that.init = function(){
         that.loader_add();
         that.loadData(function() {
@@ -60,18 +55,10 @@ Asyst.DashboardGrid = function(options){
                 allowedText: that.data.allowedText,
                 allowedColor: that.data.allowedColor,
                 loader: Asyst.TitleLoader,
-                add: function (data, success, error) {
-                    that.add(data, success, error);
-                },
-                open: function (data, success, error) {
-                    that.open(data, success, error);
-                },
-                edit: function (data, success, error) {
-                    that.edit(data, success, error);
-                },
-                remove: function (data, success, error) {
-                    that.remove(data, success, error);
-                }
+                add: that.data.add,
+                open: that.data.open,
+                edit: that.data.edit,
+                remove: that.data.remove
             });
         });
     };
