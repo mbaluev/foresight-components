@@ -220,12 +220,12 @@ var DashboardGrid = function(options){
             height: that.data.defaults.itemHeight,
             settings: {
                 id: db.PageId,
-                pagename: db.name,
+                pagename: db.Name,
                 collapsed: db.collapsed,
-                color: db.color,
-                descriptions: db.Description,
+                description: db.Description,
                 title: db.Title,
                 editable: db.editable,
+                color: db.color,
                 buttons: buttons
             }
         };
