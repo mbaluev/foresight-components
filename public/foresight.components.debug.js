@@ -1633,7 +1633,7 @@ $(function(){
                     that.data._datepicker = null;
                     that.data._selectedItems = [];
                     that.data._el = {
-                        target: self,
+                        target: self.addClass('calendar'),
                         calendar__container: $('<div class="calendar__container"></div>'),
                         card: $('<div class="card"></div>'),
                         card__header: $([
