@@ -185,7 +185,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-tooltip]').tooltip();
 });

@@ -132,7 +132,15 @@
                                     that.data._selectedItems.map(function(item){
                                         return $tr.clone().append(
                                             that.data.columns.map(function(column){
-                                                return $td.clone().html(item[column.fieldname]);
+                                                var html = item[column.fieldname];
+                                                if (html == null || html == 'null') {
+                                                    html = '';
+                                                } else {
+                                                    if (column.link) {
+                                                        html = '<a class="link" href="' + item.url + '">' + html + '</a>';
+                                                    }
+                                                }
+                                                return $td.clone().html(html);
                                             })
                                         )
                                     })

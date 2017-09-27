@@ -1,0 +1,297 @@
+var DashboardGrid = function(options){
+    var that = this._dashboard_grid = {};
+    that.data = {
+        editableDashboards: [
+            {
+                "PageId":"841c1a59-af4c-4ef2-9a66-d57f13d78d7c",
+                "Name":"DB-Index",
+                "Title":"Основной дэшборд главной страницы",
+                "Description":""
+            },
+            {
+                "PageId":"2c652806-ae4c-4537-84f4-2cb77c64d32d",
+                "Name":"DB-2017-9-25-18-5-45-svc_farm",
+                "Title":"Тестирование установки модуля",
+                "Description":""
+            }
+        ],
+        allowedDashboards: [
+            {
+                "PageId":"841c1a59-af4c-4ef2-9a66-d57f13d78d7q",
+                "Name":"DB-Index-show",
+                "Title":"На просмотр",
+                "Description":""
+            }
+        ],
+        items: [],
+        editableText: 'Редактируемые',
+        allowedText: 'Только просмотр',
+        loader: null,
+        defaults: {
+            itemWidth: 2,
+            itemHeight: 5,
+            x: 0,
+            y: 0,
+            editable: false
+        },
+        add: null,
+        edit: null,
+        remove: null,
+        search: {
+            text: '',
+            timer: null
+        },
+        grid: null
+    };
+    that.data = $.extend(true, {}, that.data, options);
+    that.data._el = {
+        target: $('#' + that.data.containerid).css({ height: '100%' }),
+        input: $([
+            '<span class="input input__has-clear" data-width="200">',
+            '<span class="input__box">',
+            '<span class="alertbox" data-fc="alertbox">',
+            '<span class="icon icon_svg_search"></span>',
+            '</span>',
+            '<input type="text" class="input__control">',
+            '<button class="button" type="button" data-fc="button">',
+            '<span class="icon icon_svg_close"></span>',
+            '</button>',
+            '</span>',
+            '</span>'
+        ].join('')),
+        radiogroup: $('<span class="radio-group radio-group_type_buttons"></span>'),
+        content: $([
+            '<div class="card">',
+            '<div class="card__header">',
+            '<div class="card__header-row">',
+            '<div class="card__header-column" id="filter"></div>',
+            '</div>',
+            '</div>',
+            '<div class="card__main">',
+            '<div class="card__middle">',
+            '<div class="card__middle-scroll">',
+            '<div id="widget-grid" class="widget-grid grid-stack" data-gs-animate="true"></div>',
+            '</div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join('')),
+        loader: $('<span class="spinner spinner_align_center"></span>')
+    };
+
+    that.render = function(){
+        that.data._el.content.find('#filter').append(
+            that.data._el.radiogroup
+        );
+        that.data._el.target.append(
+            that.data._el.content
+        );
+    };
+    that.render_filters = function(){
+        that.data._el.radiogroup.append(
+            $([
+                '<label class="radio radio_type_button" data-fc="radio" data-checked="true">',
+                '<button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">',
+                '<span class="button__text">Все</span>',
+                '</button>',
+                '<input class="radio__input" type="radio" name="radio-group-button" value="0" hidden/>',
+                '</label>'
+            ].join('')),
+            $([
+                '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + that.data.allowedText + '">',
+                '<button class="button button_toggable_radio" type="button" data-fc="button">',
+                '<span class="button__text">' + that.data.allowedText + '</span>',
+                '<span class="icon">',
+                '<span class="icon icon__circle" style="background-color: #00a1f4"></span>',
+                '</span>',
+                '</button>',
+                '<input class="radio__input" type="radio" name="radio-group-button" value="false" hidden/>',
+                '</label>'
+            ].join('')),
+            $([
+                '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + that.data.editableText + '">',
+                '<button class="button button_toggable_radio" type="button" data-fc="button">',
+                '<span class="button__text">' + that.data.editableText + '</span>',
+                '<span class="icon">',
+                '<span class="icon icon__circle" style="background-color: #ff5940"></span>',
+                '</span>',
+                '</button>',
+                '<input class="radio__input" type="radio" name="radio-group-button" value="true" hidden/>',
+                '</label>'
+            ].join(''))
+        );
+        that.data._el.radiogroup.append(
+            that.data._el.input
+        );
+    };
+    that.render_grid = function(){
+        var widget_grid_options = {
+            items: that.data.items,
+            loader: that.data.loader
+        };
+        that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
+    };
+    that.render_dbs = function(){
+        that.data.allowedDashboards.forEach(function(db, i){
+            db.visible = true;
+            db.collapsed = false;
+            that.add_db(db);
+            that.data.defaults.x += that.data.defaults.itemWidth;
+            if (that.data.defaults.x >= 12) {
+                that.data.defaults.x = 0;
+                that.data.defaults.y += that.data.defaults.itemHeight;
+            }
+        });
+        that.data.editableDashboards.forEach(function(db, i){
+            db.visible = true;
+            db.collapsed = false;
+            that.add_db(db);
+            that.data.defaults.x += that.data.defaults.itemWidth;
+            if (that.data.defaults.x >= 12) {
+                that.data.defaults.x = 0;
+                that.data.defaults.y += that.data.defaults.itemHeight;
+            }
+        });
+        that.data.grid.widget_grid('view_mode');
+    };
+
+    that.remove_dbs = function(){
+        that.data.items = [];
+        that.data.defaults.x = 0;
+        that.data.defaults.y = 0;
+        that.data.grid.widget_grid('clear');
+    };
+    that.remove_db = function(db){
+        db.visible = false;
+        db.collapsed = $('#' + db.pageId).data().collapsed;
+        that.data.grid.widget_grid('remove_widget', db.pageId);
+        that.data.items = that.data.items.filter(function(d){ return d._id != db.pageId; });
+    };
+    that.add_db = function(db){
+        db.visible = true;
+        var item = {
+            x: that.data.defaults.x,
+            y: that.data.defaults.y,
+            width: that.data.defaults.itemWidth,
+            height: that.data.defaults.itemHeight,
+            settings: {
+                id: db.PageId,
+                name: db.Name,
+                collapsed: db.collapsed,
+                color: db.color,
+                descriptions: db.Description,
+                title: db.Title,
+                buttons: [
+                    {
+                        icon: 'icon_svg_edit',
+                        tooltip: 'Редактировать',
+                        mode: 'view',
+                        click: function(widget, data){
+                            console.log('edit');
+                        }
+                    },
+                    {
+                        icon: 'icon_svg_dashboard',
+                        tooltip: 'Открыть',
+                        mode: 'view',
+                        click: function(widget, data){
+                            console.log('open');
+                        }
+                    },
+                    {
+                        icon: 'icon_svg_trash',
+                        tooltip: 'Удалить',
+                        mode: 'view',
+                        click: function(widget, data){
+                            console.log('remove');
+                        }
+                    }
+                ]
+            }
+        };
+        that.data.items.push(item);
+        that.data.grid.widget_grid('add_widget', item);
+    };
+    that.update_db = function(db){
+        that.data.grid.widget_grid(
+            'update_widget',
+            db.pageId,
+            that.data.defaults.x,
+            that.data.defaults.y,
+            that.data.defaults.itemWidth,
+            that.data.defaults.itemHeight
+        );
+    };
+    that.filter_dbs = function(){
+        that.loader_add();
+        setTimeout(function(){
+            that.data.defaults.x = 0;
+            that.data.defaults.y = 0;
+            that.data.reports.forEach(function(report){
+                if ((+report.reportingCategoryId == +that.data.defaults.reportingCategoryId || +that.data.defaults.reportingCategoryId == 0) &&
+                    (that.data.defaults.favorite && report.repFavoriteId || !that.data.defaults.favorite) &&
+                    (report.title.toLowerCase().includes(that.data.search.text.toLowerCase()))) {
+                    if (!report.visible) {
+                        that.add_report(report);
+                    } else {
+                        that.update_report(report);
+                    }
+                    that.data.defaults.x += that.data.defaults.itemWidth;
+                    if (that.data.defaults.x >= 12) {
+                        that.data.defaults.x = 0;
+                        that.data.defaults.y += that.data.defaults.itemHeight;
+                    }
+                } else {
+                    if (report.visible) {
+                        that.remove_report(report);
+                    }
+                }
+            });
+            that.data.grid.widget_grid('view_mode');
+            that.loader_remove();
+        }, 100);
+    };
+
+    that.loader_add = function(){
+        that.data._el.target.before(that.data._el.loader)
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
+    };
+
+    that.bind = function(){
+        that.data._el.radiogroup.find('[data-fc="radio"]').on('click', function(){
+            that.data.defaults.editable = $(this).radio_group('value');
+            //that.filter_dbs();
+        });
+        that.data._el.input.on('keyup', function(){
+            clearTimeout(that.data.search.timer);
+            that.data.search.text = $(this).input('value');
+            that.data.search.timer = setTimeout(function(){
+                //that.filter_dbs();
+            }, 300);
+        });
+    };
+
+    that.init_components = function(){
+        that.data._el.radiogroup.radio_group();
+        that.data._el.input.input();
+        that.data._el.input.css({
+            flex: '0 0 auto'
+        });
+    };
+    that.init = function(){
+        that.loader_add();
+        setTimeout(function(){
+            that.render();
+            that.render_filters();
+            that.render_grid();
+            that.render_dbs();
+            that.init_components();
+            that.bind();
+            that.loader_remove();
+        }, 100);
+    };
+    that.init();
+    return that;
+};

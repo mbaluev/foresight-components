@@ -3,7 +3,8 @@
   font-size: 13px;
   font-weight: normal;
   line-height: normal;
-  margin: 0px;
+  color: #333;
+  margin: 0;
 }
 
 @font-face {
@@ -1639,6 +1640,10 @@ body {
   padding: 0;
 }
 
+.heading_align_center {
+  text-align: center;
+}
+
 .heading__info {
   margin-right: 10px;
 }
@@ -2054,106 +2059,6 @@ body {
 .widget__image_visible {
   opacity: 1;
   display: block;
-}
-
-.calendar {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  font-size: 13px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100%;
-}
-
-.calendar__row {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-}
-
-.calendar__row_top {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-}
-
-.calendar__row_bottom {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-}
-
-.calendar__datepicker {
-  width: 100%;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-}
-
-.calendar__datepicker .datepicker {
-  width: 100%;
-  border: none;
-  border-bottom: solid 1px #ddd;
-}
-
-.calendar__table {
-  width: 100%;
-  overflow: auto;
-}
-
-.calendar__table .table thead td {
-  border-top: none;
-}
-
-.table {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  border-collapse: collapse;
-  border-spacing: 0;
-  color: #333;
-  max-width: 100%;
-  min-width: 100%;
-}
-
-.table td {
-  border-top: solid 1px #eee;
-  padding: 7px 0 7px 10px;
-  vertical-align: top;
-  text-align: left;
-}
-
-.table td:last-child {
-  padding-right: 10px;
-}
-
-.table thead td {
-  padding: 10px 0 10px 10px;
-  border-top: solid 1px #ddd;
-  border-bottom: solid 1px #ddd;
-  background-color: #fafafa;
-  font-weight: bold;
-}
-
-.table thead td.table__td_no_border {
-  border: none;
-}
-
-.table td.align_right {
-  text-align: right;
-}
-
-.table td img.indicator {
-  width: 16px;
-  height: 16px;
-}
-
-.table td img.doctype {
-  float: left;
 }
 
 .carousel {
@@ -3481,6 +3386,51 @@ body {
 
 .tabs__pane .control:last-child {
   padding-bottom: 0;
+}
+
+.table {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: #333;
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.table td {
+  border-top: solid 1px #eee;
+  padding: 7px 0 7px 10px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.table td:last-child {
+  padding-right: 10px;
+}
+
+.table thead td {
+  padding: 10px 0 10px 10px;
+  border-top: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+  background-color: #fafafa;
+  font-weight: bold;
+}
+
+.table thead td.table__td_no_border {
+  border: none;
+}
+
+.table td.align_right {
+  text-align: right;
+}
+
+.table td img.indicator {
+  width: 16px;
+  height: 16px;
+}
+
+.table td img.doctype {
+  float: left;
 }
 
 .tooltip {
