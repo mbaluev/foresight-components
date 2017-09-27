@@ -763,6 +763,11 @@ var DashboardGrid = function(options){
                             that.data.allowedDashboards.push(successData);
                         }
                         that.add_db(successData);
+                        that.data.defaults.x += that.data.defaults.itemWidth;
+                        if (that.data.defaults.x >= 12) {
+                            that.data.defaults.x = 0;
+                            that.data.defaults.y += that.data.defaults.itemHeight;
+                        }
                     },
                     function(errorData){}
                 );
