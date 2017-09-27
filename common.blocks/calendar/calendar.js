@@ -143,17 +143,6 @@
                                                 var td_content = item[column.fieldname];
                                                 if (td_content == null || td_content == 'null') {
                                                     td_content = '';
-                                                } else {
-                                                    if (column.link) {
-                                                        if (!item.url) {
-                                                            item.url = '#';
-                                                        }
-                                                        td_content = [
-                                                            '<a class="link" href="' + item.url + '">',
-                                                            td_content,
-                                                            '</a>'
-                                                        ].join('');
-                                                    }
                                                 }
                                                 return $td.clone().html(td_content);
                                             })
@@ -162,6 +151,7 @@
                                 )
                             )
                         );
+                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
                     };
 
                     that.bind = function(){
