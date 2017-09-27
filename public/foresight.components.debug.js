@@ -1672,6 +1672,17 @@ $(function(){
                         self.remove();
                     };
 
+                    that.prepare_data = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
                     that.render = function(){
                         that.data._el.card__header.find('#name').append(
                             that.data._el.card__name
@@ -1753,11 +1764,7 @@ $(function(){
                                     that.data._selectedItems.map(function(item){
                                         return $tr.clone().append(
                                             that.data.columns.map(function(column){
-                                                var td_content = item[column.fieldname];
-                                                if (td_content == null || td_content == 'null') {
-                                                    td_content = '';
-                                                }
-                                                return $td.clone().html(td_content);
+                                                return $td.clone().html(item[column.fieldname]);
                                             })
                                         )
                                     })
@@ -1777,6 +1784,7 @@ $(function(){
                         self.find('[data-fc="button"]').button();
                     };
                     that.init = function(){
+                        that.prepare_data();
                         that.render();
                         that.render_datepicker();
                         that.init_components();
