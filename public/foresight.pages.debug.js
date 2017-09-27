@@ -439,32 +439,12 @@ var Dashboard = function(options){
 var DashboardGrid = function(options){
     var that = this._dashboard_grid = {};
     that.data = {
-        editableDashboards: [
-            {
-                "PageId":"841c1a59-af4c-4ef2-9a66-d57f13d78d7c",
-                "Name":"DB-Index",
-                "Title":"Основной дэшборд главной страницы",
-                "Description":""
-            },
-            {
-                "PageId":"2c652806-ae4c-4537-84f4-2cb77c64d32d",
-                "Name":"DB-2017-9-25-18-5-45-svc_farm",
-                "Title":"Тестирование установки модуля",
-                "Description":""
-            }
-        ],
-        editableText: 'Редактируемые',
-        editableColor: '#aaa',
-        allowedDashboards: [
-            {
-                "PageId":"841c1a59-af4c-4ef2-9a66-d57f13d78d7q",
-                "Name":"DB-Index-show",
-                "Title":"На просмотр",
-                "Description":""
-            }
-        ],
+        allowedDashboards: [],
         allowedText: 'Только просмотр',
         allowedColor: null,
+        editableDashboards: [],
+        editableText: 'Редактируемые',
+        editableColor: '#aaa',
         items: [],
         loader: null,
         defaults: {
