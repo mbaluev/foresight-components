@@ -44,9 +44,9 @@ var DashboardGrid = function(options){
         ].join('')),
         radiogroup: $('<span class="radio-group radio-group_type_buttons"></span>'),
         button_add: $([
-            '<button class="button button_color_blue_light" type="button">',
+            '<button class="button button_color_blue" type="button">',
             '<span class="icon icon_svg_plus_white"></span>',
-            '<span class="button__text mobile mobile_hide">Создать дашборд</span>',
+            '<span class="button__text mobile mobile_hide">Создать дэшборд</span>',
             '</button>'
         ].join('')),
         content: $([
@@ -54,7 +54,7 @@ var DashboardGrid = function(options){
             '<div class="card__header">',
             '<div class="card__header-row">',
             '<div class="card__header-column" id="filter"></div>',
-            '<div class="card__header-column" id="actions"></div>',
+            //'<div class="card__header-column" id="actions"></div>',
             '</div>',
             '</div>',
             '<div class="card__main">',
@@ -73,15 +73,13 @@ var DashboardGrid = function(options){
         that.data._el.content.find('#filter').append(
             that.data._el.radiogroup
         );
-        that.data._el.content.find('#actions').append(
-            that.data._el.button_add
-        );
         that.data._el.target.append(
             that.data._el.content
         );
     };
     that.render_filters = function(){
         that.data._el.radiogroup.append(
+            that.data._el.button_add,
             $([
                 '<label class="radio radio_type_button" data-fc="radio" data-checked="true">',
                 '<button class="button button_toggable_radio" type="button" data-fc="button" data-checked="true">',
