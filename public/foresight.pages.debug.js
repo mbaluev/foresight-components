@@ -482,8 +482,8 @@ var DashboardGrid = function(options){
         ].join('')),
         radiogroup: $('<span class="radio-group radio-group_type_buttons"></span>'),
         button_add: $([
-            '<button class="button button_hidden" type="button">',
-            '<span class="icon icon_svg_plus"></span>',
+            '<button class="button button_color_blue_light" type="button">',
+            '<span class="icon icon_svg_plus_white"></span>',
             '<span class="button__text mobile mobile_hide">Создать дашборд</span>',
             '</button>'
         ].join('')),

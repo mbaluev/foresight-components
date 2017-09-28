@@ -43,6 +43,15 @@
     right: 0;
     bottom: 0;
     left: 0;
+    background: #4983c4;
+}
+
+.button_color_blue_light { color: #fff; }
+.button_color_blue_light:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background: #5a97f2;
 }
 
@@ -75,8 +84,9 @@
 .button.button_clicked { }
 .button.button_clicked:before { box-shadow: inset 0 0 0 2px rgba(0,0,0,.08); background-color: #f7f7f7; }
 
-.button_color_blue.button_clicked:before { box-shadow: inset 0 0 0 4px rgba(0,0,0,.1); background-color: #5a97f2; }
 .button_color_red.button_clicked:before { box-shadow: inset 0 0 0 4px rgba(0,0,0,.1); background-color: #ff5940; }
+.button_color_blue.button_clicked:before { box-shadow: inset 0 0 0 4px rgba(0,0,0,.1); background-color: #4983c4; }
+.button_color_blue_light.button_clicked:before { box-shadow: inset 0 0 0 4px rgba(0,0,0,.1); background-color: #5a97f2; }
 
 /*
 .button.button_focused.button_clicked { }
@@ -129,19 +139,6 @@
     right: 0;
     border-radius: 50%;
 }
-
-/*
-.button_clicked > .button__anim {
-    -moz-animation: anim-in 0.75s;
-    -webkit-animation: anim-in 0.75s;
-    animation: anim-in 0.75s;
-}
-.button_clicked > .button__anim:after {
-    -moz-animation: anim-in-pseudo 0.75s;
-    -webkit-animation: anim-in-pseudo 0.75s;
-    animation: anim-in-pseudo 0.75s;
-}
-*/
 
 .button_clicked_out > .button__anim {
     -moz-animation: anim-out 0.75s;
@@ -282,4 +279,3 @@
         background: transparent;
     }
 }
-
