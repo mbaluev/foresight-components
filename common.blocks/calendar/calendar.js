@@ -101,10 +101,12 @@
                             onRenderCell: function (date, cellType) {
                                 var currentDate = date.getDate(),
                                     items = that.data.items.filter(function(it){
-                                    return  it.date.getDate() == date.getDate() &&
-                                            it.date.getMonth() == date.getMonth() &&
-                                            it.date.getFullYear() == date.getFullYear();
-                                });
+                                        return typeof it.date == 'object';
+                                    }).filter(function(it){
+                                        return  it.date.getDate() == date.getDate() &&
+                                                it.date.getMonth() == date.getMonth() &&
+                                                it.date.getFullYear() == date.getFullYear();
+                                    });
                                 if (cellType == 'day' && items.length > 0) {
                                     return {
                                         html: currentDate + '<span class="datepicker__note">' + items.length + '</span>'
