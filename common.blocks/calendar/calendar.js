@@ -115,6 +115,8 @@
                             },
                             onSelect: function onSelect(formattedDate, date) {
                                 that.data._selectedItems = that.data.items.filter(function(it){
+                                    return typeof it.date == 'object';
+                                }).filter(function(it){
                                     return  it.date.getDate() == date.getDate() &&
                                         it.date.getMonth() == date.getMonth() &&
                                         it.date.getFullYear() == date.getFullYear();
