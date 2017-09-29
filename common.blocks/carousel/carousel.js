@@ -79,17 +79,22 @@
                             if (that.data.type == 'text') {
                                 $item = $([
                                     '<div class="carousel__item">',
-                                    '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
+                                    (item.url ? '<a href="' + item.url + '" class="carousel__item-text link">' + item.name + '</a>' : '<span class="carousel__item-text link">' + item.name + '</span>'),
                                     '</div>'
                                 ].join(''));
                             }
                             if (that.data.type == 'image') {
                                 $item = $([
                                     '<div class="carousel__item">',
-                                    '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(' + item.image + ')"></a>',
-                                    '<span class="carousel__item-image-text" data-tooltip="' + item.text + '">' + item.text + '</span>',
+                                    (item.url ? '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(' + item.image + ')"></a>' : '<span class="carousel__item-image link" style="background-image: url(' + item.image + ')"></span>'),
+                                    '<span class="carousel__item-image-text" data-tooltip="' + item.name + '">' + item.name + '</span>',
                                     '</div>'
                                 ].join(''));
+                            }
+                            if (typeof that.data.onItemClick == 'function') {
+                                $item.on('click', function(){
+                                    that.data.onItemClick(item);
+                                });
                             }
                             that.data._el.carousel__items.append($item);
                             that.data._el.carousel__item_list.push($item);
@@ -391,7 +396,6 @@
         }
     };
 })( jQuery );
-
 (function($) {
     $.fn.touchwipe = function(settings) {
         var config = {
@@ -455,7 +459,6 @@
         return this;
     };
 })(jQuery);
-
 $(function(){
     $('[data-fc="carousel"]').carousel();
 });
