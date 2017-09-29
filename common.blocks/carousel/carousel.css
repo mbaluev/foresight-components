@@ -14,34 +14,30 @@
     flex: 1 1 auto;
     display: flex;
 }
-
 .carousel__container .button {
     z-index: 2;
 }
-
 .carousel__container .button .icon {
     width: 50px;
 }
 
 .carousel__items {
     flex: 1 1 auto;
-    position: relative;
     z-index: 1;
+    position: relative;
 }
-
-.carousel__circles {
-    display: inline-flex;
-    justify-content: center;
-}
-
 .carousel__item {
     position: absolute;
     top: 0;
     bottom: 0;
+    left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.carousel__items_image .carousel__item {
+    flex-direction: column;
 }
 
 .carousel__item-text {
@@ -56,8 +52,36 @@
     font-style: italic;
     line-height: normal;
 }
+.carousel__item-image {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+    flex: 1 1 auto;
+}
+.carousel__item-image-text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    flex: 0 0 auto;
+    line-height: 30px;
+    white-space: nowrap;
+    width: 100%;
+    color: #333;
+    text-align: left;
+}
+
+.carousel__circles {
+    display: inline-flex;
+    justify-content: center;
+    z-index: 1;
+}
 
 .carousel .button { background-color: #fff; }
+.carousel .button:before { background-color: #fff; }
 .carousel .button.button_hovered { background-color: #fff; }
 .carousel .button.button_clicked:before { background-color: #fff; box-shadow: none; }
 

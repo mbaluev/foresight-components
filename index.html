@@ -238,7 +238,7 @@
                                                         <button class="button button_prev" type="button" data-fc="button">
                                                             <span class="icon icon_svg_left"></span>
                                                         </button>
-                                                        <div class="carousel__items">
+                                                        <div class="carousel__items carousel__items_relative">
                                                             <div class="carousel__item">
                                                                 <a href="/" class="carousel__item-text link">900-005. Государственные услуги в социальной сфере</a>
                                                             </div>
@@ -283,6 +283,28 @@
                                         <div class="widget__body-data widget__body-data_type_html">
                                             <div class="widget__content">
                                                 <div class="carousel" id="carousel1"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="heading heading_5">
+                                <span class="heading__info">виджет с каруселью с картинками</span>
+                            </div>
+                            <div class="widget" data-fc="widget" data-name="Панель руководителя" style="height: 300px; width: 500px;">
+                                <div class="widget__header">
+                                    <div class="widget__header-name">
+                                        <button class="button button_collapse" type="button" data-fc="button">
+                                            <span class="button__text">Главные новости</span>
+                                            <span class="icon icon_svg_down"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="widget__border widget__border_color_default">
+                                    <div class="widget__body">
+                                        <div class="widget__body-data widget__body-data_type_html">
+                                            <div class="widget__content">
+                                                <div class="carousel" id="carousel2"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1738,6 +1760,42 @@
                         url: '/'
                     },
                     {
+                        text: 'item6',
+                        url: '/'
+                    }
+                ]
+            });
+            $('#carousel2').carousel({
+                type: 'image',
+                autoPlay: false,
+                items: [
+                    {
+                        image: 'images/news/1.jpg',
+                        text: 'item2',
+                        url: '/'
+                    },
+                    {
+                        image: 'images/news/2.jpg',
+                        text: '900-005. Государственные услуги в социальной сфере 900-005. Государственные услуги в социальной сфере 900-005. Государственные услуги в социальной сфере 900-005. Государственные услуги в социальной сфере 900-005. Государственные услуги в социальной сфере 900-005. Государственные услуги в социальной сфере 900-005.',
+                        url: '/'
+                    },
+                    {
+                        image: 'images/news/3.jpg',
+                        text: 'item3',
+                        url: '/'
+                    },
+                    {
+                        image: 'images/news/4.jpg',
+                        text: 'item4',
+                        url: '/'
+                    },
+                    {
+                        image: 'images/news/5.jpg',
+                        text: 'item5',
+                        url: '/'
+                    },
+                    {
+                        image: 'images/news/6.jpg',
                         text: 'item6',
                         url: '/'
                     }

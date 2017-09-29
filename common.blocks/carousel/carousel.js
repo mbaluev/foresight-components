@@ -13,7 +13,8 @@
                         allowPlayOnHover: false,
                         circleEnable: true,
                         circlePosition: 'bottom',
-                        items: []
+                        items: [],
+                        type: 'text'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -59,6 +60,9 @@
                     that.render_carousel = function(){
                         that.data._el.carousel__container = $('<div class="carousel__container"></div>');
                         that.data._el.carousel__items = $('<div class="carousel__items"></div>');
+                        if (that.data.type == 'image') {
+                            that.data._el.carousel__items.addClass('carousel__items_image');
+                        }
                         that.data._el.button_prev = $([
                             '<button class="button button_prev" type="button" data-fc="button">',
                             '<span class="icon icon_svg_left"></span>',
@@ -71,11 +75,22 @@
                         ].join(''));
                         that.data._el.carousel__circles = $('<div class="carousel__circles"></div>');
                         that.data.items.forEach(function(item){
-                            var $item = $([
-                                '<div class="carousel__item">',
-                                '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
-                                '</div>'
-                            ].join(''));
+                            var $item;
+                            if (that.data.type == 'text') {
+                                $item = $([
+                                    '<div class="carousel__item">',
+                                    '<a href="' + item.url + '" class="carousel__item-text link">' + item.text + '</a>',
+                                    '</div>'
+                                ].join(''));
+                            }
+                            if (that.data.type == 'image') {
+                                $item = $([
+                                    '<div class="carousel__item">',
+                                    '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(' + item.image + ')"></a>',
+                                    '<span class="carousel__item-image-text">' + item.text + '</span>',
+                                    '</div>'
+                                ].join(''));
+                            }
                             that.data._el.carousel__items.append($item);
                             that.data._el.carousel__item_list.push($item);
                             var $button = $([
@@ -348,7 +363,9 @@
                             that.init_carousel();
                         }
                         that.render_nodata();
-                        that.render_dotdotdot();
+                        if (that.data.type == 'text') {
+                            that.render_dotdotdot();
+                        }
                         that.init_components();
                         that.activate();
                     };
