@@ -1907,7 +1907,7 @@ $(function(){
                                 $item = $([
                                     '<div class="carousel__item">',
                                     '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(' + item.image + ')"></a>',
-                                    '<span class="carousel__item-image-text">' + item.text + '</span>',
+                                    '<span class="carousel__item-image-text" data-tooltip="' + item.text + '">' + item.text + '</span>',
                                     '</div>'
                                 ].join(''));
                             }
@@ -2173,6 +2173,7 @@ $(function(){
                     };
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
+                        self.find('[data-tooltip]').tooltip();
                     };
                     that.init = function() {
                         that.set_width(that.data.width);
