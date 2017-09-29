@@ -2186,6 +2186,10 @@ body {
   position: relative;
 }
 
+.carousel__items_image {
+  margin-top: 10px;
+}
+
 .carousel__item {
   position: absolute;
   top: 0;
@@ -2250,6 +2254,8 @@ body {
   width: 100%;
   color: #333;
   text-align: center;
+  font-size: 15px;
+  padding: 10px 0;
 }
 
 .carousel__circles {
