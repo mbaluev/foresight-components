@@ -1,10 +1,10 @@
 .tooltip {
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-    padding: 5px 0;
+    padding: 5px 0 !important;
     display: none;
     position: absolute;
-    z-index: 9999;
-    opacity: 1;
+    z-index: 9999 !important;
+    opacity: 1 !important;
     max-width: 300px;
 }
 .tooltip_visible {
