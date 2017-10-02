@@ -47,7 +47,6 @@
                             '</label>',
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
-                        card__middle: $('<div class="card__main"></div>'),
                         calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
                         calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
@@ -83,13 +82,11 @@
                                 that.data._el.card.append(
                                     that.data._el.card__header,
                                     that.data._el.card__main.append(
-                                        that.data._el.card__middle.append(
-                                            that.data._el.calendar__row_top.append(
-                                                that.data._el.calendar__datepicker
-                                            ),
-                                            that.data._el.calendar__row_bottom.append(
-                                                that.data._el.calendar__table
-                                            )
+                                        that.data._el.calendar__row_top.append(
+                                            that.data._el.calendar__datepicker
+                                        ),
+                                        that.data._el.calendar__row_bottom.append(
+                                            that.data._el.calendar__table
                                         )
                                     )
                                 )
