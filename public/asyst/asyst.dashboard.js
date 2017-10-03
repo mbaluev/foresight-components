@@ -11,7 +11,8 @@ Asyst.PageDashboard = function(options){
         asystDashboard: null,
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
-        headerExtraControlsRenderer: null
+        headerExtraControlsRenderer: null,
+        tumblerContainerSelector: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -92,7 +93,8 @@ Asyst.PageDashboard = function(options){
                 library: that.data.library,
                 loader: Asyst.MetaElementLoader,
                 page: that.data.page,
-                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer
+                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
+                tumblerContainerSelector: that.data.tumblerContainerSelector
             });
         });
     };
@@ -110,7 +112,8 @@ Asyst.SettingsDashboard = function(options){
         contents: [],
         asystDashboard: null,
         user: Asyst.Workspace.currentUser,
-        page: Asyst.Workspace.currentPage
+        page: Asyst.Workspace.currentPage,
+        tumblerContainerSelector: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -176,7 +179,8 @@ Asyst.SettingsDashboard = function(options){
                 editable: that.data.editable,
                 library: that.data.library,
                 loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents }),
-                page: that.data.page
+                page: that.data.page,
+                tumblerContainerSelector: that.data.tumblerContainerSelector
             });
         });
     };
@@ -197,7 +201,8 @@ Asyst.Dashboard = function(options){
         items: [],
         userdashboardid: null,
         dashboard: null,
-        headerExtraControlsRenderer: null
+        headerExtraControlsRenderer: null,
+        tumblerContainerSelector: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -295,7 +300,8 @@ Asyst.Dashboard = function(options){
                 save: function(items){
                     that.saveItems(items);
                 },
-                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer
+                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
+                tumblerContainerSelector: that.data.tumblerContainerSelector
             });
         });
     };
