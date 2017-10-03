@@ -17,6 +17,7 @@ var Dashboard = function(options){
         title: null,
         single: false,
         editable: true,
+        tumblerContainerSelector: null,
         pagename: '',
         items: [],
         library: [],
@@ -102,9 +103,11 @@ var Dashboard = function(options){
             render = true;
         }
         if (that.data.editable) {
-            that.render_buttons();
             that.render_tumbler();
-            render = true;
+            that.render_buttons();
+            if (!that.data.tumblerContainerSelector) {
+                render = true;
+            }
         }
         if (typeof(that.data.headerExtraControlsRenderer) == 'function') {
             that.data._el.card__header.find('#actions').append(
@@ -155,16 +158,28 @@ var Dashboard = function(options){
                     that.loader_remove();
                 }, 100);
             });
-        that.data._el.card__header.find('#actions').append(
-            that.data._el.tumbler
-        );
+        if (that.data.tumblerContainerSelector) {
+            $(that.data.tumblerContainerSelector).prepend(
+                that.data._el.tumbler
+            );
+        } else {
+            that.data._el.card__header.find('#actions').prepend(
+                that.data._el.tumbler
+            );
+        }
     };
     that.render_buttons = function(){
         that.render_button_save();
         that.render_button_add();
-        that.data._el.card__header.find('#actions').append(
-            that.data._el.button_group
-        );
+        if (that.data.tumblerContainerSelector) {
+            $(that.data.tumblerContainerSelector).prepend(
+                that.data._el.button_group
+            );
+        } else {
+            that.data._el.card__header.find('#actions').prepend(
+                that.data._el.button_group
+            );
+        }
     };
     that.render_button_add = function(isnew){
         that.data._el.button_add.on('click', function(){

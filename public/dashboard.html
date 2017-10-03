@@ -183,8 +183,8 @@
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
-    <script src="foresight.components.min.js"></script>
-    <script src="foresight.pages.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
+    <script src="foresight.pages.debug.js"></script>
 
     <script src="asyst.loaders/asyst.contentloader.js"></script>
     <script>
@@ -459,6 +459,7 @@
             dashboard = new Dashboard({
                 title: 'Дашборд',
                 containerid: 'container',
+                //tumblerContainerSelector: '.header__column-right',
                 items: items,
                 library: library,
                 loader: $.extend(Asyst.ContentLoader, { contents: contents }),
