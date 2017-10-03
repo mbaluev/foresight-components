@@ -3560,15 +3560,18 @@ body {
   padding-right: 10px;
 }
 
-.table thead td {
+.table thead td,
+.table thead th {
   padding: 10px 0 10px 10px;
-  border-top: solid 1px #ddd;
+  /*border-top: solid 1px #ddd;*/
+  border-top: none;
   border-bottom: solid 1px #ddd;
   background-color: #fafafa;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
-.table thead td.table__td_no_border {
+.table thead td.table__td_no_border,
+.table thead th.table__td_no_border {
   border: none;
 }
 
@@ -3754,6 +3757,10 @@ body {
   display: block;
   min-width: 16px;
   text-align: center;
+}
+
+.form {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 
 /*

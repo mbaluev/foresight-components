@@ -6,6 +6,9 @@
                 if (!data) {
                     self.data('_widget', { type: 'input', target : self });
                     var that = this.obj = {};
+                    that.const = {
+                        REQUIRED: 'Необходимо заполнить'
+                    };
                     that.defaults = {
                         disabled: false,
                         hidden: false,
@@ -130,6 +133,26 @@
                         self.css('width', value);
                     };
 
+                    that.validate = function(){
+                        that.data.validate = true;
+                        if (that.data.required) {
+                            if (that.data._el.input.val() == '') {
+                                that.data.validate = false;
+                                self.addClass('input__has-error');
+                                if (self.parent().find('.control__error').length == 0) {
+                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
+                                }
+                            } else {
+                                that.data.validate = true;
+                                self.removeClass('input__has-error');
+                                if (self.parent().find('.control__error').length != 0) {
+                                    self.parent().find('.control__error').remove();
+                                }
+                            }
+                        }
+                        return that.data.validate;
+                    };
+
                     that.bind = function(){
                         that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
@@ -233,6 +256,21 @@
             return this.each(function() {
                 this.obj.set_width(value);
             });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
         },
         value : function() {
             if (this.length == 1) {

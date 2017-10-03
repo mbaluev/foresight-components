@@ -38,7 +38,7 @@
                         ].join('')),
                         card__name: $([
                             '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data._today.getDate() + '</span>',
+                            '<span class="card__name-text card__name-text_no-margin">' + that.data._today.getDate() + '</span>',
                             '</label>',
                         ].join('')),
                         card__count: $([

@@ -1651,7 +1651,7 @@ $(function(){
                         ].join('')),
                         card__name: $([
                             '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data._today.getDate() + '</span>',
+                            '<span class="card__name-text card__name-text_no-margin">' + that.data._today.getDate() + '</span>',
                             '</label>',
                         ].join('')),
                         card__count: $([
@@ -3310,6 +3310,9 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'input', target : self });
                     var that = this.obj = {};
+                    that.const = {
+                        REQUIRED: 'Необходимо заполнить'
+                    };
                     that.defaults = {
                         disabled: false,
                         hidden: false,
@@ -3434,6 +3437,26 @@ $(function(){
                         self.css('width', value);
                     };
 
+                    that.validate = function(){
+                        that.data.validate = true;
+                        if (that.data.required) {
+                            if (that.data._el.input.val() == '') {
+                                that.data.validate = false;
+                                self.addClass('input__has-error');
+                                if (self.parent().find('.control__error').length == 0) {
+                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
+                                }
+                            } else {
+                                that.data.validate = true;
+                                self.removeClass('input__has-error');
+                                if (self.parent().find('.control__error').length != 0) {
+                                    self.parent().find('.control__error').remove();
+                                }
+                            }
+                        }
+                        return that.data.validate;
+                    };
+
                     that.bind = function(){
                         that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
@@ -3537,6 +3560,21 @@ $(function(){
             return this.each(function() {
                 this.obj.set_width(value);
             });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
         },
         value : function() {
             if (this.length == 1) {
@@ -4385,4 +4423,108 @@ $(function(){
 })( jQuery );
 $(function(){
     $('[data-tooltip]').tooltip();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'calendar', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        validate: true
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+                    that.data._el = {
+                        button_submit: null,
+                        inputs: []
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.get = function(){
+                        that.data._el.button_submit = self.find('button[type="submit"]');
+                        that.data._el.inputs = self.find('[data-fc="input"]');
+                    };
+                    that.validate = function(){
+                        that.data.validate = true;
+                        that.data._el.inputs.each(function(){
+                            if (!$(this).input('validate')) {
+                                that.data.validate = false;
+                            }
+                        });
+                        return that.data.validate;
+                    };
+                    that.bind = function(){
+                        that.data._el.inputs.each(function(){
+                            var $input = $(this);
+                            if ($input.data().required) {
+                                $input.data()._el.input.on('blur', function(){
+                                    $input.input('validate');
+                                })
+                            }
+                        });
+                        that.data._el.button_submit.on('click', function(e){
+                            if (!that.validate()) {
+                                e.preventDefault();
+                            }
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="input"]').input();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="tooltip"]').tooltip();
+                    };
+                    that.init = function(){
+                        that.get();
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.form = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.form' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="form"]').form();
 });
