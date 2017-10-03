@@ -2099,7 +2099,6 @@ body {
 
 .calendar {
   height: 100%;
-  display: block;
 }
 
 .calendar__container {
@@ -2146,6 +2145,7 @@ body {
   width: 100%;
   border: none;
   border-bottom: solid 1px #ddd;
+  display: block;
 }
 
 .calendar__table {

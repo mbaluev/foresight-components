@@ -1,6 +1,5 @@
 .calendar {
     height: 100%;
-    display: block;
 }
 .calendar__container {
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
@@ -29,6 +28,7 @@
     width: 100%;
     border: none;
     border-bottom: solid 1px #ddd;
+    display: block;
 }
 
 .calendar__table {
