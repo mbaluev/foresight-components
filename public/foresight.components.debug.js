@@ -1762,7 +1762,7 @@ $(function(){
                         self.removeData();
                         self.remove();
                     };
-                    that.prepare_nulls = function(){
+                    that.nulls = function(){
                         that.data.items.map(function(item){
                             for (var key in item){
                                 if (item.hasOwnProperty(key)) {
@@ -1789,7 +1789,7 @@ $(function(){
                         }
                     };
 
-                    that.render = function(){
+                    that.prerender = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
                                 that.data._el.card__header,
@@ -1806,7 +1806,7 @@ $(function(){
                             )
                         );
                     };
-                    that.render_menu = function(){
+                    that.render = function(){
                         var $menu__list = $('<ul class="menu__list"></ul>');
                         renderData(that.data.private.datatree, $menu__list);
                         that.data._el.menu.append($menu__list);
@@ -1896,12 +1896,12 @@ $(function(){
                                     '</a></div>'
                                 ].join('')).appendTo(cont);
                                 $imageblock.find('.spinner').show();
-                                $imageblock.find('.img').css('opacity', 0);
-                                $imageblock.find('.img').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                                $imageblock.find('.gallery__image').css('opacity', 0);
+                                $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
                                 var tempImg = new Image();
                                 tempImg.src = '/converter/converter?file=' + item.guid;
                                 tempImg.onload = function() {
-                                    $imageblock.find('.img').css('opacity', 1);
+                                    $imageblock.find('.gallery__image').css('opacity', 1);
                                     $imageblock.find('.spinner').hide();
                                 };
                             }
@@ -1913,10 +1913,10 @@ $(function(){
                         self.find('[data-tooltip]').tooltip();
                     };
                     that.init = function(){
-                        that.prepare_nulls();
+                        that.nulls();
                         that.prepare();
+                        that.prerender();
                         that.render();
-                        that.render_menu();
                         that.init_components();
                     };
                     that.init();
