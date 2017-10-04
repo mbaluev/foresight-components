@@ -30,7 +30,8 @@ var third_js = [
     'public/third/gridstack/gridstack.jQueryUI.js',
     'public/third/riskmatrix/jquery.riskmatrix.js',
     'public/third/jquery.dotdotdot.js',
-    'public/third/filesize.js'
+    'public/third/filesize.js',
+    'public/third/lightbox/lightbox.js'
     /*
     'public/third/slickgrid/slick.core.js',
     'public/third/slickgrid/slick.formatters.js',
@@ -50,7 +51,8 @@ var third_js = [
 var third_css = [
     'public/third/air-datepicker/datepicker.min.css',
     'public/third/jquery.riskmatrix.css',
-    'public/third/gridstack/gridstack.css'
+    'public/third/gridstack/gridstack.css',
+    'public/third/lightbox/lightbox.css'
     /*
     'public/third/slickgrid/slick.grid.css',
     'public/third/slickgrid/controls/slick.pager.css',
@@ -152,7 +154,7 @@ gulp.task('js', function() {
     .done();
 });
 
-gulp.task('misc', [/*'third',*/ 'pages']);
+gulp.task('misc', ['third', 'pages']);
 
 gulp.task('third', function(){
     gulp.src(third_css)

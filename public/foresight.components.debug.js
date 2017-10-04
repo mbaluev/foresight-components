@@ -1898,8 +1898,10 @@ $(function(){
                                 $imageblock.find('.spinner').show();
                                 $imageblock.find('.gallery__image').css('opacity', 0);
                                 $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                                //$imageblock.find('.gallery__image').css('background-image', 'url(' + item.url + ')');
                                 var tempImg = new Image();
                                 tempImg.src = '/converter/converter?file=' + item.guid;
+                                //tempImg.src = item.url;
                                 tempImg.onload = function() {
                                     $imageblock.find('.gallery__image').css('opacity', 1);
                                     $imageblock.find('.spinner').hide();
