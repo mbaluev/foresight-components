@@ -133,23 +133,49 @@
     position: relative;
     flex: 1 1 auto;
     display: flex;
-    flex-direction: column;
+    /*flex-direction: column;*/
     overflow: visible;
 }
-
 .card__main_transition > * {
     transition: 0.5s;
 }
 
-.card__right {}
-.card__right > * {}
-.card__right_hidden {}
+.card__left {
+    z-index: 3;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    overflow: hidden;
+    display: flex;
+    border-right: solid 1px #ddd;
+}
+.card__left > * {
+    height: 100%;
+}
+.card__left_hidden {
+    display: none;
+}
+
+.card__right {
+    z-index: 3;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+    overflow: hidden;
+    display: flex;
+    border-left: solid 1px #ddd;
+}
+.card__right > * {
+    height: 100%;
+}
+.card__right_hidden {
+    display: none;
+}
 
 .card__middle {
     flex: 1 1 auto;
     display: flex;
 }
-.card__middle_full {}
 .card__middle-scroll {
     flex: 1 1 auto;
     overflow: auto;

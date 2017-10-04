@@ -487,7 +487,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="select"]').select();
 });

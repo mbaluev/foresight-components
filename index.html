@@ -174,14 +174,54 @@
                     <div class="fs-view__middle-inner">
 
                         <div class="widget-grid grid-stack" id="widget-grid" data-gs-animate="true"></div>
+                        <div class="article" data-title="form" id="form">
+                            <div class="form"></div>
+                        </div>
                         <div class="article" data-title="grid" id="grid">
                             <div class="grid"></div>
                         </div>
                         <div class="article" data-title="modal__" id="modal__">
                             <div class="modal__"></div>
                         </div>
+                        <!--
                         <div class="article" data-title="title" id="title">
                             <div class="heading heading_1">components</div>
+                        </div>
+                        -->
+                        <div class="article" data-title="gallery" id="gallery">
+                            <div class="heading heading_2">gallery</div>
+                            <p class="paragraph paragraph_color_grey">Виджет фотогалерея.</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+                            <div class="heading heading_5">
+                                <span class="heading__info">Фотогалерея</span>
+                            </div>
+                            <div class="widget" data-fc="widget" data-height="500">
+                                <div class="widget__header">
+                                    <div class="widget__header-name">
+                                        <button class="button button_collapse" type="button" data-fc="button">
+                                            <span class="button__text">Фотогалерея</span>
+                                            <span class="icon icon_svg_down"></span>
+                                        </button>
+                                    </div>
+                                    <div class="widget__header-actions">
+                                        <button class="button button_settings" type="button" data-fc="button">
+                                            <span class="icon icon_svg_settings"></span>
+                                        </button>
+                                        <button class="button button_remove" type="button" data-fc="button">
+                                            <span class="icon icon_svg_trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="widget__border widget__border_color_default">
+                                    <div class="widget__body">
+                                        <div class="widget__body-data widget__body-data_type_html">
+                                            <div class="widget__content widget__content_scroll">
+                                                <div id="gallery1" class="gallery"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="article" data-title="calendar" id="calendar">
                             <div class="heading heading_2">calendar</div>
@@ -1718,9 +1758,6 @@
                         <div class="article" data-title="datepicker" id="datepicker">
                             <div class="datepicker"></div>
                         </div>
-                        <div class="article" data-title="form" id="form">
-                            <div class="form"></div>
-                        </div>
 
                     </div>
                 </div>
@@ -1856,6 +1893,64 @@
                     {
                         title: 'Дата',
                         fieldname: 'date'
+                    }
+                ]
+            });
+            $('#gallery1').gallery({
+                items: [
+                    {
+                        id: 1,
+                        parentid: null,
+                        fileid: null,
+                        name: "Портфель",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 2,
+                        parentid: 1,
+                        fileid: null,
+                        name: "Проект",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 3,
+                        parentid: 2,
+                        fileid: null,
+                        name: "Октябрь",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 4,
+                        parentid: 3,
+                        fileid: null,
+                        name: "1я неделя",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 5,
+                        parentid: 4,
+                        fileid: null,
+                        name: "1й день",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 6,
+                        parentid: 5,
+                        fileid: 192322,
+                        name: "Экотуризм. Заповедники",
+                        url: "/asyst/api/file/get/ccf8d6f6-27cf-4b13-ae22-024ec8059790/KMO_156611_00013_1_t222_210819.jpg",
+                        description: "На Восточном экономическом форуме Минприроды представило национальный проект под названием «Дикая природа России». Одна из ключевых тем этого проекта – развитие экотуризма с помощью государственно-частного партнерства. Это особый вид взаимодействия государства и бизнеса в сфере социально значимых проектов. ",
+                        icon: "null"
                     }
                 ]
             });

@@ -130,7 +130,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="tab"]').tabs();
 });
