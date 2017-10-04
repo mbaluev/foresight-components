@@ -136,6 +136,9 @@
     /*flex-direction: column;*/
     overflow: visible;
 }
+.card__main_flex-direction_column {
+    flex-direction: column;
+}
 .card__main_transition > * {
     transition: 0.5s;
 }
@@ -147,7 +150,6 @@
     max-width: 200px;
     overflow: hidden;
     display: flex;
-    border-right: solid 1px #ddd;
 }
 .card__left > * {
     height: 100%;
@@ -157,13 +159,11 @@
 }
 
 .card__right {
-    z-index: 3;
     width: 200px;
     min-width: 200px;
     max-width: 200px;
     overflow: hidden;
     display: flex;
-    border-left: solid 1px #ddd;
 }
 .card__right > * {
     height: 100%;

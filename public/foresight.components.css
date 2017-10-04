@@ -3472,6 +3472,13 @@ body {
   overflow: visible;
 }
 
+.card__main_flex-direction_column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .card__main_transition > * {
   transition: 0.5s;
 }
@@ -3485,7 +3492,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border-right: solid 1px #ddd;
 }
 
 .card__left > * {
@@ -3497,7 +3503,6 @@ body {
 }
 
 .card__right {
-  z-index: 3;
   width: 200px;
   min-width: 200px;
   max-width: 200px;
@@ -3505,7 +3510,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  border-left: solid 1px #ddd;
 }
 
 .card__right > * {

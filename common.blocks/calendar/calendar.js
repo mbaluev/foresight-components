@@ -46,7 +46,7 @@
                             '<span class="card__name-text">Событий: 3</span>',
                             '</label>',
                         ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
+                        card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
                         calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
                         calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
