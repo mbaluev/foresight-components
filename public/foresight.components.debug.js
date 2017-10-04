@@ -1767,7 +1767,7 @@ $(function(){
                             for (var key in item){
                                 if (item.hasOwnProperty(key)) {
                                     if (item[key] == 'null') {
-                                        item[key] = null;
+                                        item[key] = '';
                                     }
                                 }
                             }
