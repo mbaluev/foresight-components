@@ -48,9 +48,9 @@
                             '<ul class="tabs__list"></ul>',
                             '</div>'
                         ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
+                        card__main: $('<div class="card__main" style="padding-top: 10px;"></div>'),
                         card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
+                        card__middle: $('<div class="card__middle" style="border-top: solid 1px #eee;"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
                         card__middle_inner: $('<div class="card__middle-inner"></div>'),
                         menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
