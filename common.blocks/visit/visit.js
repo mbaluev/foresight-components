@@ -123,6 +123,7 @@
                     };
                     that.render_tabs = function(){
                         that.loader_add();
+                        that.data._el.card__middle.empty();
                         that.data._el.card__header_row_tabs.remove();
                         that.data._el.card__header_row_tabs.find('.tabs__list').empty();
 
@@ -166,6 +167,7 @@
                     };
                     that.render_menu = function(){
                         that.loader_add();
+                        that.data._el.card__middle.empty();
                         that.data._el.menu.menu();
                         that.data._el.menu.menu('destroy');
                         that.data._el.menu.empty();
