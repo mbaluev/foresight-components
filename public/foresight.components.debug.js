@@ -1773,9 +1773,9 @@ $(function(){
                             '<ul class="tabs__list"></ul>',
                             '</div>'
                         ].join('')),
-                        card__main: $('<div class="card__main" style="padding-top: 10px;"></div>'),
+                        card__main: $('<div class="card__main"></div>'),
                         card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle" style="border-top: solid 1px #eee;"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
                         card__middle_inner: $('<div class="card__middle-inner"></div>'),
                         menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
@@ -1807,10 +1807,10 @@ $(function(){
                             that.data._el.card.append(
                                 that.data._el.card__header,
                                 that.data._el.card__main.append(
+                                    that.data._el.card__middle,
                                     that.data._el.card__left.append(
                                         that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle
+                                    )
                                 )
                             )
                         );
