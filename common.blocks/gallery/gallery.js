@@ -226,6 +226,3 @@
         }
     };
 })( jQuery );
-$(function(){
-    $('[data-fc="gallery"]').gallery();
-});

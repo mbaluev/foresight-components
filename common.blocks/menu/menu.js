@@ -13,6 +13,10 @@
                     /* save widget options to self.data */
                     self.data(that.options);
 
+                    that.destroy = function(){
+                        self.removeData();
+                    };
+
                     that.init = function() {
                         var $menu_item_list = self.find('.menu__item');
                         $menu_item_list.each(function(){
@@ -36,6 +40,11 @@
                 return this;
             });
         },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
     };
     $.fn.menu = function( method ) {
         if ( methods[method] ) {
