@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.debug.js" afterPath="$PROJECT_DIR$/public/foresight.components.debug.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.min.js" afterPath="$PROJECT_DIR$/public/foresight.components.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/visit/visit.js" afterPath="$PROJECT_DIR$/common.blocks/visit/visit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/gallery/gallery.js" afterPath="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -603,10 +601,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visit.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="visit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38059703">
+            <state vertical-scroll-proportion="0.0">
               <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
               <folding>
                 <element signature="e#362#517#0" expanded="false" />
@@ -664,6 +662,59 @@
                 <element signature="e#15413#15482#0" expanded="false" />
                 <element signature="e#15488#15574#0" expanded="false" />
                 <marker date="1507220130000" expanded="false" signature="7724:7736" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gallery.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.02238806">
+              <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+              <folding>
+                <element signature="e#32#12188#0" expanded="false" />
+                <element signature="e#67#12046#0" expanded="false" />
+                <element signature="e#108#12034#0" expanded="false" />
+                <element signature="e#202#11991#0" expanded="false" />
+                <element signature="e#364#421#0" expanded="false" />
+                <element signature="e#579#617#0" expanded="false" />
+                <element signature="e#700#1906#0" expanded="false" />
+                <element signature="e#841#1344#0" expanded="false" />
+                <element signature="e#1948#2047#0" expanded="false" />
+                <element signature="e#2095#2200#0" expanded="false" />
+                <element signature="e#2245#2692#0" expanded="false" />
+                <element signature="e#2305#2668#0" expanded="false" />
+                <element signature="e#2356#2642#0" expanded="false" />
+                <element signature="e#2420#2612#0" expanded="false" />
+                <element signature="e#2483#2578#0" expanded="false" />
+                <element signature="e#2739#3624#0" expanded="false" />
+                <element signature="e#3047#3602#0" expanded="false" />
+                <element signature="e#3251#3491#0" expanded="false" />
+                <element signature="e#3674#4498#0" expanded="false" />
+                <element signature="e#4544#11457#0" expanded="false" />
+                <element signature="e#4876#8677#0" expanded="false" />
+                <element signature="e#5024#8606#0" expanded="false" />
+                <element signature="e#5078#8576#0" expanded="false" />
+                <element signature="e#5331#6073#0" expanded="false" />
+                <element signature="e#6839#8475#0" expanded="false" />
+                <element signature="e#6920#8437#0" expanded="false" />
+                <element signature="e#6982#7760#0" expanded="false" />
+                <element signature="e#7851#8393#0" expanded="false" />
+                <element signature="e#7989#8112#0" expanded="false" />
+                <element signature="e#8729#11435#0" expanded="false" />
+                <element signature="e#9232#9647#0" expanded="false" />
+                <element signature="e#9715#11409#0" expanded="false" />
+                <element signature="e#9769#10466#0" expanded="false" />
+                <element signature="e#11179#11378#0" expanded="false" />
+                <element signature="e#11513#11665#0" expanded="false" />
+                <element signature="e#11709#11939#0" expanded="false" />
+                <element signature="e#12077#12182#0" expanded="false" />
+                <element signature="e#12119#12170#0" expanded="false" />
+                <element signature="e#12228#12588#0" expanded="false" />
+                <element signature="e#12261#12367#0" expanded="false" />
+                <element signature="e#12419#12488#0" expanded="false" />
+                <element signature="e#12494#12582#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -746,10 +797,10 @@
         <option value="$PROJECT_DIR$/public/widgets/visit/visit.js" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/common.blocks/menu/menu.js" />
-        <option value="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/common.blocks/visit/visit.css" />
         <option value="$PROJECT_DIR$/common.blocks/visit/visit.js" />
+        <option value="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
       </list>
     </option>
   </component>
@@ -908,7 +959,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
+              <option name="myItemId" value="gallery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3298,57 +3349,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02238806">
-          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
-          <folding>
-            <element signature="e#32#12188#0" expanded="false" />
-            <element signature="e#67#12046#0" expanded="false" />
-            <element signature="e#108#12034#0" expanded="false" />
-            <element signature="e#202#11991#0" expanded="false" />
-            <element signature="e#364#421#0" expanded="false" />
-            <element signature="e#579#617#0" expanded="false" />
-            <element signature="e#700#1906#0" expanded="false" />
-            <element signature="e#841#1344#0" expanded="false" />
-            <element signature="e#1948#2047#0" expanded="false" />
-            <element signature="e#2095#2200#0" expanded="false" />
-            <element signature="e#2245#2692#0" expanded="false" />
-            <element signature="e#2305#2668#0" expanded="false" />
-            <element signature="e#2356#2642#0" expanded="false" />
-            <element signature="e#2420#2612#0" expanded="false" />
-            <element signature="e#2483#2578#0" expanded="false" />
-            <element signature="e#2739#3624#0" expanded="false" />
-            <element signature="e#3047#3602#0" expanded="false" />
-            <element signature="e#3251#3491#0" expanded="false" />
-            <element signature="e#3674#4498#0" expanded="false" />
-            <element signature="e#4544#11457#0" expanded="false" />
-            <element signature="e#4876#8677#0" expanded="false" />
-            <element signature="e#5024#8606#0" expanded="false" />
-            <element signature="e#5078#8576#0" expanded="false" />
-            <element signature="e#5331#6073#0" expanded="false" />
-            <element signature="e#6839#8475#0" expanded="false" />
-            <element signature="e#6920#8437#0" expanded="false" />
-            <element signature="e#6982#7760#0" expanded="false" />
-            <element signature="e#7851#8393#0" expanded="false" />
-            <element signature="e#7989#8112#0" expanded="false" />
-            <element signature="e#8729#11435#0" expanded="false" />
-            <element signature="e#9232#9647#0" expanded="false" />
-            <element signature="e#9715#11409#0" expanded="false" />
-            <element signature="e#9769#10466#0" expanded="false" />
-            <element signature="e#11179#11378#0" expanded="false" />
-            <element signature="e#11513#11665#0" expanded="false" />
-            <element signature="e#11709#11939#0" expanded="false" />
-            <element signature="e#12077#12182#0" expanded="false" />
-            <element signature="e#12119#12170#0" expanded="false" />
-            <element signature="e#12228#12588#0" expanded="false" />
-            <element signature="e#12261#12367#0" expanded="false" />
-            <element signature="e#12419#12488#0" expanded="false" />
-            <element signature="e#12494#12582#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.04477612">
@@ -3433,7 +3433,7 @@
             <element signature="e#2456#2481#0" expanded="false" />
             <element signature="e#2576#2579#0" expanded="false" />
             <element signature="e#2593#2730#0" expanded="false" />
-            <element signature="e#2765#2796#0" expanded="false" />
+            <element signature="e#2593#2730#0" expanded="false" />
             <element signature="e#2824#2849#0" expanded="false" />
             <element signature="e#2863#2985#0" expanded="false" />
             <element signature="e#3002#3023#0" expanded="false" />
@@ -4038,7 +4038,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38059703">
+        <state vertical-scroll-proportion="0.0">
           <caret line="30" column="24" selection-start-line="30" selection-start-column="24" selection-end-line="30" selection-end-column="24" />
           <folding>
             <element signature="e#362#517#0" expanded="false" />
@@ -4096,6 +4096,57 @@
             <element signature="e#15413#15482#0" expanded="false" />
             <element signature="e#15488#15574#0" expanded="false" />
             <marker date="1507220130000" expanded="false" signature="7724:7736" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.02238806">
+          <caret line="1" column="18" selection-start-line="1" selection-start-column="18" selection-end-line="1" selection-end-column="18" />
+          <folding>
+            <element signature="e#32#12188#0" expanded="false" />
+            <element signature="e#67#12046#0" expanded="false" />
+            <element signature="e#108#12034#0" expanded="false" />
+            <element signature="e#202#11991#0" expanded="false" />
+            <element signature="e#364#421#0" expanded="false" />
+            <element signature="e#579#617#0" expanded="false" />
+            <element signature="e#700#1906#0" expanded="false" />
+            <element signature="e#841#1344#0" expanded="false" />
+            <element signature="e#1948#2047#0" expanded="false" />
+            <element signature="e#2095#2200#0" expanded="false" />
+            <element signature="e#2245#2692#0" expanded="false" />
+            <element signature="e#2305#2668#0" expanded="false" />
+            <element signature="e#2356#2642#0" expanded="false" />
+            <element signature="e#2420#2612#0" expanded="false" />
+            <element signature="e#2483#2578#0" expanded="false" />
+            <element signature="e#2739#3624#0" expanded="false" />
+            <element signature="e#3047#3602#0" expanded="false" />
+            <element signature="e#3251#3491#0" expanded="false" />
+            <element signature="e#3674#4498#0" expanded="false" />
+            <element signature="e#4544#11457#0" expanded="false" />
+            <element signature="e#4876#8677#0" expanded="false" />
+            <element signature="e#5024#8606#0" expanded="false" />
+            <element signature="e#5078#8576#0" expanded="false" />
+            <element signature="e#5331#6073#0" expanded="false" />
+            <element signature="e#6839#8475#0" expanded="false" />
+            <element signature="e#6920#8437#0" expanded="false" />
+            <element signature="e#6982#7760#0" expanded="false" />
+            <element signature="e#7851#8393#0" expanded="false" />
+            <element signature="e#7989#8112#0" expanded="false" />
+            <element signature="e#8729#11435#0" expanded="false" />
+            <element signature="e#9232#9647#0" expanded="false" />
+            <element signature="e#9715#11409#0" expanded="false" />
+            <element signature="e#9769#10466#0" expanded="false" />
+            <element signature="e#11179#11378#0" expanded="false" />
+            <element signature="e#11513#11665#0" expanded="false" />
+            <element signature="e#11709#11939#0" expanded="false" />
+            <element signature="e#12077#12182#0" expanded="false" />
+            <element signature="e#12119#12170#0" expanded="false" />
+            <element signature="e#12228#12588#0" expanded="false" />
+            <element signature="e#12261#12367#0" expanded="false" />
+            <element signature="e#12419#12488#0" expanded="false" />
+            <element signature="e#12494#12582#0" expanded="false" />
           </folding>
         </state>
       </provider>

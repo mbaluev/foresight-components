@@ -78,13 +78,13 @@
                             that.data._el.card.append(
                                 that.data._el.card__header,
                                 that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
                                     that.data._el.card__middle.append(
                                         that.data._el.card__middle_scroll.append(
                                             that.data._el.card__middle_inner
                                         )
+                                    ),
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
                                     )
                                 )
                             )
