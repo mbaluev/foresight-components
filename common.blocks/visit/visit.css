@@ -7,8 +7,11 @@
     width: 100%;
     position: relative;
 }
-.visit iframe#frame {
+.visit__iframe-container > iframe {
     height: 100%;
     width: 100%;
     border: none;
+}
+.visit__iframe_hidden {
+    display: none;
 }

@@ -147,7 +147,6 @@ $.fn.bindFirst = function(name, selector, data, handler) {
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="alertbox"]').alertbox();
 });
