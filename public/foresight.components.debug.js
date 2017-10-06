@@ -1933,11 +1933,12 @@ $(function(){
                             ].join(''));
                             that.data.private.items.map(function(item){
                                 if (item.groupingnameid == d.groupingnameid) {
+                                    item.icon = 'icon_svg_document';
                                     var $menu__subitem = $([
                                         '<li class="menu__item" id=' + item.nameid + '>',
                                         '<a class="menu__item-link link">',
                                         '<span class="menu__item-link-content">',
-                                            '<span class="menu__icon icon icon_svg_info"></span>',
+                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
                                             '<span class="menu__item-text">' + item.name + '</span>',
                                         '</span>',
                                         '</a>',
@@ -2102,7 +2103,7 @@ $(function(){
                         }
                     };
 
-                    that.prerender = function(){
+                    that.render = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
                                 //that.data._el.card__header,
@@ -2119,13 +2120,12 @@ $(function(){
                             )
                         );
                     };
-                    that.render = function(){
+                    that.render_data = function(){
                         var $menu__list = $('<ul class="menu__list"></ul>');
-                        renderData(that.data.private.datatree, $menu__list);
+                        renderMenu(that.data.private.datatree, $menu__list);
                         that.data._el.menu.append($menu__list);
                         that.data._el.menu.menu();
-
-                        function renderData(data, container){
+                        function renderMenu(data, container){
                             var result = false,
                                 padding = 10;
                             data.forEach(function(d){
@@ -2133,32 +2133,32 @@ $(function(){
                                     result = true;
                                     padding = 10;
                                     for (var i = 0; i < d.item.level; i++) { padding += 20; }
+                                    //d.item.icon = 'icon_svg_folder';
                                     var $menu__item = $([
                                             '<li class="menu__item" id=' + d.item.id + '>',
                                             '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
                                             '<span class="menu__item-link-content">',
-                                            (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                            '<span class="menu__item-text">' + d.item.name + '</span>',
+                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                '<span class="menu__item-text">' + d.item.name + '</span>',
                                             '</span>',
                                             '</a>',
                                             '</li>'
-                                        ].join('')),
-                                        $menu__submenu = $('<div class="menu menu__submenu-container"></div>'),
-                                        $menu__list = $('<ul class="menu__list menu__submenu"></ul>'),
-                                        $menu__icon = $('<span class="menu__icon icon icon_animate icon_svg_right"></span>');
+                                        ].join(''));
+                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
+                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
                                     $menu__item.append(
                                         $menu__submenu.append(
                                             $menu__list
                                         )
                                     );
-                                    $menu__item.find('.menu__item-link-content').prepend($menu__icon);
                                     if (d.child) {
-                                        if (!renderData(d.child, $menu__list)) {
+                                        if (!renderMenu(d.child, $menu__list)) {
+                                            d.item.icon = 'icon_svg_images';
                                             $menu__item = $([
                                                 '<li class="menu__item" id=' + d.item.id + '>',
                                                 '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
                                                 '<span class="menu__item-link-content">',
-                                                    '<span class="menu__icon icon icon_animate icon_svg_calendar"></span>',
                                                     (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
                                                     '<span class="menu__item-text">' + d.item.name + '</span>',
                                                 '</span>',
@@ -2168,7 +2168,7 @@ $(function(){
                                             $menu__item.on('click', function(e){
                                                 console.log(d.item.id);
                                                 if (!d._loaded) {
-                                                    renderDataPanel(d);
+                                                    renderPanel(d);
                                                 }
                                                 that.data._el.card__middle.find('.tabs__pane').hide();
                                                 that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
@@ -2180,7 +2180,7 @@ $(function(){
                             });
                             return result;
                         }
-                        function renderDataPanel(d){
+                        function renderPanel(d){
                             //set flag loaded
                             d._loaded = true;
 
@@ -2198,29 +2198,29 @@ $(function(){
                                 item.guid = _guid;
                                 renderImageBlock(item, $tab);
                             });
-                            function renderImageBlock(item, cont){
-                                var $imageblock = $([
-                                    '<div class="gallery__image-block" data-url="' + item.url + '">',
-                                    '<a class="gallery__image-link" href="' + item.url + '"',
-                                        'data-description="' + item.description + '"',
-                                        'data-lightbox="lightbox-' + item.parentid + '">',
-                                    '<div class="spinner spinner_align_center"></div>',
-                                    '<div class="gallery__image"></div>',
-                                    '<div class="gallery__filename"></div>',
-                                    '</a></div>'
-                                ].join('')).appendTo(cont);
-                                $imageblock.find('.spinner').show();
-                                $imageblock.find('.gallery__image').css('opacity', 0);
-                                $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
-                                //$imageblock.find('.gallery__image').css('background-image', 'url(' + item.url + ')');
-                                var tempImg = new Image();
-                                tempImg.src = '/converter/converter?file=' + item.guid;
-                                //tempImg.src = item.url;
-                                tempImg.onload = function() {
-                                    $imageblock.find('.gallery__image').css('opacity', 1);
-                                    $imageblock.find('.spinner').hide();
-                                };
-                            }
+                        }
+                        function renderImageBlock(item, cont){
+                            var $imageblock = $([
+                                '<div class="gallery__image-block" data-url="' + item.url + '">',
+                                '<a class="gallery__image-link" href="' + item.url + '"',
+                                'data-description="' + item.description + '"',
+                                'data-lightbox="lightbox-' + item.parentid + '">',
+                                '<div class="spinner spinner_align_center"></div>',
+                                '<div class="gallery__image"></div>',
+                                '<div class="gallery__filename"></div>',
+                                '</a></div>'
+                            ].join('')).appendTo(cont);
+                            $imageblock.find('.spinner').show();
+                            $imageblock.find('.gallery__image').css('opacity', 0);
+                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                            //$imageblock.find('.gallery__image').css('background-image', 'url(' + item.url + ')');
+                            var tempImg = new Image();
+                            tempImg.src = '/converter/converter?file=' + item.guid;
+                            //tempImg.src = item.url;
+                            tempImg.onload = function() {
+                                $imageblock.find('.gallery__image').css('opacity', 1);
+                                $imageblock.find('.spinner').hide();
+                            };
                         }
                     };
 
@@ -2231,8 +2231,8 @@ $(function(){
                     that.init = function(){
                         that.nulls();
                         that.prepare();
-                        that.prerender();
                         that.render();
+                        that.render_data();
                         that.init_components();
                     };
                     that.init();

@@ -208,11 +208,12 @@
                             ].join(''));
                             that.data.private.items.map(function(item){
                                 if (item.groupingnameid == d.groupingnameid) {
+                                    item.icon = 'icon_svg_document';
                                     var $menu__subitem = $([
                                         '<li class="menu__item" id=' + item.nameid + '>',
                                         '<a class="menu__item-link link">',
                                         '<span class="menu__item-link-content">',
-                                            '<span class="menu__icon icon icon_svg_info"></span>',
+                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
                                             '<span class="menu__item-text">' + item.name + '</span>',
                                         '</span>',
                                         '</a>',
