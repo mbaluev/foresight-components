@@ -240,6 +240,7 @@
                         ].join(''));
                         that.data._el.card__middle.append($iframe_container);
 
+                        /*
                         var image = new Image();
                         image.onload = function(){
                             $iframe_container.find('.spinner').remove();
@@ -252,6 +253,23 @@
                             $iframe_container.find('.spinner').remove();
                         };
                         image.src = that.data.current.item.link;
+                        */
+
+                        function iframe(){
+                            this.iframe = document.createElement('IFRAME');
+                            this.iframe.onload = function(){
+                                $iframe_container.find('.spinner').remove();
+                                $iframe_container.append(
+                                    $('<iframe id="frame" ischartsinit="chart" src="' + that.data.current.item.link + '"></iframe>')
+                                );
+                            };
+                            this.iframe.onerror = function(){
+                                $iframe_container.text('error');
+                                $iframe_container.find('.spinner').remove();
+                            };
+                        }
+                        var frame = new iframe();
+                        frame.iframe.src = that.data.current.item.link;
                     };
 
                     that.loader_add = function(container){
