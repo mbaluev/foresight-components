@@ -1946,6 +1946,7 @@ $(function(){
                                     $menu__subitem.find('.menu__item-link').on('click', function(){
                                         that.data.current.item = item;
                                         that.render_iframe();
+                                        console.log(that.data.current.item);
                                     });
                                 }
                             });
