@@ -76,3 +76,25 @@
 .menu__submenu .menu__item-link:hover {
     background-color: rgba(51,51,51,0.15);
 }
+
+.menu_color_light {
+    background-color: #fafafa;
+}
+.menu_color_light .menu__item {
+    border-bottom: none;
+}
+.menu_color_light .menu__item-link .menu__item-text {
+    color: #333;
+}
+.menu_color_light .menu__item-link:hover .menu__item-text {
+    color: #ff5940;
+}
+.menu_color_light .menu__submenu {
+    background-color: transparent;
+}
+.menu_color_light .menu__submenu .menu__item {
+    border-top: none;
+}
+.menu_color_light .menu__submenu .menu__item-link:hover {
+    background-color: transparent;
+}

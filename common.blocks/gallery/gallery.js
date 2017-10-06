@@ -78,13 +78,13 @@
                             that.data._el.card.append(
                                 that.data._el.card__header,
                                 that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
                                     that.data._el.card__middle.append(
                                         that.data._el.card__middle_scroll.append(
                                             that.data._el.card__middle_inner
                                         )
-                                    ),
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
                                     )
                                 )
                             )
@@ -103,7 +103,7 @@
                                 if (!d.item.fileid) {
                                     result = true;
                                     padding = 10;
-                                    for (var i = 0; i < d.item.level; i++) { padding += 10; }
+                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
                                     var $menu__item = $([
                                             '<li class="menu__item" id=' + d.item.id + '>',
                                             '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
@@ -116,21 +116,22 @@
                                         ].join('')),
                                         $menu__submenu = $('<div class="menu menu__submenu-container"></div>'),
                                         $menu__list = $('<ul class="menu__list menu__submenu"></ul>'),
-                                        $menu__icon = $('<span class="menu__icon icon icon_animate icon_svg_right_white"></span>');
+                                        $menu__icon = $('<span class="menu__icon icon icon_animate icon_svg_right"></span>');
                                     $menu__item.append(
                                         $menu__submenu.append(
                                             $menu__list
                                         )
                                     );
-                                    $menu__item.find('.menu__item-link-content').append($menu__icon);
+                                    $menu__item.find('.menu__item-link-content').prepend($menu__icon);
                                     if (d.child) {
                                         if (!renderData(d.child, $menu__list)) {
                                             $menu__item = $([
                                                 '<li class="menu__item" id=' + d.item.id + '>',
                                                 '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
                                                 '<span class="menu__item-link-content">',
-                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                '<span class="menu__item-text">' + d.item.name + '</span>',
+                                                    '<span class="menu__icon icon icon_animate icon_svg_calendar"></span>',
+                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
                                                 '</span>',
                                                 '</a>',
                                                 '</li>'

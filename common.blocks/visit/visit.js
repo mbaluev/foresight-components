@@ -82,10 +82,10 @@
                             that.data._el.card.append(
                                 that.data._el.card__header,
                                 that.data._el.card__main.append(
-                                    that.data._el.card__middle,
                                     that.data._el.card__left.append(
                                         that.data._el.menu
-                                    )
+                                    ),
+                                    that.data._el.card__middle
                                 )
                             )
                         );
@@ -197,8 +197,8 @@
                                 '<li class="menu__item" id=' + d.groupingnameid + '>',
                                     '<a class="menu__item-link link">',
                                     '<span class="menu__item-link-content">',
+                                        '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
                                         '<span class="menu__item-text">' + d.groupingname + '</span>',
-                                        '<span class="menu__icon icon icon_animate icon_svg_right_white"></span>',
                                     '</span>',
                                     '</a>',
                                     '<div class="menu menu__submenu-container">',
@@ -212,6 +212,7 @@
                                         '<li class="menu__item" id=' + item.nameid + '>',
                                         '<a class="menu__item-link link">',
                                         '<span class="menu__item-link-content">',
+                                            '<span class="menu__icon icon icon_svg_info"></span>',
                                             '<span class="menu__item-text">' + item.name + '</span>',
                                         '</span>',
                                         '</a>',
