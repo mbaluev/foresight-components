@@ -2105,7 +2105,7 @@ $(function(){
                     that.prerender = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
-                                that.data._el.card__header,
+                                //that.data._el.card__header,
                                 that.data._el.card__main.append(
                                     that.data._el.card__left.append(
                                         that.data._el.menu
