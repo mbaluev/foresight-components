@@ -249,7 +249,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="button"]').button();
 });

@@ -188,6 +188,43 @@
                             <div class="heading heading_1">components</div>
                         </div>
                         -->
+                        <div class="article" data-title="gallery" id="gallery">
+                            <!--
+                            <div class="heading heading_2">gallery</div>
+                            <p class="paragraph paragraph_color_grey">Виджет фотогалерея.</p>
+                            <p class="paragraph paragraph_color_red">IE 10+</p>
+                            <div class="heading heading_5">
+                                <span class="heading__info">Фотогалерея</span>
+                            </div>
+                            -->
+                            <div class="widget" data-fc="widget" data-height="400">
+                                <div class="widget__header">
+                                    <div class="widget__header-name">
+                                        <button class="button button_collapse" type="button" data-fc="button">
+                                            <span class="button__text">Фотогалерея</span>
+                                            <span class="icon icon_svg_down"></span>
+                                        </button>
+                                    </div>
+                                    <div class="widget__header-actions">
+                                        <button class="button button_settings" type="button" data-fc="button">
+                                            <span class="icon icon_svg_settings"></span>
+                                        </button>
+                                        <button class="button button_remove" type="button" data-fc="button">
+                                            <span class="icon icon_svg_trash"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="widget__border widget__border_color_default">
+                                    <div class="widget__body">
+                                        <div class="widget__body-data widget__body-data_type_html">
+                                            <div class="widget__content widget__content_scroll">
+                                                <div id="gallery1" class="gallery"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="article" data-title="calendar" id="calendar">
                             <!--
                             <div class="heading heading_2">calendar</div>
@@ -197,7 +234,7 @@
                                 <span class="heading__info">календарь с таблицей</span>
                             </div>
                             -->
-                            <div class="widget" data-fc="widget" data-height="540">
+                            <div class="widget widget_collapsed" data-fc="widget" data-height="540">
                                 <div class="widget__header">
                                     <div class="widget__header-name">
                                         <button class="button button_collapse" type="button" data-fc="button">
@@ -234,7 +271,7 @@
                                 <span class="heading__info">Паспорта регионов</span>
                             </div>
                             -->
-                            <div class="widget" data-fc="widget" data-height="470">
+                            <div class="widget widget_collapsed" data-fc="widget" data-height="470">
                                 <div class="widget__header">
                                     <div class="widget__header-name">
                                         <button class="button button_collapse" type="button" data-fc="button">
@@ -256,43 +293,6 @@
                                         <div class="widget__body-data widget__body-data_type_html">
                                             <div class="widget__content">
                                                 <div id="visit1" class="visit"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="article" data-title="gallery" id="gallery">
-                            <!--
-                            <div class="heading heading_2">gallery</div>
-                            <p class="paragraph paragraph_color_grey">Виджет фотогалерея.</p>
-                            <p class="paragraph paragraph_color_red">IE 10+</p>
-                            <div class="heading heading_5">
-                                <span class="heading__info">Фотогалерея</span>
-                            </div>
-                            -->
-                            <div class="widget" data-fc="widget" data-height="400">
-                                <div class="widget__header">
-                                    <div class="widget__header-name">
-                                        <button class="button button_collapse" type="button" data-fc="button">
-                                            <span class="button__text">Фотогалерея</span>
-                                            <span class="icon icon_svg_down"></span>
-                                        </button>
-                                    </div>
-                                    <div class="widget__header-actions">
-                                        <button class="button button_settings" type="button" data-fc="button">
-                                            <span class="icon icon_svg_settings"></span>
-                                        </button>
-                                        <button class="button button_remove" type="button" data-fc="button">
-                                            <span class="icon icon_svg_trash"></span>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="widget__border widget__border_color_default">
-                                    <div class="widget__body">
-                                        <div class="widget__body-data widget__body-data_type_html">
-                                            <div class="widget__content widget__content_scroll">
-                                                <div id="gallery1" class="gallery"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1813,7 +1813,7 @@
     <script src="third/highcharts.js"></script>
 
     <script src="foresight.third.min.js"></script>
-    <script src="foresight.components.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
     <script src="foresight.pages.min.js"></script>
     <script>
         $(function(){
@@ -1990,25 +1990,43 @@
                         fileid: 192322,
                         name: "Экотуризм. Заповедники",
                         url: "/images/news/1.jpg",
-                        description: "На Восточном экономическом форуме Минприроды представило национальный проект под названием «Дикая природа России». Одна из ключевых тем этого проекта – развитие экотуризма с помощью государственно-частного партнерства. Это особый вид взаимодействия государства и бизнеса в сфере социально значимых проектов. ",
+                        description: "На Восточном",
                         icon: "null"
                     },
                     {
                         id: 7,
                         parentid: 5,
-                        fileid: 192322,
+                        fileid: 192323,
                         name: "Экотуризм. Заповедники",
                         url: "/images/news/2.jpg",
-                        description: "На Восточном экономическом форуме Минприроды представило национальный проект под названием «Дикая природа России». Одна из ключевых тем этого проекта – развитие экотуризма с помощью государственно-частного партнерства. Это особый вид взаимодействия государства и бизнеса в сфере социально значимых проектов. ",
+                        description: "На Восточном",
                         icon: "null"
                     },
                     {
                         id: 8,
-                        parentid: 5,
-                        fileid: 192322,
+                        parentid: null,
+                        fileid: null,
+                        name: "Портфель 2",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 9,
+                        parentid: 8,
+                        fileid: null,
+                        name: "Сентябрь",
+                        url: "null",
+                        description: "null",
+                        icon: "null"
+                    },
+                    {
+                        id: 10,
+                        parentid: 9,
+                        fileid: 192324,
                         name: "Экотуризм. Заповедники",
                         url: "/images/news/3.jpg",
-                        description: "На Восточном экономическом форуме Минприроды представило национальный проект под названием «Дикая природа России». Одна из ключевых тем этого проекта – развитие экотуризма с помощью государственно-частного партнерства. Это особый вид взаимодействия государства и бизнеса в сфере социально значимых проектов. ",
+                        description: "На Восточном",
                         icon: "null"
                     }
                 ]

@@ -6,7 +6,16 @@ $.fn.bindFirst = function(name, selector, data, handler) {
         handlers.splice(0, 0, handler);
     });
 };
-
+$.fn.closestChild = function(selector) {
+    var $found = $(),
+        $currentSet = this;
+    while ($currentSet.length) {
+        $found = $currentSet.filter(selector);
+        if ($found.length) break;
+        $currentSet = $currentSet.children();
+    }
+    return $found.first();
+};
 (function($){
     var methods = {
         init : function(options) {

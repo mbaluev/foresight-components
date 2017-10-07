@@ -18,20 +18,24 @@
 
                     that.data._el = {
                         target: self,
-                        card: $('<div class="card"></div>'),
-                        card__header: $([
-                            '<div class="card__header">',
-                            '<div class="card__header-row">',
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_column: $([
                             '<div class="card__header-column">',
-                            '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data.title + '</span>',
-                            '</label>',
-                            '</div>',
-                            '</div>',
+                                '<label class="card__name">',
+                                '<span class="card__name-text">' + that.data.title + '</span>',
+                                '</label>',
                             '</div>'
+                        ].join('')),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_left"></span>',
+                            '</button>'
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
                         card__left: $('<div class="card__left"></div>'),
+                        card__backdrop: $('<div class="card__backdrop"></div>'),
                         card__middle: $('<div class="card__middle"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
                         card__middle_inner: $('<div class="card__middle-inner"></div>'),
@@ -77,7 +81,13 @@
                     that.render = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
-                                that.data._el.card__header,
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        )
+                                    )
+                                ),
                                 that.data._el.card__main.append(
                                     that.data._el.card__left.append(
                                         that.data._el.menu
@@ -86,7 +96,8 @@
                                         that.data._el.card__middle_scroll.append(
                                             that.data._el.card__middle_inner
                                         )
-                                    )
+                                    ),
+                                    that.data._el.card__backdrop
                                 )
                             )
                         );
@@ -196,6 +207,7 @@
                     };
 
                     that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
                         self.find('[data-fc="button"]').button();
                         self.find('[data-tooltip]').tooltip();
                     };
