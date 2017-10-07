@@ -140,6 +140,7 @@ var Dashboard = function(options){
             .on('on.fc.tumbler', function(){
                 that.loader_add();
                 setTimeout(function(){
+                    that.data._el.button_group.show();
                     that.data._el.button_add.button('show');
                     that.data._el.button_save.button('show');
                     that.data.grid.widget_grid('edit_mode');
@@ -152,6 +153,7 @@ var Dashboard = function(options){
             .on('off.fc.tumbler', function(){
                 that.loader_add();
                 setTimeout(function(){
+                    that.data._el.button_group.hide();
                     that.data._el.button_add.button('hide');
                     that.data._el.button_save.button('hide');
                     that.data.grid.widget_grid('view_mode');
@@ -169,6 +171,7 @@ var Dashboard = function(options){
         }
     };
     that.render_buttons = function(){
+        that.data._el.button_group.hide();
         that.render_button_save();
         that.render_button_add();
         if (that.data.tumblerContainerSelector) {
