@@ -30,19 +30,23 @@
                     };
                     that.data._el = {
                         target: self,
-                        card: $('<div class="card"></div>'),
-                        card__header: $([
-                            '<div class="card__header">',
-                                '<div class="card__header-row">',
-                                    '<div class="card__header-column">',
-                                        '<label class="card__name">',
-                                        '<span class="card__name-text">'+ that.data.title +'</span>',
-                                        '</label>',
-                                    '</div>',
-                                    '<div class="card__header-column" id="subjects"></div>',
-                                '</div>',
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                            '<label class="card__name">',
+                            '<span class="card__name-text">' + that.data.title + '</span>',
+                            '</label>',
                             '</div>'
                         ].join('')),
+                        card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_bars"></span>',
+                            '</button>'
+                        ].join('')),
+
                         card__header_row_tabs: $([
                             '<div class="card__header-row tabs">',
                             '<ul class="tabs__list"></ul>',
@@ -80,7 +84,14 @@
                     that.render = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
-                                that.data._el.card__header,
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_subjects
+                                    )
+                                ),
                                 that.data._el.card__main.append(
                                     that.data._el.card__left.append(
                                         that.data._el.menu
@@ -110,7 +121,7 @@
                             that.data._el.select.append('<option value="' + d.subjectnameid + '">' + d.subjectname + '</option>');
                         });
 
-                        that.data._el.card__header.find('#subjects').append( that.data._el.select );
+                        that.data._el.card__header_column_subjects.append( that.data._el.select );
                         that.data._el.select.select();
                         that.data._el.select.on('change', function(){
                             var value = $(this).select('value');
@@ -272,6 +283,7 @@
                     };
 
                     that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
                         self.find('[data-fc="button"]').button();
                         self.find('[data-fc="select"]').select();
                         self.find('[data-tooltip]').tooltip();
