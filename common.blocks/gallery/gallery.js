@@ -7,6 +7,7 @@
                     self.data('_widget', { type: 'gallery', target : self });
                     var that = this.obj = {};
                     that.defaults = {
+                        title: 'Фотогалерея',
                         items: []
                     };
                     that.data = self.data();
@@ -23,7 +24,7 @@
                             '<div class="card__header-row">',
                             '<div class="card__header-column">',
                             '<label class="card__name">',
-                            '<span class="card__name-text">Фотогалерея</span>',
+                            '<span class="card__name-text">' + that.data.title + '</span>',
                             '</label>',
                             '</div>',
                             '</div>',
@@ -76,7 +77,7 @@
                     that.render = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
-                                //that.data._el.card__header,
+                                that.data._el.card__header,
                                 that.data._el.card__main.append(
                                     that.data._el.card__left.append(
                                         that.data._el.menu

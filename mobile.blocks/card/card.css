@@ -1,5 +1,17 @@
 @media (max-width: 768px) {
-    .card__right {}
+    .card__left {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+    }
+    .card__left_hidden {}
+    .card__right {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
     .card__right_hidden {}
     .card__middle {}
     .card__middle-inner {}

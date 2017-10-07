@@ -159,6 +159,7 @@
 }
 
 .card__right {
+    z-index: 2;
     width: 230px;
     min-width: 230px;
     max-width: 230px;
@@ -173,6 +174,7 @@
 }
 
 .card__middle {
+    z-index: 1;
     flex: 1 1 auto;
     display: flex;
 }

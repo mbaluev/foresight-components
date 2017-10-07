@@ -3566,6 +3566,7 @@ body {
 }
 
 .card__right {
+  z-index: 2;
   width: 230px;
   min-width: 230px;
   max-width: 230px;
@@ -3584,6 +3585,7 @@ body {
 }
 
 .card__middle {
+  z-index: 1;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -4011,7 +4013,21 @@ body {
 }
 
 @media (max-width: 768px) {
+  .card__left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  }
 
+
+
+  .card__right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+  }
 
 
 

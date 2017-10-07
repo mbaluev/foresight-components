@@ -5,8 +5,11 @@ $(function(){
             $main = $('.fs-view__main'),
             $left = $('.fs-view__left'),
             $middle = $('.fs-view__middle'),
-            $backdrop = $('<div class="fs-view__backdrop"></div>'),
+            $backdrop = $main.find('.fs-view__backdrop'),
             onlyloaded = true;
+        if ($backdrop.length == 0) {
+            $backdrop = $('<div class="fs-view__backdrop"></div>');
+        }
         function show_menu(){
             if ($iconmenu.length > 0) {
                 $iconmenu.icon__menu('toggle');
@@ -17,7 +20,9 @@ $(function(){
             $left.removeClass('fs-view__left_hidden');
             $middle.removeClass('fs-view__middle_full');
             $left.after($backdrop);
-            $backdrop.on('click', hide_menu_backdrop);
+            $backdrop.one('click', function(){
+                self.trigger('click');
+            });
             self.one('click', hide_menu);
             $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
@@ -44,13 +49,14 @@ $(function(){
                 }, 100);
             });
         }
-        function hide_menu_backdrop(){
-            self.trigger('click');
-        }
         if ($left.hasClass('fs-view__left_hidden')) {
             self.one('click', show_menu);
             onlyloaded = false;
         } else {
+            $left.after($backdrop);
+            $backdrop.one('click', function(){
+                self.trigger('click');
+            });
             self.one('click', hide_menu);
             onlyloaded = false;
         }
@@ -2037,6 +2043,7 @@ $(function(){
                     self.data('_widget', { type: 'gallery', target : self });
                     var that = this.obj = {};
                     that.defaults = {
+                        title: 'Фотогалерея',
                         items: []
                     };
                     that.data = self.data();
@@ -2053,7 +2060,7 @@ $(function(){
                             '<div class="card__header-row">',
                             '<div class="card__header-column">',
                             '<label class="card__name">',
-                            '<span class="card__name-text">Фотогалерея</span>',
+                            '<span class="card__name-text">' + that.data.title + '</span>',
                             '</label>',
                             '</div>',
                             '</div>',
@@ -2106,7 +2113,7 @@ $(function(){
                     that.render = function(){
                         that.data._el.target.append(
                             that.data._el.card.append(
-                                //that.data._el.card__header,
+                                that.data._el.card__header,
                                 that.data._el.card__main.append(
                                     that.data._el.card__left.append(
                                         that.data._el.menu
