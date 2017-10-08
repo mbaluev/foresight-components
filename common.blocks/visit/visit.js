@@ -43,7 +43,7 @@
                         card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_bars"></span>',
+                            '<span class="icon icon_svg_right"></span>',
                             '</button>'
                         ].join('')),
 
