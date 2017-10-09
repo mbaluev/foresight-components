@@ -45,11 +45,17 @@ Asyst.MetaElementLoader = {
                     that.data.success(that.data.content);
                 }
             };
+            var gets = splitGETString();
+            for (var c in gets) {
+                if (gets.hasOwnProperty(c) && gets[c].constructor === String) {
+                    gets[c] = decodeURIComponent(gets[c]);
+                }
+            }
             Asyst.APIv2.DataSource.load({
                 sourceType: 'page',
                 sourceName: that.data.data.pagename,
                 elementName: that.data.data.elementname,
-                data: null,
+                data: gets,
                 success: success,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 async: true,
