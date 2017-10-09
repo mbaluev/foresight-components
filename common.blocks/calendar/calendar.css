@@ -42,3 +42,66 @@
 .calendar__table .table thead td {
     border-top: none;
 }
+
+.calendar .datepicker--cell {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.calendar .datepicker__day {
+    position: relative;
+    padding: 8px;
+    border-radius: 16px;
+    min-width: 16px;
+    text-align: center;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day.-focus-,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    background: transparent;
+}
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    opacity: 0.75;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+    background: #f0f0f0;
+}
+.calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
+    background: #5a97f2;
+    color: #fff;
+}
+
+.calendar .datepicker__note {
+    position: absolute;
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #ff5940;
+    right: -8px;
+    top: 0;
+    padding: 2px 5px;
+    font-size: 10px;
+    border-radius: 9px;
+    display: block;
+    min-width: 16px;
+    text-align: center;
+}
+.calendar .datepicker__event {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.calendar .datepicker__event-link {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    border: solid 1px #ddd;
+}

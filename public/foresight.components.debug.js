@@ -1979,7 +1979,8 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         items: [],
-                        columns: []
+                        columns: [],
+                        renderEvents: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2075,9 +2076,37 @@ $(function(){
                                                 it.date.getMonth() == date.getMonth() &&
                                                 it.date.getFullYear() == date.getFullYear();
                                     });
-                                if (cellType == 'day' && items.length > 0) {
-                                    return {
-                                        html: currentDate + '<span class="datepicker__note">' + items.length + '</span>'
+                                if (cellType == 'day') {
+                                    if (items.length > 0) {
+                                        if (that.data.renderEvents) {
+                                            return {
+                                                html: [
+                                                    '<div class="datepicker__day">' + currentDate + '</div>',
+                                                    items.map(function(item){
+                                                        return [
+                                                            '<div class="datepicker__event">',
+                                                                '<a class="datepicker__event-link link" href="#">',
+                                                                    '<div class="datepicker__indicator"><img src="/asyst/gantt/img/' + item.indicator + '.png"></div>',
+                                                                    '<div class="datepicker__event-text">' + item.name + '</div>',
+                                                                '</a>',
+                                                            '</div>'
+                                                        ].join('')
+                                                    }).join('')
+                                                ].join('')
+                                            };
+                                        } else {
+                                            return {
+                                                html: [
+                                                    '<div class="datepicker__day">' + currentDate,
+                                                    '<div class="datepicker__note">' + items.length + '</div>',
+                                                    '</div>'
+                                                ].join('')
+                                            }
+                                        }
+                                    } else {
+                                        return {
+                                            html: '<div class="datepicker__day">' + currentDate + '</div>'
+                                        }
                                     }
                                 }
                             },

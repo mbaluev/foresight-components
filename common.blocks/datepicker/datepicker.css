@@ -25,25 +25,39 @@
 .datepicker--cell.-weekend- {
     color: #ff5940;
 }
-.datepicker--cell.-selected-,
-.datepicker--cell.-selected-.-current-,
-.-selected-.datepicker--cell-day.-other-month-,
-.-selected-.-focus-.datepicker--cell-day.-other-month-,
-.-selected-.datepicker--cell-year.-other-decade-,
-.-selected-.-focus-.datepicker--cell-year.-other-decade- {
+
+.datepicker--cell.datepicker--cell-year.-selected-,
+.datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
     background: #5a97f2;
 }
-.-selected-.datepicker--cell-day.-other-month-,
-.-selected-.datepicker--cell-year.-other-decade- {
+.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
     opacity: 0.75;
 }
+
+.datepicker--cell.datepicker--cell-month.-selected-,
+.datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+    background: #5a97f2;
+}
+.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+    opacity: 0.75;
+}
+
+.datepicker--cell.datepicker--cell-day.-focus-,
+.datepicker--cell.datepicker--cell-day.-selected-,
+.datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    background: #5a97f2;
+}
+.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    opacity: 0.75;
+}
+
 .datepicker--cell.-selected-.-weekend- {
     color: #fff;
 }
-.datepicker--cell.-selected-.-focus- {
-    background-color: #5a97f2;
-    opacity: 0.75;
-}
+
 .datepicker--cell-day.-other-month-,
 .datepicker--cell-year.-other-decade- {
     color: #ddd;
@@ -90,19 +104,4 @@
 }
 .popup .datepicker--pointer {
     display: none;
-}
-
-.datepicker__note {
-    position: absolute;
-    box-sizing: border-box;
-    color: #fff;
-    background-color: #ff5940;
-    right: 0;
-    top: 0;
-    padding: 2px 5px;
-    font-size: 10px;
-    border-radius: 9px;
-    display: block;
-    min-width: 16px;
-    text-align: center;
 }
