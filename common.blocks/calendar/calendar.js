@@ -28,6 +28,7 @@
                     that.data._today = new Date();
                     that.data._datepicker = null;
                     that.data._selectedItems = [];
+                    that.data._showModal = false;
                     that.data._el = {
                         target: self.addClass('calendar'),
                         calendar__container: $('<div class="calendar__container"></div>'),
@@ -174,7 +175,14 @@
                                     that.data.formattedDate = formattedDate;
                                     that.data._el.card__name.find('.card__name-text').text(formattedDate);
                                     that.data._el.card__name.find('.card__name-text').text(formattedDate);
-                                    that.render_table();
+                                    if (that.data.events.render) {
+                                        if (that.data._showModal) {
+                                            that.render_modal();
+                                        }
+                                    } else {
+                                        that.data._el.calendar__table.empty().append(that.render_table());
+                                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
+                                    }
                                 }
                             }
                         });
@@ -183,6 +191,7 @@
                         }
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;
                         that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
+                        that.data._showModal = true;
                     };
                     that.render_table = function(){
                         var $table = $('<table class="table"></table>'),
@@ -190,32 +199,58 @@
                             $tbody = $('<tbody></tbody>'),
                             $tr = $('<tr></tr>'),
                             $td = $('<td></td>');
-                        that.data._el.calendar__table.empty().append(
-                            $table.append(
-                                $thead.append(
-                                    $tr.clone().append(
-                                        that.data.columns.map(function(column){
-                                            return $td.clone().html(column.title);
-                                        })
-                                    )
-                                ),
-                                $tbody.append(
-                                    that.data._selectedItems.map(function(item){
-                                        return $tr.clone().append(
-                                            that.data.columns.map(function(column){
-                                                return $td.clone().html(item[column.fieldname]);
-                                            })
-                                        )
+                        $table.append(
+                            $thead.append(
+                                $tr.clone().append(
+                                    that.data.columns.map(function(column){
+                                        return $td.clone().html(column.title);
                                     })
                                 )
+                            ),
+                            $tbody.append(
+                                that.data._selectedItems.map(function(item){
+                                    return $tr.clone().append(
+                                        that.data.columns.map(function(column){
+                                            return $td.clone().html(item[column.fieldname]);
+                                        })
+                                    )
+                                })
                             )
                         );
-                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
+                        return $table;
+                    };
+                    that.render_modal = function(){
+                        var modal_options = {
+                            buttons: [
+                                {
+                                    name: 'destroy',
+                                    action: 'destroy',
+                                    icon: 'icon_svg_close'
+                                }
+                            ],
+                            header: {
+                                caption: 'События',
+                                name: that.data.formattedDate
+                            },
+                            content: { tabs: [] }
+                        };
+                        render_general_tab(data, modal_options.content.tabs, true);
+                        $('<span class="modal__"></span>').appendTo('body').modal__(modal_options);
+                        function render_general_tab(data, tabs, active){
+                            tabs.push({
+                                id: 'general',
+                                name: 'Текст',
+                                active: active,
+                                content: $('<div class="card__table"></div>').append(that.render_table())
+                            });
+                        };
                     };
 
                     that.bind = function(){
                         that.data._el.button_today.on('click', function(){
+                            that.data._showModal = false;
                             that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
+                            that.data._showModal = true;
                         });
                     };
 
