@@ -2088,10 +2088,11 @@ $(function(){
                                                 it.date.getFullYear() == date.getFullYear();
                                         });
                                     if (cellType == 'day') {
-                                        if (items.length > 0) {
-                                            if (that.data.events.render) {
-                                                return {
-                                                    html: [
+                                        if (that.data.events.render) {
+                                            return {
+                                                html: [
+                                                    '<div class="datepicker__day-container">',
+                                                    '<div class="datepicker__day-border">',
                                                         '<div class="datepicker__day">' + currentDate + '</div>',
                                                         items.map(function(item, i){
                                                             return (i < that.data.events.maxItems ? [
@@ -2105,10 +2106,13 @@ $(function(){
                                                                 '</div>'
                                                             ].join('') : '')
                                                         }).join(''),
-                                                        (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : '')
-                                                    ].join('')
-                                                };
-                                            } else {
+                                                        (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : ''),
+                                                    '</div>',
+                                                    '</div>'
+                                                ].join('')
+                                            };
+                                        } else {
+                                            if (items.length > 0) {
                                                 return {
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate,
@@ -2117,9 +2121,10 @@ $(function(){
                                                     ].join('')
                                                 }
                                             }
-                                        } else {
-                                            return {
-                                                html: '<div class="datepicker__day">' + currentDate + '</div>'
+                                            else {
+                                                return {
+                                                    html: '<div class="datepicker__day">' + currentDate + '</div>'
+                                                }
                                             }
                                         }
                                     }
@@ -2144,6 +2149,9 @@ $(function(){
                                 }
                             }
                         });
+                        if (that.data.events.render) {
+                            that.data._el.calendar__datepicker.find('.datepicker--cells-days').addClass('datepicker__cells-days-border');
+                        }
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;
                         that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
                     };

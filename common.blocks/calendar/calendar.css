@@ -54,8 +54,7 @@
 .calendar .datepicker--cell.datepicker--cell-day {
     height: auto;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day.-focus-,
@@ -94,7 +93,7 @@
 }
 .calendar .datepicker__event {
     width: 100%;
-    padding: 5px;
+    padding: 5px 0;
     box-sizing: border-box;
 }
 .calendar .datepicker__event-link {
@@ -121,4 +120,27 @@
     white-space: nowrap;
     width: 100%;
     border: solid 1px #ddd;
+}
+
+.calendar .datepicker__day-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.calendar .datepicker__day-border {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    box-sizing: border-box;
+    border: solid 1px #eee;
+    border-bottom: none;
+    border-right: none;
+    padding: 5px;
+}
+.calendar .datepicker__cells-days-border {
+    border-right: solid 1px #eee;
+    border-bottom: solid 1px #eee;
 }
