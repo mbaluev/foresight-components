@@ -9,7 +9,9 @@
                     that.defaults = {
                         items: [],
                         columns: [],
-                        renderEvents: false
+                        renderEvents: false,
+                        eventTitleColumn: 'date',
+                        eventTooltipColumn: 'date'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -114,9 +116,9 @@
                                                     items.map(function(item){
                                                         return [
                                                             '<div class="datepicker__event">',
-                                                                '<a class="datepicker__event-link link" href="#" data-tooltip="' + item.name + '">',
+                                                                '<a class="datepicker__event-link link" href="#" data-tooltip="' + item[that.data.eventTooltipColumn] + '">',
                                                                     '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
-                                                                    '<div class="datepicker__event-text" style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;">' + item.name + '</div>',
+                                                                    '<div class="datepicker__event-text" style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;">' + item[that.data.eventTitleColumn] + '</div>',
                                                                 '</a>',
                                                             '</div>'
                                                         ].join('')
@@ -140,6 +142,8 @@
                                 }
                             },
                             onSelect: function onSelect(formattedDate, date) {
+                                self.find('[data-tooltip]').tooltip();
+                                self.find('[data-tooltip]').tooltip('hide');
                                 that.data._selectedItems = that.data.items.filter(function(it){
                                     return typeof it.date == 'object';
                                 }).filter(function(it){
