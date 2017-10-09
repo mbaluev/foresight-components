@@ -154,7 +154,7 @@ gulp.task('js', function() {
     .done();
 });
 
-gulp.task('misc', [/*'third',*/ 'pages']);
+gulp.task('misc', ['third', 'pages']);
 
 gulp.task('third', function(){
     gulp.src(third_css)
