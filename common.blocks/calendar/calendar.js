@@ -99,6 +99,8 @@
                     that.render_datepicker = function(){
                         that.data._el.calendar__datepicker.datepicker({
                             onRenderCell: function (date, cellType) {
+                                self.find('[data-tooltip]').tooltip();
+                                self.find('[data-tooltip]').tooltip('hide');
                                 var currentDate = date.getDate(),
                                     items = that.data.items.filter(function(it){
                                         return typeof it.date == 'object';
@@ -144,23 +146,20 @@
                             onSelect: function onSelect(formattedDate, date) {
                                 self.find('[data-tooltip]').tooltip();
                                 self.find('[data-tooltip]').tooltip('hide');
-                                that.data._selectedItems = that.data.items.filter(function(it){
-                                    return typeof it.date == 'object';
-                                }).filter(function(it){
-                                    return  it.date.getDate() == date.getDate() &&
-                                        it.date.getMonth() == date.getMonth() &&
-                                        it.date.getFullYear() == date.getFullYear();
-                                });
-                                that.data.date = date;
-                                that.data.formattedDate = formattedDate;
-                                that.data._el.card__name.find('.card__name-text').text(formattedDate);
-                                that.data._el.card__name.find('.card__name-text').text(formattedDate);
-                                /*
-                                that.data._el.calendar__info.find('.calendar__info-day').text(date.getDate());
-                                that.data._el.calendar__info.find('.calendar__info-date').text(formattedDate);
-                                that.data._el.calendar__info.find('.calendar__info-count').text('Событий: ' + that.data._selectedItems.length);
-                                */
-                                that.render_table();
+                                if (date) {
+                                    that.data._selectedItems = that.data.items.filter(function(it){
+                                        return typeof it.date == 'object';
+                                    }).filter(function(it){
+                                        return  it.date.getDate() == date.getDate() &&
+                                            it.date.getMonth() == date.getMonth() &&
+                                            it.date.getFullYear() == date.getFullYear();
+                                    });
+                                    that.data.date = date;
+                                    that.data.formattedDate = formattedDate;
+                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                    that.render_table();
+                                }
                             }
                         });
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;
