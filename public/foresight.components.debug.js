@@ -1969,7 +1969,7 @@ $(function(){
                         function render_general_tab(data, tabs, active){
                             tabs.push({
                                 id: 'general',
-                                name: null,
+                                name: '',
                                 active: active,
                                 content: $('<div class="card__table"></div>').append(that.render_table())
                             });
