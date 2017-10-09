@@ -2072,44 +2072,48 @@ $(function(){
                             onRenderCell: function (date, cellType) {
                                 self.find('[data-tooltip]').tooltip();
                                 self.find('[data-tooltip]').tooltip('hide');
-                                var currentDate = date.getDate(),
-                                    items = that.data.items.filter(function(it){
-                                        return typeof it.date == 'object';
-                                    }).filter(function(it){
-                                        return  it.date.getDate() == date.getDate() &&
+                                if (date) {
+                                    var currentDate = date.getDate(),
+                                        items = that.data.items.filter(function(it){
+                                            return it.date && typeof it.date == 'object';
+                                        }).filter(function(it){
+                                            return  it.date.getDate() == date.getDate() &&
                                                 it.date.getMonth() == date.getMonth() &&
                                                 it.date.getFullYear() == date.getFullYear();
-                                    });
-                                if (cellType == 'day') {
-                                    if (items.length > 0) {
-                                        if (that.data.renderEvents) {
-                                            return {
-                                                html: [
-                                                    '<div class="datepicker__day">' + currentDate + '</div>',
-                                                    items.map(function(item){
-                                                        return [
-                                                            '<div class="datepicker__event">',
+                                        });
+                                    if (cellType == 'day') {
+                                        if (items.length > 0) {
+                                            if (that.data.renderEvents) {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__day">' + currentDate + '</div>',
+                                                        items.map(function(item){
+                                                            return [
+                                                                '<div class="datepicker__event">',
                                                                 '<a class="datepicker__event-link link" href="#" data-tooltip="' + item[that.data.eventTooltipColumn] + '">',
-                                                                    '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
-                                                                    '<div class="datepicker__event-text" style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;">' + item[that.data.eventTitleColumn] + '</div>',
+                                                                '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
+                                                                '<div class="datepicker__event-text" ',
+                                                                item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
+                                                                '>' + item[that.data.eventTitleColumn] + '</div>',
                                                                 '</a>',
-                                                            '</div>'
-                                                        ].join('')
-                                                    }).join('')
-                                                ].join('')
-                                            };
+                                                                '</div>'
+                                                            ].join('')
+                                                        }).join('')
+                                                    ].join('')
+                                                };
+                                            } else {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__day">' + currentDate,
+                                                        '<div class="datepicker__note">' + items.length + '</div>',
+                                                        '</div>'
+                                                    ].join('')
+                                                }
+                                            }
                                         } else {
                                             return {
-                                                html: [
-                                                    '<div class="datepicker__day">' + currentDate,
-                                                    '<div class="datepicker__note">' + items.length + '</div>',
-                                                    '</div>'
-                                                ].join('')
+                                                html: '<div class="datepicker__day">' + currentDate + '</div>'
                                             }
-                                        }
-                                    } else {
-                                        return {
-                                            html: '<div class="datepicker__day">' + currentDate + '</div>'
                                         }
                                     }
                                 }
@@ -2119,7 +2123,7 @@ $(function(){
                                 self.find('[data-tooltip]').tooltip('hide');
                                 if (date) {
                                     that.data._selectedItems = that.data.items.filter(function(it){
-                                        return typeof it.date == 'object';
+                                        return it.date && typeof it.date == 'object';
                                     }).filter(function(it){
                                         return  it.date.getDate() == date.getDate() &&
                                             it.date.getMonth() == date.getMonth() &&
