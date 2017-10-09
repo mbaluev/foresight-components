@@ -77,6 +77,10 @@
     color: #fff;
 }
 
+.calendar .datepicker--cell.-selected-, .datepicker--cell.-selected-.-current- {
+    color: inherit;
+}
+
 .calendar .datepicker__note {
     position: absolute;
     box-sizing: border-box;
