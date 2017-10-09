@@ -2194,7 +2194,15 @@ body {
   border-top: none;
 }
 
-.calendar .datepicker--cell {
+.calendar .datepicker__day {
+  position: relative;
+  padding: 8px;
+  border-radius: 16px;
+  min-width: 16px;
+  text-align: center;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day {
   height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2206,14 +2214,6 @@ body {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-}
-
-.calendar .datepicker__day {
-  position: relative;
-  padding: 8px;
-  border-radius: 16px;
-  min-width: 16px;
-  text-align: center;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day.-focus-,

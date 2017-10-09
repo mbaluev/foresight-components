@@ -43,18 +43,19 @@
     border-top: none;
 }
 
-.calendar .datepicker--cell {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
 .calendar .datepicker__day {
     position: relative;
     padding: 8px;
     border-radius: 16px;
     min-width: 16px;
     text-align: center;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day.-focus-,
