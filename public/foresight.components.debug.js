@@ -1969,7 +1969,7 @@ $(function(){
                         function render_general_tab(data, tabs, active){
                             tabs.push({
                                 id: 'general',
-                                name: 'Текст',
+                                name: null,
                                 active: active,
                                 content: $('<div class="card__table"></div>').append(that.render_table())
                             });
@@ -1978,9 +1978,9 @@ $(function(){
 
                     that.bind = function(){
                         that.data._el.button_today.on('click', function(){
-                            that.data._showModal = false;
+                            //that.data._showModal = false;
                             that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
-                            that.data._showModal = true;
+                            //that.data._showModal = true;
                         });
                     };
 
