@@ -1866,7 +1866,9 @@ $(function(){
                                                                 '</div>'
                                                             ].join('') : '')
                                                         }).join(''),
-                                                        (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : ''),
+                                                        '<div class="datepicker__more">',
+                                                            (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : ''),
+                                                        '</div>',
                                                     '</div>',
                                                     '</div>'
                                                 ].join('')
@@ -1906,8 +1908,10 @@ $(function(){
                                     that.data._el.card__name.find('.card__name-text').text(formattedDate);
                                     that.data._el.card__name.find('.card__name-text').text(formattedDate);
                                     if (that.data.events.render) {
-                                        if (that.data._showModal) {
-                                            that.render_modal();
+                                        if (that.data._selectedItems.length > 0) {
+                                            if (that.data._showModal) {
+                                                that.render_modal();
+                                            }
                                         }
                                     } else {
                                         that.data._el.calendar__table.empty().append(that.render_table());
