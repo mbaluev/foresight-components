@@ -2085,9 +2085,9 @@ $(function(){
                                                     items.map(function(item){
                                                         return [
                                                             '<div class="datepicker__event">',
-                                                                '<a class="datepicker__event-link link" href="#">',
-                                                                    '<div class="datepicker__indicator"><img src="/asyst/gantt/img/' + item.indicator + '.png"></div>',
-                                                                    '<div class="datepicker__event-text">' + item.name + '</div>',
+                                                                '<a class="datepicker__event-link link" href="#" data-tooltip="' + item.name + '">',
+                                                                    '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
+                                                                    '<div class="datepicker__event-text" style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;">' + item.name + '</div>',
                                                                 '</a>',
                                                             '</div>'
                                                         ].join('')
@@ -5273,5 +5273,8 @@ $(function(){
     };
 })( jQuery );
 $(function(){
-    $('[data-tooltip]').tooltip();
+    $('body').on('mouseover', '[data-tooltip]', function(event) {
+        $(event.currentTarget).tooltip();
+        $(event.currentTarget).trigger('mouseover.tooltip');
+    });
 });

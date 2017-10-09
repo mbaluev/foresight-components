@@ -186,5 +186,8 @@
     };
 })( jQuery );
 $(function(){
-    $('[data-tooltip]').tooltip();
+    $('body').on('mouseover', '[data-tooltip]', function(event) {
+        $(event.currentTarget).tooltip();
+        $(event.currentTarget).trigger('mouseover.tooltip');
+    });
 });
