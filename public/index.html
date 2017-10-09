@@ -1962,9 +1962,12 @@
                         fieldname: 'date'
                     }
                 ],
-                renderEvents: true,
-                eventTitleColumn: 'name',
-                eventTooltipColumn: 'name'
+                events: {
+                    render: true,
+                    TitleColumn: 'name',
+                    TooltipColumn: 'name',
+                    maxItems: 3
+                },
             });
             $('#gallery1').gallery({
                 items: [

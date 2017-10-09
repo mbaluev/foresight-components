@@ -1980,6 +1980,12 @@ $(function(){
                     that.defaults = {
                         items: [],
                         columns: [],
+                        events: {
+                            render: false,
+                            TitleColumn: 'date',
+                            TooltipColumn: 'date',
+                            maxItems: 3
+                        },
                         renderEvents: false,
                         eventTitleColumn: 'date',
                         eventTooltipColumn: 'date'
@@ -2083,22 +2089,23 @@ $(function(){
                                         });
                                     if (cellType == 'day') {
                                         if (items.length > 0) {
-                                            if (that.data.renderEvents) {
+                                            if (that.data.events.render) {
                                                 return {
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate + '</div>',
-                                                        items.map(function(item){
-                                                            return [
+                                                        items.map(function(item, i){
+                                                            return (i < that.data.events.maxItems ? [
                                                                 '<div class="datepicker__event">',
-                                                                '<a class="datepicker__event-link link" href="#" data-tooltip="' + item[that.data.eventTooltipColumn] + '">',
+                                                                '<a class="datepicker__event-link link" href="#" data-tooltip="' + item[that.data.events.TooltipColumn] + '">',
                                                                 '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
                                                                 '<div class="datepicker__event-text" ',
                                                                 item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
-                                                                '>' + item[that.data.eventTitleColumn] + '</div>',
+                                                                '>' + item[that.data.events.TitleColumn] + '</div>',
                                                                 '</a>',
                                                                 '</div>'
-                                                            ].join('')
-                                                        }).join('')
+                                                            ].join('') : '')
+                                                        }).join(''),
+                                                        (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : '')
                                                     ].join('')
                                                 };
                                             } else {
