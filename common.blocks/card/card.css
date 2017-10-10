@@ -32,6 +32,9 @@
     flex-wrap: wrap;
     justify-content: flex-end;
 }
+.card__header-column_start {
+    justify-content: flex-start;
+}
 .card__header-column_stretch {
     width: 100%;
 }
@@ -177,6 +180,7 @@
     z-index: 1;
     flex: 1 1 auto;
     display: flex;
+    width: 100%;
 }
 .card__middle-scroll {
     flex: 1 1 auto;

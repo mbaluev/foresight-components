@@ -3551,6 +3551,12 @@ body {
           justify-content: flex-end;
 }
 
+.card__header-column_start {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
 .card__header-column_stretch {
   width: 100%;
 }
@@ -3734,6 +3740,7 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  width: 100%;
 }
 
 .card__middle-scroll {

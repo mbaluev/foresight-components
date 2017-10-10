@@ -11,6 +11,8 @@ Asyst.GridView = function(options){
         metaviewnames: [],
         params: { ExpandGroup: false },
         views: {},
+        gridViewClassName: 'GridView',
+        gridViewClass: null,
         gridview: null,
         grid: null,
         data: null,
@@ -134,7 +136,7 @@ Asyst.GridView = function(options){
                 that.data.data = data;
                 that.init_settings();
                 that.render_view();
-                that.render_settings();
+                //that.render_settings();
                 that.loader_remove();
             },
             error: function(data){
@@ -390,7 +392,8 @@ Asyst.GridView = function(options){
                 that.init_header();
                 that.init_settings();
                 that.loader_remove();
-                that.data.gridview = new GridView({
+                that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
+                that.data.gridview = new that.data.gridViewClass({
                     containerid: that.data.containerid,
                     title: that.data.entitytitle,
                     header: that.data.header,

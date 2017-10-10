@@ -154,7 +154,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="radio-group"]').radio_group();
 });

@@ -1140,7 +1140,9 @@
                     }
                 ]
             };
-            var gridview = new GridView({
+            var gridViewClassName = 'GridView2';
+            var gridViewClass = (window || this)[gridViewClassName];
+            var gridview = new gridViewClass({
                 containerid: 'container',
                 title: 'Проекты',
                 header: {
@@ -1219,7 +1221,7 @@
                 },
                 render: render_grid
             });
-            gridview.render_settings_popup();
+            //gridview.render_settings_popup();
             function render_grid(){
                 var viewName = 'MyProjects';
                 var params = $.extend(splitGETString(), { viewSampleId: null });
