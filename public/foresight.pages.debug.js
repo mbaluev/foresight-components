@@ -1599,7 +1599,7 @@ var GridView3 = function(options){
                         '<span class="menu__item-link-content">',
                         '<span class="menu__icon icon icon_svg_list"></span>',
                         '<span class="menu__item-text">' + view.name + '</span>',
-                        '<span class="menu__item-text">123</span>',
+                        (view.count ? '<span class="menu__item-text">' + view.count + '</span>' : ''),
                         '</span>',
                         '</a>',
                         '</li>'
