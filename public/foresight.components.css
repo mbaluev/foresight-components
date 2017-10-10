@@ -1346,7 +1346,7 @@ body {
 
 .menu_color_light {
   background-color: #fafafa;
-  /*border-right: solid 1px #ccc;*/
+  border-right: solid 1px #ddd;
 }
 
 .menu_color_light .menu__item {
@@ -1358,6 +1358,10 @@ body {
 }
 
 .menu_color_light .menu__item-link:hover .menu__item-text {
+  color: #ff5940;
+}
+
+.menu_color_light .menu__item-link_selected .menu__item-text {
   color: #ff5940;
 }
 
