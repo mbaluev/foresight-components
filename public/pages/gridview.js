@@ -531,6 +531,8 @@ var GridView3 = function(options){
 
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
+            that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
+            $(this).addClass('menu__item-link_selected');
             var value = $(this).data('value');
             console.log(value);
             var view = that.data.header.views.filter(function(v){ return v.value == value; });
