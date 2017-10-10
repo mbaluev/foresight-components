@@ -5012,6 +5012,9 @@ $(function(){
         }
     };
 })( jQuery );
+$(function(){
+    $('[data-fc="card"]').card();
+});
 (function($){
     var methods = {
         init : function(options) {

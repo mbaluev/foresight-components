@@ -49,6 +49,9 @@
     flex-grow: 1;
     max-width: 100%;
 }
+.menu__item-text + .menu__item-text {
+    flex: 0 0 auto;
+}
 .menu__item-text + .icon {
     margin-left: 10px;
 }

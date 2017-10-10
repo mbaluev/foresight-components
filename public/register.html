@@ -1,0 +1,416 @@
+<!doctype html>
+<head>
+    <title>foresight-components</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+    <style>
+        .article > .alertbox,
+        .article > .button { margin: 0 5px 10px 0; }
+    </style>
+</head>
+<body class="page proximanova">
+<div class="fs-view">
+    <div class="fs-view__header">
+        <div class="header">
+            <div class="header__column header__column-left">
+                <button class="button" type="button" data-fc="button" id="button_toggle-menu">
+                    <span class="icon icon_svg_bars"></span>
+                </button>
+                <a class="button" href="dashboard.html" data-fc="button">
+                    <span class="icon icon_svg_home"></span>
+                </a>
+                <button class="button" type="button" data-fc="button">
+                    <span class="icon icon_svg_search"></span>
+                </button>
+            </div>
+            <div class="header__column header__column-right">
+                <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
+                    <span class="icon icon_svg_settings"></span>
+                    <span class="button__text mobile mobile_hide">Функциональный администратор</span>
+                    <span class="icon icon_svg_down"></span>
+                </button>
+                <div class="popup" id="account" data-position="bottom left" data-width="auto">
+                    <ul class="popup__list">
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="#">
+                                <span class="icon icon_svg_settings"></span>
+                                <span class="popup__text">Профиль</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="settings.html">
+                                <span class="popup__text">Центр настроек</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="#">
+                                <span class="popup__text">Администрирование</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="logout.html">
+                                <span class="popup__text">Выход</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fs-view__main">
+        <div class="fs-view__left">
+            <div class="menu" data-fc="menu">
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="index.html">
+                            <span class="menu__item-link-content">
+                                <span class="menu__item-text">Главная</span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="grid.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="docsearch.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Расширенный поиск документов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="dashboard.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="reports.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Центр отчетов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="bubble.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Баблчарт моих контрактов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="cloud.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Облако тэгов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="ktchart.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Визуализация иерархии контрольных точек</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Компоненты</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                        </a>
+                        <div class="menu menu__submenu-container">
+                            <ul class="menu__list menu__submenu">
+                                <li class="menu__item">
+                                    <a class="menu__item-link link" href="components.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Все</span>
+                                            </span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a class="menu__item-link link" href="icons.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Иконки</span>
+                                            </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fs-view__middle">
+            <div class="fs-view__middle-scroll">
+                <div class="card" data-fc="card">
+                    <div class="card__header">
+                        <div class="card__header-row">
+                            <div class="card__header-column">
+                                <button class="button button_clicked_out" type="button" data-fc="button" data-toggle="left">
+                                    <span class="icon icon_svg_double_left"></span>
+                                </button>
+                                <label class="card__name"><span class="card__name-text">Проекты</span></label>
+                            </div>
+                            <div class="card__header-column">
+                                <span class="input input__has-clear" data-fc="input" data-width="200">
+                                    <span class="input__box">
+                                        <span class="alertbox" data-fc="alertbox">
+                                            <span class="icon icon_svg_search"></span>
+                                        </span>
+                                        <input type="text" class="input__control">
+                                        <button class="button" type="button" data-fc="button">
+                                            <span class="icon icon_svg_close"></span>
+                                        </button>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card__main">
+                        <div class="card__left">
+                            <div class="menu menu_color_light" data-fc="menu">
+                                <ul class="menu__list">
+                                    <li class="menu__item" id="1">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__icon icon icon_svg_list"></span>
+                                                <span class="menu__item-text">Все проекты</span>
+                                                <span class="menu__item-text">121</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item" id="2">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__icon icon icon_svg_list"></span>
+                                                <span class="menu__item-text">Мои проекты</span>
+                                                <span class="menu__item-text">34</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item" id="3">
+                                        <a class="menu__item-link link">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__icon icon icon_svg_list"></span>
+                                                <span class="menu__item-text">Архив</span>
+                                                <span class="menu__item-text">97</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card__middle">
+                            <div class="card__middle-scroll">
+                                <div class="card__middle-inner">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td></td>
+                                            <td>Название</td>
+                                            <td class="mobile mobile_hide">Руководитель</td>
+                                            <td class="mobile mobile_hide">Стадия</td>
+                                            <td class="mobile mobile_hide">Моя роль</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93561?mode=view&amp;back=/">500-010. Автоматизация деятельности Департамента торговли и услуг</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93587?mode=view&amp;back=/">500-036. Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Функциональный заказчик</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93605?mode=view&amp;back=/">500-054. Обеспечение выпуска УЭК в 2017 году</a></td>
+                                            <td class="mobile mobile_hide">Новак Александр Валентинович</td>
+                                            <td class="mobile mobile_hide">Закрытие</td>
+                                            <td class="mobile mobile_hide">Зам.руководителя</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93621?mode=view&amp;back=/">500-070. Автоматизация деятельности Департамента капитального ремонта жилищного фонда</a></td>
+                                            <td class="mobile mobile_hide">Руководитель П.</td>
+                                            <td class="mobile mobile_hide">Закрытие</td>
+                                            <td class="mobile mobile_hide">Функциональный заказчик</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93633?mode=view&amp;back=/">500-082. Перевод государственной услуги "Лицензирование розничной продажи алкогольной продукции" в электронный вид</a></td>
+                                            <td class="mobile mobile_hide">Руководитель П.</td>
+                                            <td class="mobile mobile_hide">Закрытие</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93635?mode=view&amp;back=/">500-084. Повышение доступности услуг скорой и неотложной медицинской помощи</a></td>
+                                            <td class="mobile mobile_hide">Руководитель П.</td>
+                                            <td class="mobile mobile_hide">Постпроект</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93659?mode=view&amp;back=/">500-108. Автоматизация  деятельности Департамента природопользования и охраны окружающей среды  и подведомственных организаций</a></td>
+                                            <td class="mobile mobile_hide">Смирнов Александр Александрович</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Администратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93670?mode=view&amp;back=/">500-119. Автоматизация деятельности Департамента науки и промышленной политики</a></td>
+                                            <td class="mobile mobile_hide">Руководитель П.</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/93686?mode=view&amp;back=/">500-135. АИС обеспечения деятельности(и производства) опорных пунктов охраны общественного порядка в городе Москве</a></td>
+                                            <td class="mobile mobile_hide">Руководитель П.</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/156658?mode=view&amp;back=/">500-215. Working Program of "West Qurna II" Project</a></td>
+                                            <td class="mobile mobile_hide">Шмидт Александр</td>
+                                            <td class="mobile mobile_hide">Реализация</td>
+                                            <td class="mobile mobile_hide">Команда</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/167714?mode=view&amp;back=/">500-216. Подготовка тестовых объектов</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Закрытие</td>
+                                            <td class="mobile mobile_hide">Руководитель</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/168799?mode=view&amp;back=/">500-218. Повышение скорости работы сайта организации</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/168825?mode=view&amp;back=/">500-220. респлан</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Руководитель</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/168832?mode=view&amp;back=/">500-221. Проект</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Функциональный заказчик</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/169099?mode=view&amp;back=/">500-222. Календарный план, загруженный из mpp</a></td>
+                                            <td class="mobile mobile_hide">Системный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/169361?mode=view&amp;back=/">500-225. Проект без плана </a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Планирование</td>
+                                            <td class="mobile mobile_hide">Руководитель</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/191257?mode=view&amp;back=/">500-226. Проект АВ</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Функциональный заказчик</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/201878?mode=view&amp;back=/">500-249. Проект тест 06.12</a></td>
+                                            <td class="mobile mobile_hide">Системный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Куратор</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><img src="/asyst/gantt/img/svg/3.svg" title="Просрочено" class="indicator"></td>
+                                            <td><a class="link" href="/asyst/Project/form/auto/214274?mode=view&amp;back=/">500-327. Формирование типового календарного плана</a></td>
+                                            <td class="mobile mobile_hide">Функциональный Администратор</td>
+                                            <td class="mobile mobile_hide">Инициация</td>
+                                            <td class="mobile mobile_hide">Руководитель</td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="third/jquery-3.2.1.min.js"></script>
+<script src="third/jquery-ui.min.js"></script>
+<script src="third/jquery.event.drag-2.3.0.js"></script>
+<script src="third/jquery.event.drop-2.3.0.js"></script>
+<script src="third/highcharts.js"></script>
+
+<script src="foresight.third.min.js"></script>
+<script src="foresight.components.debug.js"></script>
+<script src="foresight.pages.min.js"></script>
+</body>
+</html>

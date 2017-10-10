@@ -139,3 +139,6 @@
         }
     };
 })( jQuery );
+$(function(){
+    $('[data-fc="card"]').card();
+});

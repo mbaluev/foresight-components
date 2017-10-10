@@ -1305,6 +1305,12 @@ body {
   max-width: 100%;
 }
 
+.menu__item-text + .menu__item-text {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
 .menu__item-text + .icon {
   margin-left: 10px;
 }
