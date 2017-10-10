@@ -442,6 +442,12 @@ var Dashboard = function(options){
         that.data._el.loader.remove();
     };
 
+    that.reload_widgets = function(){
+        that.data.grid[0].obj.options.items.map(function(widget){
+            widget.widget.widget('set_content');
+        });
+    };
+
     that.init = function(){
         that.loader_add();
         setTimeout(function(){

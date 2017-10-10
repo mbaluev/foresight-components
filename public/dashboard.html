@@ -475,10 +475,8 @@
                     ].join(''));
                     $button.button();
                     $button.on('click', function(){
-                        console.log($(this).radio_group('value'));
-                        dashboard.data.grid[0].obj.options.items.map(function(widget){
-                            widget.widget.widget('set_content');
-                        });
+                        console.log('reload_widgets');
+                        dashboard.reload_widgets();
                     });
                     var $button2 = $([
                         '<button class="button" type="button" data-fc="button">',
@@ -487,7 +485,7 @@
                     ].join(''));
                     $button2.button();
                     $button2.on('click', function(){
-                        console.log($(this).radio_group('value'));
+                        console.log('dashboard.data.grid[0].obj.options.items.map...');
                         dashboard.data.grid[0].obj.options.items.map(function(widget){
                             widget.widget.widget('set_content');
                         });
