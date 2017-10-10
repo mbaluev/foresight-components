@@ -16,7 +16,7 @@ var GridView = function(options){
         target: $('#' + that.data.containerid).css({ height: '100%' }),
         name: $([
             '<label class="card__name">',
-            '<span class="card__name-text card__name-text_no-margin"></span>',
+            '<span class="card__name-text"></span>',
             '</label>'
         ].join('')),
         select_view: $('<select class="select" data-fc="select"></select>'),
@@ -37,7 +37,7 @@ var GridView = function(options){
             '</div>'
         ].join('')),
         input_search: $([
-            '<span class="input input__has-clear" data-width="200">',
+            '<span class="input input__has-clear" data-width="150">',
             '<span class="input__box">',
             '<span class="alertbox" data-fc="alertbox">',
             '<span class="icon icon_svg_search"></span>',
@@ -53,8 +53,8 @@ var GridView = function(options){
         content: $([
             '<div class="card">',
                 '<div class="card__header">',
-                    '<div class="card__header-row card__header-row_wrap">',
-                        '<div class="card__header-column" id="grid__view"></div>',
+                    '<div class="card__header-row">',
+                        '<div class="card__header-column card__header-column_start" id="grid__view"></div>',
                         '<div class="card__header-column" id="grid__actions"></div>',
                     '</div>',
                 '</div>',
@@ -290,7 +290,7 @@ var GridView2 = function(options){
             that.data.header.views.forEach(function(view){
                 that.data._el.radio_group.append(
                     $([
-                        '<label class="radio radio_type_button" data-fc="radio" ' + (view.selected ? 'data-checked="true"' : '') + '>',
+                        '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + view.name + '" ' + (view.selected ? 'data-checked="true"' : '') + '>',
                             '<button class="button button_toggable_radio" type="button" data-fc="button">',
                                 '<span class="button__text">' + view.name + '</span>',
                             '</button>',
