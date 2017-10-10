@@ -1302,7 +1302,7 @@ var GridView = function(options){
 
     that.init_components = function(){
         that.data._el.select_view.select({
-            width: 'auto',
+            width: '200',
             popup_width: 'auto',
             mode: 'radio',
             autoclose: true,
