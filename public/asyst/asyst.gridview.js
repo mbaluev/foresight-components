@@ -60,7 +60,7 @@ Asyst.GridView = function(options){
                 }
             });
         } else {
-            if (that.data.viewname.isArray()) {
+            if (that.data.viewname instanceof Array) {
                 that.data.metaviewnames = that.data.viewname;
             } else {
                 that.data.metaviewnames.push(that.data.viewname);
