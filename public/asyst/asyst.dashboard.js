@@ -196,7 +196,7 @@ Asyst.Dashboard = function(options){
         editable: true,
         library: [],
         loader: null,
-        user: Asyst.Workspace.currentUser,
+        user: { Id: -1 }, //Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
         userdashboardid: null,
@@ -221,7 +221,7 @@ Asyst.Dashboard = function(options){
             dataId: that.data.userdashboardid,
             entityName: 'UserDashboard',
             data: {
-                AccountId: -1, //that.data.user.Id,
+                AccountId: that.data.user.Id,
                 PageName: that.data.page.pageName,
                 Items: JSON.stringify(that.data.items)
             },
