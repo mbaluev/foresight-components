@@ -236,10 +236,11 @@ Asyst.GridView = function(options){
         else
             $('.ext-filter-menu').hide();
 
-        $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
-        $('.search-clear').click(window[viewName].QuickFilterClear);
+        //$('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
+        //$('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
-            window[viewName].CollapseAllGroups();
+            //window[viewName].CollapseAllGroups();
+            view.CollapseAllGroups();
         }
 
         if (params.hasOwnProperty("ExpandGroup"))
