@@ -64,9 +64,9 @@ Asyst.GridView = function(options){
                 that.data.metaviewnames = that.data.viewname;
             } else {
                 that.data.metaviewnames.push(that.data.viewname);
-                if (typeof callback == 'function') {
-                    callback();
-                }
+            }
+            if (typeof callback == 'function') {
+                callback();
             }
         }
     };
