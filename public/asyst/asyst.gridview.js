@@ -243,8 +243,8 @@ Asyst.GridView = function(options){
             view.CollapseAllGroups();
         }
 
-        if (params.hasOwnProperty("ExpandGroup"))
-            if (params.ExpandGroup == "true")
+        if (that.data.params.hasOwnProperty("ExpandGroup"))
+            if (that.data.params.ExpandGroup == "true")
                 view.ExpandAllGroups();
             else
                 view.CollapseAllGroups();
@@ -258,7 +258,7 @@ Asyst.GridView = function(options){
             view.DataView.refresh();
             needInvalidate = true;
             //$('#BrowseSearchGroup').hide();
-            if (!params.hideFilterPanel)
+            if (!that.data.params.hideFilterPanel)
                 MakeFilterLine(filterArgs);
             ToggleClearFilterButton(true);
         } else {
