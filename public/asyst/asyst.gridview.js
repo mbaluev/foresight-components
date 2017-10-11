@@ -218,6 +218,7 @@ Asyst.GridView = function(options){
         }
         view.viewName = that.data.viewname;
         that.data.grid = view;
+        window[that.data.viewname] = that.data.grid;
 
         $(window).resize(function(){
             if (grid) grid.resizeCanvas();
@@ -239,8 +240,8 @@ Asyst.GridView = function(options){
         //$('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         //$('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
-            //window[viewName].CollapseAllGroups();
-            view.CollapseAllGroups();
+            //window[viewName].CollapseAllGroups(); //old
+            view.CollapseAllGroups(); //new
         }
 
         if (that.data.params.hasOwnProperty("ExpandGroup"))
@@ -297,7 +298,6 @@ Asyst.GridView = function(options){
             view.Grid.invalidate();
         }
 
-
         //быстрокостыль для нового хрома и ширины реестра
         {
             $('#view').css({width: '1200px'});
@@ -305,10 +305,8 @@ Asyst.GridView = function(options){
                 $('#view').css({width: '100%'});
             }, 100);
         }
-
         // было закоментировано
         // --------------------
-
         //Loader.hide();
     };
     that.render_settings = function(){
