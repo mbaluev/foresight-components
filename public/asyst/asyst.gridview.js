@@ -222,7 +222,10 @@ Asyst.GridView = function(options){
         $(window).resize(function(){
             if (grid) grid.resizeCanvas();
         });
-        /*
+
+        // --------------------
+        // было закоментировано
+
         if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
             $('#menuItemAdd').hide();
         else
@@ -293,6 +296,7 @@ Asyst.GridView = function(options){
             view.Grid.invalidate();
         }
 
+
         //быстрокостыль для нового хрома и ширины реестра
         {
             $('#view').css({width: '1200px'});
@@ -300,8 +304,11 @@ Asyst.GridView = function(options){
                 $('#view').css({width: '100%'});
             }, 100);
         }
-        Loader.hide();
-        */
+
+        // было закоментировано
+        // --------------------
+
+        //Loader.hide();
     };
     that.render_settings = function(){
         that.data.gridview.data.header.settings = that.data.header.settings;
