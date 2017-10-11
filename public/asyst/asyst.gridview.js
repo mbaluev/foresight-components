@@ -79,7 +79,7 @@ Asyst.GridView = function(options){
             success: function(data){
                 if (data[0]) {
                     var metaview = data[0];
-                    if (that.data.viewname) {
+                    if (!(that.data.viewname instanceof Array)) {
                         metaview = metaview.filter(function(view){ return view.viewName = that.data.viewname; });
                     }
                     metaview.map(function(view, i){
