@@ -64,7 +64,8 @@ var pages_js = [
     'public/pages/dashboardgrid.js',
     'public/pages/docsearch.js',
     'public/pages/gridview.js',
-    'public/pages/reports.js'
+    'public/pages/reports.js',
+    'public/pages/grid.js'
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);
