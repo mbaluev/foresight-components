@@ -4,6 +4,7 @@ Asyst.GridView = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: 'container',
+        title: null,
         entityname: null,
         entitytitle: null,
         viewname: null,
@@ -90,7 +91,9 @@ Asyst.GridView = function(options){
                         if (i == 0) {
                             that.data.viewname = view.viewName;
                             that.data.viewtitle = view.viewTitle;
-                            that.data.entitytitle = view.entityTitle;
+                            if (!that.data.title) {
+                                that.data.title = view.entityTitle;
+                            }
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
                             Asyst.Workspace.addView({
@@ -342,7 +345,7 @@ Asyst.GridView = function(options){
                 icon: 'icon_svg_plus',
                 name: 'Добавить',
                 onclick: function(){
-                    Asyst.Workspace.openEntityDialog(that.data.entityname, that.data.entitytitle, null, function(){
+                    Asyst.Workspace.openEntityDialog(that.data.entityname, that.data.title, null, function(){
                         that.load_view();
                     });
                 }
@@ -399,7 +402,7 @@ Asyst.GridView = function(options){
                 that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
                 that.data.gridview = new that.data.gridViewClass({
                     containerid: that.data.containerid,
-                    title: that.data.entitytitle,
+                    title: that.data.title,
                     header: that.data.header,
                     render: that.load_view
                 });
