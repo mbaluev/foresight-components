@@ -218,6 +218,8 @@ Asyst.GridView = function(options){
         }
         view.viewName = that.data.viewname;
         that.data.grid = view;
+
+        viewName = that.data.viewname;
         window[that.data.viewname] = that.data.grid;
 
         $(window).resize(function(){
