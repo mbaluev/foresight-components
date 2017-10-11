@@ -35,6 +35,9 @@
     cursor: pointer;
     background-color: rgba(255,255,255,0.1);
 }
+.menu__item-link_selected {
+    background-color: rgba(255,255,255,0.1);
+}
 .menu__item-link-content {
     display: flex;
     justify-content: flex-start;
@@ -77,6 +80,9 @@
     padding-left: 20px;
 }
 .menu__submenu .menu__item-link:hover {
+    background-color: rgba(51,51,51,0.15);
+}
+.menu__submenu .menu__item-link_selected {
     background-color: rgba(51,51,51,0.15);
 }
 
