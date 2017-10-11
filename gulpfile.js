@@ -41,7 +41,7 @@ var third_js = [
     'public/third/slickgrid/plugins/slick.rowselectionmodel.js',
     'public/third/slickgrid/plugins/asyst.rowselectionmodel.js',
     'public/third/slickgrid/plugins/slick.checkboxselectcolumn.js',
-    'public/third/slickgrid/slick.grid.js',
+    'public/third/slickgrid/slick.gridboard.js',
     'public/third/slickgrid/slick.groupitemmetadataprovider.js',
     'public/third/slickgrid/slick.dataview.js',
     'public/third/slickgrid/controls/slick.pager.js',
@@ -65,7 +65,7 @@ var pages_js = [
     'public/pages/docsearch.js',
     'public/pages/gridview.js',
     'public/pages/reports.js',
-    'public/pages/grid.js'
+    'public/pages/gridboard.js'
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);

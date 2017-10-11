@@ -2003,8 +2003,8 @@ var Reports = function(options){
     that.init();
     return that;
 };
-var Grid = function(options){
-    var that = this._grid = {};
+var GridBoard = function(options){
+    var that = this._gridboard = {};
     that.data = {
         title: null,
         items: [],
