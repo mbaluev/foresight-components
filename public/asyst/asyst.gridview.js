@@ -60,9 +60,13 @@ Asyst.GridView = function(options){
                 }
             });
         } else {
-            that.data.metaviewnames.push(that.data.viewname);
-            if (typeof callback == 'function') {
-                callback();
+            if (that.data.viewname.isArray()) {
+                that.data.metaviewnames = that.data.viewname;
+            } else {
+                that.data.metaviewnames.push(that.data.viewname);
+                if (typeof callback == 'function') {
+                    callback();
+                }
             }
         }
     };

@@ -456,10 +456,11 @@
                     ].join('')
                 }
             ];
+            var $select;
             dashboard = new Dashboard({
                 title: 'Дашборд',
                 containerid: 'container',
-                //tumblerContainerSelector: '.header__column-right',
+                tumblerContainerSelector: '.header__column-right',
                 items: items,
                 library: library,
                 loader: $.extend(Asyst.ContentLoader, { contents: contents }),
@@ -491,6 +492,20 @@
                         });
                     });
                     return [$button, $button2];
+                    /*
+                    $select = $([
+                        '<select class="select">',
+                        '<option value="1" selected>1</option>',
+                        '<option value="2">2</option>',
+                        '<option value="3">3</option>',
+                        '</select>'
+                    ].join(''));
+                    $select.on('change', function(){
+                        var value = $(this).val();
+                        console.log(value);
+                    });
+                    return $select;
+                    */
                 }
             });
         });
