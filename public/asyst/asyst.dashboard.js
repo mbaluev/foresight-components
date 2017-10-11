@@ -221,7 +221,7 @@ Asyst.Dashboard = function(options){
             dataId: that.data.userdashboardid,
             entityName: 'UserDashboard',
             data: {
-                AccountId: that.data.user.Id,
+                AccountId: -1, //that.data.user.Id,
                 PageName: that.data.page.pageName,
                 Items: JSON.stringify(that.data.items)
             },
