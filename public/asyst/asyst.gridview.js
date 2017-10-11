@@ -10,7 +10,7 @@ Asyst.GridView = function(options){
         viewname: null,
         viewtitle: null,
         metaviewnames: [],
-        params: { ExpandGroup: false },
+        params: splitGETString(),
         views: {},
         gridViewClassName: 'GridView',
         gridViewClass: null,
@@ -242,8 +242,7 @@ Asyst.GridView = function(options){
         //$('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         //$('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
-            //window[viewName].CollapseAllGroups(); //old
-            view.CollapseAllGroups(); //new
+            window[viewName].CollapseAllGroups();
         }
 
         if (that.data.params.hasOwnProperty("ExpandGroup"))
