@@ -104,7 +104,9 @@
                                 } else {
                                     that.show_left();
                                 }
-                                //that.data._el.button_toggle_left.find('.icon').addClass('icon_animate');
+                                setTimeout(function(){
+                                    that.data._el.button_toggle_left.find('.icon').addClass('icon_animate');
+                                }, 500);
                             }
                         }
                         if (that.data._el.button_toggle_right) {
@@ -115,7 +117,9 @@
                                 } else {
                                     that.show_right();
                                 }
-                                //that.data._el.button_toggle_right.find('.icon').addClass('icon_animate');
+                                setTimeout(function(){
+                                    that.data._el.button_toggle_right.find('.icon').addClass('icon_animate');
+                                }, 500);
                             }
                         }
                     };
