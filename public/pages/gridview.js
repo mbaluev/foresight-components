@@ -396,7 +396,7 @@ var GridView3 = function(options){
         target: $('#' + that.data.containerid).css({ height: '100%' }),
         button_toggle_left: $([
             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-            '<span class="icon icon_svg_double_left"></span>',
+            '<span class="icon icon_svg_double_right"></span>',
             '</button>',
         ].join('')),
         name: $([
