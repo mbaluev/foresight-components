@@ -188,6 +188,13 @@
 }
 .card__middle-inner {}
 
+.card__left + .card__middle {
+    width: calc(100% - 230px);
+}
+.card__left.card__left_hidden + .card__middle {
+    width: 100%;
+}
+
 .card__backdrop {
     display: none;
     visibility: hidden;
