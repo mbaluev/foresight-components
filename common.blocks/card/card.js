@@ -15,7 +15,6 @@
 
                     /* save widget options to self.data */
                     self.data(that.options);
-
                     that.data._el = {
                         button_toggle_left: self.closestChild('[data-toggle="left"]'),
                         button_toggle_right: self.closestChild('[data-toggle="right"]'),
@@ -105,6 +104,7 @@
                                 } else {
                                     that.show_left();
                                 }
+                                that.data._el.button_toggle_left.find('.icon').toggleClass('icon_animate');
                             }
                         }
                         if (that.data._el.button_toggle_right) {
@@ -115,6 +115,7 @@
                                 } else {
                                     that.show_right();
                                 }
+                                that.data._el.button_toggle_right.find('.icon').toggleClass('icon_animate');
                             }
                         }
                     };

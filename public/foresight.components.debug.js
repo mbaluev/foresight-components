@@ -1760,7 +1760,7 @@ $(function(){
                         ].join('')),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_animate icon_svg_double_right"></span>',
+                            '<span class="icon icon_svg_double_right"></span>',
                             '</button>'
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
@@ -2309,7 +2309,7 @@ $(function(){
                         card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_animate icon_svg_double_right"></span>',
+                            '<span class="icon icon_svg_double_right"></span>',
                             '</button>'
                         ].join('')),
 
@@ -4887,7 +4887,6 @@ $(function(){
 
                     /* save widget options to self.data */
                     self.data(that.options);
-
                     that.data._el = {
                         button_toggle_left: self.closestChild('[data-toggle="left"]'),
                         button_toggle_right: self.closestChild('[data-toggle="right"]'),
@@ -4977,6 +4976,7 @@ $(function(){
                                 } else {
                                     that.show_left();
                                 }
+                                that.data._el.button_toggle_left.find('.icon').toggleClass('icon_animate');
                             }
                         }
                         if (that.data._el.button_toggle_right) {
@@ -4987,6 +4987,7 @@ $(function(){
                                 } else {
                                     that.show_right();
                                 }
+                                that.data._el.button_toggle_right.find('.icon').toggleClass('icon_animate');
                             }
                         }
                     };
