@@ -104,7 +104,7 @@
                                 } else {
                                     that.show_left();
                                 }
-                                that.data._el.button_toggle_left.find('.icon').toggleClass('icon_animate');
+                                //that.data._el.button_toggle_left.find('.icon').addClass('icon_animate');
                             }
                         }
                         if (that.data._el.button_toggle_right) {
@@ -115,7 +115,7 @@
                                 } else {
                                     that.show_right();
                                 }
-                                that.data._el.button_toggle_right.find('.icon').toggleClass('icon_animate');
+                                //that.data._el.button_toggle_right.find('.icon').addClass('icon_animate');
                             }
                         }
                     };
