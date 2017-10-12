@@ -30,7 +30,7 @@
                         ].join('')),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_left"></span>',
+                            '<span class="icon icon_animate icon_svg_double_right"></span>',
                             '</button>'
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),

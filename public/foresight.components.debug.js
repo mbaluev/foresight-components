@@ -1760,7 +1760,7 @@ $(function(){
                         ].join('')),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_left"></span>',
+                            '<span class="icon icon_animate icon_svg_double_right"></span>',
                             '</button>'
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
@@ -2309,7 +2309,7 @@ $(function(){
                         card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_left"></span>',
+                            '<span class="icon icon_animate icon_svg_double_right"></span>',
                             '</button>'
                         ].join('')),
 
@@ -4902,15 +4902,18 @@ $(function(){
                     };
 
                     that.hide_left = function(){
+                        that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
                     };
                     that.hide_right = function(){
+                        that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
                     };
 
                     that.show_left = function(){
+                        that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__left.removeClass('card__left_hidden');
                         that.data._el.card__main.append(
                             that.data._el.card__backdrop.one('click', function(){
@@ -4920,6 +4923,7 @@ $(function(){
                         );
                     };
                     that.show_right = function(){
+                        that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__right.removeClass('card__right_hidden');
                         that.data._el.card__main.append(
                             that.data._el.card__backdrop.one('click', function(){
