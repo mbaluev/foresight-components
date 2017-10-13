@@ -34,6 +34,7 @@
                                 });
                             } else {
                                 $itemlink.on('click', function(){
+                                    self.find('.menu__item-link').removeClass('menu__item-link_selected');
                                     $(this).addClass('menu__item-link_selected');
                                 });
                             }
