@@ -218,7 +218,11 @@
                             ].join(''));
                             that.data.private.items.map(function(item){
                                 if (item.groupingnameid == d.groupingnameid) {
-                                    item.icon = 'icon_svg_document';
+                                    if (item.sectionnameid == 1) {
+                                        item.icon = 'icon_svg_document';
+                                    } else {
+                                        item.icon = 'icon_svg_chart';
+                                    }
                                     var $menu__subitem = $([
                                         '<li class="menu__item" id=' + item.nameid + '>',
                                         '<a class="menu__item-link link">',
