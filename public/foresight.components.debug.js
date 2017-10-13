@@ -2027,9 +2027,8 @@ $(function(){
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
                         card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
+                        card__middle: $('<div class="card__middle" id="frame"></div>'),
+                        visit__frame_container: $('<div class="visit__frame-container"></div>'),
                         menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
 
                         select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
@@ -2209,7 +2208,12 @@ $(function(){
                                         if (that.data.onItemClick) {
                                             if (typeof(that.data.onItemClick) == 'function') {
                                                 that.data._el.card__middle.empty();
-                                                that.data._el.card__middle.append(that.data.onItemClick(item));
+                                                that.data._el.card__middle.append(
+                                                    that.data._el.visit__frame_container
+                                                );
+                                                var frameid = 'VisitFrame_' + Date.now();
+                                                that.data._el.visit__frame_container.attr('id', frameid);
+                                                that.data.onItemClick(item, frameid);
                                             }
                                         }
                                     });
