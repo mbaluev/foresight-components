@@ -90,6 +90,7 @@
                         node.settings.reloadable = true;
                         node.settings.loader = that.data.loader;
                         node.settings.library = that.data.library;
+                        node.settings.params = that.data.params;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
                         _.unset(node, 'settings');
