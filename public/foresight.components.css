@@ -1369,6 +1369,10 @@ body {
   border-bottom: none;
 }
 
+.menu_color_light .menu__item-link:hover {
+  background-color: transparent;
+}
+
 .menu_color_light .menu__item-link .menu__item-text {
   color: #333;
 }
@@ -1390,6 +1394,10 @@ body {
 }
 
 .menu_color_light .menu__submenu .menu__item-link:hover {
+  background-color: transparent;
+}
+
+.menu_color_light .menu__submenu .menu__item-link_selected {
   background-color: transparent;
 }
 
