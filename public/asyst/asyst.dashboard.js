@@ -12,7 +12,8 @@ Asyst.PageDashboard = function(options){
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         headerExtraControlsRenderer: null,
-        tumblerContainerSelector: null
+        tumblerContainerSelector: null,
+        params: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -91,7 +92,8 @@ Asyst.PageDashboard = function(options){
                 loader: Asyst.MetaElementLoader,
                 page: that.data.page,
                 headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
-                tumblerContainerSelector: that.data.tumblerContainerSelector
+                tumblerContainerSelector: that.data.tumblerContainerSelector,
+                params: that.data.params
             });
         });
     };
@@ -113,7 +115,8 @@ Asyst.Dashboard = function(options){
         userdashboardid: null,
         dashboard: null,
         headerExtraControlsRenderer: null,
-        tumblerContainerSelector: null
+        tumblerContainerSelector: null,
+        params: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -226,7 +229,8 @@ Asyst.Dashboard = function(options){
                     that.saveItems(items);
                 },
                 headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
-                tumblerContainerSelector: that.data.tumblerContainerSelector
+                tumblerContainerSelector: that.data.tumblerContainerSelector,
+                params: that.data.params
             });
         });
     };
