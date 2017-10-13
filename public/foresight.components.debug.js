@@ -2206,7 +2206,12 @@ $(function(){
                                     $menu__item.find('.menu__list').append($menu__subitem);
                                     $menu__subitem.find('.menu__item-link').on('click', function(){
                                         that.data.current.item = item;
-                                        that.render_iframe();
+                                        if (that.data.onItemClick) {
+                                            if (typeof(that.data.onItemClick) == 'function') {
+                                                that.data._el.card__middle.empty();
+                                                that.data._el.card__middle.append(that.data.onItemClick(item));
+                                            }
+                                        }
                                     });
                                 }
                             });
@@ -2215,32 +2220,6 @@ $(function(){
                         that.data._el.menu.append($menu__list);
                         that.data._el.menu.menu();
                         that.loader_remove();
-                    };
-                    that.render_iframe = function(){
-                        that.data._el.card__middle.empty();
-                        var id = 'iframe_' + that.data.current.item.nameid;
-                        var $iframe_container = $([
-                            '<div class="visit__iframe-container">',
-                            '<div class="spinner spinner_align_center"></div>',
-                            '</div>'
-                        ].join(''));
-                        var $iframe = $('<iframe class="visit__iframe_hidden" id="'+ id +'" ischartsinit="chart"></iframe>');
-                        $iframe_container.append($iframe);
-                        that.data._el.card__middle.append($iframe_container);
-
-                        function iframe(id, src){
-                            this.iframe = document.getElementById(id);
-                            this.iframe.onload = function(){
-                                $iframe_container.find('.spinner').remove();
-                                $iframe.removeClass('visit__iframe_hidden');
-                            };
-                            this.iframe.onerror = function(){
-                                $iframe_container.text('error');
-                                $iframe_container.find('.spinner').remove();
-                            };
-                            this.iframe.src = src;
-                        }
-                        var frame = new iframe(id, that.data.current.item.link);
                     };
 
                     that.loader_add = function(container){
