@@ -4887,11 +4887,13 @@ $(function(){
                         that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
+                        $(window).trigger('resize');
                     };
                     that.hide_right = function(){
                         that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
+                        $(window).trigger('resize');
                     };
 
                     that.show_left = function(){
@@ -4903,6 +4905,7 @@ $(function(){
                                 that.hide_right();
                             })
                         );
+                        $(window).trigger('resize');
                     };
                     that.show_right = function(){
                         that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
@@ -4913,6 +4916,7 @@ $(function(){
                                 that.hide_right();
                             })
                         );
+                        $(window).trigger('resize');
                     };
 
                     that.toggle_left = function(){
