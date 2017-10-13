@@ -173,6 +173,11 @@
             return this.each(function() {
                 this.tooltip.update(tooltip);
             });
+        },
+        clear : function(e) {
+            return this.each(function() {
+                $('.tooltip').remove();
+            });
         }
     };
     $.fn.tooltip = function( method ) {

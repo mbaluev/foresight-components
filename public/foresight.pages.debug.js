@@ -25,70 +25,80 @@ var Dashboard = function(options){
         grid: null,
         add: function(data){},
         save: function(data){},
-        headerExtraControlsRenderer: null
+        headerExtraControlsRenderer: null,
+        params: null
     };
     that.data = $.extend(that.data, options);
+
     that.data._el = {
         target: $('#' + that.data.containerid),
-        grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
-        title: $([
-            '<label class="card__name">',
-            '<span class="card__name-text"></span>',
-            '</label>'
-        ].join('')),
-        tumbler: $([
-            '<span class="header__column-item tumbler" id="tumbler_edit-page">',
-            '<span class="tumbler__box">',
-            '<div class="tumbler__sticker tumbler__sticker_position_left">',
-            '<div class="tumbler__sticker-label">Вкл</div>',
-            '</div>',
-            '<div class="tumbler__sticker tumbler__sticker_position_right">',
-            '<div class="tumbler__sticker-label">Выкл</div>',
-            '</div>',
-            '<button class="button" type="button" data-fc="button">',
-            '<span class="icon icon_svg_edit"></span>',
-            '<span class="button__anim"></span>',
-            '</button>',
-            '</span>',
-            '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
-            '</span>'
-        ].join('')).tumbler(),
-        button_group: $('<span class="button-group header__column-item"></span>'),
-        button_add: $([
-            '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
-            '<span class="icon icon_svg_plus"></span>',
-            '<span class="button__text mobile mobile_hide">Добавить</span>',
-            '<span class="button__anim"></span>',
-            '</button>'
-        ].join('')).button(),
-        button_save: $([
-            '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
-            '<span class="icon icon_svg_save"></span>',
-            '<span class="button__text mobile mobile_hide">Сохранить</span>',
-            '<span class="button__anim"></span>',
-            '</button>',
-        ].join('')).button(),
-        card: $('<div class="card"></div>'),
-        card__header: $([
-            '<div class="card__header">',
-            '<div class="card__header-row">',
-                '<div class="card__header-column" id="name"></div>',
-                '<div class="card__header-column" id="actions"></div>',
-            '</div>',
-            '</div>'
-        ].join('')),
-        card__main: $([
-            '<div class="card__main">',
-            '<div class="card__middle">',
-            '<div class="card__middle-scroll" id="card__middle-scroll">',
-            '</div>',
-            '</div>',
-            '</div>'
-        ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
 
     that.render_card = function(){
+        // remove for reloading success - begin
+        $('body').tooltip('clear');
+        if (that.data._el.tumbler) {
+            that.data._el.tumbler.remove();
+        }
+        // remove for reloading success - end
+        $.extend(that.data._el, {
+            grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
+            title: $([
+                '<label class="card__name">',
+                '<span class="card__name-text"></span>',
+                '</label>'
+            ].join('')),
+            tumbler: $([
+                '<span class="header__column-item tumbler" id="tumbler_edit-page">',
+                '<span class="tumbler__box">',
+                '<div class="tumbler__sticker tumbler__sticker_position_left">',
+                '<div class="tumbler__sticker-label">Вкл</div>',
+                '</div>',
+                '<div class="tumbler__sticker tumbler__sticker_position_right">',
+                '<div class="tumbler__sticker-label">Выкл</div>',
+                '</div>',
+                '<button class="button" type="button" data-fc="button">',
+                '<span class="icon icon_svg_edit"></span>',
+                '<span class="button__anim"></span>',
+                '</button>',
+                '</span>',
+                '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
+                '</span>'
+            ].join('')).tumbler(),
+            button_group: $('<span class="button-group header__column-item"></span>'),
+            button_add: $([
+                '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
+                '<span class="icon icon_svg_plus"></span>',
+                '<span class="button__text mobile mobile_hide">Добавить</span>',
+                '<span class="button__anim"></span>',
+                '</button>'
+            ].join('')).button(),
+            button_save: $([
+                '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
+                '<span class="icon icon_svg_save"></span>',
+                '<span class="button__text mobile mobile_hide">Сохранить</span>',
+                '<span class="button__anim"></span>',
+                '</button>',
+            ].join('')).button(),
+            card: $('<div class="card"></div>'),
+            card__header: $([
+                '<div class="card__header">',
+                '<div class="card__header-row">',
+                '<div class="card__header-column" id="name"></div>',
+                '<div class="card__header-column" id="actions"></div>',
+                '</div>',
+                '</div>'
+            ].join('')),
+            card__main: $([
+                '<div class="card__main">',
+                '<div class="card__middle">',
+                '<div class="card__middle-scroll" id="card__middle-scroll">',
+                '</div>',
+                '</div>',
+                '</div>'
+            ].join(''))
+        });
         that.data._el.target.empty();
         that.data._el.target.append(
             that.data._el.card
@@ -225,6 +235,7 @@ var Dashboard = function(options){
             that.data._el.button_save
         );
     };
+
     that.render_single = function(){
         if (that.data.single) {
             if (that.data.items.length > 0) {
@@ -241,6 +252,7 @@ var Dashboard = function(options){
                 items: that.data.items,
                 loader: that.data.loader,
                 library: that.data.library,
+                params: that.data.params,
                 widget_buttons: [
                     {
                         id: 'button_settings',
@@ -442,10 +454,43 @@ var Dashboard = function(options){
         that.data._el.loader.remove();
     };
 
-    that.reload_widgets = function(){
-        that.data.grid[0].obj.options.items.map(function(widget){
-            widget.widget.widget('set_content');
-        });
+    that.reload = {
+        dashboard: function(options, params){
+            that.data = $.extend(that.data, options, { params: params });
+            that.init();
+        },
+        widgets: function(options, params){
+            that.data.grid[0].obj.options.items.map(function(item){
+                $.extend(item.widget.data(), options, { params: params });
+                item.widget.widget('set_name');
+                item.widget.widget('set_color');
+                item.widget.widget('set_content');
+            });
+        },
+        widget: function(id, options, params){
+            var item = that.data.grid[0].obj.options.items.filter(function(d){
+                return d._id == id;
+            });
+            if (item.length > 0) {
+                item = item[0];
+                $.extend(item.widget.data(), options, { params: params });
+                item.widget.widget('set_name');
+                item.widget.widget('set_color');
+                item.widget.widget('set_content');
+            }
+        },
+        element: function(elementname, options, params){
+            var item = that.data.grid[0].obj.options.items.filter(function(d){
+                return d.widget[0].obj.data.elementname == elementname;
+            });
+            if (item.length > 0) {
+                item = item[0];
+                $.extend(item.widget.data(), options, { params: params });
+                item.widget.widget('set_name');
+                item.widget.widget('set_color');
+                item.widget.widget('set_content');
+            }
+        }
     };
 
     that.init = function(){

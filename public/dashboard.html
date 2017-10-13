@@ -190,7 +190,7 @@
     <script>
         var dashboard;
         $(function(){
-            var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"name":"Логотип","collapsed":false,"color":"#ccc","pagename":"LibraryMisc","elementname":"Logo"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"name":"Календарь","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":4,"y":0,"width":2,"height":5,"settings":{"name":"Мои совещания","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyMeetings"}},{"x":6,"y":0,"width":2,"height":5,"settings":{"name":"Риски моих проектов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyRisksPie"}},{"x":0,"y":5,"width":2,"height":3,"settings":{"name":"Сообщения для меня","collapsed":true,"color":"#ff5940","pagename":null,"elementname":null}},{"x":6,"y":5,"width":2,"height":5,"settings":{"name":"Мои поручения","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyOrders"}},{"x":4,"y":5,"width":2,"height":5,"settings":{"name":"Инициативы для меня","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"ForMeInitiative"}},{"x":0,"y":8,"width":2,"height":5,"settings":{"name":"Мои КТ","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyPoints"}},{"x":2,"y":8,"width":2,"height":5,"settings":{"name":"КТ от меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"PointsFromMe"}},{"x":6,"y":10,"width":2,"height":5,"settings":{"name":"Бабл чарт моих контрактов","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyContractBubble"}},{"x":4,"y":10,"width":2,"height":5,"settings":{"name":"Мои инициативы","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyInitiative"}},{"x":1,"y":13,"width":3,"height":3,"settings":{"name":"Панель руководителя","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":0,"y":13,"width":1,"height":3,"settings":{"name":"Мои статус-отчеты","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":2,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChReqForMe"}},{"x":3,"y":19,"width":1,"height":3,"settings":{"name":"Проекты на стадию","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"MyProjectMoveToNextPhase"}},{"x":4,"y":15,"width":4,"height":7,"settings":{"name":"Матрица рисков","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"RiskMatrix"}},{"x":0,"y":16,"width":1,"height":3,"settings":{"name":"ОВ для меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyLov"}},{"x":1,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение от меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"ChReqFromMe"}},{"x":0,"y":19,"width":1,"height":3,"settings":{"name":"Мои инициативы на рассмотрении ЦПО","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyInitCPO"}},{"x":1,"y":19,"width":1,"height":3,"settings":{"name":"Мои документы","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyDocs"}},{"x":3,"y":16,"width":1,"height":3,"settings":{"name":"ОВ от меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"LovFromMe"}},{"x":2,"y":19,"width":1,"height":3,"settings":{"name":"Чек-листы для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChListForMe"}},{"x":8,"y":0,"width":4,"height":9,"settings":{"name":"Мои проекты","collapsed":true,"color":"#ccc","pagename":"LibraryTable","elementname":"MyProjects"}},{"x":8,"y":9,"width":4,"height":13,"settings":{"name":"Мои контракты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyContracts"}}];
+            var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"name":"Логотип","collapsed":false,"color":"#ccc","pagename":"LibraryMisc","elementname":"Logo"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"name":"Календарь","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":4,"y":0,"width":2,"height":5,"settings":{"name":"Мои совещания","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyMeetings"}},{"x":6,"y":0,"width":2,"height":5,"settings":{"name":"Риски моих проектов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyRisksPie"}},{"x":0,"y":5,"width":2,"height":3,"settings":{"name":"Сообщения для меня","collapsed":true,"color":"#ff5940","pagename":null,"elementname":null}},{"x":6,"y":5,"width":2,"height":5,"settings":{"name":"Мои поручения","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyOrders"}},{"x":4,"y":5,"width":2,"height":5,"settings":{"name":"Инициативы для меня","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"ForMeInitiative"}},{"x":0,"y":8,"width":2,"height":5,"settings":{"name":"Мои КТ","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyPoints"}},{"x":2,"y":8,"width":2,"height":5,"settings":{"name":"КТ от меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"PointsFromMe"}},{"x":6,"y":10,"width":2,"height":5,"settings":{"name":"Бабл чарт моих контрактов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyContractBubble"}},{"x":4,"y":10,"width":2,"height":5,"settings":{"name":"Мои инициативы","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyInitiative"}},{"x":1,"y":13,"width":3,"height":3,"settings":{"name":"Панель руководителя","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":0,"y":13,"width":1,"height":3,"settings":{"name":"Мои статус-отчеты","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":2,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChReqForMe"}},{"x":3,"y":19,"width":1,"height":3,"settings":{"name":"Проекты на стадию","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"MyProjectMoveToNextPhase"}},{"x":4,"y":15,"width":4,"height":7,"settings":{"name":"Матрица рисков","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"RiskMatrix"}},{"x":0,"y":16,"width":1,"height":3,"settings":{"name":"ОВ для меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyLov"}},{"x":1,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение от меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"ChReqFromMe"}},{"x":0,"y":19,"width":1,"height":3,"settings":{"name":"Мои инициативы на рассмотрении ЦПО","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyInitCPO"}},{"x":1,"y":19,"width":1,"height":3,"settings":{"name":"Мои документы","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyDocs"}},{"x":3,"y":16,"width":1,"height":3,"settings":{"name":"ОВ от меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"LovFromMe"}},{"x":2,"y":19,"width":1,"height":3,"settings":{"name":"Чек-листы для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChListForMe"}},{"x":8,"y":0,"width":4,"height":9,"settings":{"name":"Мои проекты","collapsed":true,"color":"#ccc","pagename":"LibraryTable","elementname":"MyProjects"}},{"x":8,"y":9,"width":4,"height":13,"settings":{"name":"Мои контракты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyContracts"}}];
             var library = [
                 {
                     text: 'Количественные виджеты',
@@ -456,56 +456,108 @@
                     ].join('')
                 }
             ];
-            var $select;
             dashboard = new Dashboard({
-                title: 'Дашборд',
+                //title: 'Дашборд',
+                //tumblerContainerSelector: '.header__column-right',
                 containerid: 'container',
-                tumblerContainerSelector: '.header__column-right',
                 items: items,
                 library: library,
                 loader: $.extend(Asyst.ContentLoader, { contents: contents }),
-                add: function(data){},
+                add: function(data){
+                    console.log(JSON.stringify(data));
+                },
                 save: function(data){
                     console.log(JSON.stringify(data));
                 },
                 headerExtraControlsRenderer: function(){
                     var $button = $([
-                        '<button class="button" type="button" data-fc="button">',
+                        '<button class="button" type="button" data-fc="button" data-tooltip="Reload widgets">',
                         '<span class="icon icon_svg_refresh"></span>',
                         '</button>'
                     ].join(''));
                     $button.button();
                     $button.on('click', function(){
-                        console.log('reload_widgets');
-                        dashboard.reload_widgets();
+                        console.log('reload.widgets');
+                        dashboard.reload.widgets({ color: '#ff5940' });
                     });
                     var $button2 = $([
-                        '<button class="button" type="button" data-fc="button">',
-                        '<span class="icon icon_svg_home"></span>',
+                        '<button class="button" type="button" data-fc="button" data-tooltip="Reload dashboard single">',
+                        '<span class="icon icon_svg_dashboard"></span>',
                         '</button>'
                     ].join(''));
                     $button2.button();
                     $button2.on('click', function(){
-                        console.log('dashboard.data.grid[0].obj.options.items.map...');
-                        dashboard.data.grid[0].obj.options.items.map(function(widget){
-                            widget.widget.widget('set_content');
+                        console.log('reload.dashboard single');
+                        dashboard.reload.dashboard({
+                            title: Date.now(),
+                            single: !dashboard.data.single
                         });
                     });
-                    return [$button, $button2];
-                    /*
-                    $select = $([
-                        '<select class="select">',
-                        '<option value="1" selected>1</option>',
-                        '<option value="2">2</option>',
-                        '<option value="3">3</option>',
-                        '</select>'
+                    var $button3 = $([
+                        '<button class="button" type="button" data-fc="button" data-tooltip="Reload dashboard editable">',
+                        '<span class="icon icon_svg_edit"></span>',
+                        '</button>'
                     ].join(''));
-                    $select.on('change', function(){
-                        var value = $(this).val();
+                    $button3.button();
+                    $button3.on('click', function(){
+                        console.log('reload.dashboard editable');
+                        dashboard.reload.dashboard({
+                            title: Date.now(),
+                            editable: !dashboard.data.editable
+                        });
+                    });
+                    var $button4 = $([
+                        '<button id="qwe" class="button" type="button" data-fc="button" data-tooltip="Reload dashboard tumblerContainerSelector">',
+                        '<span class="icon icon_svg_controls"></span>',
+                        '</button>'
+                    ].join(''));
+                    $button4.button();
+                    $button4.on('click', function(){
+                        console.log('reload.dashboard tumblerContainerSelector');
+                        dashboard.reload.dashboard({
+                            title: Date.now(),
+                            tumblerContainerSelector: (dashboard.data.tumblerContainerSelector ? null : '.header__column-right')
+                        });
+                    });
+                    var $button5 = $([
+                        '<button id="qwe" class="button" type="button" data-fc="button" data-tooltip="Reload dashboard headerExtraControlsRenderer">',
+                        '<span class="icon icon_svg_star_red"></span>',
+                        '</button>'
+                    ].join(''));
+                    $button5.button();
+                    $button5.on('click', function(){
+                        console.log('reload.dashboard headerExtraControlsRenderer');
+                        dashboard.reload.dashboard({
+                            title: Date.now(),
+                            headerExtraControlsRenderer: function(){
+                                var $button = $([
+                                    '<button class="button" type="button" data-fc="button" data-tooltip="Reload widgets">',
+                                    '<span class="icon icon_svg_refresh"></span>',
+                                    '</button>'
+                                ].join(''));
+                                $button.button();
+                                $button.on('click', function(){
+                                    console.log('reload.widgets');
+                                    dashboard.reload.widgets();
+                                });
+                                return $button;
+                            }
+                        });
+                    });
+                    var $select = $([
+                        '<div>',
+                        '<select data-fc="select" data-width="300" data-autoclose="true" data-mode="radio-check">',
+                        '<option value="1">1',
+                        '<option value="1">2',
+                        '<option value="1">3',
+                        '</select>',
+                        '</div>'
+                    ].join(''));
+                    $select.find('[data-fc="select"]').select().on('change', function(){
+                        var value = $(this).select('value');
                         console.log(value);
                     });
-                    return $select;
-                    */
+                    return [$button, $button2, $button3, $button4, $button5, $select];
                 }
             });
         });

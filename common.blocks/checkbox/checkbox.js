@@ -229,7 +229,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="checkbox"]').checkbox();
 });

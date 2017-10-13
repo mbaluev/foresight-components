@@ -34,9 +34,6 @@ Asyst.MetaElementLoader = {
                 }
             });
         };
-        that.proccessTemplate = function(){
-            return ProcessTemplate(that.data.template.Content, that.data.templateData, {});
-        };
         that.buildContent = function(){
             var success = function(data) {
                 that.data.templateData = data;
@@ -45,22 +42,27 @@ Asyst.MetaElementLoader = {
                     that.data.success(that.data.content);
                 }
             };
+            /*
             var gets = splitGETString();
             for (var c in gets) {
                 if (gets.hasOwnProperty(c) && gets[c].constructor === String) {
                     gets[c] = decodeURIComponent(gets[c]);
                 }
             }
+            */
             Asyst.APIv2.DataSource.load({
                 sourceType: 'page',
                 sourceName: that.data.data.pagename,
                 elementName: that.data.data.elementname,
-                data: gets,
+                data: that.data.data.params,
                 success: success,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 async: true,
                 isPicklist: false
             });
+        };
+        that.proccessTemplate = function(){
+            return ProcessTemplate(that.data.template.Content, that.data.templateData, {});
         };
         that.loadContent = function(){
             that.loadTemplate(

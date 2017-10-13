@@ -2155,6 +2155,27 @@ body {
   color: #ff4800;
 }
 
+.visit {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  height: 100%;
+}
+
+.visit__iframe-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.visit__iframe-container > iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+.visit__iframe_hidden {
+  display: none;
+}
+
 .calendar {
   height: 100%;
 }
@@ -2403,27 +2424,6 @@ body {
   font-size: 18px;
   line-height: 32px;
   margin: 31px 0 16px;
-}
-
-.visit {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  height: 100%;
-}
-
-.visit__iframe-container {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-.visit__iframe-container > iframe {
-  height: 100%;
-  width: 100%;
-  border: none;
-}
-
-.visit__iframe_hidden {
-  display: none;
 }
 
 .paragraph {

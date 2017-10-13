@@ -64,22 +64,19 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-
-    that.update_widgets_data = function(options){
-        that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
-            var data = $.extend(widget.widget.data(), options);
-            widget.widget.data(data);
-        });
-    };
-    that.reload_widgets = function(){
-        that.data.asystDashboard.data.dashboard.data.grid[0].obj.options.items.map(function(widget){
-            widget.widget.widget('set_content');
-        });
-    };
-
-    that.reload = function(options){
-        that.data = $.extend(that.data, options);
-        that.init();
+    that.reload = {
+        dashboard: function(options, params){
+            that.data.asystDashboard.reload.dashboard(options, params);
+        },
+        widgets: function(options, params){
+            that.data.asystDashboard.reload.widgets(options, params);
+        },
+        widget: function(id, options, params){
+            that.data.asystDashboard.reload.widget(id, options, params);
+        },
+        element: function(elementname, options, params){
+            that.data.asystDashboard.reload.element(elementname, options, params);
+        }
     };
     that.init = function(){
         that.loader_add();
@@ -94,92 +91,6 @@ Asyst.PageDashboard = function(options){
                 loader: Asyst.MetaElementLoader,
                 page: that.data.page,
                 headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
-                tumblerContainerSelector: that.data.tumblerContainerSelector
-            });
-        });
-    };
-    that.init();
-    return that;
-};
-Asyst.SettingsDashboard = function(options){
-    var that = this._settingsDashboard = {};
-    that.data = {
-        title: null,
-        containerid: 'container',
-        settings: [],
-        editable: true,
-        library: [],
-        contents: [],
-        asystDashboard: null,
-        user: Asyst.Workspace.currentUser,
-        page: Asyst.Workspace.currentPage,
-        tumblerContainerSelector: null
-    };
-    that.data = $.extend(that.data, options);
-    that.data._el = {
-        target: $('#' + that.data.containerid),
-        loader: $('<span class="spinner spinner_align_center"></span>')
-    };
-    that.loader_add = function(){
-        that.data._el.target.before(that.data._el.loader)
-    };
-    that.loader_remove = function(){
-        that.data._el.loader.remove();
-    };
-    that.loadLibrary = function(callback){
-        function loadLibrary(library, settings){
-            var settings_by_category = {};
-            settings.map(function(a){
-                if (a.category in settings_by_category) {
-                    settings_by_category[a.category] ++;
-                } else {
-                    settings_by_category[a.category] = 0;
-                    library[0].items.push({
-                        text: a.category,
-                        value: a.category
-                    });
-                }
-            });
-            return library;
-        }
-        function loadContents(library, settings){
-            var contents = [];
-            library[0].items.map(function(li){
-                var rows = '';
-                settings.map(function(s){
-                    if (s.category == li.value) {
-                        rows += '<tr><td><a class="link" href="' + s.url + '" target="_blank">' + s.name + '</a></td></tr>';
-                    }
-                });
-                contents.push({
-                    pagename: library[0].value,
-                    elementname: li.value,
-                    content: [
-                        '<div class="widget__content widget__content_scroll">',
-                        '<table class="table">',
-                        '<tbody>' + rows + '</tbody>',
-                        '</table>',
-                        '</div>'
-                    ].join('')
-                });
-            });
-            return contents;
-        }
-        that.data.library = loadLibrary([{ text: 'Настройки', value: 'LibrarySettings', items: [] }], that.data.settings);
-        that.data.contents = loadContents(that.data.library, that.data.settings);
-        if (typeof callback == 'function') { callback(); }
-    };
-    that.init = function(){
-        that.loader_add();
-        that.loadLibrary(function(){
-            that.loader_remove();
-            that.data.asystDashboard = new Asyst.Dashboard({
-                title: that.data.title,
-                containerid: that.data.containerid,
-                editable: that.data.editable,
-                library: that.data.library,
-                loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents }),
-                page: that.data.page,
                 tumblerContainerSelector: that.data.tumblerContainerSelector
             });
         });
@@ -283,6 +194,20 @@ Asyst.Dashboard = function(options){
             }
         });
         that.data.items = items;
+    };
+    that.reload = {
+        dashboard: function(options, params){
+            that.data.dashboard.reload.dashboard(options, params);
+        },
+        widgets: function(options, params){
+            that.data.dashboard.reload.widgets(options, params);
+        },
+        widget: function(id, options, params){
+            that.data.dashboard.reload.widget(id, options, params);
+        },
+        element: function(elementname, options, params){
+            that.data.dashboard.reload.element(elementname, options, params);
+        }
     };
     that.init = function(){
         that.loader_add();
