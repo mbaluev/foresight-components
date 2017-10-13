@@ -182,7 +182,6 @@
                             });
                         }
                         function renderImageBlock(item, cont){
-                            debugger;
                             var $imageblock = $([
                                 '<div class="gallery__image-block" data-url="' + item.url + '">',
                                 '<a class="gallery__image-link" href="' + item.url + '"',

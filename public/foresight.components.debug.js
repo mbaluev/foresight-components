@@ -705,6 +705,10 @@ $(function(){
                                     $submenu.slideToggle(500);
                                     $icon.toggleClass('icon_rotate_0deg');
                                 });
+                            } else {
+                                $itemlink.on('click', function(){
+                                    $(this).addClass('menu__item-link_selected');
+                                });
                             }
                         });
                     };
@@ -1913,7 +1917,6 @@ $(function(){
                             });
                         }
                         function renderImageBlock(item, cont){
-                            debugger;
                             var $imageblock = $([
                                 '<div class="gallery__image-block" data-url="' + item.url + '">',
                                 '<a class="gallery__image-link" href="' + item.url + '"',

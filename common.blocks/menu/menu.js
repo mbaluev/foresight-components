@@ -32,6 +32,10 @@
                                     $submenu.slideToggle(500);
                                     $icon.toggleClass('icon_rotate_0deg');
                                 });
+                            } else {
+                                $itemlink.on('click', function(){
+                                    $(this).addClass('menu__item-link_selected');
+                                });
                             }
                         });
                     };
