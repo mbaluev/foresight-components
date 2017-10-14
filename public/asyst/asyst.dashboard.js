@@ -4,6 +4,7 @@ Asyst.PageDashboard = function(options){
     that.data = {
         title: null,
         containerid: 'container',
+        type: 'page',
         libraries: [],
         single: false,
         editable: true,
@@ -92,6 +93,7 @@ Asyst.PageDashboard = function(options){
             that.data.asystDashboard = new Asyst.Dashboard({
                 title: that.data.title,
                 containerid: that.data.containerid,
+                type: that.data.type,
                 single: that.data.single,
                 editable: that.data.editable,
                 library: that.data.library,
@@ -111,6 +113,7 @@ Asyst.Dashboard = function(options){
     that.data = {
         title: null,
         containerid: 'container',
+        type: 'page',
         single: false,
         editable: true,
         library: [],
@@ -231,6 +234,7 @@ Asyst.Dashboard = function(options){
             that.data.dashboard = new Dashboard({
                 title: that.data.title,
                 containerid: that.data.containerid,
+                type: that.data.type,
                 single: that.data.single,
                 editable: that.data.editable,
                 pagename: that.data.page.pageName,
