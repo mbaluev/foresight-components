@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/asyst/asyst.dashboard.js" afterPath="$PROJECT_DIR$/public/asyst/asyst.dashboard.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/pages/dashboard.js" afterPath="$PROJECT_DIR$/public/pages/dashboard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/table/table.css" afterPath="$PROJECT_DIR$/common.blocks/table/table.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -321,10 +320,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="visit.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="visit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0466563">
+            <state vertical-scroll-proportion="12.777778">
               <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
               <folding>
                 <element signature="e#362#517#0" expanded="false" />
@@ -373,6 +372,33 @@
                 <element signature="e#15910#15979#0" expanded="false" />
                 <element signature="e#15985#16071#0" expanded="false" />
                 <marker date="1507982963000" expanded="false" signature="8504:8516" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="visit.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="4" column="23" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="table.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/table/table.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.26865673">
+              <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+              <folding>
+                <element signature="e#7#214#0" expanded="false" />
+                <element signature="e#230#344#0" expanded="false" />
+                <element signature="e#371#399#0" expanded="false" />
+                <element signature="e#433#621#0" expanded="false" />
+                <element signature="e#695#716#0" expanded="false" />
+                <element signature="e#739#765#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1071,7 +1097,6 @@
         <option value="$PROJECT_DIR$/common.blocks/gallery/gallery.css" />
         <option value="$PROJECT_DIR$/public/widgets/visit/visit.css" />
         <option value="$PROJECT_DIR$/public/widgets/visit/visit.js" />
-        <option value="$PROJECT_DIR$/common.blocks/table/table.css" />
         <option value="$PROJECT_DIR$/common.blocks/fs-view/fs-view.js" />
         <option value="$PROJECT_DIR$/common.blocks/button/button.js" />
         <option value="$PROJECT_DIR$/common.blocks/alertbox/alertbox.js" />
@@ -1115,6 +1140,7 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/public/asyst/asyst.dashboard.js" />
         <option value="$PROJECT_DIR$/public/pages/dashboard.js" />
+        <option value="$PROJECT_DIR$/common.blocks/table/table.css" />
       </list>
     </option>
   </component>
@@ -1274,6 +1300,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="visit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="table" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3654,23 +3698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/table/table.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="1" selection-start-line="39" selection-start-column="1" selection-end-line="39" selection-end-column="1" />
-          <folding>
-            <element signature="e#7#214#0" expanded="false" />
-            <element signature="e#230#344#0" expanded="false" />
-            <element signature="e#371#399#0" expanded="false" />
-            <element signature="e#433#621#0" expanded="false" />
-            <element signature="e#695#716#0" expanded="false" />
-            <element signature="e#739#765#0" expanded="false" />
-            <element signature="e#790#828#0" expanded="false" />
-            <element signature="e#851#871#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/pages/gridview.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -4905,14 +4932,6 @@
             <element signature="e#7218#7303#0" expanded="false" />
             <element signature="e#7337#7374#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35820895">
-          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -6381,7 +6400,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0466563">
+        <state vertical-scroll-proportion="12.777778">
           <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
           <folding>
             <element signature="e#362#517#0" expanded="false" />
@@ -6430,6 +6449,29 @@
             <element signature="e#15910#15979#0" expanded="false" />
             <element signature="e#15985#16071#0" expanded="false" />
             <marker date="1507982963000" expanded="false" signature="8504:8516" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/visit/visit.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/table/table.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26865673">
+          <caret line="37" column="1" selection-start-line="37" selection-start-column="1" selection-end-line="37" selection-end-column="1" />
+          <folding>
+            <element signature="e#7#214#0" expanded="false" />
+            <element signature="e#230#344#0" expanded="false" />
+            <element signature="e#371#399#0" expanded="false" />
+            <element signature="e#433#621#0" expanded="false" />
+            <element signature="e#695#716#0" expanded="false" />
+            <element signature="e#739#765#0" expanded="false" />
           </folding>
         </state>
       </provider>
