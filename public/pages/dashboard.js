@@ -490,6 +490,9 @@ var Dashboard = function(options){
                 item.widget.widget('set_color');
                 item.widget.widget('set_content');
             }
+        },
+        title: function(title){
+            that.set_title(title);
         }
     };
 
