@@ -2,7 +2,7 @@ if (typeof Asyst == typeof undefined) { Asyst = {}; }
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
-        id: 'dashboard_' + guid(),
+        id: guid(),
         title: null,
         name: null,
         containerid: 'container',
@@ -115,7 +115,7 @@ Asyst.PageDashboard = function(options){
 Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
-        id: 'dashboard_' + guid(),
+        id: guid(),
         title: null,
         name: null,
         containerid: 'container',

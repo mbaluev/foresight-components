@@ -14,7 +14,7 @@ var Dashboard = function(options){
         CONTENT_TYPE_COUNT: 'count'
     };
     that.data = {
-        id: 'dashboard_' + Date.now(),
+        id: Date.now(),
         title: null,
         name: null,
         single: false,
