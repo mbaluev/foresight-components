@@ -14,6 +14,7 @@ var Dashboard = function(options){
         CONTENT_TYPE_COUNT: 'count'
     };
     that.data = {
+        id: 'dashboard_' + Date.now(),
         title: null,
         name: null,
         single: false,
@@ -319,6 +320,11 @@ var Dashboard = function(options){
             });
     };
 
+    that.store_to_window = function(){
+        if (typeof window.dashboards == typeof undefined) { window.dashboards = []; }
+        window.dashboards[that.data.id] = that;
+    };
+
     that.set_title = function(title){
         that.data.title = title;
         if (that.data.type == 'page') {
@@ -558,6 +564,7 @@ var Dashboard = function(options){
             that.render_card();
             that.render_single();
             that.render_grid();
+            that.store_to_window();
             that.loader_remove();
         }, 100);
     };

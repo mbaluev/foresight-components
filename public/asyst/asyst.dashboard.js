@@ -2,6 +2,7 @@ if (typeof Asyst == typeof undefined) { Asyst = {}; }
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
+        id: 'dashboard_' + guid(),
         title: null,
         name: null,
         containerid: 'container',
@@ -92,6 +93,7 @@ Asyst.PageDashboard = function(options){
         that.loadLibrary(function(){
             that.loader_remove();
             that.data.asystDashboard = new Asyst.Dashboard({
+                id: that.data.id,
                 title: that.data.title,
                 name: that.data.name,
                 containerid: that.data.containerid,
@@ -113,6 +115,7 @@ Asyst.PageDashboard = function(options){
 Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
+        id: 'dashboard_' + guid(),
         title: null,
         name: null,
         containerid: 'container',
@@ -235,6 +238,7 @@ Asyst.Dashboard = function(options){
         that.loadItems(function(){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
+                id: that.data.id,
                 title: that.data.title,
                 name: that.data.name,
                 containerid: that.data.containerid,
