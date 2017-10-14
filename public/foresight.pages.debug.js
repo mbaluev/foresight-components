@@ -15,6 +15,7 @@ var Dashboard = function(options){
     };
     that.data = {
         title: null,
+        name: null,
         single: false,
         editable: true,
         tumblerContainerSelector: null,
@@ -26,7 +27,8 @@ var Dashboard = function(options){
         add: function(data){},
         save: function(data){},
         headerExtraControlsRenderer: null,
-        params: null
+        params: null,
+        type: 'page'
     };
     that.data = $.extend(that.data, options);
 
@@ -44,7 +46,12 @@ var Dashboard = function(options){
         // remove for reloading success - end
         $.extend(that.data._el, {
             grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
-            title: $([
+            card__caption: $([
+                '<label class="card__caption">',
+                '<span class="card__caption-text"></span>',
+                '</label>'
+            ].join('')),
+            card__name: $([
                 '<label class="card__name">',
                 '<span class="card__name-text"></span>',
                 '</label>'
@@ -85,9 +92,14 @@ var Dashboard = function(options){
             card__header: $([
                 '<div class="card__header">',
                 '<div class="card__header-row card__header-row_wrap">',
-                '<div class="card__header-column" id="name"></div>',
+                '<div class="card__header-column" id="title"></div>',
                 '<div class="card__header-column" id="actions"></div>',
                 '</div>',
+                '</div>'
+            ].join('')),
+            card__header_row_name: $([
+                '<div class="card__header-row">',
+                '<div class="card__header-column" id="name"></div>',
                 '</div>'
             ].join('')),
             card__main: $([
@@ -108,9 +120,22 @@ var Dashboard = function(options){
     };
     that.render_card_header = function(){
         var render = false;
-        if (that.data.title) {
-            that.render_title();
-            render = true;
+        if (that.data.type == 'page') {
+            if (that.data.title) {
+                that.render_page_title();
+                render = true;
+            }
+        }
+        if (that.data.type == 'card') {
+            if (that.data.title) {
+                that.render_card_title();
+                render = true;
+            }
+            if (that.data.name) {
+                that.render_card_header_row();
+                that.render_card_name();
+                render = true;
+            }
         }
         if (that.data.editable) {
             that.render_tumbler();
@@ -139,10 +164,27 @@ var Dashboard = function(options){
             that.data._el.card__main
         );
     };
-    that.render_title = function(){
+    that.render_page_title = function(){
         that.set_title(that.data.title);
+        that.data._el.card__header.find('#title').append(
+            that.data._el.card__name
+        );
+    };
+    that.render_card_header_row = function() {
+        that.data._el.card__header.append(
+            that.data._el.card__header_row_name
+        );
+    };
+    that.render_card_title = function(){
+        that.set_title(that.data.title);
+        that.data._el.card__header.find('#title').append(
+            that.data._el.card__caption
+        );
+    };
+    that.render_card_name = function(){
+        that.set_name(that.data.name);
         that.data._el.card__header.find('#name').append(
-            that.data._el.title
+            that.data._el.card__name
         );
     };
     that.render_tumbler = function(){
@@ -279,7 +321,18 @@ var Dashboard = function(options){
 
     that.set_title = function(title){
         that.data.title = title;
-        that.data._el.title.find('.card__name-text').html(that.data.title);
+        if (that.data.type == 'page') {
+            that.data._el.card__name.find('.card__name-text').html(that.data.title);
+        }
+        if (that.data.type == 'card') {
+            that.data._el.card__caption.find('.card__caption-text').html(that.data.title);
+        }
+    };
+    that.set_name = function(name){
+        that.data.name = name;
+        if (that.data.type == 'card') {
+            that.data._el.card__name.find('.card__name-text').html(that.data.name);
+        }
     };
 
     /* modal for settings - begin */
@@ -493,6 +546,9 @@ var Dashboard = function(options){
         },
         title: function(title){
             that.set_title(title);
+        },
+        name: function(name){
+            that.set_name(name);
         }
     };
 

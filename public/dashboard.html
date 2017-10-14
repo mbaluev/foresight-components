@@ -457,9 +457,11 @@
                 }
             ];
             dashboard = new Dashboard({
-                //title: 'Дашборд',
-                //tumblerContainerSelector: '.header__column-right',
+                title: 'Дашборд',
+                name: 'Наименование дашборда',
+                tumblerContainerSelector: '.header__column-right',
                 containerid: 'container',
+                //type: 'card',
                 items: items,
                 library: library,
                 loader: $.extend(Asyst.ContentLoader, { contents: contents }),

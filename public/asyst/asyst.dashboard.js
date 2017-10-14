@@ -80,6 +80,9 @@ Asyst.PageDashboard = function(options){
         },
         title: function(title){
             that.data.asystDashboard.reload.title(title);
+        },
+        name: function(name){
+            that.data.asystDashboard.reload.name(name);
         }
     };
     that.init = function(){
@@ -216,6 +219,9 @@ Asyst.Dashboard = function(options){
         },
         title: function(title){
             that.data.dashboard.reload.title(title);
+        },
+        name: function(name){
+            that.data.dashboard.reload.name(name);
         }
     };
     that.init = function(){
