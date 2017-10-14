@@ -54,7 +54,7 @@
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
                         card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle" id="frame"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
                         visit__frame_container: $('<div class="visit__frame-container"></div>'),
                         menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
 
@@ -95,7 +95,9 @@
                                     that.data._el.card__left.append(
                                         that.data._el.menu
                                     ),
-                                    that.data._el.card__middle
+                                    that.data._el.card__middle.append(
+                                        that.data._el.visit__frame_container
+                                    )
                                 )
                             )
                         );
@@ -133,7 +135,8 @@
                     };
                     that.render_tabs = function(){
                         that.loader_add();
-                        that.data._el.card__middle.empty();
+                        that.data.current.item = null;
+                        that.render_item();
                         that.data._el.card__header_row_tabs.remove();
                         that.data._el.card__header_row_tabs.find('.tabs__list').empty();
 
@@ -177,7 +180,8 @@
                     };
                     that.render_menu = function(){
                         that.loader_add();
-                        that.data._el.card__middle.empty();
+                        that.data.current.item = null;
+                        that.render_item();
                         that.data._el.menu.menu();
                         that.data._el.menu.menu('destroy');
                         that.data._el.menu.empty();
@@ -236,11 +240,7 @@
                                     $menu__item.find('.menu__list').append($menu__subitem);
                                     $menu__subitem.find('.menu__item-link').on('click', function(){
                                         that.data.current.item = item;
-                                        if (that.data.onItemClick) {
-                                            if (typeof(that.data.onItemClick) == 'function') {
-                                                that.data.onItemClick(item, that.data._el.card__middle.attr('id'));
-                                            }
-                                        }
+                                        that.render_item();
                                     });
                                 }
                             });
@@ -249,6 +249,13 @@
                         that.data._el.menu.append($menu__list);
                         that.data._el.menu.menu();
                         that.loader_remove();
+                    };
+                    that.render_item = function(){
+                        if (that.data.onItemClick) {
+                            if (typeof(that.data.onItemClick) == 'function') {
+                                that.data.onItemClick(that.data.current.item, that.data._el.visit__frame_container);
+                            }
+                        }
                     };
 
                     that.loader_add = function(container){
