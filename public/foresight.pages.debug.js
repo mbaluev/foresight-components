@@ -84,7 +84,7 @@ var Dashboard = function(options){
             card: $('<div class="card"></div>'),
             card__header: $([
                 '<div class="card__header">',
-                '<div class="card__header-row">',
+                '<div class="card__header-row card__header-row_wrap">',
                 '<div class="card__header-column" id="name"></div>',
                 '<div class="card__header-column" id="actions"></div>',
                 '</div>',

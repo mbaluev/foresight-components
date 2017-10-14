@@ -238,14 +238,7 @@
                                         that.data.current.item = item;
                                         if (that.data.onItemClick) {
                                             if (typeof(that.data.onItemClick) == 'function') {
-                                                that.data._el.card__middle.empty();
-                                                that.data._el.visit__frame_container.empty();
-                                                that.data._el.card__middle.append(
-                                                    that.data._el.visit__frame_container
-                                                );
-                                                var frameid = 'VisitFrame_' + Date.now();
-                                                that.data._el.visit__frame_container.attr('id', frameid);
-                                                that.data.onItemClick(item, frameid);
+                                                that.data.onItemClick(item, that.data._el.card__middle.attr('id'));
                                             }
                                         }
                                     });
