@@ -3,6 +3,7 @@ Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
         title: null,
+        name: null,
         containerid: 'container',
         type: 'page',
         libraries: [],
@@ -92,6 +93,7 @@ Asyst.PageDashboard = function(options){
             that.loader_remove();
             that.data.asystDashboard = new Asyst.Dashboard({
                 title: that.data.title,
+                name: that.data.name,
                 containerid: that.data.containerid,
                 type: that.data.type,
                 single: that.data.single,
@@ -112,6 +114,7 @@ Asyst.Dashboard = function(options){
     var that = this._dashboard = {};
     that.data = {
         title: null,
+        name: null,
         containerid: 'container',
         type: 'page',
         single: false,
@@ -233,6 +236,7 @@ Asyst.Dashboard = function(options){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
                 title: that.data.title,
+                name: that.data.name,
                 containerid: that.data.containerid,
                 type: that.data.type,
                 single: that.data.single,
