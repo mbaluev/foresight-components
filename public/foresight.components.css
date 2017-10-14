@@ -3571,6 +3571,12 @@ body {
       flex-wrap: nowrap;
 }
 
+.card__header-row img.indicator {
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
+}
+
 .card__header-row_wrap {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;

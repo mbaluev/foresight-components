@@ -24,6 +24,11 @@
     align-items: flex-start;
     flex-wrap: nowrap;
 }
+.card__header-row img.indicator {
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+}
 .card__header-row_wrap {
     flex-wrap: wrap;
 }
