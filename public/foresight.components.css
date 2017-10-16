@@ -2243,7 +2243,6 @@ body {
 .calendar__datepicker .datepicker {
   width: 100%;
   border: none;
-  border-bottom: solid 1px #ddd;
   display: block;
   margin: 0;
   padding: 0;
@@ -2254,6 +2253,7 @@ body {
 .calendar__table {
   width: 100%;
   overflow: auto;
+  border-top: solid 1px #ddd;
 }
 
 .calendar__table .table thead td {
