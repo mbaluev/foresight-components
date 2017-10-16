@@ -3464,9 +3464,29 @@ body {
           flex: 0 0 auto;
 }
 
+.control__caption_size_xs {
+  width: 80px;
+  min-width: 80px;
+}
+
 .control__caption_size_s {
   width: 130px;
   min-width: 130px;
+}
+
+.control__caption_size_m {
+  width: 180px;
+  min-width: 180px;
+}
+
+.control__caption_size_l {
+  width: 230px;
+  min-width: 230px;
+}
+
+.control__caption_size_xl {
+  width: 280px;
+  min-width: 280px;
 }
 
 .control__caption .control__text {
