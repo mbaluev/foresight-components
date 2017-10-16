@@ -143,6 +143,7 @@ var GridBoard = function(options){
     };
     that.filter_items = function(){
         that.loader_add();
+        $('body').tooltip('clear');
         setTimeout(function(){
             that.data.defaults.x = 0;
             that.data.defaults.y = 0;
