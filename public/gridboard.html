@@ -191,32 +191,38 @@
             {
                 id: 'Portfolio',
                 title: 'Реестр направлений',
+                name: 'Реестр направлений',
                 cnt: 0,
-                color: '#999'
+                color: '#ff5940'
             },
             {
                 id: 'Project',
                 title: 'Реестр проектов',
+                name: 'Реестр проектов',
                 cnt: 0
             },
             {
                 id: 'Point',
                 title: 'Реестр контрольных точек',
+                name: 'Реестр контрольных точек',
                 cnt: 0
             },
             {
                 id: 'Order',
                 title: 'Реестр поручений',
+                name: 'Реестр поручений',
                 cnt: 0
             },
             {
                 id: 'Meeting',
                 title: 'Реестр совещаний',
+                name: 'Реестр совещаний',
                 cnt: 0
             },
             {
                 id: 'KPI',
                 title: 'Реестр показателей',
+                name: 'Реестр показателей',
                 cnt: 0
             }
         ];
@@ -225,15 +231,17 @@
             containerid: 'container',
             items: items,
             defaults: {
-                itemWidth: 2,
+                itemWidth: 3,
                 itemHeight: 3
             },
             loader: Asyst.ContentFormatterLoader,
             contentFormatter: function(item){
-                var $item = $('<div>' + item.title + '</div>');
-                return $item.on('click', function(){
-                    window.open('/asyst/page/register'+ item.id, '_self');
-                });
+                var $item = $([
+                    '<div class="widget__content widget__content_align_center">',
+                    '<a class="widget__count link" href="/asyst/page/register' + item.id + '">' + item.cnt + '</a>',
+                    '</div>'
+                ].join(''));
+                return $item;
             }
         });
     });
