@@ -2329,7 +2329,7 @@ $(function(){
                         ].join('')),
                         card__name: $([
                             '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data._today.getDate() + '</span>',
+                            '<span class="card__name-text card__name-text">' + that.data._today.getDate() + '</span>',
                             '</label>',
                         ].join('')),
                         card__count: $([
@@ -2472,6 +2472,7 @@ $(function(){
                             }
                         });
                         if (that.data.events.render) {
+                            that.data._el.calendar__row_bottom.remove();
                             that.data._el.calendar__datepicker.find('.datepicker--cells-days').addClass('datepicker__cells-days-border');
                         }
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;
