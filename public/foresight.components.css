@@ -3436,6 +3436,14 @@ body {
   padding-bottom: 10px;
 }
 
+
+
+.control__text img.indicator {
+  width: 16px;
+  height: 16px;
+  vertical-align: top;
+}
+
 .control__caption {
   width: 230px;
   min-width: 230px;
@@ -3456,14 +3464,15 @@ body {
           flex: 0 0 auto;
 }
 
+.control__caption .control__text {
+  padding-right: 10px;
+  color: #999;
+}
+
 .control__error {
   padding: 7px 0;
   color: #ff5940;
   line-height: normal;
-}
-
-.control__text {
-  padding-right: 10px;
 }
 
 .control__icons {
@@ -3511,6 +3520,10 @@ body {
 
 .control__container_text-align_right {
   text-align: right;
+}
+
+.control__container .control__text {
+  line-height: normal;
 }
 
 .control_vertical {
