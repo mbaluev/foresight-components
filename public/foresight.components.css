@@ -3464,6 +3464,11 @@ body {
           flex: 0 0 auto;
 }
 
+.control__caption_size_s {
+  width: 130px;
+  min-width: 130px;
+}
+
 .control__caption .control__text {
   padding-right: 10px;
   color: #999;
@@ -3537,7 +3542,9 @@ body {
   width: 100%;
 }
 
-
+.control_vertical .control__text {
+  padding: 7px 0;
+}
 
 .control_vertical .control__icons {
   padding: 0;
