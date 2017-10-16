@@ -2124,9 +2124,7 @@ var GridBoard = function(options){
             itemWidth: 3,
             itemHeight: 3,
             x: 0,
-            y: 0,
-            favorite: false,
-            reportingCategoryId: 0
+            y: 0
         },
         search: {
             text: '',
@@ -2199,7 +2197,7 @@ var GridBoard = function(options){
     that.render_items = function(){
         that.data.items.forEach(function(item, i){
             item.visible = true;
-            item.collapsed = false;
+            item.collapsed = (item.collapsed ? true : false);
             that.add_item(item);
             that.data.defaults.x += that.data.defaults.itemWidth;
             if (that.data.defaults.x >= 12) {

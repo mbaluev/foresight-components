@@ -1,0 +1,336 @@
+<html>
+<body>
+<script type='text/javascript'>
+
+    function main() {
+        var clusterSizeInPixels = new Coords(300, 300, 30);
+        var numberOfBodiesInCluster = 2048;
+        var cluster0 = Cluster.generateRandom
+        (
+                clusterSizeInPixels,
+                .25, // fractionOfRadiusOccupiedByCentralBulge
+                6, // numberOfArms
+                .5, // lagInCyclesAtRim
+                numberOfBodiesInCluster,
+                new BodyDefn
+                (
+                        "Default",
+                        new Coords(1, 1, 1),
+                        new Color(.9, .9, 1, .5)
+                )
+        );
+
+        var displayHelperTopView = new DisplayHelper();
+        displayHelperTopView.initialize
+        (
+                clusterSizeInPixels
+        );
+        displayHelperTopView.drawClusterFromTop(cluster0);
+
+        var displayHelperSideView = new DisplayHelper();
+        displayHelperSideView.initialize
+        (
+                clusterSizeInPixels
+        );
+        displayHelperSideView.drawClusterFromSide(cluster0);
+    }
+
+    // classes
+
+    function Body(defn, pos)
+    {
+        this.defn = defn;
+        this.pos = pos;
+    }
+
+    function BodyDefn(name, size, color)
+    {
+        this.name = name;
+        this.size = size;
+        this.color = color;
+    }
+
+    function Cluster(size, bodies)
+    {
+        this.size = size;
+        this.bodies = bodies;
+    }
+    {
+        Cluster.generateRandom = function
+                (
+                        size,
+                        fractionOfRadiusOccupiedByCentralBulge,
+                        numberOfArms,
+                        lagInCyclesAtRim,
+                        numberOfBodies,
+                        bodyDefn
+                )
+        {
+            var sizeHalf = size.clone().multiplyScalar(.5);
+
+            var bodies = [];
+
+            var bodyPosCylindrical = new CoordsCylindrical
+            (
+                    0, 0, 0
+            );
+
+            for (var i = 0; i < numberOfBodies; i++)
+            {
+                bodyPosCylindrical.randomize();
+
+                bodyPosCylindrical.elevation *= (1 - bodyPosCylindrical.radius);
+
+                var radiusScaleFactor = Math.sin
+                (
+                        bodyPosCylindrical.angle
+                        * numberOfArms
+                );
+                radiusScaleFactor += 1;
+                radiusScaleFactor /= 2;
+
+                bodyPosCylindrical.radius =
+                        bodyPosCylindrical.radius
+                        * radiusScaleFactor;
+
+                if (bodyPosCylindrical.radius >= fractionOfRadiusOccupiedByCentralBulge)
+                {
+                    bodyPosCylindrical.elevation *= bodyPosCylindrical.elevation;
+                }
+
+                var lagAngle =
+                        bodyPosCylindrical.radius
+                        * CoordsCylindrical.Tau
+                        * lagInCyclesAtRim
+
+                bodyPosCylindrical.angle += lagAngle;
+
+                var bodyPos = bodyPosCylindrical.toCoords();
+                bodyPos.multiply(sizeHalf);
+
+                var body = new Body(bodyDefn, bodyPos);
+
+                bodies.push(body);
+            }
+
+            var returnValue = new Cluster(size, bodies);
+
+            return returnValue;
+        }
+    }
+
+    function Color(red, green, blue, alpha)
+    {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+        this.alpha = alpha;
+
+        this.systemColor =
+                "rgba("
+                + Math.floor(this.red * 255) + ","
+                + Math.floor(this.green * 255) + ","
+                + Math.floor(this.blue * 255) + ","
+                + this.alpha
+                + ")";
+
+    }
+
+    function Coords(x, y, z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+    {
+        Coords.prototype.add = function(other)
+        {
+            this.x += other.x;
+            this.y += other.y;
+            this.z += other.z;
+
+            return this;
+        }
+
+        Coords.prototype.clone = function()
+        {
+            return new Coords
+            (
+                    this.x,
+                    this.y,
+                    this.z
+            );
+        }
+
+        Coords.prototype.multiply = function(other)
+        {
+            this.x *= other.x;
+            this.y *= other.y;
+            this.z *= other.z;
+
+            return this;
+        }
+
+        Coords.prototype.multiplyScalar = function(scalar)
+        {
+            this.x *= scalar;
+            this.y *= scalar;
+            this.z *= scalar;
+
+            return this;
+        }
+
+        Coords.prototype.overwriteWith = function(other)
+        {
+            this.x = other.x;
+            this.y = other.y;
+            this.z = other.z;
+
+            return this;
+        }
+
+    }
+
+    function CoordsCylindrical(angle, radius, elevation)
+    {
+        this.angle = angle;
+        this.radius = radius;
+        this.elevation = elevation;
+    }
+    {
+        // constants
+
+        CoordsCylindrical.Tau = Math.PI * 2.0;
+
+        // instance methods
+
+        CoordsCylindrical.prototype.randomize = function()
+        {
+            this.angle = CoordsCylindrical.Tau * Math.random();
+            this.radius = Math.random();
+            this.elevation = Math.random() * 2 - 1;
+
+            return this;
+        }
+
+        CoordsCylindrical.prototype.toCoords = function()
+        {
+            var returnValue = new Coords
+            (
+                    this.radius * Math.cos(this.angle),
+                    this.radius * Math.sin(this.angle),
+                    this.elevation
+            );
+
+            return returnValue;
+        }
+    }
+
+    function DisplayHelper()
+    {
+        // do nothing
+    }
+    {
+        DisplayHelper.prototype.clear = function()
+        {
+            this.graphics.fillStyle = "Black";
+            this.graphics.fillRect
+            (
+                    0, 0,
+                    this.displaySizeInPixels.x,
+                    this.displaySizeInPixels.y
+            );
+        }
+
+        DisplayHelper.prototype.drawBodyFromSide = function(body)
+        {
+            var bodyDefnSize = body.defn.size;
+
+            this.drawPos.overwriteWith
+            (
+                    this.centerPos
+            ).add
+            (
+                    body.pos
+            );
+
+            this.drawPos.z += this.centerPos.y;
+
+            this.graphics.fillStyle = body.defn.color.systemColor;
+            this.graphics.fillRect
+            (
+                    this.drawPos.x, this.drawPos.z,
+                    bodyDefnSize.x, bodyDefnSize.z
+            );
+        }
+
+        DisplayHelper.prototype.drawBodyFromTop = function(body)
+        {
+            var bodyDefnSize = body.defn.size;
+
+            this.drawPos.overwriteWith
+            (
+                    this.centerPos
+            ).add
+            (
+                    body.pos
+            );
+
+            this.graphics.fillStyle = body.defn.color.systemColor;
+            this.graphics.fillRect
+            (
+                    this.drawPos.x, this.drawPos.y,
+                    bodyDefnSize.x, bodyDefnSize.y
+            );
+        }
+
+        DisplayHelper.prototype.drawClusterFromSide = function(cluster)
+        {
+            this.clear();
+
+            for (var b = 0; b < cluster.bodies.length; b++)
+            {
+                var body = cluster.bodies[b];
+                this.drawBodyFromSide(body);
+            }
+        }
+
+        DisplayHelper.prototype.drawClusterFromTop = function(cluster)
+        {
+            this.clear();
+
+            for (var b = 0; b < cluster.bodies.length; b++)
+            {
+                var body = cluster.bodies[b];
+                this.drawBodyFromTop(body);
+            }
+        }
+
+        DisplayHelper.prototype.initialize = function(displaySizeInPixels)
+        {
+            this.displaySizeInPixels = displaySizeInPixels;
+            this.centerPos = new Coords
+            (
+                    this.displaySizeInPixels.x / 2,
+                    this.displaySizeInPixels.y / 2,
+                    0
+            );
+
+            this.canvas = document.createElement("canvas");
+            this.canvas.width = this.displaySizeInPixels.x;
+            this.canvas.height = this.displaySizeInPixels.y;
+
+            this.graphics = this.canvas.getContext("2d");
+
+            document.body.appendChild(this.canvas);
+
+            this.drawPos = new Coords(0, 0, 0);
+        }
+    }
+
+    // run
+
+    main();
+</script>
+</body>
+</html>
