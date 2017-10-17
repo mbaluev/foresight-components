@@ -2127,23 +2127,23 @@ body {
   padding-top: 0;
 }
 
-.widget_view_mode.widget_padding_none .widget__body {
+.widget_view_mode.widget_padding_none > .widget__border > .widget__body {
   padding-top: 0;
 }
 
-.widget_view_mode.widget_padding_none .widget__body-data_type_text {
+.widget_view_mode.widget_padding_none > .widget__border > .widget__body > .widget__body-data_type_text {
   padding: 15px 10px;
 }
 
-.widget_view_mode.widget_padding_none .widget__body-data_type_text_align_center {
+.widget_view_mode.widget_padding_none > .widget__border > .widget__body > .widget__body-data_type_text_align_center {
   padding: 15px 10px;
 }
 
-.widget_view_mode.widget_padding_none .widget__count {
+.widget_view_mode.widget_padding_none > .widget__border > .widget__body > .widget__body-data > .widget__content > .widget__count {
   padding: 15px 10px;
 }
 
-.widget_view_mode.widget_padding_none .widget__text {
+.widget_view_mode.widget_padding_none > .widget__border > .widget__body > .widget__body-data > .widget__content > .widget__text {
   padding: 15px 10px;
 }
 
