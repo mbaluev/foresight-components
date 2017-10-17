@@ -246,3 +246,13 @@
 .widget_view_mode.widget_padding_none > .widget__border > .widget__body > .widget__body-data > .widget__content > .widget__text {
     padding: 15px 10px;
 }
+
+.widget_clickable:hover {
+    cursor: pointer;
+}
+.widget_clickable:hover > .widget__border {
+    border-color: #ff5940;
+}
+.widget_clickable:hover > .widget__border.widget__border_color_red {
+    border-color: #5a97f2;
+}
