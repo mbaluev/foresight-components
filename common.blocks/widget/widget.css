@@ -251,8 +251,8 @@
     cursor: pointer;
 }
 .widget_clickable:hover > .widget__border {
-    border-color: #ff5940;
-}
-.widget_clickable:hover > .widget__border.widget__border_color_red {
     border-color: #5a97f2;
+}
+.widget_clickable:hover > .widget__border.widget__border_color_blue {
+    border-color: #ff5940;
 }
