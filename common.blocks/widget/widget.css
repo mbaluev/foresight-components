@@ -46,14 +46,6 @@
     border: none;
 }
 
-.widget__border_color_blue { color: #5a97f2; border-color: #5a97f2; }
-.widget__border_color_blue .widget__count.link { color: #5a97f2; }
-.widget__border_color_blue .widget__count.link:hover { opacity: .5; }
-.widget__border_color_blue .widget__body-data_type_text.link { color: #5a97f2; }
-.widget__border_color_blue .widget__body-data_type_text.link:hover { opacity: .5; }
-.widget__border_color_blue .widget__body-data_type_text_align_center.link { color: #5a97f2; }
-.widget__border_color_blue .widget__body-data_type_text_align_center.link:hover { opacity: .5; }
-
 .widget__border_color_default { color: #333; border-color: #e5e5e5; }
 .widget__border_color_default .widget__count.link { color: #333; }
 .widget__border_color_default .widget__count.link:hover { opacity: .5; }
@@ -61,6 +53,14 @@
 .widget__border_color_default .widget__body-data_type_text.link:hover { opacity: .5; }
 .widget__border_color_default .widget__body-data_type_text_align_center.link { color: #333; }
 .widget__border_color_default .widget__body-data_type_text_align_center.link:hover { opacity: .5; }
+
+.widget__border_color_blue { color: #5a97f2; border-color: #5a97f2; }
+.widget__border_color_blue .widget__count.link { color: #5a97f2; }
+.widget__border_color_blue .widget__count.link:hover { opacity: .5; }
+.widget__border_color_blue .widget__body-data_type_text.link { color: #5a97f2; }
+.widget__border_color_blue .widget__body-data_type_text.link:hover { opacity: .5; }
+.widget__border_color_blue .widget__body-data_type_text_align_center.link { color: #5a97f2; }
+.widget__border_color_blue .widget__body-data_type_text_align_center.link:hover { opacity: .5; }
 
 .widget__border_color_nodata { color: #aaa; border-color: #e5e5e5; }
 .widget__border_color_nodata .widget__count.link { color: #aaa; }
@@ -228,21 +228,21 @@
     display: block;
 }
 
-.widget_padding_none {
+.widget_view_mode.widget_padding_none {
     padding-top: 0;
 }
-.widget_padding_none .widget__body {
+.widget_view_mode.widget_padding_none .widget__body {
     padding-top: 0;
 }
-.widget_padding_none .widget__body-data_type_text {
+.widget_view_mode.widget_padding_none .widget__body-data_type_text {
     padding: 15px 10px;
 }
-.widget_padding_none .widget__body-data_type_text_align_center {
+.widget_view_mode.widget_padding_none .widget__body-data_type_text_align_center {
     padding: 15px 10px;
 }
-.widget_padding_none .widget__count {
+.widget_view_mode.widget_padding_none .widget__count {
     padding: 15px 10px;
 }
-.widget_padding_none .widget__text {
+.widget_view_mode.widget_padding_none .widget__text {
     padding: 15px 10px;
 }

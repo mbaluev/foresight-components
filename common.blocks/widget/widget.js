@@ -42,6 +42,10 @@
                         button_collapse_icon: $('<span class="icon icon_svg_down"></span>'),
                         buttons: []
                     };
+                    that.data._private = {
+                        buttons_view_mode_count: 0,
+                        buttons_edit_mode_count: 0
+                    };
 
                     that.destroy = function(){
                         that.data._el.button_collapse.button('destroy');
@@ -80,7 +84,7 @@
                             }
                             self.find('.widget__header-name').append(that.data._el.button_collapse);
                         }
-                        if (that.data._el.buttons.length == 0 && (!that.data.name || that.data.name == "")) {
+                        if (!that.data.name || that.data.name == "") {
                             self.addClass('widget_padding_none');
                             if (!that.data.collapsed) {
                             }
@@ -91,6 +95,12 @@
                     that.render_buttons = function(){
                         if (that.data.buttons){
                             that.data.buttons.forEach(function(button){
+                                if (button.mode == 'view') {
+                                    that.data._private.buttons_view_mode_count++;
+                                }
+                                if (button.mode == 'edit') {
+                                    that.data._private.buttons_edit_mode_count++;
+                                }
                                 var $button = $([
                                     '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
                                     '<span class="icon ' + button.icon + '"></span>',
@@ -233,12 +243,16 @@
                             that.data._el.button_collapse.button('disable');
                         }
                         that.data.mode = 'edit';
+                        self.removeClass('widget_view_mode');
+                        self.addClass('widget_edit_mode');
                     };
                     that.view_mode = function(){
                         if (that.data.name) {
                             that.data._el.button_collapse.button('enable');
                         }
                         that.data.mode = 'view';
+                        self.addClass('widget_view_mode');
+                        self.removeClass('widget_edit_mode');
                     };
 
                     that.bind = function(){};

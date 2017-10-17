@@ -169,6 +169,7 @@
                             that.expand_widget(node._id, false);
                         });
                         that.enable();
+                        $(window).resize();
                     };
                     that.view_mode = function(){
                         that.data.mode = 'view';
@@ -190,6 +191,7 @@
                             }
                         });
                         that.disable();
+                        $(window).resize();
                     };
 
                     that.create = function(){
