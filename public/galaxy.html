@@ -1,336 +1,191 @@
-<html>
-<body>
-<script type='text/javascript'>
-
-    function main() {
-        var clusterSizeInPixels = new Coords(300, 300, 30);
-        var numberOfBodiesInCluster = 2048;
-        var cluster0 = Cluster.generateRandom
-        (
-                clusterSizeInPixels,
-                .25, // fractionOfRadiusOccupiedByCentralBulge
-                6, // numberOfArms
-                .5, // lagInCyclesAtRim
-                numberOfBodiesInCluster,
-                new BodyDefn
-                (
-                        "Default",
-                        new Coords(1, 1, 1),
-                        new Color(.9, .9, 1, .5)
-                )
-        );
-
-        var displayHelperTopView = new DisplayHelper();
-        displayHelperTopView.initialize
-        (
-                clusterSizeInPixels
-        );
-        displayHelperTopView.drawClusterFromTop(cluster0);
-
-        var displayHelperSideView = new DisplayHelper();
-        displayHelperSideView.initialize
-        (
-                clusterSizeInPixels
-        );
-        displayHelperSideView.drawClusterFromSide(cluster0);
-    }
-
-    // classes
-
-    function Body(defn, pos)
-    {
-        this.defn = defn;
-        this.pos = pos;
-    }
-
-    function BodyDefn(name, size, color)
-    {
-        this.name = name;
-        this.size = size;
-        this.color = color;
-    }
-
-    function Cluster(size, bodies)
-    {
-        this.size = size;
-        this.bodies = bodies;
-    }
-    {
-        Cluster.generateRandom = function
-                (
-                        size,
-                        fractionOfRadiusOccupiedByCentralBulge,
-                        numberOfArms,
-                        lagInCyclesAtRim,
-                        numberOfBodies,
-                        bodyDefn
-                )
-        {
-            var sizeHalf = size.clone().multiplyScalar(.5);
-
-            var bodies = [];
-
-            var bodyPosCylindrical = new CoordsCylindrical
-            (
-                    0, 0, 0
-            );
-
-            for (var i = 0; i < numberOfBodies; i++)
-            {
-                bodyPosCylindrical.randomize();
-
-                bodyPosCylindrical.elevation *= (1 - bodyPosCylindrical.radius);
-
-                var radiusScaleFactor = Math.sin
-                (
-                        bodyPosCylindrical.angle
-                        * numberOfArms
-                );
-                radiusScaleFactor += 1;
-                radiusScaleFactor /= 2;
-
-                bodyPosCylindrical.radius =
-                        bodyPosCylindrical.radius
-                        * radiusScaleFactor;
-
-                if (bodyPosCylindrical.radius >= fractionOfRadiusOccupiedByCentralBulge)
-                {
-                    bodyPosCylindrical.elevation *= bodyPosCylindrical.elevation;
-                }
-
-                var lagAngle =
-                        bodyPosCylindrical.radius
-                        * CoordsCylindrical.Tau
-                        * lagInCyclesAtRim
-
-                bodyPosCylindrical.angle += lagAngle;
-
-                var bodyPos = bodyPosCylindrical.toCoords();
-                bodyPos.multiply(sizeHalf);
-
-                var body = new Body(bodyDefn, bodyPos);
-
-                bodies.push(body);
-            }
-
-            var returnValue = new Cluster(size, bodies);
-
-            return returnValue;
+<!doctype html>
+<head>
+    <title>foresight-components</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+    <style>
+        /* ==============================================================================================
+        Nick Mkrtchyan
+        https://www.facebook.com/sonick.pk
+        http://www.Mkrtchyan.zz.mu
+        ================================================================================================= */
+        * {
+            margin: 0;
+            padding: 0;
         }
-    }
-
-    function Color(red, green, blue, alpha)
-    {
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-        this.alpha = alpha;
-
-        this.systemColor =
-                "rgba("
-                + Math.floor(this.red * 255) + ","
-                + Math.floor(this.green * 255) + ","
-                + Math.floor(this.blue * 255) + ","
-                + this.alpha
-                + ")";
-
-    }
-
-    function Coords(x, y, z)
-    {
-        this.x = x;
-        this.y = y;
-        this.z = z;
-    }
-    {
-        Coords.prototype.add = function(other)
-        {
-            this.x += other.x;
-            this.y += other.y;
-            this.z += other.z;
-
-            return this;
+        header {
+            background-color:rgba(33, 33, 33, 0.9);
+            color:#ffffff;
+            display:block;
+            font: 14px/1.3 Arial,sans-serif;
+            height:50px;
+            position:relative;
+            z-index:5;
+        }
+        h2{
+            margin-top: 30px;
+            text-align: center;
+        }
+        header h2{
+            font-size: 22px;
+            margin: 0 auto;
+            padding: 10px 0;
+            width: 80%;
+            text-align: center;
+        }
+        header a, a:visited {
+            text-decoration:none;
+            color:#fcfcfc;
         }
 
-        Coords.prototype.clone = function()
-        {
-            return new Coords
-            (
-                    this.x,
-                    this.y,
-                    this.z
-            );
+        @keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
+        }
+        @-webkit-keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
+        }
+        @-moz-keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
+        }
+        @-ms-keyframes move-twink-back {
+            from {background-position:0 0;}
+            to {background-position:-10000px 5000px;}
         }
 
-        Coords.prototype.multiply = function(other)
-        {
-            this.x *= other.x;
-            this.y *= other.y;
-            this.z *= other.z;
-
-            return this;
+        @keyframes move-clouds-back {
+            from {background-position:0 0;}
+            to {background-position:10000px 0;}
+        }
+        @-webkit-keyframes move-clouds-back {
+            from {background-position:0 0;}
+            to {background-position:10000px 0;}
+        }
+        @-moz-keyframes move-clouds-back {
+            from {background-position:0 0;}
+            to {background-position:10000px 0;}
+        }
+        @-ms-keyframes move-clouds-back {
+            from {background-position: 0;}
+            to {background-position:10000px 0;}
         }
 
-        Coords.prototype.multiplyScalar = function(scalar)
-        {
-            this.x *= scalar;
-            this.y *= scalar;
-            this.z *= scalar;
-
-            return this;
+        .stars, .twinkling, .clouds {
+            position:absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+            width:100%;
+            height:100%;
+            display:block;
         }
 
-        Coords.prototype.overwriteWith = function(other)
-        {
-            this.x = other.x;
-            this.y = other.y;
-            this.z = other.z;
-
-            return this;
+        .stars {
+            background: #000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+            z-index: 0;
+            transition: 100s;
+            transform: rotate(180deg);
         }
 
-    }
+        .twinkling{
+            background:transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+            z-index:1;
 
-    function CoordsCylindrical(angle, radius, elevation)
-    {
-        this.angle = angle;
-        this.radius = radius;
-        this.elevation = elevation;
-    }
-    {
-        // constants
-
-        CoordsCylindrical.Tau = Math.PI * 2.0;
-
-        // instance methods
-
-        CoordsCylindrical.prototype.randomize = function()
-        {
-            this.angle = CoordsCylindrical.Tau * Math.random();
-            this.radius = Math.random();
-            this.elevation = Math.random() * 2 - 1;
-
-            return this;
+            -moz-animation:move-twink-back 200s linear infinite;
+            -ms-animation:move-twink-back 200s linear infinite;
+            -o-animation:move-twink-back 200s linear infinite;
+            -webkit-animation:move-twink-back 200s linear infinite;
+            animation:move-twink-back 200s linear infinite;
         }
 
-        CoordsCylindrical.prototype.toCoords = function()
-        {
-            var returnValue = new Coords
-            (
-                    this.radius * Math.cos(this.angle),
-                    this.radius * Math.sin(this.angle),
-                    this.elevation
-            );
+        .clouds{
+            background:transparent url(http://www.script-tutorials.com/demos/360/images/clouds3.png) repeat top center;
+            z-index:3;
 
-            return returnValue;
+            -moz-animation:move-clouds-back 200s linear infinite;
+            -ms-animation:move-clouds-back 200s linear infinite;
+            -o-animation:move-clouds-back 200s linear infinite;
+            -webkit-animation:move-clouds-back 200s linear infinite;
+            animation:move-clouds-back 200s linear infinite;
         }
-    }
+    </style>
+</head>
+<body class="page proximanova">
+<div class="fs-view">
+    <div class="fs-view__main">
+        <div class="fs-view__middle fs-view__middle_full fs-view__middle_login" style="background-color: #000;">
 
-    function DisplayHelper()
-    {
-        // do nothing
-    }
-    {
-        DisplayHelper.prototype.clear = function()
-        {
-            this.graphics.fillStyle = "Black";
-            this.graphics.fillRect
-            (
-                    0, 0,
-                    this.displaySizeInPixels.x,
-                    this.displaySizeInPixels.y
-            );
-        }
+            <div class="stars"></div>
+            <div class="twinkling"></div>
 
-        DisplayHelper.prototype.drawBodyFromSide = function(body)
-        {
-            var bodyDefnSize = body.defn.size;
+            <div class="widget" data-fc="widget" style="width:280px; height:auto; z-index:2;">
+                <div class="widget__border widget__border_color_none">
+                    <div class="widget__body" style="background-color: transparent;">
+                        <div class="widget__body-data widget__body-data_type_form">
+                            <div class="widget__content">
+                                <div class="control" style="padding-bottom:25px;">
+                                    <div class="control__container">
+                                        <div class="widget__image"
+                                             style="height:40px; background-position:left; background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIyMzguMTA5cHgiIGhlaWdodD0iMjM4LjEwOXB4IiB2aWV3Qm94PSIwIDAgMjM4LjEwOSAyMzguMTA5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAyMzguMTA5IDIzOC4xMDkiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxnPjxwYXRoIGZpbGw9IiNGRjY2NjYiIGQ9Ik0xNjMuOTM4LDEzNS41MjJsNzEuNDQzLDM0LjE1OGMxLjA2NC0xLjc0NywxLjY1OS0zLjc4MiwxLjY1OS01LjkwNlYzNi40NzFjMC00LjQ5NS0zLjE0Ni04LjM3NS03LjU0NS05LjMwNGwtMC4xNDYtMC4wMzFjLTQuMTg0LTAuODgzLTguNDQsMS4xMzQtMTAuNDA3LDQuOTI5TDE2My45MzgsMTM1LjUyMnoiLz48cGF0aCBmaWxsPSIjRkZFMTY1IiBkPSJNMTMwLjYzMSwyLjQ3bDAuMDAxLDkyLjY3OGwtNDcuMzQ0LTAuMDAxYy0yLjA3LDAtMy45NzYtMS4xMjgtNC45NzEtMi45NDFMNDAuMzE5LDIyLjk1OWMtMS40MDYtMi41NjQsMC4xMzYtNS43NSwzLjAxOS02LjIzOEwxMjUuMjg0LDIuODZDMTI3LjA1NSwyLjU2MiwxMjguODQ1LDIuNDMyLDEzMC42MzEsMi40NyIvPjxwYXRoIGZpbGw9IiNGRjY2NjYiIGQ9Ik0xMzAuNjMzLDk1LjE0OGgzLjExYzIuMDkyLDAsNC4wMTQtMS4xNTEsNC45OTktMi45OTZsMzkuNzkyLTc0LjQwNWMxLjMzNC0yLjQ5NC0wLjA5NS01LjU3Mi0yLjg2LTYuMTYzbC0zOS43MzctOC40OTRjLTEuNzQ5LTAuMzczLTMuNTIzLTAuNTgtNS4zMDUtMC42MTlMMTMwLjYzMyw5NS4xNDh6Ii8+PHBhdGggZmlsbD0iI0ZGRTE2NSIgZD0iTTEyMi42MzYsMTIyLjI3MWw0LjI1Mi03Ljk1MWMxLjUxNi0yLjgzMy0wLjUzNy02LjI1Ny0zLjc0OS02LjI1N0g5NC4yMDRjLTMuMjMzLDAtNS4yODMsMy40NjQtMy43MjksNi4yOTdsOC43NCwxNS45MjhMMTIyLjYzNiwxMjIuMjcxeiIvPjxwYXRoIGZpbGw9IiMyMDlFRDUiIGQ9Ik05OS4yMTYsMTMwLjI4N2wyMy40Mi04LjAxOGwtMTAuMDI5LDE4Ljc1M2MtMS41OTIsMi45NzktNS44NTMsMy03LjQ3NywwLjA0TDk5LjIxNiwxMzAuMjg3eiIvPjxwYXRoIGZpbGw9IiMyMDlFRDUiIGQ9Ik0xNjMuOTM4LDEzNS41MjJsNzEuNDQzLDM0LjE1OGMtMS4wNDUsMS43MTItMi41NDQsMy4xNDgtNC4zODUsNC4xMmwtMTE0LjYxMyw2MC41MzRjLTMuNjk1LDEuOTUtOC4xNjMsMS43MTItMTEuNjI5LTAuNjIyTDYuMDc1LDE2Ny4yNTVjLTEuNTgzLTEuMDY2LTIuODQ2LTIuNDk1LTMuNzA2LTQuMTM2bDc3Ljc3NS0yNi4zOTd2MC4wMDFsMjQuMzA5LDQ1LjU1MmMxLjcyNCwzLjIzMiw1LjA4OSw1LjI1LDguNzUzLDUuMjVoMTcuMTIzYzMuNjY5LDAsNy4wMzgtMi4wMjIsOC43NjEtNS4yNjRMMTYzLjkzOCwxMzUuNTIyeiIvPjxwYXRoIGZpbGw9IiNGRkUxNjUiIGQ9Ik04MC4xNDUsMTM2LjcyM0wyMS43MjcsMjcuMjQ4Yy0yLjAwOS0zLjc2NS02LjE5OS01LjgyMi0xMC40MDYtNS4xMTFsLTEuNjkyLDAuMjg3Yy01LjA2NSwwLjg1Ny04LjU1OSw0Ljk5MS04LjU1OSw5LjgzMVYxNTcuODVjMCwxLjg2NCwwLjQ1OCwzLjY2NywxLjMsNS4yNzFMODAuMTQ1LDEzNi43MjN6Ii8+PC9nPjwvc3ZnPg==');">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <div class="control__container control__container_vertical">
+                                            <span class="input input__has-clear" data-fc="input">
+                                                <span class="input__box">
+                                                    <input type="text" class="input__control" placeholder="Логин">
+                                                    <button class="button" type="button" data-fc="button">
+                                                        <span class="icon">
+                                                            <span class="spinner"></span>
+                                                        </span>
+                                                        <span class="icon icon_svg_close"></span>
+                                                    </button>
+                                                </span>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <div class="control__container control__container_vertical">
+                                            <span class="input input__has-clear" data-fc="input">
+                                                <span class="input__box">
+                                                    <input type="password" class="input__control" placeholder="Пароль">
+                                                    <button class="button" type="button" data-fc="button">
+                                                        <span class="icon icon_svg_close"></span>
+                                                    </button>
+                                                </span>
+                                            </span>
+                                    </div>
+                                </div>
+                                <div class="control">
+                                    <div class="control__container">
+                                        <a class="button button_color_blue" href="dashboard.html" data-fc="button" >
+                                            <span class="button__text">Войти</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            this.drawPos.overwriteWith
-            (
-                    this.centerPos
-            ).add
-            (
-                    body.pos
-            );
-
-            this.drawPos.z += this.centerPos.y;
-
-            this.graphics.fillStyle = body.defn.color.systemColor;
-            this.graphics.fillRect
-            (
-                    this.drawPos.x, this.drawPos.z,
-                    bodyDefnSize.x, bodyDefnSize.z
-            );
-        }
-
-        DisplayHelper.prototype.drawBodyFromTop = function(body)
-        {
-            var bodyDefnSize = body.defn.size;
-
-            this.drawPos.overwriteWith
-            (
-                    this.centerPos
-            ).add
-            (
-                    body.pos
-            );
-
-            this.graphics.fillStyle = body.defn.color.systemColor;
-            this.graphics.fillRect
-            (
-                    this.drawPos.x, this.drawPos.y,
-                    bodyDefnSize.x, bodyDefnSize.y
-            );
-        }
-
-        DisplayHelper.prototype.drawClusterFromSide = function(cluster)
-        {
-            this.clear();
-
-            for (var b = 0; b < cluster.bodies.length; b++)
-            {
-                var body = cluster.bodies[b];
-                this.drawBodyFromSide(body);
-            }
-        }
-
-        DisplayHelper.prototype.drawClusterFromTop = function(cluster)
-        {
-            this.clear();
-
-            for (var b = 0; b < cluster.bodies.length; b++)
-            {
-                var body = cluster.bodies[b];
-                this.drawBodyFromTop(body);
-            }
-        }
-
-        DisplayHelper.prototype.initialize = function(displaySizeInPixels)
-        {
-            this.displaySizeInPixels = displaySizeInPixels;
-            this.centerPos = new Coords
-            (
-                    this.displaySizeInPixels.x / 2,
-                    this.displaySizeInPixels.y / 2,
-                    0
-            );
-
-            this.canvas = document.createElement("canvas");
-            this.canvas.width = this.displaySizeInPixels.x;
-            this.canvas.height = this.displaySizeInPixels.y;
-
-            this.graphics = this.canvas.getContext("2d");
-
-            document.body.appendChild(this.canvas);
-
-            this.drawPos = new Coords(0, 0, 0);
-        }
-    }
-
-    // run
-
-    main();
-</script>
+        </div>
+    </div>
+</div>
+<script src="third/jquery-3.2.1.min.js"></script>
+<script src="third/jquery-ui.min.js"></script>
+<script src="third/jquery.event.drag-2.3.0.js"></script>
+<script src="third/jquery.event.drop-2.3.0.js"></script>
+<script src="third/highcharts.js"></script>
+<script src="foresight.third.min.js"></script>
+<script src="foresight.components.debug.js"></script>
+<script src="foresight.pages.min.js"></script>
 </body>
 </html>

@@ -20,6 +20,7 @@
                         CONTENT_TYPE_COUNT: 'count'
                     };
                     that.defaults = {
+                        collapsible: true,
                         collapsed: false,
                         color: that.const.BORDER_COLOR_DEFAULT,
                         content: that.const.CONTENT_NODATA,
@@ -36,9 +37,9 @@
                         button_collapse: $([
                             '<button class="button button_collapse" type="button" data-tooltip="' + that.data.name + '">',
                             '<span class="button__text">' + that.data.name + '</span>',
-                            '<span class="icon icon_svg_down"></span>',
                             '</button>'
                         ].join('')).button(),
+                        button_collapse_icon: $('<span class="icon icon_svg_down"></span>'),
                         buttons: []
                     };
 
@@ -68,10 +69,26 @@
                             that.set_content();
                         }
                     };
-                    that.render_buttons = function(){
+                    that.render_button_collapse = function(){
+                        that.data._el.button_collapse.remove();
                         if (that.data.name) {
+                            if (that.data.collapsible) {
+                                that.data._el.button_collapse.button().on('click.widget', that.toggle);
+                                that.data._el.button_collapse.append(that.data._el.button_collapse_icon);
+                            } else {
+                                that.data._el.button_collapse_icon.remove();
+                            }
                             self.find('.widget__header-name').append(that.data._el.button_collapse);
                         }
+                        if (that.data._el.buttons.length == 0 && (!that.data.name || that.data.name == "")) {
+                            self.addClass('widget_padding_none');
+                            if (!that.data.collapsed) {
+                            }
+                        } else {
+                            self.removeClass('widget_padding_none');
+                        }
+                    };
+                    that.render_buttons = function(){
                         if (that.data.buttons){
                             that.data.buttons.forEach(function(button){
                                 var $button = $([
@@ -103,6 +120,7 @@
                         that.data._el.button_collapse.find('.button__text').text(that.data.name);
                         that.data._el.button_collapse.attr('data-tooltip', that.data.name);
                         that.data._el.button_collapse.data('tooltip', that.data.name);
+                        that.render_button_collapse();
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');
@@ -223,11 +241,7 @@
                         that.data.mode = 'view';
                     };
 
-                    that.bind = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.on('click.widget', that.toggle);
-                        }
-                    };
+                    that.bind = function(){};
 
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
@@ -241,6 +255,7 @@
                         } else {
                             that.get_buttons();
                         }
+                        that.render_button_collapse();
                         that.init_components();
                         that.bind();
                         if (that.data.mode == 'view') {
@@ -298,6 +313,13 @@
         },
         set_content : function() {
             return this.each(function() {
+                this.obj.set_content();
+            });
+        },
+        update : function() {
+            return this.each(function() {
+                this.obj.set_name();
+                this.obj.set_color();
                 this.obj.set_content();
             });
         }

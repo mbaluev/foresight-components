@@ -42,7 +42,6 @@
     height: 100%;
     overflow: hidden;
 }
-
 .widget__border_none {
     border: none;
 }
@@ -227,4 +226,23 @@
 .widget__image_visible {
     opacity: 1;
     display: block;
+}
+
+.widget_padding_none {
+    padding-top: 0;
+}
+.widget_padding_none .widget__body {
+    padding-top: 0;
+}
+.widget_padding_none .widget__body-data_type_text {
+    padding: 15px 10px;
+}
+.widget_padding_none .widget__body-data_type_text_align_center {
+    padding: 15px 10px;
+}
+.widget_padding_none .widget__count {
+    padding: 15px 10px;
+}
+.widget_padding_none .widget__text {
+    padding: 15px 10px;
 }

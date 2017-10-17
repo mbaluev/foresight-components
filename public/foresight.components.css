@@ -2123,6 +2123,30 @@ body {
   display: block;
 }
 
+.widget_padding_none {
+  padding-top: 0;
+}
+
+.widget_padding_none .widget__body {
+  padding-top: 0;
+}
+
+.widget_padding_none .widget__body-data_type_text {
+  padding: 15px 10px;
+}
+
+.widget_padding_none .widget__body-data_type_text_align_center {
+  padding: 15px 10px;
+}
+
+.widget_padding_none .widget__count {
+  padding: 15px 10px;
+}
+
+.widget_padding_none .widget__text {
+  padding: 15px 10px;
+}
+
 .gallery {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   height: 100%;
