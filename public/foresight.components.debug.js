@@ -1495,7 +1495,7 @@ $(function(){
                         }
                     };
                     that.render_button_collapse = function(){
-                        that.data._el.button_collapse.remove();
+                        //that.data._el.button_collapse.remove();
                         if (that.data.name) {
                             if (that.data.collapsible) {
                                 that.data._el.button_collapse.button().on('click.widget', that.toggle);
@@ -1507,8 +1507,6 @@ $(function(){
                         }
                         if (!that.data.name || that.data.name == "") {
                             self.addClass('widget_padding_none');
-                            if (!that.data.collapsed) {
-                            }
                         } else {
                             self.removeClass('widget_padding_none');
                         }
@@ -1551,7 +1549,7 @@ $(function(){
                         that.data._el.button_collapse.find('.button__text').text(that.data.name);
                         that.data._el.button_collapse.attr('data-tooltip', that.data.name);
                         that.data._el.button_collapse.data('tooltip', that.data.name);
-                        that.render_button_collapse();
+                        //that.render_button_collapse();
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');
