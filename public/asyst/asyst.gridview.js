@@ -176,6 +176,7 @@ Asyst.GridView = function(options){
         viewEl[0].innerHtml = "";
 
         var options = {
+            disableCheckbox: true, // убираем чекбоксы
             enableCellNavigation: true,
             editable: false,
             autoHeight: false,
