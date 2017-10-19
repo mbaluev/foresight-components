@@ -908,7 +908,6 @@ $(function(){
                             that.expand_widget(node._id, false);
                         });
                         that.enable();
-                        $(window).resize();
                     };
                     that.view_mode = function(){
                         that.data.mode = 'view';
@@ -930,7 +929,6 @@ $(function(){
                             }
                         });
                         that.disable();
-                        $(window).resize();
                     };
 
                     that.create = function(){
@@ -1497,17 +1495,21 @@ $(function(){
                     that.render_button_collapse = function(){
                         if (that.data.name) {
                             if (that.data.collapsible) {
-                                that.data._el.button_collapse.button().on('click.widget', that.toggle);
                                 that.data._el.button_collapse.append(that.data._el.button_collapse_icon);
                             } else {
                                 that.data._el.button_collapse_icon.remove();
                             }
                             self.find('.widget__header-name').append(that.data._el.button_collapse);
+                            that.data._el.button_collapse.button('show');
+                        } else {
+                            that.data._el.button_collapse.button('hide');
                         }
                         if (!that.data.name || that.data.name == "") {
-                            self.addClass('widget_padding_none');
+                            self.removeClass('widget_collapsible_true');
+                            self.addClass('widget_collapsible_false');
                         } else {
-                            self.removeClass('widget_padding_none');
+                            self.removeClass('widget_collapsible_false');
+                            self.addClass('widget_collapsible_true');
                         }
                     };
                     that.render_buttons = function(){
@@ -1544,29 +1546,11 @@ $(function(){
                         }
                     };
 
-                    that.set_button_collapse = function(){
-                        that.data._el.button_collapse.button('disable');
-                        that.data._el.button_collapse.remove();
-                        if (that.data.name) {
-                            if (that.data.collapsible) {
-                                that.data._el.button_collapse.append(that.data._el.button_collapse_icon);
-                            } else {
-                                that.data._el.button_collapse_icon.remove();
-                            }
-                            self.find('.widget__header-name').append(that.data._el.button_collapse);
-                            that.data._el.button_collapse.button('enable');
-                        }
-                        if (!that.data.name || that.data.name == "") {
-                            self.addClass('widget_padding_none');
-                        } else {
-                            self.removeClass('widget_padding_none');
-                        }
-                    };
                     that.set_name = function(){
                         that.data._el.button_collapse.find('.button__text').text(that.data.name);
                         that.data._el.button_collapse.attr('data-tooltip', that.data.name);
                         that.data._el.button_collapse.data('tooltip', that.data.name);
-                        that.set_button_collapse();
+                        that.render_button_collapse();
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');
@@ -1675,23 +1659,21 @@ $(function(){
                     };
 
                     that.edit_mode = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.button('disable');
-                        }
+                        that.data._el.button_collapse.button('disable');
                         that.data.mode = 'edit';
-                        self.removeClass('widget_view_mode');
-                        self.addClass('widget_edit_mode');
+                        self.removeClass('widget_mode_view');
+                        self.addClass('widget_mode_edit');
                     };
                     that.view_mode = function(){
-                        if (that.data.name) {
-                            that.data._el.button_collapse.button('enable');
-                        }
+                        that.data._el.button_collapse.button('enable');
                         that.data.mode = 'view';
-                        self.addClass('widget_view_mode');
-                        self.removeClass('widget_edit_mode');
+                        self.addClass('widget_mode_view');
+                        self.removeClass('widget_mode_edit');
                     };
 
-                    that.bind = function(){};
+                    that.bind = function(){
+                        that.data._el.button_collapse.button().on('click.widget', that.toggle);
+                    };
 
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
