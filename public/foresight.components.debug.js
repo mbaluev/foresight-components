@@ -974,7 +974,14 @@ $(function(){
                             } else {
                                 that.edit_mode();
                             }
+                            that.init_resize();
                         }
+                    };
+                    that.init_resize = function(){
+                        $(window).resize(function(){
+                            console.log('resize');
+                            debugger;
+                        });
                     };
                     that.init();
                 }
@@ -1449,7 +1456,8 @@ $(function(){
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
                         loader: null,
-                        reloadable: false
+                        reloadable: false,
+                        onResize: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1678,6 +1686,9 @@ $(function(){
                     that.bind = function(){
                         that.data._el.button_collapse.button().on('click.widget', that.toggle);
                     };
+                    that.resize = function(func){
+                        that.data.onResize = func;
+                    };
 
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
@@ -1757,6 +1768,11 @@ $(function(){
                 this.obj.set_name();
                 this.obj.set_color();
                 this.obj.set_content();
+            });
+        },
+        resize : function(func) {
+            return this.each(function() {
+                this.obj.resize(func);
             });
         }
     };

@@ -235,7 +235,14 @@
                             } else {
                                 that.edit_mode();
                             }
+                            that.init_resize();
                         }
+                    };
+                    that.init_resize = function(){
+                        $(window).resize(function(){
+                            console.log('resize');
+                            debugger;
+                        });
                     };
                     that.init();
                 }

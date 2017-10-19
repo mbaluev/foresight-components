@@ -117,3 +117,38 @@
 .menu_color_light .menu__submenu .menu__item-link_selected {
     background-color: transparent;
 }
+
+.menu_accordion {
+    width: 100%;
+    border-right: none;
+    background-color: transparent;
+}
+.menu_accordion .menu__item {
+    border-bottom: solid 1px #eee;
+}
+.menu_accordion .menu__item-link:hover {
+    background-color: transparent;
+}
+.menu_accordion .menu__item-link .menu__item-text {
+    color: #333;
+}
+.menu_accordion .menu__item-link:hover .menu__item-text {
+    color: #ff5940;
+}
+.menu_accordion .menu__item-link_selected .menu__item-text {
+    color: #ff5940;
+}
+.menu_accordion .menu__submenu {
+    background-color: #fafafa;
+    border-top: solid 1px #eee;
+}
+.menu_accordion .menu__submenu .menu__item {
+    border-top: none;
+    border-bottom: none;
+}
+.menu_accordion .menu__submenu .menu__item-link:hover {
+    background-color: transparent;
+}
+.menu_accordion .menu__submenu .menu__item-link_selected {
+    background-color: transparent;
+}
