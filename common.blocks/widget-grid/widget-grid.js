@@ -241,7 +241,6 @@
                     that.init_resize = function(){
                         $(window).resize(function(){
                             console.log('resize');
-                            debugger;
                         });
                     };
                     that.init();

@@ -175,6 +175,7 @@ Asyst.GridView = function(options){
         var viewEl = container;
         viewEl[0].innerHtml = "";
 
+
         var options = {
             disableCheckbox: true, // убираем чекбоксы
             enableCellNavigation: true,
@@ -183,7 +184,7 @@ Asyst.GridView = function(options){
             doClick: true,
             wideString: Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isWideString,
             initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isInitiallyCollapsed,
-            rowSelectionModel: new Asyst.RowSelectionModel()
+            rowSelectionModel: new Asyst.RowSelectionModel({ selectActiveRow: false }) // убираем выделение строк по клику
         };
 
         //todo replace
