@@ -74,7 +74,6 @@
                         }
                     };
                     that.render_button_collapse = function(){
-                        //that.data._el.button_collapse.remove();
                         if (that.data.name) {
                             if (that.data.collapsible) {
                                 that.data._el.button_collapse.button().on('click.widget', that.toggle);
@@ -124,11 +123,29 @@
                         }
                     };
 
+                    that.set_button_collapse = function(){
+                        that.data._el.button_collapse.button('disable');
+                        that.data._el.button_collapse.remove();
+                        if (that.data.name) {
+                            if (that.data.collapsible) {
+                                that.data._el.button_collapse.append(that.data._el.button_collapse_icon);
+                            } else {
+                                that.data._el.button_collapse_icon.remove();
+                            }
+                            self.find('.widget__header-name').append(that.data._el.button_collapse);
+                            that.data._el.button_collapse.button('enable');
+                        }
+                        if (!that.data.name || that.data.name == "") {
+                            self.addClass('widget_padding_none');
+                        } else {
+                            self.removeClass('widget_padding_none');
+                        }
+                    };
                     that.set_name = function(){
                         that.data._el.button_collapse.find('.button__text').text(that.data.name);
                         that.data._el.button_collapse.attr('data-tooltip', that.data.name);
                         that.data._el.button_collapse.data('tooltip', that.data.name);
-                        //that.render_button_collapse();
+                        that.set_button_collapse();
                     };
                     that.set_color = function(){
                         var $border = self.find('.widget__border');

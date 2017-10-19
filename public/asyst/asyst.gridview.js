@@ -85,7 +85,7 @@ Asyst.GridView = function(options){
                     }
                     metaview.map(function(view, i){
                         view.IsExtFilterVisible = false; //override
-                       // view.IsWideString = false; //override
+                        //view.IsWideString = false; //override
                         view.IsEditable = false;
                         view.IsViewSampled = false;
                         if (i == 0) {
