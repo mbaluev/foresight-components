@@ -2120,6 +2120,7 @@ var GridBoard = function(options){
     var that = this._gridboard = {};
     that.data = {
         title: null,
+        margin: true,
         items: [],
         loader: null,
         defaults: {
@@ -2192,6 +2193,7 @@ var GridBoard = function(options){
     that.render_grid = function(){
         var widget_grid_options = {
             items: that.data.data,
+            margin: that.data.margin,
             loader: that.data.loader
         };
         that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
