@@ -679,7 +679,9 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'menu', target : self });
                     var that = this.obj = {};
-                    that.defaults = {};
+                    that.defaults = {
+                        expanded: false
+                    };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
 
@@ -705,6 +707,10 @@ $(function(){
                                     $submenu.slideToggle(500);
                                     $icon.toggleClass('icon_rotate_0deg');
                                 });
+                                if (that.data.expanded) {
+                                    $submenu.show();
+                                    $icon.toggleClass('icon_rotate_0deg');
+                                }
                             } else {
                                 $itemlink.on('click', function(){
                                     self.find('.menu__item-link').removeClass('menu__item-link_selected');
