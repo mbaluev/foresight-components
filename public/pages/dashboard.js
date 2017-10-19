@@ -18,6 +18,7 @@ var Dashboard = function(options){
         title: null,
         name: null,
         single: false,
+        margin: true,
         editable: true,
         tumblerContainerSelector: null,
         pagename: '',
@@ -291,6 +292,7 @@ var Dashboard = function(options){
         that.data.grid = that.data._el.grid
             .widget_grid({
                 single: that.data.single,
+                margin: that.data.margin,
                 pagename: that.data.pagename,
                 items: that.data.items,
                 loader: that.data.loader,

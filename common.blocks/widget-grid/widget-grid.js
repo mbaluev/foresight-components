@@ -9,6 +9,7 @@
                     that.defaults = {
                         items: [],
                         single: false,
+                        margin: true,
                         loader: null,
                         library: null,
                         widget_buttons: [],
@@ -196,6 +197,9 @@
                         if (self.hasClass('grid-stack')) {
                             if (that.data.single) {
                                 self.addClass('widget-grid_single');
+                            }
+                            if (!that.data.margin) {
+                                self.addClass('widget-grid_margin_none');
                             }
                             self.gridstack(that.data.grid);
                             that.data._el.grid = self.data('gridstack');
