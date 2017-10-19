@@ -47,7 +47,7 @@
 .menu__item-text {
     display: inline-block;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 16px;
     flex-grow: 1;
     max-width: 100%;
@@ -122,6 +122,9 @@
     width: 100%;
     border-right: none;
     background-color: transparent;
+}
+.menu_accordion .menu__item-text {
+    font-size: 13px;
 }
 .menu_accordion .menu__item {
     border-bottom: solid 1px #eee;
