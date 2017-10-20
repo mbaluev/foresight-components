@@ -9,7 +9,7 @@
                     that.defaults = {
                         expanded: false,
                         scrollToSelectedItem: false,
-                        maxItemLines: 2,
+                        maxItemLines: null,
                         maxItemSymbols: null
                     };
                     that.data = self.data();
