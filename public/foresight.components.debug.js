@@ -682,7 +682,7 @@ $(function(){
                     that.defaults = {
                         expanded: false,
                         scrollToSelectedItem: false,
-                        maxItemLines: null,
+                        maxItemLines: 2,
                         maxItemSymbols: null
                     };
                     that.data = self.data();
@@ -719,16 +719,24 @@ $(function(){
                                     }, 200);
                                 });
                             }
-                            if (that.data.maxItemSymbols) {
-                                var text = $itemtext.html();
-                                if (text.length > that.data.maxItemSymbols) {
-                                    $itemtext.attr('data-tooltip', text);
-                                    $itemtext.html(text.substr(0, that.data.maxItemSymbols) + '...');
-                                }
-                            }
                             if (that.data.maxItemLines) {
-                                /*
                                 var maxHeight = that.data.maxItemLines * parseInt($itemtext.css('line-height').replace('px',''));
+                                $itemtext.css({
+                                    'max-height': maxHeight
+                                }).dotdotdot({
+                                    watch: true,
+                                    callback: function(isTruncated, orgContent){
+                                        if (isTruncated) {
+                                            $itemtext.data('isTrancated', isTruncated);
+                                            $itemtext.attr('data-tooltip', orgContent.text());
+                                        } else {
+                                            if ($itemtext.data('isTrancated') == 'true') {
+                                                $itemtext.removeAttr('data-tooltip');
+                                            }
+                                        }
+                                    }
+                                });
+                                /*
                                 if ($itemtext.height() > maxHeight) {
                                     $itemtext.css({
                                         display: 'block',
@@ -741,19 +749,13 @@ $(function(){
                                     $itemtext.attr('data-tooltip', $itemtext.text());
                                 }
                                 */
-                                $itemtext.dotdotdot({
-                                    watch: true,
-                                    callback: function(isTruncated, orgContent){
-                                        if (isTruncated) {
-                                            $itemlink.data('isTrancated', isTruncated);
-                                            $itemtext.attr('data-tooltip', orgContent.text());
-                                        } else {
-                                            if ($itemlink.data('isTrancated') == 'true') {
-                                                $itemtext.removeAttr('data-tooltip');
-                                            }
-                                        }
-                                    }
-                                });
+                            }
+                            if (that.data.maxItemSymbols) {
+                                var text = $itemtext.html();
+                                if (text.length > that.data.maxItemSymbols) {
+                                    $itemtext.attr('data-tooltip', text);
+                                    $itemtext.html(text.substr(0, that.data.maxItemSymbols) + '...');
+                                }
                             }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
