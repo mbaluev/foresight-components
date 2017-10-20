@@ -21,7 +21,6 @@
                     that.destroy = function(){
                         self.removeData();
                     };
-
                     that.select = function(id){
                         var $itemlink = self.find('.menu__item-link[data-id="' + id + '"]'),
                             $item = $itemlink.parent();
@@ -31,7 +30,6 @@
                             scrollTop: $item.position().top + $item.outerHeight()/2 - self.outerHeight()/2
                         }, 200);
                     };
-
                     that.init = function(){
                         var $menu_item_list = self.find('.menu__item');
                         $menu_item_list.each(function(){
@@ -70,7 +68,6 @@
                                     $itemtext.attr('data-tooltip', $itemtext.text());
                                 }
                                 */
-                                /*
                                 $itemtext.dotdotdot({
                                     watch: true,
                                     callback: function(isTruncated, orgContent){
@@ -84,7 +81,6 @@
                                         }
                                     }
                                 });
-                                */
                             }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
