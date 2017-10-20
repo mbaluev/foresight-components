@@ -681,7 +681,8 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         expanded: false,
-                        scrollToSelectedItem: false
+                        scrollToSelectedItem: false,
+                        maxItemHeight: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -709,6 +710,7 @@ $(function(){
                             var item = $(this),
                                 $itemlink = item.children('.menu__item-link'),
                                 $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
+                                $itemtext = $itemlinkcontent.children('.menu__item-text'),
                                 $icon = $itemlinkcontent.children('.menu__icon'),
                                 $submenu = item.children('.menu__submenu-container');
                             if (that.data.scrollToSelectedItem) {
@@ -717,6 +719,10 @@ $(function(){
                                         scrollTop: item.position().top + item.outerHeight()/2 - self.outerHeight()/2
                                     }, 200);
                                 });
+                            }
+                            if (that.data.maxItemHeight) {
+                                $itemtext.css({ 'max-height': that.data.maxItemHeight });
+                                $itemtext.dotdotdot();
                             }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
