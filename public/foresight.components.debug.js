@@ -5465,15 +5465,16 @@ $(function(){
                     var that = this.obj = {};
                     that.const = {
                         COLOR_BLUE: '#4983c4',
-                        COLOR_DEFAULT: '#666666',
+                        COLOR_DEFAULT: '#333',
                         COLOR_PURPLE: '#8e6bf5',
                         COLOR_RED: '#ff5940',
-                        COLOR_WHITE: '#ffffff'
+                        COLOR_WHITE: '#fff'
                     };
                     that.defaults = {
-                        color: 'blue',
-                        colorNodes: that.const.COLOR_WHITE,
-                        colorBackground: that.const.COLOR_BLUE
+                        color_nodes: 'default',
+                        color_nodes_value: that.const.COLOR_WHITE,
+                        color_background: null,
+                        color_background_value: that.const.COLOR_BLUE
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -5486,27 +5487,39 @@ $(function(){
                         self.remove();
                     };
                     that.init_color = function(){
-                        if (that.data.color == 'blue'){
-                            that.data.colorNodes = that.const.COLOR_WHITE;
-                            that.data.colorBackground = that.const.COLOR_BLUE;
+                        if (that.data.color_nodes == 'blue'){
+                            that.data.color_nodes_value = that.const.COLOR_BLUE;
                         }
-                        if (that.data.color == 'default'){
-                            that.data.colorNodes = that.const.COLOR_WHITE;
-                            that.data.colorBackground = that.const.COLOR_DEFAULT;
+                        if (that.data.color_nodes == 'default'){
+                            that.data.color_nodes_value = that.const.COLOR_DEFAULT;
                         }
-                        if (that.data.color == 'purple'){
-                            that.data.colorNodes = that.const.COLOR_WHITE;
-                            that.data.colorBackground = that.const.COLOR_PURPLE;
+                        if (that.data.color_nodes == 'purple'){
+                            that.data.color_nodes_value = that.const.COLOR_PURPLE;
                         }
-                        if (that.data.color == 'red'){
-                            that.data.colorNodes = that.const.COLOR_WHITE;
-                            that.data.colorBackground = that.const.COLOR_RED;
+                        if (that.data.color_nodes == 'red'){
+                            that.data.color_nodes_value = that.const.COLOR_RED;
                         }
-                        if (that.data.color == 'white'){
-                            that.data.colorNodes = that.const.COLOR_DEFAULT;
-                            that.data.colorBackground = that.const.COLOR_WHITE;
+                        if (that.data.color_nodes == 'white'){
+                            that.data.color_nodes_value = that.const.COLOR_WHITE;
                         }
-                        self.css({ 'background-color': that.data.colorBackground });
+                        if (that.data.color_background) {
+                            if (that.data.color_background == 'blue'){
+                                that.data.color_background_value = that.const.COLOR_BLUE;
+                            }
+                            if (that.data.color_background == 'default'){
+                                that.data.color_background_value = that.const.COLOR_DEFAULT;
+                            }
+                            if (that.data.color_background == 'purple'){
+                                that.data.color_background_value = that.const.COLOR_PURPLE;
+                            }
+                            if (that.data.color_background == 'red'){
+                                that.data.color_background_value = that.const.COLOR_RED;
+                            }
+                            if (that.data.color_background == 'white'){
+                                that.data.color_background_value = that.const.COLOR_WHITE;
+                            }
+                            self.css({ 'background-color': that.data.color_background_value });
+                        }
                     };
                     that.init = function(){
                         that.init_color();
@@ -5522,13 +5535,13 @@ $(function(){
                                     }
                                 },
                                 "color": {
-                                    "value": that.data.colorNodes
+                                    "value": that.data.color_nodes_value
                                 },
                                 "shape": {
                                     "type": "circle",
                                     "stroke": {
                                         "width": 0,
-                                        "color": that.data.colorNodes
+                                        "color": that.data.color_nodes_value
                                     },
                                     "polygon": {
                                         "nb_sides": 5
@@ -5562,7 +5575,7 @@ $(function(){
                                 "line_linked": {
                                     "enable": true,
                                     "distance": 150,
-                                    "color": that.data.colorNodes,
+                                    "color": that.data.color_nodes_value,
                                     "opacity": 0.25,
                                     "width": 1
                                 },
