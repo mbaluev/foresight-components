@@ -692,7 +692,12 @@ $(function(){
                         self.removeData();
                     };
 
-                    that.init = function() {
+                    that.select = function(id){
+                        self.find('.menu__item-link').removeClass('menu__item-link_selected');
+                        self.find('.menu__item-link[data-id="' + id + '"]').addClass('menu__item-link_selected');
+                    };
+
+                    that.init = function(){
                         var $menu_item_list = self.find('.menu__item');
                         $menu_item_list.each(function(){
                             var item = $(this),
@@ -727,6 +732,11 @@ $(function(){
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
+            });
+        },
+        select : function(id) {
+            return this.each(function() {
+                this.obj.select(id);
             });
         }
     };
