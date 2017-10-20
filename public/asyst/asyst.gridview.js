@@ -399,6 +399,13 @@ Asyst.GridView = function(options){
                 Grid.ExportToXlsx();
             }
         });
+        that.data.header.settings.push({
+            icon: 'icon_svg_close',
+            name: 'Закрыть реестр',
+            onclick: function(){
+                window.history.back();
+            }
+        });
     };
     that.init = function(){
         that.loader_add();
