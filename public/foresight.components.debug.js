@@ -683,7 +683,7 @@ $(function(){
                         expanded: false,
                         scrollToSelectedItem: false,
                         maxItemLines: null,
-                        maxItemSymbols: 30
+                        maxItemSymbols: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
