@@ -9,7 +9,7 @@
                     that.defaults = {
                         expanded: false,
                         scrollToSelectedItem: false,
-                        maxItemLines: 2
+                        maxItemLines: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
