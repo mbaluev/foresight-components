@@ -682,7 +682,7 @@ $(function(){
                     that.defaults = {
                         expanded: false,
                         scrollToSelectedItem: false,
-                        maxItemHeight: null
+                        maxItemLines: 2
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -720,9 +720,23 @@ $(function(){
                                     }, 200);
                                 });
                             }
-                            if (that.data.maxItemHeight) {
-                                $itemtext.css({ 'max-height': that.data.maxItemHeight });
-                                $itemtext.dotdotdot();
+                            if (that.data.maxItemLines) {
+                                $itemtext.css({
+                                    'max-height': that.data.maxItemLines * parseInt($itemtext.css('line-height').replace('px',''))
+                                });
+                                $itemtext.dotdotdot({
+                                    watch: true,
+                                    callback: function(isTruncated, orgContent){
+                                        if (isTruncated) {
+                                            $itemlink.data('isTrancated', isTruncated);
+                                            $itemtext.attr('data-tooltip', orgContent.text());
+                                        } else {
+                                            if ($itemlink.data('isTrancated') == 'true') {
+                                                $itemtext.removeAttr('data-tooltip');
+                                            }
+                                        }
+                                    }
+                                });
                             }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
