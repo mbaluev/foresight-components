@@ -7,7 +7,8 @@
                     self.data('_widget', { type: 'menu', target : self });
                     var that = this.obj = {};
                     that.defaults = {
-                        expanded: false
+                        expanded: false,
+                        scrollToSelectedItem: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -32,6 +33,13 @@
                                 $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
                                 $icon = $itemlinkcontent.children('.menu__icon'),
                                 $submenu = item.children('.menu__submenu-container');
+                            if (that.data.scrollToSelectedItem) {
+                                $itemlink.on('click', function(){
+                                    self.animate({
+                                        scrollTop: item.position().top + item.outerHeight()/2 - self.outerHeight()/2
+                                    }, 200);
+                                });
+                            }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
                                 $icon.addClass('icon_animate');
