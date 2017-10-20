@@ -1423,8 +1423,12 @@ body {
   border-bottom: solid 1px #eee;
 }
 
+.menu_accordion .menu__item-link {
+  background-color: #fafafa;
+}
+
 .menu_accordion .menu__item-link:hover {
-  background-color: transparent;
+  background-color: #fafafa;
 }
 
 .menu_accordion .menu__item-link .menu__item-text {
@@ -1440,7 +1444,6 @@ body {
 }
 
 .menu_accordion .menu__submenu {
-  background-color: #fafafa;
   border-top: solid 1px #eee;
 }
 
@@ -1449,12 +1452,16 @@ body {
   border-bottom: none;
 }
 
+.menu_accordion .menu__submenu .menu__item-link {
+  background-color: #fff;
+}
+
 .menu_accordion .menu__submenu .menu__item-link:hover {
-  background-color: transparent;
+  background-color: #fff;
 }
 
 .menu_accordion .menu__submenu .menu__item-link_selected {
-  background-color: transparent;
+  background-color: #fff;
 }
 
 .link {

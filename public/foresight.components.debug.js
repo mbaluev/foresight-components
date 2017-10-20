@@ -681,7 +681,7 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         expanded: false,
-                        scrollToSelectedItem: true
+                        scrollToSelectedItem: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
