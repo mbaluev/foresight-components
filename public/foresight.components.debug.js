@@ -681,7 +681,7 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         expanded: false,
-                        scrollToSelectedItem: false
+                        scrollToSelectedItem: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -694,8 +694,13 @@ $(function(){
                     };
 
                     that.select = function(id){
+                        var $itemlink = self.find('.menu__item-link[data-id="' + id + '"]'),
+                            $item = $itemlink.parent();
                         self.find('.menu__item-link').removeClass('menu__item-link_selected');
-                        self.find('.menu__item-link[data-id="' + id + '"]').addClass('menu__item-link_selected');
+                        $itemlink.addClass('menu__item-link_selected');
+                        self.animate({
+                            scrollTop: $item.position().top + $item.outerHeight()/2 - self.outerHeight()/2
+                        }, 200);
                     };
 
                     that.init = function(){
