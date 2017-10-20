@@ -9,7 +9,8 @@
                     that.defaults = {
                         expanded: false,
                         scrollToSelectedItem: false,
-                        maxItemLines: null
+                        maxItemLines: null,
+                        maxItemSymbols: 30
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -47,10 +48,29 @@
                                     }, 200);
                                 });
                             }
+                            if (that.data.maxItemSymbols) {
+                                var text = $itemtext.html();
+                                if (text.length > that.data.maxItemSymbols) {
+                                    $itemtext.attr('data-tooltip', text);
+                                    $itemtext.html(text.substr(0, that.data.maxItemSymbols) + '...');
+                                }
+                            }
                             if (that.data.maxItemLines) {
-                                $itemtext.css({
-                                    'max-height': that.data.maxItemLines * parseInt($itemtext.css('line-height').replace('px',''))
-                                });
+                                /*
+                                var maxHeight = that.data.maxItemLines * parseInt($itemtext.css('line-height').replace('px',''));
+                                if ($itemtext.height() > maxHeight) {
+                                    $itemtext.css({
+                                        display: 'block',
+                                        height: maxHeight,
+                                        overflow: 'hidden',
+                                        'text-overflow': 'ellipsis',
+                                        '-webkit-box-orient': 'vertical',
+                                        '-webkit-line-clamp': that.data.maxItemLines
+                                    });
+                                    $itemtext.attr('data-tooltip', $itemtext.text());
+                                }
+                                */
+                                /*
                                 $itemtext.dotdotdot({
                                     watch: true,
                                     callback: function(isTruncated, orgContent){
@@ -64,6 +84,7 @@
                                         }
                                     }
                                 });
+                                */
                             }
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
