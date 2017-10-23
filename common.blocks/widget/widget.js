@@ -227,9 +227,7 @@
                         that.data.collapsed = false;
                         if (that.data.resizeOnExpand) {
                             that.data.resizeOnExpand = false;
-                            setTimeout(function(){
-                                that.resize();
-                            }, 501);
+                            that.resize();
                         }
                         if (that.data.content == that.const.CONTENT_NODATA && that.data.reloadable) {
                             setTimeout(function(){
@@ -271,7 +269,9 @@
                                 that.data.resizeOnExpand = true;
                             } else {
                                 if (typeof(that.data.onResize) == 'function') {
-                                    that.data.onResize();
+                                    setTimeout(function(){
+                                        that.data.onResize();
+                                    }, 501);
                                 }
                                 self.closestChild('.widget-grid').widget_grid('resize');
                             }

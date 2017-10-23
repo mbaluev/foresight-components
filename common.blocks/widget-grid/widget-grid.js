@@ -170,6 +170,7 @@
                             that.expand_widget(node._id, false);
                         });
                         that.enable();
+                        that.resize();
                     };
                     that.view_mode = function(){
                         that.data.mode = 'view';
@@ -191,6 +192,7 @@
                             }
                         });
                         that.disable();
+                        that.resize();
                     };
 
                     that.create = function(){
