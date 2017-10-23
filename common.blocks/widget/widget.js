@@ -272,6 +272,7 @@
                                     that.data.resizeOnExpand = true;
                                 } else {
                                     that.data.onResize();
+                                    self.closestChild('.widget-grid').widget_grid('resize')
                                 }
                             }
                         }

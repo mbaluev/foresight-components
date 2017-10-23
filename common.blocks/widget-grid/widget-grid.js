@@ -303,6 +303,11 @@
             return this.each(function() {
                 this.obj.update_widget(_id, x, y, width, height, callback);
             });
+        },
+        resize : function() {
+            return this.each(function() {
+                this.obj.resize();
+            });
         }
     };
     $.fn.widget_grid = function( method ) {
