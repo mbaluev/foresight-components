@@ -267,13 +267,13 @@
                         if (func) {
                             that.data.onResize = func;
                         } else {
-                            if (typeof(that.data.onResize) == 'function') {
-                                if (that.data.collapsed) {
-                                    that.data.resizeOnExpand = true;
-                                } else {
+                            if (that.data.collapsed) {
+                                that.data.resizeOnExpand = true;
+                            } else {
+                                if (typeof(that.data.onResize) == 'function') {
                                     that.data.onResize();
-                                    self.closestChild('.widget-grid').widget_grid('resize')
                                 }
+                                self.closestChild('.widget-grid').widget_grid('resize');
                             }
                         }
                     };
