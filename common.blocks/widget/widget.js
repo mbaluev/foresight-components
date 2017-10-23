@@ -267,7 +267,7 @@
                         if (func) {
                             that.data.onResize = func;
                         } else {
-                            if (that.data.collapsed) {
+                            if (that.get_collapsed(self)) {
                                 that.data.resizeOnExpand = true;
                             } else {
                                 if (typeof(that.data.onResize) == 'function') {
@@ -276,6 +276,16 @@
                                 self.closestChild('.widget-grid').widget_grid('resize');
                             }
                         }
+                    };
+                    that.get_collapsed = function(elem){
+                        var collapsed = elem.data().collapsed;
+                        if (!collapsed) {
+                            var parent = elem.parents('.widget');
+                            if (parent.length > 0) {
+                                collapsed = that.get_collapsed(parent);
+                            }
+                        }
+                        return collapsed;
                     };
 
                     that.init_components = function(){
