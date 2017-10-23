@@ -227,6 +227,17 @@
                         return el.data('_gridstack_node');
                     };
 
+                    that.resize = function(){
+                        _.each(that.data._el.nodes, function(node) {
+                            node.widget.widget('resize');
+                        });
+                    };
+
+                    that.init_resize = function(){
+                        $(window).on('resize', function(){
+                            that.resize();
+                        });
+                    };
                     that.init = function(){
                         if (that.create()) {
                             that.load();
@@ -237,11 +248,6 @@
                             }
                             that.init_resize();
                         }
-                    };
-                    that.init_resize = function(){
-                        $(window).resize(function(){
-                            console.log('resize');
-                        });
                     };
                     that.init();
                 }

@@ -1034,6 +1034,17 @@ $(function(){
                         return el.data('_gridstack_node');
                     };
 
+                    that.resize = function(){
+                        _.each(that.data._el.nodes, function(node) {
+                            node.widget.widget('resize');
+                        });
+                    };
+
+                    that.init_resize = function(){
+                        $(window).on('resize', function(){
+                            that.resize();
+                        });
+                    };
                     that.init = function(){
                         if (that.create()) {
                             that.load();
@@ -1044,11 +1055,6 @@ $(function(){
                             }
                             that.init_resize();
                         }
-                    };
-                    that.init_resize = function(){
-                        $(window).resize(function(){
-                            console.log('resize');
-                        });
                     };
                     that.init();
                 }
@@ -1524,7 +1530,8 @@ $(function(){
                         mode: 'view',
                         loader: null,
                         reloadable: false,
-                        onResize: null
+                        onResize: null,
+                        resizeOnExpand: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1721,6 +1728,12 @@ $(function(){
                     that.expand = function(){
                         self.removeClass('widget_collapsed');
                         that.data.collapsed = false;
+                        if (that.data.resizeOnExpand) {
+                            that.data.resizeOnExpand = false;
+                            setTimeout(function(){
+                                that.resize();
+                            }, 501);
+                        }
                         if (that.data.content == that.const.CONTENT_NODATA && that.data.reloadable) {
                             setTimeout(function(){
                                 that.set_content();
@@ -1754,7 +1767,17 @@ $(function(){
                         that.data._el.button_collapse.button().on('click.widget', that.toggle);
                     };
                     that.resize = function(func){
-                        that.data.onResize = func;
+                        if (func) {
+                            that.data.onResize = func;
+                        } else {
+                            if (typeof(that.data.onResize) == 'function') {
+                                if (that.data.collapsed) {
+                                    that.data.resizeOnExpand = true;
+                                } else {
+                                    that.data.onResize();
+                                }
+                            }
+                        }
                     };
 
                     that.init_components = function(){
