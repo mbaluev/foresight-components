@@ -348,7 +348,6 @@ function setRequired(binding, value) {
         elRequired.remove();
     }
 }
-
 //http://slawutich.pp.ua/javascript/47-dynjs.html динамическая подгрузка css/js
 dynjs =
 {
@@ -522,12 +521,15 @@ function Dialog(title, body, buttons, id) {
 }
 
 var Dialogs;
+
 if (!Dialogs) {
     Dialogs = {};
 }
+
 Dialogs.Message = function (message) {
     return Dialog(Globa.Message.locale(), message, [{ text: '&nbsp Ok &nbsp;', cls: 'btn-primary', click: null, close: null }]);
 };
+
 Dialogs.Confirm = function (title, message, yes, no, id) {
 
     var sYes;
@@ -548,6 +550,7 @@ Dialogs.Confirm = function (title, message, yes, no, id) {
 
     return Dialog(title, message, [{ text: '&nbsp;' + Globa.Yes.locale() + '&nbsp;', cls: 'btn-primary', click: sYes, close: !sYes }, { text: '&nbsp;' + Globa.No.locale() + '&nbsp;', click: sNo, close: !sNo }], id);
 };
+
 Dialogs.Dock = function (id, width) {
     if (!width)
         width = '300px';
@@ -559,6 +562,7 @@ Dialogs.Dock = function (id, width) {
     $('.modal-scrollable').has('#' + id).next('.modal-backdrop.in').remove();
     $('.modal-scrollable #' + id + ' #dock').remove();
 };
+
 Dialogs.Support = function (title, message, showUserContacts, addSystemInfo) {
     var body =
         '<div class="modal-message">' + message + '</div>' +
@@ -687,7 +691,6 @@ function setPasswordDialog() {
 </div></div>';
     var requestDialogId = Dialog('Смена пароля', requestsHtml, [{ text: Globa.Continue.locale(), cls: 'btn-warning', click: setPassword, close: false }, { text: Globa.Cancel.locale() }]);
 };
-
 function Notify(title, text, image, time, sticky) {
 
     $.gritter.add({
@@ -715,8 +718,8 @@ function NotifyInfo(title, text, time, sticky) {
     Notify(title, text, '/asyst/img/chat-mail.png', time, sticky);
     $.extend($.gritter.options, { position: 'top-right' });
 }
-
 Loader = {};
+
 Loader.show = function (container, text) {
 
     if (!Loader.count)
@@ -765,6 +768,7 @@ Loader.show = function (container, text) {
 
     Loader.indicator.show();
 };
+
 Loader.hide = function(force) {
     if (Loader.indicator) {
         if (Loader.count && Loader.count > 0)
@@ -989,6 +993,7 @@ function TGRChat() {
         } });
 }
 
+
 function templateProcessObj(template, obj) {
     var s = template;
     for (var prop in obj) {
@@ -1001,6 +1006,7 @@ function templateProcessObj(template, obj) {
 }
 
 var Grid = {};
+
 Grid.Create = function (element, data, columns, options, groups, dataParams, filters, viewSample) {
     var gridView = {};
     element.empty();
@@ -1086,7 +1092,9 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
     });
 
     var cols = columns;
-    cols.unshift(checkboxSelector.getColumnDefinition());
+    if (!options.disableCheckbox) {
+        cols.unshift(checkboxSelector.getColumnDefinition());
+    }
     var visibleCols = cols;
 
     if (viewSample) {
@@ -1495,6 +1503,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
     return gridView;
 };
+
 Grid.QuickFilter = function (item, args) {
     if (!args.searchString)
         return true;
@@ -1532,6 +1541,7 @@ Grid.QuickFilter = function (item, args) {
     }
     return false;
 };
+
 Grid.ExtFilterOper = {
     '=': {
         func: function (left, right) {
@@ -1605,6 +1615,7 @@ Grid.ExtFilterOper = {
      if (arr[i] == item[filterItem.column]) result = true;
      }*/
 };
+
 Grid.ExtFilter = function (item, args) {
     if (!args || !args.filterItems || !args.oper || !args.constructor == Array)
         return true;
@@ -1637,6 +1648,7 @@ Grid.ExtFilter = function (item, args) {
     if (args.oper == 'or') return false && Grid.QuickFilter(item, args);
     return false;
 };
+
 Grid.DefaultFormatter = function (row, cell, cellValue, columnDef, dataContext) {
 
     var value = cellValue;
@@ -1677,6 +1689,7 @@ Grid.DefaultFormatter = function (row, cell, cellValue, columnDef, dataContext) 
 
     return value;
 };
+
 Grid.LinkFormatter = function (row, cell, value, column, data) {
     var s = '';
     if (column.formatter && column.formatter != Grid.LinkFormatter)
@@ -1687,10 +1700,12 @@ Grid.LinkFormatter = function (row, cell, value, column, data) {
     var url = templateProcessObj(column.url, data);
     return "<a href='" + url + "'>" + s + "</a>";
 };
+
 Grid.ComboFormatter = function (row, cell, value, columnDef, dataContext) {
     if (value !== undefined && value !== null && value != "") return Grid.DefaultFormatter(row, cell, value, columnDef, dataContext);
     else return '<i>' + Globa.SelectValue.locale() + '</i>';
 };
+
 Grid.ExportToHTML = function () {
 
     var grid = window[Model.CurrentViewName];
@@ -1743,6 +1758,7 @@ Grid.ExportToHTML = function () {
     //CallService.Invoke(invokeSettings);
     //window.open('data:application/vnd.ms-excel,' + html);
 };
+
 Grid.ExportToXlsx = function () {
 
     function datenum(v, date1904) {
@@ -2076,6 +2092,7 @@ Grid.ExportToXlsx = function () {
     //saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), viewName + ' ' + Asyst.date.format(new Date(), 'yyyyMMdd-HHmm', true) + ".xlsx");
 
 };
+
 Grid.ExportToCSV = function () {
     var ququotes = function (str) {
         return '"' + str.replace('"', '""') + '"';
@@ -2134,6 +2151,7 @@ Grid.ExportToCSV = function () {
     //CallService.Invoke(invokeSettings);
     //window.open('data:application/vnd.ms-excel,' + html);
 };
+
 Grid.SelectCellEditor = function (args) {
     var $select;
     var defaultValue;
@@ -2210,6 +2228,7 @@ Grid.SelectCellEditor = function (args) {
 
     this.init();
 };
+
 Grid.LongTextEditor = function (args) {
     var $input, $wrapper;
     var defaultValue;
@@ -2313,6 +2332,7 @@ Grid.LongTextEditor = function (args) {
 
     this.init();
 };
+
 Grid.ShowFilterWindow = function (grid) {
     var filters = grid.Filters;
     //fitlers - array of {order:0, fieldName:'ProjectId', title:'Проект', kind:'text'\'date'\'bool'\'reference',reference:'project'}    
@@ -2439,6 +2459,7 @@ Grid.ShowFilterWindow = function (grid) {
         $('.selectComparison').trigger('chosen:updated');
     }
 };
+
 Grid.ClearExtFilter = function (grid) {
     var args = grid.DataView.getFilterArgs();
     delete args.oper;
@@ -2452,7 +2473,9 @@ Grid.ClearExtFilter = function (grid) {
     //$('#BrowseSearchGroup').show();
 };
 
+
 var Gantt = {};
+
 Gantt.Create = function (elementId, viewName, collapsed, width, showInd, filter, useAltInterval) {
     if (arguments.length > 0) {
         var options = {};
@@ -2667,9 +2690,11 @@ Gantt.CreateInner = function (options) {
 
     Asyst.APIv2.View.load({viewName: options.viewName, data: context, success: success });
 };
+
 Gantt.openTask = function (href) {
     saveTabAndGo(href);
 };
+
 Gantt.getCheckedItems = function(gantName) {
     return Enumerable.
     From(JSGantt.Charts[gantName].getList()).
@@ -2677,8 +2702,8 @@ Gantt.getCheckedItems = function(gantName) {
     Select('$.getID()').
     ToArray();
 };
-
 var Timeline = {};
+
 Timeline.Create = function (selector, width, isAdaptiveContainer) {
 
     if (typeof width === "undefined")
@@ -2758,6 +2783,7 @@ ExportToWord.Create = function (id, settings) {
         }
     );
 };
+
 ExportToWord.Invoke = function (sender) {
 
     Loader.show(undefined, Globa.ExportDocument.locale());
@@ -2796,7 +2822,6 @@ ExportToWord.Invoke = function (sender) {
         }
     });
 };
-
 var CallService = {};
 CallService.Create = function(id, settings) {
     settings = jQuery.extend({
@@ -2815,6 +2840,7 @@ CallService.Create = function(id, settings) {
         }
     );
 };
+
 CallService.FormInvoke = function(settings) {
     var ajurl = settings.service + "/" + settings.method;
     var formHtml = '<form target="_blank" action="' + ajurl + '" method="POST">';
@@ -2831,6 +2857,7 @@ CallService.FormInvoke = function(settings) {
     form.submit();
     setTimeout(function() { form.remove(); }, 100); // cleanup
 };
+
 CallService.Invoke = function (settings) {
     Loader.show(undefined, settings.tooltip);
 
@@ -2860,7 +2887,6 @@ CallService.Invoke = function (settings) {
         }
     });
 };
-
 function ToggleClearFilterButton(show) {
     if (show) {
         $('#clearFilterButton').show();
@@ -3186,6 +3212,7 @@ function showBrowser(selector, viewName, viewSampleId) {
     expires.setFullYear(expires.getFullYear() + 1);
     setPageCookie("CurrentViewName", viewName, expires);
 
+    //Loader.show(selector);
     Loader.show();
 
     var params = $.extend(splitGETString(), null);
@@ -3211,6 +3238,7 @@ function showBrowser(selector, viewName, viewSampleId) {
                 column.formatter = Grid.DefaultFormatter;
         }
 
+
         viewEl[0].innerHtml = "";
 
         if (viewEl.height() === 0) {
@@ -3219,18 +3247,27 @@ function showBrowser(selector, viewName, viewSampleId) {
                 var resizeContainer = function (event) {
                     var hasScroll = false;
                     var widthScroll = 0;
+
                     for (var el = viewEl; !hasScroll && el.length > 0; el = el.parent()) {
                         var sw = el[0].scrollWidth, ow = el[0].offsetWidth;
+
                         if (sw != ow) {
                             hasScroll = true;
                             widthScroll = el[0].offsetHeight - el[0].clientHeight;
                         }
                     }
+
+                    //if (cont.length > 0)
+                    //    viewEl.height(Math.max(cont[0].scrollHeight + cont.offset().top - 55, $(window).height()-3) - viewEl.offset().top);
+                    //else
                     viewEl.height($(window).height() - viewEl.offset().top - 3 - widthScroll);
-                    if (grid) grid.resizeCanvas();
+                    if (grid)
+                        grid.resizeCanvas();
                 };
+
                 $(window).resize(resizeContainer);
                 $(window).resize();
+
             } catch (error) {
             }
         }
@@ -3243,6 +3280,7 @@ function showBrowser(selector, viewName, viewSampleId) {
             wideString: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
             initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed,
             rowSelectionModel: new Asyst.RowSelectionModel()
+
         };
 
         //todo replace
@@ -3300,11 +3338,15 @@ function showBrowser(selector, viewName, viewSampleId) {
         else
             $('.ext-filter-menu').hide();
 
+
         $('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         $('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
             window[viewName].CollapseAllGroups();
         }
+        //if (success)
+        //    success();
+
 
         if (params.hasOwnProperty("ExpandGroup"))
             if (params.ExpandGroup == "true")
@@ -3327,10 +3369,11 @@ function showBrowser(selector, viewName, viewSampleId) {
         } else {
             view.QuickFilterClear();
             ToggleClearFilterButton(false);
+
             !(!!data.EditFormName) && Grid.ClearExtFilter(view);
         }
 
-        if (filterArgs && /*!filterArgs.hasOwnProperty('oper') && */ filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
+        if (filterArgs && /*!filterArgs.hasOwnProperty('oper') && */filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
             $('#BrowseSearch').val(filterArgs.searchString);
             view.UpdateQuickFilter(filterArgs.searchString);
             ToggleClearFilterButton(true);
@@ -3368,6 +3411,7 @@ function showBrowser(selector, viewName, viewSampleId) {
             }, 100);
         }
         Loader.hide();
+
     },
     error: function () {
         Loader.hide();
