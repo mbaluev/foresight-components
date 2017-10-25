@@ -258,6 +258,9 @@
                             //that.data._showModal = true;
                         });
                     };
+                    that.select_date = function(date){
+                        that.data._datepicker.selectDate(date);
+                    };
 
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
@@ -277,6 +280,11 @@
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
+            });
+        },
+        select_date : function(date) {
+            return this.each(function() {
+                this.obj.select_date(date);
             });
         }
     };
