@@ -2462,7 +2462,8 @@ $(function(){
                         renderEvents: false,
                         eventTitleColumn: 'date',
                         eventTooltipColumn: 'date',
-                        onSelect: null
+                        onSelect: null,
+                        onSelectAllowed: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2632,7 +2633,7 @@ $(function(){
                                         that.data._el.calendar__table.empty().append(that.render_table());
                                         that.data._el.calendar__table.find('[data-tooltip]').tooltip();
                                     }
-                                    if (typeof that.data.onSelect == 'function') {
+                                    if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
                                         that.data.onSelect(formattedDate, date);
                                     }
                                 }
@@ -2709,6 +2710,11 @@ $(function(){
                     that.select_date = function(date){
                         that.data._datepicker.selectDate(date);
                     };
+                    that.set_date = function(date){
+                        that.data.onSelectAllowed = false;
+                        that.data._datepicker.selectDate(date);
+                        that.data.onSelectAllowed = true;
+                    };
 
                     that.init_components = function(){
                         self.find('[data-fc="button"]').button();
@@ -2733,6 +2739,11 @@ $(function(){
         select_date : function(date) {
             return this.each(function() {
                 this.obj.select_date(date);
+            });
+        },
+        set_date : function(date) {
+            return this.each(function() {
+                this.obj.set_date(date);
             });
         }
     };
