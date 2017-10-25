@@ -2461,7 +2461,8 @@ $(function(){
                         },
                         renderEvents: false,
                         eventTitleColumn: 'date',
-                        eventTooltipColumn: 'date'
+                        eventTooltipColumn: 'date',
+                        onSelect: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2630,6 +2631,9 @@ $(function(){
                                     } else {
                                         that.data._el.calendar__table.empty().append(that.render_table());
                                         that.data._el.calendar__table.find('[data-tooltip]').tooltip();
+                                    }
+                                    if (typeof that.data.onSelect == 'function') {
+                                        that.data.onSelect(formattedDate, date);
                                     }
                                 }
                             }
