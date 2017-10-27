@@ -1904,7 +1904,7 @@ var Reports = function(options){
                 '<button class="button button_toggable_radio" type="button" data-fc="button">',
                 '<span class="button__text">' + filter.ReportingCategoryName + '</span>',
                 '<span class="icon">',
-                '<span class="icon icon__circle" style="background-color: ' + filter.color + '"></span>',
+                '<span class="icon icon__circle" style="background-color: ' + filter.Color + '"></span>',
                 '</span>',
                 '</button>',
                 '<input class="radio__input" type="radio" name="radio-group-button" value="' + filter.ReportingCategoryId + '" hidden/>',
