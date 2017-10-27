@@ -11,7 +11,8 @@
     margin: 10px 5px;
     box-sizing: content-box;
 }
-.widget-grid_closely.grid-stack > .grid-stack-item > .grid-stack-item-content {
+.widget-grid_closely.grid-stack > .grid-stack-item > .grid-stack-item-content,
+.widget-grid_closely.grid-stack > .grid-stack-item.grid-stack-placeholder > .placeholder-content {
     left: 5px;
     right: 5px;
 }
