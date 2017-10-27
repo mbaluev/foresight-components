@@ -7,7 +7,11 @@ Asyst.Reports = function(options){
         reports: [],
         favorite: true,
         reportcenter: null,
-        user: Asyst.Workspace.currentUser
+        user: Asyst.Workspace.currentUser,
+        userlang: 'RU',
+        dataset: {
+            name: 'ReportCenter'
+        }
     };
     that.data = $.extend(that.data, options);
     that.setFavorite = function(data, success, error){
@@ -28,19 +32,47 @@ Asyst.Reports = function(options){
             if (error) { error(errorData); }
         });
     };
-    that.init = function(){
-        that.data.reportcenter = new Reports({
-            containerid: that.data.containerid,
-            filters: that.data.filters,
-            reports: that.data.reports,
-            loader: Asyst.ImageLoader,
-            defaults: { favorite: that.data.favorite },
-            setFavorite: function(data, success, error){
-                that.setFavorite(data, success, error);
+
+    that.load_data = function(callback){
+        Asyst.APIv2.DataSet.load({
+            name: that.data.dataset.name,
+            data: {
+                UserAccount: that.data.user.Id,
+                UserLang: that.data.userlang
             },
-            removeFavorite: function(data, success, error){
-                that.removeFavorite(data, success, error);
+            success: function(data){
+                if (data) {
+                    that.data.filters = data[0];
+                    that.data.reports = data[1];
+                    if (typeof callback == 'function') {
+                        callback();
+                    }
+                }
+            },
+            error: function(data){
+                console.log(data);
+                that.loader_remove();
             }
+        });
+    };
+
+    that.init = function(){
+        that.loader_add();
+        that.load_data(function(){
+            that.loader_remove();
+            that.data.reportcenter = new Reports({
+                containerid: that.data.containerid,
+                filters: that.data.filters,
+                reports: that.data.reports,
+                loader: Asyst.ImageLoader,
+                defaults: { favorite: that.data.favorite },
+                setFavorite: function(data, success, error){
+                    that.setFavorite(data, success, error);
+                },
+                removeFavorite: function(data, success, error){
+                    that.removeFavorite(data, success, error);
+                }
+            });
         });
     };
     that.init();
