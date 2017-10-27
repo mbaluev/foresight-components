@@ -96,14 +96,14 @@ var Reports = function(options){
         ].join('')));
         that.data.filters.forEach(function(filter){
             that.data._el.radiogroup.append($([
-                '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + filter.reportingCategoryName + '">',
+                '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + filter.ReportingCategoryName + '">',
                 '<button class="button button_toggable_radio" type="button" data-fc="button">',
-                '<span class="button__text">' + filter.reportingCategoryName + '</span>',
+                '<span class="button__text">' + filter.ReportingCategoryName + '</span>',
                 '<span class="icon">',
                 '<span class="icon icon__circle" style="background-color: ' + filter.color + '"></span>',
                 '</span>',
                 '</button>',
-                '<input class="radio__input" type="radio" name="radio-group-button" value="' + filter.reportingCategoryId + '" hidden/>',
+                '<input class="radio__input" type="radio" name="radio-group-button" value="' + filter.ReportingCategoryId + '" hidden/>',
                 '</label>'
             ].join('')));
         });
@@ -140,9 +140,9 @@ var Reports = function(options){
     };
     that.remove_report = function(report){
         report.visible = false;
-        report.collapsed = $('#' + report.reportingId).data().collapsed;
-        that.data.grid.widget_grid('remove_widget', report.reportingId);
-        that.data.items = that.data.items.filter(function(d){ return d._id != report.reportingId; });
+        report.collapsed = $('#' + report.ReportingId).data().collapsed;
+        that.data.grid.widget_grid('remove_widget', report.ReportingId);
+        that.data.items = that.data.items.filter(function(d){ return d._id != report.ReportingId; });
     };
     that.add_report = function(report){
         report.visible = true;
@@ -152,26 +152,26 @@ var Reports = function(options){
             width: that.data.defaults.itemWidth,
             height: that.data.defaults.itemHeight,
             settings: {
-                id: report.reportingId,
-                name: report.title,
+                id: report.ReportingId,
+                name: report.Title,
                 collapsed: report.collapsed,
-                color: report.color,
-                url: report.url,
-                previewUrl: report.previewUrl,
-                repFavoriteId: report.repFavoriteId,
+                color: report.Color,
+                url: report.URL,
+                PreviewUrl: report.PreviewUrl,
+                RepFavoriteId: report.RepFavoriteId,
                 buttons: [
                     {
-                        icon: (report.repFavoriteId ? 'icon_svg_favorite_red': 'icon_svg_favorite'),
-                        tooltip: (report.repFavoriteId ? 'Убрать из избранного': 'Добавить в избранное'),
+                        icon: (report.RepFavoriteId ? 'icon_svg_favorite_red': 'icon_svg_favorite'),
+                        tooltip: (report.RepFavoriteId ? 'Убрать из избранного': 'Добавить в избранное'),
                         mode: 'view',
                         click: function(widget, data){
                             that.toggle_favorite(widget, data);
-                            if (data.repFavoriteId) {
+                            if (data.RepFavoriteId) {
                                 if (that.data.removeFavorite && typeof that.data.removeFavorite == 'function') {
                                     that.data.removeFavorite(
                                         data,
                                         function(successData){
-                                            that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = null;
+                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = null;
                                         },
                                         function(errorData){
                                             that.toggle_favorite(widget, data);
@@ -183,8 +183,8 @@ var Reports = function(options){
                                     that.data.setFavorite(
                                         data,
                                         function(successData){
-                                            widget.data().repFavoriteId = successData.id;
-                                            that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = successData.id;
+                                            widget.data().RepFavoriteId = successData.id;
+                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = successData.id;
                                         },
                                         function(errorData){
                                             that.toggle_favorite(widget, data);
@@ -203,7 +203,7 @@ var Reports = function(options){
     that.update_report = function(report){
         that.data.grid.widget_grid(
             'update_widget',
-            report.reportingId,
+            report.ReportingId,
             that.data.defaults.x,
             that.data.defaults.y,
             that.data.defaults.itemWidth,
@@ -216,8 +216,8 @@ var Reports = function(options){
             that.data.defaults.x = 0;
             that.data.defaults.y = 0;
             that.data.reports.forEach(function(report){
-                if ((+report.reportingCategoryId == +that.data.defaults.reportingCategoryId || +that.data.defaults.reportingCategoryId == 0) &&
-                    (that.data.defaults.favorite && report.repFavoriteId || !that.data.defaults.favorite) &&
+                if ((+report.ReportingCategoryId == +that.data.defaults.reportingCategoryId || +that.data.defaults.reportingCategoryId == 0) &&
+                    (that.data.defaults.favorite && report.RepFavoriteId || !that.data.defaults.favorite) &&
                     (report.title.toLowerCase().includes(that.data.search.text.toLowerCase()))) {
                     if (!report.visible) {
                         that.add_report(report);
@@ -244,17 +244,17 @@ var Reports = function(options){
         var $icon = widget.data()._el.buttons[0].find('.icon'),
             $button = widget.data()._el.buttons[0];
         $icon.attr('class', $icon.attr('class').replace(/\icon_svg_favorite.*?\b/g, ''));
-        if (data.repFavoriteId) {
+        if (data.RepFavoriteId) {
             $icon.addClass('icon_svg_favorite');
             $button.tooltip('update', 'Добавить в избранное');
-            widget.data().repFavoriteId = null;
+            widget.data().RepFavoriteId = null;
         } else {
             $icon.addClass('icon_svg_favorite_red');
             $button.tooltip('update', 'Убрать из избранного');
-            widget.data().repFavoriteId = true;
+            widget.data().RepFavoriteId = true;
         }
         $button.tooltip('hide');
-        that.data.reports.filter(function(d){ return d.reportingId == data.id; })[0].repFavoriteId = widget.data().repFavoriteId;
+        that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = widget.data().RepFavoriteId;
         that.filter_reports();
     };
 
