@@ -817,13 +817,14 @@ $(function(){
                         items: [],
                         single: false,
                         margin: true,
+                        closely: true,
                         loader: null,
                         library: null,
                         widget_buttons: [],
                         mode: 'view',
                         disabled: true,
                         grid: {
-                            verticalMargin: 20,
+                            verticalMargin: 10,
                             cellHeight: 20,
                             disableDrag: true,
                             disableResize: true,
@@ -1009,6 +1010,9 @@ $(function(){
                             }
                             if (!that.data.margin) {
                                 self.addClass('widget-grid_margin_none');
+                            }
+                            if (that.data.closely) {
+                                self.addClass('widget-grid_closely');
                             }
                             self.gridstack(that.data.grid);
                             that.data._el.grid = self.data('gridstack');

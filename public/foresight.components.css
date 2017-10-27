@@ -1499,6 +1499,21 @@ body {
   box-sizing: content-box;
 }
 
+.widget-grid.grid-stack > .grid-stack-item > .grid-stack-item-content {
+  left: 10px;
+  right: 10px;
+}
+
+.widget-grid.widget-grid_closely {
+  margin: 8px 3px;
+  box-sizing: content-box;
+}
+
+.widget-grid.widget-grid_closely.grid-stack > .grid-stack-item > .grid-stack-item-content {
+  left: 7px;
+  right: 7px;
+}
+
 .widget-grid_single,
 .widget-grid_single.grid-stack.grid-stack-one-column-mode {
   margin: 0;
@@ -2432,8 +2447,8 @@ body {
 }
 
 .calendar .datepicker__indicator img {
-  width: 10px;
-  height: 10px;
+  width: 16px;
+  height: 16px;
 }
 
 .calendar .datepicker__event-text {
