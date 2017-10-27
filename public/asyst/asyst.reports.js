@@ -29,7 +29,7 @@ Asyst.Reports = function(options){
         Asyst.APIv2.DataSet.load({
             name: that.data.dataset.name,
             data: {
-                UserAccount: that.data.user.Id,
+                UserAccount: that.data.user.Account,
                 UserLang: that.data.userlang
             },
             success: function(data){
