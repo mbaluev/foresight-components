@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/asyst/asyst.reports.js" afterPath="$PROJECT_DIR$/public/asyst/asyst.reports.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/pages/reports.js" afterPath="$PROJECT_DIR$/public/pages/reports.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -276,13 +276,20 @@
         <entry file="file://$PROJECT_DIR$/public/asyst/asyst.reports.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.26865673">
-              <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+              <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
               <folding>
                 <element signature="e#140#404#0" expanded="false" />
                 <element signature="e#354#398#0" expanded="false" />
                 <element signature="e#472#599#0" expanded="false" />
                 <element signature="e#633#698#0" expanded="false" />
                 <element signature="e#735#781#0" expanded="false" />
+                <element signature="e#823#1485#0" expanded="false" />
+                <element signature="e#858#1477#0" expanded="false" />
+                <element signature="e#920#1033#0" expanded="false" />
+                <element signature="e#1070#1344#0" expanded="false" />
+                <element signature="e#1098#1330#0" expanded="false" />
+                <element signature="e#1253#1312#0" expanded="false" />
+                <element signature="e#1379#1467#0" expanded="false" />
                 <element signature="e#1541#1893#0" expanded="false" />
                 <element signature="e#1600#1723#0" expanded="false" />
                 <element signature="e#1746#1808#0" expanded="false" />
@@ -304,7 +311,7 @@
         <entry file="file://$PROJECT_DIR$/public/pages/reports.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="146" column="16" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
+              <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
               <folding>
                 <element signature="e#84#509#0" expanded="false" />
                 <element signature="e#187#351#0" expanded="false" />
@@ -325,6 +332,20 @@
                 <element signature="e#5055#5183#0" expanded="false" />
                 <element signature="e#5289#5439#0" expanded="false" />
                 <element signature="e#5482#5769#0" expanded="false" />
+                <element signature="e#5809#8617#0" expanded="false" />
+                <element signature="e#5861#8518#0" expanded="false" />
+                <element signature="e#6059#8508#0" expanded="false" />
+                <element signature="e#6377#8494#0" expanded="false" />
+                <element signature="e#6399#8476#0" expanded="false" />
+                <element signature="e#6699#8454#0" expanded="false" />
+                <element signature="e#6817#7574#0" expanded="false" />
+                <element signature="e#6930#7544#0" expanded="false" />
+                <element signature="e#7101#7287#0" expanded="false" />
+                <element signature="e#7348#7471#0" expanded="false" />
+                <element signature="e#7580#8428#0" expanded="false" />
+                <element signature="e#7687#8398#0" expanded="false" />
+                <element signature="e#7855#8141#0" expanded="false" />
+                <element signature="e#8202#8325#0" expanded="false" />
                 <element signature="e#8660#8927#0" expanded="false" />
                 <element signature="e#8965#10270#0" expanded="false" />
                 <element signature="e#9023#10257#0" expanded="false" />
@@ -444,8 +465,8 @@
         <option value="$PROJECT_DIR$/common.blocks/grid/grid.css" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/public/asyst.loaders/asyst.imageloader.js" />
-        <option value="$PROJECT_DIR$/public/pages/reports.js" />
         <option value="$PROJECT_DIR$/public/asyst/asyst.reports.js" />
+        <option value="$PROJECT_DIR$/public/pages/reports.js" />
       </list>
     </option>
   </component>
@@ -4383,7 +4404,7 @@
     <entry file="file://$PROJECT_DIR$/public/pages/reports.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="146" column="16" selection-start-line="146" selection-start-column="16" selection-end-line="146" selection-end-column="16" />
+          <caret line="146" column="11" selection-start-line="146" selection-start-column="11" selection-end-line="146" selection-end-column="11" />
           <folding>
             <element signature="e#84#509#0" expanded="false" />
             <element signature="e#187#351#0" expanded="false" />
@@ -4404,6 +4425,20 @@
             <element signature="e#5055#5183#0" expanded="false" />
             <element signature="e#5289#5439#0" expanded="false" />
             <element signature="e#5482#5769#0" expanded="false" />
+            <element signature="e#5809#8617#0" expanded="false" />
+            <element signature="e#5861#8518#0" expanded="false" />
+            <element signature="e#6059#8508#0" expanded="false" />
+            <element signature="e#6377#8494#0" expanded="false" />
+            <element signature="e#6399#8476#0" expanded="false" />
+            <element signature="e#6699#8454#0" expanded="false" />
+            <element signature="e#6817#7574#0" expanded="false" />
+            <element signature="e#6930#7544#0" expanded="false" />
+            <element signature="e#7101#7287#0" expanded="false" />
+            <element signature="e#7348#7471#0" expanded="false" />
+            <element signature="e#7580#8428#0" expanded="false" />
+            <element signature="e#7687#8398#0" expanded="false" />
+            <element signature="e#7855#8141#0" expanded="false" />
+            <element signature="e#8202#8325#0" expanded="false" />
             <element signature="e#8660#8927#0" expanded="false" />
             <element signature="e#8965#10270#0" expanded="false" />
             <element signature="e#9023#10257#0" expanded="false" />
@@ -4437,13 +4472,20 @@
     <entry file="file://$PROJECT_DIR$/public/asyst/asyst.reports.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.26865673">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="30" selection-end-column="19" />
+          <caret line="61" column="12" selection-start-line="61" selection-start-column="12" selection-end-line="61" selection-end-column="12" />
           <folding>
             <element signature="e#140#404#0" expanded="false" />
             <element signature="e#354#398#0" expanded="false" />
             <element signature="e#472#599#0" expanded="false" />
             <element signature="e#633#698#0" expanded="false" />
             <element signature="e#735#781#0" expanded="false" />
+            <element signature="e#823#1485#0" expanded="false" />
+            <element signature="e#858#1477#0" expanded="false" />
+            <element signature="e#920#1033#0" expanded="false" />
+            <element signature="e#1070#1344#0" expanded="false" />
+            <element signature="e#1098#1330#0" expanded="false" />
+            <element signature="e#1253#1312#0" expanded="false" />
+            <element signature="e#1379#1467#0" expanded="false" />
             <element signature="e#1541#1893#0" expanded="false" />
             <element signature="e#1600#1723#0" expanded="false" />
             <element signature="e#1746#1808#0" expanded="false" />

@@ -1962,11 +1962,11 @@ var Reports = function(options){
                 color: report.Color,
                 url: report.URL,
                 previewUrl: report.PreviewURL,
-                repFavoriteId: report.RepFavoriteId,
+                repFavoriteId: report.repFavoriteId,
                 buttons: [
                     {
-                        icon: (report.RepFavoriteId ? 'icon_svg_favorite_red': 'icon_svg_favorite'),
-                        tooltip: (report.RepFavoriteId ? 'Убрать из избранного': 'Добавить в избранное'),
+                        icon: (report.repFavoriteId ? 'icon_svg_favorite_red': 'icon_svg_favorite'),
+                        tooltip: (report.repFavoriteId ? 'Убрать из избранного': 'Добавить в избранное'),
                         mode: 'view',
                         click: function(widget, data){
                             that.toggle_favorite(widget, data);
@@ -1975,7 +1975,7 @@ var Reports = function(options){
                                     that.data.removeFavorite(
                                         data,
                                         function(successData){
-                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = null;
+                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].repFavoriteId = null;
                                         },
                                         function(errorData){
                                             that.toggle_favorite(widget, data);
@@ -1988,7 +1988,7 @@ var Reports = function(options){
                                         data,
                                         function(successData){
                                             widget.data().repFavoriteId = successData.id;
-                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = successData.id;
+                                            that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].repFavoriteId = successData.id;
                                         },
                                         function(errorData){
                                             that.toggle_favorite(widget, data);
