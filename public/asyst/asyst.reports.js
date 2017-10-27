@@ -14,23 +14,15 @@ Asyst.Reports = function(options){
         }
     };
     that.data = $.extend(that.data, options);
-    that.setFavorite = function(data, success, error){
-        Asyst.API.Entity.save('ReportingFavorite', null, {
-            Name: 'Избранный отчет',
-            ReportingId: data.id,
-            AccountId: that.data.user.Id
-        }, function(successData){
-            if (success) { success(successData); }
-        }, function(errorData){
-            if (error) { error(errorData); }
-        });
+    that.data._el = {
+        target: $('#' + that.data.containerid),
+        loader: $('<span class="spinner spinner_align_center"></span>')
     };
-    that.removeFavorite = function(data, success, error){
-        Asyst.API.Entity.remove('ReportingFavorite', data.repFavoriteId, function(successData){
-            if (success) { success(successData); }
-        }, function(errorData){
-            if (error) { error(errorData); }
-        });
+    that.loader_add = function(){
+        that.data._el.target.before(that.data._el.loader)
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
     };
 
     that.load_data = function(callback){
@@ -53,6 +45,25 @@ Asyst.Reports = function(options){
                 console.log(data);
                 that.loader_remove();
             }
+        });
+    };
+
+    that.setFavorite = function(data, success, error){
+        Asyst.API.Entity.save('ReportingFavorite', null, {
+            Name: 'Избранный отчет',
+            ReportingId: data.id,
+            AccountId: that.data.user.Id
+        }, function(successData){
+            if (success) { success(successData); }
+        }, function(errorData){
+            if (error) { error(errorData); }
+        });
+    };
+    that.removeFavorite = function(data, success, error){
+        Asyst.API.Entity.remove('ReportingFavorite', data.repFavoriteId, function(successData){
+            if (success) { success(successData); }
+        }, function(errorData){
+            if (error) { error(errorData); }
         });
     };
 
