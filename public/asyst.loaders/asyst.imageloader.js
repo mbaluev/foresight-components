@@ -38,7 +38,7 @@ Asyst.ImageLoader = {
                     that.data.error('Нет данных');
                 }
             };
-            obj.preloader.src = that.data.data.PreviewUrl;
+            obj.preloader.src = that.data.data.previewUrl;
             return obj.spinner;
         };
         that.loadContent = function(){

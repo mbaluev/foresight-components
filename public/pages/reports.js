@@ -157,8 +157,8 @@ var Reports = function(options){
                 collapsed: report.collapsed,
                 color: report.Color,
                 url: report.URL,
-                PreviewUrl: report.PreviewUrl,
-                RepFavoriteId: report.RepFavoriteId,
+                previewUrl: report.PreviewUrl,
+                repFavoriteId: report.RepFavoriteId,
                 buttons: [
                     {
                         icon: (report.RepFavoriteId ? 'icon_svg_favorite_red': 'icon_svg_favorite'),
@@ -166,7 +166,7 @@ var Reports = function(options){
                         mode: 'view',
                         click: function(widget, data){
                             that.toggle_favorite(widget, data);
-                            if (data.RepFavoriteId) {
+                            if (data.repFavoriteId) {
                                 if (that.data.removeFavorite && typeof that.data.removeFavorite == 'function') {
                                     that.data.removeFavorite(
                                         data,
@@ -183,7 +183,7 @@ var Reports = function(options){
                                     that.data.setFavorite(
                                         data,
                                         function(successData){
-                                            widget.data().RepFavoriteId = successData.id;
+                                            widget.data().repFavoriteId = successData.id;
                                             that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = successData.id;
                                         },
                                         function(errorData){
@@ -244,17 +244,17 @@ var Reports = function(options){
         var $icon = widget.data()._el.buttons[0].find('.icon'),
             $button = widget.data()._el.buttons[0];
         $icon.attr('class', $icon.attr('class').replace(/\icon_svg_favorite.*?\b/g, ''));
-        if (data.RepFavoriteId) {
+        if (data.repFavoriteId) {
             $icon.addClass('icon_svg_favorite');
             $button.tooltip('update', 'Добавить в избранное');
-            widget.data().RepFavoriteId = null;
+            widget.data().repFavoriteId = null;
         } else {
             $icon.addClass('icon_svg_favorite_red');
             $button.tooltip('update', 'Убрать из избранного');
-            widget.data().RepFavoriteId = true;
+            widget.data().repFavoriteId = true;
         }
         $button.tooltip('hide');
-        that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = widget.data().RepFavoriteId;
+        that.data.reports.filter(function(d){ return d.ReportingId == data.id; })[0].RepFavoriteId = widget.data().repFavoriteId;
         that.filter_reports();
     };
 
