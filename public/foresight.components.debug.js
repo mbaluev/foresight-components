@@ -817,7 +817,7 @@ $(function(){
                         items: [],
                         single: false,
                         margin: true,
-                        closely: true,
+                        closely: false,
                         loader: null,
                         library: null,
                         widget_buttons: [],
