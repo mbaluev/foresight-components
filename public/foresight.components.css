@@ -506,6 +506,11 @@ body {
   content: '\00A0';
 }
 
+.icon img {
+  height: 16px;
+  display: block;
+}
+
 /* icon photo */
 
 .icon_photo {
@@ -1570,14 +1575,11 @@ body {
 
 .grid img {
   width: 16px;
-  padding: 4px 0;
-}
-
-.grid img.s18 {
-  width: 14px;
   height: 24px;
   padding: 0;
 }
+
+
 
 /* Slick Grid */
 
