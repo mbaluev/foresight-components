@@ -2022,7 +2022,7 @@ var Reports = function(options){
             that.data.reports.forEach(function(report){
                 if ((+report.ReportingCategoryId == +that.data.defaults.reportingCategoryId || +that.data.defaults.reportingCategoryId == 0) &&
                     (that.data.defaults.favorite && report.RepFavoriteId || !that.data.defaults.favorite) &&
-                    (report.title.toLowerCase().includes(that.data.search.text.toLowerCase()))) {
+                    (report.Title.toLowerCase().includes(that.data.search.text.toLowerCase()))) {
                     if (!report.visible) {
                         that.add_report(report);
                     } else {
