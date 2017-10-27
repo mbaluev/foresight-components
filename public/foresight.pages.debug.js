@@ -1961,7 +1961,7 @@ var Reports = function(options){
                 collapsed: report.collapsed,
                 color: report.Color,
                 url: report.URL,
-                previewUrl: report.PreviewUrl,
+                previewUrl: report.PreviewURL,
                 repFavoriteId: report.RepFavoriteId,
                 buttons: [
                     {
