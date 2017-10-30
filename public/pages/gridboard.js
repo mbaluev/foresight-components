@@ -84,6 +84,7 @@ var GridBoard = function(options){
             margin: that.data.margin,
             loader: that.data.loader
         };
+        that.data._el.content.closestChild('.card__middle-scroll').append(that.data._el.widget_grid);
         that.data.grid = that.data._el.widget_grid.widget_grid(widget_grid_options);
     };
     that.render_items = function(){
@@ -98,7 +99,6 @@ var GridBoard = function(options){
             }
         });
         that.data.grid.widget_grid('view_mode');
-        that.data._el.content.closestChild('.card__middle-scroll').append(that.data._el.widget_grid);
     };
 
     that.remove_items = function(){
