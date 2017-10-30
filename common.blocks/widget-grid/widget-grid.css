@@ -1,5 +1,5 @@
 .widget-grid {
-    margin: 10px 10px;
+    margin: 10px 10px 20px;
     box-sizing: content-box;
 }
 .widget-grid.grid-stack > .grid-stack-item > .grid-stack-item-content {
@@ -12,7 +12,7 @@
     box-sizing: content-box;
 }
 .widget-grid_closely.grid-stack > .grid-stack-item > .grid-stack-item-content,
-.widget-grid_closely.grid-stack > .grid-stack-item.grid-stack-placeholder > .placeholder-content {
+.widget-grid_closely.grid-stack > .grid-stack-placeholder > .placeholder-content {
     left: 5px;
     right: 5px;
 }

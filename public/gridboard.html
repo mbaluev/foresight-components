@@ -191,50 +191,51 @@
             {
                 id: 'Portfolio',
                 title: 'Реестр направлений',
-                //name: 'Реестр направлений',
+                name: 'Реестр направлений',
                 cnt: 0,
                 color: '#ff5940',
-                collapsed: true
+                //collapsed: true
             },
             {
                 id: 'Project',
                 title: 'Реестр проектов',
-                //name: 'Реестр проектов',
+                name: 'Реестр проектов',
                 cnt: 0
             },
             {
                 id: 'Point',
                 title: 'Реестр контрольных точек',
-                //name: 'Реестр контрольных точек',
+                name: 'Реестр контрольных точек',
                 cnt: 0
             },
             {
                 id: 'Order',
                 title: 'Реестр поручений',
-                //name: 'Реестр поручений',
+                name: 'Реестр поручений',
                 cnt: 0
             },
             {
                 id: 'Meeting',
                 title: 'Реестр совещаний',
-                //name: 'Реестр совещаний',
+                name: 'Реестр совещаний',
                 cnt: 0
             },
             {
                 id: 'KPI',
                 title: 'Реестр показателей',
-                //name: 'Реестр показателей',
+                name: 'Реестр показателей',
                 cnt: 0
             }
         ];
         var gridboard = new GridBoard({
             title: 'Реестры',
             //margin: false,
+            //allowSearch: false,
             containerid: 'container',
             items: items,
             defaults: {
                 itemWidth: 3,
-                itemHeight: 3
+                itemHeight: 4
             },
             loader: Asyst.ContentFormatterLoader,
             contentFormatter: function(item){

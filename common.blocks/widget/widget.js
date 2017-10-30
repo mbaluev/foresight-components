@@ -78,8 +78,10 @@
                     that.render_button_collapse = function(){
                         if (that.data.name) {
                             if (that.data.collapsible) {
+                                that.data._el.button_collapse.button('enable');
                                 that.data._el.button_collapse.append(that.data._el.button_collapse_icon);
                             } else {
+                                that.data._el.button_collapse.button('disable');
                                 that.data._el.button_collapse_icon.remove();
                             }
                             self.find('.widget__header-name').append(that.data._el.button_collapse);
@@ -88,11 +90,11 @@
                             that.data._el.button_collapse.button('hide');
                         }
                         if (!that.data.name || that.data.name == "") {
-                            self.removeClass('widget_collapsible_true');
-                            self.addClass('widget_collapsible_false');
+                            self.removeClass('widget_has_name');
+                            self.addClass('widget_has_no_name');
                         } else {
-                            self.removeClass('widget_collapsible_false');
-                            self.addClass('widget_collapsible_true');
+                            self.removeClass('widget_has_no_name');
+                            self.addClass('widget_has_name');
                         }
                     };
                     that.render_buttons = function(){
@@ -118,6 +120,16 @@
                                 button._el = $button;
                                 that.data._el.buttons.push($button);
                             });
+                            if (that.data._private.buttons_view_mode_count > 0) {
+                                self.addClass('widget_mode_view_has_buttons');
+                            } else {
+                                self.addClass('widget_mode_view_has_no_buttons');
+                            }
+                            if (that.data._private.buttons_edit_mode_count > 0) {
+                                self.addClass('widget_mode_edit_has_buttons');
+                            } else {
+                                self.addClass('widget_mode_edit_has_no_buttons');
+                            }
                         }
                     };
                     that.get_buttons = function(){
@@ -246,13 +258,17 @@
                     };
 
                     that.edit_mode = function(){
-                        that.data._el.button_collapse.button('disable');
+                        if (that.data.collapsible) {
+                            that.data._el.button_collapse.button('disable');
+                        }
                         that.data.mode = 'edit';
                         self.removeClass('widget_mode_view');
                         self.addClass('widget_mode_edit');
                     };
                     that.view_mode = function(){
-                        that.data._el.button_collapse.button('enable');
+                        if (that.data.collapsible) {
+                            that.data._el.button_collapse.button('enable');
+                        }
                         that.data.mode = 'view';
                         self.addClass('widget_mode_view');
                         self.removeClass('widget_mode_edit');
@@ -260,6 +276,9 @@
 
                     that.bind = function(){
                         that.data._el.button_collapse.button().on('click.widget', that.toggle);
+                        if (!that.data.collapsible) {
+                            that.data._el.button_collapse.button('disable');
+                        }
                     };
                     that.resize = function(func){
                         if (func) {

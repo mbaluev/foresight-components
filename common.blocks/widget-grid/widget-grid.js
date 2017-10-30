@@ -98,14 +98,16 @@
                         _.unset(node, 'settings');
 
                         node.el.find('.grid-stack-item-content').append(node.widget);
-                        node.widget.data()._el.button_collapse.off('click.widget');
-                        node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
-                            if (node.widget.data().collapsed) {
-                                that.expand_widget(node._id, true);
-                            } else {
-                                that.collapse_widget(node._id, true);
-                            }
-                        });
+                        if (node.widget.data().collapsible) {
+                            node.widget.data()._el.button_collapse.off('click.widget');
+                            node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
+                                if (node.widget.data().collapsed) {
+                                    that.expand_widget(node._id, true);
+                                } else {
+                                    that.collapse_widget(node._id, true);
+                                }
+                            });
+                        }
                         node.widget.widget('edit_mode');
 
                         that.data._el.grid.addWidget(node.el, node.x, node.y, node.width, node.height);

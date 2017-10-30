@@ -2121,6 +2121,7 @@ var GridBoard = function(options){
     that.data = {
         title: null,
         margin: true,
+        allowSearch: true,
         items: [],
         loader: null,
         defaults: {
@@ -2175,6 +2176,9 @@ var GridBoard = function(options){
     };
 
     that.render = function(){
+        if (!that.data.title && !that.data.allowSearch) {
+            that.data._el.content.find('.card__header').remove();
+        }
         that.data._el.target.append(
             that.data._el.content
         );
@@ -2185,9 +2189,11 @@ var GridBoard = function(options){
         }
     };
     that.render_filters = function(){
-        that.data._el.content.find('#search').append(
-            that.data._el.input
-        );
+        if (that.data.allowSearch) {
+            that.data._el.content.find('#search').append(
+                that.data._el.input
+            );
+        }
     };
 
     that.render_grid = function(){
@@ -2237,12 +2243,12 @@ var GridBoard = function(options){
             contentFormatter: that.data.contentFormatter
             /*
             buttons: [
-            {
-            icon: 'icon_svg_list',
-            tooltip: 'Тултип',
-            mode: 'view',
-            click: function(widget, data){}
-            }
+                {
+                    icon: 'icon icon_svg_download',
+                    tooltip: 'Тултип',
+                    mode: 'view',
+                    click: function(widget, data){}
+                }
             ]
             */
         });
