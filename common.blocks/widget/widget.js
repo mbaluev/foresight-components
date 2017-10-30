@@ -84,7 +84,7 @@
                                 that.data._el.button_collapse.button('disable');
                                 that.data._el.button_collapse_icon.remove();
                             }
-                            self.find('.widget__header-name').append(that.data._el.button_collapse);
+                            self.closestChild('.widget__header-name').append(that.data._el.button_collapse);
                             that.data._el.button_collapse.button('show');
                         } else {
                             that.data._el.button_collapse.button('hide');
@@ -116,7 +116,7 @@
                                         return (key.substring(0,1) == '_');
                                     }));
                                 });
-                                self.find('.widget__header-actions').append($button);
+                                self.closestChild('.widget__header-actions').append($button);
                                 button._el = $button;
                                 that.data._el.buttons.push($button);
                             });
@@ -133,7 +133,7 @@
                         }
                     };
                     that.get_buttons = function(){
-                        that.data._el.button_collapse = self.find('.button_collapse');
+                        that.data._el.button_collapse = self.closestChild('.button_collapse');
                         if (typeof that.data._el.button_collapse[0] != 'undefined') {
                             if (typeof that.data._el.button_collapse.find('.button__text')[0] != 'undefined') {
                                 that.data.name = that.data._el.button_collapse.find('.button__text').text();
@@ -142,13 +142,13 @@
                     };
 
                     that.set_name = function(){
-                        that.data._el.button_collapse.find('.button__text').text(that.data.name);
+                        that.data._el.button_collapse.closestChild('.button__text').text(that.data.name);
                         that.data._el.button_collapse.attr('data-tooltip', that.data.name);
                         that.data._el.button_collapse.data('tooltip', that.data.name);
                         that.render_button_collapse();
                     };
                     that.set_color = function(){
-                        var $border = self.find('.widget__border');
+                        var $border = self.closestChild('.widget__border');
                         if (that.data.color === that.const.BORDER_COLOR_BLUE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
@@ -177,8 +177,8 @@
                         }
                     };
                     that.set_content = function(){
-                        var $body = self.find('.widget__body'),
-                            $bodydata = self.find('.widget__body-data');
+                        var $body = self.closestChild('.widget__body'),
+                            $bodydata = self.closestChild('.widget__body-data');
                         if (typeof that.data.loader == 'object') {
                             $body.addClass('widget__body_align_center');
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
