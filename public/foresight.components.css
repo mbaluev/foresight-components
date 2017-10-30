@@ -2257,7 +2257,6 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-  margin: 0 auto;
 }
 
 .widget__image_hidden {
@@ -3642,6 +3641,15 @@ body {
   width: 16px;
   height: 16px;
   vertical-align: top;
+}
+
+.control__text_align_center {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .control__caption {
