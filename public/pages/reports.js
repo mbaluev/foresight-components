@@ -156,7 +156,7 @@ var Reports = function(options){
                 name: report.Title,
                 collapsed: report.collapsed,
                 color: report.Color,
-                url: report.URL,
+                url: report.ReportingUrl,
                 previewUrl: report.PreviewURL,
                 repFavoriteId: report.repFavoriteId,
                 buttons: [
