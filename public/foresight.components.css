@@ -1505,6 +1505,10 @@ body {
   box-sizing: content-box;
 }
 
+.widget-grid.grid-stack > .grid-stack-item {
+  position: absolute !important;
+}
+
 .widget-grid.grid-stack > .grid-stack-item > .grid-stack-item-content {
   left: 10px;
   right: 10px;

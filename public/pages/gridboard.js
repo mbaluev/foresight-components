@@ -48,18 +48,18 @@ var GridBoard = function(options){
             '<div class="card__main">',
             '<div class="card__middle">',
             '<div class="card__middle-scroll">',
-            '<div id="widget-grid" class="widget-grid grid-stack" data-gs-animate="true"></div>',
             '</div>',
             '</div>',
             '</div>',
             '</div>'
         ].join('')),
+        widget_grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
 
     that.render = function(){
         if (!that.data.title && !that.data.allowSearch) {
-            that.data._el.content.find('.card__header').remove();
+            that.data._el.content.closestChild('.card__header').remove();
         }
         that.data._el.target.append(
             that.data._el.content
@@ -67,12 +67,12 @@ var GridBoard = function(options){
     };
     that.render_title = function(){
         if (that.data.title) {
-            that.data._el.content.find('#name .card__name-text').html(that.data.title);
+            that.data._el.content.closestChild('#name .card__name-text').html(that.data.title);
         }
     };
     that.render_filters = function(){
         if (that.data.allowSearch) {
-            that.data._el.content.find('#search').append(
+            that.data._el.content.closestChild('#search').append(
                 that.data._el.input
             );
         }
@@ -84,7 +84,7 @@ var GridBoard = function(options){
             margin: that.data.margin,
             loader: that.data.loader
         };
-        that.data.grid = $('#widget-grid').widget_grid(widget_grid_options);
+        that.data.grid = that.data._el.widget_grid.widget_grid(widget_grid_options);
     };
     that.render_items = function(){
         that.data.items.forEach(function(item, i){
@@ -98,6 +98,7 @@ var GridBoard = function(options){
             }
         });
         that.data.grid.widget_grid('view_mode');
+        that.data._el.content.closestChild('.card__middle-scroll').append(that.data._el.widget_grid);
     };
 
     that.remove_items = function(){
