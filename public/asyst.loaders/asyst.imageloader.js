@@ -30,6 +30,7 @@ Asyst.ImageLoader = {
                 });
                 that.data.target.find('.widget__body-data').append(obj.widget__image);
                 that.data.target.find('.widget__body-data').on('click', function(){
+                    window.location.target = '_blank';
                     window.location.href = that.data.data.url;
                 });
             };
