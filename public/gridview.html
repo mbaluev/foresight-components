@@ -1248,6 +1248,7 @@
                     var viewEl = gridview.data._el.container;
                     viewEl[0].innerHtml = "";
 
+                    /*
                     if (viewEl.height() === 0) {
                         try {
                             var resizeContainer = function() {
@@ -1268,6 +1269,7 @@
                         } catch (error) {
                         }
                     }
+                    */
 
                     var options = {
                         enableCellNavigation: true,
@@ -1289,23 +1291,21 @@
                         view = EditableGrid.create(viewEl, data.data, data.columns, data.EditFormName, data.KeyName, data.EntityName);
                     } else {
                         view = Grid.Create(viewEl, data.data, data.columns, options, data.groups, params, data.filters, data.viewSample);
-
                         var grid = view.Grid;
                         var dataView = view.DataView;
-
                         if (data.EntityId)
-                            gridview.EntityId = data.EntityId;
+                            grid.EntityId = data.EntityId;
                         if (data.EntityName)
-                            gridview.EntityName = data.EntityName;
+                            grid.EntityName = data.EntityName;
                         if (data.KeyName)
-                            gridview.KeyName = data.KeyName;
+                            grid.KeyName = data.KeyName;
 
                         if (options.doClick) {
-                            gridview.onClick.subscribe(function (e, args) {
-                                var cell = gridview.getCellFromEvent(e);
-                                var item = gridview.getDataItem(cell.row);
+                            grid.onClick.subscribe(function (e, args) {
+                                var cell = grid.getCellFromEvent(e);
+                                var item = grid.getDataItem(cell.row);
                                 if (item.__nonDataRow) return;
-                                var column = gridview.getColumns()[cell.cell];
+                                var column = grid.getColumns()[cell.cell];
                                 ViewClick(dataView, item, column, e);
                             });
                         }
