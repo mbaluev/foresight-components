@@ -1671,11 +1671,11 @@ body {
   border-style: none;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
-  font-size: 11px;
   padding-top: 5px;
   padding-bottom: 5px;
-  height: 25px;
+  font-size: 14px;
   line-height: 25px;
+  height: 25px;
 }
 
 .slick-header-column.ui-state-default:first-child .slick-column-name {
@@ -1702,12 +1702,11 @@ body {
 .slick-cell {
   border-style: none;
   border-bottom: 1px solid #eee;
-  font-size: 11px;
   padding: 0 5px;
-  line-height: 25px;
   box-sizing: border-box;
+  font-size: 13px;
+  line-height: 25px;
   height: 25px;
-  /*height: 25px !important;*/
 }
 
 .slick-cell.selected {
@@ -1746,11 +1745,11 @@ body {
   min-width: 12px;
   margin-right: 8px;
   border-style: none;
-  font-size: 11px;
   padding-left: 0;
   display: inline;
   /*попробуем так, чтобы не разъезжались широкие строки и переносы*/
   background: center no-repeat;
+  font-size: 13px;
 }
 
 .slick-group-toggle.expanded {
