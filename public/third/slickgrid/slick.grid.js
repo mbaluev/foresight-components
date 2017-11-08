@@ -27,7 +27,6 @@ if (typeof Slick === "undefined") {
     throw "slick.core.js not loaded";
 }
 
-
 (function ($) {
     // Slick.Grid
     $.extend(true, window, {
