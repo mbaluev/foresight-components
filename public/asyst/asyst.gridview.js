@@ -205,7 +205,7 @@ Asyst.GridView = function(options){
             if (data.KeyName)
                 grid.KeyName = data.KeyName;
             if (options.doClick) {
-                grid.onClick.subscribe(function (e, args) {
+                grid.onClick.subscribe(function(e, args){
                     var cell = grid.getCellFromEvent(e);
                     var item = grid.getDataItem(cell.row);
                     if (item.__nonDataRow) return;
@@ -216,6 +216,9 @@ Asyst.GridView = function(options){
                     ViewClick(dataView, item, column, e);
                 });
             }
+            grid.onColumnsResized.subscribe(function(e, args){
+                if (grid) grid.resizeCanvas();
+            });
         }
         view.viewName = that.data.viewname;
         that.data.grid = view;
