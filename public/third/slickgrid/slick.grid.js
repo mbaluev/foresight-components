@@ -807,11 +807,11 @@ if (typeof Slick === "undefined") {
             var rowHeight = (options.rowHeight - cellHeightDiff);
             var rules = [
               //"." + uid + " .slick-header-column { left: 1000px; }",
-              "." + uid + " .slick-header-column {  }",
-              "." + uid + " .slick-top-panel { height:" + options.topPanelHeight + "px; }",
-              "." + uid + " .slick-headerrow-columns { height:" + options.headerRowHeight + "px; }",
-              "." + uid + " .slick-cell { height:" + (rowHeight - 1) + "px; }",
-              "." + uid + " .slick-row { height:" + options.rowHeight + "px; }"
+              //"." + uid + " .slick-header-column {  }",
+              //"." + uid + " .slick-top-panel { height:" + options.topPanelHeight + "px; }",
+              //"." + uid + " .slick-headerrow-columns { height:" + options.headerRowHeight + "px; }",
+              //"." + uid + " .slick-cell { height:" + (rowHeight - 1) + "px; }",
+              //"." + uid + " .slick-row { height:" + options.rowHeight + "px; }"
             ];
 
             for (var i = 0; i < columns.length; i++) {
@@ -1316,7 +1316,7 @@ if (typeof Slick === "undefined") {
         
         var rowHeights = {};
         var heightsMeasured = false;
-        var hGen = 0; //поколение кэширования
+        var hGen = 0; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         function measureHeights() {
             rowHeights = {};
             var localRowsCache = {};
@@ -1334,7 +1334,7 @@ if (typeof Slick === "undefined") {
                 var x = document.createElement("div");
                 for (var i = 0; i < l; i++) {
                     var item = getDataItem(i);
-                    //проверка кэшированых значений
+                    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     if (item.hasOwnProperty('__hGen') && item.__hGen == hGen) {
                         rowHeights[i] = item.__cachedHeight;
                         continue;
@@ -1357,7 +1357,7 @@ if (typeof Slick === "undefined") {
                     
                     item.__cachedHeight = rowHeights[i];
                     item.__hGen = hGen;
-                    //чистим страницу
+                    //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     localRowsCache[i].parentNode.removeChild(localRowsCache[i]);
                     delete localRowsCache[i];
 
@@ -1372,7 +1372,7 @@ if (typeof Slick === "undefined") {
             return rowHeights;
         }
 
-        //вместо options.rowHeight*row - вычисляем высоту count строк начиная со строки from (zero-based index);
+        //пїЅпїЅпїЅпїЅпїЅпїЅ options.rowHeight*row - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ count пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ from (zero-based index);
         //options.rowHeight*row ->getHeightsOfRows(0,row)
         function getHeightsOfRows(from, count) {
             if (typeof count == 'undefined') throw 'argument error';
@@ -1385,7 +1385,7 @@ if (typeof Slick === "undefined") {
             return result;
         }
 
-        //вместо viewportH/options.rowHeight - вычисляем количество строк попадающих в заданую высоту height начиная от строки from;
+        //пїЅпїЅпїЅпїЅпїЅпїЅ viewportH/options.rowHeight - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ height пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ from;
         function getRowsCountByHeight(height, from) {
             if (typeof from == 'undefined') throw 'argument error';
             if (!heightsMeasured) throw 'heights not measured';
@@ -1395,7 +1395,7 @@ if (typeof Slick === "undefined") {
             }
             return i-1;
         }
-        //вместо viewportH/options.rowHeight - вычисляем количество строк попадающих в заданую высоту height начиная с отступом в offsetTop;
+        //пїЅпїЅпїЅпїЅпїЅпїЅ viewportH/options.rowHeight - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ height пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ offsetTop;
         function getRowsCountByHeight2(height, offsetTop) {
             if (typeof offsetTop == 'undefined') throw 'argument error';
             if (!heightsMeasured) throw 'heights not measured';
@@ -1513,7 +1513,7 @@ if (typeof Slick === "undefined") {
             
             if (!initialized) { return; }
             if (options.autoHeight) {
-                //тут надо будет что-то поменять, но т.к. у нас сейчас не используется autoHeight, пока не трогаем.
+                //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅ.пїЅ. пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ autoHeight, пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
                 viewportH = options.rowHeight * (getDataLength() + (options.enableAddRow ? 1 : 0) + (options.leaveSpaceForNewRows ? numVisibleRows - 1 : 0));
             } else {
                 viewportH = getViewportHeight();

@@ -207,6 +207,10 @@
     <script src="foresight.third.min.js"></script>
     <script src="foresight.components.min.js"></script>
     <script src="foresight.pages.debug.js"></script>
+
+    <script src="third/slickgrid/slick.core.js"></script>
+    <script src="third/slickgrid/slick.grid.js"></script>
+
     <script>
         $(function(){
             var project = {
@@ -1276,7 +1280,7 @@
                         editable: false,
                         autoHeight: false,
                         doClick: true,
-                        wideString: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
+                        wideString: true, //Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isWideString,
                         initiallyCollapsed: Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed,
                         rowSelectionModel: new Asyst.RowSelectionModel()
                     };

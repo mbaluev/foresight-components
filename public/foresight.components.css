@@ -1627,10 +1627,6 @@ body {
   position: relative;
 }
 
-.form {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-}
-
 .grid {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100% !important;
@@ -1644,8 +1640,7 @@ body {
 
 .grid img {
   width: 16px;
-  height: 24px;
-  padding: 0;
+  padding: 3px 0;
 }
 
 
@@ -1815,6 +1810,10 @@ body {
 .slick-row .selected a:hover {
   text-decoration: none;
   color: #fff !important;
+}
+
+.form {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 
 
