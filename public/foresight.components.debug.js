@@ -2625,11 +2625,9 @@ $(function(){
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate,
                                                         '<a class="datepicker__note"',
-                                                        (that.data.useItemsLink ?
-                                                            'href="' + item.link + '"' : ''
-                                                        ),
                                                         (that.data.useItemsLength ?
                                                             '>' + items.length :
+                                                            (items[0]['url'] ? 'href="' + items[0]['url'] + '"' : '') +
                                                             (items[0]['background'] ?
                                                                 ' style="background-color:' + items[0]['background'] + '"' : ''
                                                             ) + '>' + items[0]['count']
