@@ -2493,7 +2493,7 @@ $(function(){
                         onSelect: null,
                         onSelectAllowed: true,
                         useItemsLength: true,
-                        dayCountColumn: ''
+                        useItemsLink: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2624,15 +2624,17 @@ $(function(){
                                                 return {
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate,
-                                                        (that.data.useItemsLength ?
-                                                            '<div class="datepicker__note">' + items.length :
-                                                            '<div class="datepicker__note"' +
-                                                                (items[0]['background'] ?
-                                                                    ' style="background-color:' + items[0]['background'] + '"' :
-                                                                    ''
-                                                                ) + '>' + items[0][that.data.dayCountColumn]
+                                                        '<a class="datepicker__note"',
+                                                        (that.data.useItemsLink ?
+                                                            'href="' + item.link + '"' : ''
                                                         ),
-                                                        '</div>',
+                                                        (that.data.useItemsLength ?
+                                                            '>' + items.length :
+                                                            (items[0]['background'] ?
+                                                                ' style="background-color:' + items[0]['background'] + '"' : ''
+                                                            ) + '>' + items[0]['count']
+                                                        ),
+                                                        '</a>',
                                                         '</div>'
                                                     ].join('')
                                                 }
