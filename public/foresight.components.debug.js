@@ -2491,7 +2491,9 @@ $(function(){
                         eventTitleColumn: 'date',
                         eventTooltipColumn: 'date',
                         onSelect: null,
-                        onSelectAllowed: true
+                        onSelectAllowed: true,
+                        useItemsLength: true,
+                        dayCountColumn: ''
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2622,7 +2624,9 @@ $(function(){
                                                 return {
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate,
-                                                        '<div class="datepicker__note">' + items.length + '</div>',
+                                                        '<div class="datepicker__note">',
+                                                        (that.data.useItemsLength ? items.length : item[that.data.dayCountColumn]),
+                                                        '</div>',
                                                         '</div>'
                                                     ].join('')
                                                 }
