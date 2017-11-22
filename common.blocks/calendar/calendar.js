@@ -97,7 +97,7 @@
                                         that.data._el.calendar__row_top.append(
                                             that.data._el.calendar__datepicker
                                         ),
-                                        (that.data.columns ? that.data._el.calendar__row_bottom.append(
+                                        (that.data.columns.length > 0 ? that.data._el.calendar__row_bottom.append(
                                             that.data._el.calendar__table
                                         ) : null)
                                     )
