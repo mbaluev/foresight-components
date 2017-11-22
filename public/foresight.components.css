@@ -230,6 +230,7 @@ body {
   font-size: 13px;
   line-height: 30px;
   text-decoration: none;
+  border-radius: 0;
 }
 
 .button:before {
@@ -1627,6 +1628,10 @@ body {
   position: relative;
 }
 
+.form {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+}
+
 .grid {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100% !important;
@@ -1813,10 +1818,6 @@ body {
   color: #fff !important;
 }
 
-.form {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-}
-
 
 
 .modal_hidden {
@@ -1878,6 +1879,14 @@ body {
 .modal__dialog_hidden {
   margin-top: -100%;
   opacity: 0;
+}
+
+.modal_fullscreen .modal__view {
+  padding: 10px;
+}
+
+.modal_fullscreen .modal__dialog {
+  width: 100%;
 }
 
 .widget {
@@ -2381,6 +2390,8 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   height: 100%;
+  line-height: normal;
+  font-weight: normal;
 }
 
 .calendar__row {
@@ -2436,6 +2447,7 @@ body {
   border-radius: 16px;
   min-width: 16px;
   text-align: center;
+  box-sizing: content-box;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day {
@@ -3598,6 +3610,41 @@ body {
   padding-left: 0;
 }
 
+.textarea {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-size: 13px;
+  display: inline-block;
+  background: #fff;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 10px;
+  min-height: 2em;
+  border: 1px solid #ccc;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.textarea_disabled {
+  background: rgba(0,0,0,.08);
+  border-color: transparent;
+}
+
+.textarea_hidden {
+  display: none;
+  visibility: hidden;
+}
+
+.textarea__has-error {
+  border-color: #ff5940;
+  box-shadow: 0 0 0 1px #ff5940;
+}
+
+.textarea_focused {
+  border-color: #5a97f2;
+  box-shadow: 0 0 0 1px #5a97f2;
+}
+
 .select {
   display: none;
 }
@@ -3944,6 +3991,7 @@ body {
   margin: 4px 5px;
   font-size: 18px;
   line-height: normal;
+  font-weight: normal;
 }
 
 .card__name-text_no-margin {

@@ -57,6 +57,9 @@
                         self.find('[data-fc="input"]').input();
                         self.find('[data-fc="button"]').button();
                         self.find('[data-fc="tooltip"]').tooltip();
+                        self.find('[data-fc="textarea"]').textarea();
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="tumbler"]').tumbler();
                     };
                     that.init = function(){
                         that.get();

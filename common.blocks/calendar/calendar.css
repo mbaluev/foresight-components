@@ -7,6 +7,8 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    line-height: normal;
+    font-weight: normal;
 }
 
 .calendar__row {
@@ -49,6 +51,7 @@
     border-radius: 16px;
     min-width: 16px;
     text-align: center;
+    box-sizing: content-box;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day {
