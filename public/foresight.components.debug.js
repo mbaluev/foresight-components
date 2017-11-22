@@ -2620,29 +2620,32 @@ $(function(){
                                             };
                                         } else {
                                             if (items.length > 0) {
-                                                return {
-                                                    html: [
-                                                        '<div class="datepicker__day">',
+                                                if (that.data.useItemsLength) {
+                                                    return {
+                                                        html: [
+                                                            '<div class="datepicker__day">' + currentDate,
+                                                            '<div class="datepicker__note">' + items.length,
+                                                            '</div>',
+                                                            '</div>'
+                                                        ].join('')
+                                                    }
+                                                } else {
+                                                    return {
+                                                        html: [
+                                                            '<a class="datepicker__day"',
+                                                            (items[0]['url'] ? 'href="' + items[0]['url'] + '"' +
+                                                            (items[0]['target'] ? 'target="' + items[0]['target'] + '"' : '') : ''),
+                                                            '>' + currentDate,
 
-                                                        (!that.data.useItemsLength ?
-                                                            (items[0]['url'] ?
-                                                                '<a href="' + items[0]['url'] + '"' +
-                                                                (items[0]['target'] ? 'target="' + items[0]['target'] + '"' : '') +
-                                                                '>' + currentDate + '</a>' :
-                                                                currentDate
-                                                            ) : currentDate
-                                                        ),
-
-                                                        '<a class="datepicker__note"',
-                                                        (that.data.useItemsLength ?
-                                                            '>' + items.length :
+                                                            '<div class="datepicker__note"',
                                                             (items[0]['background'] ?
                                                                 ' style="background-color:' + items[0]['background'] + '"' : ''
-                                                            ) + '>' + items[0]['count']
-                                                        ),
-                                                        '</a>',
-                                                        '</div>'
-                                                    ].join('')
+                                                            ) + '>' + items[0]['count'],
+                                                            '</div>',
+
+                                                            '</a>'
+                                                        ].join('')
+                                                    }
                                                 }
                                             }
                                             else {
