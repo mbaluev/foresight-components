@@ -2626,9 +2626,11 @@ $(function(){
                                                         '<div class="datepicker__day">' + currentDate,
                                                         (that.data.useItemsLength ?
                                                             '<div class="datepicker__note">' + items.length :
-                                                            '<div class="datepicker__note' +
-                                                                (items[0]['background'] ? ' ' + items[0]['background'] : '')
-                                                                + '">' + items[0][that.data.dayCountColumn]
+                                                            '<div class="datepicker__note"' +
+                                                                (items[0]['background'] ?
+                                                                    ' style="background-color:' + items[0]['background'] + '">' :
+                                                                    ''
+                                                                ) + '">' + items[0][that.data.dayCountColumn]
                                                         ),
                                                         '</div>',
                                                         '</div>'
