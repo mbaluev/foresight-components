@@ -154,7 +154,8 @@
                                                         '<a class="datepicker__note"',
                                                         (that.data.useItemsLength ?
                                                             '>' + items.length :
-                                                            (items[0]['url'] ? 'href="' + items[0]['url'] + '"' : '') +
+                                                            (items[0]['url'] ? 'href="' + items[0]['url'] + '"' + 
+                                                                (items[0]['target'] ? 'target="' + items[0]['target'] + '"' : '') : '') +
                                                             (items[0]['background'] ?
                                                                 ' style="background-color:' + items[0]['background'] + '"' : ''
                                                             ) + '>' + items[0]['count']
