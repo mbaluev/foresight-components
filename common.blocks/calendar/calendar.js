@@ -153,7 +153,7 @@
                                                     html: [
                                                         '<div class="datepicker__day">' + currentDate,
                                                         '<div class="datepicker__note">',
-                                                        (that.data.useItemsLength ? items.length : item[that.data.dayCountColumn]),
+                                                        (that.data.useItemsLength ? items.length : items[0][that.data.dayCountColumn]),
                                                         '</div>',
                                                         '</div>'
                                                     ].join('')
