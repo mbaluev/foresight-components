@@ -30,8 +30,11 @@ Asyst.ImageLoader = {
                 });
                 that.data.target.find('.widget__body-data').append(obj.widget__image);
                 that.data.target.find('.widget__body-data').on('click', function(){
-                    window.open(that.data.data.url, '_blank');
-                    //window.location.href = that.data.data.url;
+                    if (that.data.data.url.indexOf('javascript:') == 1) {
+                        window.location.href = that.data.data.url;
+                    } else {
+                        window.open(that.data.data.url, '_blank');
+                    }
                 });
             };
             obj.preloader.onerror = function(){
