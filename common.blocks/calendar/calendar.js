@@ -156,9 +156,9 @@
                                                             '<div class="datepicker__note">' + items.length :
                                                             '<div class="datepicker__note"' +
                                                                 (items[0]['background'] ?
-                                                                    ' style="background-color:' + items[0]['background'] + '">' :
+                                                                    ' style="background-color:' + items[0]['background'] + '"' :
                                                                     ''
-                                                                ) + '">' + items[0][that.data.dayCountColumn]
+                                                                ) + '>' + items[0][that.data.dayCountColumn]
                                                         ),
                                                         '</div>',
                                                         '</div>'
