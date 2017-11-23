@@ -152,7 +152,7 @@ body {
 
 /* page_horizontal-menu */
 
-.page_horizontal-menu .fs-vew__main {
+.page_horizontal-menu .fs-view__main {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -168,8 +168,8 @@ body {
           flex: 0 0 auto;
   position: relative;
   width: auto;
-  min-width: unset;
-  max-width: unset;
+  min-width: auto;
+  max-width: none;
   overflow: visible;
 }
 
@@ -189,6 +189,14 @@ body {
   left: 0;
   right: 0;
 }
+
+.page_horizontal-menu .fs-view__middle-scroll {
+  height: auto;
+}
+
+/*.page_horizontal-menu .fs-view__middle .card {
+    height: auto;
+}*/
 
 .header {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;

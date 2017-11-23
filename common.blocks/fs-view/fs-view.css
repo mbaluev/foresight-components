@@ -104,7 +104,7 @@ html, body {
 }
 
 /* page_horizontal-menu */
-.page_horizontal-menu .fs-vew__main {
+.page_horizontal-menu .fs-view__main {
     display: flex;
     flex-direction: column;
 }
@@ -112,8 +112,8 @@ html, body {
     flex: 0 0 auto;
     position: relative;
     width: auto;
-    min-width: unset;
-    max-width: unset;
+    min-width: auto;
+    max-width: none;
     overflow: visible;
 }
 .page_horizontal-menu .fs-view__left.fs-view__left_hidden {
@@ -127,3 +127,9 @@ html, body {
     left: 0;
     right: 0;
 }
+.page_horizontal-menu .fs-view__middle-scroll {
+    height: auto;
+}
+/*.page_horizontal-menu .fs-view__middle .card {
+    height: auto;
+}*/
