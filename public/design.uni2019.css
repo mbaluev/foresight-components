@@ -7,11 +7,15 @@
 }
 
 .menu__item-text {
-  /*font-size: 15px;*/
+  font-size: 14px;
 }
 
 .menu__item-link {
   padding: 12px 15px;
+}
+
+.page_horizontal-menu .menu__submenu .menu__item-link {
+  padding-left: 15px;
 }
 
 .menu__item-link:hover,
@@ -38,4 +42,6 @@
 
 .copyright {
   background-color: #0096de;
+  font-size: 14px;
+  padding: 7px 10px;
 }

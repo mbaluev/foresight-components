@@ -2,10 +2,13 @@
     background-color: #e5007c;
 }
 .menu__item-text {
-    /*font-size: 15px;*/
+    font-size: 14px;
 }
 .menu__item-link {
     padding: 12px 15px;
+}
+.page_horizontal-menu .menu__submenu .menu__item-link {
+    padding-left: 15px;
 }
 .menu__item-link:hover,
 .menu__item-link_hovered {
