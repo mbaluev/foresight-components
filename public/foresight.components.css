@@ -2394,6 +2394,27 @@ body {
   padding-top: 0;
 }
 
+.visit {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  height: 100%;
+}
+
+.visit__frame-container {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.visit__frame-container > iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+.visit__frame_hidden {
+  display: none;
+}
+
 .gallery {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   height: 100%;
@@ -2444,27 +2465,6 @@ body {
 
 .gallery__image-link:hover .gallery__filename {
   color: #ff4800;
-}
-
-.visit {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  height: 100%;
-}
-
-.visit__frame-container {
-  height: 100%;
-  width: 100%;
-  position: relative;
-}
-
-.visit__frame-container > iframe {
-  height: 100%;
-  width: 100%;
-  border: none;
-}
-
-.visit__frame_hidden {
-  display: none;
 }
 
 .calendar {

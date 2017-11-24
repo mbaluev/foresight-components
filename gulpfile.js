@@ -19,7 +19,7 @@ var params = {
     levels: ['common.blocks', 'mobile.blocks']
 };
 var uni2019params = {
-    out: 'design/uni2019/public',
+    out: 'public',
     cssOut: 'design.uni2019.css',
     jsOut: 'design.uni2019.js',
     htmlOut: 'index.html',
