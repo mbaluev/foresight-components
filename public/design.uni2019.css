@@ -14,8 +14,8 @@
 
 .header__column,
 .header__column:last-child {
-  -ms-flex-preferred-size: 33%;
-      flex-basis: 33%;
+  -ms-flex-preferred-size: 33.333333%;
+      flex-basis: 33.333333%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -145,5 +145,17 @@
 @media (max-width: 1168px) {
   .header__logo {
     background-image: url("images/logo-mobile.png");
+  }
+}
+
+@media (max-width: 750px) {
+  .header__column_wolf {
+    background-position: right center;
+    background-size: 250px;
+  }
+
+  .header__column_eagle {
+    background-position: left center;
+    background-size: 250px;
   }
 }
