@@ -18,6 +18,14 @@ var params = {
     htmlSrc: 'index.html',
     levels: ['common.blocks', 'mobile.blocks']
 };
+var uni2019params = {
+    out: 'design/uni2019/public',
+    cssOut: 'design.uni2019.css',
+    jsOut: 'design.uni2019.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/uni2019/common.blocks', 'design/uni2019/mobile.blocks']
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -70,9 +78,11 @@ var pages_js = [
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);
+var uniGetFileNames = require('html2bl').getFileNames(uni2019params);
 
-gulp.task('default', ['server', 'build', 'misc']);
+gulp.task('default', ['server', 'build', 'misc', 'design']);
 
+/* server */
 gulp.task('server', function(){
     browserSync.init({
         server: params.out,
@@ -84,22 +94,31 @@ gulp.task('server', function(){
         var cssGlob = level + '/**/*.css';
         return cssGlob;
     }), ['css']);
-    gulp.watch(params.levels.map(function(level) {
+    gulp.watch(params.levels.map(function(level){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['js']);
     gulp.watch('public/pages/*.js', ['pages']);
+
+    /* watch design - uni2019 */
+    gulp.watch(uni2019params.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['uni2019_css']);
+    gulp.watch(uni2019params.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['uni2019_js']);
 });
 
+/* components */
 gulp.task('build', ['html', 'css', 'images', 'js']);
-
 gulp.task('html', function(){
     gulp.src(params.htmlSrc)
         .pipe(rename(params.htmlOut))
         .pipe(gulp.dest(params.out))
         .pipe(reload({ stream: true }));
 });
-
 gulp.task('css', function(){
     getFileNames.then(function(files){
         //gulp.src(['common.blocks/**/*.css', 'pink.blocks/**/*.css'])
@@ -125,7 +144,6 @@ gulp.task('css', function(){
             .pipe(reload({ stream: true }));
     }).done();
 });
-
 gulp.task('images', function(){
     getFileNames.then(function(source){
         gulp.src(source.dirs.map(function(dir){
@@ -134,7 +152,6 @@ gulp.task('images', function(){
         })).pipe(gulp.dest(path.join(params.out, 'images')));
     }).done();
 });
-
 gulp.task('js', function() {
     getFileNames.then(function(src){
         return src.dirs.map(function(dir){
@@ -156,8 +173,8 @@ gulp.task('js', function() {
     .done();
 });
 
+/* third & pages */
 gulp.task('misc', [/*'third',*/ 'pages']);
-
 gulp.task('third', function(){
     gulp.src(third_css)
         .pipe(concat('foresight.third.css'))
@@ -187,7 +204,6 @@ gulp.task('third', function(){
         .pipe(gulp.dest(params.out))
         .pipe(reload({ stream: true }));
 });
-
 gulp.task('pages', function(){
     gulp.src(pages_js)
         .pipe(concat('foresight.pages.js'))
@@ -199,4 +215,57 @@ gulp.task('pages', function(){
         }))
         .pipe(gulp.dest(params.out))
         .pipe(reload({ stream: true }));
+});
+
+/* design */
+gulp.task('design', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
+gulp.task('uni2019_css', function(){
+    uniGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(uni2019params.cssOut))
+            .pipe(url({ prepend: 'images/' }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(uni2019params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    uniGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(uni2019params.cssOut))
+            .pipe(url({ prepend: 'images/' }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(uni2019params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('uni2019_images', function(){
+    uniGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(uni2019params.out, 'images')));
+    }).done();
+});
+gulp.task('uni2019_js', function() {
+    uniGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(uni2019params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(uni2019params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
 });
