@@ -759,12 +759,14 @@ $(function(){
                                     }
                                 }
                                 if (that.data.toggle == 'hover') {
-                                    $itemlink.on('mouseover', function(){
+                                    item.on('mouseover', function(){
                                         $submenu.show();
+                                        $itemlink.addClass('menu__item-link_hovered');
                                         $icon.toggleClass('icon_rotate_0deg');
                                     });
-                                    $itemlink.on('mouseout', function(){
+                                    item.on('mouseout', function(){
                                         $submenu.hide();
+                                        $itemlink.removeClass('menu__item-link_hovered');
                                         $icon.toggleClass('icon_rotate_0deg');
                                     });
                                 }
