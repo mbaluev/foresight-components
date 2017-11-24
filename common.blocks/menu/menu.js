@@ -10,7 +10,8 @@
                         expanded: false,
                         scrollToSelectedItem: false,
                         maxItemLines: null,
-                        maxItemSymbols: null
+                        maxItemSymbols: null,
+                        toggle: 'click'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -63,19 +64,6 @@
                                         }
                                     }
                                 });
-                                /*
-                                if ($itemtext.height() > maxHeight) {
-                                    $itemtext.css({
-                                        display: 'block',
-                                        height: maxHeight,
-                                        overflow: 'hidden',
-                                        'text-overflow': 'ellipsis',
-                                        '-webkit-box-orient': 'vertical',
-                                        '-webkit-line-clamp': that.data.maxItemLines
-                                    });
-                                    $itemtext.attr('data-tooltip', $itemtext.text());
-                                }
-                                */
                             }
                             if (that.data.maxItemSymbols) {
                                 var text = $itemtext.html();
@@ -87,13 +75,25 @@
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
                                 $icon.addClass('icon_animate');
-                                $itemlink.on("click", function(){
-                                    $submenu.slideToggle(500);
-                                    $icon.toggleClass('icon_rotate_0deg');
-                                });
-                                if (that.data.expanded) {
-                                    $submenu.show();
-                                    $icon.toggleClass('icon_rotate_0deg');
+                                if (that.data.toggle == 'click') {
+                                    $itemlink.on('click', function(){
+                                        $submenu.slideToggle(500);
+                                        $icon.toggleClass('icon_rotate_0deg');
+                                    });
+                                    if (that.data.expanded) {
+                                        $submenu.show();
+                                        $icon.toggleClass('icon_rotate_0deg');
+                                    }
+                                }
+                                if (that.data.toggle == 'hover') {
+                                    $itemlink.on('mouseover', function(){
+                                        $submenu.show();
+                                        $icon.toggleClass('icon_rotate_0deg');
+                                    });
+                                    $itemlink.on('mouseout', function(){
+                                        $submenu.hide();
+                                        $icon.toggleClass('icon_rotate_0deg');
+                                    });
                                 }
                             } else {
                                 $itemlink.on('click', function(){
