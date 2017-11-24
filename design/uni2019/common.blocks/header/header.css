@@ -2,13 +2,13 @@
     height: 130px;
 }
 .header__logo {
-    background: url('logo.png');
     height: 90px;
     width: 100%;
     margin-top: 10px!important;
-    background-size: contain;
+    background-image: url('logo.png');
     background-position: center center;
     background-repeat: no-repeat;
+    background-size: contain;
 }
 .header__column {
     flex-basis: 33%;
