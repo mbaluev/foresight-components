@@ -185,9 +185,8 @@
           justify-content: flex-end;
 }
 
-.counter .alertbox-group .alertbox {
+.counter .alertbox {
   width: 20px;
-  border-radius: 0;
 }
 
 .counter .alertbox-group .alertbox:before {
@@ -196,6 +195,7 @@
 
 .counter .alertbox-group .alertbox {
   background-color: #e5007c;
+  border-radius: 0;
 }
 
 .counter .alertbox__text {
