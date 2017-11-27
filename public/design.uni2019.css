@@ -169,6 +169,29 @@
   background-size: cover;
 }
 
+.counter {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.counter .alertbox-group .alertbox {
+  width: 20px;
+  border-radius: 0;
+}
+
+.counter .alertbox-group .alertbox:before {
+  border-radius: 0;
+}
+
+.counter .alertbox-group .alertbox {
+  background-color: #e5007c;
+}
+
+.counter .alertbox__text {
+  color: #e5007c;
+}
+
 .copyright {
   background-color: #0096de;
   font-size: 14px;
