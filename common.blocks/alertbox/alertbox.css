@@ -30,11 +30,8 @@
     background: #fff;
 }
 
-.alertbox_border_none:before {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.alertbox_border_none {
+    background: none;
 }
 
 .alertbox__text {
@@ -53,7 +50,7 @@
 .alertbox__text + .icon,
 .alertbox__text + .button { margin-left: -10px; }
 .alertbox .icon + .alertbox__text,
-.alertbox .button + .alertbox__text { margin-left: 0px; }
+.alertbox .button + .alertbox__text { margin-left: 0; }
 
 .alertbox .button .icon { opacity: .5; }
 

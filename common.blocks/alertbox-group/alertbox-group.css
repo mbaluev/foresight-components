@@ -1,0 +1,13 @@
+.alertbox-group {
+    display: inline-flex;
+    white-space: nowrap;
+}
+
+.alertbox-group .alertbox+.alertbox { margin-left: -1px; }
+
+.alertbox-group .alertbox { border-radius: 0; }
+.alertbox-group .alertbox:before { border-radius: 0; }
+.alertbox-group .alertbox:first-child { border-top-left-radius: 3px; border-bottom-left-radius: 3px; }
+.alertbox-group .alertbox:first-child:before { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
+.alertbox-group .alertbox:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
+.alertbox-group .alertbox:last-child:before { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }

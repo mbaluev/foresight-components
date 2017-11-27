@@ -89,7 +89,6 @@ $.fn.closestChild = function(selector) {
                     that.bind = function(){
                         if (typeof that.data._el.button[0] != "undefined") {
                             that.data._el.button.on('click', function(e){
-                                debugger;
                                 e.preventDefault();
                                 that.destroy();
                             });
