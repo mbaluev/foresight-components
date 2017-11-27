@@ -12,6 +12,9 @@
     background-size: contain;
 }
 
+.header__column > * {
+    margin: 0 0 10px 0 !important;
+}
 .header__column,
 .header__column:last-child {
     flex-basis: 33.333333%;
