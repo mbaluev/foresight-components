@@ -34,19 +34,23 @@
   height: 130px;
 }
 
+.header__column > * {
+  margin: 0 0 10px 0 !important;
+}
+
 .header__logo {
   display: block;
   height: 90px;
   width: 100%;
-  margin-top: 10px!important;
+  margin-top: 10px !important;
   background-image: url("images/logo.png");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
-.header__column > * {
-  margin: 0 0 10px 0 !important;
+.header__logo:hover {
+  opacity: .6;
 }
 
 .header__column,
