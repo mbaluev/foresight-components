@@ -92,11 +92,11 @@ html, body {
 
 /* page_horizontal-menu */
 @media (min-width: 769px) {
-    .page_horizontal-menu .fs-view__main {
+    .page_menu_horizontal .fs-view__main {
         display: flex;
         flex-direction: column;
     }
-    .page_horizontal-menu .fs-view__left {
+    .page_menu_horizontal .fs-view__left {
         flex: 0 0 auto;
         position: relative;
         width: auto;
@@ -105,10 +105,10 @@ html, body {
         overflow: visible;
         height: auto;
     }
-    .page_horizontal-menu .fs-view__left.fs-view__left_hidden {
+    .page_menu_horizontal .fs-view__left.fs-view__left_hidden {
         margin-left: 0;
     }
-    .page_horizontal-menu .fs-view__middle {
+    .page_menu_horizontal .fs-view__middle {
         flex: 1 1 auto;
         display: flex;
         position: relative;
@@ -116,7 +116,7 @@ html, body {
         left: 0;
         right: 0;
     }
-    .page_horizontal-menu .fs-view__middle-scroll {
+    .page_menu_horizontal .fs-view__middle-scroll {
         height: auto;
     }
 }

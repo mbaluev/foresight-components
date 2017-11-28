@@ -164,32 +164,36 @@
 
 /* page_horizontal-menu */
 @media (min-width: 769px) {
-    .page_horizontal-menu .menu {
+    .menu_type_horizontal {
         width: auto;
         overflow: visible;
     }
-    .page_horizontal-menu .menu__list {
+    .menu_type_horizontal .menu__list {
         flex-direction: row;
         justify-content: center;
         flex-wrap: wrap;
     }
-    .page_horizontal-menu .menu__item {
+    .menu_type_horizontal .menu__item {
         border-bottom: none;
         width: auto;
     }
-    .page_horizontal-menu .menu__submenu-container {
+    .menu_type_horizontal .menu__submenu-container {
         position: absolute;
         z-index: 9999;
         background-color: #4983c4;
         width: 100%;
+        overflow: visible;
     }
-    .page_horizontal-menu .menu__submenu {
+    .menu_type_horizontal .menu__submenu {
         background-color: transparent;
     }
-    .page_horizontal-menu .menu__submenu .menu__item {
+    .menu_type_horizontal .menu__submenu .menu__item {
         width: 100%;
     }
-    .page_horizontal-menu .menu__submenu .menu__item-link {
+    .menu_type_horizontal .menu__submenu .menu__item-link {
         padding-left: 10px;
+    }
+    .menu_type_horizontal .menu__submenu .menu__item-link:hover {
+        background-color: rgba(51,51,51,.15);
     }
 }
