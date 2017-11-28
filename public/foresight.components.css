@@ -2624,6 +2624,14 @@ body {
   border-top: none;
 }
 
+.calendar .datepicker-inline {
+  width: auto !important;
+}
+
+.calendar .datepicker--content {
+  display: block !important;
+}
+
 .calendar .datepicker__day {
   position: relative;
   padding: 8px;
