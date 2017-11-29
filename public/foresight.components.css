@@ -3086,6 +3086,14 @@ body {
   border-bottom-right-radius: 2px;
 }
 
+/* override bootstrap checkbox styles */
+
+.checkbox input[type=checkbox],
+.radio input[type=radio] {
+  float: none !important;
+  margin: 0 5px 0 0 !important;
+}
+
 .checkbox {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   -ms-touch-action: manipulation;
