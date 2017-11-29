@@ -1,29 +1,20 @@
 $(function(){
-    $('#button_toggle-menu').each(function(){
+    $('[data-toggle="menu-left"]').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu'),
-            $main = $('.fs-view__main'),
+            $main = $('.fs-view__main').addClass('fs-view__main_transition'),
             $left = $('.fs-view__left'),
-            $middle = $('.fs-view__middle'),
-            $backdrop = $main.find('.fs-view__backdrop'),
-            onlyloaded = true;
-        if ($backdrop.length == 0) {
-            $backdrop = $('<div class="fs-view__backdrop"></div>');
+            $middle = $('.fs-view__middle');
+        if (!$left.hasClass('fs-view__left_hidden')) {
+            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
         }
-        function show_menu(){
+        function show(){
             if ($iconmenu.length > 0) {
                 $iconmenu.icon__menu('toggle');
-            }
-            if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
-                $main.addClass('fs-view__main_transition');
             }
             $left.removeClass('fs-view__left_hidden');
             $middle.removeClass('fs-view__middle_full');
-            $left.after($backdrop);
-            $backdrop.one('click', function(){
-                self.trigger('click');
-            });
-            self.one('click', hide_menu);
+            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
             $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
@@ -31,17 +22,13 @@ $(function(){
                 }, 100);
             });
         }
-        function hide_menu(){
+        function hide(){
             if ($iconmenu.length > 0) {
                 $iconmenu.icon__menu('toggle');
-            }
-            if (!onlyloaded && !$main.hasClass('fs-view__main_transition')) {
-                $main.addClass('fs-view__main_transition');
             }
             $left.addClass('fs-view__left_hidden');
             $middle.addClass('fs-view__middle_full');
-            $backdrop.remove();
-            self.one('click', show_menu);
+            $main.find('.fs-view__backdrop').remove();
             $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
@@ -49,41 +36,29 @@ $(function(){
                 }, 100);
             });
         }
-        if ($left.hasClass('fs-view__left_hidden')) {
-            self.one('click', show_menu);
-            onlyloaded = false;
-        } else {
-            $left.after($backdrop);
-            $backdrop.one('click', function(){
-                self.trigger('click');
-            });
-            self.one('click', hide_menu);
-            onlyloaded = false;
+        function click(){
+            if ($left.hasClass('fs-view__left_hidden')) {
+                show();
+            } else {
+                hide();
+            }
         }
+        self.on('click', click);
     });
-    $('#button_toggle-menu-right').each(function(){
+    $('[data-toggle="menu-right"]').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu'),
-            $middle = $('.fs-view__middle'),
-            $middle_right = $('.fs-view__middle-right'),
-            $middle_backdrop = $middle.find('.fs-view__middle-backdrop'),
-            onlyloaded = true;
-        if ($middle_backdrop.length == 0) {
-            $middle_backdrop = $('<div class="fs-view__middle-backdrop"></div>');
+            $middle = $('.fs-view__middle').addClass('fs-view__middle_transition'),
+            $middle_right = $('.fs-view__middle-right');
+        if (!$middle_right.hasClass('fs-view__middle-right_hidden')) {
+            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
         }
-        function show_menu(){
+        function show(){
             if ($iconmenu.length > 0) {
                 $iconmenu.icon__menu('toggle');
-            }
-            if (!onlyloaded && !$middle.hasClass('fs-view__middle_transition')) {
-                $middle.addClass('fs-view__middle_transition');
             }
             $middle_right.removeClass('fs-view__middle-right_hidden');
-            $middle_right.after($middle_backdrop);
-            $middle_backdrop.one('click', function(){
-                self.trigger('click');
-            });
-            self.one('click', hide_menu);
+            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
             $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
@@ -91,16 +66,12 @@ $(function(){
                 }, 100);
             });
         }
-        function hide_menu(){
+        function hide(){
             if ($iconmenu.length > 0) {
                 $iconmenu.icon__menu('toggle');
             }
-            if (!onlyloaded && !$middle.hasClass('fs-view__middle_transition')) {
-                $middle.addClass('fs-view__middle_transition');
-            }
             $middle_right.addClass('fs-view__middle-right_hidden');
-            $middle_backdrop.remove();
-            self.one('click', show_menu);
+            $middle.find('.fs-view__middle-backdrop').remove();
             $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
@@ -108,17 +79,47 @@ $(function(){
                 }, 100);
             });
         }
-        if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
-            self.one('click', show_menu);
-            onlyloaded = false;
-        } else {
-            $middle_right.after($middle_backdrop);
-            $middle_backdrop.one('click', function(){
-                self.trigger('click');
-            });
-            self.one('click', hide_menu);
-            onlyloaded = false;
+        function click(){
+            if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
+                show();
+            } else {
+                hide();
+            }
         }
+        self.on('click', click);
+    });
+    $('[data-toggle="header"]').each(function(){
+        var self = $(this),
+            $header = $('.fs-view__header');
+        function show(){
+            $header.removeClass('fs-view__header_hidden');
+            $header.css('margin-top', '');
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+        }
+        function hide(){
+            $header.addClass('fs-view__header_hidden');
+            $header.css('margin-top', -$header.outerHeight());
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+        }
+        function click(){
+            if ($header.hasClass('fs-view__header_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        $('.fs-view').addClass('fs-view_transition');
+        self.on('click', click);
     });
 });
 (function($){

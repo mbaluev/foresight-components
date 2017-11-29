@@ -17,6 +17,10 @@ html, body {
     overflow: hidden;
     flex-direction: column;
 }
+.fs-view_transition > * {
+    transition: 0.5s;
+}
+
 .fs-view__header {
     z-index: 2;
     position: relative;
@@ -24,6 +28,8 @@ html, body {
 
     flex: 0 0 auto;
 }
+.fs-view__header_hidden {}
+
 .fs-view__main {
     z-index: 1;
     position: relative;
