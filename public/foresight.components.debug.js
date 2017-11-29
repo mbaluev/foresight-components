@@ -56,7 +56,9 @@ $(function(){
                 show();
             }
         }
-        $main.addClass('fs-view__main_transition');
+        setTimeout(function(){
+            $main.addClass('fs-view__main_transition');
+        }, 100);
         self.on('click', click);
     });
     $('[data-toggle="menu-right"]').each(function(){
@@ -113,7 +115,9 @@ $(function(){
                 show();
             }
         }
-        $middle.addClass('fs-view__middle_transition');
+        setTimeout(function(){
+            $middle.addClass('fs-view__middle_transition');
+        }, 100);
         self.on('click', click);
     });
     $('[data-toggle="header"]').each(function(){
@@ -159,7 +163,9 @@ $(function(){
                 show();
             }
         }
-        $('.fs-view').addClass('fs-view_transition');
+        setTimeout(function(){
+            $('.fs-view').addClass('fs-view_transition');
+        }, 100);
         self.on('click', click);
     });
 });
