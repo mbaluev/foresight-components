@@ -43,12 +43,13 @@ $(function(){
                 hide();
             }
         }
+        $main.addClass('fs-view__main_transition');
         self.on('click', click);
     });
     $('[data-toggle="menu-right"]').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu'),
-            $middle = $('.fs-view__middle').addClass('fs-view__middle_transition'),
+            $middle = $('.fs-view__middle'),
             $middle_right = $('.fs-view__middle-right');
         if (!$middle_right.hasClass('fs-view__middle-right_hidden')) {
             $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
@@ -86,6 +87,7 @@ $(function(){
                 hide();
             }
         }
+        $middle.addClass('fs-view__middle_transition');
         self.on('click', click);
     });
     $('[data-toggle="header"]').each(function(){
