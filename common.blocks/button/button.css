@@ -29,6 +29,16 @@
     background: #fff;
 }
 
+.button_border_none {
+    background: none;
+}
+.button_border_none:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
 .button_color_red { color: #fff; }
 .button_color_red:before {
     top: 0;

@@ -78,6 +78,17 @@
   display: flex;
 }
 
+.header__row > * {
+  margin-right: 10px;
+}
+
+.header__row_space_between {
+  width: 100%;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
 .header__flex_start {
   -webkit-box-align: start;
       -ms-flex-align: start;
@@ -112,6 +123,10 @@
 
 .header__flex_wrap.header__flex_center > * {
   margin: 0 5px 10px 5px;
+}
+
+.header__flex_end .header__row > * {
+  margin-right: 0;
 }
 
 .header__column_wolf {
