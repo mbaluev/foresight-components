@@ -5,7 +5,7 @@ $(function(){
             $main = $('.fs-view__main').addClass('fs-view__main_transition'),
             $left = $('.fs-view__left'),
             $middle = $('.fs-view__middle');
-        if (!$left.hasClass('fs-view__left_hidden')) {
+        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
             $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
         }
         function show(){
@@ -68,7 +68,7 @@ $(function(){
             $iconmenu = self.find('.icon__menu'),
             $middle = $('.fs-view__middle'),
             $middle_right = $('.fs-view__middle-right');
-        if (!$middle_right.hasClass('fs-view__middle-right_hidden')) {
+        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
             $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
         }
         function show(){
