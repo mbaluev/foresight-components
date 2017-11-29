@@ -5,7 +5,7 @@ $(function(){
             $main = $('.fs-view__main').addClass('fs-view__main_transition'),
             $left = $('.fs-view__left'),
             $middle = $('.fs-view__middle');
-        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
+        if (!$left.hasClass('fs-view__left_hidden')) {
             $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
         }
         function show(){
@@ -14,7 +14,9 @@ $(function(){
             }
             $left.removeClass('fs-view__left_hidden');
             $middle.removeClass('fs-view__middle_full');
-            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+            if ($main.find('.fs-view__backdrop').length == 0) {
+                $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+            }
             $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
@@ -66,7 +68,7 @@ $(function(){
             $iconmenu = self.find('.icon__menu'),
             $middle = $('.fs-view__middle'),
             $middle_right = $('.fs-view__middle-right');
-        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
+        if (!$middle_right.hasClass('fs-view__middle-right_hidden')) {
             $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
         }
         function show(){
@@ -74,7 +76,9 @@ $(function(){
                 $iconmenu.icon__menu('toggle');
             }
             $middle_right.removeClass('fs-view__middle-right_hidden');
-            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+            if ($middle.find('.fs-view__middle-backdrop').length == 0) {
+                $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+            }
             $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
