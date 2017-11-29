@@ -1,4 +1,10 @@
 @media (max-width: 768px) {
+    .menu_type_horizontal .menu__item-link {
+        padding: 12px 10px;
+    }
+    .menu_type_horizontal .menu__submenu .menu__item-link {
+        padding-left: 20px;
+    }
     .menu_type_horizontal .menu__submenu-container:after {
         display: none;
     }

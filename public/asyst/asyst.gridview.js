@@ -9,6 +9,7 @@ Asyst.GridView = function(options){
         entitytitle: null,
         viewname: null,
         viewtitle: null,
+        editable: false,
         metaviewnames: [],
         params: splitGETString(),
         views: {},
@@ -84,9 +85,9 @@ Asyst.GridView = function(options){
                         metaview = metaview.filter(function(view){ return view.viewName = that.data.viewname; });
                     }
                     metaview.map(function(view, i){
-                        view.IsExtFilterVisible = false; //override
                         //view.IsWideString = false; //override
-                        view.IsEditable = false;
+                        view.IsExtFilterVisible = false; //override
+                        view.IsEditable = that.data.editable;
                         view.IsViewSampled = false;
                         if (i == 0) {
                             that.data.viewname = view.viewName;

@@ -1740,7 +1740,7 @@ var GridView3 = function(options){
     };
     that.render_search = function(){
         if (that.data.header.search) {
-            var ok = false
+            var ok = false;
             if (typeof that.data.header.search.onkeyup == 'function') {
                 ok = true;
                 that.data._el.input_search.find('.input__control').on('keyup', that.data.header.search.onkeyup);
