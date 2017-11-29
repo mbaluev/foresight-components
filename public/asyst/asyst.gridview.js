@@ -225,6 +225,8 @@ Asyst.GridView = function(options){
         view.viewName = that.data.viewname;
         that.data.grid = view;
 
+        if (!Model) { Model = {}; }
+        Model.CurrentViewName = that.data.viewname;
         viewName = that.data.viewname;
         window[that.data.viewname] = that.data.grid;
 
