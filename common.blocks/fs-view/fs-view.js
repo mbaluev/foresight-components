@@ -21,6 +21,9 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', false);
+            }
         }
         function hide(){
             if ($iconmenu.length > 0) {
@@ -35,12 +38,22 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', true);
+            }
         }
         function click(){
             if ($left.hasClass('fs-view__left_hidden')) {
                 show();
             } else {
                 hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_hidden') == 'true') {
+                hide();
+            } else {
+                show();
             }
         }
         $main.addClass('fs-view__main_transition');
@@ -66,6 +79,9 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', false);
+            }
         }
         function hide(){
             if ($iconmenu.length > 0) {
@@ -79,12 +95,22 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', true);
+            }
         }
         function click(){
             if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
                 show();
             } else {
                 hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_right_hidden') == 'true') {
+                hide();
+            } else {
+                show();
             }
         }
         $middle.addClass('fs-view__middle_transition');
@@ -102,6 +128,9 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', false);
+            }
         }
         function hide(){
             $header.addClass('fs-view__header_hidden');
@@ -112,12 +141,22 @@ $(function(){
                     $(window).trigger('resize');
                 }, 100);
             });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', true);
+            }
         }
         function click(){
             if ($header.hasClass('fs-view__header_hidden')) {
                 show();
             } else {
                 hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('header_hidden') == 'true') {
+                hide();
+            } else {
+                show();
             }
         }
         $('.fs-view').addClass('fs-view_transition');
