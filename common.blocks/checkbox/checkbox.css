@@ -1,6 +1,9 @@
 .checkbox {
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     touch-action: manipulation;
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
 }
 .checkbox.checkbox_hidden {
     display: none;

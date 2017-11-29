@@ -1,3 +1,7 @@
+label {
+  display: inline;
+}
+
 .page {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   font-size: 13px;
@@ -1304,6 +1308,7 @@ body {
 }
 
 .popup__text {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif !important;
   position: relative;
   display: inline-block;
   -webkit-box-flex: 1;
@@ -3085,6 +3090,9 @@ body {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   -ms-touch-action: manipulation;
       touch-action: manipulation;
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
 }
 
 .checkbox.checkbox_hidden {
@@ -3762,7 +3770,7 @@ body {
 }
 
 .input__control {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif !important;
   line-height: inherit;
   position: relative;
   display: inline-block;
@@ -3835,7 +3843,7 @@ body {
 }
 
 .textarea {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif !important;
   font-size: 13px;
   display: inline-block;
   background: #fff;
