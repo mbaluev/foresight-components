@@ -94,8 +94,8 @@ $(function(){
         function show(){
             $header.removeClass('fs-view__header_hidden');
             $header.css('margin-top', '');
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
@@ -104,8 +104,8 @@ $(function(){
         function hide(){
             $header.addClass('fs-view__header_hidden');
             $header.css('margin-top', -$header.outerHeight());
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
