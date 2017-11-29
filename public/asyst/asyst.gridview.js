@@ -10,6 +10,7 @@ Asyst.GridView = function(options){
         viewname: null,
         viewtitle: null,
         editable: false,
+        closeButton: true,
         metaviewnames: [],
         params: splitGETString(),
         views: {},
@@ -403,13 +404,15 @@ Asyst.GridView = function(options){
                 Grid.ExportToXlsx();
             }
         });
-        that.data.header.settings.push({
-            icon: 'icon_svg_close',
-            name: 'Закрыть реестр',
-            onclick: function(){
-                window.history.back();
-            }
-        });
+        if (that.data.closeButton) {
+            that.data.header.settings.push({
+                icon: 'icon_svg_close',
+                name: 'Закрыть реестр',
+                onclick: function(){
+                    window.history.back();
+                }
+            });
+        }
     };
     that.init = function(){
         that.loader_add();
