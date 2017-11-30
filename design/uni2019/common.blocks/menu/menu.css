@@ -4,6 +4,9 @@
 .menu_color_pink .menu__item-link_selected {
     background-color: #0096de;
 }
+.menu_color_pink .menu__submenu .menu__item-link_selected {
+    background-color: rgba(0,0,0,.2);
+}
 
 .menu_type_horizontal .menu__item-text {
     font-size: 14px;
