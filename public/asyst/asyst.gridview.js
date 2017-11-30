@@ -81,21 +81,18 @@ Asyst.GridView = function(options){
             },
             success: function(data){
                 if (data[0]) {
+                    // get views parameters
                     var metaview = data[0];
-                    if (that.data.viewname && !(that.data.viewname instanceof Array)) {
-                        metaview = metaview.filter(function(view){ return view.viewName = that.data.viewname; });
+                    if (!that.data.entityname && !(that.data.viewname instanceof Array) && that.data.viewname) {
+                        metaview = metaview.filter(function(view){ return view.viewName == that.data.viewname; });
                     }
-                    metaview.map(function(view, i){
+                    metaview.map(function(view){
                         //view.IsWideString = false; //override
                         view.IsExtFilterVisible = false; //override
                         view.IsEditable = that.data.editable;
                         view.IsViewSampled = false;
-                        if (i == 0) {
-                            that.data.viewname = view.viewName;
-                            that.data.viewtitle = view.viewTitle;
-                            if (!that.data.title) {
-                                that.data.title = view.entityTitle;
-                            }
+                        if (!(that.data.viewname instanceof Array) && view.viewname == that.data.viewname) {
+                            view.selected = true;
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
                             Asyst.Workspace.addView({
@@ -123,6 +120,19 @@ Asyst.GridView = function(options){
                             isExtFilterVisible: view.isExtFilterVisible
                         };
                     });
+                    // get selected view parameters
+                    var metaviewSelected = metaview.filter(function(view){ return view.selected; });
+                    if (metaviewSelected.length > 0) {
+                        metaviewSelected = metaviewSelected[0];
+                    } else {
+                        metaviewSelected = metaview[0];
+                    }
+                    that.data.viewname = metaviewSelected.viewName;
+                    that.data.viewtitle = metaviewSelected.viewTitle;
+                    if (!that.data.title) {
+                        that.data.title = metaviewSelected.entityTitle;
+                    }
+                    // do callback
                     if (typeof callback == 'function') {
                         callback();
                     }
