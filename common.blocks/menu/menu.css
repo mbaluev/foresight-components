@@ -166,6 +166,47 @@
     background-color: #fff;
 }
 
+.menu_color_white {
+    background-color: transparent;
+}
+.menu_color_white .menu__item-text {
+    font-size: 13px;
+}
+.menu_color_white .menu__item {
+    border-bottom: solid 1px #eee;
+}
+.menu_color_white .menu__item-link {
+    background-color: transparent;
+}
+.menu_color_white .menu__item-link:hover {
+    background-color: #fafafa;
+}
+.menu_color_white .menu__item-link .menu__item-text {
+    color: #333;
+}
+.menu_color_white .menu__item-link:hover .menu__item-text {
+    color: #ff5940;
+}
+.menu_color_white .menu__item-link_selected .menu__item-text {
+    color: #ff5940;
+}
+.menu_color_white .menu__submenu {
+    border-top: solid 1px #eee;
+}
+.menu_color_white .menu__submenu .menu__item {
+    border-top: none;
+    border-bottom: none;
+}
+.menu_color_white .menu__submenu .menu__item-link {
+    background-color: transparent;
+}
+.menu_color_white .menu__submenu .menu__item-link:hover {
+    background-color: #fafafa;
+}
+.menu_color_white .menu__submenu .menu__item-link_selected {
+    background-color: transparent;
+}
+
 .menu__buttons {
     display: none;
 }
