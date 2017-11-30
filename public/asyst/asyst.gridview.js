@@ -91,7 +91,7 @@ Asyst.GridView = function(options){
                         view.IsExtFilterVisible = false; //override
                         view.IsEditable = that.data.editable;
                         view.IsViewSampled = false;
-                        if (!(that.data.viewname instanceof Array) && view.viewname == that.data.viewname) {
+                        if (!(that.data.viewname instanceof Array) && view.viewName == that.data.viewname) {
                             view.selected = true;
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
