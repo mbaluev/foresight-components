@@ -126,8 +126,10 @@ $(function(){
     });
     $('[data-toggle="header"]').each(function(){
         var self = $(this),
+            $icon = self.find('.icon').addClass('icon_animate'),
             $header = $('.fs-view__header');
         function show(){
+            $icon.toggleClass('icon_rotate_180deg');
             $header.removeClass('fs-view__header_hidden');
             $header.css('margin-top', '');
             $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
@@ -141,6 +143,7 @@ $(function(){
             }
         }
         function hide(){
+            $icon.toggleClass('icon_rotate_180deg');
             $header.addClass('fs-view__header_hidden');
             $header.css('margin-top', -$header.outerHeight());
             $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
