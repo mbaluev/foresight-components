@@ -126,7 +126,7 @@ $(function(){
     });
     $('[data-toggle="header"]').each(function(){
         var self = $(this),
-            $icon = self.find('.icon').addClass('icon_animate'),
+            $icon = self.find('.icon'),
             $header = $('.fs-view__header');
         function show(){
             $icon.removeClass('icon_rotate_180deg');
@@ -172,6 +172,7 @@ $(function(){
         }
         setTimeout(function(){
             $('.fs-view').addClass('fs-view_transition');
+            $icon.addClass('icon_animate');
         }, 100);
         self.on('click', click);
     });
