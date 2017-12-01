@@ -5316,17 +5316,17 @@ $(function(){
                         }
                     };
                     that.get_value = function(){
-                        if (that.data.mode == 'radio' || that.data.mode == 'radio-check') {
-                            if (that.data._value.length == 0) {
-                                return null;
-                            } else {
+                        if (that.data._value.length == 0) {
+                            return null;
+                        } else {
+                            if (that.data.mode == 'radio' || that.data.mode == 'radio-check') {
                                 return that.data._value[0].value;
                             }
-                        }
-                        if (that.data.mode == 'check') {
-                            return that.data._value.map(function(d){
-                                return d.value;
-                            })
+                            if (that.data.mode == 'check') {
+                                return that.data._value.map(function(d){
+                                    return d.value;
+                                })
+                            }
                         }
                     };
 
