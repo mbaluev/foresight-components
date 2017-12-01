@@ -11,6 +11,7 @@ Asyst.GridView = function(options){
         viewtitle: null,
         editable: false,
         closeButton: true,
+        setDocumentTitle: false,
         metaviewnames: [],
         params: splitGETString(),
         views: {},
@@ -131,6 +132,9 @@ Asyst.GridView = function(options){
                     that.data.viewtitle = metaviewSelected.viewTitle;
                     if (!that.data.title) {
                         that.data.title = metaviewSelected.entityTitle;
+                    }
+                    if (that.data.setDocumentTitle) {
+                        document.title = that.data.title;
                     }
                     // do callback
                     if (typeof callback == 'function') {
