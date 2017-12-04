@@ -18,16 +18,18 @@
     padding-right: 10px;
 }
 .table thead td,
-.table thead th {
+.table thead th,
+.table th {
     padding: 10px 10px 10px 10px;
     /*border-top: solid 1px #ddd;*/
     border-top: none;
     border-bottom: solid 1px #ddd;
     background-color: #fafafa;
-    /*font-weight: bold;*/
+    font-weight: normal;
 }
 .table thead td.table__td_no_border,
-.table thead th.table__td_no_border {
+.table thead th.table__td_no_border,
+.table th.table__td_no_border{
     border: none;
 }
 .table td.align_right {
