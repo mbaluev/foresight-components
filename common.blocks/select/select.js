@@ -18,6 +18,7 @@
                         popup_width: '100%',
                         text: '',
                         count_selected: "Выбрано # из %",
+                        placeholder_selected: false,
                         minimum_count_selected: 2,
                         autoclose: false
                     };
@@ -226,12 +227,16 @@
                             );
                         } else if (that.data._value.length > that.data.minimum_count_selected) {
                             that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
-                            that.data._el.button.find('.button__text').text(
+                            that.data._el.button.find('.button__text').html(
+                                (that.data.placeholder_selected ?
+                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
                                 that.data.count_selected.replace('#', that.data._value.length).replace('%', that.data._options.length)
                             );
                         } else {
                             that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
-                            that.data._el.button.find('.button__text').text(
+                            that.data._el.button.find('.button__text').html(
+                                (that.data.placeholder_selected ?
+                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
                                 that.data._value.map(function(d){
                                     return d.text;
                                 }).join(', ')
