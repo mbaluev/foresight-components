@@ -181,6 +181,9 @@
                         that.data._options = [];
                         that.data._el.popup__list.html('');
                         that.data._el.popup__list_items = [];
+                        that.data._el.button.button('destroy');
+                        that.data._el.input.input('destroy');
+                        that.data._el.popup.popup('destroy');
                         data.forEach(function(item, i, arr){
                             var $option = $('<option value="' + item.value + '">' + item.text + '</option>');
                             self.append($option);
