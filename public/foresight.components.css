@@ -1302,6 +1302,7 @@ body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  border-radius: 0;
 }
 
 .popup_select .popup__link {
@@ -1336,6 +1337,10 @@ body {
   padding: 10px 0;
 }
 
+.popup__text_light {
+  color: #999;
+}
+
 .popup .icon {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
@@ -1349,7 +1354,7 @@ body {
 }
 
 .popup .icon + .popup__text {
-  margin-left: 0px;
+  margin-left: 0;
 }
 
 .popup__input {

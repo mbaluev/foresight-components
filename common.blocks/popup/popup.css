@@ -87,6 +87,7 @@
     font-size: 13px;
     line-height: 40px;
     align-items: flex-start;
+    border-radius: 0;
 }
 
 .popup_select .popup__link {
@@ -117,10 +118,13 @@
     line-height: 20px;
     padding: 10px 0;
 }
+.popup__text_light {
+    color: #999;
+}
 
 .popup .icon { flex: 0 0 auto; width: 30px; position: relative; }
 .popup__text + .icon { margin-left: -10px; }
-.popup .icon + .popup__text { margin-left: 0px; }
+.popup .icon + .popup__text { margin-left: 0; }
 
 .popup__input {
     padding: 5px;

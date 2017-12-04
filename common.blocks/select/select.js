@@ -60,7 +60,14 @@
                         popup__input: $('<div class="popup__input"></div>'),
                         popup__scroll: $('<div class="popup__scroll"></div>'),
                         popup__list: $('<ul class="popup__list"></ul>'),
-                        popup__list_items: []
+                        popup__list_items: [],
+                        popup__list_item_checkall: $([
+                            '<li class="popup__list-item">',
+                            '<button class="popup__link">',
+                            '<span class="popup__text popup__text_light">Выбрать все</span>',
+                            '</button>',
+                            '</li>'
+                        ].join(''))
                     };
 
                     that.destroy = function(){
@@ -97,6 +104,14 @@
                     };
 
                     that.render = function(){
+                        if (that.data.mode == 'check') {
+                            that.data._el.popup__list_item_checkall.data({
+                                text: 'Выбрать все',
+                                selected: false,
+                                disabled: false,
+                                hidden: false
+                            });
+                        }
                         self.find('option').each(function(){
                             var $option = $(this);
                             var _option = {};
@@ -148,6 +163,7 @@
                                 ),
                                 that.data._el.popup__scroll.append(
                                     that.data._el.popup__list.append(
+                                        (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
                                         that.data._el.popup__list_items
                                     )
                                 )
@@ -248,6 +264,15 @@
                             }
                         });
                         that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            var checkall = true;
+                            that.data._options.forEach(function(option){
+                                if (!option.data().selected) {
+                                    checkall = false;
+                                }
+                            });
+                            checkall ? that.check_checkall() : that.uncheck_checkall();
+                        }
                     };
                     that.uncheck_item = function(item, idata){
                         idata.selected = false;
@@ -260,6 +285,9 @@
                             }
                         });
                         that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.uncheck_checkall();
+                        }
                     };
                     that.check_all = function(){
                         that.data._value = [];
@@ -273,18 +301,24 @@
                             option.data().selected = true;
                         });
                         that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.check_checkall();
+                        }
                     };
                     that.uncheck_all = function(){
                         that.data._el.popup__list_items.forEach(function(item){
                             item.removeClass('popup__list-item_checked');
                             item.data().selected = false;
-                            that.del_value({ 'value': item.data().value, 'text': item.data().text });
+                            that.del_value({'value': item.data().value, 'text': item.data().text});
                         });
                         that.data._options.forEach(function(option){
                             option.removeAttr('selected');
                             option.data().selected = false;
                         });
                         that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.uncheck_checkall();
+                        }
                     };
 
                     that.check = function(value){
@@ -320,6 +354,19 @@
                         if (_trigger) {
                             self.trigger('change');
                         }
+                    };
+
+                    that.check_checkall = function(){
+                        var item = that.data._el.popup__list_item_checkall,
+                            idata = that.data._el.popup__list_item_checkall.data();
+                        idata.selected = true;
+                        item.addClass('popup__list-item_checked');
+                    };
+                    that.uncheck_checkall = function(){
+                        var item = that.data._el.popup__list_item_checkall,
+                            idata = that.data._el.popup__list_item_checkall.data();
+                        idata.selected = false;
+                        item.removeClass('popup__list-item_checked');
                     };
 
                     that.bind = function(){
@@ -370,6 +417,16 @@
                             });
                         });
                     };
+                    that.bind_checkall = function(){
+                        var idata = that.data._el.popup__list_item_checkall.data();
+                        if (!idata.disabled) {
+                            that.data._el.popup__list_item_checkall.on('click', function(){
+                                idata.selected = !idata.selected;
+                                idata.selected ? that.check_all() : that.uncheck_all();
+                                self.trigger('change');
+                            });
+                        }
+                    };
 
                     that.init_components = function(){
                         that.data._el.button.button({
@@ -393,6 +450,9 @@
                         that.init_components();
                         that.bind();
                         that.bind_input();
+                        if (that.data.mode == 'check') {
+                            that.bind_checkall();
+                        }
                         if (that.data.disabled) {
                             that.disable();
                         } else {
@@ -454,6 +514,16 @@
         uncheck : function(value) {
             return this.each(function() {
                 this.obj.uncheck(value);
+            });
+        },
+        check_all : function() {
+            return this.each(function() {
+                this.obj.check_all();
+            });
+        },
+        uncheck_all : function() {
+            return this.each(function() {
+                this.obj.uncheck_all();
             });
         },
         clear : function() {
