@@ -567,3 +567,175 @@ var GridView3 = function(options){
     that.init();
     return that;
 };
+var GridView4 = function(options){
+    var that = this._gridview = {};
+    that.data = {
+        containerid: '',
+        title: null,
+        header: {
+            views: [],
+            reload: null,
+            settings: [],
+            search: null
+        },
+        render: function(){}
+    };
+    that.data = $.extend(true, {}, that.data, options);
+    that.data._el = {
+        target: $('#' + that.data.containerid).css({ height: '100%' }),
+        name: $([
+            '<label class="card__name">',
+            '<span class="card__name-text"></span>',
+            '</label>'
+        ].join('')),
+        radio_group: $('<span class="radio-group radio-group_type_buttons"></span>'),
+        buttons: [],
+        input_search: $([
+            '<span class="input input__has-clear" data-width="150">',
+            '<span class="input__box">',
+            '<span class="alertbox" data-fc="alertbox">',
+            '<span class="icon icon_svg_search"></span>',
+            '</span>',
+            '<input type="text" class="input__control">',
+            '<button class="button" type="button" data-fc="button">',
+            '<span class="icon icon_svg_close"></span>',
+            '</button>',
+            '</span>',
+            '</span>'
+        ].join('')),
+        container: $('<div class="grid"></div>'),
+        content: $([
+            '<div class="card">',
+            '<div class="card__header">',
+            '<div class="card__header-row">',
+            '<div class="card__header-column card__header-column_start" id="grid__view"></div>',
+            '<div class="card__header-column" id="grid__actions"></div>',
+            '</div>',
+            '</div>',
+            '<div class="card__main">',
+            '<div class="card__middle">',
+            '<div class="card__middle-scroll" id="grid__container"></div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join('')),
+        loader: $('<span class="spinner spinner_align_center"></span>')
+    };
+
+    that.render = function(){
+        that.data._el.target.append(
+            that.data._el.content
+        );
+        that.render_container();
+        //that.render_title();
+        that.render_views();
+        that.render_search();
+        //that.render_buttons();
+    };
+
+    that.render_container = function(){
+        that.data._el.content.find('#grid__container').append(
+            that.data._el.container
+        );
+    };
+    that.render_title = function(){
+        if (that.data.title) {
+            that.data._el.name.find('.card__name-text').text(that.data.title);
+            that.data._el.content.find('#grid__view').append(
+                that.data._el.name
+            );
+        }
+    };
+    that.render_views = function(){
+        if (that.data.header.views.length > 0){
+            that.data.header.views.forEach(function(view){
+                that.data._el.radio_group.append(
+                    $([
+                        '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + view.name + '" ' + (view.selected ? 'data-checked="true"' : '') + '>',
+                        '<button class="button button_toggable_radio" type="button" data-fc="button">',
+                        '<span class="button__text">' + view.name + '</span>',
+                        '</button>',
+                        '<input class="radio__input" type="radio" name="radio-group-button" value="' + view.value + '" hidden="">',
+                        '</label>'
+                    ].join(''))
+                );
+            });
+            that.data._el.content.find('#grid__view').append(
+                that.data._el.radio_group
+            );
+        }
+    };
+    that.render_buttons = function(){
+        that.data.header.settings.forEach(function(item){
+            var $button = $([
+                '<button class="button" type="button" data-fc="button">',
+                '<span class="icon ' + item.icon + '"></span>',
+                '</button>'
+            ].join(''));
+            if (typeof item.onclick == 'function') {
+                $button.on('click', item.onclick);
+            }
+            that.data._el.content.find('#grid__actions').append($button);
+            that.data._el.buttons.push($button);
+        });
+    };
+    that.render_search = function(){
+        if (that.data.header.search) {
+            var ok = false
+            if (typeof that.data.header.search.onkeyup == 'function') {
+                ok = true;
+                that.data._el.input_search.find('.input__control').on('keyup', that.data.header.search.onkeyup);
+            }
+            if (typeof that.data.header.search.onclear == 'function') {
+                ok = true;
+                that.data._el.input_search.find('.button').on('click', that.data.header.search.onclear);
+            }
+            if (ok) {
+                that.data._el.content.find('#grid__actions').append(
+                    that.data._el.input_search
+                );
+            }
+        }
+    };
+
+    that.loader_add = function(){
+        that.data._el.target.before(that.data._el.loader)
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
+    };
+
+    that.bind = function(){
+        that.data._el.radio_group.find('[data-fc="radio"]').on('click', function(){
+            var value = $(this).radio_group('value');
+            console.log(value);
+            var view = that.data.header.views.filter(function(v){ return v.value == value; });
+            if (view.length > 0) {
+                view = view[0];
+                if (typeof(view.onclick) == 'function') {
+                    view.onclick();
+                }
+            }
+        });
+    };
+
+    that.init_components = function(){
+        that.data._el.radio_group.radio_group();
+        that.data._el.input_search.input();
+        that.data._el.buttons.map(function($button){
+            $button.button();
+        });
+    };
+    that.init = function(){
+        that.loader_add();
+        setTimeout(function(){
+            that.render();
+            that.init_components();
+            that.bind();
+            if (typeof that.data.render == 'function') { that.data.render(); }
+            that.loader_remove();
+        }, 100);
+    };
+    that.init();
+    return that;
+};
