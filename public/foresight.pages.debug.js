@@ -1973,7 +1973,7 @@ var GridView4 = function(options){
     };
     that.init();
     return that;
-};
+}; //short
 
 var Reports = function(options){
     var that = this._reports = {};

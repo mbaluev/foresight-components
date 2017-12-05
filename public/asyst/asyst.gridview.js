@@ -21,6 +21,7 @@ Asyst.GridView = function(options){
         grid: null,
         data: null,
         disableCheckbox: false,
+        onClick: null,
         header: {
             views: [],
             reload: {},
@@ -230,7 +231,12 @@ Asyst.GridView = function(options){
 
                     viewName = that.data.viewname;
                     window[viewName] = view;
-                    ViewClick(dataView, item, column, e);
+
+                    if (typeof that.data.onClick == 'function') {
+                        that.data.onClick(dataView, item, column, e);
+                    } else {
+                        ViewClick(dataView, item, column, e);
+                    }
                 });
             }
             grid.onColumnsResized.subscribe(function(e, args){

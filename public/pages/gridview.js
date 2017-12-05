@@ -738,4 +738,4 @@ var GridView4 = function(options){
     };
     that.init();
     return that;
-};
+}; //short
