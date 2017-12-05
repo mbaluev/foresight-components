@@ -20,6 +20,7 @@ Asyst.GridView = function(options){
         gridview: null,
         grid: null,
         data: null,
+        disableCheckbox: false,
         header: {
             views: [],
             reload: {},
@@ -192,7 +193,7 @@ Asyst.GridView = function(options){
         viewEl[0].innerHtml = "";
 
         var options = {
-            disableCheckbox: true, // убираем чекбоксы
+            disableCheckbox: that.data.disableCheckbox, // убираем чекбоксы
             enableCellNavigation: true,
             editable: false,
             autoHeight: false,
