@@ -928,25 +928,23 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'widget_grid', target : self });
+                    self.data('_widget', { type: 'select', target : self });
                     var that = this.obj = {};
                     that.defaults = {
-                        items: [],
-                        single: false,
-                        margin: true,
-                        closely: false,
-                        loader: null,
-                        library: null,
-                        widget_buttons: [],
-                        mode: 'view',
-                        disabled: true,
-                        grid: {
-                            verticalMargin: 10,
-                            cellHeight: 20,
-                            disableDrag: true,
-                            disableResize: true,
-                            resizable: { handles: 'e, se, s, sw, w' }
-                        }
+                        name: self.attr('name'),
+                        disabled: false,
+                        hidden: false,
+                        width: '100%',
+                        height: 'auto',
+                        mode: 'radio',
+                        placeholder: 'Выберите значение',
+                        popup_animation: true,
+                        popup_width: '100%',
+                        text: '',
+                        count_selected: "Выбрано # из %",
+                        placeholder_selected: false,
+                        minimum_count_selected: 2,
+                        autoclose: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -954,232 +952,451 @@ $(function(){
                     /* save widget options to self.data */
                     self.data(that.options);
 
+                    that.data._value = [];
+                    that.data._handlers = null;
+                    that.data._options = [];
                     that.data._el = {
-                        grid: null,
-                        nodes: []
+                        select: $('<div class="select__container"></div>'),
+                        button: $([
+                            '<button class="button" data-fc="button">',
+                                '<span class="button__text">' + that.data.placeholder + '</span>',
+                                '<span class="icon icon_svg_down"></span>',
+                            '</button>'
+                        ].join('')),
+                        spinner: $([
+                            '<span class="icon">',
+                                '<span class="spinner"></span>',
+                            '</span>'
+                        ].join('')),
+                        input: $([
+                            '<span class="input input__has-clear">',
+                                '<span class="input__box">',
+                                    '<span class="alertbox">',
+                                        '<span class="icon icon_svg_search"></span>',
+                                    '</span>',
+                                    '<input type="text" class="input__control">',
+                                    '<button class="button" type="button">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                    '</button>',
+                                '</span>',
+                            '</span>'
+                        ].join('')),
+                        popup: $('<div class="popup" data-fc="popup"></div>'),
+                        popup__input: $('<div class="popup__input"></div>'),
+                        popup__scroll: $('<div class="popup__scroll"></div>'),
+                        popup__list: $('<ul class="popup__list"></ul>'),
+                        popup__list_items: [],
+                        popup__list_item_checkall: $([
+                            '<li class="popup__list-item">',
+                            '<button class="popup__link">',
+                            '<span class="popup__text popup__text_light">Выбрать все</span>',
+                            '</button>',
+                            '</li>'
+                        ].join(''))
                     };
 
                     that.destroy = function(){
-                        that.clear();
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.clear = function(){
-                        that.data._el.grid.removeAll();
-                        _.each(that.data._nodes, function(node) {
-                            node.widget.widget('destroy');
-                        });
-                    };
-                    that.save = function(callback){
-                        that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
-                            el = $(el);
-                            var node = that.get(el);
-                            return {
-                                x: node.x,
-                                y: node.y,
-                                width: node.width,
-                                height: node.height,
-                                settings: _.omitBy(node.widget.data(), function(val, key){
-                                    return (key.substring(0,1) == '_') ||
-                                        (key == 'mode') ||
-                                        (key == 'loader') ||
-                                        (key == 'library') ||
-                                        (key == 'content') ||
-                                        (key == 'buttons') ||
-                                        (key == 'id') ||
-                                        (key == 'reloadable');
-                                })
-                            };
-                        }, this);
-                        if (typeof callback == "function") { callback(that.data.items); }
-                    };
-
-                    that.load = function(){
-                        that.data._el.grid.removeAll();
-                        var items = GridStackUI.Utils.sort(that.data.items);
-                        _.each(items, function(item) {
-                            that.load_widget(item);
-                        });
-                    };
-                    that.load_widget = function(node){
-                        if (that.data.single) {
-                            node.settings.name = that.data.pagename;
+                        if (that.data._widget.type == 'select') {
+                            that.data._el.button.button('destroy');
+                            that.data._el.input.input('destroy');
+                            that.data._el.popup.popup('destroy');
+                            that.data._el.select.remove();
+                            self.removeData();
+                            self.remove();
                         }
-                        if (node.settings.id) {
-                            node._id = node.settings.id;
-                        } else {
-                            node._id = Date.now();
-                            node.settings.id = node._id;
-                        }
-                        node._height = node.height;
-                        node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
-                        node.settings.reloadable = true;
-                        node.settings.loader = that.data.loader;
-                        node.settings.library = that.data.library;
-                        node.settings.params = that.data.params;
-                        node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
-                        node.el = $('<div><div class="grid-stack-item-content"></div></div>');
-                        _.unset(node, 'settings');
-
-                        node.el.find('.grid-stack-item-content').append(node.widget);
-                        if (node.widget.data().collapsible) {
-                            node.widget.data()._el.button_collapse.off('click.widget');
-                            node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
-                                if (node.widget.data().collapsed) {
-                                    that.expand_widget(node._id, true);
-                                } else {
-                                    that.collapse_widget(node._id, true);
-                                }
-                            });
-                        }
-                        node.widget.widget('edit_mode');
-
-                        that.data._el.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
-                        that.data._el.nodes.push(node);
-                        that.set(node.el, node);
-                    };
-
-                    that.add_widget = function(item, callback){
-                        that.load_widget(item);
-                        if (typeof callback == "function") { callback(item); }
-                    };
-                    that.remove_widget = function(_id, callback) {
-                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
-                        if (node.length > 0) { node = node[0]; }
-                        that.data._el.grid.removeWidget(node.el);
-                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
-                        if (typeof callback == "function") { callback(item); }
-                    };
-                    that.update_widget = function(_id, x, y, width, height, callback){
-                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
-                        if (node.length > 0) { node = node[0]; }
-                        that.data._el.grid.update(node.el, x, y, width, height);
-                        if (typeof callback == "function") { callback(item); }
-                    };
-
-                    that.collapse_widget = function(_id, save_state){
-                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
-                        if (node.length > 0) {
-                            node = node[0];
-                            var _collapsed = node.widget.data().collapsed;
-                            that.update_widget(node._id, null, null, null, 1);
-                            node.widget.widget('collapse');
-                            if (!save_state) {
-                                node.widget.data().collapsed = _collapsed;
-                            }
-                        }
-                    };
-                    that.expand_widget = function(_id, save_state){
-                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
-                        if (node.length > 0) {
-                            node = node[0];
-                            var _collapsed = node.widget.data().collapsed;
-                            that.update_widget(node._id, null, null, null, node._height);
-                            node.widget.widget('expand');
-                            if (!save_state) {
-                                node.widget.data().collapsed = _collapsed;
-                            }
-                        }
-                    };
-
-                    that.edit_mode = function(){
-                        that.data.mode = 'edit';
-                        _.each(that.data._el.nodes, function(node) {
-                            node.widget.widget('edit_mode');
-                            node.widget.data().buttons.forEach(function(button){
-                                if (button.mode == 'edit') {
-                                    button._el.button('show');
-                                }
-                                if (button.mode == 'view') {
-                                    button._el.button('hide');
-                                }
-                            });
-                            that.expand_widget(node._id, false);
-                        });
-                        that.enable();
-                        that.resize();
-                    };
-                    that.view_mode = function(){
-                        that.data.mode = 'view';
-                        _.each(that.data._el.nodes, function(node) {
-                            node._height = that.get(node.el).height;
-                            node.widget.widget('view_mode');
-                            node.widget.data().buttons.forEach(function(button){
-                                if (button.mode == 'edit') {
-                                    button._el.button('hide');
-                                }
-                                if (button.mode == 'view') {
-                                    button._el.button('show');
-                                }
-                            });
-                            if (node.widget.data().collapsed) {
-                                that.collapse_widget(node._id, false);
-                            } else {
-                                that.expand_widget(node._id, false);
-                            }
-                        });
-                        that.disable();
-                        that.resize();
-                    };
-
-                    that.create = function(){
-                        if (self.hasClass('grid-stack')) {
-                            if (that.data.single) {
-                                self.addClass('widget-grid_single');
-                            }
-                            if (!that.data.margin) {
-                                self.addClass('widget-grid_margin_none');
-                            }
-                            if (that.data.closely) {
-                                self.addClass('widget-grid_closely');
-                            }
-                            self.gridstack(that.data.grid);
-                            that.data._el.grid = self.data('gridstack');
-                            return true;
-                        } else {
-                            $.error( 'Container does not have class .grid-stack' );
-                            return false;
-                        }
-                    };
-                    that.enable = function(){
-                        that.data.disabled = false;
-                        that.data._el.grid.enableMove(true, true);
-                        that.data._el.grid.enableResize(true, true);
                     };
                     that.disable = function(){
+                        that.data._el.button.button('disable');
+                        that.data._el.input.input('disable');
+                        that.data._el.popup.popup('hide');
                         that.data.disabled = true;
-                        that.data._el.grid.enableMove(false, true);
-                        that.data._el.grid.enableResize(false, true);
+                    };
+                    that.enable = function(){
+                        that.data._el.button.button('enable');
+                        that.data._el.input.input('enable');
+                        that.data.disabled = false;
+                    };
+                    that.hide = function(){
+                        that.data._el.button.button('hide');
+                        that.data._el.input.input('hide');
+                        that.data._el.popup.popup('hide');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        that.data._el.button.button('show');
+                        that.data._el.input.input('show');
+                        that.data.hidden = false;
                     };
 
-                    that.set = function(el, data){
-                        $.extend(el.data('_gridstack_node'), data);
+                    that.render = function(){
+                        if (that.data.mode == 'check') {
+                            that.data._el.popup__list_item_checkall.data({
+                                text: 'Выбрать все',
+                                selected: false,
+                                disabled: false,
+                                hidden: false
+                            });
+                        }
+                        self.find('option').each(function(){
+                            var $option = $(this);
+                            var _option = {};
+                            _option.defaults = {
+                                text: $option.text(),
+                                value: $option.attr('value'),
+                                selected: $option[0].hasAttribute("selected"),
+                                disabled: false,
+                                hidden: false,
+                                icon: ''
+                            };
+
+                            // render popup__list-item
+                            _option.data = $.extend(true, {}, _option.defaults, $option.data());
+                            _option.popup__list_item = $([
+                                '<li class="popup__list-item',
+                                    (_option.data.selected ? ' popup__list-item_checked' : ''),
+                                    (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
+                                    '<button class="popup__link">',
+                                        (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
+                                        '<span class="popup__text">' + _option.data.text + '</span>',
+                                    '</button>',
+                                '</li>'
+                            ].join(''));
+
+                            that.data._options.push($option);
+                            that.data._el.popup__list_items.push(_option.popup__list_item);
+
+                            // checked count of selected items
+                            if (_option.data.selected) {
+                                if (((that.data.mode == 'radio' || that.data.mode == 'radio-check') && (that.data._value.length == 0)) ||
+                                    (that.data.mode == 'check')) {
+                                    that.check_item(_option.popup__list_item, _option.data);
+                                } else {
+                                    _option.data.selected = false;
+                                    that.uncheck_item(_option.popup__list_item, _option.data);
+                                }
+                            }
+
+                            // store data to element
+                            $option.data(_option.data);
+                            _option.popup__list_item.data(_option.data);
+                        });
+                        that.data._el.select.append(
+                            that.data._el.button,
+                            that.data._el.popup.append(
+                                that.data._el.popup__input.append(
+                                    that.data._el.input
+                                ),
+                                that.data._el.popup__scroll.append(
+                                    that.data._el.popup__list.append(
+                                        (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
+                                        that.data._el.popup__list_items
+                                    )
+                                )
+                            )
+                        );
+                        that.data._el.select.data(that.data);
+                        that.data._el.select.data({'_widget': '_select'});
+                        self.css('display', 'none');
+                        self.after(that.data._el.select);
                     };
-                    that.get = function(el){
-                        return el.data('_gridstack_node');
+                    that.update = function(data){
+                        that.data._el.button.find('.button__text').after(that.data._el.spinner);
+                        self.html('');
+                        that.data._options = [];
+                        that.data._el.popup__list.html('');
+                        that.data._el.popup__list_items = [];
+                        that.data._el.button.button('destroy');
+                        that.data._el.input.input('destroy');
+                        that.data._el.popup.popup('destroy');
+                        data.forEach(function(item, i, arr){
+                            var $option = $('<option value="' + item.value + '">' + item.text + '</option>');
+                            self.append($option);
+                        });
+                        that.clear();
+                        that.init();
+                        that.data._el.spinner.remove();
                     };
 
-                    that.resize = function(){
-                        _.each(that.data._el.nodes, function(node) {
-                            node.widget.widget('resize');
+                    that.focus = function(){
+                        that.data._el.popup.popup('show');
+                    };
+                    that.clear = function(){
+                        that.data._value = [];
+                        that.uncheck_all();
+                        self.trigger('change');
+                    };
+
+                    that.focusin = function(){
+                        that.data._el.popup.popup('show');
+                    };
+                    that.focusout = function(){
+                        that.data._el.popup.popup('hide');
+                    };
+
+                    that.set_width = function(value){
+                        that.data._el.select.css('width', value);
+                    };
+                    that.set_value = function(value){
+                        if (that.data._value.indexOf(value) < 0) {
+                            that.data._value.push(value);
+                        }
+                    };
+                    that.del_value = function(value){
+                        that.data._value = that.data._value.filter(function(d){
+                            return d.value != value.value && d.text != value.text;
                         });
                     };
+                    that.set_button_text = function(){
+                        if (that.data._value.length == 0) {
+                            that.data._el.button.find('.button__text').addClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').text(
+                                that.data.placeholder
+                            );
+                        } else if (that.data._value.length > that.data.minimum_count_selected) {
+                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').html(
+                                (that.data.placeholder_selected ?
+                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
+                                that.data.count_selected.replace('#', that.data._value.length).replace('%', that.data._options.length)
+                            );
+                        } else {
+                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
+                            that.data._el.button.find('.button__text').html(
+                                (that.data.placeholder_selected ?
+                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
+                                that.data._value.map(function(d){
+                                    return d.text;
+                                }).join(', ')
+                            );
+                        }
+                    };
+                    that.get_value = function(){
+                        if (that.data._value.length == 0) {
+                            return null;
+                        } else {
+                            if (that.data.mode == 'radio' || that.data.mode == 'radio-check') {
+                                return that.data._value[0].value;
+                            }
+                            if (that.data.mode == 'check') {
+                                return that.data._value.map(function(d){
+                                    return d.value;
+                                })
+                            }
+                        }
+                    };
 
-                    that.init_resize = function(){
-                        $(window).on('resize', function(){
-                            that.resize();
+                    that.check_item = function(item, idata){
+                        idata.selected = true;
+                        item.addClass('popup__list-item_checked');
+                        that.set_value({ 'value': idata.value, 'text': idata.text });
+                        that.data._options.forEach(function(option){
+                            if (option.data().value == idata.value) {
+                                option.attr('selected', 'selected');
+                                option.data().selected = idata.selected;
+                            }
+                        });
+                        that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            var checkall = true;
+                            that.data._options.forEach(function(option){
+                                if (!option.data().selected) {
+                                    checkall = false;
+                                }
+                            });
+                            checkall ? that.check_checkall() : that.uncheck_checkall();
+                        }
+                    };
+                    that.uncheck_item = function(item, idata){
+                        idata.selected = false;
+                        item.removeClass('popup__list-item_checked');
+                        that.del_value({ 'value': idata.value, 'text': idata.text });
+                        that.data._options.forEach(function(option){
+                            if (option.data().value == idata.value) {
+                                option.removeAttr('selected');
+                                option.data().selected = idata.selected;
+                            }
+                        });
+                        that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.uncheck_checkall();
+                        }
+                    };
+                    that.check_all = function(){
+                        that.data._value = [];
+                        that.data._el.popup__list_items.forEach(function(item){
+                            item.addClass('popup__list-item_checked');
+                            item.data().selected = true;
+                            that.set_value({ 'value': item.data().value, 'text': item.data().text });
+                        });
+                        that.data._options.forEach(function(option){
+                            option.attr('selected', 'selected');
+                            option.data().selected = true;
+                        });
+                        that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.check_checkall();
+                        }
+                    };
+                    that.uncheck_all = function(){
+                        that.data._el.popup__list_items.forEach(function(item){
+                            item.removeClass('popup__list-item_checked');
+                            item.data().selected = false;
+                            that.del_value({'value': item.data().value, 'text': item.data().text});
+                        });
+                        that.data._options.forEach(function(option){
+                            option.removeAttr('selected');
+                            option.data().selected = false;
+                        });
+                        that.set_button_text();
+                        if (that.data.mode == 'check') {
+                            that.uncheck_checkall();
+                        }
+                    };
+
+                    that.check = function(value){
+                        var _trigger = false;
+                        that.data._el.popup__list_items.forEach(function(item) {
+                            if (!item.data().selected) {
+                                if (item.data().value == value || value == "all") {
+                                    _trigger = true;
+                                    if (that.data.mode == 'radio') {
+                                        that.uncheck_all();
+                                    }
+                                    if (that.data.mode == 'radio-check') {
+                                        that.uncheck_all();
+                                    }
+                                    that.check_item(item, item.data());
+                                }
+                            }
+                        });
+                        if (_trigger) {
+                            self.trigger('change');
+                        }
+                    };
+                    that.uncheck = function(value){
+                        var _trigger = false;
+                        that.data._el.popup__list_items.forEach(function(item) {
+                            if (item.data().value == value || value == 'all') {
+                                if (that.data.mode != 'radio') {
+                                    _trigger = true;
+                                    that.uncheck_item(item, item.data());
+                                }
+                            }
+                        });
+                        if (_trigger) {
+                            self.trigger('change');
+                        }
+                    };
+
+                    that.check_checkall = function(){
+                        var item = that.data._el.popup__list_item_checkall,
+                            idata = that.data._el.popup__list_item_checkall.data();
+                        idata.selected = true;
+                        item.addClass('popup__list-item_checked');
+                    };
+                    that.uncheck_checkall = function(){
+                        var item = that.data._el.popup__list_item_checkall,
+                            idata = that.data._el.popup__list_item_checkall.data();
+                        idata.selected = false;
+                        item.removeClass('popup__list-item_checked');
+                    };
+
+                    that.bind = function(){
+                        that.data._el.popup__list_items.forEach(function(item){
+                            var idata = item.data();
+                            if (!idata.disabled) {
+                                item.on('click', function(){
+                                    if (that.data.mode == 'radio') {
+                                        that.uncheck_all();
+                                        idata.selected = true;
+                                        that.check_item(item, idata);
+                                    }
+                                    if (that.data.mode == 'radio-check') {
+                                        var selected = idata.selected;
+                                        that.uncheck_all();
+                                        idata.selected = !selected;
+                                        if (idata.selected) {
+                                            that.check_item(item, idata);
+                                        } else {
+                                            that.uncheck_item(item, idata);
+                                        }
+                                    }
+                                    if (that.data.mode == 'check') {
+                                        idata.selected = !idata.selected;
+                                        if (idata.selected) {
+                                            that.check_item(item, idata);
+                                        } else {
+                                            that.uncheck_item(item, idata);
+                                        }
+                                    }
+                                    if (that.data.autoclose) {
+                                        that.focusout();
+                                    }
+                                    self.trigger('change');
+                                });
+                            }
+                        });
+                    };
+                    that.bind_input = function(){
+                        that.data._el.input.find('.input__control').on('keyup', function(){
+                            var value = that.data._el.input.input('value');
+                            that.data._el.popup__list_items.forEach(function(item) {
+                                if (item.data().text.toLowerCase().includes(value.toLowerCase())) {
+                                    item.removeClass('popup__list-item_hidden');
+                                } else {
+                                    item.addClass('popup__list-item_hidden');
+                                }
+                            });
+                        });
+                    };
+                    that.bind_checkall = function(){
+                        var idata = that.data._el.popup__list_item_checkall.data();
+                        if (!idata.disabled) {
+                            that.data._el.popup__list_item_checkall.on('click', function(){
+                                idata.selected = !idata.selected;
+                                idata.selected ? that.check_all() : that.uncheck_all();
+                                self.trigger('change');
+                            });
+                        }
+                    };
+
+                    that.init_components = function(){
+                        that.data._el.button.button({
+                            disabled: that.data.disabled,
+                            hidden: that.data.hidden,
+                            width: that.data.width
+                        });
+                        that.data._el.input.input({
+                            width: '100%'
+                        });
+                        that.data._el.popup.popup({
+                            source: that.data._el.button,
+                            height: that.data.height,
+
+                            animation: that.data.popup_animation,
+                            select: true
                         });
                     };
                     that.init = function(){
-                        if (that.create()) {
-                            that.load();
-                            if (that.data.mode == 'view') {
-                                that.view_mode();
-                            } else {
-                                that.edit_mode();
-                            }
-                            that.init_resize();
+                        that.render();
+                        that.init_components();
+                        that.bind();
+                        that.bind_input();
+                        if (that.data.mode == 'check') {
+                            that.bind_checkall();
                         }
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                        that.set_width(that.data.width);
+                        that.set_button_text();
                     };
                     that.init();
                 }
@@ -1189,26 +1406,6 @@ $(function(){
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
-            });
-        },
-        clear : function() {
-            return this.each(function() {
-                this.obj.clear();
-            });
-        },
-        edit_mode : function() {
-            return this.each(function() {
-                this.obj.edit_mode();
-            });
-        },
-        view_mode : function() {
-            return this.each(function() {
-                this.obj.view_mode();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
             });
         },
         disable : function() {
@@ -1216,401 +1413,9 @@ $(function(){
                 this.obj.disable();
             });
         },
-        save : function(callback) {
+        enable : function() {
             return this.each(function() {
-                this.obj.save(callback);
-            });
-        },
-        add_widget : function(item, callback) {
-            return this.each(function() {
-                this.obj.add_widget(item, callback);
-            });
-        },
-        remove_widget : function(_id, callback) {
-            return this.each(function() {
-                this.obj.remove_widget(_id, callback);
-            });
-        },
-        update_widget : function(_id, x, y, width, height, callback) {
-            return this.each(function() {
-                this.obj.update_widget(_id, x, y, width, height, callback);
-            });
-        },
-        resize : function() {
-            return this.each(function() {
-                this.obj.resize();
-            });
-        }
-    };
-    $.fn.widget_grid = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.widget_grid' );
-        }
-    };
-})( jQuery );
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'calendar', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        validate: true
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-                    that.data._el = {
-                        button_submit: null,
-                        inputs: []
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-
-                    that.get = function(){
-                        that.data._el.button_submit = self.find('button[type="submit"]');
-                        that.data._el.inputs = self.find('[data-fc="input"]');
-                    };
-                    that.validate = function(){
-                        that.data.validate = true;
-                        that.data._el.inputs.each(function(){
-                            if (!$(this).input('validate')) {
-                                that.data.validate = false;
-                            }
-                        });
-                        return that.data.validate;
-                    };
-                    that.bind = function(){
-                        that.data._el.inputs.each(function(){
-                            var $input = $(this);
-                            if ($input.data().required) {
-                                $input.data()._el.input.on('blur', function(){
-                                    $input.input('validate');
-                                })
-                            }
-                        });
-                        that.data._el.button_submit.on('click', function(e){
-                            if (!that.validate()) {
-                                e.preventDefault();
-                            }
-                        });
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="input"]').input();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="tooltip"]').tooltip();
-                        self.find('[data-fc="textarea"]').textarea();
-                        self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="tumbler"]').tumbler();
-                    };
-                    that.init = function(){
-                        that.get();
-                        that.init_components();
-                        that.bind();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        validate : function() {
-            if (this.length == 1) {
-                var _val = true;
-                this.each(function() {
-                    _val = this.obj.validate();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.validate());
-                });
-                return _arr;
-            }
-        }
-    };
-    $.fn.form = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.form' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="form"]').form();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'modal__', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        buttons: [
-                            {
-                                name: 'destroy',
-                                action: 'destroy',
-                                icon: 'icon_svg_close'
-                            }
-                        ],
-                        header: {
-                            icon: 'icon_svg_settings',
-                            caption: 'Модальное окно',
-                            name: 'Название'
-                        },
-                        content: {
-                            tabs: [
-                                {
-                                    id: "general",
-                                    name: 'Главная'
-                                }
-                            ]
-                        },
-                        data: null,
-                        show: true
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._el = {
-                        modal__view: $('<div class="modal__view"></div>'),
-                        modal__backdrop: $('<div class="modal__backdrop"></div>'),
-                        modal__dialog: $('<div class="modal__dialog modal__dialog_hidden"></div>'),
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row_caption: $('<div class="card__header-row"></div>'),
-                        card__header_row_name: $('<div class="card__header-row"></div>'),
-                        card__header_row_tabs: $('<div class="card__header-row tabs"></div>'),
-                        tabs__list: $('<ul class="tabs__list"></ul>'),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__backdrop: $('<div class="card__backdrop"></div>'),
-                        card__right: $('<div class="card__right"></div>'),
-                        tabs_pane: $('<div class="tabs__pane"></div>')
-                    };
-                    that.data._triggers = {
-                        show: 'show.fc.modal',
-                        shown: 'shown.fc.modal',
-                        hide: 'hide.fc.modal',
-                        hidden: 'hidden.fc.modal',
-                        loaded: 'loaded.fc.modal'
-                    };
-
-                    that.destroy = function(){
-                        that.hide();
-                        setTimeout(function(){
-                            self.removeData();
-                            self.remove();
-                        }, 500);
-                    };
-                    that.hide = function(){
-                        self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
-                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function(){
-                            self.addClass('modal_hidden');
-                        });
-                        self.trigger(that.data._triggers.hidden);
-                        that.data.show = false;
-                    };
-                    that.hidden = function(){
-                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
-                        self.addClass('modal_hidden');
-                        that.data.show = false;
-                    };
-                    that.show = function(){
-                        self.trigger(that.data._triggers.show);
-                        self.removeClass('modal_hidden');
-                        setTimeout(function(){
-                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                            self.trigger(that.data._triggers.shown);
-                        }, 0);
-                        that.data.show = true;
-                    };
-
-                    that.render_view = function(){
-                        self.append(that.data._el.modal__view
-                            .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
-                                .append(that.data._el.card
-                                    .append(that.data._el.card__header
-                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name, that.data._el.card__header_row_tabs
-                                            .append(that.data._el.tabs__list)),
-                                    that.data._el.card__main
-                                        .append(that.data._el.card__middle
-                                            .append(that.data._el.card__middle_scroll))))));
-                    };
-                    that.render_header = function(){
-                        that.render_header_caption();
-                        that.render_header_name();
-                    };
-                    that.render_header_caption = function(){
-                        that.render_header_caption_name();
-                        that.render_header_caption_buttons();
-                    };
-                    that.render_header_caption_name = function(){
-                        that.data._el.card__header_row_caption.append($(
-                            '<div class="card__header-column">' +
-                                '<label class="card__caption">' +
-                                    '<span class="card__caption-text">' + that.data.header.caption + '</span>' +
-                                '</label>' +
-                            '</div>'
-                        ));
-                    };
-                    that.render_header_caption_buttons = function(){
-                        var $buttons_column = $('<div class="card__header-column"></div>');
-                        that.data._el.card__header_row_caption.append($buttons_column);
-                        that.data.buttons.forEach(function(button){
-                            var $button = $(
-                                '<button class="button button__' + button.name + '" data-fc="button">' +
-                                (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
-                                (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
-                                '</button>'
-                            );
-                            if (button.action) {
-                                if (typeof that[button.action] === "function") {
-                                    $button.on('click', that[button.action]);
-                                }
-                                if (!that.data._triggers[button.action]) {
-                                    $button.on('click', function(){
-                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
-                                    });
-                                }
-                            }
-                            $buttons_column.append($button);
-                        });
-                    };
-                    that.render_header_name = function(){
-                        that.data._el.card__header_row_name.append($(
-                            '<div class="card__header-column">' +
-                                '<label class="card__name">' +
-                                    '<span class="card__name-text">' + that.data.header.name + '</span>' +
-                                '</label>' +
-                            '</div>'
-                        ));
-                    };
-                    that.render_tabs = function(){
-                        if (that.data.content.tabs.length == 1) {
-                            that.data.content.tabs[0].active = true;
-                        } else {
-                            var has_active_tab = false;
-                            that.data.content.tabs.forEach(function(tab) {
-                                if (tab.active) {
-                                    has_active_tab = true;
-                                }
-                            });
-                            if (!has_active_tab) {
-                                that.data.content.tabs[0].active = true;
-                            }
-                        }
-                        that.data.content.tabs.forEach(function(tab){
-                            that.data._el.tabs__list.append($(
-                                (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
-                                    '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
-                                        '<button class="button" data-fc="button">' +
-                                            '<span class="button__text">' + tab.name + '</span>' +
-                                        '</button>' +
-                                    '</a>' +
-                                '</li>'
-                            ));
-                            that.data._el.card__middle_scroll.append(
-                                that.data._el.tabs_pane.clone()
-                                    .attr('id', tab.id)
-                                    .addClass((tab.active ? 'tabs__pane_active' : ''))
-                                    .append(tab.content));
-                        });
-                    };
-
-                    that.bind = function(){
-                        self.find('.modal__backdrop').on('click', that.destroy);
-                    };
-                    that.bind_buttons = function(){
-                        that.data.buttons.forEach(function(button){
-                            var $button = $(button.selector);
-                            if (button.action) {
-                                if (typeof that[button.action] === "function") {
-                                    $button.on('click', that[button.action]);
-                                }
-                                if (!that.data._triggers[button.action]) {
-                                    $button.on('click', function(){
-                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
-                                    });
-                                }
-                            }
-                        });
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button({
-                            popup_animation: false
-                        });
-                        self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input({
-                            popup_animation: false
-                        });
-                        self.find('[data-fc="radio"]').radio();
-                        self.find('[data-fc="radio-group"]').radio_group();
-                        self.find('[data-fc="select"]').select({
-                            popup_animation: false,
-                            autoclose: true
-                        });
-                        self.find('[data-fc="tab"]').tabs();
-                        self.find('[data-fc="tumbler"]').tumbler();
-                        self.find('[data-fc="widget"]').widget();
-                    };
-                    that.init = function(){
-                        self.remove().appendTo('body');
-                        self.data(that.data);
-                        if (self.children().length == 0) {
-                            that.render_view();
-                            that.render_header();
-                            that.render_tabs();
-                            that.init_components();
-                        } else {
-                            that.init_components();
-                            that.bind_buttons();
-                        }
-                        that.bind();
-                        self.trigger(that.data._triggers.loaded);
-                        if (that.data.show) {
-                            that.show();
-                        } else {
-                            that.hidden();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
+                this.obj.enable();
             });
         },
         hide : function() {
@@ -1622,18 +1427,71 @@ $(function(){
             return this.each(function() {
                 this.obj.show();
             });
+        },
+        update : function(data) {
+            return this.each(function() {
+                this.obj.update(data);
+            });
+        },
+        focus : function() {
+            return this.each(function() {
+                this.obj.focus();
+            });
+        },
+        check : function(value) {
+            return this.each(function() {
+                this.obj.check(value);
+            });
+        },
+        uncheck : function(value) {
+            return this.each(function() {
+                this.obj.uncheck(value);
+            });
+        },
+        check_all : function() {
+            return this.each(function() {
+                this.obj.check_all();
+            });
+        },
+        uncheck_all : function() {
+            return this.each(function() {
+                this.obj.uncheck_all();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.get_value();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.get_value());
+                });
+                return _arr;
+            }
         }
     };
-    $.fn.modal__ = function( method ) {
+    $.fn.select = function( method ) {
         if ( methods[method] ) {
             return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
         } else if ( typeof method === 'object' || ! method ) {
             return methods.init.apply( this, arguments );
         } else {
-            $.error( 'Method ' +  method + ' does not exist on $.modal__' );
+            $.error( 'Method ' +  method + ' does not exist on $.select' );
         }
     };
 })( jQuery );
+$(function(){
+    $('[data-fc="select"]').select();
+});
 (function($){
     var methods = {
         init : function(options) {
@@ -5097,576 +4955,6 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'select', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        name: self.attr('name'),
-                        disabled: false,
-                        hidden: false,
-                        width: '100%',
-                        height: 'auto',
-                        mode: 'radio',
-                        placeholder: 'Выберите значение',
-                        popup_animation: true,
-                        popup_width: '100%',
-                        text: '',
-                        count_selected: "Выбрано # из %",
-                        placeholder_selected: false,
-                        minimum_count_selected: 2,
-                        autoclose: false
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._value = [];
-                    that.data._handlers = null;
-                    that.data._options = [];
-                    that.data._el = {
-                        select: $('<div class="select__container"></div>'),
-                        button: $([
-                            '<button class="button" data-fc="button">',
-                                '<span class="button__text">' + that.data.placeholder + '</span>',
-                                '<span class="icon icon_svg_down"></span>',
-                            '</button>'
-                        ].join('')),
-                        spinner: $([
-                            '<span class="icon">',
-                                '<span class="spinner"></span>',
-                            '</span>'
-                        ].join('')),
-                        input: $([
-                            '<span class="input input__has-clear">',
-                                '<span class="input__box">',
-                                    '<span class="alertbox">',
-                                        '<span class="icon icon_svg_search"></span>',
-                                    '</span>',
-                                    '<input type="text" class="input__control">',
-                                    '<button class="button" type="button">',
-                                        '<span class="icon icon_svg_close"></span>',
-                                    '</button>',
-                                '</span>',
-                            '</span>'
-                        ].join('')),
-                        popup: $('<div class="popup" data-fc="popup"></div>'),
-                        popup__input: $('<div class="popup__input"></div>'),
-                        popup__scroll: $('<div class="popup__scroll"></div>'),
-                        popup__list: $('<ul class="popup__list"></ul>'),
-                        popup__list_items: [],
-                        popup__list_item_checkall: $([
-                            '<li class="popup__list-item">',
-                            '<button class="popup__link">',
-                            '<span class="popup__text popup__text_light">Выбрать все</span>',
-                            '</button>',
-                            '</li>'
-                        ].join(''))
-                    };
-
-                    that.destroy = function(){
-                        if (that.data._widget.type == 'select') {
-                            that.data._el.button.button('destroy');
-                            that.data._el.input.input('destroy');
-                            that.data._el.popup.popup('destroy');
-                            that.data._el.select.remove();
-                            self.removeData();
-                            self.remove();
-                        }
-                    };
-                    that.disable = function(){
-                        that.data._el.button.button('disable');
-                        that.data._el.input.input('disable');
-                        that.data._el.popup.popup('hide');
-                        that.data.disabled = true;
-                    };
-                    that.enable = function(){
-                        that.data._el.button.button('enable');
-                        that.data._el.input.input('enable');
-                        that.data.disabled = false;
-                    };
-                    that.hide = function(){
-                        that.data._el.button.button('hide');
-                        that.data._el.input.input('hide');
-                        that.data._el.popup.popup('hide');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        that.data._el.button.button('show');
-                        that.data._el.input.input('show');
-                        that.data.hidden = false;
-                    };
-
-                    that.render = function(){
-                        if (that.data.mode == 'check') {
-                            that.data._el.popup__list_item_checkall.data({
-                                text: 'Выбрать все',
-                                selected: false,
-                                disabled: false,
-                                hidden: false
-                            });
-                        }
-                        self.find('option').each(function(){
-                            var $option = $(this);
-                            var _option = {};
-                            _option.defaults = {
-                                text: $option.text(),
-                                value: $option.attr('value'),
-                                selected: $option[0].hasAttribute("selected"),
-                                disabled: false,
-                                hidden: false,
-                                icon: ''
-                            };
-
-                            // render popup__list-item
-                            _option.data = $.extend(true, {}, _option.defaults, $option.data());
-                            _option.popup__list_item = $([
-                                '<li class="popup__list-item',
-                                    (_option.data.selected ? ' popup__list-item_checked' : ''),
-                                    (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
-                                    '<button class="popup__link">',
-                                        (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
-                                        '<span class="popup__text">' + _option.data.text + '</span>',
-                                    '</button>',
-                                '</li>'
-                            ].join(''));
-
-                            that.data._options.push($option);
-                            that.data._el.popup__list_items.push(_option.popup__list_item);
-
-                            // checked count of selected items
-                            if (_option.data.selected) {
-                                if (((that.data.mode == 'radio' || that.data.mode == 'radio-check') && (that.data._value.length == 0)) ||
-                                    (that.data.mode == 'check')) {
-                                    that.check_item(_option.popup__list_item, _option.data);
-                                } else {
-                                    _option.data.selected = false;
-                                    that.uncheck_item(_option.popup__list_item, _option.data);
-                                }
-                            }
-
-                            // store data to element
-                            $option.data(_option.data);
-                            _option.popup__list_item.data(_option.data);
-                        });
-                        that.data._el.select.append(
-                            that.data._el.button,
-                            that.data._el.popup.append(
-                                that.data._el.popup__input.append(
-                                    that.data._el.input
-                                ),
-                                that.data._el.popup__scroll.append(
-                                    that.data._el.popup__list.append(
-                                        (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
-                                        that.data._el.popup__list_items
-                                    )
-                                )
-                            )
-                        );
-                        that.data._el.select.data(that.data);
-                        that.data._el.select.data({'_widget': '_select'});
-                        self.css('display', 'none');
-                        self.after(that.data._el.select);
-                    };
-                    that.update = function(data){
-                        that.data._el.button.find('.button__text').after(that.data._el.spinner);
-                        self.html('');
-                        that.data._options = [];
-                        that.data._el.popup__list.html('');
-                        that.data._el.popup__list_items = [];
-                        that.data._el.button.button('destroy');
-                        that.data._el.input.input('destroy');
-                        that.data._el.popup.popup('destroy');
-                        data.forEach(function(item, i, arr){
-                            var $option = $('<option value="' + item.value + '">' + item.text + '</option>');
-                            self.append($option);
-                        });
-                        that.clear();
-                        that.init();
-                        that.data._el.spinner.remove();
-                    };
-
-                    that.focus = function(){
-                        that.data._el.popup.popup('show');
-                    };
-                    that.clear = function(){
-                        that.data._value = [];
-                        that.uncheck_all();
-                        self.trigger('change');
-                    };
-
-                    that.focusin = function(){
-                        that.data._el.popup.popup('show');
-                    };
-                    that.focusout = function(){
-                        that.data._el.popup.popup('hide');
-                    };
-
-                    that.set_width = function(value){
-                        that.data._el.select.css('width', value);
-                    };
-                    that.set_value = function(value){
-                        if (that.data._value.indexOf(value) < 0) {
-                            that.data._value.push(value);
-                        }
-                    };
-                    that.del_value = function(value){
-                        that.data._value = that.data._value.filter(function(d){
-                            return d.value != value.value && d.text != value.text;
-                        });
-                    };
-                    that.set_button_text = function(){
-                        if (that.data._value.length == 0) {
-                            that.data._el.button.find('.button__text').addClass('button__text_placeholder');
-                            that.data._el.button.find('.button__text').text(
-                                that.data.placeholder
-                            );
-                        } else if (that.data._value.length > that.data.minimum_count_selected) {
-                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
-                            that.data._el.button.find('.button__text').html(
-                                (that.data.placeholder_selected ?
-                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
-                                that.data.count_selected.replace('#', that.data._value.length).replace('%', that.data._options.length)
-                            );
-                        } else {
-                            that.data._el.button.find('.button__text').removeClass('button__text_placeholder');
-                            that.data._el.button.find('.button__text').html(
-                                (that.data.placeholder_selected ?
-                                '<span class="button__text_placeholder">' + that.data.placeholder + '&nbsp;&nbsp;</span>' : '') +
-                                that.data._value.map(function(d){
-                                    return d.text;
-                                }).join(', ')
-                            );
-                        }
-                    };
-                    that.get_value = function(){
-                        if (that.data._value.length == 0) {
-                            return null;
-                        } else {
-                            if (that.data.mode == 'radio' || that.data.mode == 'radio-check') {
-                                return that.data._value[0].value;
-                            }
-                            if (that.data.mode == 'check') {
-                                return that.data._value.map(function(d){
-                                    return d.value;
-                                })
-                            }
-                        }
-                    };
-
-                    that.check_item = function(item, idata){
-                        idata.selected = true;
-                        item.addClass('popup__list-item_checked');
-                        that.set_value({ 'value': idata.value, 'text': idata.text });
-                        that.data._options.forEach(function(option){
-                            if (option.data().value == idata.value) {
-                                option.attr('selected', 'selected');
-                                option.data().selected = idata.selected;
-                            }
-                        });
-                        that.set_button_text();
-                        if (that.data.mode == 'check') {
-                            var checkall = true;
-                            that.data._options.forEach(function(option){
-                                if (!option.data().selected) {
-                                    checkall = false;
-                                }
-                            });
-                            checkall ? that.check_checkall() : that.uncheck_checkall();
-                        }
-                    };
-                    that.uncheck_item = function(item, idata){
-                        idata.selected = false;
-                        item.removeClass('popup__list-item_checked');
-                        that.del_value({ 'value': idata.value, 'text': idata.text });
-                        that.data._options.forEach(function(option){
-                            if (option.data().value == idata.value) {
-                                option.removeAttr('selected');
-                                option.data().selected = idata.selected;
-                            }
-                        });
-                        that.set_button_text();
-                        if (that.data.mode == 'check') {
-                            that.uncheck_checkall();
-                        }
-                    };
-                    that.check_all = function(){
-                        that.data._value = [];
-                        that.data._el.popup__list_items.forEach(function(item){
-                            item.addClass('popup__list-item_checked');
-                            item.data().selected = true;
-                            that.set_value({ 'value': item.data().value, 'text': item.data().text });
-                        });
-                        that.data._options.forEach(function(option){
-                            option.attr('selected', 'selected');
-                            option.data().selected = true;
-                        });
-                        that.set_button_text();
-                        if (that.data.mode == 'check') {
-                            that.check_checkall();
-                        }
-                    };
-                    that.uncheck_all = function(){
-                        that.data._el.popup__list_items.forEach(function(item){
-                            item.removeClass('popup__list-item_checked');
-                            item.data().selected = false;
-                            that.del_value({'value': item.data().value, 'text': item.data().text});
-                        });
-                        that.data._options.forEach(function(option){
-                            option.removeAttr('selected');
-                            option.data().selected = false;
-                        });
-                        that.set_button_text();
-                        if (that.data.mode == 'check') {
-                            that.uncheck_checkall();
-                        }
-                    };
-
-                    that.check = function(value){
-                        var _trigger = false;
-                        that.data._el.popup__list_items.forEach(function(item) {
-                            if (!item.data().selected) {
-                                if (item.data().value == value || value == "all") {
-                                    _trigger = true;
-                                    if (that.data.mode == 'radio') {
-                                        that.uncheck_all();
-                                    }
-                                    if (that.data.mode == 'radio-check') {
-                                        that.uncheck_all();
-                                    }
-                                    that.check_item(item, item.data());
-                                }
-                            }
-                        });
-                        if (_trigger) {
-                            self.trigger('change');
-                        }
-                    };
-                    that.uncheck = function(value){
-                        var _trigger = false;
-                        that.data._el.popup__list_items.forEach(function(item) {
-                            if (item.data().value == value || value == 'all') {
-                                if (that.data.mode != 'radio') {
-                                    _trigger = true;
-                                    that.uncheck_item(item, item.data());
-                                }
-                            }
-                        });
-                        if (_trigger) {
-                            self.trigger('change');
-                        }
-                    };
-
-                    that.check_checkall = function(){
-                        var item = that.data._el.popup__list_item_checkall,
-                            idata = that.data._el.popup__list_item_checkall.data();
-                        idata.selected = true;
-                        item.addClass('popup__list-item_checked');
-                    };
-                    that.uncheck_checkall = function(){
-                        var item = that.data._el.popup__list_item_checkall,
-                            idata = that.data._el.popup__list_item_checkall.data();
-                        idata.selected = false;
-                        item.removeClass('popup__list-item_checked');
-                    };
-
-                    that.bind = function(){
-                        that.data._el.popup__list_items.forEach(function(item){
-                            var idata = item.data();
-                            if (!idata.disabled) {
-                                item.on('click', function(){
-                                    if (that.data.mode == 'radio') {
-                                        that.uncheck_all();
-                                        idata.selected = true;
-                                        that.check_item(item, idata);
-                                    }
-                                    if (that.data.mode == 'radio-check') {
-                                        var selected = idata.selected;
-                                        that.uncheck_all();
-                                        idata.selected = !selected;
-                                        if (idata.selected) {
-                                            that.check_item(item, idata);
-                                        } else {
-                                            that.uncheck_item(item, idata);
-                                        }
-                                    }
-                                    if (that.data.mode == 'check') {
-                                        idata.selected = !idata.selected;
-                                        if (idata.selected) {
-                                            that.check_item(item, idata);
-                                        } else {
-                                            that.uncheck_item(item, idata);
-                                        }
-                                    }
-                                    if (that.data.autoclose) {
-                                        that.focusout();
-                                    }
-                                    self.trigger('change');
-                                });
-                            }
-                        });
-                    };
-                    that.bind_input = function(){
-                        that.data._el.input.find('.input__control').on('keyup', function(){
-                            var value = that.data._el.input.input('value');
-                            that.data._el.popup__list_items.forEach(function(item) {
-                                if (item.data().text.toLowerCase().includes(value.toLowerCase())) {
-                                    item.removeClass('popup__list-item_hidden');
-                                } else {
-                                    item.addClass('popup__list-item_hidden');
-                                }
-                            });
-                        });
-                    };
-                    that.bind_checkall = function(){
-                        var idata = that.data._el.popup__list_item_checkall.data();
-                        if (!idata.disabled) {
-                            that.data._el.popup__list_item_checkall.on('click', function(){
-                                idata.selected = !idata.selected;
-                                idata.selected ? that.check_all() : that.uncheck_all();
-                                self.trigger('change');
-                            });
-                        }
-                    };
-
-                    that.init_components = function(){
-                        that.data._el.button.button({
-                            disabled: that.data.disabled,
-                            hidden: that.data.hidden,
-                            width: that.data.width
-                        });
-                        that.data._el.input.input({
-                            width: '100%'
-                        });
-                        that.data._el.popup.popup({
-                            source: that.data._el.button,
-                            height: that.data.height,
-
-                            animation: that.data.popup_animation,
-                            select: true
-                        });
-                    };
-                    that.init = function(){
-                        that.render();
-                        that.init_components();
-                        that.bind();
-                        that.bind_input();
-                        if (that.data.mode == 'check') {
-                            that.bind_checkall();
-                        }
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                        that.set_width(that.data.width);
-                        that.set_button_text();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        update : function(data) {
-            return this.each(function() {
-                this.obj.update(data);
-            });
-        },
-        focus : function() {
-            return this.each(function() {
-                this.obj.focus();
-            });
-        },
-        check : function(value) {
-            return this.each(function() {
-                this.obj.check(value);
-            });
-        },
-        uncheck : function(value) {
-            return this.each(function() {
-                this.obj.uncheck(value);
-            });
-        },
-        check_all : function() {
-            return this.each(function() {
-                this.obj.check_all();
-            });
-        },
-        uncheck_all : function() {
-            return this.each(function() {
-                this.obj.uncheck_all();
-            });
-        },
-        clear : function() {
-            return this.each(function() {
-                this.obj.clear();
-            });
-        },
-        value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.get_value();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.get_value());
-                });
-                return _arr;
-            }
-        }
-    };
-    $.fn.select = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.select' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="select"]').select();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'card', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -6157,6 +5445,336 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'widget_grid', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        items: [],
+                        single: false,
+                        margin: true,
+                        closely: false,
+                        loader: null,
+                        library: null,
+                        widget_buttons: [],
+                        mode: 'view',
+                        disabled: true,
+                        grid: {
+                            verticalMargin: 10,
+                            cellHeight: 20,
+                            disableDrag: true,
+                            disableResize: true,
+                            resizable: { handles: 'e, se, s, sw, w' }
+                        }
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        grid: null,
+                        nodes: []
+                    };
+
+                    that.destroy = function(){
+                        that.clear();
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.clear = function(){
+                        that.data._el.grid.removeAll();
+                        _.each(that.data._nodes, function(node) {
+                            node.widget.widget('destroy');
+                        });
+                    };
+                    that.save = function(callback){
+                        that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
+                            el = $(el);
+                            var node = that.get(el);
+                            return {
+                                x: node.x,
+                                y: node.y,
+                                width: node.width,
+                                height: node.height,
+                                settings: _.omitBy(node.widget.data(), function(val, key){
+                                    return (key.substring(0,1) == '_') ||
+                                        (key == 'mode') ||
+                                        (key == 'loader') ||
+                                        (key == 'library') ||
+                                        (key == 'content') ||
+                                        (key == 'buttons') ||
+                                        (key == 'id') ||
+                                        (key == 'reloadable');
+                                })
+                            };
+                        }, this);
+                        if (typeof callback == "function") { callback(that.data.items); }
+                    };
+
+                    that.load = function(){
+                        that.data._el.grid.removeAll();
+                        var items = GridStackUI.Utils.sort(that.data.items);
+                        _.each(items, function(item) {
+                            that.load_widget(item);
+                        });
+                    };
+                    that.load_widget = function(node){
+                        if (that.data.single) {
+                            node.settings.name = that.data.pagename;
+                        }
+                        if (node.settings.id) {
+                            node._id = node.settings.id;
+                        } else {
+                            node._id = Date.now();
+                            node.settings.id = node._id;
+                        }
+                        node._height = node.height;
+                        node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
+                        node.settings.reloadable = true;
+                        node.settings.loader = that.data.loader;
+                        node.settings.library = that.data.library;
+                        node.settings.params = that.data.params;
+                        node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
+                        node.el = $('<div><div class="grid-stack-item-content"></div></div>');
+                        _.unset(node, 'settings');
+
+                        node.el.find('.grid-stack-item-content').append(node.widget);
+                        if (node.widget.data().collapsible) {
+                            node.widget.data()._el.button_collapse.off('click.widget');
+                            node.widget.data()._el.button_collapse.on('click.widget-grid', function(){
+                                if (node.widget.data().collapsed) {
+                                    that.expand_widget(node._id, true);
+                                } else {
+                                    that.collapse_widget(node._id, true);
+                                }
+                            });
+                        }
+                        node.widget.widget('edit_mode');
+
+                        that.data._el.grid.addWidget(node.el, node.x, node.y, node.width, node.height);
+                        that.data._el.nodes.push(node);
+                        that.set(node.el, node);
+                    };
+
+                    that.add_widget = function(item, callback){
+                        that.load_widget(item);
+                        if (typeof callback == "function") { callback(item); }
+                    };
+                    that.remove_widget = function(_id, callback) {
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) { node = node[0]; }
+                        that.data._el.grid.removeWidget(node.el);
+                        that.data._el.nodes = that.data._el.nodes.filter(function(d){ return d._id !== node._id; });
+                        if (typeof callback == "function") { callback(item); }
+                    };
+                    that.update_widget = function(_id, x, y, width, height, callback){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) { node = node[0]; }
+                        that.data._el.grid.update(node.el, x, y, width, height);
+                        if (typeof callback == "function") { callback(item); }
+                    };
+
+                    that.collapse_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, 1);
+                            node.widget.widget('collapse');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
+                    };
+                    that.expand_widget = function(_id, save_state){
+                        var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
+                        if (node.length > 0) {
+                            node = node[0];
+                            var _collapsed = node.widget.data().collapsed;
+                            that.update_widget(node._id, null, null, null, node._height);
+                            node.widget.widget('expand');
+                            if (!save_state) {
+                                node.widget.data().collapsed = _collapsed;
+                            }
+                        }
+                    };
+
+                    that.edit_mode = function(){
+                        that.data.mode = 'edit';
+                        _.each(that.data._el.nodes, function(node) {
+                            node.widget.widget('edit_mode');
+                            node.widget.data().buttons.forEach(function(button){
+                                if (button.mode == 'edit') {
+                                    button._el.button('show');
+                                }
+                                if (button.mode == 'view') {
+                                    button._el.button('hide');
+                                }
+                            });
+                            that.expand_widget(node._id, false);
+                        });
+                        that.enable();
+                        that.resize();
+                    };
+                    that.view_mode = function(){
+                        that.data.mode = 'view';
+                        _.each(that.data._el.nodes, function(node) {
+                            node._height = that.get(node.el).height;
+                            node.widget.widget('view_mode');
+                            node.widget.data().buttons.forEach(function(button){
+                                if (button.mode == 'edit') {
+                                    button._el.button('hide');
+                                }
+                                if (button.mode == 'view') {
+                                    button._el.button('show');
+                                }
+                            });
+                            if (node.widget.data().collapsed) {
+                                that.collapse_widget(node._id, false);
+                            } else {
+                                that.expand_widget(node._id, false);
+                            }
+                        });
+                        that.disable();
+                        that.resize();
+                    };
+
+                    that.create = function(){
+                        if (self.hasClass('grid-stack')) {
+                            if (that.data.single) {
+                                self.addClass('widget-grid_single');
+                            }
+                            if (!that.data.margin) {
+                                self.addClass('widget-grid_margin_none');
+                            }
+                            if (that.data.closely) {
+                                self.addClass('widget-grid_closely');
+                            }
+                            self.gridstack(that.data.grid);
+                            that.data._el.grid = self.data('gridstack');
+                            return true;
+                        } else {
+                            $.error( 'Container does not have class .grid-stack' );
+                            return false;
+                        }
+                    };
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        that.data._el.grid.enableMove(true, true);
+                        that.data._el.grid.enableResize(true, true);
+                    };
+                    that.disable = function(){
+                        that.data.disabled = true;
+                        that.data._el.grid.enableMove(false, true);
+                        that.data._el.grid.enableResize(false, true);
+                    };
+
+                    that.set = function(el, data){
+                        $.extend(el.data('_gridstack_node'), data);
+                    };
+                    that.get = function(el){
+                        return el.data('_gridstack_node');
+                    };
+
+                    that.resize = function(){
+                        _.each(that.data._el.nodes, function(node) {
+                            node.widget.widget('resize');
+                        });
+                    };
+
+                    that.init_resize = function(){
+                        $(window).on('resize', function(){
+                            that.resize();
+                        });
+                    };
+                    that.init = function(){
+                        if (that.create()) {
+                            that.load();
+                            if (that.data.mode == 'view') {
+                                that.view_mode();
+                            } else {
+                                that.edit_mode();
+                            }
+                            that.init_resize();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        edit_mode : function() {
+            return this.each(function() {
+                this.obj.edit_mode();
+            });
+        },
+        view_mode : function() {
+            return this.each(function() {
+                this.obj.view_mode();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        save : function(callback) {
+            return this.each(function() {
+                this.obj.save(callback);
+            });
+        },
+        add_widget : function(item, callback) {
+            return this.each(function() {
+                this.obj.add_widget(item, callback);
+            });
+        },
+        remove_widget : function(_id, callback) {
+            return this.each(function() {
+                this.obj.remove_widget(_id, callback);
+            });
+        },
+        update_widget : function(_id, x, y, width, height, callback) {
+            return this.each(function() {
+                this.obj.update_widget(_id, x, y, width, height, callback);
+            });
+        },
+        resize : function() {
+            return this.each(function() {
+                this.obj.resize();
+            });
+        }
+    };
+    $.fn.widget_grid = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.widget_grid' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'particles', target : self });
                     var that = this.obj = {};
                     that.const = {
@@ -6356,3 +5974,385 @@ $(function(){
 $(function(){
     $('[data-fc="particles"]').particles();
 });
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'calendar', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        validate: true
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+                    that.data._el = {
+                        button_submit: null,
+                        inputs: []
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.get = function(){
+                        that.data._el.button_submit = self.find('button[type="submit"]');
+                        that.data._el.inputs = self.find('[data-fc="input"]');
+                    };
+                    that.validate = function(){
+                        that.data.validate = true;
+                        that.data._el.inputs.each(function(){
+                            if (!$(this).input('validate')) {
+                                that.data.validate = false;
+                            }
+                        });
+                        return that.data.validate;
+                    };
+                    that.bind = function(){
+                        that.data._el.inputs.each(function(){
+                            var $input = $(this);
+                            if ($input.data().required) {
+                                $input.data()._el.input.on('blur', function(){
+                                    $input.input('validate');
+                                })
+                            }
+                        });
+                        that.data._el.button_submit.on('click', function(e){
+                            if (!that.validate()) {
+                                e.preventDefault();
+                            }
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="input"]').input();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="tooltip"]').tooltip();
+                        self.find('[data-fc="textarea"]').textarea();
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="tumbler"]').tumbler();
+                    };
+                    that.init = function(){
+                        that.get();
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.form = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.form' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="form"]').form();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'modal__', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        buttons: [
+                            {
+                                name: 'destroy',
+                                action: 'destroy',
+                                icon: 'icon_svg_close'
+                            }
+                        ],
+                        header: {
+                            icon: 'icon_svg_settings',
+                            caption: 'Модальное окно',
+                            name: 'Название'
+                        },
+                        content: {
+                            tabs: [
+                                {
+                                    id: "general",
+                                    name: 'Главная'
+                                }
+                            ]
+                        },
+                        data: null,
+                        show: true
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        modal__view: $('<div class="modal__view"></div>'),
+                        modal__backdrop: $('<div class="modal__backdrop"></div>'),
+                        modal__dialog: $('<div class="modal__dialog modal__dialog_hidden"></div>'),
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row_caption: $('<div class="card__header-row"></div>'),
+                        card__header_row_name: $('<div class="card__header-row"></div>'),
+                        card__header_row_tabs: $('<div class="card__header-row tabs"></div>'),
+                        tabs__list: $('<ul class="tabs__list"></ul>'),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
+                        card__backdrop: $('<div class="card__backdrop"></div>'),
+                        card__right: $('<div class="card__right"></div>'),
+                        tabs_pane: $('<div class="tabs__pane"></div>')
+                    };
+                    that.data._triggers = {
+                        show: 'show.fc.modal',
+                        shown: 'shown.fc.modal',
+                        hide: 'hide.fc.modal',
+                        hidden: 'hidden.fc.modal',
+                        loaded: 'loaded.fc.modal'
+                    };
+
+                    that.destroy = function(){
+                        that.hide();
+                        setTimeout(function(){
+                            self.removeData();
+                            self.remove();
+                        }, 500);
+                    };
+                    that.hide = function(){
+                        self.trigger(that.data._triggers.hide);
+                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function(){
+                            self.addClass('modal_hidden');
+                        });
+                        self.trigger(that.data._triggers.hidden);
+                        that.data.show = false;
+                    };
+                    that.hidden = function(){
+                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        self.addClass('modal_hidden');
+                        that.data.show = false;
+                    };
+                    that.show = function(){
+                        self.trigger(that.data._triggers.show);
+                        self.removeClass('modal_hidden');
+                        setTimeout(function(){
+                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
+                            self.trigger(that.data._triggers.shown);
+                        }, 0);
+                        that.data.show = true;
+                    };
+
+                    that.render_view = function(){
+                        self.append(that.data._el.modal__view
+                            .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
+                                .append(that.data._el.card
+                                    .append(that.data._el.card__header
+                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name, that.data._el.card__header_row_tabs
+                                            .append(that.data._el.tabs__list)),
+                                    that.data._el.card__main
+                                        .append(that.data._el.card__middle
+                                            .append(that.data._el.card__middle_scroll))))));
+                    };
+                    that.render_header = function(){
+                        that.render_header_caption();
+                        that.render_header_name();
+                    };
+                    that.render_header_caption = function(){
+                        that.render_header_caption_name();
+                        that.render_header_caption_buttons();
+                    };
+                    that.render_header_caption_name = function(){
+                        that.data._el.card__header_row_caption.append($(
+                            '<div class="card__header-column">' +
+                                '<label class="card__caption">' +
+                                    '<span class="card__caption-text">' + that.data.header.caption + '</span>' +
+                                '</label>' +
+                            '</div>'
+                        ));
+                    };
+                    that.render_header_caption_buttons = function(){
+                        var $buttons_column = $('<div class="card__header-column"></div>');
+                        that.data._el.card__header_row_caption.append($buttons_column);
+                        that.data.buttons.forEach(function(button){
+                            var $button = $(
+                                '<button class="button button__' + button.name + '" data-fc="button">' +
+                                (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
+                                (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
+                                '</button>'
+                            );
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
+                            }
+                            $buttons_column.append($button);
+                        });
+                    };
+                    that.render_header_name = function(){
+                        that.data._el.card__header_row_name.append($(
+                            '<div class="card__header-column">' +
+                                '<label class="card__name">' +
+                                    '<span class="card__name-text">' + that.data.header.name + '</span>' +
+                                '</label>' +
+                            '</div>'
+                        ));
+                    };
+                    that.render_tabs = function(){
+                        if (that.data.content.tabs.length == 1) {
+                            that.data.content.tabs[0].active = true;
+                        } else {
+                            var has_active_tab = false;
+                            that.data.content.tabs.forEach(function(tab) {
+                                if (tab.active) {
+                                    has_active_tab = true;
+                                }
+                            });
+                            if (!has_active_tab) {
+                                that.data.content.tabs[0].active = true;
+                            }
+                        }
+                        that.data.content.tabs.forEach(function(tab){
+                            that.data._el.tabs__list.append($(
+                                (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
+                                    '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
+                                        '<button class="button" data-fc="button">' +
+                                            '<span class="button__text">' + tab.name + '</span>' +
+                                        '</button>' +
+                                    '</a>' +
+                                '</li>'
+                            ));
+                            that.data._el.card__middle_scroll.append(
+                                that.data._el.tabs_pane.clone()
+                                    .attr('id', tab.id)
+                                    .addClass((tab.active ? 'tabs__pane_active' : ''))
+                                    .append(tab.content));
+                        });
+                    };
+
+                    that.bind = function(){
+                        self.find('.modal__backdrop').on('click', that.destroy);
+                    };
+                    that.bind_buttons = function(){
+                        that.data.buttons.forEach(function(button){
+                            var $button = $(button.selector);
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
+                            }
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="alertbox"]').alertbox();
+                        self.find('[data-fc="button"]').button({
+                            popup_animation: false
+                        });
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="input"]').input({
+                            popup_animation: false
+                        });
+                        self.find('[data-fc="radio"]').radio();
+                        self.find('[data-fc="radio-group"]').radio_group();
+                        self.find('[data-fc="select"]').select({
+                            popup_animation: false,
+                            autoclose: true
+                        });
+                        self.find('[data-fc="tab"]').tabs();
+                        self.find('[data-fc="tumbler"]').tumbler();
+                        self.find('[data-fc="widget"]').widget();
+                    };
+                    that.init = function(){
+                        self.remove().appendTo('body');
+                        self.data(that.data);
+                        if (self.children().length == 0) {
+                            that.render_view();
+                            that.render_header();
+                            that.render_tabs();
+                            that.init_components();
+                        } else {
+                            that.init_components();
+                            that.bind_buttons();
+                        }
+                        that.bind();
+                        self.trigger(that.data._triggers.loaded);
+                        if (that.data.show) {
+                            that.show();
+                        } else {
+                            that.hidden();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        }
+    };
+    $.fn.modal__ = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.modal__' );
+        }
+    };
+})( jQuery );
