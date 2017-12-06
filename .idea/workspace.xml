@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/input/input.css" afterPath="$PROJECT_DIR$/common.blocks/input/input.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" afterPath="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -324,10 +324,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="input.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="input.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/input/input.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38059703">
+            <state vertical-scroll-proportion="0.0">
               <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
               <folding>
                 <element signature="e#7#395#0" expanded="false" />
@@ -351,6 +351,43 @@
                 <element signature="e#2508#2527#0" expanded="false" />
                 <element signature="e#2581#2613#0" expanded="false" />
                 <element signature="e#2654#2678#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fs-view.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6044776">
+              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+              <folding>
+                <element signature="e#11#112#0" expanded="false" />
+                <element signature="e#123#363#0" expanded="false" />
+                <element signature="e#388#413#0" expanded="false" />
+                <element signature="e#432#574#0" expanded="false" />
+                <element signature="e#618#723#0" expanded="false" />
+                <element signature="e#754#779#0" expanded="false" />
+                <element signature="e#796#980#0" expanded="false" />
+                <element signature="e#1000#1021#0" expanded="false" />
+                <element signature="e#1044#1072#0" expanded="false" />
+                <element signature="e#1093#1139#0" expanded="false" />
+                <element signature="e#1341#1357#0" expanded="false" />
+                <element signature="e#1381#1540#0" expanded="false" />
+                <element signature="e#1565#1687#0" expanded="false" />
+                <element signature="e#1711#1738#0" expanded="false" />
+                <element signature="e#1773#1833#0" expanded="false" />
+                <element signature="e#1867#1892#0" expanded="false" />
+                <element signature="e#1916#1997#0" expanded="false" />
+                <element signature="e#2028#2057#0" expanded="false" />
+                <element signature="e#2085#2106#0" expanded="false" />
+                <element signature="e#2133#2179#0" expanded="false" />
+                <element signature="e#2208#2913#0" expanded="false" />
+                <element signature="e#2277#2339#0" expanded="false" />
+                <element signature="e#2381#2560#0" expanded="false" />
+                <element signature="e#2623#2654#0" expanded="false" />
+                <element signature="e#2698#2831#0" expanded="false" />
+                <element signature="e#2882#2911#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -403,7 +440,6 @@
         <option value="$PROJECT_DIR$/common.blocks/checkbox/checkbox.css" />
         <option value="$PROJECT_DIR$/public/asyst.css/asyst.form.css" />
         <option value="$PROJECT_DIR$/public/login.html" />
-        <option value="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" />
         <option value="$PROJECT_DIR$/mobile.blocks/fs-view/fs-view.css" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/public/icons.html" />
@@ -425,6 +461,7 @@
         <option value="$PROJECT_DIR$/public/asyst/asyst.gridview.js" />
         <option value="$PROJECT_DIR$/common.blocks/card/card.css" />
         <option value="$PROJECT_DIR$/common.blocks/input/input.css" />
+        <option value="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" />
       </list>
     </option>
   </component>
@@ -532,6 +569,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="input" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs-view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -874,13 +929,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35820895">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -1741,7 +1789,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/input/input.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38059703">
+        <state vertical-scroll-proportion="0.0">
           <caret line="64" column="8" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
           <folding>
             <element signature="e#7#395#0" expanded="false" />
@@ -1765,6 +1813,41 @@
             <element signature="e#2508#2527#0" expanded="false" />
             <element signature="e#2581#2613#0" expanded="false" />
             <element signature="e#2654#2678#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6044776">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding>
+            <element signature="e#11#112#0" expanded="false" />
+            <element signature="e#123#363#0" expanded="false" />
+            <element signature="e#388#413#0" expanded="false" />
+            <element signature="e#432#574#0" expanded="false" />
+            <element signature="e#618#723#0" expanded="false" />
+            <element signature="e#754#779#0" expanded="false" />
+            <element signature="e#796#980#0" expanded="false" />
+            <element signature="e#1000#1021#0" expanded="false" />
+            <element signature="e#1044#1072#0" expanded="false" />
+            <element signature="e#1093#1139#0" expanded="false" />
+            <element signature="e#1341#1357#0" expanded="false" />
+            <element signature="e#1381#1540#0" expanded="false" />
+            <element signature="e#1565#1687#0" expanded="false" />
+            <element signature="e#1711#1738#0" expanded="false" />
+            <element signature="e#1773#1833#0" expanded="false" />
+            <element signature="e#1867#1892#0" expanded="false" />
+            <element signature="e#1916#1997#0" expanded="false" />
+            <element signature="e#2028#2057#0" expanded="false" />
+            <element signature="e#2085#2106#0" expanded="false" />
+            <element signature="e#2133#2179#0" expanded="false" />
+            <element signature="e#2208#2913#0" expanded="false" />
+            <element signature="e#2277#2339#0" expanded="false" />
+            <element signature="e#2381#2560#0" expanded="false" />
+            <element signature="e#2623#2654#0" expanded="false" />
+            <element signature="e#2698#2831#0" expanded="false" />
+            <element signature="e#2882#2911#0" expanded="false" />
           </folding>
         </state>
       </provider>
