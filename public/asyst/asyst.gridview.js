@@ -111,17 +111,26 @@ Asyst.GridView = function(options){
                                 isWideString: view.IsWideString,
                                 isEditable: view.IsEditable,
                                 isViewSampled: view.IsViewSampled,
-                                preprocessFunctionText: '',
+                                preprocessFunctionText: view.PreprocessFunction,
                                 viewSamples: {}
                             }, view.viewName);
                         }
+                        that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
+                        /*
                         that.data.views[view.viewName] = {
                             title: view.viewTitle,
-                            isEditable: false,
+                            isEditable: view.IsEditable,
                             isWideString: view.isWideString,
                             isInitiallyCollapsed: view.isInitiallyCollapsed,
-                            isExtFilterVisible: view.isExtFilterVisible
+                            isExtFilterVisible: view.isExtFilterVisible,
+                            PreprocessFunction: (
+                                view.hasOwnProperty('preprocessFunctionText') &&
+                                view.preprocessFunctionText.constructor == String &&
+                                view.preprocessFunctionText != '' ?
+                                    view.PreprocessFunction =
+                            )
                         };
+                        */
                     });
                     // get selected view parameters
                     var metaviewSelected = metaview.filter(function(view){ return view.selected; });
