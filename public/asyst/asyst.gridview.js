@@ -111,7 +111,7 @@ Asyst.GridView = function(options){
                                 isWideString: view.IsWideString,
                                 isEditable: view.IsEditable,
                                 isViewSampled: view.IsViewSampled,
-                                preprocessFunctionText: view.PreprocessFunction,
+                                preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
                                 viewSamples: {}
                             }, view.viewName);
                         }
