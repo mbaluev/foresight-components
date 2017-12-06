@@ -1237,3 +1237,126 @@
 .input__box .alertbox + .input__control {
   padding-left: 0;
 }
+
+.datepicker {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-size: 13px;
+  border-radius: 0;
+}
+
+.datepicker--content {
+  padding: 10px;
+}
+
+.datepicker--day-name {
+  color: #333;
+  font-style: italic;
+}
+
+.datepicker--day-name.-weekend- {
+  color: #ff5940;
+}
+
+.datepicker--cell {
+  border-radius: 16px;
+}
+
+.datepicker--cell.-current- {
+  color: #5a97f2;
+}
+
+.datepicker--cell.-weekend- {
+  color: #ff5940;
+}
+
+.datepicker--cell.datepicker--cell-year.-selected-,
+.datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  background: #5a97f2;
+}
+
+.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.datepicker--cell.datepicker--cell-month.-selected-,
+.datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  background: #5a97f2;
+}
+
+.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.datepicker--cell.datepicker--cell-day.-focus-,
+.datepicker--cell.datepicker--cell-day.-selected-,
+.datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+  background: #5a97f2;
+}
+
+.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.datepicker--cell.-selected-.-weekend- {
+  color: #fff;
+}
+
+.datepicker--cell-day.-other-month-,
+.datepicker--cell-year.-other-decade- {
+  color: #ddd;
+}
+
+.datepicker--nav {
+  padding: 10px;
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.datepicker--nav-title,
+.datepicker--nav-action {
+  border-radius: 0;
+  border: solid 1px #ccc;
+}
+
+.datepicker--nav .datepicker--nav-action + .datepicker--nav-title,
+.datepicker--nav .datepicker--nav-title + .datepicker--nav-action {
+  margin-left: -1px;
+}
+
+.datepicker--nav-title {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.datepicker--nav-title i {
+  color: #333;
+}
+
+.datepicker--nav-title:hover,
+.datepicker--nav-action:hover {
+  background-color: transparent;
+  border-color: #aaa;
+  z-index: 1;
+}
+
+.datepicker--nav-action path {
+  fill: none;
+  stroke: #333;
+  stroke-width: 1px;
+}
+
+.popup .datepicker {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+  border: none;
+  box-shadow: none;
+}
+
+.popup .datepicker--pointer {
+  display: none;
+}
