@@ -194,10 +194,10 @@ $(function(){
                     that.data._el = {
                         select: $('<div class="select__container"></div>'),
                         button: $([
-                            '<button class="button" data-fc="button">',
+                            '<div class="button" data-fc="button">',
                                 '<span class="button__text">' + that.data.placeholder + '</span>',
                                 '<span class="icon icon_svg_down"></span>',
-                            '</button>'
+                            '</div>'
                         ].join('')),
                         spinner: $([
                             '<span class="icon">',
@@ -224,9 +224,9 @@ $(function(){
                         popup__list_items: [],
                         popup__list_item_checkall: $([
                             '<li class="popup__list-item">',
-                            '<button class="popup__link">',
+                            '<div class="popup__link">',
                             '<span class="popup__text popup__text_light">Выбрать все</span>',
-                            '</button>',
+                            '</div>',
                             '</li>'
                         ].join(''))
                     };
@@ -291,10 +291,10 @@ $(function(){
                                 '<li class="popup__list-item',
                                     (_option.data.selected ? ' popup__list-item_checked' : ''),
                                     (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
-                                    '<button class="popup__link">',
+                                    '<div class="popup__link">',
                                         (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
                                         '<span class="popup__text">' + _option.data.text + '</span>',
-                                    '</button>',
+                                    '</div>',
                                 '</li>'
                             ].join(''));
 
