@@ -1380,125 +1380,107 @@
   padding-left: 0;
 }
 
-.datepicker {
+.tooltip {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  padding: 5px 0 !important;
+  display: none;
+  position: absolute;
+  z-index: 9999 !important;
+  opacity: 1 !important;
+  max-width: 300px;
+}
+
+.tooltip_visible {
+  display: block;
+}
+
+.tooltip__text {
+  color: #fff;
+  background-color: rgba(51,51,51,.85);
+  padding: 8px 10px;
+  border-radius: 3px;
   font-size: 13px;
-  border-radius: 0;
+  box-sizing: border-box;
+  max-width: 300px;
 }
 
-.datepicker--content {
-  padding: 10px;
+.tooltip__arrow {
+  position: absolute;
+  left: 50%;
 }
 
-.datepicker--day-name {
-  color: #333;
-  font-style: italic;
+.tooltip__arrow_top {
+  bottom: 0;
+  border-top: solid 5px rgba(51,51,51,.85);
+  border-right: solid 5px transparent;
+  border-left: solid 5px transparent;
+  border-bottom: none;
 }
 
-.datepicker--day-name.-weekend- {
-  color: #ff5940;
+.tooltip__arrow_bottom {
+  top: 0;
+  border-bottom: solid 5px rgba(51,51,51,.85);
+  border-right: solid 5px transparent;
+  border-left: solid 5px transparent;
+  border-top: none;
 }
 
-.datepicker--cell {
-  border-radius: 16px;
+.spinner {
+  display: inline-block;
+  color: #666;
 }
 
-.datepicker--cell.-current- {
-  color: #5a97f2;
+.spinner:after {
+  border: 2px solid;
+  content: " ";
+  display: block;
+  height: 30px;
+  width: 30px;
+  -webkit-animation: rotate 1s infinite linear;
+          animation: rotate 1s infinite linear;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-radius: 15px;
+  box-sizing: border-box;
 }
 
-.datepicker--cell.-weekend- {
-  color: #ff5940;
-}
-
-.datepicker--cell.datepicker--cell-year.-selected-,
-.datepicker--cell.datepicker--cell-year.-selected-.-current-,
-.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
-  background: #5a97f2;
-}
-
-.datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
-  opacity: 0.75;
-}
-
-.datepicker--cell.datepicker--cell-month.-selected-,
-.datepicker--cell.datepicker--cell-month.-selected-.-current-,
-.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
-  background: #5a97f2;
-}
-
-.datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
-  opacity: 0.75;
-}
-
-.datepicker--cell.datepicker--cell-day.-focus-,
-.datepicker--cell.datepicker--cell-day.-selected-,
-.datepicker--cell.datepicker--cell-day.-selected-.-current-,
-.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
-  background: #5a97f2;
-}
-
-.datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
-  opacity: 0.75;
-}
-
-.datepicker--cell.-selected-.-weekend- {
+.spinner_white {
   color: #fff;
 }
 
-.datepicker--cell-day.-other-month-,
-.datepicker--cell-year.-other-decade- {
-  color: #ddd;
+.spinner_red {
+  color: #ff5940;
 }
 
-.datepicker--nav {
-  padding: 10px;
-  border-bottom: 0;
-  padding-bottom: 0;
+.spinner_align_center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -15px;
+  margin-top: -15px;
+  z-index: 9999;
 }
 
-.datepicker--nav-title,
-.datepicker--nav-action {
-  border-radius: 0;
-  border: solid 1px #ccc;
+@-webkit-keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
 
-.datepicker--nav .datepicker--nav-action + .datepicker--nav-title,
-.datepicker--nav .datepicker--nav-title + .datepicker--nav-action {
-  margin-left: -1px;
-}
+@keyframes rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
 
-.datepicker--nav-title {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-}
-
-.datepicker--nav-title i {
-  color: #333;
-}
-
-.datepicker--nav-title:hover,
-.datepicker--nav-action:hover {
-  background-color: transparent;
-  border-color: #aaa;
-  z-index: 1;
-}
-
-.datepicker--nav-action path {
-  fill: none;
-  stroke: #333;
-  stroke-width: 1px;
-}
-
-.popup .datepicker {
-  opacity: 1;
-  visibility: visible;
-  display: block;
-  border: none;
-  box-shadow: none;
-}
-
-.popup .datepicker--pointer {
-  display: none;
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
 }
