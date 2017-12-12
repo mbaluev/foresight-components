@@ -581,6 +581,7 @@ $(function(){
                     };
                     that.set_height = function(height){
                         self.css('max-height', height);
+                        self.css('height', height);
                     };
                     that.set_position = function(position, i){
                         if (typeof i === 'undefined') { i = 0; }
