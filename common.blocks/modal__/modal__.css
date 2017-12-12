@@ -18,6 +18,42 @@
     justify-content: center;
     align-items: flex-start;
 }
+.modal__view_align_center_center {
+    justify-content: center;
+    align-items: center;
+}
+.modal__view_align_top_center {
+    justify-content: center;
+    align-items: flex-start;
+}
+.modal__view_align_top_right {
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+.modal__view_align_center_right {
+    justify-content: flex-end;
+    align-items: center;
+}
+.modal__view_align_bottom_right {
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+.modal__view_align_bottom_center {
+    justify-content: center;
+    align-items: flex-end;
+}
+.modal__view_align_bottom_left {
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+.modal__view_align_center_left {
+    justify-content: flex-start;
+    align-items: center;
+}
+.modal__view_align_top_left {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
 
 .modal__backdrop {
     position: absolute;
@@ -48,6 +84,27 @@
 .modal__dialog_hidden {
     margin-top: -100%;
     opacity: 0;
+}
+
+.modal__dialog_size_xs {
+    width: 320px;
+    min-height: auto;
+}
+.modal__dialog_size_sm {
+    width: 425px;
+    min-height: auto;
+}
+.modal__dialog_size_md {
+    width: 768px;
+    min-height: auto;
+}
+.modal__dialog_size_lg {
+    width: 1024px;
+    min-height: auto;
+}
+.modal__dialog_size_max {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
 }
 
 .modal_fullscreen .modal__view {

@@ -6111,7 +6111,9 @@ $(function(){
                             ]
                         },
                         data: null,
-                        show: true
+                        show: true,
+                        position: null,
+                        size: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -6286,6 +6288,17 @@ $(function(){
                         });
                     };
 
+                    that.set_position = function(){
+                        if (that.data.position) {
+                            that.data._el.modal__view.addClass('modal__view_align_' + that.data.position.split(' ').join('_'));
+                        }
+                    };
+                    that.set_size = function(){
+                        if (that.data.size) {
+                            that.data._el.modal__dialog.addClass('modal__dialog_size_' + that.data.size);
+                        }
+                    };
+
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
                         self.find('[data-fc="button"]').button({
@@ -6308,6 +6321,8 @@ $(function(){
                     that.init = function(){
                         self.remove().appendTo('body');
                         self.data(that.data);
+                        that.set_position();
+                        that.set_size();
                         if (self.children().length == 0) {
                             that.render_view();
                             that.render_header();

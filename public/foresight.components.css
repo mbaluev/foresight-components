@@ -4768,6 +4768,87 @@ body {
           align-items: flex-start;
 }
 
+.modal__view_align_center_center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal__view_align_top_center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.modal__view_align_top_right {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.modal__view_align_center_right {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal__view_align_bottom_right {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.modal__view_align_bottom_center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.modal__view_align_bottom_left {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.modal__view_align_center_left {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal__view_align_top_left {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
 .modal__backdrop {
   position: absolute;
   top: 0;
@@ -4802,6 +4883,31 @@ body {
 .modal__dialog_hidden {
   margin-top: -100%;
   opacity: 0;
+}
+
+.modal__dialog_size_xs {
+  width: 320px;
+  min-height: auto;
+}
+
+.modal__dialog_size_sm {
+  width: 425px;
+  min-height: auto;
+}
+
+.modal__dialog_size_md {
+  width: 768px;
+  min-height: auto;
+}
+
+.modal__dialog_size_lg {
+  width: 1024px;
+  min-height: auto;
+}
+
+.modal__dialog_size_max {
+  width: calc(100% - 20px);
+  height: calc(100% - 20px);
 }
 
 .modal_fullscreen .modal__view {
