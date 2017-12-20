@@ -6174,6 +6174,7 @@ $(function(){
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
                             self.trigger(that.data._triggers.shown);
+                            self.find('.card').css('max-height', '100%');
                         }, 0);
                         that.data.show = true;
                     };

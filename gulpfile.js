@@ -26,6 +26,14 @@ var uni2019params = {
     htmlSrc: 'index.html',
     levels: ['design/uni2019/common.blocks', 'design/uni2019/mobile.blocks']
 };
+var darksightparams = {
+    out: 'public',
+    cssOut: 'design.darksight.css',
+    jsOut: 'design.darksight.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/darksight/common.blocks', 'design/darksight/mobile.blocks']
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -80,6 +88,7 @@ var pages_js = [
 
 var getFileNames = require('html2bl').getFileNames(params);
 var uniGetFileNames = require('html2bl').getFileNames(uni2019params);
+var darkGetFileNames = require('html2bl').getFileNames(darksightparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -219,7 +228,10 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
+gulp.task('design', ['uni2019', 'darksight']);
+
+/* uni2019 */
+gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
 gulp.task('uni2019_css', function(){
     uniGetFileNames.then(function(files){
         gulp.src(files.css)
@@ -267,6 +279,59 @@ gulp.task('uni2019_js', function() {
                 }
             }))
             .pipe(gulp.dest(uni2019params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* darksight */
+gulp.task('darksight', ['darksight_css', 'darksight_images', 'darksight_js']);
+gulp.task('darksight_css', function(){
+    darkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(darksightparams.cssOut))
+            .pipe(url({ prepend: 'images/' }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(darksightparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    darkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(darksightparams.cssOut))
+            .pipe(url({ prepend: 'images/' }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(darksightparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('darksight_images', function(){
+    darkGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(darksightparams.out, 'images')));
+    }).done();
+});
+gulp.task('darksight_js', function() {
+    darkGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(darksightparams.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(darksightparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });
