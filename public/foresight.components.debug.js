@@ -6176,7 +6176,9 @@ $(function(){
                         }, 0);
                         that.data._el.modal__dialog.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                         that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-                            that.data._el.card.css('max-height', '100%');
+                            setTimeout(function(){
+                                that.data._el.card.css('max-height', '100%');
+                            }, 0);
                         });
                         /*
                         setTimeout(function(){
