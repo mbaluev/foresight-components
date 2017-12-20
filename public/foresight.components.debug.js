@@ -6178,7 +6178,7 @@ $(function(){
                         that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
                             setTimeout(function(){
                                 that.data._el.card.css('max-height', '100%');
-                            }, 0);
+                            }, 100);
                         });
                         /*
                         setTimeout(function(){
