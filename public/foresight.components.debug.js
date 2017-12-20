@@ -6173,8 +6173,10 @@ $(function(){
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                            setTimeout(self.trigger(that.data._triggers.shown), 300);
                         }, 0);
+                        setTimeout(function(){
+                            self.find('.card').css('max-height', '100%');
+                        }, 300);
                         that.data.show = true;
                     };
 
@@ -6335,9 +6337,6 @@ $(function(){
                         }
                         that.bind();
                         self.trigger(that.data._triggers.loaded);
-                        self.on(that.data._triggers.shown, function(){
-                            self.find('.card').css('max-height', '100%');
-                        });
                         if (that.data.show) {
                             that.show();
                         } else {
