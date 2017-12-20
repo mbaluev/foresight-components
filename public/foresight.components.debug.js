@@ -6156,11 +6156,11 @@ $(function(){
                     };
                     that.hide = function(){
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
-                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function(){
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                             self.addClass('modal_hidden');
+                            self.trigger(that.data._triggers.hidden);
                         });
-                        self.trigger(that.data._triggers.hidden);
+                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
                         that.data.show = false;
                     };
                     that.hidden = function(){
@@ -6170,21 +6170,16 @@ $(function(){
                     };
                     that.show = function(){
                         self.trigger(that.data._triggers.show);
+                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+                            setTimeout(function(){
+                                that.data._el.card.css('max-height', '100%');
+                                self.trigger(that.data._triggers.shown);
+                            }, 100);
+                        });
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
                         }, 0);
-                        that.data._el.modal__dialog.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                        that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-                            setTimeout(function(){
-                                that.data._el.card.css('max-height', '100%');
-                            }, 100);
-                        });
-                        /*
-                        setTimeout(function(){
-                            self.find('.card').css('max-height', '100%');
-                        }, 300);
-                        */
                         that.data.show = true;
                     };
 
