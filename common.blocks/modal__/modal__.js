@@ -89,8 +89,7 @@
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                            self.trigger(that.data._triggers.shown);
-                            self.find('.card').css('max-height', '100%');
+                            setTimeout(self.trigger(that.data._triggers.shown), 300);
                         }, 0);
                         that.data.show = true;
                     };
@@ -252,6 +251,9 @@
                         }
                         that.bind();
                         self.trigger(that.data._triggers.loaded);
+                        self.on(that.data._triggers.shown, function(){
+                            self.find('.card').css('max-height', '100%');
+                        });
                         if (that.data.show) {
                             that.show();
                         } else {
