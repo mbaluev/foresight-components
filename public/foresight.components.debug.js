@@ -6174,9 +6174,15 @@ $(function(){
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
                         }, 0);
+                        that.data._el.modal__dialog.off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                        that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+                            that.data._el.card.css('max-height', '100%');
+                        });
+                        /*
                         setTimeout(function(){
                             self.find('.card').css('max-height', '100%');
                         }, 300);
+                        */
                         that.data.show = true;
                     };
 
