@@ -23,6 +23,7 @@
                         collapsible: true,
                         collapsed: false,
                         color: that.const.BORDER_COLOR_DEFAULT,
+                        calendar: false,
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
                         loader: null,
@@ -105,6 +106,7 @@
                                 that.render_button(button, false);
                             });
                         }
+                        that.render_button_calendar();
                     };
                     that.render_button = function(button, isnew){
                         if (isnew) {
@@ -133,6 +135,28 @@
                         self.closestChild('.widget__header-actions').append($button);
                         button._el = $button;
                         that.data._el.buttons.push($button);
+                    };
+                    that.render_button_calendar = function(){
+                        var button = {
+                            id: 'button_calendar',
+                            icon: 'icon_svg_calendar',
+                            mode: 'view',
+                            click: function(widget, data){}
+                        };
+                        if (that.data.calendar) {
+                            if (that.data.buttons.filter(function(b){ return b.id == 'button_calendar'; }).length == 0) {
+                                that.render_button(button, true);
+                                if (that.data.mode = 'view') { button._el.button('show'); }
+                                if (that.data.mode = 'edit') { button._el.button('hide'); }
+                            }
+                        } else {
+                            button = that.data.buttons.filter(function(b){ return b.id == 'button_calendar'; });
+                            if (button.length > 0) {
+                                button = button[0];
+                                that.data.buttons = that.data.buttons.filter(function(b){ return b.id != 'button_calendar'; });
+                                button._el.remove();
+                            }
+                        }
                     };
                     that.get_buttons = function(){
                         that.data._el.button_collapse = self.closestChild('.button_collapse');
@@ -230,6 +254,9 @@
                                 height: that.data.height
                             });
                         }
+                    };
+                    that.set_calendar = function(){
+                        that.render_button_calendar();
                     };
 
                     that.collapse = function(){
@@ -380,6 +407,11 @@
         set_content : function() {
             return this.each(function() {
                 this.obj.set_content();
+            });
+        },
+        set_calendar : function() {
+            return this.each(function() {
+                this.obj.set_calendar();
             });
         },
         update : function() {

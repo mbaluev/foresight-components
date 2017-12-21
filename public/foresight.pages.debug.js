@@ -386,6 +386,7 @@ var Dashboard = function(options){
                 });
                 widget.widget('set_name');
                 widget.widget('set_color');
+                //widget.widget('set_calendar');
                 if (reload) {
                     widget.widget('set_content');
                 }
