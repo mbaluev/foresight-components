@@ -1730,39 +1730,41 @@ $(function(){
                         }
                     };
                     that.render_buttons = function(){
+                        self.addClass('widget_mode_view_has_no_buttons');
+                        self.addClass('widget_mode_edit_has_no_buttons');
                         if (that.data.buttons){
                             that.data.buttons.forEach(function(button){
-                                if (button.mode == 'view') {
-                                    that.data._private.buttons_view_mode_count++;
-                                }
-                                if (button.mode == 'edit') {
-                                    that.data._private.buttons_edit_mode_count++;
-                                }
-                                var $button = $([
-                                    '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
-                                    '<span class="icon ' + button.icon + '"></span>',
-                                    '</button>'
-                                ].join('')).button();
-                                $button.on('click', function(){
-                                    button.click(self, _.omitBy(that.data, function(val, key){
-                                        return (key.substring(0,1) == '_');
-                                    }));
-                                });
-                                self.closestChild('.widget__header-actions').append($button);
-                                button._el = $button;
-                                that.data._el.buttons.push($button);
+                                that.render_button(button, false);
                             });
-                            if (that.data._private.buttons_view_mode_count > 0) {
-                                self.addClass('widget_mode_view_has_buttons');
-                            } else {
-                                self.addClass('widget_mode_view_has_no_buttons');
-                            }
-                            if (that.data._private.buttons_edit_mode_count > 0) {
-                                self.addClass('widget_mode_edit_has_buttons');
-                            } else {
-                                self.addClass('widget_mode_edit_has_no_buttons');
-                            }
                         }
+                    };
+                    that.render_button = function(button, isnew){
+                        if (isnew) {
+                            that.data.buttons.push(button);
+                        }
+                        if (button.mode == 'view') {
+                            that.data._private.buttons_view_mode_count++;
+                            self.addClass('widget_mode_view_has_buttons');
+                            self.removeClass('widget_mode_view_has_no_buttons');
+                        }
+                        if (button.mode == 'edit') {
+                            that.data._private.buttons_edit_mode_count++;
+                            self.addClass('widget_mode_edit_has_buttons');
+                            self.removeClass('widget_mode_edit_has_no_buttons');
+                        }
+                        var $button = $([
+                            '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
+                            '<span class="icon ' + button.icon + '"></span>',
+                            '</button>'
+                        ].join('')).button();
+                        $button.on('click', function(){
+                            button.click(self, _.omitBy(that.data, function(val, key){
+                                return (key.substring(0,1) == '_');
+                            }));
+                        });
+                        self.closestChild('.widget__header-actions').append($button);
+                        button._el = $button;
+                        that.data._el.buttons.push($button);
                     };
                     that.get_buttons = function(){
                         that.data._el.button_collapse = self.closestChild('.button_collapse');
@@ -2022,6 +2024,11 @@ $(function(){
         resize : function(func) {
             return this.each(function() {
                 this.obj.resize(func);
+            });
+        },
+        render_button : function(button) {
+            return this.each(function() {
+                this.obj.render_button(button, true);
             });
         }
     };
