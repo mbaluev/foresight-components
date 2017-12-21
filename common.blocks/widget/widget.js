@@ -186,7 +186,6 @@
                                 inline: true,
                                 autoClose: true,
                                 onRenderCell: function (date, cellType) {
-                                    debugger;
                                     if (date) {
                                         var currentDate = date.getDate(),
                                             items = data.filter(function(it){
