@@ -1669,6 +1669,12 @@ body {
   margin: 5px 0 5px 5px;
 }
 
+.menu__container {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1;
+          flex: 1 1;
+}
+
 /* page_horizontal-menu */
 
 @media (min-width: 769px) {
