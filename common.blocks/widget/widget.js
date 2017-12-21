@@ -106,7 +106,6 @@
                                 that.render_button(button, false);
                             });
                         }
-                        that.render_button_calendar();
                     };
                     that.render_button = function(button, isnew){
                         if (isnew) {
@@ -164,6 +163,59 @@
                             if (typeof that.data._el.button_collapse.find('.button__text')[0] != 'undefined') {
                                 that.data.name = that.data._el.button_collapse.find('.button__text').text();
                             }
+                        }
+                    };
+
+                    that.render_calendar = function(data, onSelect){
+                        if (that.data.buttons.filter(function(b){ return b.id == 'button_calendar'; }).length == 0) {
+                            var button = {
+                                id: 'button_calendar',
+                                icon: 'icon_svg_calendar',
+                                mode: 'view',
+                                click: function(){}
+                            };
+                            that.render_button(button);
+                            button._el.datepicker({
+                                inline: true,
+                                autoClose: true,
+                                onRenderCell: function (date, cellType) {
+                                    debugger;
+                                    if (date) {
+                                        var currentDate = date.getDate(),
+                                            items = data.filter(function(it){
+                                                return Asyst.date.format(date) == it.date;
+                                            });
+                                        if (cellType == 'day') {
+                                            if (items.length > 0) {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__day">' + currentDate,
+                                                        '<div class="datepicker__note">' + items.length,
+                                                        '</div>',
+                                                        '</div>'
+                                                    ].join('')
+                                                }
+                                            } else {
+                                                return {
+                                                    html: '<div class="datepicker__day">' + currentDate + '</div>'
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                onSelect: function(formattedDate, date, inst){
+                                    onSelect(formattedDate, date, inst);
+                                }
+                            });
+                            var $popup = $('<div class="popup"></div>');
+                            button._el.after($popup);
+                            $popup.popup({
+                                source: button._el,
+                                position: 'bottom right',
+                                width: 'auto'
+                            });
+                            var datepicker = button._el.data().datepicker;
+                            datepicker.$datepicker.parent().appendTo($popup);
                         }
                     };
 
@@ -254,9 +306,6 @@
                                 height: that.data.height
                             });
                         }
-                    };
-                    that.set_calendar = function(){
-                        that.render_button_calendar();
                     };
 
                     that.collapse = function(){
@@ -409,11 +458,6 @@
                 this.obj.set_content();
             });
         },
-        set_calendar : function() {
-            return this.each(function() {
-                this.obj.set_calendar();
-            });
-        },
         update : function() {
             return this.each(function() {
                 this.obj.set_name();
@@ -429,6 +473,11 @@
         render_button : function(button) {
             return this.each(function() {
                 this.obj.render_button(button, true);
+            });
+        },
+        render_calendar : function(data, onSelect) {
+            return this.each(function() {
+                this.obj.render_calendar(data, onSelect);
             });
         }
     };
