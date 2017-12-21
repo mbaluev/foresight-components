@@ -1807,6 +1807,13 @@ $(function(){
                                 click: function(){}
                             };
                             that.render_button(button);
+                            var $popup = $('<div class="popup"></div>');
+                            button._el.after($popup);
+                            $popup.popup({
+                                source: button._el,
+                                position: 'bottom right',
+                                width: 'auto'
+                            });
                             button._el.datepicker({
                                 inline: true,
                                 autoClose: true,
@@ -1836,15 +1843,9 @@ $(function(){
                                     }
                                 },
                                 onSelect: function(formattedDate, date, inst){
+                                    $popup.popup('hide');
                                     onSelect(formattedDate, date, inst);
                                 }
-                            });
-                            var $popup = $('<div class="popup"></div>');
-                            button._el.after($popup);
-                            $popup.popup({
-                                source: button._el,
-                                position: 'bottom right',
-                                width: 'auto'
                             });
                             var datepicker = button._el.data().datepicker;
                             datepicker.$datepicker.parent().appendTo($popup);
