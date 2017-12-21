@@ -121,7 +121,7 @@
                             self.removeClass('widget_mode_edit_has_no_buttons');
                         }
                         var $button = $([
-                            '<button class="button" type="button" ' + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
+                            '<button class="button" type="button" ' + (button.id ? 'id="' + button.id + '" ' : ' ') + (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>',
                             '<span class="icon ' + button.icon + '"></span>',
                             '</button>'
                         ].join('')).button();
