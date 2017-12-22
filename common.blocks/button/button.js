@@ -12,7 +12,6 @@
                         hidden: false,
                         width: 'auto',
                         popup_animation: true,
-                        /*
                         datePickerOptions: {
                             data: [],
                             autoClose: true,
@@ -20,7 +19,6 @@
                             position: 'bottom right',
                             instance: null
                         }
-                        */
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -153,7 +151,7 @@
                                 animation: that.data.popup_animation
                             });
                         }
-                        /*
+
                         if (that.data.toggle == 'datepicker') {
                             self.after(that.data._el.popup);
                             that.data._el.popup.popup({
@@ -197,7 +195,6 @@
                             that.data.datePickerOptions.instance = self.data().datepicker;
                             that.data.datePickerOptions.instance.$datepicker.parent().appendTo(that.data._el.popup);
                         }
-                        */
                     };
                     that.init = function() {
                         that.set_width(that.data.width);
