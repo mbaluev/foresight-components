@@ -1855,7 +1855,7 @@ $(function(){
                                 mode: 'view',
                                 click: function(){}
                             };
-                            that.render_button(button, true);
+                            that.render_button(button);
                             var $popup = $('<div class="popup"></div>');
                             button._el.after($popup);
                             $popup.popup({
