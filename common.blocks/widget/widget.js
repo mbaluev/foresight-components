@@ -174,7 +174,7 @@
                                 mode: 'view',
                                 click: function(){}
                             };
-                            that.render_button(button);
+                            that.render_button(button, true);
                             var $popup = $('<div class="popup"></div>');
                             button._el.after($popup);
                             $popup.popup({
