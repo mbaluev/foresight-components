@@ -14,7 +14,9 @@
                         circleEnable: true,
                         circlePosition: 'bottom',
                         items: [],
-                        type: 'text'
+                        type: 'text',
+                        onItemClick: null,
+                        onItemRender: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -90,6 +92,12 @@
                                     '<span class="carousel__item-image-text" data-tooltip="' + item.name + '">' + item.name + '</span>',
                                     '</div>'
                                 ].join(''));
+                            }
+                            if (that.data.type == 'custom') {
+                                $item = $('<div class="carousel__item"></div>');
+                                if (typeof that.data.onItemRender == 'function') {
+                                    $item.append(that.data.onItemRender(item));
+                                }
                             }
                             if (typeof that.data.onItemClick == 'function') {
                                 $item.on('click', function(){
