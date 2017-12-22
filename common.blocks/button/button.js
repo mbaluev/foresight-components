@@ -16,6 +16,7 @@
                             data: [],
                             autoClose: true,
                             onSelect: function(formattedDate, date, inst){},
+                            position: 'bottom right',
                             instance: null
                         }
                     };
@@ -154,7 +155,7 @@
                             self.after(that.data._el.popup);
                             that.data._el.popup.popup({
                                 source: self,
-                                position: 'bottom right',
+                                position: that.data.datePickerOptions.position,
                                 width: 'auto',
                                 animation: that.data.popup_animation
                             });
