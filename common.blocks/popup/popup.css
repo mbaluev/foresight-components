@@ -10,8 +10,9 @@
     margin: -9999px 0 0 -9999px;
     animation-name: popup_bottom;
     overflow: hidden;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
+    display: none;
 }
 .popup_animation {
     animation-duration: .1s;
@@ -20,6 +21,7 @@
 }
 .popup_visible_bottom {
     visibility: visible;
+    display: flex;
     margin: 0;
     animation-name: popup_visible_bottom;
 }
