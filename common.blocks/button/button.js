@@ -11,6 +11,7 @@
                         checked: false,
                         hidden: false,
                         width: 'auto',
+                        autoclose: true,
                         popup_animation: true
                     };
                     that.data = self.data();
@@ -137,12 +138,15 @@
                     };
 
                     that.init_components = function(){
-                        if (that.data.toggle == "popup") {
+                        if (that.data.toggle == 'popup') {
                             that.data._el.popup = $(that.data.target);
                             that.data._el.popup.popup({
                                 source: self,
                                 animation: that.data.popup_animation
                             });
+                        }
+                        if (that.data.toggle == 'datepicker') {
+
                         }
                     };
                     that.init = function() {
