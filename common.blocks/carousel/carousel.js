@@ -15,6 +15,7 @@
                         circlePosition: 'bottom',
                         items: [],
                         type: 'text',
+                        theme: null,
                         onItemClick: null,
                         onItemRender: null
                     };
@@ -60,6 +61,9 @@
                     };
 
                     that.render_carousel = function(){
+                        if (that.data.theme) {
+                            self.addClass('carousel_' + that.data.theme);
+                        }
                         that.data._el.carousel__container = $('<div class="carousel__container"></div>');
                         that.data._el.carousel__items = $('<div class="carousel__items"></div>');
                         if (that.data.type == 'image') {
@@ -67,12 +71,16 @@
                         }
                         that.data._el.button_prev = $([
                             '<button class="button button_prev" type="button" data-fc="button">',
-                            '<span class="icon icon_svg_left"></span>',
+                            '<span class="icon icon_svg_left',
+                            (that.data.theme == 'grey' || that.data.theme == 'black' ? '_white' : ''),
+                            '"></span>',
                             '</button>'
                         ].join(''));
                         that.data._el.button_next = $([
                             '<button class="button button_next" type="button" data-fc="button">',
-                            '<span class="icon icon_svg_right"></span>',
+                            '<span class="icon icon_svg_right',
+                            (that.data.theme == 'grey' || that.data.theme == 'black' ? '_white' : ''),
+                            '"></span>',
                             '</button>'
                         ].join(''));
                         that.data._el.carousel__circles = $('<div class="carousel__circles"></div>');
