@@ -11,10 +11,10 @@
                         checked: false,
                         hidden: false,
                         width: 'auto',
-                        autoClose: true,
                         popup_animation: true,
                         datepicker: {
                             data: [],
+                            autoClose: true,
                             onSelect: function(){},
                             instance: null
                         }
@@ -150,6 +150,7 @@
                                 animation: that.data.popup_animation
                             });
                         }
+                        /*
                         if (that.data.toggle == 'datepicker') {
                             self.after(that.data._el.popup);
                             that.data._el.popup.popup({
@@ -160,7 +161,7 @@
                             });
                             self.datepicker({
                                 inline: true,
-                                autoClose: that.data.autoClose,
+                                autoClose: that.data.datepicker.autoClose,
                                 onRenderCell: function (date, cellType) {
                                     if (date) {
                                         var currentDate = date.getDate(),
@@ -193,6 +194,7 @@
                             that.data.datepicker.instance = self.data().datepicker;
                             that.data.datepicker.instance.$datepicker.parent().appendTo(that.data._el.popup);
                         }
+                        */
                     };
                     that.init = function() {
                         that.set_width(that.data.width);

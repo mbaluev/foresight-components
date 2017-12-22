@@ -190,10 +190,10 @@ $(function(){
                         checked: false,
                         hidden: false,
                         width: 'auto',
-                        autoClose: true,
                         popup_animation: true,
                         datepicker: {
                             data: [],
+                            autoClose: true,
                             onSelect: function(){},
                             instance: null
                         }
@@ -329,6 +329,7 @@ $(function(){
                                 animation: that.data.popup_animation
                             });
                         }
+                        /*
                         if (that.data.toggle == 'datepicker') {
                             self.after(that.data._el.popup);
                             that.data._el.popup.popup({
@@ -339,7 +340,7 @@ $(function(){
                             });
                             self.datepicker({
                                 inline: true,
-                                autoClose: that.data.autoClose,
+                                autoClose: that.data.datepicker.autoClose,
                                 onRenderCell: function (date, cellType) {
                                     if (date) {
                                         var currentDate = date.getDate(),
@@ -372,6 +373,7 @@ $(function(){
                             that.data.datepicker.instance = self.data().datepicker;
                             that.data.datepicker.instance.$datepicker.parent().appendTo(that.data._el.popup);
                         }
+                        */
                     };
                     that.init = function() {
                         that.set_width(that.data.width);
@@ -1855,7 +1857,7 @@ $(function(){
                                 mode: 'view',
                                 click: function(){}
                             };
-                            that.render_button(button);
+                            that.render_button(button, true);
                             var $popup = $('<div class="popup"></div>');
                             button._el.after($popup);
                             $popup.popup({
