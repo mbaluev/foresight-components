@@ -190,8 +190,13 @@ $(function(){
                         checked: false,
                         hidden: false,
                         width: 'auto',
-                        autoclose: true,
-                        popup_animation: true
+                        popup_animation: true,
+                        datePickerOptions: {
+                            data: [],
+                            autoClose: true,
+                            onSelect: function(formattedDate, date, inst){},
+                            instance: null
+                        }
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -325,7 +330,47 @@ $(function(){
                             });
                         }
                         if (that.data.toggle == 'datepicker') {
-
+                            self.after(that.data._el.popup);
+                            that.data._el.popup.popup({
+                                source: self,
+                                position: 'bottom right',
+                                width: 'auto',
+                                animation: that.data.popup_animation
+                            });
+                            self.datepicker({
+                                inline: true,
+                                autoClose: that.data.datePickerOptions.autoClose,
+                                onRenderCell: function (date, cellType) {
+                                    if (date) {
+                                        var currentDate = date.getDate(),
+                                            items = that.data.datePickerOptions.data.filter(function(it){
+                                                return Asyst.date.format(date) == it.date;
+                                            });
+                                        if (cellType == 'day') {
+                                            if (items.length > 0) {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__day">' + currentDate,
+                                                        '<div class="datepicker__note">' + items.length,
+                                                        '</div>',
+                                                        '</div>'
+                                                    ].join('')
+                                                }
+                                            } else {
+                                                return {
+                                                    html: '<div class="datepicker__day">' + currentDate + '</div>'
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                onSelect: function(formattedDate, date, inst){
+                                    that.data._el.popup.popup('hide');
+                                    that.data.datePickerOptions.onSelect(formattedDate, date, inst);
+                                }
+                            });
+                            that.data.datePickerOptions.instance = self.data().datepicker;
+                            that.data.datePickerOptions.instance.$datepicker.parent().appendTo(that.data._el.popup);
                         }
                     };
                     that.init = function() {
