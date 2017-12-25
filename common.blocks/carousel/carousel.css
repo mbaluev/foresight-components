@@ -60,14 +60,9 @@
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
-    /*
-    height: 100%;
+    height: calc(100% - 50px);
     flex: 1 1 auto;
     position: relative;
-    */
-    position: absolute;
-    top: 0;
-    bottom: 50px;
 }
 .carousel__item-image-text {
     display: inline-block;
@@ -81,12 +76,8 @@
     text-align: center;
     font-size: 15px;
     padding: 10px 0;
-    /*
     position: relative;
     flex: 0 0 auto;
-    */
-    position: absolute;
-    bottom: 0;
 }
 
 .carousel__items_custom .carousel__item {
