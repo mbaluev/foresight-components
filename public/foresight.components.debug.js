@@ -3132,6 +3132,9 @@ $(function(){
                         if (that.data.type == 'image') {
                             that.data._el.carousel__items.addClass('carousel__items_image');
                         }
+                        if (that.data.type == 'custom') {
+                            that.data._el.carousel__items.addClass('carousel__items_custom');
+                        }
                         that.data._el.button_prev = $([
                             '<button class="button button_prev" type="button" data-fc="button">',
                             '<span class="icon icon_svg_left',

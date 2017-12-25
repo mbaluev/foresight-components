@@ -2684,6 +2684,17 @@ body {
   padding: 10px 0;
 }
 
+.carousel__items_custom .carousel__item {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.carousel__items_custom .carousel__item-image-text {
+  color: #fff;
+}
+
 .carousel__circles {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

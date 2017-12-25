@@ -79,6 +79,13 @@
     padding: 10px 0;
 }
 
+.carousel__items_custom .carousel__item {
+    flex-direction: column;
+}
+.carousel__items_custom .carousel__item-image-text {
+    color: #fff;
+}
+
 .carousel__circles {
     display: inline-flex;
     justify-content: center;
