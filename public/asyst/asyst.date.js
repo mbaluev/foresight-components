@@ -10,6 +10,7 @@ Asyst.date.convertToGenitive = function(dateStr){
         } else {
             dGenitive = d + 'а';
         }
-        dateStr.replace(d, dGenitive);
+        dateStr = dateStr.replace(d, dGenitive);
     });
+    return dateStr;
 };
