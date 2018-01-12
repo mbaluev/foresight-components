@@ -1706,6 +1706,12 @@ body {
             flex: 1 1 auto;
   }
 
+  .menu_type_horizontal .menu__list_align_left {
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+  }
+
   .menu_type_horizontal .menu__item {
     border-bottom: none;
     width: auto;

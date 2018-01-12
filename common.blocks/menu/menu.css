@@ -239,6 +239,9 @@
         flex-wrap: wrap;
         flex: 1 1 auto;
     }
+    .menu_type_horizontal .menu__list_align_left {
+        justify-content: flex-start;
+    }
     .menu_type_horizontal .menu__item {
         border-bottom: none;
         width: auto;
