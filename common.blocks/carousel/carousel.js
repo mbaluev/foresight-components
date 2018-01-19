@@ -129,12 +129,20 @@
                         });
                         self.append(
                             that.data._el.carousel__container.append(
-                                that.data._el.button_prev,
-                                that.data._el.carousel__items,
-                                that.data._el.button_next
-                            ),
-                            that.data._el.carousel__circles
+                                that.data._el.carousel__items
+                            )
                         );
+                        if (that.data.items.length > 1) {
+                            that.data._el.carousel__container.prepend(
+                                that.data._el.button_prev
+                            );
+                            that.data._el.carousel__container.append(
+                                that.data._el.button_next
+                            );
+                            self.append(
+                                that.data._el.carousel__circles
+                            );
+                        }
                     };
                     that.render_nodata = function(){
                         if (that.data.items.length == 0) {

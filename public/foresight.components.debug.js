@@ -3192,12 +3192,20 @@ $(function(){
                         });
                         self.append(
                             that.data._el.carousel__container.append(
-                                that.data._el.button_prev,
-                                that.data._el.carousel__items,
-                                that.data._el.button_next
-                            ),
-                            that.data._el.carousel__circles
+                                that.data._el.carousel__items
+                            )
                         );
+                        if (that.data.items.length > 1) {
+                            that.data._el.carousel__container.prepend(
+                                that.data._el.button_prev
+                            );
+                            that.data._el.carousel__container.append(
+                                that.data._el.button_next
+                            );
+                            self.append(
+                                that.data._el.carousel__circles
+                            );
+                        }
                     };
                     that.render_nodata = function(){
                         if (that.data.items.length == 0) {
@@ -4203,7 +4211,8 @@ $(function(){
                     that.defaults = {
                         disabled: false,
                         checked: false,
-                        hidden: false
+                        hidden: false,
+                        type: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -4281,6 +4290,7 @@ $(function(){
                         that.data._el.input.attr('checked', 'checked');
                         that.data._el.input.prop('checked', true);
                         that.data.checked = true;
+                        that.correct();
                         self.trigger(that.data._triggers.on);
                     };
                     that.uncheck = function(){
@@ -4288,7 +4298,13 @@ $(function(){
                         that.data._el.input.removeAttr('checked');
                         that.data._el.input.prop('checked', false);
                         that.data.checked = false;
+                        that.correct();
                         self.trigger(that.data._triggers.off);
+                    };
+                    that.correct = function(){
+                        if (that.data.type == 'int') {
+                            that.data.checked = (that.data.checked ? 1 : 0);
+                        }
                     };
 
                     that.hover = function(){
@@ -4407,7 +4423,6 @@ $(function(){
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="tumbler"]').tumbler();
 });

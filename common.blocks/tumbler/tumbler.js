@@ -9,7 +9,8 @@
                     that.defaults = {
                         disabled: false,
                         checked: false,
-                        hidden: false
+                        hidden: false,
+                        type: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -87,6 +88,7 @@
                         that.data._el.input.attr('checked', 'checked');
                         that.data._el.input.prop('checked', true);
                         that.data.checked = true;
+                        that.correct();
                         self.trigger(that.data._triggers.on);
                     };
                     that.uncheck = function(){
@@ -94,7 +96,13 @@
                         that.data._el.input.removeAttr('checked');
                         that.data._el.input.prop('checked', false);
                         that.data.checked = false;
+                        that.correct();
                         self.trigger(that.data._triggers.off);
+                    };
+                    that.correct = function(){
+                        if (that.data.type == 'int') {
+                            that.data.checked = (that.data.checked ? 1 : 0);
+                        }
                     };
 
                     that.hover = function(){
@@ -213,7 +221,6 @@
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="tumbler"]').tumbler();
 });
