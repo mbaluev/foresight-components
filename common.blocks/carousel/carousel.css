@@ -56,13 +56,14 @@
     line-height: normal;
 }
 .carousel__item-image {
+    position: relative;
+    display: inline-block;
     width: 100%;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center center;
     height: calc(100% - 50px);
     flex: 1 1 auto;
-    position: relative;
 }
 .carousel__item-image-text {
     display: inline-block;

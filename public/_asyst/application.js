@@ -1010,6 +1010,7 @@ var Grid = {};
 Grid.Create = function (element, data, columns, options, groups, dataParams, filters, viewSample) {
     var gridView = {};
     element.empty();
+
     gridView.CollapseAllGroups = function () {
         gridView.DataView.beginUpdate();
         for (var i = 0; i < gridView.DataView.getGroups().length; i++) {
@@ -1017,7 +1018,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         }
         gridView.DataView.endUpdate();
     };
-
     gridView.ExpandAllGroups = function () {
         gridView.DataView.beginUpdate();
         for (var i = 0; i < gridView.DataView.getGroups().length; i++) {
@@ -1025,7 +1025,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         }
         gridView.DataView.endUpdate();
     };
-
     gridView.SetGroupsCollapsed = function (collapsedGroups) {
         //получаем группы. ходим по группам, если текущая группа в числе свернутых - пихаем её в список и всех её последователей (тупо, но придётся)
         gridView.DataView.beginUpdate();
@@ -1122,7 +1121,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         visibleCols = Enumerable.From(cols).Where('$.visible==true').ToArray();
     }
 
-    if (window["IsEntitySocialView"] == 1)
+    if (window["IsEntitySocialView"] == 1) {
         if (Slick.LikeColumn) {
             var like = new Slick.LikeColumn({
                 cssClass: "slick-cell-likecolumn"
@@ -1130,6 +1129,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
             cols.push(like.getColumnDefinition());
         }
+    }
 
     var grid = new Slick.Grid(element, dataView, visibleCols, options);
     $(element).data('slickgrid', grid);
@@ -1138,8 +1138,9 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
     grid.registerPlugin(groupItemMetadataProvider);
 
     var columnpicker = new Slick.Controls.ColumnPicker(cols, grid, options);
-    if (options.rowSelectionModel)
+    if (options.rowSelectionModel) {
         grid.setSelectionModel(options.rowSelectionModel);
+    }
     grid.registerPlugin(checkboxSelector);
 
     gridView.DataView = dataView;
@@ -1187,9 +1188,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
     gridView.DataView.setFilterArgs({
         searchString: ""
     });
-
     gridView.DataView.setFilter(Grid.QuickFilter);
-
 
     if (viewSample && viewSample.hasOwnProperty("sortColumns") && viewSample.sortColumns.length > 0) {
         gridView.Grid.setSortColumns(viewSample.sortColumns);
@@ -1197,17 +1196,14 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
     }
 
     gridView.DataView.endUpdate();
-
     gridView.DataView.setFilterArgs({
         searchString: ""
     });
-
     gridView.DataView.onRowCountChanged.subscribe(function (e, args) {
         grid.measureHeights();
         grid.updateRowCount();
         grid.render();
     });
-
     gridView.DataView.onRowsChanged.subscribe(function (e, args) {
         grid.invalidateRows(args.rows);
         grid.render();
@@ -1250,7 +1246,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         gridView.DataView.syncGridSelection(grid, true, true);
         grid.invalidate();
     };
-
     gridView.QuickFilterKeyup = function (e) {
         Slick.GlobalEditorLock.cancelCurrentEdit();
 
@@ -1260,14 +1255,12 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
         gridView.UpdateQuickFilter(this.value);
     };
-
     gridView.QuickFilterClear = function () {
         Slick.GlobalEditorLock.cancelCurrentEdit();
 
         gridView.UpdateQuickFilter("");
         $('#BrowseSearch').val("");
     };
-
 
     gridView.ClearGrouping = function () {
         gridView.DataView.groupBy(null);
@@ -1284,7 +1277,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
         return result;
     };
-
     gridView.DeleteSelected = function () {
         if (!this.Grid.EntityName || !this.Grid.KeyName)
             return false;
@@ -1326,7 +1318,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         this.ClearSelected();
         return true;
     };
-
     gridView.ClearSelected = function () {
         if (!this.Grid.EntityName || !this.Grid.KeyName)
             return false;
@@ -1334,7 +1325,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         this.Grid.setSelectedRows([]);
         return true;
     };
-
 
     gridView.ExtendFilter = function () {
         Grid.ShowFilterWindow(this);
@@ -1392,7 +1382,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
         return viewSample;
     };
-
     gridView.viewSampleMenuRebuild = function () {
         $("#right-menu").find(".dropdown-menu").find("li:not([id],.ext-filter-menu)").show();
         $('#viewSampleMenu .divider').first().nextUntil($('#viewSampleMenu .divider').last()).remove();
@@ -1412,11 +1401,9 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
             $('#sampleMenuDividerSecond').show();
         }
     };
-
     gridView.viewSampleSetCurrentName = function (value) {
         $('#viewSampleSelectBtn').text(value);
     };
-
     gridView.saveNamedViewSample = function () {
         var that = this;
         var sendData = function () {
@@ -1451,7 +1438,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
             close: false
         }, {text: Globa.Cancel.locale()}]);
     };
-
     gridView.deleteNamedViewSample = function () {
         var that = this;
         var requestHtml = " ";//убираем текст про удаляемую выборку= Globa.ViewSampleSelectForDelete.locale();
@@ -1486,7 +1472,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         }, {text: Globa.Cancel.locale()}]);
         $('#deletedViewSample').chosen();
     };
-
 
     gridView.saveCurrent = function () {
         var sample = this.getViewSample();
