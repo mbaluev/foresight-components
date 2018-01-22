@@ -44,6 +44,7 @@
                         self.remove();
                     };
                     that.error = function(){
+                        that.data._el.target.attr('controls', 'true');
                         that.data.error = 'Browser doesn\'t support fullscreen mode';
                     };
 
