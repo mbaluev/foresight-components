@@ -43,6 +43,9 @@
                         self.removeData();
                         self.remove();
                     };
+                    that.error = function(){
+                        that.data.error = 'Browser doesn\'t support fullscreen mode';
+                    };
 
                     that.render = function(){
                         that.render_controls();
@@ -102,6 +105,14 @@
                         that.data._buttons.quieter.on('click.video', that.video_quieter);
                         that.data._buttons.mute.on('click.video', that.video_mute);
                         that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
+                    };
+
+                    that.video_init = function(){
+                        if (!that.data._el.target.attr('id')) {
+                            that.data._el.target.attr('id', (new Date()).valueOf());
+                        }
+                        that.data._video = document.getElementById(that.data._el.target.attr('id'));
+                        that.data._video.controls = false;
                         that.data._fullscreen.request = function(){
                             var root = document.documentElement;
                             return root.requestFullscreen ||
@@ -121,14 +132,6 @@
                                 document.mozFullScreenElement ||
                                 document.msFullscreenElement;
                         };
-                    };
-
-                    that.video_init = function(){
-                        if (!that.data._el.target.attr('id')) {
-                            that.data._el.target.attr('id', (new Date()).valueOf());
-                        }
-                        that.data._video = document.getElementById(that.data._el.target.attr('id'));
-                        that.data._video.controls = false;
                     };
                     that.video_play_pause = function(){
                         if (that.data._video.paused || that.data._video.ended) {
@@ -176,10 +179,14 @@
                     that.init = function(){
                         that.loader_add();
                         setTimeout(function(){
-                            that.render();
                             that.video_init();
-                            that.init_components();
-                            that.bind();
+                            if (that.data._fullscreen.request) {
+                                that.render();
+                                that.init_components();
+                                that.bind();
+                            } else {
+                                that.error();
+                            }
                             that.loader_remove();
                         }, 100);
                     };
