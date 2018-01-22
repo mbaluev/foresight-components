@@ -144,6 +144,7 @@
                     };
                     that.update = function(tooltip){
                         that.data.tooltip = tooltip;
+                        that.data._tooltip.tooltip__text.html(that.data.tooltip);
                     };
 
                     that.bind = function () {

@@ -23,6 +23,10 @@
                         video__controls: $('<div class="video__controls"></div>'),
                         video__controls_left: $('<div class="video__controls_left"></div>'),
                         video__controls_right: $('<div class="video__controls_right"></div>'),
+                        video__progress: $('<div class="video__controls_progress"></div>'),
+                        progress: $('<div class="progress" data-tooltip="0"></div>'),
+                        progress__value: $('<div class="progress__value"></div>'),
+                        alertbox: $('<label class="alertbox"><span class="alertbox__text">00:00 / 00:00</span></label>'),
                         loader: $('<span class="spinner spinner_align_center spinner_white"></span>')
                     };
                     that.data._buttons = {
@@ -50,11 +54,17 @@
 
                     that.render = function(){
                         that.render_controls();
+                        var data = $.extend(true, {}, that.data);
                         that.data._el.target.removeClass('video').remove();
                         that.data._el.parent.append(
                             that.data._el.video.append(
                                 that.data._el.video__container.append(
                                     that.data._el.target
+                                ),
+                                that.data._el.video__progress.append(
+                                    that.data._el.progress.append(
+                                        that.data._el.progress__value
+                                    )
                                 ),
                                 that.data._el.video__controls.append(
                                     that.data._el.video__controls_left,
@@ -62,14 +72,15 @@
                                 )
                             )
                         );
+                        that.data._el.target.data(data);
                     };
                     that.render_controls = function(){
                         that.data._el.video__controls_left.append(
                             that.data._buttons.play,
-                            that.data._buttons.stop,
                             that.data._buttons.louder,
                             that.data._buttons.quieter,
-                            that.data._buttons.mute
+                            that.data._buttons.mute,
+                            that.data._el.alertbox
                         );
                         that.data._el.video__controls_right.append(
                             that.data._buttons.fullscreen
@@ -79,10 +90,12 @@
                     that.controls_hide = function(){
                         if (!that.data._video.paused && !that.data._video.ended) {
                             that.data._el.video__controls.addClass('video__controls_hidden');
+                            that.data._el.video__progress.addClass('video__controls_hidden');
                         }
                     };
                     that.controls_show = function(){
                         that.data._el.video__controls.removeClass('video__controls_hidden');
+                        that.data._el.video__progress.removeClass('video__controls_hidden');
                     };
                     that.controls_timer = function(){
                         clearTimeout(that.data._video__controls_timer);
@@ -106,6 +119,9 @@
                         that.data._buttons.quieter.on('click.video', that.video_quieter);
                         that.data._buttons.mute.on('click.video', that.video_mute);
                         that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
+                        that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
+                        that.data._el.progress.on('mousemove', that.video_progress_tooltip);
+                        that.data._el.progress.on('click drag', that.video_seek);
                     };
 
                     that.video_init = function(){
@@ -133,6 +149,7 @@
                                 document.mozFullScreenElement ||
                                 document.msFullscreenElement;
                         };
+                        that.video_set_progress_text();
                     };
                     that.video_play_pause = function(){
                         if (that.data._video.paused || that.data._video.ended) {
@@ -170,6 +187,49 @@
                         } else {
                             alert('browser doesn\'t allow fullscreen mode');
                         }
+                    };
+                    that.video_update_progress_bar = function(){
+                        var value = (100 / that.data._video.duration) * that.data._video.currentTime;
+                        that.data._el.progress__value.width(value + '%');
+                        that.video_set_progress_text();
+                    };
+                    that.video_progress_tooltip = function(e){
+                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
+                        var value = that.data._video.duration / 100 * percent;
+                        that.data._el.progress.tooltip('update', that.video_seconds_to_time(value));
+                    };
+                    that.video_seek = function(e){
+                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
+                        var value = that.data._video.duration / 100 * percent;
+                        that.data._video.currentTime = value;
+                    };
+                    that.video_seconds_to_time = function(seconds) {
+                        var hours   = Math.floor(seconds / 3600);
+                        var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                        var seconds = Math.floor(seconds - (hours * 3600) - (minutes * 60));
+                        var time = "";
+
+                        if (hours != 0) {
+                            time = hours+":";
+                        }
+                        if (minutes != 0 || time !== "") {
+                            minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
+                            time += minutes+":";
+                        }
+                        seconds = (seconds < 10) ? "0"+seconds : String(seconds);
+                        if (time === "") {
+                            time = "0:"+seconds;
+                        }
+                        else {
+                            time += seconds;
+                        }
+                        return time;
+                    };
+                    that.video_set_progress_text = function(){
+                        that.data._el.alertbox.find('.alertbox__text').html(
+                            that.video_seconds_to_time(that.data._video.currentTime) + '&nbsp;/&nbsp;' +
+                            that.video_seconds_to_time(that.data._video.duration)
+                        );
                     };
 
                     that.init_components = function(){

@@ -15,10 +15,10 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    opacity: .8;
     transition: opacity .2s ease-in-out 0s;
     display: flex;
     justify-content: space-between;
+    opacity: .8;
 }
 .video__controls_hidden {
     transition: opacity .2s ease-in-out 0s;
@@ -26,12 +26,47 @@
 }
 .video__controls,
 .video__controls .button,
-.video__controls .button:before {
+.video__controls .button:before,
+.video__controls .alertbox,
+.video__controls .alertbox:before {
     background-color: #000;
 }
 .video__controls .button {
-    opacity: .5;
+    opacity: .8;
 }
 .video__controls .button_hovered {
     opacity: 1;
+}
+.video__controls .alertbox__text {
+    color: #fff;
+}
+.video__controls_progress {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    left: 0;
+    padding: 0 13px;
+    height: 5px;
+    background-color: rgba(0,0,0,.8);
+}
+.progress {
+    width: 100%;
+    height: 5px;
+    background-color: #666;
+    position: relative;
+}
+.progress:hover {
+    cursor: pointer;
+}
+.progress__value {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    background-color: #ff5940;
 }
