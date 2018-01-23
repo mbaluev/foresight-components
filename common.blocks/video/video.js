@@ -36,7 +36,6 @@
                     };
                     that.data._buttons = {
                         play: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_player_fill_white"></span></button>'),
-                        stop: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_settings_white"></span></button>'),
                         mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_mute_white"></span></button>'),
                         fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="Во весь экран"><span class="icon icon_svg_fullscreen_white"></span></button>')
                     };
@@ -125,7 +124,6 @@
                         that.data._el.video.on('mouseout.video', that.controls_hide);
                         that.data._el.video.on('mousemove.video', that.controls_timer);
                         that.data._buttons.play.on('click.video', that.video_play_pause);
-                        that.data._buttons.stop.on('click.video', that.video_stop);
                         that.data._buttons.mute.on('click.video', that.video_mute);
                         that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
                         that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
