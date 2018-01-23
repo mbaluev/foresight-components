@@ -1509,7 +1509,7 @@ $(function(){
                     that.data._buttons = {
                         play: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_player_fill_white"></span></button>'),
                         stop: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_settings_white"></span></button>'),
-                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_settings_white"></span></button>'),
+                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_mute_white"></span></button>'),
                         fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="Во весь экран"><span class="icon icon_svg_fullscreen_white"></span></button>')
                     };
                     that.data._fullscreen = {
@@ -1671,10 +1671,12 @@ $(function(){
                         that.data._video.muted = !that.data._video.muted;
                         if (that.data._video.muted) {
                             that.video_set_volume(0);
+                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_mute_white').addClass('icon_svg_unmute_white');
                             that.data._buttons.mute.tooltip('clear');
                             that.data._buttons.mute.tooltip('update', 'Включить звук');
                         } else {
                             that.video_set_volume(that.data._volume);
+                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_unmute_white').addClass('icon_svg_mute_white');
                             that.data._buttons.mute.tooltip('clear');
                             that.data._buttons.mute.tooltip('update', 'Отключить звук');
                         }
