@@ -1596,6 +1596,7 @@ $(function(){
                         that.data._el.video.on('mouseout.video', that.controls_hide);
                         that.data._el.video.on('mousemove.video', that.controls_timer);
                         that.data._buttons.play.on('click.video', that.video_play_pause);
+                        that.data._buttons.play.button('disable');
                         that.data._buttons.mute.on('click.video', that.video_mute);
                         that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
                         that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
@@ -1605,17 +1606,6 @@ $(function(){
                         that.data._el.slider_volume_progress.on('click drag', that.video_volume);
                     };
 
-                    that.video_loaded_metadata = function(){
-                        that.video_init();
-                        that.data._video.onloadedmetadata = that.video_set_metadata;
-                        //that.data._video.onloadeddata = that.video_set_metadata;
-                        //that.data._video.oncanplay = that.video_set_metadata;
-                        //that.data._video.onloadstart = that.video_set_metadata;
-                    };
-                    that.video_set_metadata = function(){
-                        that.video_set_progress_text();
-                        that.loader_remove();
-                    };
                     that.video_init = function(){
                         if (!that.data._el.target.attr('id')) {
                             that.data._el.target.attr('id', (new Date()).valueOf());
@@ -1641,6 +1631,20 @@ $(function(){
                                 document.mozFullScreenElement ||
                                 document.msFullscreenElement;
                         };
+                    };
+                    that.video_loaded = function(){
+                        that.video_init();
+                        that.data._video.onloadedmetadata = that.video_set_metadata;
+                        //that.data._video.onloadeddata = that.video_set_metadata;
+                        that.data._video.oncanplay = that.video_canplay;
+                        //that.data._video.onloadstart = that.video_set_metadata;
+                    };
+                    that.video_set_metadata = function(){
+                        that.video_set_progress_text();
+                        that.loader_remove();
+                    };
+                    that.video_canplay = function(){
+                        that.data._buttons.play.button('enable');
                     };
                     that.video_play_pause = function(){
                         that.loader_remove();
@@ -1685,14 +1689,8 @@ $(function(){
                         if (that.data._fullscreen.request) {
                             if (that.data._fullscreen.status() == null) {
                                 that.data._fullscreen.request.call(document.getElementById(that.data._el.video.attr('id')));
-                                that.data._buttons.fullscreen.tooltip('clear');
-                                that.data._buttons.fullscreen.tooltip();
-                                that.data._buttons.fullscreen.tooltip('update', 'Выход из полноэкранного режима');
                             } else {
                                 that.data._fullscreen.exit.call(document);
-                                that.data._buttons.fullscreen.tooltip('clear');
-                                that.data._buttons.fullscreen.tooltip();
-                                that.data._buttons.fullscreen.tooltip('update', 'Во весь экран');
                             }
                         } else {
                             alert('browser doesn\'t allow fullscreen mode');
@@ -1770,7 +1768,7 @@ $(function(){
                     };
                     that.init = function(){
                         that.loader_add();
-                        that.video_loaded_metadata();
+                        that.video_loaded();
                         if (that.data._fullscreen.request) {
                             that.render();
                             that.init_components();
