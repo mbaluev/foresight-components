@@ -195,11 +195,13 @@
                             that.video_set_volume(0);
                             that.data._buttons.mute.find('.icon').removeClass('icon_svg_mute_white').addClass('icon_svg_unmute_white');
                             that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip();
                             that.data._buttons.mute.tooltip('update', 'Включить звук');
                         } else {
                             that.video_set_volume(that.data._volume);
                             that.data._buttons.mute.find('.icon').removeClass('icon_svg_unmute_white').addClass('icon_svg_mute_white');
                             that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip();
                             that.data._buttons.mute.tooltip('update', 'Отключить звук');
                         }
                     };
@@ -208,10 +210,12 @@
                             if (that.data._fullscreen.status() == null) {
                                 that.data._fullscreen.request.call(document.getElementById(that.data._el.video.attr('id')));
                                 that.data._buttons.fullscreen.tooltip('clear');
+                                that.data._buttons.fullscreen.tooltip();
                                 that.data._buttons.fullscreen.tooltip('update', 'Выход из полноэкранного режима');
                             } else {
                                 that.data._fullscreen.exit.call(document);
                                 that.data._buttons.fullscreen.tooltip('clear');
+                                that.data._buttons.fullscreen.tooltip();
                                 that.data._buttons.fullscreen.tooltip('update', 'Во весь экран');
                             }
                         } else {
@@ -226,6 +230,7 @@
                     that.video_progress_tooltip = function(e){
                         var percent = 100 / that.data._el.progress.width() * e.offsetX;
                         var value = that.data._video.duration / 100 * percent;
+                        that.data._el.progress.tooltip();
                         that.data._el.progress.tooltip('update', that.video_seconds_to_time(value));
                     };
                     that.video_seek = function(e){
@@ -265,6 +270,7 @@
                     };
                     that.video_volume_tooltip = function(e){
                         var volume = Math.floor(100 / that.data._el.slider_volume_progress.width() * e.offsetX);
+                        that.data._el.slider_volume_progress.tooltip();
                         that.data._el.slider_volume_progress.tooltip('update', volume);
                     };
                     that.video_volume = function(e){
