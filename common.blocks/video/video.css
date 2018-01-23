@@ -53,15 +53,20 @@
     flex-wrap: nowrap;
 }
 
-.video__controls,
+.video__controls {
+    background: rgba(0,0,0,.8);
+}
 .video__controls .button,
 .video__controls .button:before,
 .video__controls .alertbox,
 .video__controls .alertbox:before {
-    background-color: #000;
+    background-color: transparent;
 }
 .video__controls .button {
     opacity: .8;
+}
+.video__controls .button .icon {
+    width: 30px;
 }
 .video__controls .button_hovered {
     opacity: 1;
@@ -85,7 +90,7 @@
 .video__progress {
     position: relative;
     height: 5px;
-    background-color: #333;
+    background-color: rgba(255,255,255,.25);
 }
 .video__progress:hover {
     cursor: pointer;
