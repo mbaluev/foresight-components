@@ -1605,12 +1605,16 @@ $(function(){
                         that.data._el.slider_volume_progress.on('click drag', that.video_volume);
                     };
 
-                    that.video_loaded_metadata = function(callback){
+                    that.video_loaded_metadata = function(){
                         that.video_init();
-                        that.data._video.addEventListener('loadedmetadata', function() {
-                            that.video_set_progress_text();
-                            if (typeof callback == 'function') { callback(); }
-                        }, false);
+                        that.data._video.onloadeddata = that.video_canplay;
+                        that.data._video.onloadedmetadata = that.video_canplay;
+                        that.data._video.onloadstart = that.video_canplay;
+                        that.data._video.oncanplay = that.video_canplay;
+                    };
+                    that.video_canplay = function(){
+                        that.video_set_progress_text();
+                        that.loader_remove();
                     };
                     that.video_init = function(){
                         if (!that.data._el.target.attr('id')) {
@@ -1766,17 +1770,14 @@ $(function(){
                     };
                     that.init = function(){
                         that.loader_add();
-                        setTimeout(function(){
-                            that.video_loaded_metadata();
-                            if (that.data._fullscreen.request) {
-                                that.render();
-                                that.init_components();
-                                that.bind();
-                            } else {
-                                that.error();
-                            }
-                            that.loader_remove();
-                        }, 100);
+                        that.video_loaded_metadata();
+                        if (that.data._fullscreen.request) {
+                            that.render();
+                            that.init_components();
+                            that.bind();
+                        } else {
+                            that.error();
+                        }
                     };
                     that.init();
                 }
