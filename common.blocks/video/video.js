@@ -53,7 +53,6 @@
                     that.error = function(){
                         that.data._el.target.attr('controls', 'true');
                         that.data.error = 'Browser doesn\'t support fullscreen mode';
-                        that.loader_remove();
                     };
 
                     that.render = function(){
@@ -162,17 +161,16 @@
                         };
                     };
                     that.video_loaded = function(){
-                        that.video_init();
                         that.data._video.onloadedmetadata = that.video_set_metadata;
-                        that.data._video.oncanplay = that.video_canplay;
-                        //that.data._video.onloadeddata = that.video_set_metadata;
-                        //that.data._video.onloadstart = that.video_set_metadata;
+                    };
+                    that.video_canplay = function(){
+                        that.data._video.oncanplay = that.video_play_pause_enale;
                     };
                     that.video_set_metadata = function(){
                         that.video_set_progress_text();
                         that.loader_remove();
                     };
-                    that.video_canplay = function(){
+                    that.video_play_pause_enale = function(){
                         that.data._buttons.play.button('enable');
                     };
                     that.video_play_pause = function(){
@@ -297,11 +295,13 @@
                     };
                     that.init = function(){
                         that.loader_add();
+                        that.video_init();
+                        that.video_loaded();
                         if (that.data._fullscreen.request) {
-                            that.video_loaded();
                             that.render();
                             that.init_components();
                             that.bind();
+                            that.video_canplay();
                         } else {
                             that.error();
                         }
