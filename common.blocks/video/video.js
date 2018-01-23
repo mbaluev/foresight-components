@@ -22,11 +22,15 @@
                         video__container: $('<div class="video__container"></div>'),
                         video__controls: $('<div class="video__controls"></div>'),
                         video__controls_left: $('<div class="video__controls_left"></div>'),
+                        video__controls_middle: $('<div class="video__controls_middle"></div>'),
                         video__controls_right: $('<div class="video__controls_right"></div>'),
                         video__progress: $('<div class="video__controls_progress"></div>'),
-                        progress: $('<div class="progress" data-tooltip="0"></div>'),
-                        progress__value: $('<div class="progress__value"></div>'),
-                        alertbox: $('<label class="alertbox"><span class="alertbox__text">00:00 / 00:00</span></label>'),
+                        progress: $('<div class="video__progress" data-tooltip="0"></div>'),
+                        progress_value: $('<div class="video__progress_value"></div>'),
+                        alertbox: $('<label class="alertbox"><span class="alertbox__text">0:00 / 0:00</span></label>'),
+                        slider_volume: $('<div class="video__volume"></div>'),
+                        slider_volume_progress: $('<div class="video__progress" data-tooltip="100"></div>'),
+                        slider_volume_progress_value: $('<div class="video__progress_value"></div>'),
                         loader: $('<span class="spinner spinner_align_center spinner_white"></span>')
                     };
                     that.data._buttons = {
@@ -42,6 +46,7 @@
                         request: undefined,
                         exit: undefined
                     };
+                    that.data._volume = 100;
 
                     that.destroy = function(){
                         self.removeData();
@@ -63,11 +68,12 @@
                                 ),
                                 that.data._el.video__progress.append(
                                     that.data._el.progress.append(
-                                        that.data._el.progress__value
+                                        that.data._el.progress_value
                                     )
                                 ),
                                 that.data._el.video__controls.append(
                                     that.data._el.video__controls_left,
+                                    that.data._el.video__controls_middle,
                                     that.data._el.video__controls_right
                                 )
                             )
@@ -77,10 +83,15 @@
                     that.render_controls = function(){
                         that.data._el.video__controls_left.append(
                             that.data._buttons.play,
-                            that.data._buttons.louder,
-                            that.data._buttons.quieter,
-                            that.data._buttons.mute,
                             that.data._el.alertbox
+                        );
+                        that.data._el.video__controls_middle.append(
+                            that.data._el.slider_volume.append(
+                                that.data._el.slider_volume_progress.append(
+                                    that.data._el.slider_volume_progress_value
+                                )
+                            ),
+                            that.data._buttons.mute
                         );
                         that.data._el.video__controls_right.append(
                             that.data._buttons.fullscreen
@@ -122,8 +133,17 @@
                         that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
                         that.data._el.progress.on('mousemove', that.video_progress_tooltip);
                         that.data._el.progress.on('click drag', that.video_seek);
+                        that.data._el.slider_volume_progress.on('mousemove', that.video_volume_tooltip);
+                        that.data._el.slider_volume_progress.on('click drag', that.video_volume);
                     };
 
+                    that.video_loaded_metadata = function(callback){
+                        that.video_init();
+                        that.data._video.addEventListener('loadedmetadata', function() {
+                            that.video_set_progress_text();
+                            if (typeof callback == 'function') { callback(); }
+                        }, false);
+                    };
                     that.video_init = function(){
                         if (!that.data._el.target.attr('id')) {
                             that.data._el.target.attr('id', (new Date()).valueOf());
@@ -149,9 +169,9 @@
                                 document.mozFullScreenElement ||
                                 document.msFullscreenElement;
                         };
-                        that.video_set_progress_text();
                     };
                     that.video_play_pause = function(){
+                        that.loader_remove();
                         if (that.data._video.paused || that.data._video.ended) {
                             that.data._video.play();
                             that.data._buttons.play.tooltip('clear');
@@ -175,7 +195,17 @@
                         that.data._video.volume = parseFloat(that.data._video.volume).toFixed(1);
                     };
                     that.video_mute = function(){
+                        that.data._volume = that.data._video.volume;
                         that.data._video.muted = !that.data._video.muted;
+                        if (that.data._video.muted) {
+                            that.video_set_volume(0);
+                            that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip('update', 'unmute');
+                        } else {
+                            that.video_set_volume(that.data._volume);
+                            that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip('update', 'mute');
+                        }
                     };
                     that.video_fullscreen = function(){
                         if (that.data._fullscreen.request) {
@@ -190,7 +220,7 @@
                     };
                     that.video_update_progress_bar = function(){
                         var value = (100 / that.data._video.duration) * that.data._video.currentTime;
-                        that.data._el.progress__value.width(value + '%');
+                        that.data._el.progress_value.width(value + '%');
                         that.video_set_progress_text();
                     };
                     that.video_progress_tooltip = function(e){
@@ -199,6 +229,8 @@
                         that.data._el.progress.tooltip('update', that.video_seconds_to_time(value));
                     };
                     that.video_seek = function(e){
+                        if (e.offsetX < 0) { return; }
+                        if (e.offsetX > that.data._el.progress.width()) { return; }
                         var percent = 100 / that.data._el.progress.width() * e.offsetX;
                         var value = that.data._video.duration / 100 * percent;
                         that.data._video.currentTime = value;
@@ -231,6 +263,23 @@
                             that.video_seconds_to_time(that.data._video.duration)
                         );
                     };
+                    that.video_volume_tooltip = function(e){
+                        var volume = Math.floor(100 / that.data._el.slider_volume_progress.width() * e.offsetX);
+                        that.data._el.slider_volume_progress.tooltip('update', volume);
+                    };
+                    that.video_volume = function(e){
+                        if (e.offsetX < 0) { return ; }
+                        if (e.offsetX > that.data._el.slider_volume_progress.width()) { return; }
+                        that.data._volume = e.offsetX / that.data._el.slider_volume_progress.width();
+                        that.data._video.volume = that.data._volume;
+                        that.video_set_volume(that.data._volume);
+                        if (that.data._video.muted) {
+                            that.video_mute();
+                        }
+                    };
+                    that.video_set_volume = function(value){
+                        that.data._el.slider_volume_progress_value.width(value * 100 + '%');
+                    };
 
                     that.init_components = function(){
                         for (var button in that.data._buttons) {
@@ -240,7 +289,7 @@
                     that.init = function(){
                         that.loader_add();
                         setTimeout(function(){
-                            that.video_init();
+                            that.video_loaded_metadata();
                             if (that.data._fullscreen.request) {
                                 that.render();
                                 that.init_components();

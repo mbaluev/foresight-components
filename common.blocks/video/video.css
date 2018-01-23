@@ -49,24 +49,37 @@
     bottom: 40px;
     width: 100%;
     left: 0;
-    padding: 0 13px;
-    height: 5px;
+    padding: 10px 10px 0;
     background-color: rgba(0,0,0,.8);
 }
-.progress {
+.video__progress {
     width: 100%;
     height: 5px;
     background-color: #666;
     position: relative;
 }
-.progress:hover {
+.video__progress:hover {
     cursor: pointer;
 }
-.progress__value {
+.video__progress_value {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     width: 0;
     background-color: #ff5940;
+}
+
+.video__controls_middle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1 1 auto;
+}
+.video__volume {
+    width: 100px;
+    padding: 0 5px;
+}
+.video__volume .video__progress_value {
+    width: 100%;
 }
