@@ -2340,7 +2340,13 @@ body {
   padding-top: 5px;
 }
 
-
+.video__controls_left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
 
 .video__controls_middle {
   display: -webkit-box;
@@ -2355,9 +2361,17 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
-
+.video__controls_right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+}
 
 .video__controls,
 .video__controls .button,
@@ -2418,8 +2432,12 @@ body {
 }
 
 .video__volume {
-  width: 100px;
+  max-width: 100px;
+  width: 100%;
   padding: 0 5px;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .video__volume .video__progress_value {

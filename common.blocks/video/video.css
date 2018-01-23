@@ -37,14 +37,21 @@
     justify-content: space-between;
     padding-top: 5px;
 }
-.video__controls_left {}
+.video__controls_left {
+    display: flex;
+    flex-wrap: nowrap;
+}
 .video__controls_middle {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     flex: 1 1 auto;
+    flex-wrap: nowrap;
 }
-.video__controls_right {}
+.video__controls_right {
+    display: flex;
+    flex-wrap: nowrap;
+}
 
 .video__controls,
 .video__controls .button,
@@ -93,8 +100,10 @@
 }
 
 .video__volume {
-    width: 100px;
+    max-width: 100px;
+    width: 100%;
     padding: 0 5px;
+    flex: 1 1 auto;
 }
 .video__volume .video__progress_value {
     width: 100%;
