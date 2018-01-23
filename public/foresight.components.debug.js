@@ -1609,7 +1609,6 @@ $(function(){
                         that.video_init();
                         that.data._video.onloadeddata = that.video_canplay;
                         that.data._video.onloadedmetadata = that.video_canplay;
-                        that.data._video.onloadstart = that.video_canplay;
                         that.data._video.oncanplay = that.video_canplay;
                     };
                     that.video_canplay = function(){
