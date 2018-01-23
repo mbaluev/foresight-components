@@ -1507,12 +1507,10 @@ $(function(){
                         loader: $('<span class="spinner spinner_align_center spinner_white"></span>')
                     };
                     that.data._buttons = {
-                        play: $('<button class="button" type="button" data-fc="button" data-tooltip="play"><span class="icon icon_svg_settings_white"></span></button>'),
-                        stop: $('<button class="button" type="button" data-fc="button" data-tooltip="stop"><span class="icon icon_svg_settings_white"></span></button>'),
-                        louder: $('<button class="button" type="button" data-fc="button" data-tooltip="louder"><span class="icon icon_svg_settings_white"></span></button>'),
-                        quieter: $('<button class="button" type="button" data-fc="button" data-tooltip="quiter"><span class="icon icon_svg_settings_white"></span></button>'),
-                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="mute"><span class="icon icon_svg_settings_white"></span></button>'),
-                        fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="fullscreen"><span class="icon icon_svg_settings_white"></span></button>')
+                        play: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_player_fill_white"></span></button>'),
+                        stop: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_settings_white"></span></button>'),
+                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_settings_white"></span></button>'),
+                        fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="Во весь экран"><span class="icon icon_svg_fullscreen_white"></span></button>')
                     };
                     that.data._fullscreen = {
                         status: undefined,
@@ -1600,8 +1598,6 @@ $(function(){
                         that.data._el.video.on('mousemove.video', that.controls_timer);
                         that.data._buttons.play.on('click.video', that.video_play_pause);
                         that.data._buttons.stop.on('click.video', that.video_stop);
-                        that.data._buttons.louder.on('click.video', that.video_louder);
-                        that.data._buttons.quieter.on('click.video', that.video_quieter);
                         that.data._buttons.mute.on('click.video', that.video_mute);
                         that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
                         that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
@@ -1648,10 +1644,12 @@ $(function(){
                         that.loader_remove();
                         if (that.data._video.paused || that.data._video.ended) {
                             that.data._video.play();
+                            that.data._buttons.play.find('.icon').removeClass('icon_svg_player_fill_white').addClass('icon_svg_pause_white');
                             that.data._buttons.play.tooltip('clear');
                             that.data._buttons.play.tooltip('update', 'pause');
                         } else {
                             that.data._video.pause();
+                            that.data._buttons.play.find('.icon').removeClass('icon_svg_pause_white').addClass('icon_svg_player_fill_white');
                             that.data._buttons.play.tooltip('clear');
                             that.data._buttons.play.tooltip('update', 'play');
                         }
@@ -1674,19 +1672,23 @@ $(function(){
                         if (that.data._video.muted) {
                             that.video_set_volume(0);
                             that.data._buttons.mute.tooltip('clear');
-                            that.data._buttons.mute.tooltip('update', 'unmute');
+                            that.data._buttons.mute.tooltip('update', 'Включить звук');
                         } else {
                             that.video_set_volume(that.data._volume);
                             that.data._buttons.mute.tooltip('clear');
-                            that.data._buttons.mute.tooltip('update', 'mute');
+                            that.data._buttons.mute.tooltip('update', 'Отключить звук');
                         }
                     };
                     that.video_fullscreen = function(){
                         if (that.data._fullscreen.request) {
                             if (that.data._fullscreen.status() == null) {
                                 that.data._fullscreen.request.call(document.getElementById(that.data._el.video.attr('id')));
+                                that.data._buttons.fullscreen.tooltip('clear');
+                                that.data._buttons.fullscreen.tooltip('update', 'Выход из полноэкранного режима');
                             } else {
                                 that.data._fullscreen.exit.call(document);
+                                that.data._buttons.fullscreen.tooltip('clear');
+                                that.data._buttons.fullscreen.tooltip('update', 'Во весь экран');
                             }
                         } else {
                             alert('browser doesn\'t allow fullscreen mode');
