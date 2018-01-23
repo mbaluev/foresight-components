@@ -171,13 +171,9 @@
                         if (that.data._video.paused || that.data._video.ended) {
                             that.data._video.play();
                             that.data._buttons.play.find('.icon').removeClass('icon_svg_player_fill_white').addClass('icon_svg_pause_white');
-                            that.data._buttons.play.tooltip('clear');
-                            that.data._buttons.play.tooltip('update', 'pause');
                         } else {
                             that.data._video.pause();
                             that.data._buttons.play.find('.icon').removeClass('icon_svg_pause_white').addClass('icon_svg_player_fill_white');
-                            that.data._buttons.play.tooltip('clear');
-                            that.data._buttons.play.tooltip('update', 'play');
                         }
                     };
                     that.video_stop = function(){
