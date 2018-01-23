@@ -21,13 +21,14 @@
                         video: $('<div class="video" id="' + (new Date()).valueOf() + '"></div>'),
                         video__container: $('<div class="video__container"></div>'),
                         video__controls: $('<div class="video__controls"></div>'),
+                        video__controls_top: $('<div class="video__controls_top"></div>'),
+                        video__controls_bottom: $('<div class="video__controls_bottom"></div>'),
                         video__controls_left: $('<div class="video__controls_left"></div>'),
                         video__controls_middle: $('<div class="video__controls_middle"></div>'),
                         video__controls_right: $('<div class="video__controls_right"></div>'),
-                        video__progress: $('<div class="video__controls_progress"></div>'),
                         progress: $('<div class="video__progress" data-tooltip="0"></div>'),
                         progress_value: $('<div class="video__progress_value"></div>'),
-                        alertbox: $('<label class="alertbox"><span class="alertbox__text">0:00 / 0:00</span></label>'),
+                        alertbox: $('<label class="alertbox"><span class="alertbox__text">0:00&nbsp;/&nbsp;0:00</span></label>'),
                         slider_volume: $('<div class="video__volume"></div>'),
                         slider_volume_progress: $('<div class="video__progress" data-tooltip="100"></div>'),
                         slider_volume_progress_value: $('<div class="video__progress_value"></div>'),
@@ -66,21 +67,24 @@
                                 that.data._el.video__container.append(
                                     that.data._el.target
                                 ),
-                                that.data._el.video__progress.append(
-                                    that.data._el.progress.append(
-                                        that.data._el.progress_value
-                                    )
-                                ),
                                 that.data._el.video__controls.append(
-                                    that.data._el.video__controls_left,
-                                    that.data._el.video__controls_middle,
-                                    that.data._el.video__controls_right
+                                    that.data._el.video__controls_top,
+                                    that.data._el.video__controls_bottom.append(
+                                        that.data._el.video__controls_left,
+                                        that.data._el.video__controls_middle,
+                                        that.data._el.video__controls_right
+                                    )
                                 )
                             )
                         );
                         that.data._el.target.data(data);
                     };
                     that.render_controls = function(){
+                        that.data._el.video__controls_top.append(
+                            that.data._el.progress.append(
+                                that.data._el.progress_value
+                            )
+                        );
                         that.data._el.video__controls_left.append(
                             that.data._buttons.play,
                             that.data._el.alertbox
@@ -101,12 +105,10 @@
                     that.controls_hide = function(){
                         if (!that.data._video.paused && !that.data._video.ended) {
                             that.data._el.video__controls.addClass('video__controls_hidden');
-                            that.data._el.video__progress.addClass('video__controls_hidden');
                         }
                     };
                     that.controls_show = function(){
                         that.data._el.video__controls.removeClass('video__controls_hidden');
-                        that.data._el.video__progress.removeClass('video__controls_hidden');
                     };
                     that.controls_timer = function(){
                         clearTimeout(that.data._video__controls_timer);
