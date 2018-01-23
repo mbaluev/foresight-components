@@ -60,13 +60,13 @@
 .video__controls .button:before,
 .video__controls .alertbox,
 .video__controls .alertbox:before {
-    background-color: transparent;
+    background-color: transparent !important;
 }
 .video__controls .button {
     opacity: .8;
 }
 .video__controls .button .icon {
-    width: 30px;
+    width: 30px !important;
 }
 .video__controls .button_hovered {
     opacity: 1;
