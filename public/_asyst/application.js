@@ -993,7 +993,6 @@ function TGRChat() {
         } });
 }
 
-
 function templateProcessObj(template, obj) {
     var s = template;
     for (var prop in obj) {

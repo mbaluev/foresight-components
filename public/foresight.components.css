@@ -4155,6 +4155,12 @@ body {
   margin-bottom: 0 !important;
 }
 
+.card__header-element_stretch {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
 .card__caption {
   position: relative;
   display: -webkit-inline-box;

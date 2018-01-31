@@ -14,7 +14,8 @@
                         hidden: false,
                         width: '100%',
                         autoclose: true,
-                        popup_animation: true
+                        popup_animation: true,
+                        format: 'dd.MM.yyyy'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -180,10 +181,22 @@
                             animation: that.data.popup_animation,
                             width: 'auto'
                         });
-                        // create detepicker
-                        /* that.data._el.input.attr('readonly', 'readonly'); */
+                        // set date
+                        if (that.data.value) {
+                            var date_parts = that.data.value.split(".");
+                            var date = new Date(Date.parse(date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]));
+                            if (isNaN(date)) {
+                                that.data.value = '';
+                                self.removeAttr('data-value');
+                            } else {
+                                that.data.date = date;
+                                that.data.formattedDate = that.data.value;
+                            }
+                        }
                         that.data._el.input.datepicker({
                             inline: true,
+                            format: 'dd.mm.yyyy',
+                            startDate: (that.data.date ? that.data.date : null),
                             autoClose: that.data.autoclose,
                             onSelect: function(formattedDate, date, inst){
                                 that.data.date = date;
@@ -196,6 +209,10 @@
                         // put datepicker to popup
                         that.data._datepicker = that.data._el.input.data().datepicker;
                         that.data._datepicker.$datepicker.parent().appendTo(that.data._el.popup);
+                        // set date continue
+                        if (that.data.date) {
+                            that.data._datepicker.selectDate(that.data.date);
+                        }
                     };
                     that.init = function(){
                         that.init_components();

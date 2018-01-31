@@ -423,7 +423,7 @@
         }
     };
 })( jQuery );
-(function($) {
+(function($){
     $.fn.touchwipe = function(settings) {
         var config = {
             min_move_x: 20,
