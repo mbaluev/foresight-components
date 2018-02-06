@@ -4658,7 +4658,7 @@ $(function(){
                         self.on('mouseover.checkbox', that.hover);
                         self.on('mouseout.checkbox', that.unhover);
                         self.on('mousedown.checkbox touchstart.checkbox', that.click);
-                        self.bindFirst('click.tumbler', null, null, function(){
+                        that.data._el.button.bindFirst('click.tumbler', null, null, function(){
                             that.data.checked ? that.uncheck() : that.check();
                         })
                     };
