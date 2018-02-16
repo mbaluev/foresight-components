@@ -16,7 +16,8 @@ var params = {
     jsOut: 'foresight.components.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['common.blocks', 'mobile.blocks']
+    levels: ['common.blocks', 'mobile.blocks'],
+    images: 'images/foresight/'
 };
 var uni2019params = {
     out: 'public',
@@ -24,7 +25,8 @@ var uni2019params = {
     jsOut: 'design.uni2019.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['design/uni2019/common.blocks', 'design/uni2019/mobile.blocks']
+    levels: ['design/uni2019/common.blocks', 'design/uni2019/mobile.blocks'],
+    images: 'images/uni2019/'
 };
 var krmsrvparams = {
     out: 'public',
@@ -32,7 +34,8 @@ var krmsrvparams = {
     jsOut: 'design.krmsrv.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['design/krmsrv/common.blocks', 'design/krmsrv/mobile.blocks']
+    levels: ['design/krmsrv/common.blocks', 'design/krmsrv/mobile.blocks'],
+    images: 'images/krmsrv/'
 };
 
 var third_js = [
@@ -144,7 +147,7 @@ gulp.task('css', function(){
         //gulp.src(['common.blocks/**/*.css', 'pink.blocks/**/*.css'])
         gulp.src(files.css)
             .pipe(concat(params.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: params.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(gulp.dest(params.out))
             .pipe(reload({ stream: true }));
@@ -153,7 +156,7 @@ gulp.task('css', function(){
     getFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(params.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: params.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
                 console.log(details.name + ': ' + details.stats.originalSize);
@@ -167,9 +170,9 @@ gulp.task('css', function(){
 gulp.task('images', function(){
     getFileNames.then(function(source){
         gulp.src(source.dirs.map(function(dir){
-            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg}';
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
             return imgGlob;
-        })).pipe(gulp.dest(path.join(params.out, 'images')));
+        })).pipe(gulp.dest(path.join(params.out, params.images)));
     }).done();
 });
 gulp.task('js', function() {
@@ -246,7 +249,7 @@ gulp.task('uni2019_css', function(){
     uniGetFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(uni2019params.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: uni2019params.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(gulp.dest(uni2019params.out))
             .pipe(reload({ stream: true }));
@@ -254,7 +257,7 @@ gulp.task('uni2019_css', function(){
     uniGetFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(uni2019params.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: uni2019params.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
                 console.log(details.name + ': ' + details.stats.originalSize);
@@ -268,9 +271,9 @@ gulp.task('uni2019_css', function(){
 gulp.task('uni2019_images', function(){
     uniGetFileNames.then(function(source){
         gulp.src(source.dirs.map(function(dir){
-            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg}';
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
             return imgGlob;
-        })).pipe(gulp.dest(path.join(uni2019params.out, 'images')));
+        })).pipe(gulp.dest(path.join(uni2019params.out, uni2019params.images)));
     }).done();
 });
 gulp.task('uni2019_js', function() {
@@ -299,7 +302,7 @@ gulp.task('krmsrv_css', function(){
     krmGetFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(krmsrvparams.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: krmsrvparams.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(gulp.dest(krmsrvparams.out))
             .pipe(reload({ stream: true }));
@@ -307,7 +310,7 @@ gulp.task('krmsrv_css', function(){
     krmGetFileNames.then(function(files){
         gulp.src(files.css)
             .pipe(concat(krmsrvparams.cssOut))
-            .pipe(url({ prepend: 'images/' }))
+            .pipe(url({ prepend: krmsrvparams.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
                 console.log(details.name + ': ' + details.stats.originalSize);
@@ -321,9 +324,9 @@ gulp.task('krmsrv_css', function(){
 gulp.task('krmsrv_images', function(){
     krmGetFileNames.then(function(source){
         gulp.src(source.dirs.map(function(dir){
-            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg}';
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
             return imgGlob;
-        })).pipe(gulp.dest(path.join(krmsrvparams.out, 'images')));
+        })).pipe(gulp.dest(path.join(krmsrvparams.out, krmsrvparams.images)));
     }).done();
 });
 gulp.task('krmsrv_js', function() {
