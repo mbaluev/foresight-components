@@ -1,0 +1,91 @@
+.header {
+    height: 130px;
+}
+.header__column > * {
+    margin: 0 0 10px 0 !important;
+}
+.header__logo {
+    display: block;
+    height: 90px;
+    width: 100%;
+    margin-top: 10px !important;
+    background-image: url('logo.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+.header__logo:hover {
+    opacity: .6;
+}
+
+.header__column,
+.header__column:last-child {
+    flex-basis: 33.333333%;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.header__column:first-child {
+    padding-left: 0;
+}
+.header__row {
+    flex-wrap: nowrap;
+    display: flex;
+}
+.header__row > * {
+    margin-right: 10px;
+}
+.header__row_space_between {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.header__flex_start {
+    align-items: flex-start;
+}
+.header__flex_end {
+    align-items: flex-end;
+}
+.header__flex_center {
+    align-items: center;
+}
+.header__flex_wrap {
+    flex-wrap: wrap;
+    margin-bottom: 0 !important;
+}
+
+.header__flex_wrap.header__flex_start > * {
+    margin: 0 10px 10px 0;
+}
+.header__flex_wrap.header__flex_end > * {
+    margin: 0 0 10px 10px;
+}
+.header__flex_wrap.header__flex_center > * {
+    margin: 0 5px 10px 5px;
+}
+
+.header__flex_end .header__row > * {
+    margin-right: 0;
+}
+
+.header__column_wolf {
+    height: 120px;
+    width: 100%;
+    background-image: url('wolf.png');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+}
+.header__column_eagle {
+    height: 120px;
+    width: 100%;
+    background-image: url('eagle.png');
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    overflow: hidden;
+}
+
+.header__tumbler-container {
+    flex-direction: column-reverse;
+}

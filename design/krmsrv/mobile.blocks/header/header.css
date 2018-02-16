@@ -1,0 +1,16 @@
+@media (max-width: 1168px) {
+    .header__logo {
+        background-image: url('logo-mobile.png');
+    }
+}
+
+@media (max-width: 750px) {
+    .header__column_wolf {
+        background-position: right center;
+        background-size: 250px;
+    }
+    .header__column_eagle {
+        background-position: left center;
+        background-size: 250px;
+    }
+}
