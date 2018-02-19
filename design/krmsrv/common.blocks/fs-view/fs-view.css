@@ -1,6 +1,10 @@
 .fs-view {
     z-index: 3;
 }
+.fs-view__header {
+    box-shadow: none;
+}
+
 .fs-view__background-left {
     position: absolute;
     top: 0;
@@ -8,8 +12,9 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 100%;    z-index: 1;
-    background-image: url('background_left_bottom.png');
+    height: 100%;
+    z-index: 2;
+    background-image: url('bg-left.png');
     background-repeat: no-repeat;
     background-position: left bottom;
 }
@@ -22,7 +27,20 @@
     width: 100%;
     height: 100%;
     z-index: 2;
-    background-image: url('background_right_top.png');
+    background-image: url('bg-right.png');
     background-repeat: no-repeat;
-    background-position: right top;
+    background-position: right bottom;
+}
+.fs-view__background-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-image: url('bg-center.png');
+    background-repeat: no-repeat;
+    background-position: center center;
 }

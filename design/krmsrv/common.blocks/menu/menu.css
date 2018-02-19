@@ -1,10 +1,10 @@
-.menu_color_pink {
-    background-color: #e5007c;
+.menu_color_krm {
+    background-color: #3957a3;
 }
-.menu_color_pink .menu__item-link_selected {
-    background-color: #0096de;
+.menu_color_krm .menu__item-link_selected {
+    background-color: #3957a3;
 }
-.menu_color_pink .menu__submenu .menu__item-link_selected {
+.menu_color_krm .menu__submenu .menu__item-link_selected {
     background-color: rgba(0,0,0,.2);
 }
 
@@ -19,11 +19,12 @@
 }
 .menu_type_horizontal .menu__item-link:hover,
 .menu_type_horizontal .menu__item-link_hovered {
-    background-color: #0096de;
+    background-color: #4c7ebe;
 }
 .menu_type_horizontal .menu__submenu-container {
-    background-color: #0096de;
+    background-color: #4c7ebe;
 }
+/*
 .menu_type_horizontal .menu__submenu-container:after {
     display: block;
     content: '';
@@ -33,7 +34,8 @@
     bottom: -48px;
     position: absolute;
     z-index: -1;
-    background-image: linear-gradient(189deg, #0096de 49%, transparent 50%);
+    background-image: linear-gradient(189deg, #4c7ebe 49%, transparent 50%);
     background-repeat: no-repeat;
     background-size: cover;
 }
+*/

@@ -1,16 +1,19 @@
 .counter {
     justify-content: flex-end;
+    flex-wrap: nowrap;
 }
 .counter .alertbox {
     width: 20px;
 }
-.counter .alertbox-group .alertbox:before {
+.counter .alertbox {
+    background-color: transparent;
     border-radius: 0;
 }
-.counter .alertbox-group .alertbox {
-    background-color: #e5007c;
+.counter .alertbox:before {
+    background-color: transparent;
     border-radius: 0;
 }
 .counter .alertbox__text {
-    color: #e5007c;
+    color: #fff;
+    font-weight: normal;
 }
