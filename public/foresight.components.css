@@ -33,6 +33,18 @@ label {
   /* Legacy iOS */
 }
 
+.proximanova_regular {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.proximanova_bold {
+  font-family: 'ProximaNova-Bold', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  font-weight: normal;
+  line-height: normal;
+}
+
 html,
 body {
   height: 100%;
@@ -3659,6 +3671,7 @@ body {
 }
 
 .alertbox__text {
+  z-index: 1;
   position: relative;
   display: inline-block;
   overflow: hidden;

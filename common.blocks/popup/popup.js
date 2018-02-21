@@ -25,7 +25,7 @@
                     that.data._inFocus = false;
                     that.data._el = {
                         source: that.data.source,
-                        source_arrow: that.data.source.find('.icon_svg_down')
+                        source_arrow: that.data.source.find('.icon_animate')
                     };
 
                     that.destroy = function(){

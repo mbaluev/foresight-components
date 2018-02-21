@@ -576,7 +576,7 @@ $(function(){
                     that.data._inFocus = false;
                     that.data._el = {
                         source: that.data.source,
-                        source_arrow: that.data.source.find('.icon_svg_down')
+                        source_arrow: that.data.source.find('.icon_animate')
                     };
 
                     that.destroy = function(){
@@ -2383,6 +2383,7 @@ $(function(){
                     that.defaults = {
                         date: null,
                         showyears: false,
+                        counttime: false,
                         countdown: null
                     };
                     that.data = self.data();
@@ -2477,13 +2478,65 @@ $(function(){
                             }
                         });
                     };
+                    that.counttime = function(){
+                        render();
+                        setInterval(function(){
+                            render();
+                        }, 1e3);
+                        function pad(a,b){ return([1e15]+a).slice(-b); }
+                        function render(){
+                            $(self).empty().append(
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getHours(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                ),
+                                $([
+                                    '<span class="alertbox alertbox_border_none">',
+                                    '<span class="alertbox__text">:</span>',
+                                    '</span>'
+                                ].join('')),
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getMinutes(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                ),
+                                $([
+                                    '<span class="alertbox alertbox_border_none">',
+                                    '<span class="alertbox__text">:</span>',
+                                    '</span>'
+                                ].join('')),
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getSeconds(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                )
+                            );
+                        }
+                    };
                     that.split = function(str, length){
                         return str.match(new RegExp('.{1,' + length + '}', 'g'));
                     };
 
                     that.init_components = function(){};
                     that.init = function(){
-                        that.countdown();
+                        if (that.data.counttime) {
+                            that.counttime();
+                        } else {
+                            that.countdown();
+                        }
                     };
                     that.init();
                 }

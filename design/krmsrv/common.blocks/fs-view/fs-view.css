@@ -2,7 +2,17 @@
     z-index: 3;
 }
 .fs-view__header {
+    z-index: 2;
     box-shadow: none;
+}
+.fs-view__left {
+    background: #2057a7;
+    background: linear-gradient(to right,#1e81c2 0,#2057a7 100px,#2057a7 100%);
+}
+.fs-view__main {
+    z-index: 1;
+    box-shadow: none;
+    overflow: visible;
 }
 
 .fs-view__background-left {
@@ -13,7 +23,7 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 0;
     background-image: url('bg-left.png');
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -26,7 +36,7 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 0;
     background-image: url('bg-right.png');
     background-repeat: no-repeat;
     background-position: right bottom;
@@ -39,7 +49,7 @@
     bottom: 0;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 0;
     background-image: url('bg-center.png');
     background-repeat: no-repeat;
     background-position: center center;
