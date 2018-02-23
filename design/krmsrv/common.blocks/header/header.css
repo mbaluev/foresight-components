@@ -4,7 +4,17 @@
     font-style: italic;
     line-height: normal;
     text-align: center;
-    padding: 4px 0;
+    padding: 4px 10px;
+
+    background-color: #2057a7;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+}
+.header__caption:hover {
+    background-color: #1e81c2;
+    text-decoration: none;
+    color: #fff;
 }
 .header__column > .header__column {
     margin: 0 !important;

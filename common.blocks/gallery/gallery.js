@@ -189,19 +189,30 @@
                                 'data-lightbox="lightbox-' + item.parentid + '">',
                                 '<div class="spinner spinner_align_center"></div>',
                                 '<div class="gallery__image"></div>',
+                                '<div class="gallery__error">',
+                                '<div class="icon icon_svg_close"></div>',
+                                '<div class="gallery__error-info">Отсутствует изображение</div>',
+                                '</div>',
                                 '<div class="gallery__filename"></div>',
                                 '</a></div>'
                             ].join('')).appendTo(cont);
                             $imageblock.find('.spinner').show();
                             $imageblock.find('.gallery__image').css('opacity', 0);
                             $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
-                            //$imageblock.find('.gallery__image').css('background-image', 'url(' + item.url + ')');
                             var tempImg = new Image();
                             tempImg.src = '/converter/converter?file=' + item.guid;
-                            //tempImg.src = item.url;
                             tempImg.onload = function() {
-                                $imageblock.find('.gallery__image').css('opacity', 1);
                                 $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').css('opacity', 1);
+                            };
+                            tempImg.onerror = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').hide();
+                                $imageblock.find('.gallery__error').css('display', 'flex');
+                                $imageblock.find('.gallery__image-link').on('click', function(e){
+                                    e.preventDefault();
+                                    return false;
+                                }).removeAttr('data-lightbox');
                             };
                         }
                     };

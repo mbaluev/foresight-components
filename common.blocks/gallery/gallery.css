@@ -16,6 +16,10 @@
     box-sizing: border-box;
     display: block;
     padding: 5px;
+    text-decoration: none;
+}
+.gallery__image-link:hover {
+    text-decoration: none;
 }
 .gallery__image {
     overflow: hidden;
@@ -40,4 +44,19 @@
 }
 .gallery__image-link:hover .gallery__filename {
     color: #ff4800;
+}
+
+.gallery__error {
+    display: none;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.gallery__error-info {
+    color: #ff5940;
+    text-align: center;
 }

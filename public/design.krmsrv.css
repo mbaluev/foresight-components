@@ -69,7 +69,17 @@
   font-style: italic;
   line-height: normal;
   text-align: center;
-  padding: 4px 0;
+  padding: 4px 10px;
+  background-color: #2057a7;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header__caption:hover {
+  background-color: #1e81c2;
+  text-decoration: none;
+  color: #fff;
 }
 
 .header__column > .header__column {
@@ -88,6 +98,10 @@
 
 .menu_color_krm {
   background: url("images/krmsrv/top-right.png") right top no-repeat;
+}
+
+.menu_color_krm .menu__list {
+  background: url("images/krmsrv/top-center.png") 100px top no-repeat;
 }
 
 .menu_color_krm .menu__item-link_selected {
@@ -117,7 +131,8 @@
 }
 
 .menu_color_krm .menu__submenu .menu__item-link:hover {
-  background-color: #2057a7;
+  background-color: transparent;
+  opacity: .5;
 }
 
 .menu_type_horizontal .menu__submenu {
@@ -147,10 +162,6 @@
   z-index: -1;
   background-image: url("images/krmsrv/submenu-bottom.png");
   background-repeat: repeat-x;
-}
-
-.menu__list {
-  background: url("images/krmsrv/top-center.png") 100px top no-repeat;
 }
 
 .link {

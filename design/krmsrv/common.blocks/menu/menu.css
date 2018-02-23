@@ -10,6 +10,9 @@
 .menu_color_krm {
     background: url('top-right.png') right top no-repeat;
 }
+.menu_color_krm .menu__list {
+    background: url('top-center.png') 100px top no-repeat;
+}
 
 .menu_color_krm .menu__item-link_selected {
     background-color: #1e81c2;
@@ -33,7 +36,8 @@
     background-color: #2057a7;
 }
 .menu_color_krm .menu__submenu .menu__item-link:hover {
-    background-color: #2057a7;
+    background-color: transparent;
+    opacity: .5;
 }
 
 .menu_type_horizontal .menu__submenu {
@@ -62,6 +66,3 @@
     background-repeat: repeat-x;
 }
 
-.menu__list {
-    background: url('top-center.png') 100px top no-repeat;
-}
