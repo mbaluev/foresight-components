@@ -91,6 +91,10 @@ Asyst.GridView = function(options){
                         metaview = metaview.filter(function(view){ return view.viewName == that.data.viewname; });
                     }
                     metaview.map(function(view){
+                        //if no metaview rows
+                        view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
+                        view.viewName = (view.viewName ? view.viewName : view.entityName);
+
                         //view.IsWideString = false; //override
                         view.IsExtFilterVisible = false; //override
                         view.IsEditable = that.data.editable;
@@ -106,7 +110,7 @@ Asyst.GridView = function(options){
                                     name: view.entityName,
                                     title: view.entityTitle
                                 },
-                                title: (view.viewTitle ? view.viewTitle : view.entityTitle),
+                                title: view.viewTitle,
                                 isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                 isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
