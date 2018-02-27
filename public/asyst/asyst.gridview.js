@@ -106,7 +106,7 @@ Asyst.GridView = function(options){
                                     name: view.entityName,
                                     title: view.entityTitle
                                 },
-                                title: (view.viewTitle ? view.viewTitle : view.entity.title),
+                                title: (view.viewTitle ? view.viewTitle : view.entityTitle),
                                 isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                 isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
