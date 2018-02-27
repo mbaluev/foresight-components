@@ -80,6 +80,7 @@ Asyst.GridView = function(options){
         Asyst.APIv2.DataSet.load({
             name: 'MetaView',
             data: {
+                EntityName: that.data.entityname,
                 ViewName: that.data.metaviewnames.join(',')
             },
             success: function(data){
@@ -116,21 +117,6 @@ Asyst.GridView = function(options){
                             }, view.viewName);
                         }
                         that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
-                        /*
-                        that.data.views[view.viewName] = {
-                            title: view.viewTitle,
-                            isEditable: view.IsEditable,
-                            isWideString: view.isWideString,
-                            isInitiallyCollapsed: view.isInitiallyCollapsed,
-                            isExtFilterVisible: view.isExtFilterVisible,
-                            PreprocessFunction: (
-                                view.hasOwnProperty('preprocessFunctionText') &&
-                                view.preprocessFunctionText.constructor == String &&
-                                view.preprocessFunctionText != '' ?
-                                    view.PreprocessFunction =
-                            )
-                        };
-                        */
                     });
                     // get selected view parameters
                     var metaviewSelected = metaview.filter(function(view){ return view.selected; });
@@ -144,6 +130,7 @@ Asyst.GridView = function(options){
                     if (!that.data.title) {
                         that.data.title = metaviewSelected.entityTitle;
                     }
+                    // set document title
                     if (that.data.setDocumentTitle) {
                         document.title = that.data.title;
                     }
