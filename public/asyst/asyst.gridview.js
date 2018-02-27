@@ -130,6 +130,12 @@ Asyst.GridView = function(options){
                     if (!that.data.title) {
                         that.data.title = metaviewSelected.entityTitle;
                     }
+                    if (!that.data.viewname) {
+                        that.data.viewname = metaviewSelected.entityName;
+                    }
+                    if (!that.data.viewtitle) {
+                        that.data.viewtitle = metaviewSelected.entityTitle;
+                    }
                     // set document title
                     if (that.data.setDocumentTitle) {
                         document.title = that.data.title;
