@@ -47,6 +47,7 @@
     visibility: hidden;
     padding: 20px;
     box-sizing: border-box;
+    height: 100%;
 }
 .tabs__pane_active {
     display: block;
@@ -54,5 +55,5 @@
 }
 
 .tabs__pane .control:last-child {
-    padding-bottom: 0;
+    padding-bottom: 20px;
 }

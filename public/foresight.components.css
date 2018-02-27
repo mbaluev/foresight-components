@@ -4605,6 +4605,7 @@ body {
   visibility: hidden;
   padding: 20px;
   box-sizing: border-box;
+  height: 100%;
 }
 
 .tabs__pane_active {
@@ -4613,7 +4614,7 @@ body {
 }
 
 .tabs__pane .control:last-child {
-  padding-bottom: 0;
+  padding-bottom: 20px;
 }
 
 .table {
@@ -5354,6 +5355,7 @@ body {
 }
 
 .modal__dialog_size_max {
+  top: 10px;
   width: calc(100% - 20px);
   height: calc(100% - 20px);
 }

@@ -23,7 +23,8 @@
                             tabs: [
                                 {
                                     id: "general",
-                                    name: 'Главная'
+                                    name: 'Главная',
+                                    padding: null
                                 }
                             ]
                         },
@@ -186,6 +187,7 @@
                             that.data._el.card__middle_scroll.append(
                                 that.data._el.tabs_pane.clone()
                                     .attr('id', tab.id)
+                                    .css('padding', (tab.padding ? tab.padding : null))
                                     .addClass((tab.active ? 'tabs__pane_active' : ''))
                                     .append(tab.content));
                         });
