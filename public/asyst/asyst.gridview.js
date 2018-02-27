@@ -106,12 +106,12 @@ Asyst.GridView = function(options){
                                     name: view.entityName,
                                     title: view.entityTitle
                                 },
-                                title: view.viewTitle,
-                                isExtFilterVisible: view.IsExtFilterVisible,
-                                isInitiallyCollapsed: view.IsInitiallyCollapsed,
-                                isWideString: view.IsWideString,
-                                isEditable: view.IsEditable,
-                                isViewSampled: view.IsViewSampled,
+                                title: (view.viewTitle ? view.viewTitle : view.entity.title),
+                                isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
+                                isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
+                                isWideString: (view.IsWideString ? view.IsWideString : false),
+                                isEditable: (view.IsEditable ? view.IsEditable : false),
+                                isViewSampled: (view.IsViewSampled ? view.IsViewSampled : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
                                 viewSamples: {}
                             }, view.viewName);
@@ -129,12 +129,6 @@ Asyst.GridView = function(options){
                     that.data.viewtitle = metaviewSelected.viewTitle;
                     if (!that.data.title) {
                         that.data.title = metaviewSelected.entityTitle;
-                    }
-                    if (!that.data.viewname) {
-                        that.data.viewname = metaviewSelected.entityName;
-                    }
-                    if (!that.data.viewtitle) {
-                        that.data.viewtitle = metaviewSelected.entityTitle;
                     }
                     // set document title
                     if (that.data.setDocumentTitle) {
