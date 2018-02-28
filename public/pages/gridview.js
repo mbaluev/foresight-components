@@ -471,19 +471,18 @@ var GridView3 = function(options){
     that.render_views = function(){
         if (that.data.header.views.length > 0){
             that.data.header.views.forEach(function(view){
-                var $menu__item_link = $([
-                    '<a class="menu__item-link ' + (view.selected ? 'menu__item-link_selected' : '') + ' link" data-value="' + view.value + '">',
-                    '<span class="menu__item-link-content">',
-                    '<span class="menu__icon icon icon_svg_list"></span>',
-                    '<span class="menu__item-text">' + view.name + '</span>',
-                    (view.count ? '<span class="menu__item-text">' + view.count + '</span>' : ''),
-                    '</span>',
-                    '</a>'
-                ].join(''));
                 that.data._el.menu__list.append(
-                    $('<li class="menu__item"></li>').append(
-                        $menu__item_link
-                    )
+                    $([
+                        '<li class="menu__item">',
+                        '<a class="menu__item-link ' + (view.selected ? 'menu__item-link_selected' : '') + ' link" data-value="' + view.value + '">',
+                        '<span class="menu__item-link-content">',
+                        '<span class="menu__icon icon icon_svg_list"></span>',
+                        '<span class="menu__item-text">' + view.name + '</span>',
+                        (view.count ? '<span class="menu__item-text">' + view.count + '</span>' : ''),
+                        '</span>',
+                        '</a>',
+                        '</li>'
+                    ].join(''))
                 );
             });
             that.data._el.content.find('[data-fc="menu"]').append(
@@ -542,6 +541,8 @@ var GridView3 = function(options){
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
             if (!that.data.loading) {
+                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
+                $(this).addClass('menu__item-link_selected');
                 var value = $(this).data('value');
                 console.log(value);
                 var view = that.data.header.views.filter(function(v){ return v.value == value; });
