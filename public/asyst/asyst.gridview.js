@@ -152,7 +152,7 @@ Asyst.GridView = function(options){
             }
         });
     };
-    that.load_view = function(){
+    that.load_view = function(callback){
         that.loader_add();
         that.data.gridview.data.loading = true;
         Asyst.APIv2.View.load({
@@ -163,10 +163,12 @@ Asyst.GridView = function(options){
                 that.init_settings();
                 that.render_view();
                 //that.render_settings();
+                if (typeof callback == 'function') { callback(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
             error: function(data){
+                if (typeof callback == 'function') { callback(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
                 console.log(data);
@@ -355,9 +357,9 @@ Asyst.GridView = function(options){
                 name: title,
                 value: key,
                 selected: that.data.viewname == key,
-                onclick: function(){
+                onclick: function(callback){
                     that.data.viewname = key;
-                    that.load_view();
+                    that.load_view(callback);
                 }
             });
         });

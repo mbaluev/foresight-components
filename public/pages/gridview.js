@@ -543,11 +543,11 @@ var GridView3 = function(options){
                 if (view.length > 0) {
                     view = view[0];
                     if (typeof(view.onclick) == 'function') {
-                        view.onclick();
+                        view.onclick(function(){
+                            that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
+                        });
                     }
                 }
-            } else {
-                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
             }
         });
     };
