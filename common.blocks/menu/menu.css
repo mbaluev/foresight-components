@@ -107,7 +107,8 @@
 .menu_color_light .menu__item-link:hover .menu__item-text {
     color: #ff5940;
 }
-.menu_color_light .menu__item-link_disabled .menu__item-text {
+.menu_color_light .menu__item-link_disabled .menu__item-text,
+.menu_color_light .menu__item-link_disabled:hover .menu__item-text {
     color: #ccc;
 }
 .menu_color_light .menu__item-link_selected .menu__item-text {
@@ -149,7 +150,8 @@
 .menu_accordion .menu__item-link:hover .menu__item-text {
     color: #ff5940;
 }
-.menu_accordion .menu__item-link_disabled .menu__item-text {
+.menu_accordion .menu__item-link_disabled .menu__item-text,
+.menu_accordion .menu__item-link_disabled:hover .menu__item-text {
     color: #ccc;
 }
 .menu_accordion .menu__item-link_selected .menu__item-text {
@@ -193,7 +195,8 @@
 .menu_color_white .menu__item-link:hover .menu__item-text {
     color: #ff5940;
 }
-.menu_color_white .menu__item-link_disabled .menu__item-text {
+.menu_color_white .menu__item-link_disabled .menu__item-text,
+.menu_color_white .menu__item-link_disabled:hover .menu__item-text {
     color: #ccc;
 }
 .menu_color_white .menu__item-link_selected .menu__item-text {
