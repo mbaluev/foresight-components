@@ -1706,19 +1706,23 @@ var GridView3 = function(options){
     that.render_views = function(){
         if (that.data.header.views.length > 0){
             that.data.header.views.forEach(function(view){
+                var $menu__item_link = $([
+                    '<a class="menu__item-link ' + (view.selected ? 'menu__item-link_selected' : '') + ' link" data-value="' + view.value + '">',
+                    '<span class="menu__item-link-content">',
+                    '<span class="menu__icon icon icon_svg_list"></span>',
+                    '<span class="menu__item-text">' + view.name + '</span>',
+                    (view.count ? '<span class="menu__item-text">' + view.count + '</span>' : ''),
+                    '</span>',
+                    '</a>'
+                ].join(''));
                 that.data._el.menu__list.append(
-                    $([
-                        '<li class="menu__item">',
-                        '<a class="menu__item-link ' + (view.selected ? 'menu__item-link_selected' : '') + ' link" data-value="' + view.value + '">',
-                        '<span class="menu__item-link-content">',
-                        '<span class="menu__icon icon icon_svg_list"></span>',
-                        '<span class="menu__item-text">' + view.name + '</span>',
-                        (view.count ? '<span class="menu__item-text">' + view.count + '</span>' : ''),
-                        '</span>',
-                        '</a>',
-                        '</li>'
-                    ].join(''))
+                    $('<li class="menu__item"></li>').append(
+                        $menu__item_link
+                    )
                 );
+                if (view.selected) {
+                    that.menu__item_lock($menu__item_link);
+                }
             });
             that.data._el.content.find('[data-fc="menu"]').append(
                 that.data._el.menu__list
@@ -1758,6 +1762,15 @@ var GridView3 = function(options){
         }
     };
 
+    that.menu__item_lock = function(el){
+        that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
+        el.removeClass('menu__item-link_disabled');
+
+    };
+    that.menu__item_unlock = function(){
+        that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
+    };
+
     that.loader_add = function(){
         that.data._el.target.before(that.data._el.loader)
     };
@@ -1768,10 +1781,7 @@ var GridView3 = function(options){
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
             if (!that.data.loading) {
-                that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
-                $(this).removeClass('menu__item-link_disabled');
-                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
-                $(this).addClass('menu__item-link_selected');
+                that.menu__item_lock($(this));
                 var value = $(this).data('value');
                 console.log(value);
                 var view = that.data.header.views.filter(function(v){ return v.value == value; });
@@ -1779,7 +1789,7 @@ var GridView3 = function(options){
                     view = view[0];
                     if (typeof(view.onclick) == 'function') {
                         view.onclick(function(){
-                            that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
+                            that.menu__item_unlock();
                         });
                     }
                 }
