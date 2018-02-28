@@ -39,6 +39,10 @@
 .menu__item-link_selected {
     background-color: rgba(255,255,255,0.1);
 }
+.menu__item-link_disabled {
+    opacity: .25;
+}
+
 .menu__item-link-content {
     display: flex;
     justify-content: flex-start;
