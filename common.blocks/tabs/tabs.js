@@ -76,6 +76,9 @@
                             e.preventDefault();
                             if (!that.data._el.tabs__tab.hasClass('tabs__tab_active')) {
                                 that.show();
+                                if (typeof that.data.onclick == 'function') {
+                                    that.data.onclick(that.data.data);
+                                }
                             }
                         });
                     };

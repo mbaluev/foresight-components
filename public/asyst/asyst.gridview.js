@@ -154,6 +154,7 @@ Asyst.GridView = function(options){
     };
     that.load_view = function(){
         that.loader_add();
+        that.data.gridview.data.loading = true;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
             data: that.data.params,
@@ -162,11 +163,13 @@ Asyst.GridView = function(options){
                 that.init_settings();
                 that.render_view();
                 //that.render_settings();
+                that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
             error: function(data){
-                console.log(data);
+                that.data.gridview.data.loading = false;
                 that.loader_remove();
+                console.log(data);
             }
         });
     };

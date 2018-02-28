@@ -389,7 +389,8 @@ var GridView3 = function(options){
             settings: [],
             search: null
         },
-        render: function(){}
+        render: function(){},
+        loading: false
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -531,15 +532,17 @@ var GridView3 = function(options){
 
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
-            that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
-            $(this).addClass('menu__item-link_selected');
-            var value = $(this).data('value');
-            console.log(value);
-            var view = that.data.header.views.filter(function(v){ return v.value == value; });
-            if (view.length > 0) {
-                view = view[0];
-                if (typeof(view.onclick) == 'function') {
-                    view.onclick();
+            if (!that.data.loading) {
+                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
+                $(this).addClass('menu__item-link_selected');
+                var value = $(this).data('value');
+                console.log(value);
+                var view = that.data.header.views.filter(function(v){ return v.value == value; });
+                if (view.length > 0) {
+                    view = view[0];
+                    if (typeof(view.onclick) == 'function') {
+                        view.onclick();
+                    }
                 }
             }
         });

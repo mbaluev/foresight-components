@@ -5771,6 +5771,9 @@ $(function(){
                             e.preventDefault();
                             if (!that.data._el.tabs__tab.hasClass('tabs__tab_active')) {
                                 that.show();
+                                if (typeof that.data.onclick == 'function') {
+                                    that.data.onclick(that.data.data);
+                                }
                             }
                         });
                     };
@@ -6846,15 +6849,21 @@ $(function(){
                             }
                         }
                         that.data.content.tabs.forEach(function(tab){
-                            that.data._el.tabs__list.append($(
-                                (tab.active ? '<li class="tabs__tab tabs__tab_active">' : '<li class="tabs__tab">' ) +
-                                    '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">' +
-                                        '<button class="button" data-fc="button">' +
-                                            '<span class="button__text">' + tab.name + '</span>' +
-                                        '</button>' +
-                                    '</a>' +
-                                '</li>'
-                            ));
+                            var $tab__link = $([
+                                '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">',
+                                '<button class="button" data-fc="button">',
+                                '<span class="button__text">' + tab.name + '</span>',
+                                '</button>',
+                                '</a>'
+                            ].join(''));
+                            $tab__link.data('data', tab.data);
+                            $tab__link.data('onclick', tab.onclick);
+                            that.data._el.tabs__list.append(
+                                $((tab.active ? '<li class="tabs__tab tabs__tab_active"></li>' : '<li class="tabs__tab"></li>' ))
+                                    .append(
+                                        $tab__link
+                                    )
+                            );
                             that.data._el.card__middle_scroll.append(
                                 that.data._el.tabs_pane.clone()
                                     .attr('id', tab.id)
