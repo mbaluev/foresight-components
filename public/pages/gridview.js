@@ -533,7 +533,8 @@ var GridView3 = function(options){
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
             if (!that.data.loading) {
-                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
+                that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
+                $(this).removeClass('menu__item-link_selected');
                 that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
                 $(this).addClass('menu__item-link_selected');
                 var value = $(this).data('value');
@@ -546,8 +547,7 @@ var GridView3 = function(options){
                     }
                 }
             } else {
-                that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
-                $(this).removeClass('menu__item-link_selected');
+                that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
             }
         });
     };
