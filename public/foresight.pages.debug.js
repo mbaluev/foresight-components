@@ -1720,9 +1720,6 @@ var GridView3 = function(options){
                         $menu__item_link
                     )
                 );
-                if (view.selected) {
-                    that.menu__item_lock($menu__item_link);
-                }
             });
             that.data._el.content.find('[data-fc="menu"]').append(
                 that.data._el.menu__list
@@ -1762,10 +1759,9 @@ var GridView3 = function(options){
         }
     };
 
-    that.menu__item_lock = function(el){
+    that.menu__item_lock = function(){
         that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
-        el.removeClass('menu__item-link_disabled');
-
+        that.data._el.menu__list.find('.menu__item-link_selected').removeClass('menu__item-link_disabled');
     };
     that.menu__item_unlock = function(){
         that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
@@ -1781,16 +1777,13 @@ var GridView3 = function(options){
     that.bind = function(){
         that.data._el.menu__list.find('.menu__item-link').on('click', function(){
             if (!that.data.loading) {
-                that.menu__item_lock($(this));
                 var value = $(this).data('value');
                 console.log(value);
                 var view = that.data.header.views.filter(function(v){ return v.value == value; });
                 if (view.length > 0) {
                     view = view[0];
                     if (typeof(view.onclick) == 'function') {
-                        view.onclick(function(){
-                            that.menu__item_unlock();
-                        });
+                        view.onclick();
                     }
                 }
             }

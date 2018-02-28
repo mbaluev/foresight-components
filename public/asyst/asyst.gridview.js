@@ -152,8 +152,9 @@ Asyst.GridView = function(options){
             }
         });
     };
-    that.load_view = function(callback){
+    that.load_view = function(){
         that.loader_add();
+        if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.data.gridview.data.loading = true;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
@@ -163,12 +164,12 @@ Asyst.GridView = function(options){
                 that.init_settings();
                 that.render_view();
                 //that.render_settings();
-                if (typeof callback == 'function') { callback(); }
+                if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
             error: function(data){
-                if (typeof callback == 'function') { callback(); }
+                if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
                 console.log(data);
@@ -357,9 +358,9 @@ Asyst.GridView = function(options){
                 name: title,
                 value: key,
                 selected: that.data.viewname == key,
-                onclick: function(callback){
+                onclick: function(){
                     that.data.viewname = key;
-                    that.load_view(callback);
+                    that.load_view();
                 }
             });
         });
