@@ -185,7 +185,7 @@
                         that.data._el.input.input('destroy');
                         that.data._el.popup.popup('destroy');
                         data.forEach(function(item, i, arr){
-                            var $option = $('<option value="' + item.value + '">' + item.text + '</option>');
+                            var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
                             self.append($option);
                         });
                         that.clear();
