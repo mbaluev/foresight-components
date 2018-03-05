@@ -126,17 +126,29 @@ var Dashboard = function(options){
             if (that.data.title) {
                 that.render_page_title();
                 render = true;
+            } else {
+                that.remove_page_title();
             }
         }
         if (that.data.type == 'card') {
             if (that.data.title) {
                 that.render_card_title();
                 render = true;
-            }
-            if (that.data.name) {
-                that.render_card_header_row();
-                that.render_card_name();
-                render = true;
+                if (that.data.name) {
+                    that.render_card_header_row();
+                    that.render_card_name();
+                } else {
+                    that.remove_card_name();
+                }
+            } else {
+                if (that.data.name) {
+                    that.rename_card_title();
+                    that.render_card_name();
+                    render = true;
+                } else {
+                    that.remove_card_title();
+                    that.remove_card_name();
+                }
             }
         }
         if (that.data.editable) {
@@ -172,6 +184,9 @@ var Dashboard = function(options){
             that.data._el.card__name
         );
     };
+    that.remove_page_title = function(){
+        that.data._el.card__header.find('#title').remove();
+    };
     that.render_card_header_row = function() {
         that.data._el.card__header.append(
             that.data._el.card__header_row_name
@@ -183,11 +198,20 @@ var Dashboard = function(options){
             that.data._el.card__caption
         );
     };
+    that.rename_card_title = function(){
+        that.data._el.card__header.find('#title').attr('id', 'name');
+    };
+    that.remove_card_title = function(){
+        that.data._el.card__header.find('#title').remove();
+    };
     that.render_card_name = function(){
         that.set_name(that.data.name);
         that.data._el.card__header.find('#name').append(
             that.data._el.card__name
         );
+    };
+    that.remove_card_name = function(){
+        that.data._el.card__header.find('#name').remove();
     };
     that.render_tumbler = function(){
         that.data._el.tumbler
