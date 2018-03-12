@@ -378,6 +378,7 @@ Asyst.GridView = function(options){
                 selected: that.data.viewname == key,
                 onclick: function(){
                     that.data.viewname = key;
+                    setPageCookie('CurrentViewName', key);
                     that.load_view();
                 }
             });
