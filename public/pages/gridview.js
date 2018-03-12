@@ -545,9 +545,11 @@ var GridView3 = function(options){
                 $(this).addClass('menu__item-link_selected');
                 var value = $(this).data('value');
                 console.log(value);
+                that.data.header.views.map(function(v){ v.selected = false; });
                 var view = that.data.header.views.filter(function(v){ return v.value == value; });
                 if (view.length > 0) {
                     view = view[0];
+                    view.selected = true;
                     if (typeof(view.onclick) == 'function') {
                         view.onclick();
                     }
