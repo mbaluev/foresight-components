@@ -350,6 +350,16 @@ Asyst.GridView = function(options){
         that.data.gridview.render_settings_popup();
     };
 
+    that.store_to_window = function(){
+        if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
+        window.gridviews[that.data.containerid] = that;
+    };
+    that.reload = {
+        gridview: function(){
+            that.load_view();
+        }
+    };
+
     that.init_header = function(){
         $.each(that.data.views, function(key, view){
             var title = view.title.replace('##','').replace('##','');
@@ -449,6 +459,7 @@ Asyst.GridView = function(options){
             that.load_metaView(function(){
                 that.init_header();
                 that.init_settings();
+                that.store_to_window();
                 that.loader_remove();
                 that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
                 that.data.gridview = new that.data.gridViewClass({
