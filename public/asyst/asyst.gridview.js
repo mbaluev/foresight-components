@@ -356,7 +356,7 @@ Asyst.GridView = function(options){
         window.gridviews[that.data.id] = that;
     };
     that.reload = {
-        gridview: function(){
+        view: function(){
             that.load_view();
         }
     };
