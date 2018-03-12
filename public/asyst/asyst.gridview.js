@@ -10,7 +10,7 @@ Asyst.GridView = function(options){
         entitytitle: null,
         viewname: null,
         viewtitle: null,
-        viewnameCookie: getPageCookie('CurrentViewName'),
+        viewnameCookie: null,
         editable: false,
         closeButton: true,
         setDocumentTitle: false,
@@ -377,8 +377,8 @@ Asyst.GridView = function(options){
                 value: key,
                 selected: that.data.viewname == key,
                 onclick: function(){
+                    setPageCookie('CurrentViewName' + (that.data.entity ? '_' + that.data.entity : ''), key);
                     that.data.viewname = key;
-                    setPageCookie('CurrentViewName', key);
                     that.load_view();
                 }
             });
