@@ -3,6 +3,7 @@ if (typeof Asyst == typeof undefined) { Asyst = {}; }
 Asyst.GridView = function(options){
     var that = this._gridview = {};
     that.data = {
+        id: '' + Date.now(),
         containerid: 'container',
         title: null,
         entityname: null,
@@ -352,7 +353,7 @@ Asyst.GridView = function(options){
 
     that.store_to_window = function(){
         if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
-        window.gridviews[that.data.containerid] = that;
+        window.gridviews[that.data.id] = that;
     };
     that.reload = {
         gridview: function(){
