@@ -10,6 +10,7 @@ Asyst.GridView = function(options){
         entitytitle: null,
         viewname: null,
         viewtitle: null,
+        viewnameCookie: getPageCookie('CurrentViewName'),
         editable: false,
         closeButton: true,
         setDocumentTitle: false,
@@ -100,8 +101,14 @@ Asyst.GridView = function(options){
                         view.IsExtFilterVisible = false; //override
                         view.IsEditable = that.data.editable;
                         view.IsViewSampled = false;
-                        if (!(that.data.viewname instanceof Array) && view.viewName == that.data.viewname) {
-                            view.selected = true;
+                        if (that.data.viewname && !(that.data.viewname instanceof Array)) {
+                            if (view.viewName == that.data.viewname) {
+                                view.selected = true;
+                            }
+                        } else {
+                            if (view.viewName == that.data.viewnameCookie) {
+                                view.selected = true;
+                            }
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
                             Asyst.Workspace.addView({
