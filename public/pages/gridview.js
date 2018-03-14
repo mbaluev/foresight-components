@@ -752,3 +752,69 @@ var GridView4 = function(options){
     that.init();
     return that;
 }; //short
+var GridViewEmpty = function(options){
+    var that = this._gridview = {};
+    that.data = {
+        containerid: '',
+        title: null,
+        render: null
+    };
+    that.data = $.extend(true, {}, that.data, options);
+    that.data._el = {
+        target: $('#' + that.data.containerid).css({ height: '100%' }),
+        name: $([
+            '<label class="card__name">',
+            '<span class="card__name-text card__name-text_color_red"></span>',
+            '</label>'
+        ].join('')),
+        content: $([
+            '<div class="card">',
+            '<div class="card__header">',
+            '<div class="card__header-row">',
+            '<div class="card__header-column card__header-column_start" id="grid__view"></div>',
+            '</div>',
+            '</div>',
+            '<div class="card__main">',
+            '<div class="card__middle">',
+            '<div class="card__middle-scroll" id="grid__container"></div>',
+            '</div>',
+            '</div>',
+            '</div>'
+        ].join('')),
+        loader: $('<span class="spinner spinner_align_center"></span>')
+    };
+
+    that.render = function(){
+        that.data._el.target.append(
+            that.data._el.content
+        );
+        that.render_title();
+    };
+
+    that.render_title = function(){
+        if (that.data.title) {
+            that.data._el.name.find('.card__name-text').text(that.data.title);
+            that.data._el.content.find('#grid__view').append(
+                that.data._el.name
+            );
+        }
+    };
+
+    that.loader_add = function(){
+        that.data._el.target.before(that.data._el.loader)
+    };
+    that.loader_remove = function(){
+        that.data._el.loader.remove();
+    };
+
+    that.init = function(){
+        that.loader_add();
+        setTimeout(function(){
+            that.render();
+            if (typeof that.data.render == 'function') { that.data.render(); }
+            that.loader_remove();
+        }, 100);
+    };
+    that.init();
+    return that;
+};

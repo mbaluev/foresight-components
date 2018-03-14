@@ -87,7 +87,7 @@ Asyst.GridView = function(options){
             }
         }
     };
-    that.load_metaView = function(callback){
+    that.load_metaView = function(callback1, callback2){
         Asyst.APIv2.DataSet.load({
             name: 'MetaView',
             data: {
@@ -96,7 +96,7 @@ Asyst.GridView = function(options){
                 AccountId: that.data.user.Id
             },
             success: function(data){
-                if (data[0]) {
+                if (data[0].length > 0) {
                     // get views parameters
                     var metaview = data[0];
                     if (!that.data.entityname && !(that.data.viewname instanceof Array) && that.data.viewname) {
@@ -160,11 +160,13 @@ Asyst.GridView = function(options){
                         document.title = that.data.title;
                     }
                     // do callback
-                    if (typeof callback == 'function') {
-                        callback();
+                    if (typeof callback1 == 'function') {
+                        callback1();
                     }
                 } else {
-                    console.log(data);
+                    if (typeof callback2 == 'function') {
+                        callback2();
+                    }
                 }
             },
             error: function(data){
@@ -491,6 +493,11 @@ Asyst.GridView = function(options){
                     title: that.data.title,
                     header: that.data.header,
                     render: that.load_view
+                });
+            }, function(){
+                that.data.gridview = new GridViewEmpty({
+                    containerid: that.data.containerid,
+                    title: 'Нет доступных представлений'
                 });
             });
         });
