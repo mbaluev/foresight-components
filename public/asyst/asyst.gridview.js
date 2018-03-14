@@ -12,6 +12,7 @@ Asyst.GridView = function(options){
         viewname: null,
         viewtitle: null,
         viewnameCookie: null,
+        viewnameStartsWith: null,
         editable: false,
         closeButton: true,
         setDocumentTitle: false,
@@ -55,7 +56,13 @@ Asyst.GridView = function(options){
                 success: function(data){
                     if (data[0]) {
                         data[0].map(function(v){
-                            that.data.metaviewnames.push(v.viewName);
+                            if (that.data.viewnameStartsWith) {
+                                if (v.viewName.indexOf(that.data.viewnameStartsWith) == 0) {
+                                    that.data.metaviewnames.push(v.viewName);
+                                }
+                            } else {
+                                that.data.metaviewnames.push(v.viewName);
+                            }
                         });
                         if (typeof callback == 'function') {
                             callback();
