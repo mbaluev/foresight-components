@@ -495,6 +495,7 @@ Asyst.GridView = function(options){
                     render: that.load_view
                 });
             }, function(){
+                that.loader_remove();
                 that.data.gridview = new GridViewEmpty({
                     containerid: that.data.containerid,
                     title: 'Нет доступных представлений'
