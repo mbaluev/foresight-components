@@ -5,6 +5,7 @@ Asyst.GridView = function(options){
     that.data = {
         id: '' + Date.now(),
         containerid: 'container',
+        user: Asyst.Workspace.currentUser,
         title: null,
         entityname: null,
         entitytitle: null,
@@ -48,7 +49,8 @@ Asyst.GridView = function(options){
             Asyst.APIv2.DataSet.load({
                 name: 'MetaViewNames',
                 data: {
-                    EntityName: that.data.entityname
+                    EntityName: that.data.entityname,
+                    AccountId: that.data.user.Id
                 },
                 success: function(data){
                     if (data[0]) {
@@ -83,7 +85,8 @@ Asyst.GridView = function(options){
             name: 'MetaView',
             data: {
                 EntityName: that.data.entityname,
-                ViewName: that.data.metaviewnames.join(',')
+                ViewName: that.data.metaviewnames.join(','),
+                AccountId: that.data.user.Id
             },
             success: function(data){
                 if (data[0]) {

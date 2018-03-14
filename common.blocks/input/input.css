@@ -97,13 +97,15 @@
     background-color: transparent;
     box-shadow: none;
     transition: unset;
-    height: auto;
     margin: 0;
-    line-height: 30px;
     padding: 0 10px;
     font-size: 13px;
     color: #333;
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+    top: 2px;
+    left: 2px;
+    height: 26px;
+    line-height: 26px;
 }
 .input.input_focused .input__control {
     box-shadow: none;
