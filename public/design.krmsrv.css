@@ -70,6 +70,7 @@
   line-height: normal;
   text-align: center;
   padding: 4px 10px;
+  box-sizing: border-box;
   background-color: #2057a7;
   border-radius: 5px;
   color: #fff;
@@ -198,6 +199,20 @@
   line-height: 10px;
   font-size: 12px;
   padding-left: 7px;
+}
+
+.alertbox__text {
+  z-index: 1;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  margin: 0 10px;
+  font-size: 13px;
+  line-height: 30px;
 }
 
 .grid img {

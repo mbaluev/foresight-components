@@ -1,0 +1,11 @@
+.alertbox__text {
+    z-index: 1;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+}
