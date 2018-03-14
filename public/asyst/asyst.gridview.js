@@ -101,9 +101,10 @@ Asyst.GridView = function(options){
                         view.viewName = (view.viewName ? view.viewName : view.entityName);
 
                         //view.IsWideString = false; //override
-                        view.IsExtFilterVisible = false; //override
-                        view.IsEditable = that.data.editable;
+                        //view.IsExtFilterVisible = false; //override
+                        view.IsEditable = false;
                         view.IsViewSampled = false;
+
                         if (that.data.viewname && !(that.data.viewname instanceof Array)) {
                             if (view.viewName == that.data.viewname) {
                                 view.selected = true;
@@ -122,11 +123,13 @@ Asyst.GridView = function(options){
                                     title: view.entityTitle
                                 },
                                 title: view.viewTitle,
+                                isEditable: (view.IsEditable ? view.IsEditable : false),
+                                isViewSampled: (view.IsViewSampled ? view.IsViewSampled : false),
                                 isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                 isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
-                                isEditable: (view.IsEditable ? view.IsEditable : false),
-                                isViewSampled: (view.IsViewSampled ? view.IsViewSampled : false),
+                                isCreate: (view.IsCreate ? view.IsCreate : false),
+                                isDelete: (view.IsDelete ? view.IsDelete : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
                                 viewSamples: {}
                             }, view.viewName);
@@ -404,7 +407,7 @@ Asyst.GridView = function(options){
     };
     that.init_settings = function(){
         that.data.header.settings = [];
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isEditable) {
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isCreate) {
             that.data.header.settings.push({
                 icon: 'icon_svg_plus',
                 name: 'Добавить',
@@ -414,6 +417,8 @@ Asyst.GridView = function(options){
                     });
                 }
             });
+        }
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isDelete) {
             that.data.header.settings.push({
                 icon: 'icon_svg_trash',
                 name: 'Удалить',
