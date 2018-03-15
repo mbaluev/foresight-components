@@ -97,6 +97,7 @@ html, body {
     height: 100%;
     overflow: auto;
     overflow-x: hidden;
+    flex: 1 1 auto;
 }
 .fs-view__middle-inner {
     position: relative;
@@ -110,6 +111,7 @@ html, body {
     transition: 0.5s;
 }
 .fs-view__middle-right {
+    position: relative;
     z-index: 3;
     width: 230px;
     min-width: 230px;

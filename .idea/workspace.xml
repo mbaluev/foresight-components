@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/design/krmsrv/common.blocks/alertbox/alertbox.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/alertbox/alertbox.css" afterPath="$PROJECT_DIR$/common.blocks/alertbox/alertbox.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/menu/menu.css" afterPath="$PROJECT_DIR$/common.blocks/menu/menu.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" afterPath="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -430,15 +428,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/design/krmsrv/common.blocks/header/header.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.02238806">
+            <state vertical-scroll-proportion="0.0">
               <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
               <folding>
                 <element signature="e#54#322#0" expanded="false" />
                 <element signature="e#346#424#0" expanded="false" />
                 <element signature="e#459#504#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fs-view.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4477612">
+              <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+              <folding>
+                <element signature="e#11#112#0" expanded="false" />
+                <element signature="e#123#363#0" expanded="false" />
+                <element signature="e#388#413#0" expanded="false" />
+                <element signature="e#432#574#0" expanded="false" />
+                <element signature="e#618#723#0" expanded="false" />
+                <element signature="e#754#779#0" expanded="false" />
+                <element signature="e#796#980#0" expanded="false" />
+                <element signature="e#1000#1021#0" expanded="false" />
+                <element signature="e#1044#1072#0" expanded="false" />
+                <element signature="e#1093#1139#0" expanded="false" />
+                <element signature="e#1158#1318#0" expanded="false" />
+                <element signature="e#1341#1357#0" expanded="false" />
+                <element signature="e#1381#1540#0" expanded="false" />
+                <element signature="e#1565#1707#0" expanded="false" />
+                <element signature="e#1731#1758#0" expanded="false" />
+                <element signature="e#1793#1853#0" expanded="false" />
+                <element signature="e#1887#1912#0" expanded="false" />
+                <element signature="e#1936#2041#0" expanded="false" />
+                <element signature="e#2072#2101#0" expanded="false" />
+                <element signature="e#2129#2150#0" expanded="false" />
+                <element signature="e#2177#2223#0" expanded="false" />
+                <element signature="e#2252#2957#0" expanded="false" />
+                <element signature="e#2321#2383#0" expanded="false" />
+                <element signature="e#2425#2604#0" expanded="false" />
+                <element signature="e#2667#2698#0" expanded="false" />
+                <element signature="e#2742#2875#0" expanded="false" />
+                <element signature="e#2926#2955#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -462,7 +498,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/darksight.html" />
         <option value="$PROJECT_DIR$/common.blocks/datepicker/datepicker.css" />
         <option value="$PROJECT_DIR$/common.blocks/popup/popup.css" />
         <option value="$PROJECT_DIR$/common.blocks/widget/widget.js" />
@@ -513,6 +548,7 @@
         <option value="$PROJECT_DIR$/design/krmsrv/common.blocks/alertbox/alertbox.css" />
         <option value="$PROJECT_DIR$/common.blocks/alertbox/alertbox.css" />
         <option value="$PROJECT_DIR$/common.blocks/menu/menu.css" />
+        <option value="$PROJECT_DIR$/common.blocks/fs-view/fs-view.css" />
       </list>
     </option>
   </component>
@@ -661,6 +697,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fs-view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2176,12 +2230,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/design/krmsrv/common.blocks/header/header.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.02238806">
+        <state vertical-scroll-proportion="0.0">
           <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
           <folding>
             <element signature="e#54#322#0" expanded="false" />
             <element signature="e#346#424#0" expanded="false" />
             <element signature="e#459#504#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/fs-view/fs-view.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4477612">
+          <caret line="92" column="24" selection-start-line="92" selection-start-column="24" selection-end-line="92" selection-end-column="24" />
+          <folding>
+            <element signature="e#11#112#0" expanded="false" />
+            <element signature="e#123#363#0" expanded="false" />
+            <element signature="e#388#413#0" expanded="false" />
+            <element signature="e#432#574#0" expanded="false" />
+            <element signature="e#618#723#0" expanded="false" />
+            <element signature="e#754#779#0" expanded="false" />
+            <element signature="e#796#980#0" expanded="false" />
+            <element signature="e#1000#1021#0" expanded="false" />
+            <element signature="e#1044#1072#0" expanded="false" />
+            <element signature="e#1093#1139#0" expanded="false" />
+            <element signature="e#1158#1318#0" expanded="false" />
+            <element signature="e#1341#1357#0" expanded="false" />
+            <element signature="e#1381#1540#0" expanded="false" />
+            <element signature="e#1565#1707#0" expanded="false" />
+            <element signature="e#1731#1758#0" expanded="false" />
+            <element signature="e#1793#1853#0" expanded="false" />
+            <element signature="e#1887#1912#0" expanded="false" />
+            <element signature="e#1936#2041#0" expanded="false" />
+            <element signature="e#2072#2101#0" expanded="false" />
+            <element signature="e#2129#2150#0" expanded="false" />
+            <element signature="e#2177#2223#0" expanded="false" />
+            <element signature="e#2252#2957#0" expanded="false" />
+            <element signature="e#2321#2383#0" expanded="false" />
+            <element signature="e#2425#2604#0" expanded="false" />
+            <element signature="e#2667#2698#0" expanded="false" />
+            <element signature="e#2742#2875#0" expanded="false" />
+            <element signature="e#2926#2955#0" expanded="false" />
           </folding>
         </state>
       </provider>

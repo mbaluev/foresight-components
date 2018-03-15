@@ -172,6 +172,9 @@ body {
   height: 100%;
   overflow: auto;
   overflow-x: hidden;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .fs-view__middle-inner {
@@ -188,6 +191,7 @@ body {
 }
 
 .fs-view__middle-right {
+  position: relative;
   z-index: 3;
   width: 230px;
   min-width: 230px;
