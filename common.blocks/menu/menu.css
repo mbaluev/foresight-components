@@ -54,8 +54,8 @@
     color: #fff;
     font-size: 13px;
     line-height: 16px;
-    flex-grow: 1;
     max-width: 100%;
+    flex: 1 1 auto;
 }
 .menu__item-text + .menu__item-text {
     flex: 0 0 auto;
