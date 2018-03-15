@@ -71,6 +71,7 @@
   text-align: center;
   padding: 4px 10px;
   box-sizing: border-box;
+  display: block;
   background-color: #2057a7;
   border-radius: 5px;
   color: #fff;
@@ -201,18 +202,10 @@
   padding-left: 7px;
 }
 
-.alertbox__text {
-  z-index: 1;
-  position: relative;
+.alertbox {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: top;
-  margin: 0 10px;
-  font-size: 13px;
-  line-height: 30px;
 }
 
 .grid img {
