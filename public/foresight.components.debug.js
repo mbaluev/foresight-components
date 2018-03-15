@@ -2755,7 +2755,7 @@ $(function(){
                                 '<div class="gallery__image"></div>',
                                 '<div class="gallery__error">',
                                 '<div class="icon icon_svg_close"></div>',
-                                '<div class="gallery__error-info">Отсутствует изображение</div>',
+                                '<div class="gallery__error-info">Ошибка</div>',
                                 '</div>',
                                 '<div class="gallery__filename"></div>',
                                 '</a></div>'
