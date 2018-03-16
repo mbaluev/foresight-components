@@ -1,6 +1,10 @@
 label {
     display: inline;
 }
+[hidden] {
+    display: none;
+    visibility: hidden;
+}
 .page {
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     font-size: 13px;
