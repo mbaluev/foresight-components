@@ -291,18 +291,34 @@
             }
         },
         value : function(value) {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.data._el.input.val(value);
-                });
-                return _val;
+            if (value) {
+                if (this.length == 1) {
+                    var _val = false;
+                    this.each(function() {
+                        _val = this.obj.data._el.input.val(value);
+                    });
+                    return _val;
+                } else {
+                    var _arr = [];
+                    this.each(function() {
+                        _arr.push(this.obj.data._el.input.val(value));
+                    });
+                    return _arr;
+                }
             } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.data._el.input.val(value));
-                });
-                return _arr;
+                if (this.length == 1) {
+                    var _val = false;
+                    this.each(function() {
+                        _val = this.obj.data._el.input.val();
+                    });
+                    return _val;
+                } else {
+                    var _arr = [];
+                    this.each(function() {
+                        _arr.push(this.obj.data._el.input.val());
+                    });
+                    return _arr;
+                }
             }
         }
     };
