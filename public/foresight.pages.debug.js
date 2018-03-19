@@ -95,7 +95,7 @@ var Dashboard = function(options){
                 '<div class="card__header">',
                 '<div class="card__header-row card__header-row_wrap">',
                 '<div class="card__header-column" id="title"></div>',
-                '<div class="card__header-column_start" id="actions"></div>',
+                '<div class="card__header-column card__header-column_start" id="actions"></div>',
                 '</div>',
                 '</div>'
             ].join('')),
