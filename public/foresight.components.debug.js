@@ -5275,17 +5275,17 @@ $(function(){
                 return _arr;
             }
         },
-        value : function() {
+        value : function(value) {
             if (this.length == 1) {
                 var _val = false;
                 this.each(function() {
-                    _val = this.obj.data._el.input.val();
+                    _val = this.obj.data._el.input.val(value);
                 });
                 return _val;
             } else {
                 var _arr = [];
                 this.each(function() {
-                    _arr.push(this.obj.data._el.input.val());
+                    _arr.push(this.obj.data._el.input.val(value));
                 });
                 return _arr;
             }
