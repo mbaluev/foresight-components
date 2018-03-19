@@ -5119,6 +5119,22 @@ $(function(){
                     that.set_width = function(value){
                         self.css('width', value);
                     };
+                    that.set_value = function(value){
+                        that.data.value = value;
+                        that.data._el.input.val(value);
+                        if (that.data.toggle == 'datepicker') {
+                            var date_parts = that.data.value.split(".");
+                            var date = new Date(Date.parse(date_parts[2] + '-' + date_parts[1] + '-' + date_parts[0]));
+                            if (isNaN(date)) {
+                                that.data.value = '';
+                                self.removeAttr('data-value');
+                            } else {
+                                that.data.date = date;
+                                that.data.formattedDate = that.data.value;
+                                that.data._datepicker.selectDate(date);
+                            }
+                        }
+                    };
 
                     that.validate = function(){
                         that.data.validate = true;
@@ -5277,19 +5293,9 @@ $(function(){
         },
         value : function(value) {
             if (value) {
-                if (this.length == 1) {
-                    var _val = false;
-                    this.each(function() {
-                        _val = this.obj.data._el.input.val(value);
-                    });
-                    return _val;
-                } else {
-                    var _arr = [];
-                    this.each(function() {
-                        _arr.push(this.obj.data._el.input.val(value));
-                    });
-                    return _arr;
-                }
+                this.each(function() {
+                    this.obj.set_value(value);
+                });
             } else {
                 if (this.length == 1) {
                     var _val = false;
