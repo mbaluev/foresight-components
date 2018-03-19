@@ -15,7 +15,8 @@
                         width: '100%',
                         autoclose: true,
                         popup_animation: true,
-                        format: 'dd.MM.yyyy'
+                        format: 'dd.MM.yyyy',
+                        placeholder: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -28,7 +29,7 @@
                     that.data._datepicker = null;
                     that.data._el = {
                         button: self.find('button'),
-                        input: self.find('.input__control'),
+                        input: self.find('.input__control').attr('placeholder', that.data.placeholder),
                         popup: $('<div class="popup"></div>')
                     };
 
