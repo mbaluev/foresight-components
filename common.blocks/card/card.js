@@ -58,6 +58,9 @@
                                 that.hide_right();
                             })
                         );
+                        if (typeof setCookie == 'function') {
+                            setCookie('card_menu_left_hidden', false);
+                        }
                         $(window).trigger('resize');
                     };
                     that.show_right = function(){
@@ -69,6 +72,9 @@
                                 that.hide_right();
                             })
                         );
+                        if (typeof setCookie == 'function') {
+                            setCookie('card_menu_right_hidden', false);
+                        }
                         $(window).trigger('resize');
                     };
 
