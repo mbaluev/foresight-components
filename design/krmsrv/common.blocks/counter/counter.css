@@ -5,10 +5,9 @@
 .counter .alertbox {
     width: 20px;
     min-width: 20px;
-}
-.counter .alertbox {
     background-color: transparent;
     border-radius: 0;
+    display: flex;
 }
 .counter .alertbox:before {
     background-color: transparent;
