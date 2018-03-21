@@ -4460,6 +4460,9 @@ body {
   font-size: 18px;
   line-height: normal;
   font-weight: normal;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .card__name-text_no-margin {
