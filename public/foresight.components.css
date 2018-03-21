@@ -2648,6 +2648,9 @@ body {
 .counter .alertbox {
   margin: 0;
   width: 25px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .counter .alertbox__text {
@@ -3705,7 +3708,9 @@ body {
 .alertbox {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   position: relative;
-  display: inline-block;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   max-width: 100%;
   margin: 0;
   padding: 0;
