@@ -6870,7 +6870,7 @@ $(function(){
                     };
                     that.render_header_name = function(){
                         that.data._el.card__header_row_name.append($(
-                            '<div class="card__header-column">' +
+                            '<div class="card__header-column card__header-column_flex_1-1-auto">' +
                                 '<label class="card__name">' +
                                     '<span class="card__name-text">' + that.data.header.name + '</span>' +
                                 '</label>' +
