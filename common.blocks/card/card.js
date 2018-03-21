@@ -31,7 +31,7 @@
                     };
 
                     that.hide_left = function(){
-                        that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
+                        that.data._el.button_toggle_left.find('.icon').removeClass('icon_rotate_180deg');
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
@@ -40,7 +40,7 @@
                         $(window).trigger('resize');
                     };
                     that.hide_right = function(){
-                        that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
+                        that.data._el.button_toggle_right.find('.icon').removeClass('icon_rotate_180deg');
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
@@ -50,7 +50,7 @@
                     };
 
                     that.show_left = function(){
-                        that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
+                        that.data._el.button_toggle_left.find('.icon').addClass('icon_rotate_180deg');
                         that.data._el.card__left.removeClass('card__left_hidden');
                         that.data._el.card__main.append(
                             that.data._el.card__backdrop.one('click', function(){
@@ -64,7 +64,7 @@
                         $(window).trigger('resize');
                     };
                     that.show_right = function(){
-                        that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
+                        that.data._el.button_toggle_right.find('.icon').addClass('icon_rotate_180deg');
                         that.data._el.card__right.removeClass('card__right_hidden');
                         that.data._el.card__main.append(
                             that.data._el.card__backdrop.one('click', function(){
