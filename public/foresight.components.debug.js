@@ -5569,7 +5569,9 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         hiddenLeft: false,
-                        hiddenRight: false
+                        hiddenRight: false,
+                        menuLeftId: 'id' + (new Date()).valueOf(),
+                        menuRightId: 'id' + (new Date()).valueOf()
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -5577,8 +5579,8 @@ $(function(){
                     /* save widget options to self.data */
                     self.data(that.options);
                     that.data._el = {
-                        button_toggle_left: self.closestChild('[data-toggle="left"]'),
-                        button_toggle_right: self.closestChild('[data-toggle="right"]'),
+                        button_toggle_left: self.closestChild('[data-toggle="left"]').attr('id', that.data.menuLeftId),
+                        button_toggle_right: self.closestChild('[data-toggle="right"]').attr('id', that.data.menuRightId),
                         card__main: self.closestChild('.card__main'),
                         card__left: self.closestChild('.card__left'),
                         card__right: self.closestChild('.card__right'),
@@ -5593,12 +5595,18 @@ $(function(){
                         that.data._el.button_toggle_left.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
+                        if (typeof setCookie == 'function') {
+                            setCookie('card_menu_left_hidden', true);
+                        }
                         $(window).trigger('resize');
                     };
                     that.hide_right = function(){
                         that.data._el.button_toggle_right.find('.icon').toggleClass('icon_rotate_180deg');
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
+                        if (typeof setCookie == 'function') {
+                            setCookie('card_menu_right_hidden', true);
+                        }
                         $(window).trigger('resize');
                     };
 
@@ -5664,6 +5672,9 @@ $(function(){
                         if (that.data._el.button_toggle_left) {
                             if (that.data._el.button_toggle_left.length > 0) {
                                 that.data._el.button_toggle_left.button();
+                                if (typeof getCookie == 'function') {
+                                    that.data.hiddenLeft = (getCookie('card_menu_left_hidden') == 'true' ? true : false);
+                                }
                                 if (that.data.hiddenLeft) {
                                     that.hide_left();
                                 } else {
@@ -5677,6 +5688,9 @@ $(function(){
                         if (that.data._el.button_toggle_right) {
                             if (that.data._el.button_toggle_right.length > 0) {
                                 that.data._el.button_toggle_right.button();
+                                if (typeof getCookie == 'function') {
+                                    that.data.hiddenRight = (getCookie('card_menu_right_hidden') == 'true' ? true : false);
+                                }
                                 if (that.data.hiddenRight) {
                                     that.hide_right();
                                 } else {
