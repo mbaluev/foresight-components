@@ -41,11 +41,20 @@
     flex-wrap: wrap;
     justify-content: flex-end;
 }
+.card__header-column_nowrap {
+    flex-wrap: nowrap;
+}
 .card__header-column_start {
     justify-content: flex-start;
 }
 .card__header-column_stretch {
     width: 100%;
+}
+.card__header-column_flex_1-1-auto {
+    flex: 1 1 auto;
+}
+.card__header-column_flex_0-0-auto {
+    flex: 0 0 auto;
 }
 .card__header-column > * {
     flex-wrap: wrap;
