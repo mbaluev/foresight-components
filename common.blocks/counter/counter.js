@@ -107,7 +107,7 @@
                     that.counttime = function(){
                         render();
                         setInterval(function(){
-                            render();
+                            //render();
                         }, 1e3);
                         function pad(a,b){ return([1e15]+a).slice(-b); }
                         function render(){

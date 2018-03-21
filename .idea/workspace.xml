@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/krmsrv/common.blocks/counter/counter.css" afterPath="$PROJECT_DIR$/design/krmsrv/common.blocks/counter/counter.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/counter/counter.js" afterPath="$PROJECT_DIR$/common.blocks/counter/counter.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -822,21 +822,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="counter.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="counter.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/design/krmsrv/common.blocks/counter/counter.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2238806">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="select.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common.blocks/select/select.js">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="569" column="3" selection-start-line="569" selection-start-column="3" selection-end-line="569" selection-end-column="3" />
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -977,6 +967,45 @@
                 <element signature="e#24287#24356#0" expanded="false" />
                 <element signature="e#24362#24449#0" expanded="false" />
                 <element signature="e#24483#24524#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="counter.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/counter/counter.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.29104477">
+              <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
+              <folding>
+                <element signature="e#835#940#0" expanded="false" />
+                <element signature="e#990#6078#0" expanded="false" />
+                <element signature="e#1053#6054#0" expanded="false" />
+                <element signature="e#1215#6028#0" expanded="false" />
+                <element signature="e#1435#2501#0" expanded="false" />
+                <element signature="e#1631#2064#0" expanded="false" />
+                <element signature="e#1694#2003#0" expanded="false" />
+                <element signature="e#2159#2449#0" expanded="false" />
+                <element signature="e#2765#3150#0" expanded="false" />
+                <element signature="e#2820#3097#0" expanded="false" />
+                <element signature="e#3229#3487#0" expanded="false" />
+                <element signature="e#3691#4076#0" expanded="false" />
+                <element signature="e#3746#4023#0" expanded="false" />
+                <element signature="e#4155#4413#0" expanded="false" />
+                <element signature="e#4615#5000#0" expanded="false" />
+                <element signature="e#4670#4947#0" expanded="false" />
+                <element signature="e#5079#5337#0" expanded="false" />
+                <element signature="e#5539#5924#0" expanded="false" />
+                <element signature="e#5594#5871#0" expanded="false" />
+                <element signature="e#6398#8821#0" expanded="false" />
+                <element signature="e#6632#6993#0" expanded="false" />
+                <element signature="e#6683#6944#0" expanded="false" />
+                <element signature="e#7064#7306#0" expanded="false" />
+                <element signature="e#7500#7861#0" expanded="false" />
+                <element signature="e#7551#7812#0" expanded="false" />
+                <element signature="e#7932#8174#0" expanded="false" />
+                <element signature="e#8368#8729#0" expanded="false" />
+                <element signature="e#8419#8680#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -1225,7 +1254,6 @@
         <option value="$PROJECT_DIR$/common.blocks/calendar/calendar.css" />
         <option value="$PROJECT_DIR$/common.blocks/datepicker/datepicker.css" />
         <option value="$PROJECT_DIR$/common.blocks/page/page.css" />
-        <option value="$PROJECT_DIR$/common.blocks/counter/counter.js" />
         <option value="$PROJECT_DIR$/common.blocks/counter/counter.css" />
         <option value="$PROJECT_DIR$/public/pages/dashboard.js" />
         <option value="$PROJECT_DIR$/common.blocks/input/input.js" />
@@ -1233,6 +1261,7 @@
         <option value="$PROJECT_DIR$/common.blocks/card/card.css" />
         <option value="$PROJECT_DIR$/common.blocks/card/card.js" />
         <option value="$PROJECT_DIR$/design/krmsrv/common.blocks/counter/counter.css" />
+        <option value="$PROJECT_DIR$/common.blocks/counter/counter.js" />
       </list>
     </option>
   </component>
@@ -1417,6 +1446,38 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="krmsrv" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="counter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -2310,43 +2371,6 @@
             <element signature="e#6#30#0" expanded="false" />
             <element signature="e#40#86#0" expanded="false" />
             <element signature="e#93#290#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/counter/counter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="28" selection-start-line="109" selection-start-column="28" selection-end-line="109" selection-end-column="28" />
-          <folding>
-            <element signature="e#835#940#0" expanded="false" />
-            <element signature="e#990#6078#0" expanded="false" />
-            <element signature="e#1053#6054#0" expanded="false" />
-            <element signature="e#1215#6028#0" expanded="false" />
-            <element signature="e#1435#2501#0" expanded="false" />
-            <element signature="e#1631#2064#0" expanded="false" />
-            <element signature="e#1694#2003#0" expanded="false" />
-            <element signature="e#2159#2449#0" expanded="false" />
-            <element signature="e#2765#3150#0" expanded="false" />
-            <element signature="e#2820#3097#0" expanded="false" />
-            <element signature="e#3229#3487#0" expanded="false" />
-            <element signature="e#3691#4076#0" expanded="false" />
-            <element signature="e#3746#4023#0" expanded="false" />
-            <element signature="e#4155#4413#0" expanded="false" />
-            <element signature="e#4615#5000#0" expanded="false" />
-            <element signature="e#4670#4947#0" expanded="false" />
-            <element signature="e#5079#5337#0" expanded="false" />
-            <element signature="e#5539#5924#0" expanded="false" />
-            <element signature="e#5594#5871#0" expanded="false" />
-            <element signature="e#6396#8819#0" expanded="false" />
-            <element signature="e#6630#6991#0" expanded="false" />
-            <element signature="e#6681#6942#0" expanded="false" />
-            <element signature="e#7062#7304#0" expanded="false" />
-            <element signature="e#7498#7859#0" expanded="false" />
-            <element signature="e#7549#7810#0" expanded="false" />
-            <element signature="e#7930#8172#0" expanded="false" />
-            <element signature="e#8366#8727#0" expanded="false" />
-            <element signature="e#8417#8678#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3710,9 +3734,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/design/krmsrv/common.blocks/counter/counter.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2238806">
+        <state vertical-scroll-proportion="0.0">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/counter/counter.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29104477">
+          <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
+          <folding>
+            <element signature="e#835#940#0" expanded="false" />
+            <element signature="e#990#6078#0" expanded="false" />
+            <element signature="e#1053#6054#0" expanded="false" />
+            <element signature="e#1215#6028#0" expanded="false" />
+            <element signature="e#1435#2501#0" expanded="false" />
+            <element signature="e#1631#2064#0" expanded="false" />
+            <element signature="e#1694#2003#0" expanded="false" />
+            <element signature="e#2159#2449#0" expanded="false" />
+            <element signature="e#2765#3150#0" expanded="false" />
+            <element signature="e#2820#3097#0" expanded="false" />
+            <element signature="e#3229#3487#0" expanded="false" />
+            <element signature="e#3691#4076#0" expanded="false" />
+            <element signature="e#3746#4023#0" expanded="false" />
+            <element signature="e#4155#4413#0" expanded="false" />
+            <element signature="e#4615#5000#0" expanded="false" />
+            <element signature="e#4670#4947#0" expanded="false" />
+            <element signature="e#5079#5337#0" expanded="false" />
+            <element signature="e#5539#5924#0" expanded="false" />
+            <element signature="e#5594#5871#0" expanded="false" />
+            <element signature="e#6398#8821#0" expanded="false" />
+            <element signature="e#6632#6993#0" expanded="false" />
+            <element signature="e#6683#6944#0" expanded="false" />
+            <element signature="e#7064#7306#0" expanded="false" />
+            <element signature="e#7500#7861#0" expanded="false" />
+            <element signature="e#7551#7812#0" expanded="false" />
+            <element signature="e#7932#8174#0" expanded="false" />
+            <element signature="e#8368#8729#0" expanded="false" />
+            <element signature="e#8419#8680#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
