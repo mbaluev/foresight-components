@@ -32,7 +32,7 @@
                         target: self,
                         card: $('<div class="card" data-fc="card"></div>'),
                         card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_row: $('<div class="card__header-row card__header-column_start"></div>'),
                         card__header_column: $([
                             '<div class="card__header-column">',
                             '<label class="card__name">',
