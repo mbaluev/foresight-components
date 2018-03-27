@@ -3558,7 +3558,9 @@ $(function(){
                             if (that.data.type == 'image') {
                                 $item = $([
                                     '<div class="carousel__item">',
-                                    (item.url ? '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(\"' + item.image + '\")"></a>' : '<span class="carousel__item-image link" style="background-image: url(' + item.image + ')"></span>'),
+                                    (item.url ?
+                                    '<a href="' + item.url + '" class="carousel__item-image link" style="background-image: url(\'' + item.image + '\')"></a>' :
+                                    '<span class="carousel__item-image link" style="background-image: url(\'' + item.image + '\')"></span>'),
                                     '<span class="carousel__item-image-text" data-tooltip="' + item.name + '">' + item.name + '</span>',
                                     '</div>'
                                 ].join(''));
