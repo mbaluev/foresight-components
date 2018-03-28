@@ -107,6 +107,16 @@
 .button.button_checked:before { background-color: #ffeba0; }
 .button.button_checked.button_disabled { background: rgba(0,0,0,.2); }
 
+.button_highlighted {
+    background: #63c163;
+}
+.button_highlighted:before {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}
+
 .button .icon {
     width: 30px;
     position: relative;
