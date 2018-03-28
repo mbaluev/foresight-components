@@ -5244,6 +5244,7 @@ $(function(){
                                 if (that.data.autoclose) {
                                     that.data._el.popup.popup('hide');
                                 }
+                                that.highlight();
                             }
                         });
                         // put datepicker to popup
