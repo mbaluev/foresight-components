@@ -15,6 +15,8 @@ Asyst.GridView = function(options){
         viewnameStartsWith: null,
         editable: false,
         closeButton: true,
+        isSearch: true,
+        isExport: true,
         setDocumentTitle: false,
         metaviewnames: [],
         params: splitGETString(),
@@ -401,7 +403,7 @@ Asyst.GridView = function(options){
         that.data.header.reload.onclick = function(){
             that.load_view();
         };
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isSearch) {
+        if (that.data.isSearch) {
             that.data.header.search = {
                 onkeyup: function(e){
                     var value = $(this).val();
@@ -461,7 +463,7 @@ Asyst.GridView = function(options){
                 }
             });
         }
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExport) {
+        if (that.data.isExport) {
             that.data.header.settings.push({
                 icon: 'icon_svg_export',
                 name: 'Выгрузка',
