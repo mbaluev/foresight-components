@@ -3964,6 +3964,24 @@ body {
   left: 2px;
 }
 
+.input_filled {
+  background: #63c163;
+}
+
+.input_filled:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
+.input_filled .button:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
 .input__box {
   position: relative;
   display: -webkit-box;

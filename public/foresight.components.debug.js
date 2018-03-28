@@ -5015,7 +5015,7 @@ $(function(){
                     that.data._handlers_input = null;
                     that.data._datepicker = null;
                     that.data._el = {
-                        button: self.find('button'),
+                        button: self.find('.button').attr('tabIndex', '-1'),
                         input: self.find('.input__control').attr('placeholder', that.data.placeholder),
                         popup: $('<div class="popup"></div>')
                     };
