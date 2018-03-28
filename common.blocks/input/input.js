@@ -150,6 +150,7 @@
                                 that.data._datepicker.selectDate(date);
                             }
                         }
+                        that.highlight();
                     };
 
                     that.validate = function(){

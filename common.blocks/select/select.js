@@ -313,6 +313,7 @@
                         if (that.data.mode == 'check') {
                             that.check_checkall();
                         }
+                        that.highlight();
                     };
                     that.uncheck_all = function(){
                         that.data._el.popup__list_items.forEach(function(item){
@@ -328,6 +329,7 @@
                         if (that.data.mode == 'check') {
                             that.uncheck_checkall();
                         }
+                        that.highlight();
                     };
 
                     that.check = function(value){
@@ -349,6 +351,7 @@
                         if (_trigger) {
                             self.trigger('change');
                         }
+                        that.highlight();
                     };
                     that.uncheck = function(value){
                         var _trigger = false;
@@ -363,6 +366,7 @@
                         if (_trigger) {
                             self.trigger('change');
                         }
+                        that.highlight();
                     };
 
                     that.check_checkall = function(){

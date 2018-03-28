@@ -2117,6 +2117,7 @@ $(function(){
                         if (that.data.mode == 'check') {
                             that.check_checkall();
                         }
+                        that.highlight();
                     };
                     that.uncheck_all = function(){
                         that.data._el.popup__list_items.forEach(function(item){
@@ -2132,6 +2133,7 @@ $(function(){
                         if (that.data.mode == 'check') {
                             that.uncheck_checkall();
                         }
+                        that.highlight();
                     };
 
                     that.check = function(value){
@@ -2153,6 +2155,7 @@ $(function(){
                         if (_trigger) {
                             self.trigger('change');
                         }
+                        that.highlight();
                     };
                     that.uncheck = function(value){
                         var _trigger = false;
@@ -2167,6 +2170,7 @@ $(function(){
                         if (_trigger) {
                             self.trigger('change');
                         }
+                        that.highlight();
                     };
 
                     that.check_checkall = function(){
@@ -5155,6 +5159,7 @@ $(function(){
                                 that.data._datepicker.selectDate(date);
                             }
                         }
+                        that.highlight();
                     };
 
                     that.validate = function(){
