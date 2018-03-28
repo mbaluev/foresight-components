@@ -401,18 +401,20 @@ Asyst.GridView = function(options){
         that.data.header.reload.onclick = function(){
             that.load_view();
         };
-        that.data.header.search = {
-            onkeyup: function(e){
-                var value = $(this).val();
-                Slick.GlobalEditorLock.cancelCurrentEdit();
-                if (e.which == 27) { value = ''; }
-                that.data.grid.UpdateQuickFilter(value);
-            },
-            onclear: function(e){
-                Slick.GlobalEditorLock.cancelCurrentEdit();
-                that.data.grid.UpdateQuickFilter('');
-            }
-        };
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isSearch) {
+            that.data.header.search = {
+                onkeyup: function(e){
+                    var value = $(this).val();
+                    Slick.GlobalEditorLock.cancelCurrentEdit();
+                    if (e.which == 27) { value = ''; }
+                    that.data.grid.UpdateQuickFilter(value);
+                },
+                onclear: function(e){
+                    Slick.GlobalEditorLock.cancelCurrentEdit();
+                    that.data.grid.UpdateQuickFilter('');
+                }
+            };
+        }
     };
     that.init_settings = function(){
         that.data.header.settings = [];
@@ -459,16 +461,18 @@ Asyst.GridView = function(options){
                 }
             });
         }
-        that.data.header.settings.push({
-            icon: 'icon_svg_export',
-            name: 'Выгрузка',
-            onclick: function(){
-                Model.CurrentViewName = that.data.viewname;
-                viewName = that.data.viewname;
-                window[viewName] = that.data.grid;
-                Grid.ExportToXlsx();
-            }
-        });
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExport) {
+            that.data.header.settings.push({
+                icon: 'icon_svg_export',
+                name: 'Выгрузка',
+                onclick: function(){
+                    Model.CurrentViewName = that.data.viewname;
+                    viewName = that.data.viewname;
+                    window[viewName] = that.data.grid;
+                    Grid.ExportToXlsx();
+                }
+            });
+        }
         if (that.data.closeButton) {
             that.data.header.settings.push({
                 icon: 'icon_svg_close',
