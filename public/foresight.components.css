@@ -2641,6 +2641,17 @@ body {
   display: none;
 }
 
+.select__container.select_checked > .button {
+  background: #63c163;
+}
+
+.select__container.select_checked > .button:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
 .counter {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: -webkit-box;
