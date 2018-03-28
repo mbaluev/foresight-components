@@ -1825,7 +1825,8 @@ $(function(){
                         placeholder_selected: false,
                         minimum_count_selected: 2,
                         autoclose: false,
-                        highlight: false
+                        highlight: false,
+                        search: true
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -1964,8 +1965,10 @@ $(function(){
                         that.data._el.select.append(
                             that.data._el.button,
                             that.data._el.popup.append(
-                                that.data._el.popup__input.append(
-                                    that.data._el.input
+                                (that.data.search ?
+                                    that.data._el.popup__input.append(
+                                        that.data._el.input
+                                    ) : null
                                 ),
                                 that.data._el.popup__scroll.append(
                                     that.data._el.popup__list.append(
