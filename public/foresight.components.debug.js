@@ -1824,7 +1824,8 @@ $(function(){
                         count_selected: "Выбрано # из %",
                         placeholder_selected: false,
                         minimum_count_selected: 2,
-                        autoclose: false
+                        autoclose: false,
+                        highlight: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -2181,6 +2182,16 @@ $(function(){
                         item.removeClass('popup__list-item_checked');
                     };
 
+                    that.highlight = function(){
+                        if (that.data.highlight) {
+                            if (that.get_value()) {
+                                that.data._el.select.addClass('select_checked');
+                            } else {
+                                that.data._el.select.removeClass('select_checked');
+                            }
+                        }
+                    };
+
                     that.bind = function(){
                         that.data._el.popup__list_items.forEach(function(item){
                             var idata = item.data();
@@ -2212,6 +2223,9 @@ $(function(){
                                     if (that.data.autoclose) {
                                         that.focusout();
                                     }
+                                    if (that.data.highlight) {
+                                        that.highlight();
+                                    }
                                     self.trigger('change');
                                 });
                             }
@@ -2235,6 +2249,9 @@ $(function(){
                             that.data._el.popup__list_item_checkall.on('click', function(){
                                 idata.selected = !idata.selected;
                                 idata.selected ? that.check_all() : that.uncheck_all();
+                                if (that.data.highlight) {
+                                    that.highlight();
+                                }
                                 self.trigger('change');
                             });
                         }
@@ -2277,6 +2294,7 @@ $(function(){
                         }
                         that.set_width(that.data.width);
                         that.set_button_text();
+                        that.highlight();
                     };
                     that.init();
                 }
@@ -5003,7 +5021,8 @@ $(function(){
                         autoclose: true,
                         popup_animation: true,
                         format: 'dd.MM.yyyy',
-                        placeholder: null
+                        placeholder: null,
+                        highlight: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -5157,10 +5176,22 @@ $(function(){
                         }
                         return that.data.validate;
                     };
+                    that.highlight = function(){
+                        if (that.data.highlight) {
+                            if (that.data._el.input.val() != '') {
+                                self.addClass('input_filled');
+                            } else {
+                                self.removeClass('input_filled');
+                            }
+                        }
+                    };
 
                     that.bind = function(){
                         that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
+                        if (that.data.highlight) {
+                            that.data._el.input.bindFirst('keyup.input__control', null, null, that.highlight);
+                        }
                         that.data._el.button.on('click.input__clear', null, null, function(e){
                             e.preventDefault();
                             that.clear();
@@ -5232,6 +5263,7 @@ $(function(){
                             that.show();
                         }
                         that.set_width(that.data.width);
+                        that.highlight();
                     };
                     that.init();
                 }

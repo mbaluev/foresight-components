@@ -16,7 +16,8 @@
                         autoclose: true,
                         popup_animation: true,
                         format: 'dd.MM.yyyy',
-                        placeholder: null
+                        placeholder: null,
+                        highlight: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -170,10 +171,22 @@
                         }
                         return that.data.validate;
                     };
+                    that.highlight = function(){
+                        if (that.data.highlight) {
+                            if (that.data._el.input.val() != '') {
+                                self.addClass('input_filled');
+                            } else {
+                                self.removeClass('input_filled');
+                            }
+                        }
+                    };
 
                     that.bind = function(){
                         that.data._el.input.bindFirst('focusin.input__control mousedown.input__control touchstart.input__control', null, null, that.focusin);
                         that.data._el.input.bindFirst('focusout.input__control', null, null, that.focusout);
+                        if (that.data.highlight) {
+                            that.data._el.input.bindFirst('keyup.input__control', null, null, that.highlight);
+                        }
                         that.data._el.button.on('click.input__clear', null, null, function(e){
                             e.preventDefault();
                             that.clear();
@@ -245,6 +258,7 @@
                             that.show();
                         }
                         that.set_width(that.data.width);
+                        that.highlight();
                     };
                     that.init();
                 }

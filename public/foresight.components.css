@@ -3957,24 +3957,6 @@ body {
   left: 1px;
 }
 
-.input_focused {
-  background: #5a97f2;
-}
-
-.input_focused:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
-.input_focused .button:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
 .input_filled {
   background: #63c163;
 }
@@ -3987,6 +3969,24 @@ body {
 }
 
 .input_filled .button:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
+.input_focused {
+  background: #5a97f2;
+}
+
+.input_focused:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
+.input_focused .button:before {
   top: 2px;
   right: 2px;
   bottom: 2px;

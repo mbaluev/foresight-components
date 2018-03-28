@@ -20,7 +20,8 @@
                         count_selected: "Выбрано # из %",
                         placeholder_selected: false,
                         minimum_count_selected: 2,
-                        autoclose: false
+                        autoclose: false,
+                        highlight: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -377,6 +378,16 @@
                         item.removeClass('popup__list-item_checked');
                     };
 
+                    that.highlight = function(){
+                        if (that.data.highlight) {
+                            if (that.get_value()) {
+                                that.data._el.select.addClass('select_checked');
+                            } else {
+                                that.data._el.select.removeClass('select_checked');
+                            }
+                        }
+                    };
+
                     that.bind = function(){
                         that.data._el.popup__list_items.forEach(function(item){
                             var idata = item.data();
@@ -408,6 +419,9 @@
                                     if (that.data.autoclose) {
                                         that.focusout();
                                     }
+                                    if (that.data.highlight) {
+                                        that.highlight();
+                                    }
                                     self.trigger('change');
                                 });
                             }
@@ -431,6 +445,9 @@
                             that.data._el.popup__list_item_checkall.on('click', function(){
                                 idata.selected = !idata.selected;
                                 idata.selected ? that.check_all() : that.uncheck_all();
+                                if (that.data.highlight) {
+                                    that.highlight();
+                                }
                                 self.trigger('change');
                             });
                         }
@@ -473,6 +490,7 @@
                         }
                         that.set_width(that.data.width);
                         that.set_button_text();
+                        that.highlight();
                     };
                     that.init();
                 }
