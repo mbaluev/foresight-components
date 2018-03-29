@@ -3166,7 +3166,7 @@ $(function(){
                         onSelect: null,
                         onSelectAllowed: true,
                         useItemsLength: true,
-                        selectToday: true
+                        initDate: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3367,8 +3367,8 @@ $(function(){
                             that.data._el.calendar__datepicker.find('.datepicker--cells-days').addClass('datepicker__cells-days-border');
                         }
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;
-                        if (that.data.selectToday) {
-                            that.data._datepicker.selectDate(new Date(that.data._today.getFullYear(), that.data._today.getMonth(), that.data._today.getDate()));
+                        if (that.data.initDate) {
+                            that.data._datepicker.selectDate(that.data.initDate);
                         }
                         that.data._showModal = true;
                     };
