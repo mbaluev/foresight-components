@@ -106,12 +106,6 @@
     -webkit-appearance: none;
     flex: 1 1 auto;
 }
-.input_size_small .input__control {
-    top: 0;
-    left: 0;
-    height: 24px;
-    line-height: 24px;
-}
 
 .input .input__control {
     border: none;
@@ -129,8 +123,14 @@
     height: 26px;
     line-height: 26px;
 }
-.input.input_focused .input__control {
+.input_focused .input__control {
     box-shadow: none;
+}
+.input_size_small .input__control {
+    top: 0;
+    left: 0;
+    height: 24px;
+    line-height: 24px;
 }
 
 .input__control::-ms-clear {
