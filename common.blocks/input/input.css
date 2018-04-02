@@ -106,6 +106,12 @@
     -webkit-appearance: none;
     flex: 1 1 auto;
 }
+.input_size_samll .input__control {
+    top: 0;
+    left: 0;
+    height: 24px;
+    line-height: 24px;
+}
 
 .input .input__control {
     border: none;
