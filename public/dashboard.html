@@ -190,8 +190,68 @@
     <script>
         var dashboard;
         $(function(){
-            //var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"name":"Логотип","collapsed":false,"color":"#ccc","pagename":"LibraryMisc","elementname":"Logo"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"name":"Календарь","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":4,"y":0,"width":2,"height":5,"settings":{"name":"Мои совещания","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"MyMeetings"}},{"x":6,"y":0,"width":2,"height":5,"settings":{"name":"Риски моих проектов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyRisksPie"}},{"x":0,"y":5,"width":2,"height":3,"settings":{"name":"Сообщения для меня","collapsed":true,"color":"#ff5940","pagename":null,"elementname":null}},{"x":6,"y":5,"width":2,"height":5,"settings":{"name":"Мои поручения","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyOrders"}},{"x":4,"y":5,"width":2,"height":5,"settings":{"name":"Инициативы для меня","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"ForMeInitiative"}},{"x":0,"y":8,"width":2,"height":5,"settings":{"name":"Мои КТ","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyPoints"}},{"x":2,"y":8,"width":2,"height":5,"settings":{"name":"КТ от меня","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"PointsFromMe"}},{"x":6,"y":10,"width":2,"height":5,"settings":{"name":"Бабл чарт моих контрактов","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyContractBubble"}},{"x":4,"y":10,"width":2,"height":5,"settings":{"name":"Мои инициативы","collapsed":true,"color":"#ccc","pagename":"LibraryChart","elementname":"MyInitiative"}},{"x":1,"y":13,"width":3,"height":3,"settings":{"name":"Панель руководителя","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":0,"y":13,"width":1,"height":3,"settings":{"name":"Мои статус-отчеты","collapsed":true,"color":"#5a97f2","pagename":null,"elementname":null}},{"x":2,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChReqForMe"}},{"x":3,"y":19,"width":1,"height":3,"settings":{"name":"Проекты на стадию","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"MyProjectMoveToNextPhase"}},{"x":4,"y":15,"width":4,"height":7,"settings":{"name":"Матрица рисков","collapsed":false,"color":"#ccc","pagename":"LibraryChart","elementname":"RiskMatrix"}},{"x":0,"y":16,"width":1,"height":3,"settings":{"name":"ОВ для меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyLov"}},{"x":1,"y":16,"width":1,"height":3,"settings":{"name":"Запросы на изменение от меня","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"ChReqFromMe"}},{"x":0,"y":19,"width":1,"height":3,"settings":{"name":"Мои инициативы на рассмотрении ЦПО","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyInitCPO"}},{"x":1,"y":19,"width":1,"height":3,"settings":{"name":"Мои документы","collapsed":false,"color":"#5a97f2","pagename":"LibraryCount","elementname":"MyDocs"}},{"x":3,"y":16,"width":1,"height":3,"settings":{"name":"ОВ от меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"LovFromMe"}},{"x":2,"y":19,"width":1,"height":3,"settings":{"name":"Чек-листы для меня","collapsed":false,"color":"#ff5940","pagename":"LibraryCount","elementname":"ChListForMe"}},{"x":8,"y":0,"width":4,"height":9,"settings":{"name":"Мои проекты","collapsed":true,"color":"#ccc","pagename":"LibraryTable","elementname":"MyProjects"}},{"x":8,"y":9,"width":4,"height":13,"settings":{"name":"Мои контракты","collapsed":false,"color":"#ccc","pagename":"LibraryTable","elementname":"MyContracts"}}];
-            var items = [{"x":4,"y":0,"width":2,"height":5,"settings":{"collapsible":false,"collapsed":false,"color":"#ccc","name":"MyMeetings","pagename":"LibraryChart","elementname":"MyMeetings","params":null}},{"x":6,"y":0,"width":2,"height":5,"settings":{"collapsible":true,"collapsed":false,"color":"#ccc","name":"Риски моих проектов","pagename":"LibraryChart","elementname":"MyRisksPie","params":null}},{"x":4,"y":5,"width":2,"height":5,"settings":{"collapsible":true,"collapsed":false,"color":"#ccc","name":"Инициативы для меня","pagename":"LibraryChart","elementname":"ForMeInitiative","params":null}},{"x":6,"y":5,"width":2,"height":5,"settings":{"collapsible":true,"collapsed":false,"color":"#ccc","name":"Мои поручения","pagename":"LibraryChart","elementname":"MyOrders","params":null}}];
+            var items = [
+                {
+                    "x":4,
+                    "y":0,
+                    "width":2,
+                    "height":5,
+                    "settings":{
+                        "collapsible":false,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "name":"MyMeetings",
+                        "pageid":"LibraryChart",
+                        "elementid":"MyMeetings",
+                        "params":null
+                    }
+                },
+                {
+                    "x":6,
+                    "y":0,
+                    "width":2,
+                    "height":5,
+                    "settings":{
+                        "collapsible":true,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "name":"Риски моих проектов",
+                        "pageid":"LibraryChart",
+                        "elementid":"MyRisksPie",
+                        "params":null
+                    }
+                },
+                {
+                    "x":4,
+                    "y":5,
+                    "width":2,
+                    "height":5,
+                    "settings":{
+                        "collapsible":true,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "name":"Инициативы для меня",
+                        "pageid":"LibraryChart",
+                        "elementid":"ForMeInitiative",
+                        "params":null
+                    }
+                },
+                {
+                    "x":6,
+                    "y":5,
+                    "width":2,
+                    "height":5,
+                    "settings":{
+                        "collapsible":true,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "name":"Мои поручения",
+                        "pageid":"LibraryChart",
+                        "elementid":"MyOrders",
+                        "params":null
+                    }
+                }
+            ];
             var library = [
                 {
                     text: 'Количественные виджеты',
@@ -300,48 +360,48 @@
             ];
             var contents = [
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'MyLov',
+                    pageid: 'LibraryCount',
+                    elementid: 'MyLov',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'LovFromMe',
+                    pageid: 'LibraryCount',
+                    elementid: 'LovFromMe',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'ChReqForMe',
+                    pageid: 'LibraryCount',
+                    elementid: 'ChReqForMe',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'ChReqFromMe',
+                    pageid: 'LibraryCount',
+                    elementid: 'ChReqFromMe',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'MyInitCPO',
+                    pageid: 'LibraryCount',
+                    elementid: 'MyInitCPO',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'ChListForMe',
+                    pageid: 'LibraryCount',
+                    elementid: 'ChListForMe',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'MyDocs',
+                    pageid: 'LibraryCount',
+                    elementid: 'MyDocs',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryCount',
-                    elementname: 'MyProjectMoveToNextPhase',
+                    pageid: 'LibraryCount',
+                    elementid: 'MyProjectMoveToNextPhase',
                     content: '<div class="widget__content widget__content_align_center"><div class="widget__count">0</div></div>'
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyPoints',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyPoints',
                     content: [
                         '\<div id="MyPoints"\>\<\/div\>',
                         '\<script\>',
@@ -350,8 +410,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'PointsFromMe',
+                    pageid: 'LibraryChart',
+                    elementid: 'PointsFromMe',
                     content: [
                         '\<div id="PointsFromMe"\>\<\/div\>',
                         '\<script\>',
@@ -360,8 +420,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyMeetings',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyMeetings',
                     content: [
                         '\<div id="MyMeetings"\>\<\/div\>',
                         '\<script\>',
@@ -370,8 +430,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyOrders',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyOrders',
                     content: [
                         '\<div id="MyOrders"\>\<\/div\>',
                         '\<script\>',
@@ -380,8 +440,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyInitiative',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyInitiative',
                     content: [
                         '\<div id="MyInitiative"\>\<\/div\>',
                         '\<script\>',
@@ -390,8 +450,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'ForMeInitiative',
+                    pageid: 'LibraryChart',
+                    elementid: 'ForMeInitiative',
                     content: [
                         '\<div id="ForMeInitiative"\>\<\/div\>',
                         '\<script\>',
@@ -400,8 +460,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyRisksPie',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyRisksPie',
                     content: [
                         '\<div id="MyRisksPie"\>\<\/div\>',
                         '\<script\>',
@@ -410,8 +470,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'RiskMatrix',
+                    pageid: 'LibraryChart',
+                    elementid: 'RiskMatrix',
                     content: [
                         '\<div id="RiskMatrix" style="height:100%;"\>\<\/div\>',
                         '\<script\>',
@@ -423,8 +483,8 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryChart',
-                    elementname: 'MyContractBubble',
+                    pageid: 'LibraryChart',
+                    elementid: 'MyContractBubble',
                     content: [
                         '\<div id="MyContractBubble" style="height:100%;"\>\<\/div\>',
                         '\<script\>',
@@ -433,18 +493,18 @@
                     ].join('')
                 },
                 {
-                    pagename: 'LibraryTable',
-                    elementname: 'MyProjects',
+                    pageid: 'LibraryTable',
+                    elementid: 'MyProjects',
                     content: '<div class="widget__content widget__content_scroll"><table class="table"><thead><tr><td>Название</td><td class="mobile mobile_hide">Ответственный</td><td class="mobile mobile_hide align_right">План, м.р.</td><td class="mobile mobile_hide align_right">Стоимость, м.р.</td></tr></thead><tbody> <tr><td><a class="link" href="/asyst/Contract/form/auto/156652?mode=view&amp;back=/">700-001. Осуществление строительных работ "Лыжная база"</a></td><td class="mobile mobile_hide">Алферов Павел Александрович</td><td class="mobile mobile_hide align_right">1,50</td><td class="mobile mobile_hide align_right">1,80</td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/167691?mode=view&amp;back=/">700-003. Обновление 1С до новой версии</a></td><td class="mobile mobile_hide">Бочкарев Денис Юрьевич</td><td class="mobile mobile_hide align_right">456,00</td><td class="mobile mobile_hide align_right">567,00</td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/167702?mode=view&amp;back=/">700-004. Разработка и внедрение системы кадастрового учета и мониторинга</a></td><td class="mobile mobile_hide">Алферов Павел Александрович</td><td class="mobile mobile_hide align_right">250,00</td><td class="mobile mobile_hide align_right">242,00</td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/167707?mode=view&amp;back=/">700-006. Разработка документации по внедрению единого реестра городских справочников</a></td><td class="mobile mobile_hide">Бугров Александр Владимирович</td><td class="mobile mobile_hide align_right">45,00</td><td class="mobile mobile_hide align_right">9223372036854776,00</td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/167709?mode=view&amp;back=/">700-008. Разработка проектной документации для формирования раздела</a></td><td class="mobile mobile_hide">Виланд Анастасия Владимировна</td><td class="mobile mobile_hide align_right">567,00</td><td class="mobile mobile_hide align_right">569,00</td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/167717?mode=view&amp;back=/">700-010. Печать УЭК</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide align_right">45,00</td><td class="mobile mobile_hide align_right"> </td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/191258?mode=view&amp;back=/">700-014. Контракт тест</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide align_right">23,00</td><td class="mobile mobile_hide align_right"> </td></tr><tr><td><a class="link" href="/asyst/Contract/form/auto/201978?mode=view&amp;back=/">700-015. контракт на поставку</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide align_right">44444,00</td><td class="mobile mobile_hide align_right"> </td></tr></tbody></table></div>'
                 },
                 {
-                    pagename: 'LibraryTable',
-                    elementname: 'MyContracts',
+                    pageid: 'LibraryTable',
+                    elementid: 'MyContracts',
                     content: '<div class="widget__content widget__content_scroll"><table class="table"><thead><tr><td>Название</td><td class="mobile mobile_hide">Руководитель</td><td class="mobile mobile_hide">Стадия</td><td class="mobile mobile_hide">Моя роль</td></tr></thead><tbody> <tr><td><a class="link" href="/asyst/Project/form/auto/93561?mode=view&amp;back=/">500-010. Автоматизация деятельности Департамента торговли и услуг</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93587?mode=view&amp;back=/">500-036. Обеспечение пунктов приема заявлений на универсальные электронные карты (УЭК) и пунктов выдачи УЭК необходимым оборудованием</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Функциональный заказчик</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93605?mode=view&amp;back=/">500-054. Обеспечение выпуска УЭК в 2017 году</a></td><td class="mobile mobile_hide">Новак Александр Валентинович</td><td class="mobile mobile_hide">Закрытие</td><td class="mobile mobile_hide">Зам.руководителя</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93621?mode=view&amp;back=/">500-070. Автоматизация деятельности Департамента капитального ремонта жилищного фонда</a></td><td class="mobile mobile_hide">Руководитель П.</td><td class="mobile mobile_hide">Закрытие</td><td class="mobile mobile_hide">Функциональный заказчик</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93633?mode=view&amp;back=/">500-082. Перевод государственной услуги "Лицензирование розничной продажи алкогольной продукции" в электронный вид</a></td><td class="mobile mobile_hide">Руководитель П.</td><td class="mobile mobile_hide">Закрытие</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93635?mode=view&amp;back=/">500-084. Повышение доступности услуг скорой и неотложной медицинской помощи</a></td><td class="mobile mobile_hide">Руководитель П.</td><td class="mobile mobile_hide">Постпроект</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93659?mode=view&amp;back=/">500-108. Автоматизация деятельности Департамента природопользования и охраны окружающей среды и подведомственных организаций</a></td><td class="mobile mobile_hide">Смирнов Александр Александрович</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Администратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93670?mode=view&amp;back=/">500-119. Автоматизация деятельности Департамента науки и промышленной политики</a></td><td class="mobile mobile_hide">Руководитель П.</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/93686?mode=view&amp;back=/">500-135. АИС обеспечения деятельности(и производства) опорных пунктов охраны общественного порядка в городе Москве</a></td><td class="mobile mobile_hide">Руководитель П.</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/156658?mode=view&amp;back=/">500-215. Working Program of "West Qurna II" Project</a></td><td class="mobile mobile_hide">Шмидт Александр</td><td class="mobile mobile_hide">Реализация</td><td class="mobile mobile_hide">Команда</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/167714?mode=view&amp;back=/">500-216. Подготовка тестовых объектов</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Закрытие</td><td class="mobile mobile_hide">Руководитель</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/168799?mode=view&amp;back=/">500-218. Повышение скорости работы сайта организации</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/168825?mode=view&amp;back=/">500-220. респлан</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Руководитель</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/168832?mode=view&amp;back=/">500-221. Проект</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Функциональный заказчик</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/169099?mode=view&amp;back=/">500-222. Календарный план, загруженный из mpp</a></td><td class="mobile mobile_hide">Системный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/169361?mode=view&amp;back=/">500-225. Проект без плана </a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Планирование</td><td class="mobile mobile_hide">Руководитель</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/191257?mode=view&amp;back=/">500-226. Проект АВ</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Функциональный заказчик</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/201878?mode=view&amp;back=/">500-249. Проект тест 06.12</a></td><td class="mobile mobile_hide">Системный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Куратор</td></tr><tr><td><a class="link" href="/asyst/Project/form/auto/214274?mode=view&amp;back=/">500-327. Формирование типового календарного плана</a></td><td class="mobile mobile_hide">Функциональный Администратор</td><td class="mobile mobile_hide">Инициация</td><td class="mobile mobile_hide">Руководитель</td></tr></tbody></table></div>'
                 },
                 {
-                    pagename: 'LibraryMisc',
-                    elementname: 'Logo',
+                    pageid: 'LibraryMisc',
+                    elementid: 'Logo',
                     content: [
                         '\<style\>',
                         '.box_full { width: 100%; height: 100%; padding: 20px 40px 40px; box-sizing: border-box; }',
@@ -464,7 +524,6 @@
                 containerid: 'container',
                 type: 'card',
                 items: items,
-                //margin: false,
                 library: library,
                 loader: $.extend(Asyst.ContentLoader, { contents: contents }),
                 add: function(data){

@@ -44,15 +44,15 @@ Asyst.PageDashboard = function(options){
                     data[0].map(function(d){
                         if (d.pageId in libs) {
                             libs[d.pageId].items.push({
-                                value: d.metaPageElementName,
+                                value: d.PageElementId,
                                 text: d.metaPageElementTitle
                             });
                         } else {
                             libs[d.pageId] = {
-                                value: d.metaPageName,
+                                value: d.PageId,
                                 text: d.metaPageTitle,
                                 items: [{
-                                    value: d.metaPageElementName,
+                                    value: d.PageElementId,
                                     text: d.metaPageElementTitle
                                 }]
                             };
@@ -168,7 +168,7 @@ Asyst.Dashboard = function(options){
             name: 'UserDashboard',
             data: {
                 AccountId: that.data.user.Id,
-                PageName: that.data.page.pageName
+                PageObjectId: that.data.page.pageId
             },
             success: function(data){
                 if (data[0][0]) {
