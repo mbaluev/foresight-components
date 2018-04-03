@@ -21,7 +21,7 @@ var Dashboard = function(options){
         margin: true,
         editable: true,
         tumblerContainerSelector: null,
-        pagename: '',
+        pageid: '',
         items: [],
         library: [],
         loader: null,
@@ -270,7 +270,7 @@ var Dashboard = function(options){
                 width: 2,
                 height: 4,
                 settings: {
-                    name: (that.data.single ? that.data.pagename : 'Новый виджет'),
+                    name: (that.data.single ? that.data.pageid : 'Новый виджет'),
                     collapsed: false
                 }
             };
@@ -317,7 +317,7 @@ var Dashboard = function(options){
             .widget_grid({
                 single: that.data.single,
                 margin: that.data.margin,
-                pagename: that.data.pagename,
+                pageid: that.data.pageid,
                 items: that.data.items,
                 loader: that.data.loader,
                 library: that.data.library,
@@ -401,8 +401,8 @@ var Dashboard = function(options){
                 var reload = false;
                 $(this).find('[data-field]').each(function(){
                     var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                    if ((t.data('field') == 'pagename' ||
-                        t.data('field') == 'elementname') &&
+                    if ((t.data('field') == 'pageid' ||
+                        t.data('field') == 'elementid') &&
                         data[t.data('field')] != val) {
                         reload = true;
                     }
@@ -483,7 +483,7 @@ var Dashboard = function(options){
                     '<div class="control__text">Источник данных</div>',
                     '</div>',
                     '<div class="control__container">',
-                    '<select class="select" name="pagename" data-fc="select" data-field="pagename" data-mode="radio-check" data-height="350"></select>',
+                    '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
                     '</div>',
                     '</div>'
                 ].join('')),
@@ -493,15 +493,15 @@ var Dashboard = function(options){
                     '<div class="control__text">Виджет</div>',
                     '</div>',
                     '<div class="control__container">',
-                    '<select class="select" name="elementname" data-fc="select" data-field="elementname" data-mode="radio-check" data-height="350"></select>',
+                    '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
                     '</div>',
                     '</div>'
                 ].join(''));
             data.library.forEach(function(item){
-                var $option = $('<option value="' + item.value + '" ' + (item.value == data.pagename ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                if (item.value == data.pagename) {
+                var $option = $('<option value="' + item.value + '" ' + (item.value == data.pageid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                if (item.value == data.pageid) {
                     item.items.forEach(function(item){
-                        var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementname ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                        var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
                         $control__widgets.find('.select').append($option);
                     });
                 }
@@ -564,9 +564,9 @@ var Dashboard = function(options){
                 item.widget.widget('set_content');
             }
         },
-        element: function(elementname, options, params){
+        element: function(elementid, options, params){
             var item = that.data.grid[0].obj.options.items.filter(function(d){
-                return d.widget[0].obj.data.elementname == elementname;
+                return d.widget[0].obj.data.elementid == elementid;
             });
             if (item.length > 0) {
                 item = item[0];

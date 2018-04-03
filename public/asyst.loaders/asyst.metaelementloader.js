@@ -18,8 +18,8 @@ Asyst.MetaElementLoader = {
             Asyst.APIv2.DataSet.load({
                 name: 'DashboardWidgetContent',
                 data: {
-                    PageName: that.data.data.pagename,
-                    ElementName: that.data.data.elementname
+                    PageId: that.data.data.pageid,
+                    PageElementId: that.data.data.elementid
                 },
                 success: function(data){
                     if (data[0][0]) {
@@ -44,8 +44,8 @@ Asyst.MetaElementLoader = {
             };
             Asyst.APIv2.DataSource.load({
                 sourceType: 'page',
-                sourceName: that.data.data.pagename,
-                elementName: that.data.data.elementname,
+                sourceName: that.data.template.PageName,
+                elementName: that.data.template.ElementName,
                 data: that.data.data.params,
                 success: success,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },

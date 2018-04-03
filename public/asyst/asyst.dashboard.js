@@ -44,15 +44,15 @@ Asyst.PageDashboard = function(options){
                     data[0].map(function(d){
                         if (d.pageId in libs) {
                             libs[d.pageId].items.push({
-                                value: d.PageElementId,
+                                value: d.pageElementId,
                                 text: d.metaPageElementTitle
                             });
                         } else {
                             libs[d.pageId] = {
-                                value: d.PageId,
+                                value: d.pageId,
                                 text: d.metaPageTitle,
                                 items: [{
-                                    value: d.PageElementId,
+                                    value: d.pageElementId,
                                     text: d.metaPageElementTitle
                                 }]
                             };
@@ -154,7 +154,7 @@ Asyst.Dashboard = function(options){
             entityName: 'UserDashboard',
             data: {
                 AccountId: that.data.user.Id,
-                PageName: that.data.page.pageName,
+                PageObjectId: that.data.page.pageId,
                 Items: JSON.stringify(that.data.items)
             },
             success: function(data){
@@ -190,7 +190,7 @@ Asyst.Dashboard = function(options){
             name: 'UserDashboard',
             data: {
                 AccountId: -1,
-                PageName: that.data.page.pageName
+                PageObjectId: that.data.page.pageId
             },
             success: function(data){
                 if (data[0][0]) {
@@ -205,10 +205,10 @@ Asyst.Dashboard = function(options){
     that.check_items = function(){
         var items = [];
         that.data.items.map(function(item){
-            var lib = that.data.library.filter(function(l){ return l.value == item.settings.pagename; });
+            var lib = that.data.library.filter(function(l){ return l.value == item.settings.pageid; });
             if (lib.length > 0) {
                 lib = lib[0];
-                var libitem = lib.items.filter(function(i){ return i.value == item.settings.elementname; });
+                var libitem = lib.items.filter(function(i){ return i.value == item.settings.elementid; });
                 if (libitem.length > 0) {
                     items.push(item);
                 }
@@ -226,8 +226,8 @@ Asyst.Dashboard = function(options){
         widget: function(id, options, params){
             that.data.dashboard.reload.widget(id, options, params);
         },
-        element: function(elementname, options, params){
-            that.data.dashboard.reload.element(elementname, options, params);
+        element: function(elementid, options, params){
+            that.data.dashboard.reload.element(elementid, options, params);
         },
         title: function(title){
             that.data.dashboard.reload.title(title);
@@ -249,7 +249,7 @@ Asyst.Dashboard = function(options){
                 single: that.data.single,
                 margin: that.data.margin,
                 editable: that.data.editable,
-                pagename: that.data.page.pageName,
+                pageid: that.data.page.pageId,
                 items: that.data.items,
                 library: that.data.library,
                 loader: that.data.loader,

@@ -79,7 +79,7 @@
                     };
                     that.load_widget = function(node){
                         if (that.data.single) {
-                            node.settings.name = that.data.pagename;
+                            node.settings.name = that.data.pageid;
                         }
                         if (node.settings.id) {
                             node._id = node.settings.id;
