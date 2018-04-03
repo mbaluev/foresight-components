@@ -1,4 +1,19 @@
 if (typeof Asyst == typeof undefined) { Asyst = {}; }
+if (typeof Asyst.Utils == typeof undefined) { Asyst.Utils = {}; }
+Asyst.Utils.toGuid = function(str){
+    function toHex(str) {
+        var hex = '';
+        for(var i=0;i<str.length;i++) {
+            hex += ''+str.charCodeAt(i).toString(16);
+        }
+        return hex;
+    }
+    function pad(str, len) {
+        return (Array(len).join("0") + str).slice(-len);
+    }
+    var rxGetGuidGroups = /(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/;
+    return toHex(pad(str, 16)).replace(rxGetGuidGroups, '$1-$2-$3-$4-$5');
+};
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
