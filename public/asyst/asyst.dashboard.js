@@ -12,7 +12,10 @@ Asyst.Utils.toGuid = function(str){
         return (Array(len).join("0") + str).slice(-len);
     }
     var rxGetGuidGroups = /(\w{8})(\w{4})(\w{4})(\w{4})(\w{12})/;
-    return toHex(pad(str, 16)).replace(rxGetGuidGroups, '$1-$2-$3-$4-$5');
+    var res = toHex(str);
+    res = pad(res, 32);
+    res = res.replace(rxGetGuidGroups, '$1-$2-$3-$4-$5');
+    return res;
 };
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
