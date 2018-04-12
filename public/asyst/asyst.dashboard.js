@@ -139,7 +139,33 @@ Asyst.PageDashboard = function(options){
         });
     };
     that.loadLibDbChartType = function(callback){
-        if (typeof callback == 'function') { callback(); }
+        Asyst.APIv2.DataSet.load({
+            name: 'LibDbChartType',
+            success: function(data){
+                if (data[0]) {
+                    var items = [];
+                    data[0].map(function(d){
+                        if (d.dbChartTypeId > 0) {
+                            items.push({
+                                value: d.dbChartTypeId,
+                                text: d.Title
+                            });
+                        }
+                    });
+                    if (items.length > 0) {
+                        that.data.lib.dbWidget.library.push({
+                            value: 'dbChartType',
+                            text: 'dbChartType',
+                            items: items
+                        });
+                    }
+                    if (typeof callback == 'function') { callback(); }
+                } else {
+                    console.log(data);
+                }
+            },
+            error: function(data){ console.log(data); }
+        });
     };
     that.reload = {
         dashboard: function(options, params){
