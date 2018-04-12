@@ -25,11 +25,33 @@ Asyst.PageDashboard = function(options){
         name: null,
         containerid: 'container',
         type: 'page',
-        libraries: [],
+
+        libraries: {
+            foresight: [],
+            dbWidget: false,
+            dbChartType: false
+        },
+        lib: {
+            foresight: {
+                library: [],
+                loader: Asyst.MetaElementLoader
+            },
+            dbWidget: {
+                library: [],
+                loader: null
+            },
+            dbChartType: {
+                library: [],
+                loader: null
+            }
+        },
+
+        //libraries: [],
+        //library: [],
+
         single: false,
         margin: true,
         editable: true,
-        library: [],
         asystDashboard: null,
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
@@ -48,12 +70,12 @@ Asyst.PageDashboard = function(options){
     that.loader_remove = function(){
         that.data._el.loader.remove();
     };
-    that.loadLibrary = function(callback){
+    that.loadLibForesight = function(callback){
         Asyst.APIv2.DataSet.load({
             name: 'WidgetLibrary',
             data: {
                 AccountId: that.data.user.Id,
-                PageName: that.data.libraries.join(',')
+                PageName: that.data.libraries.foresight.join(',')
             },
             success: function(data){
                 var items = [];
@@ -77,7 +99,7 @@ Asyst.PageDashboard = function(options){
                         }
                     });
                     for (var pageId in libs) {
-                        that.data.library.push(libs[pageId]);
+                        that.data.lib.foresight.library.push(libs[pageId]);
                     }
                     if (typeof callback == 'function') { callback(); }
                 } else {
@@ -86,6 +108,12 @@ Asyst.PageDashboard = function(options){
             },
             error: function(data){ console.log(data); }
         });
+    };
+    that.loadLibDbWidget = function(callback){
+        if (typeof callback == 'function') { callback(); }
+    };
+    that.loadLibDbChartType = function(callback){
+        if (typeof callback == 'function') { callback(); }
     };
     that.reload = {
         dashboard: function(options, params){
@@ -109,24 +137,48 @@ Asyst.PageDashboard = function(options){
     };
     that.init = function(){
         that.loader_add();
-        that.loadLibrary(function(){
-            that.loader_remove();
-            that.data.asystDashboard = new Asyst.Dashboard({
-                id: that.data.id,
-                title: that.data.title,
-                name: that.data.name,
-                containerid: that.data.containerid,
-                type: that.data.type,
-                single: that.data.single,
-                margin: that.data.margin,
-                editable: that.data.editable,
-                library: that.data.library,
-                loader: Asyst.MetaElementLoader,
-                page: that.data.page,
-                headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
-                tumblerContainerSelector: that.data.tumblerContainerSelector,
-                params: that.data.params
-            });
+        that.loadLibForesight(function(){
+            if (that.data.libraries.dbWidget) {
+                that.loadLibDbWidget(function(){
+                    if (that.data.libraries.dbChartType) {
+                        that.loadLibDbChartType(function(){
+                            asystDashboard();
+                        });
+                    } else {
+                        asystDashboard();
+                    }
+                });
+            } else {
+                if (that.data.libraries.dbChartType) {
+                    that.loadLibDbChartType(function(){
+                        asystDashboard();
+                    });
+                } else {
+                    asystDashboard();
+                }
+            }
+            function asystDashboard(){
+                that.loader_remove();
+                that.data.asystDashboard = new Asyst.Dashboard({
+                    id: that.data.id,
+                    title: that.data.title,
+                    name: that.data.name,
+                    containerid: that.data.containerid,
+                    type: that.data.type,
+                    single: that.data.single,
+                    margin: that.data.margin,
+                    editable: that.data.editable,
+
+                    lib: that.data.lib,
+                    //library: that.data.library,
+                    //loader: Asyst.MetaElementLoader,
+
+                    page: that.data.page,
+                    headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
+                    tumblerContainerSelector: that.data.tumblerContainerSelector,
+                    params: that.data.params
+                });
+            }
         });
     };
     that.init();
@@ -143,8 +195,11 @@ Asyst.Dashboard = function(options){
         single: false,
         margin: true,
         editable: true,
-        library: [],
-        loader: null,
+
+        lib: null,
+        //library: [],
+        //loader: null,
+
         user: { Id: -1 }, //Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
@@ -223,7 +278,26 @@ Asyst.Dashboard = function(options){
     that.check_items = function(){
         var items = [];
         that.data.items.map(function(item){
-            var lib = that.data.library.filter(function(l){ return l.value == item.settings.pageid; });
+            if (typeof that.data.lib == 'object') {
+                for (key in that.data.lib) {
+                    if (that.data.lib[key]) {
+                        if (that.data.lib[key].library) {
+                            var lib = that.data.lib[key].library.filter(function(d){
+                                return d.value == item.settings.pageid;
+                            });
+                            if (lib.length > 0) {
+                                lib = lib[0];
+                                var libitem = lib.items.filter(function(i){ return i.value == item.settings.elementid; });
+                                if (libitem.length > 0) {
+                                    items.push(item);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            /*
+            var lib = that.data.lib.foresight.library.filter(function(l){ return l.value == item.settings.pageid; });
             if (lib.length > 0) {
                 lib = lib[0];
                 var libitem = lib.items.filter(function(i){ return i.value == item.settings.elementid; });
@@ -231,6 +305,7 @@ Asyst.Dashboard = function(options){
                     items.push(item);
                 }
             }
+            */
         });
         that.data.items = items;
     };
@@ -269,8 +344,11 @@ Asyst.Dashboard = function(options){
                 editable: that.data.editable,
                 pageid: that.data.page.pageId,
                 items: that.data.items,
-                library: that.data.library,
-                loader: that.data.loader,
+
+                lib: that.data.lib,
+                //library: that.data.library,
+                //loader: that.data.loader,
+
                 save: function(items){
                     that.saveItems(items);
                 },

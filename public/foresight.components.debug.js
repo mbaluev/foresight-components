@@ -1002,7 +1002,10 @@ $(function(){
                         calendar: false,
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
+
+                        libraries: null,
                         loader: null,
+
                         reloadable: false,
                         onResize: null,
                         resizeOnExpand: false
@@ -1230,10 +1233,27 @@ $(function(){
                             });
                         }
                     };
+                    that.set_loader = function(){
+                        if (typeof that.data.lib == 'object') {
+                            for (key in that.data.lib) {
+                                if (that.data.lib[key]) {
+                                    if (that.data.lib[key].library) {
+                                        var lib = that.data.lib[key].library.filter(function(d){
+                                            return d.value == that.data.pageid;
+                                        });
+                                        if (lib.length > 0) {
+                                            that.data.loader = that.data.lib[key].loader;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
                     that.set_content = function(){
                         var $body = self.closestChild('.widget__body'),
                             $bodydata = self.closestChild('.widget__body-data');
-                        if (typeof that.data.loader == 'object') {
+                        that.set_loader();
+                        if (that.data.loader && typeof that.data.loader == 'object') {
                             $body.addClass('widget__body_align_center');
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
@@ -6132,8 +6152,11 @@ $(function(){
                         single: false,
                         margin: true,
                         closely: false,
-                        loader: null,
-                        library: null,
+                        lib: null,
+
+                        //loader: null,
+                        //library: null,
+
                         widget_buttons: [],
                         mode: 'view',
                         disabled: true,
@@ -6181,6 +6204,7 @@ $(function(){
                                         (key == 'mode') ||
                                         (key == 'loader') ||
                                         (key == 'library') ||
+                                        (key == 'libraries') ||
                                         (key == 'content') ||
                                         (key == 'buttons') ||
                                         (key == 'id') ||
@@ -6211,8 +6235,9 @@ $(function(){
                         node._height = node.height;
                         node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
                         node.settings.reloadable = true;
-                        node.settings.loader = that.data.loader;
-                        node.settings.library = that.data.library;
+                        node.settings.lib = that.data.lib;
+                        //node.settings.loader = that.data.loader;
+                        //node.settings.library = that.data.library;
                         node.settings.params = that.data.params;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
@@ -6238,7 +6263,12 @@ $(function(){
 
                     that.add_widget = function(item, callback){
                         that.load_widget(item);
-                        if (typeof callback == "function") { callback(item); }
+                        if (typeof callback == "function") {
+                            var data = $.extend(true, {}, item);
+                            _.unset(data, 'el');
+                            _.unset(data, 'widget');
+                            callback(data);
+                        }
                     };
                     that.remove_widget = function(_id, callback) {
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });

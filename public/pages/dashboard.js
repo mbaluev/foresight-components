@@ -23,8 +23,18 @@ var Dashboard = function(options){
         tumblerContainerSelector: null,
         pageid: '',
         items: [],
-        library: [],
-        loader: null,
+        lib: {
+            foresight: {
+                library: [],
+                loader: null
+            },
+            dbWidget: null,
+            dbChartType: null
+        },
+
+        //library: [],
+        //loader: null,
+
         grid: null,
         add: function(data){},
         save: function(data){},
@@ -319,8 +329,11 @@ var Dashboard = function(options){
                 margin: that.data.margin,
                 pageid: that.data.pageid,
                 items: that.data.items,
-                loader: that.data.loader,
-                library: that.data.library,
+                lib: that.data.lib,
+
+                //loader: that.data.loader,
+                //library: that.data.library,
+
                 params: that.data.params,
                 widget_buttons: [
                     {
@@ -476,6 +489,76 @@ var Dashboard = function(options){
         });
     };
     that.settings_render_source_tab = function(data, tabs, active){
+        if (typeof data.lib == 'object') {
+            var $control__library = $([
+                    '<div class="control">',
+                    '<div class="control__caption">',
+                    '<div class="control__text">Источник данных</div>',
+                    '</div>',
+                    '<div class="control__container">',
+                    '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
+                    '</div>',
+                    '</div>'
+                ].join('')),
+                $control__widgets = $([
+                    '<div class="control">',
+                    '<div class="control__caption">',
+                    '<div class="control__text">Виджет</div>',
+                    '</div>',
+                    '<div class="control__container">',
+                    '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
+                    '</div>',
+                    '</div>'
+                ].join('')),
+                render = false;
+            for (key in data.lib) {
+                if (data.lib[key]) {
+                    if (data.lib[key].library) {
+                        data.lib[key].library.forEach(function(item){
+                            var $option = $('<option value="' + item.value + '" ' + (item.value == data.pageid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                            if (item.value == data.pageid) {
+                                item.items.forEach(function(item){
+                                    var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
+                                    $control__widgets.find('.select').append($option);
+                                });
+                            }
+                            $control__library.find('.select').append($option);
+                            render = true;
+                        });
+                        $control__library.find('.select').on('change', function(e){
+                            var values = $(this).data('_value'),
+                                items = [];
+                            values.forEach(function(item){
+                                for (lib in data.libraries) {
+                                    if (data.libraries[lib]) {
+                                        if (data.libraries[lib].library) {
+                                            var library = data.libraries[lib].library.filter(function(d){ return d.value == item.value; });
+                                            if (library.length > 0) {
+                                                library = library[0];
+                                                if (library.items) {
+                                                    items.push.apply(items, library.items)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                            $control__widgets.find('.select').select('update', items);
+                        });
+                    }
+                }
+            }
+            if (render) {
+                tabs.push({
+                    id: 'source',
+                    name: 'Источник данных',
+                    active: active,
+                    content:
+                        $('<div></div>').append($control__library, $control__widgets)
+                });
+            }
+        }
+        /*
         if (data.library) {
             var $control__library = $([
                     '<div class="control">',
@@ -529,6 +612,7 @@ var Dashboard = function(options){
                     $('<div></div>').append($control__library, $control__widgets)
             });
         }
+        */
     };
     /* modal for settings - end */
 

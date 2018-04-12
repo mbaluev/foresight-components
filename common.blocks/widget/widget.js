@@ -26,7 +26,10 @@
                         calendar: false,
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
+
+                        libraries: null,
                         loader: null,
+
                         reloadable: false,
                         onResize: null,
                         resizeOnExpand: false
@@ -254,10 +257,27 @@
                             });
                         }
                     };
+                    that.set_loader = function(){
+                        if (typeof that.data.lib == 'object') {
+                            for (key in that.data.lib) {
+                                if (that.data.lib[key]) {
+                                    if (that.data.lib[key].library) {
+                                        var lib = that.data.lib[key].library.filter(function(d){
+                                            return d.value == that.data.pageid;
+                                        });
+                                        if (lib.length > 0) {
+                                            that.data.loader = that.data.lib[key].loader;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    };
                     that.set_content = function(){
                         var $body = self.closestChild('.widget__body'),
                             $bodydata = self.closestChild('.widget__body-data');
-                        if (typeof that.data.loader == 'object') {
+                        that.set_loader();
+                        if (that.data.loader && typeof that.data.loader == 'object') {
                             $body.addClass('widget__body_align_center');
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);

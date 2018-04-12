@@ -364,7 +364,7 @@
                             value: 'Logo'
                         }
                     ]
-                },
+                }
             ];
             var contents = [
                 {
@@ -532,13 +532,25 @@
                 containerid: 'container',
                 type: 'card',
                 items: items,
-                library: library,
-                loader: $.extend(Asyst.ContentLoader, { contents: contents }),
+                lib: {
+                    foresight: {
+                        library: library,
+                        loader: $.extend(Asyst.ContentLoader, { contents: contents })
+                    },
+                    dbWidget: null,
+                    dbChartType: null
+                },
+
+                //library: library,
+                //loader: $.extend(Asyst.ContentLoader, { contents: contents }),
+
                 add: function(data){
-                    console.log(JSON.stringify(data));
+                    //console.log(JSON.stringify(data));
+                    console.log(data);
                 },
                 save: function(data){
-                    console.log(JSON.stringify(data));
+                    //console.log(JSON.stringify(data));
+                    console.log(data);
                 },
                 headerExtraControlsRenderer: function(){
                     var $button = $([
