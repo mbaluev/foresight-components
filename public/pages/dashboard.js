@@ -529,10 +529,10 @@ var Dashboard = function(options){
                             var values = $(this).data('_value'),
                                 items = [];
                             values.forEach(function(item){
-                                for (lib in data.libraries) {
-                                    if (data.libraries[lib]) {
-                                        if (data.libraries[lib].library) {
-                                            var library = data.libraries[lib].library.filter(function(d){ return d.value == item.value; });
+                                for (lib in data.lib) {
+                                    if (data.lib[lib]) {
+                                        if (data.lib[lib].library) {
+                                            var library = data.lib[lib].library.filter(function(d){ return d.value == item.value; });
                                             if (library.length > 0) {
                                                 library = library[0];
                                                 if (library.items) {
