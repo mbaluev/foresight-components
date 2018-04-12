@@ -110,7 +110,33 @@ Asyst.PageDashboard = function(options){
         });
     };
     that.loadLibDbWidget = function(callback){
-        if (typeof callback == 'function') { callback(); }
+        Asyst.APIv2.DataSet.load({
+            name: 'LibDbWidget',
+            success: function(data){
+                if (data[0]) {
+                    var items = [];
+                    data[0].map(function(d){
+                        if (d.dbWidgetId > 0) {
+                            items.push({
+                                value: d.dbWidgetId,
+                                text: d.Title
+                            });
+                        }
+                    });
+                    if (items.length > 0) {
+                        that.data.lib.dbWidget.library.push({
+                            value: 'dbWidget',
+                            text: 'dbWidget',
+                            items: items
+                        });
+                    }
+                    if (typeof callback == 'function') { callback(); }
+                } else {
+                    console.log(data);
+                }
+            },
+            error: function(data){ console.log(data); }
+        });
     };
     that.loadLibDbChartType = function(callback){
         if (typeof callback == 'function') { callback(); }
