@@ -6205,6 +6205,7 @@ $(function(){
                                         (key == 'loader') ||
                                         (key == 'library') ||
                                         (key == 'libraries') ||
+                                        (key == 'lib') ||
                                         (key == 'content') ||
                                         (key == 'buttons') ||
                                         (key == 'id') ||
