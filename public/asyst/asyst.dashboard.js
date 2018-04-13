@@ -38,7 +38,7 @@ Asyst.PageDashboard = function(options){
             },
             dbWidget: {
                 library: [],
-                loader: null
+                loader: Asyst.MetaElementLoader
             },
             dbChartType: {
                 library: [],
