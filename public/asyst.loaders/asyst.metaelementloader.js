@@ -44,6 +44,8 @@ Asyst.MetaElementLoader = {
                 async: true,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 success: function(data) {
+                    Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.content;
+                    Asyst.Workspace.currentPage.TemplateData[that.data.template.ElementName] = data;
                     that.data.templateData = data;
                     that.data.content = that.proccessTemplate();
                     if (typeof that.data.success == 'function') {

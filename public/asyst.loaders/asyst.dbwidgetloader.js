@@ -44,8 +44,8 @@ Asyst.DbWidgetLoader = {
                 async: true,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 success: function(data) {
-                    Asyst.Workspace.currentPage.templates[that.data.data.elementid] = that.data.content;
-                    Asyst.Workspace.currentPage.TemplateData[that.data.data.elementid] = data;
+                    Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.content;
+                    Asyst.Workspace.currentPage.TemplateData[that.data.template.ElementName] = data;
                     /*
                     that.data.templateData = data;
                     that.data.content = that.proccessTemplate();
