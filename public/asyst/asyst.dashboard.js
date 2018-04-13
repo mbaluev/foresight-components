@@ -126,7 +126,7 @@ Asyst.PageDashboard = function(options){
                     if (items.length > 0) {
                         that.data.lib.dbWidget.library.push({
                             value: 'dbWidget',
-                            text: 'dbWidget',
+                            text: 'Выбрать виджет из имеющихся...',
                             items: items
                         });
                     }
@@ -155,7 +155,7 @@ Asyst.PageDashboard = function(options){
                     if (items.length > 0) {
                         that.data.lib.dbWidget.library.push({
                             value: 'dbChartType',
-                            text: 'dbChartType',
+                            text: 'Создать новый виджет...',
                             items: items
                         });
                     }
