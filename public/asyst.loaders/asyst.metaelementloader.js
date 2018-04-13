@@ -35,22 +35,21 @@ Asyst.MetaElementLoader = {
             });
         };
         that.buildContent = function(){
-            var success = function(data) {
-                that.data.templateData = data;
-                that.data.content = that.proccessTemplate();
-                if (typeof that.data.success == 'function') {
-                    that.data.success(that.data.content);
-                }
-            };
             Asyst.APIv2.DataSource.load({
                 sourceType: 'page',
                 sourceName: that.data.template.PageName,
                 elementName: that.data.template.ElementName,
                 data: that.data.data.params,
-                success: success,
-                error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
+                isPicklist: false,
                 async: true,
-                isPicklist: false
+                error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
+                success: function(data) {
+                    that.data.templateData = data;
+                    that.data.content = that.proccessTemplate();
+                    if (typeof that.data.success == 'function') {
+                        that.data.success(that.data.content);
+                    }
+                }
             });
         };
         that.proccessTemplate = function(){
