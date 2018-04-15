@@ -44,11 +44,12 @@ Asyst.MetaElementLoader = {
                 async: true,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 success: function(data) {
+                    that.data.template.id = 'Widget__' + (new Date()).valueOf();
                     that.data.template.Content = that.data.template.Content
                         .split(that.data.template.ElementName)
-                        .join('Widget__' + (new Date()).valueOf());
-                    Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.template.Content;
-                    Asyst.Workspace.currentPage.TemplateData[that.data.template.ElementName] = data;
+                        .join(that.data.template.id);
+                    Asyst.Workspace.currentPage.templates[that.data.template.id] = that.data.template.Content;
+                    Asyst.Workspace.currentPage.TemplateData[that.data.template.id] = data;
                     if (typeof Asyst.Workspace.currentPage.Widgets == typeof undefined) {
                         Asyst.Workspace.currentPage.Widgets = {};
                     }
