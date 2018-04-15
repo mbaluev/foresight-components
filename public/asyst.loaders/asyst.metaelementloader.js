@@ -44,9 +44,9 @@ Asyst.MetaElementLoader = {
                 async: true,
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 success: function(data) {
-                    that.data.content = that.data.content.replace(that.data.template.ElementName, 'Widget__' + (new Date()).valueOf());
-                    that.data.content = that.data.content.replace(that.data.template.ElementName + 'Div', 'Widget__' + (new Date()).valueOf() + '__Div');
-                    Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.content;
+                    that.data.template.content = that.data.content.replace(that.data.template.ElementName, 'Widget__' + (new Date()).valueOf());
+                    that.data.template.content = that.data.content.replace(that.data.template.ElementName + 'Div', 'Widget__' + (new Date()).valueOf() + '__Div');
+                    Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.template.content;
                     Asyst.Workspace.currentPage.TemplateData[that.data.template.ElementName] = data;
                     if (typeof Asyst.Workspace.currentPage.Widgets == typeof undefined) {
                         Asyst.Workspace.currentPage.Widgets = {};
