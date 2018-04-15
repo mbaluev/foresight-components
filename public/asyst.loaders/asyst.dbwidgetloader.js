@@ -46,13 +46,18 @@ Asyst.DbWidgetLoader = {
                 success: function(data) {
                     Asyst.Workspace.currentPage.templates[that.data.template.ElementName] = that.data.content;
                     Asyst.Workspace.currentPage.TemplateData[that.data.template.ElementName] = data;
-                    /*
-                    that.data.templateData = data;
-                    that.data.content = that.proccessTemplate();
-                    if (typeof that.data.success == 'function') {
-                        that.data.success(that.data.content);
+                    if (typeof Asyst.Workspace.currentPage.Widgets == typeof undefined) {
+                        Asyst.Workspace.currentPage.Widgets = {};
                     }
-                    */
+                    if (!Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName]){
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName] = {};
+                    }
+                    Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].IsDataAllowed = that.data.template.IsDataAllowed;
+                    if(that.data.template.IsDataAllowed == 1) {
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].data = data;
+                    } else {
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].data = [];
+                    }
                 }
             });
         };
