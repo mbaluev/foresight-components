@@ -53,14 +53,14 @@ Asyst.MetaElementLoader = {
                     if (typeof Asyst.Workspace.currentPage.Widgets == typeof undefined) {
                         Asyst.Workspace.currentPage.Widgets = {};
                     }
-                    if (!Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName]){
-                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName] = {};
+                    if (!Asyst.Workspace.currentPage.Widgets[that.data.template.id]){
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.id] = {};
                     }
-                    Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].IsDataAllowed = that.data.template.IsDataAllowed;
+                    Asyst.Workspace.currentPage.Widgets[that.data.template.id].IsDataAllowed = that.data.template.IsDataAllowed;
                     if(that.data.template.IsDataAllowed == 1) {
-                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].data = data;
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.id].data = data;
                     } else {
-                        Asyst.Workspace.currentPage.Widgets[that.data.template.ElementName].data = [];
+                        Asyst.Workspace.currentPage.Widgets[that.data.template.id].data = [];
                     }
 
                     that.data.templateData = data;
