@@ -92,8 +92,17 @@ Asyst.PageDashboard = function(options){
                         }
                     });
                     for (var metaPageName in libs) {
-                        if (typeof that.data.lib[metaPageName] == 'undefined') { that.data.lib[metaPageName] = {}; }
-                        that.data.lib[metaPageName].library.push(libs[metaPageName]);
+                        for (var libname in that.data.libraries) {
+                            if (that.data.libraries[libname].indexOf(metaPageName) >= 0) {
+                                if (typeof that.data.lib[libname] == 'undefined') {
+                                    that.data.lib[libname] = {
+                                        library: [],
+                                        loader: Asyst.MetaElementLoader
+                                    };
+                                }
+                                that.data.lib[libname].library.push(libs[metaPageName]);
+                            }
+                        }
                     }
                     if (typeof callback == 'function') { callback(); }
                 } else {
