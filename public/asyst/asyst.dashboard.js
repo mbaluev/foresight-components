@@ -109,64 +109,6 @@ Asyst.PageDashboard = function(options){
             error: function(data){ console.log(data); }
         });
     };
-    that.loadLibDbWidget = function(callback){
-        Asyst.APIv2.DataSet.load({
-            name: 'LibDbWidget',
-            success: function(data){
-                if (data[0]) {
-                    var items = [];
-                    data[0].map(function(d){
-                        if (d.dbWidgetId > 0) {
-                            items.push({
-                                value: d.dbWidgetId,
-                                text: d.Title
-                            });
-                        }
-                    });
-                    if (items.length > 0) {
-                        that.data.lib.dbWidget.library.push({
-                            value: 'dbWidget',
-                            text: 'ДБМ. Библиотека виджетов',
-                            items: items
-                        });
-                    }
-                    if (typeof callback == 'function') { callback(); }
-                } else {
-                    console.log(data);
-                }
-            },
-            error: function(data){ console.log(data); }
-        });
-    };
-    that.loadLibDbChartType = function(callback){
-        Asyst.APIv2.DataSet.load({
-            name: 'LibDbChartType',
-            success: function(data){
-                if (data[0]) {
-                    var items = [];
-                    data[0].map(function(d){
-                        if (d.dbChartTypeId > 0) {
-                            items.push({
-                                value: d.dbChartTypeId,
-                                text: d.Title
-                            });
-                        }
-                    });
-                    if (items.length > 0) {
-                        that.data.lib.dbWidget.library.push({
-                            value: 'dbChartType',
-                            text: 'ДБМ. Создать новый виджет...',
-                            items: items
-                        });
-                    }
-                    if (typeof callback == 'function') { callback(); }
-                } else {
-                    console.log(data);
-                }
-            },
-            error: function(data){ console.log(data); }
-        });
-    };
     that.reload = {
         dashboard: function(options, params){
             that.data.asystDashboard.reload.dashboard(options, params);
@@ -190,25 +132,7 @@ Asyst.PageDashboard = function(options){
     that.init = function(){
         that.loader_add();
         that.loadLibForesight(function(){
-            if (that.data.libraries.dbWidget) {
-                that.loadLibDbWidget(function(){
-                    if (that.data.libraries.dbChartType) {
-                        that.loadLibDbChartType(function(){
-                            asystDashboard();
-                        });
-                    } else {
-                        asystDashboard();
-                    }
-                });
-            } else {
-                if (that.data.libraries.dbChartType) {
-                    that.loadLibDbChartType(function(){
-                        asystDashboard();
-                    });
-                } else {
-                    asystDashboard();
-                }
-            }
+            asystDashboard();
             function asystDashboard(){
                 that.loader_remove();
                 that.data.asystDashboard = new Asyst.Dashboard({
