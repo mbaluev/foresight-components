@@ -33,6 +33,11 @@ var Dashboard = function(options){
                 loader: null
             }
         },
+        dbm: {
+            addWidget: null,
+            editWidget: null,
+            deleteWidget: null
+        },
         grid: null,
         add: function(data){},
         save: function(data){},
@@ -487,113 +492,105 @@ var Dashboard = function(options){
         });
     };
     that.settings_render_source_tab = function(data, tabs, active){
-        var dbmKey = 'dbm';
+        var $control__library = $([
+                '<div class="control">',
+                '<div class="control__caption">',
+                '<div class="control__text">Источник данных</div>',
+                '</div>',
+                '<div class="control__container">',
+                '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
+                '</div>',
+                '</div>'
+            ].join('')),
+            $control__widgets = $([
+                '<div class="control">',
+                '<div class="control__caption">',
+                '<div class="control__text">Виджет</div>',
+                '</div>',
+                '<div class="control__container control__container_horizontal">',
+                '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
+                '</div>',
+                '</div>'
+            ].join('')),
+            $button_add = $([
+                '<button class="button" data-fc="button">',
+                '<span class="icon icon_svg_plus"></span>',
+                '</button>'
+            ].join('')).on('click', function(){
+                if (typeof that.data.dbm.addWidget == 'function') {
+                    that.data.dbm.addWidget(selected);
+                }
+            }),
+            $button_edit = $([
+                '<button class="button" data-fc="button">',
+                '<span class="icon icon_svg_edit"></span>',
+                '</button>'
+            ].join('')).on('click', function(){
+                if (typeof that.data.dbm.editWidget == 'function') {
+                    that.data.dbm.editWidget(selected);
+                }
+            }),
+            render = false, opened = false,
+            selected = { lib: null, library: null, widget: null },
+            dbmKey = 'dbm';
         if (typeof data.lib == 'object') {
-            var $control__library = $([
-                    '<div class="control">',
-                    '<div class="control__caption">',
-                    '<div class="control__text">Источник данных</div>',
-                    '</div>',
-                    '<div class="control__container">',
-                    '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
-                    '</div>',
-                    '</div>'
-                ].join('')),
-                $control__widgets = $([
-                    '<div class="control">',
-                    '<div class="control__caption">',
-                    '<div class="control__text">Виджет</div>',
-                    '</div>',
-                    '<div class="control__container control__container_horizontal">',
-                    '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
-                    '</div>',
-                    '</div>'
-                ].join('')),
-                $button_add = $([
-                    '<button class="button" data-fc="button" data-hidden="true">',
-                    '<span class="icon icon_svg_plus"></span>',
-                    '<span class="button__text mobile mobile_hide">Создать виджет</span>',
-                    '</button>'
-                ].join('')).on('click', function(){ console.log('qwe') }),
-                $button_edit = $([
-                    '<button class="button" data-fc="button" data-hidden="true">',
-                    '<span class="icon icon_svg_edit"></span>',
-                    '<span class="button__text mobile mobile_hide">Редактировать виджет</span>',
-                    '</button>'
-                ].join('')).on('click', function(){ console.log('asd') }),
-                render = false,
-                change = false;
-            $control__widgets.find('.control__container').append($button_add);
             $control__widgets.find('.control__container').append($button_edit);
+            $control__widgets.find('.control__container').append($button_add);
             for (key in data.lib) {
                 if (data.lib[key]) {
                     if (data.lib[key].library) {
                         data.lib[key].library.forEach(function(item){
                             var $option = $('<option value="' + item.value + '" ' + (item.value == data.pageid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
                             if (item.value == data.pageid) {
+                                selected.lib = key;
+                                selected.library = item;
                                 item.items.forEach(function(item){
                                     var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
                                     $control__widgets.find('.select').append($option);
-                                    if (key == dbmKey && item.value == data.elementid) {
-                                        $button_add.attr('data-hidden', true);
-                                        $button_edit.removeAttr('data-hidden');
+                                    if (item.value == data.elementid) {
+                                        selected.widget = item;
                                     }
                                 });
                             }
                             $control__library.find('.select').append($option);
                             render = true;
+                            prepare_dbm_buttons();
                         });
                         $control__library.find('.select').on('change', function(e){
-                            change = false;
-                            var values = $(this).data('_value'), items = [];
-                            values.forEach(function(item){
-                                for (lib in data.lib) {
-                                    if (data.lib[lib]) {
-                                        if (data.lib[lib].library) {
-                                            var library = data.lib[lib].library.filter(function(d){ return d.value == item.value; });
-                                            if (library.length > 0) {
-                                                library = library[0];
-                                                if (library.items) {
-                                                    items.push.apply(items, library.items)
-                                                }
-                                                if (lib == dbmKey) {
-                                                    $button_add.button('show');
-                                                    $button_edit.button('hide');
-                                                } else {
-                                                    $button_add.button('hide');
-                                                    $button_edit.button('hide');
-                                                }
+                            var value = $(this).select('value'), items = [];
+                            for (lib in data.lib) {
+                                if (data.lib[lib]) {
+                                    if (data.lib[lib].library) {
+                                        var library = data.lib[lib].library.filter(function(d){ return d.value == value; });
+                                        if (library.length > 0) {
+                                            library = library[0];
+                                            selected.lib = lib;
+                                            selected.library = library;
+                                            selected.widget = null;
+                                            if (library.items) {
+                                                items.push.apply(items, library.items)
                                             }
                                         }
                                     }
                                 }
-                            });
+                            }
                             $control__widgets.find('.select').select('update', items);
-                            change = true;
+                            update_dbm_buttons();
                         });
                         $control__widgets.find('.select').on('change', function(e){
-                            var values = $control__library.find('.select').data('_value'), items = [];
-                            if (values && change) {
-                                values.forEach(function(item){
-                                    for (lib in data.lib) {
-                                        if (data.lib[lib]) {
-                                            if (data.lib[lib].library) {
-                                                var library = data.lib[lib].library.filter(function(d){ return d.value == item.value; });
-                                                if (library.length > 0) {
-                                                    if (lib == dbmKey) {
-                                                        $button_add.button('hide');
-                                                        $button_edit.button('show');
-                                                    } else {
-                                                        $button_add.button('hide');
-                                                        $button_edit.button('hide');
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                });
+                            var value = $(this).select('value'), items = [];
+                            if (value) {
+                                var widget = selected.library.items.filter(function(d){ return d.value == value; });
+                                if (widget.length > 0) {
+                                    widget = widget[0];
+                                    selected.widget = widget;
+                                }
+                            } else {
+                                selected.widget = null;
                             }
+                            update_dbm_buttons();
                         });
+                        opened = true;
                     }
                 }
             }
@@ -606,7 +603,30 @@ var Dashboard = function(options){
                         $('<div></div>').append($control__library, $control__widgets)
                 });
             }
-            change = true;
+        }
+        function prepare_dbm_buttons(){
+            $button_add.attr('data-hidden', true);
+            $button_edit.attr('data-hidden', true);
+            if (selected.lib == dbmKey) {
+                if (selected.widget) {
+                    $button_add.removeAttr('data-hidden');
+                    $button_edit.removeAttr('data-hidden');
+                } else {
+                    $button_add.removeAttr('data-hidden');
+                }
+            }
+        }
+        function update_dbm_buttons(){
+            $button_add.button('hide');
+            $button_edit.button('hide');
+            if (selected.lib == dbmKey) {
+                if (selected.widget) {
+                    $button_add.button('show');
+                    $button_edit.button('show');
+                } else {
+                    $button_add.button('show');
+                }
+            }
         }
     };
     /* modal for settings - end */

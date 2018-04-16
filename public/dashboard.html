@@ -330,7 +330,8 @@
             ];
             var libraryDbm = [
                 {
-                    text: 'Количественные виджеты',
+                    //text: 'Количественные виджеты',
+                    text: 'ДБМ',
                     value: 'LibraryCount',
                     items: [
                         {
@@ -543,6 +544,10 @@
                         library: libraryDbm,
                         loader: $.extend(Asyst.ContentLoader, { contents: contents })
                     }
+                },
+                dbm: {
+                    addWidget: function(data){ console.log(data); },
+                    editWidget: function(data){ console.log(data); },
                 },
                 add: function(data){
                     //console.log(JSON.stringify(data));

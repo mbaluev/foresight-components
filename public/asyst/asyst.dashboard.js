@@ -39,6 +39,11 @@ Asyst.PageDashboard = function(options){
                 loader: Asyst.MetaElementLoader
             }
         },
+        dbm: {
+            addWidget: null,
+            editWidget: null,
+            deleteWidget: null
+        },
         single: false,
         margin: true,
         editable: true,
@@ -147,11 +152,8 @@ Asyst.PageDashboard = function(options){
                     single: that.data.single,
                     margin: that.data.margin,
                     editable: that.data.editable,
-
                     lib: that.data.lib,
-                    //library: that.data.library,
-                    //loader: Asyst.MetaElementLoader,
-
+                    dbm: that.data.dbm,
                     page: that.data.page,
                     headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                     tumblerContainerSelector: that.data.tumblerContainerSelector,
@@ -175,6 +177,11 @@ Asyst.Dashboard = function(options){
         margin: true,
         editable: true,
         lib: null,
+        dbm: {
+            addWidget: null,
+            editWidget: null,
+            deleteWidget: null
+        },
         user: { Id: -1 }, //Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
@@ -320,6 +327,7 @@ Asyst.Dashboard = function(options){
                 pageid: that.data.page.pageId,
                 items: that.data.items,
                 lib: that.data.lib,
+                dbm: that.data.dbm,
                 save: function(items){
                     that.saveItems(items);
                 },
