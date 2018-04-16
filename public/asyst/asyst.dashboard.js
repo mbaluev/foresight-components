@@ -75,7 +75,7 @@ Asyst.PageDashboard = function(options){
                 if (data[0]) {
                     var libs = {};
                     data[0].map(function(d){
-                        if (d.pageId in libs) {
+                        if (d.metaPageName in libs) {
                             libs[d.metaPageName].items.push({
                                 value: d.pageElementId,
                                 text: d.metaPageElementTitle
