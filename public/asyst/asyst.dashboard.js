@@ -25,30 +25,20 @@ Asyst.PageDashboard = function(options){
         name: null,
         containerid: 'container',
         type: 'page',
-
         libraries: {
             foresight: [],
-            dbWidget: false,
-            dbChartType: false
+            dbm: []
         },
         lib: {
             foresight: {
                 library: [],
                 loader: Asyst.MetaElementLoader
             },
-            dbWidget: {
+            dbm: {
                 library: [],
-                loader: null
-            },
-            dbChartType: {
-                library: [],
-                loader: null
+                loader: Asyst.MetaElementLoader
             }
         },
-
-        //libraries: [],
-        //library: [],
-
         single: false,
         margin: true,
         editable: true,
@@ -75,7 +65,10 @@ Asyst.PageDashboard = function(options){
             name: 'WidgetLibrary',
             data: {
                 AccountId: that.data.user.Id,
-                PageName: that.data.libraries.foresight.join(',')
+                PageName: [
+                    that.data.libraries.foresight.join(','),
+                    that.data.libraries.dbm.join(',')
+                ].join(',')
             },
             success: function(data){
                 var items = [];
@@ -83,12 +76,12 @@ Asyst.PageDashboard = function(options){
                     var libs = {};
                     data[0].map(function(d){
                         if (d.pageId in libs) {
-                            libs[d.pageId].items.push({
+                            libs[d.metaPageName].items.push({
                                 value: d.pageElementId,
                                 text: d.metaPageElementTitle
                             });
                         } else {
-                            libs[d.pageId] = {
+                            libs[d.metaPageName] = {
                                 value: d.pageId,
                                 text: d.metaPageTitle,
                                 items: [{
@@ -98,8 +91,9 @@ Asyst.PageDashboard = function(options){
                             };
                         }
                     });
-                    for (var pageId in libs) {
-                        that.data.lib.foresight.library.push(libs[pageId]);
+                    for (var metaPageName in libs) {
+                        if (typeof that.data.lib[metaPageName] == 'undefined') { that.data.lib[metaPageName] = {}; }
+                        that.data.lib[metaPageName].library.push(libs[metaPageName]);
                     }
                     if (typeof callback == 'function') { callback(); }
                 } else {
@@ -171,11 +165,7 @@ Asyst.Dashboard = function(options){
         single: false,
         margin: true,
         editable: true,
-
         lib: null,
-        //library: [],
-        //loader: null,
-
         user: { Id: -1 }, //Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
@@ -320,11 +310,7 @@ Asyst.Dashboard = function(options){
                 editable: that.data.editable,
                 pageid: that.data.page.pageId,
                 items: that.data.items,
-
                 lib: that.data.lib,
-                //library: that.data.library,
-                //loader: that.data.loader,
-
                 save: function(items){
                     that.saveItems(items);
                 },

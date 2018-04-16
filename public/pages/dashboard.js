@@ -28,13 +28,11 @@ var Dashboard = function(options){
                 library: [],
                 loader: null
             },
-            dbWidget: null,
-            dbChartType: null
+            dbm: {
+                library: [],
+                loader: null
+            }
         },
-
-        //library: [],
-        //loader: null,
-
         grid: null,
         add: function(data){},
         save: function(data){},
@@ -489,6 +487,7 @@ var Dashboard = function(options){
         });
     };
     that.settings_render_source_tab = function(data, tabs, active){
+        var dbmKey = 'dbm';
         if (typeof data.lib == 'object') {
             var $control__library = $([
                     '<div class="control">',
@@ -505,12 +504,27 @@ var Dashboard = function(options){
                     '<div class="control__caption">',
                     '<div class="control__text">Виджет</div>',
                     '</div>',
-                    '<div class="control__container">',
+                    '<div class="control__container control__container_horizontal">',
                     '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
                     '</div>',
                     '</div>'
                 ].join('')),
-                render = false;
+                $button_add = $([
+                    '<button class="button" data-fc="button" data-hidden="true">',
+                    '<span class="icon icon_svg_plus"></span>',
+                    '<span class="button__text mobile mobile_hide">Создать виджет</span>',
+                    '</button>'
+                ].join('')).on('click', function(){ console.log('qwe') }),
+                $button_edit = $([
+                    '<button class="button" data-fc="button" data-hidden="true">',
+                    '<span class="icon icon_svg_edit"></span>',
+                    '<span class="button__text mobile mobile_hide">Редактировать виджет</span>',
+                    '</button>'
+                ].join('')).on('click', function(){ console.log('asd') }),
+                render = false,
+                change = false;
+            $control__widgets.find('.control__container').append($button_add);
+            $control__widgets.find('.control__container').append($button_edit);
             for (key in data.lib) {
                 if (data.lib[key]) {
                     if (data.lib[key].library) {
@@ -520,14 +534,18 @@ var Dashboard = function(options){
                                 item.items.forEach(function(item){
                                     var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
                                     $control__widgets.find('.select').append($option);
+                                    if (key == dbmKey && item.value == data.elementid) {
+                                        $button_add.attr('data-hidden', true);
+                                        $button_edit.removeAttr('data-hidden');
+                                    }
                                 });
                             }
                             $control__library.find('.select').append($option);
                             render = true;
                         });
                         $control__library.find('.select').on('change', function(e){
-                            var values = $(this).data('_value'),
-                                items = [];
+                            change = false;
+                            var values = $(this).data('_value'), items = [];
                             values.forEach(function(item){
                                 for (lib in data.lib) {
                                     if (data.lib[lib]) {
@@ -538,12 +556,43 @@ var Dashboard = function(options){
                                                 if (library.items) {
                                                     items.push.apply(items, library.items)
                                                 }
+                                                if (lib == dbmKey) {
+                                                    $button_add.button('show');
+                                                    $button_edit.button('hide');
+                                                } else {
+                                                    $button_add.button('hide');
+                                                    $button_edit.button('hide');
+                                                }
                                             }
                                         }
                                     }
                                 }
                             });
                             $control__widgets.find('.select').select('update', items);
+                            change = true;
+                        });
+                        $control__widgets.find('.select').on('change', function(e){
+                            var values = $control__library.find('.select').data('_value'), items = [];
+                            if (values && change) {
+                                values.forEach(function(item){
+                                    for (lib in data.lib) {
+                                        if (data.lib[lib]) {
+                                            if (data.lib[lib].library) {
+                                                var library = data.lib[lib].library.filter(function(d){ return d.value == item.value; });
+                                                if (library.length > 0) {
+                                                    if (lib == dbmKey) {
+                                                        $button_add.button('hide');
+                                                        $button_edit.button('show');
+                                                    } else {
+                                                        $button_add.button('hide');
+                                                        $button_edit.button('hide');
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            }
                         });
                     }
                 }
@@ -557,62 +606,8 @@ var Dashboard = function(options){
                         $('<div></div>').append($control__library, $control__widgets)
                 });
             }
+            change = true;
         }
-        /*
-        if (data.library) {
-            var $control__library = $([
-                    '<div class="control">',
-                    '<div class="control__caption">',
-                    '<div class="control__text">Источник данных</div>',
-                    '</div>',
-                    '<div class="control__container">',
-                    '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
-                    '</div>',
-                    '</div>'
-                ].join('')),
-                $control__widgets = $([
-                    '<div class="control">',
-                    '<div class="control__caption">',
-                    '<div class="control__text">Виджет</div>',
-                    '</div>',
-                    '<div class="control__container">',
-                    '<select class="select" name="elementid" data-fc="select" data-field="elementid" data-mode="radio-check" data-height="350"></select>',
-                    '</div>',
-                    '</div>'
-                ].join(''));
-            data.library.forEach(function(item){
-                var $option = $('<option value="' + item.value + '" ' + (item.value == data.pageid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                if (item.value == data.pageid) {
-                    item.items.forEach(function(item){
-                        var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                        $control__widgets.find('.select').append($option);
-                    });
-                }
-                $control__library.find('.select').append($option);
-            });
-            $control__library.find('.select').on('change', function(e){
-                var values = $(this).data('_value'),
-                    items = [];
-                values.forEach(function(item){
-                    var library = data.library.filter(function(d){ return d.value == item.value; });
-                    if (library.length > 0) {
-                        library = library[0];
-                        if (library.items) {
-                            items.push.apply(items, library.items)
-                        }
-                    }
-                });
-                $control__widgets.find('.select').select('update', items);
-            });
-            tabs.push({
-                id: 'source',
-                name: 'Источник данных',
-                active: active,
-                content:
-                    $('<div></div>').append($control__library, $control__widgets)
-            });
-        }
-        */
     };
     /* modal for settings - end */
 

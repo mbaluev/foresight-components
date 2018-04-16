@@ -254,51 +254,13 @@
                         "calendar":false,
                         "resizeOnExpand":false,
                         "name":"Мои поручения",
-                        "pageid":"LibraryChart",
-                        "elementid":"MyOrders",
+                        "pageid":"LibraryCount",
+                        "elementid":"MyLov",
                         "params":null
                     }
                 }
             ];
             var library = [
-                {
-                    text: 'Количественные виджеты',
-                    value: 'LibraryCount',
-                    items: [
-                        {
-                            text: 'ОВ для меня',
-                            value: 'MyLov'
-                        },
-                        {
-                            text: 'ОВ от меня',
-                            value: 'LovFromMe'
-                        },
-                        {
-                            text: 'Запросы на изменение для меня',
-                            value: 'ChReqForMe'
-                        },
-                        {
-                            text: 'Запросы на изменение от меня',
-                            value: 'ChReqFromMe'
-                        },
-                        {
-                            text: 'Мои инициативы на рассмотрении ЦПО',
-                            value: 'MyInitCPO'
-                        },
-                        {
-                            text: 'Чек-листы для меня',
-                            value: 'ChListForMe'
-                        },
-                        {
-                            text: 'Мои документы',
-                            value: 'MyDocs'
-                        },
-                        {
-                            text: 'Проекты на стадию',
-                            value: 'MyProjectMoveToNextPhase'
-                        }
-                    ]
-                },
                 {
                     text: 'Графики',
                     value: 'LibraryChart',
@@ -362,6 +324,46 @@
                         {
                             text: 'Логотип',
                             value: 'Logo'
+                        }
+                    ]
+                }
+            ];
+            var libraryDbm = [
+                {
+                    text: 'Количественные виджеты',
+                    value: 'LibraryCount',
+                    items: [
+                        {
+                            text: 'ОВ для меня',
+                            value: 'MyLov'
+                        },
+                        {
+                            text: 'ОВ от меня',
+                            value: 'LovFromMe'
+                        },
+                        {
+                            text: 'Запросы на изменение для меня',
+                            value: 'ChReqForMe'
+                        },
+                        {
+                            text: 'Запросы на изменение от меня',
+                            value: 'ChReqFromMe'
+                        },
+                        {
+                            text: 'Мои инициативы на рассмотрении ЦПО',
+                            value: 'MyInitCPO'
+                        },
+                        {
+                            text: 'Чек-листы для меня',
+                            value: 'ChListForMe'
+                        },
+                        {
+                            text: 'Мои документы',
+                            value: 'MyDocs'
+                        },
+                        {
+                            text: 'Проекты на стадию',
+                            value: 'MyProjectMoveToNextPhase'
                         }
                     ]
                 }
@@ -537,13 +539,11 @@
                         library: library,
                         loader: $.extend(Asyst.ContentLoader, { contents: contents })
                     },
-                    dbWidget: null,
-                    dbChartType: null
+                    dbm: {
+                        library: libraryDbm,
+                        loader: $.extend(Asyst.ContentLoader, { contents: contents })
+                    }
                 },
-
-                //library: library,
-                //loader: $.extend(Asyst.ContentLoader, { contents: contents }),
-
                 add: function(data){
                     //console.log(JSON.stringify(data));
                     console.log(data);

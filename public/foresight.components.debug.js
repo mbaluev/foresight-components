@@ -6153,10 +6153,6 @@ $(function(){
                         margin: true,
                         closely: false,
                         lib: null,
-
-                        //loader: null,
-                        //library: null,
-
                         widget_buttons: [],
                         mode: 'view',
                         disabled: true,

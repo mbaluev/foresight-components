@@ -102,6 +102,9 @@
 .control__container_horizontal {
     flex-direction: row;
 }
+.control__container_horizontal > .button {
+    margin-left: 10px;
+}
 .control__container_text-align_right {
     text-align: right;
 }
