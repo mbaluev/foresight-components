@@ -7034,9 +7034,9 @@ $(function(){
                     that.init_draggable = function(){
                         that.data._el.modal__dialog
                             .append(
-                                //that.data._el.modal__dialog_handle_NE,
-                                //that.data._el.modal__dialog_handle_NN,
-                                //that.data._el.modal__dialog_handle_NW,
+                                that.data._el.modal__dialog_handle_NE,
+                                that.data._el.modal__dialog_handle_NN,
+                                that.data._el.modal__dialog_handle_NW,
                                 that.data._el.modal__dialog_handle_WW,
                                 that.data._el.modal__dialog_handle_EE,
                                 that.data._el.modal__dialog_handle_SW,
@@ -7053,17 +7053,17 @@ $(function(){
                             .drag(function(ev, dd){
                                 var props = {};
                                 if (dd.attr.indexOf('E') > -1) {
-                                    props.width = Math.max(300, dd.width + dd.deltaX);
+                                    props.width = Math.max(400, dd.width + dd.deltaX);
                                 }
                                 if (dd.attr.indexOf('S') > -1) {
-                                    props.height = Math.max(30, dd.height + dd.deltaY);
+                                    props.height = Math.max(200, dd.height + dd.deltaY);
                                 }
                                 if (dd.attr.indexOf('W') > -1) {
-                                    props.width = Math.max(300, dd.width - dd.deltaX);
+                                    props.width = Math.max(400, dd.width - dd.deltaX);
                                     props.left = dd.originalX + dd.width - props.width;
                                 }
                                 if (dd.attr.indexOf('N') > -1) {
-                                    props.height = Math.max(300, dd.height - dd.deltaY);
+                                    props.height = Math.max(200, dd.height - dd.deltaY);
                                     props.top = dd.originalY + dd.height - props.height;
                                 }
                                 if (dd.attr.indexOf('card__header') > -1 ||
