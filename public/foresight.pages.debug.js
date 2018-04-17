@@ -437,6 +437,7 @@ var Dashboard = function(options){
                     data[t.data('field')] != val) {
                     reload = true;
                 }
+                _.set(data, t.data('field'), val);
                 _.set(widget.data(), t.data('field'), val);
             });
             widget.widget('set_name');
