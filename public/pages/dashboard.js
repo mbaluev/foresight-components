@@ -530,6 +530,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.addWidget == 'function') {
+                    resize_dbm_modal();
                     that.data.dbm.addWidget(that.data.modal, widget, selected);
                 }
             }),
@@ -539,6 +540,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.editWidget == 'function') {
+                    resize_dbm_modal();
                     that.data.dbm.editWidget(that.data.modal, widget, selected);
                 }
             }),
@@ -639,6 +641,25 @@ var Dashboard = function(options){
                     $button_add.button('show');
                 }
             }
+        }
+        function resize_dbm_modal(){
+            var widget_dimm = {
+                left: widget.offset().left,
+                top: widget.offset().top,
+                width: widget.outerWidth(),
+                height: widget.outerHeight()
+            };
+            var window_dimm = {
+                width: $(window).outerWidth(),
+                height: $(window).outerHeight()
+            };
+            var modal_dimm = {
+                left: ((widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? '10px' : window_dimm.width/2 + 'px'),
+                top: '10px',
+                width: window_dimm.width/2 - 10 + 'px',
+                height: window_dimm.height - 20 + 'px'
+            };
+            that.data.modal.data()._el.modal__dialog.css(modal_dimm);
         }
     };
     /* modal for settings - end */
