@@ -546,8 +546,20 @@
                     }
                 },
                 dbm: {
-                    addWidget: function(data){ console.log(data); },
-                    editWidget: function(data){ console.log(data); },
+                    addWidget: function(modal, data){
+                        modal.data()._el.modal__dialog.css({
+                            left: '20px', top: 0,
+                            width: $(window).width() - 40,
+                            height: $(window).height() - 20
+                        });
+                    },
+                    editWidget: function(modal, data){
+                        modal.data()._el.modal__dialog.css({
+                            left: '20px', top: 0,
+                            width: $(window).width() - 40,
+                            height: $(window).height() - 20
+                        });
+                    }
                 },
                 add: function(data){
                     //console.log(JSON.stringify(data));

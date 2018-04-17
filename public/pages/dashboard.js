@@ -43,7 +43,8 @@ var Dashboard = function(options){
         save: function(data){},
         headerExtraControlsRenderer: null,
         params: null,
-        type: 'page'
+        type: 'page',
+        modal: null
     };
     that.data = $.extend(that.data, options);
 
@@ -412,7 +413,7 @@ var Dashboard = function(options){
             that.settings_render_general_tab(data, modal_options.content.tabs, true);
             that.settings_render_source_tab(data, modal_options.content.tabs, false);
         }
-        $('<span class="modal__"></span>').appendTo('body')
+        that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
                 var reload = false;
@@ -519,7 +520,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.addWidget == 'function') {
-                    that.data.dbm.addWidget(selected);
+                    that.data.dbm.addWidget(that.data.modal, selected);
                 }
             }),
             $button_edit = $([
@@ -528,7 +529,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.editWidget == 'function') {
-                    that.data.dbm.editWidget(selected);
+                    that.data.dbm.editWidget(that.data.modal, selected);
                 }
             }),
             render = false, opened = false,
