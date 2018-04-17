@@ -7033,6 +7033,7 @@ $(function(){
 
                     that.init_draggable = function(){
                         that.data._el.modal__dialog
+                            .css(that.data._el.modal__dialog.offset())
                             .append(
                                 that.data._el.modal__dialog_handle_NE,
                                 that.data._el.modal__dialog_handle_NN,
