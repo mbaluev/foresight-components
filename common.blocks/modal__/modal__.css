@@ -85,8 +85,10 @@
     margin-top: -100%;
     opacity: 0;
 }
-.modal__dialog_draggable {
+.modal__dialog_absolute {
     position: absolute;
+}
+.modal__dialog_draggable {
     transition: none;
 }
 .modal__dialog_draggable .card__header,

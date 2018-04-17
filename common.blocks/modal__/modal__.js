@@ -235,6 +235,7 @@
 
                     that.init_draggable = function(){
                         that.data._el.modal__dialog
+                            .addClass('modal__dialog_absolute')
                             .addClass('modal__dialog_draggable')
                             .drag('start', function(ev, dd){
                                 dd.limit = that.data._el.modal__view.offset();
