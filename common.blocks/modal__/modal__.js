@@ -43,6 +43,14 @@
                         modal__view: $('<div class="modal__view"></div>'),
                         modal__backdrop: $('<div class="modal__backdrop"></div>'),
                         modal__dialog: $('<div class="modal__dialog modal__dialog_hidden"></div>'),
+                        modal__dialog_handle_NE: $('<div class="modal__dialog_handle modal__dialog_handle_NE"></div>'),
+                        modal__dialog_handle_NN: $('<div class="modal__dialog_handle modal__dialog_handle_NN"></div>'),
+                        modal__dialog_handle_NW: $('<div class="modal__dialog_handle modal__dialog_handle_NW"></div>'),
+                        modal__dialog_handle_WW: $('<div class="modal__dialog_handle modal__dialog_handle_WW"></div>'),
+                        modal__dialog_handle_EE: $('<div class="modal__dialog_handle modal__dialog_handle_EE"></div>'),
+                        modal__dialog_handle_SW: $('<div class="modal__dialog_handle modal__dialog_handle_SW"></div>'),
+                        modal__dialog_handle_SS: $('<div class="modal__dialog_handle modal__dialog_handle_SS"></div>'),
+                        modal__dialog_handle_SE: $('<div class="modal__dialog_handle modal__dialog_handle_SE"></div>'),
                         card: $('<div class="card" data-fc="card"></div>'),
                         card__header: $('<div class="card__header"></div>'),
                         card__header_row_caption: $('<div class="card__header-row"></div>'),
@@ -235,19 +243,47 @@
 
                     that.init_draggable = function(){
                         that.data._el.modal__dialog
+                            .append(
+                                //that.data._el.modal__dialog_handle_NE,
+                                //that.data._el.modal__dialog_handle_NN,
+                                //that.data._el.modal__dialog_handle_NW,
+                                that.data._el.modal__dialog_handle_WW,
+                                that.data._el.modal__dialog_handle_EE,
+                                that.data._el.modal__dialog_handle_SW,
+                                that.data._el.modal__dialog_handle_SS,
+                                that.data._el.modal__dialog_handle_SE
+                            )
                             .addClass('modal__dialog_absolute')
                             .addClass('modal__dialog_draggable')
                             .drag('start', function(ev, dd){
-                                dd.limit = that.data._el.modal__view.offset();
-                                dd.limit.bottom = dd.limit.top + that.data._el.modal__view.outerHeight() - $(this).outerHeight();
-                                dd.limit.right = dd.limit.left + that.data._el.modal__view.outerWidth() - $(this).outerWidth();
+                                dd.attr = $(ev.target).prop('className');
+                                dd.width = $(this).width();
+                                dd.height = $(this).height();
                             })
                             .drag(function(ev, dd){
-                                $(this).css({
-                                    top: dd.offsetY,
-                                    left: dd.offsetX
-                                })
-                            }, { handle: '.card__header' });
+                                var props = {};
+                                if (dd.attr.indexOf('E') > -1) {
+                                    props.width = Math.max(300, dd.width + dd.deltaX);
+                                }
+                                if (dd.attr.indexOf('S') > -1) {
+                                    props.height = Math.max(30, dd.height + dd.deltaY);
+                                }
+                                if (dd.attr.indexOf('W') > -1) {
+                                    props.width = Math.max(300, dd.width - dd.deltaX);
+                                    props.left = dd.originalX + dd.width - props.width;
+                                }
+                                if (dd.attr.indexOf('N') > -1) {
+                                    props.height = Math.max(300, dd.height - dd.deltaY);
+                                    props.top = dd.originalY + dd.height - props.height;
+                                }
+                                if (dd.attr.indexOf('card__header') > -1 ||
+                                    dd.attr.indexOf('card__caption') > -1 ||
+                                    dd.attr.indexOf('card__name') > -1) {
+                                    props.top = dd.offsetY;
+                                    props.left = dd.offsetX;
+                                }
+                                $(this).css( props );
+                            });
                     };
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
