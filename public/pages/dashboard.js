@@ -410,13 +410,14 @@ var Dashboard = function(options){
             },
             content: { tabs: [] },
             data: data,
+            size: 'md',
             draggable: true
         };
         if (that.data.single) {
-            that.settings_render_source_tab(data, modal_options.content.tabs, true);
+            that.settings_render_source_tab(data, modal_options.content.tabs, true, widget);
         } else {
-            that.settings_render_general_tab(data, modal_options.content.tabs, true);
-            that.settings_render_source_tab(data, modal_options.content.tabs, false);
+            that.settings_render_general_tab(data, modal_options.content.tabs, true, widget);
+            that.settings_render_source_tab(data, modal_options.content.tabs, false, widget);
         }
         that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
@@ -443,7 +444,7 @@ var Dashboard = function(options){
             if (reload) { widget.widget('set_content'); }
         }
     };
-    that.settings_render_general_tab = function(data, tabs, active){
+    that.settings_render_general_tab = function(data, tabs, active, widget){
         tabs.push({
             id: 'general',
             name: 'Основные',
@@ -451,8 +452,8 @@ var Dashboard = function(options){
             content: $([
 
                 '<div class="control">' +
-                '<div class="control__caption">' +
-                '<div class="control__text">Скрывать по умолчанию</div>' +
+                '<div class="control__caption control__caption_size_s">' +
+                '<div class="control__text">Скрывать</div>' +
                 '</div>' +
                 '<div class="control__container">' +
                 '<label class="checkbox" data-fc="checkbox" data-field="collapsed"' +
@@ -464,7 +465,7 @@ var Dashboard = function(options){
                 '</div>' +
 
                 '<div class="control">' +
-                '<div class="control__caption">' +
+                '<div class="control__caption control__caption_size_s">' +
                 '<div class="control__text">Заголовок</div>' +
                 //'<div class="control__icons">' +
                 //'<span class="icon icon_svg_star_red"></span>' +
@@ -485,7 +486,7 @@ var Dashboard = function(options){
                 '</div>' +
 
                 '<div class="control">' +
-                '<div class="control__caption">' +
+                '<div class="control__caption control__caption_size_s">' +
                 '<div class="control__text">Цвет</div>' +
                 '</div>' +
                 '<div class="control__container">' +
@@ -502,10 +503,10 @@ var Dashboard = function(options){
             ].join(''))
         });
     };
-    that.settings_render_source_tab = function(data, tabs, active){
+    that.settings_render_source_tab = function(data, tabs, active, widget){
         var $control__library = $([
                 '<div class="control">',
-                '<div class="control__caption">',
+                '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">Источник данных</div>',
                 '</div>',
                 '<div class="control__container">',
@@ -515,7 +516,7 @@ var Dashboard = function(options){
             ].join('')),
             $control__widgets = $([
                 '<div class="control">',
-                '<div class="control__caption">',
+                '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">Виджет</div>',
                 '</div>',
                 '<div class="control__container control__container_horizontal">',
@@ -529,7 +530,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.addWidget == 'function') {
-                    that.data.dbm.addWidget(that.data.modal, selected);
+                    that.data.dbm.addWidget(that.data.modal, widget, selected);
                 }
             }),
             $button_edit = $([
@@ -538,7 +539,7 @@ var Dashboard = function(options){
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.editWidget == 'function') {
-                    that.data.dbm.editWidget(that.data.modal, selected);
+                    that.data.dbm.editWidget(that.data.modal, widget, selected);
                 }
             }),
             render = false, opened = false,
