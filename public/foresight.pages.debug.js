@@ -389,9 +389,15 @@ var Dashboard = function(options){
         var modal_options = {
             buttons: [
                 {
+                    name: 'apply',
+                    action: 'apply',
+                    icon: 'icon_svg_ok',
+                    tooltip: 'Применить'
+                },
+                {
                     name: 'save',
                     action: 'save',
-                    icon: 'icon_svg_ok'
+                    icon: 'icon_svg_save_red'
                 },
                 {
                     name: 'destroy',
@@ -415,24 +421,30 @@ var Dashboard = function(options){
         }
         that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
+            .on('apply.fc.modal', function(){
+                apply($(this));
+            })
             .on('save.fc.modal', function(){
-                var reload = false;
-                $(this).find('[data-field]').each(function(){
-                    var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                    if ((t.data('field') == 'pageid' ||
-                        t.data('field') == 'elementid') &&
-                        data[t.data('field')] != val) {
-                        reload = true;
-                    }
-                    _.set(widget.data(), t.data('field'), val);
-                });
-                widget.widget('set_name');
-                widget.widget('set_color');
-                if (reload) {
-                    widget.widget('set_content');
-                }
+                apply($(this));
                 $(this).modal__('destroy');
             });
+        function apply($modal){
+            var reload = false;
+            $modal.find('[data-field]').each(function(){
+                var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
+                if ((t.data('field') == 'pageid' ||
+                    t.data('field') == 'elementid') &&
+                    data[t.data('field')] != val) {
+                    reload = true;
+                }
+                _.set(widget.data(), t.data('field'), val);
+            });
+            widget.widget('set_name');
+            widget.widget('set_color');
+            if (reload) {
+                widget.widget('set_content');
+            }
+        }
     };
     that.settings_render_general_tab = function(data, tabs, active){
         tabs.push({

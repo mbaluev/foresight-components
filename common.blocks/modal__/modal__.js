@@ -145,7 +145,8 @@
                         that.data._el.card__header_row_caption.append($buttons_column);
                         that.data.buttons.forEach(function(button){
                             var $button = $(
-                                '<button class="button button__' + button.name + '" data-fc="button">' +
+                                '<button class="button button__' + button.name + '" data-fc="button" ' +
+                                (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>' +
                                 (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
                                 (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
                                 '</button>'
