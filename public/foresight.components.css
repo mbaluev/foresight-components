@@ -4348,7 +4348,7 @@ body {
 }
 
 .card__header {
-  z-index: 2;
+  /*z-index: 2;*/
   position: relative;
   border-bottom: solid 1px #ddd;
   padding: 10px 0 0 10px;
@@ -5477,6 +5477,16 @@ body {
 .modal__dialog_hidden {
   margin-top: -100%;
   opacity: 0;
+}
+
+.modal__dialog_draggable {
+  position: absolute;
+  transition: none;
+}
+
+.modal__dialog_draggable .card__header,
+.modal__dialog_draggable .card__header label {
+  cursor: move;
 }
 
 .modal__dialog_size_xs {

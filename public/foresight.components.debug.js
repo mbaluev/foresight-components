@@ -6862,6 +6862,7 @@ $(function(){
                         }, 500);
                     };
                     that.hide = function(){
+                        that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
                         self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                             self.addClass('modal_hidden');
@@ -6880,6 +6881,9 @@ $(function(){
                         that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
                             setTimeout(function(){
                                 that.data._el.card.css('max-height', '100%');
+                                if (that.data.draggable) {
+                                    that.init_draggable();
+                                }
                                 self.trigger(that.data._triggers.shown);
                             }, 100);
                         });
@@ -7019,6 +7023,21 @@ $(function(){
                         }
                     };
 
+                    that.init_draggable = function(){
+                        that.data._el.modal__dialog
+                            .addClass('modal__dialog_draggable')
+                            .drag('start', function(ev, dd){
+                                dd.limit = that.data._el.modal__view.offset();
+                                dd.limit.bottom = dd.limit.top + that.data._el.modal__view.outerHeight() - $(this).outerHeight();
+                                dd.limit.right = dd.limit.left + that.data._el.modal__view.outerWidth() - $(this).outerWidth();
+                            })
+                            .drag(function(ev, dd){
+                                $(this).css({
+                                    top: dd.offsetY,
+                                    left: dd.offsetX
+                                })
+                            }, { handle: '.card__header' });
+                    };
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
                         self.find('[data-fc="button"]').button({

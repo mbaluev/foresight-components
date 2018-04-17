@@ -85,6 +85,14 @@
     margin-top: -100%;
     opacity: 0;
 }
+.modal__dialog_draggable {
+    position: absolute;
+    transition: none;
+}
+.modal__dialog_draggable .card__header,
+.modal__dialog_draggable .card__header label{
+    cursor: move;
+}
 
 .modal__dialog_size_xs {
     width: 320px;

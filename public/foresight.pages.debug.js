@@ -403,7 +403,8 @@ var Dashboard = function(options){
                 name: data.name
             },
             content: { tabs: [] },
-            data: data
+            data: data,
+            draggable: true
         };
         if (that.data.single) {
             that.settings_render_source_tab(data, modal_options.content.tabs, true);
