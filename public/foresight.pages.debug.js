@@ -389,10 +389,9 @@ var Dashboard = function(options){
         var modal_options = {
             buttons: [
                 {
-                    name: 'apply',
-                    action: 'apply',
-                    icon: 'icon_svg_ok',
-                    tooltip: 'Применить'
+                    name: 'reload',
+                    action: 'reload',
+                    icon: 'icon_svg_refresh'
                 },
                 {
                     name: 'save',
@@ -421,15 +420,14 @@ var Dashboard = function(options){
         }
         that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
-            .on('apply.fc.modal', function(){
-                apply($(this));
+            .on('reload.fc.modal', function(){
+                apply($(this), true);
             })
             .on('save.fc.modal', function(){
-                apply($(this));
+                apply($(this), false);
                 $(this).modal__('destroy');
             });
-        function apply($modal){
-            var reload = false;
+        function apply($modal, reload){
             $modal.find('[data-field]').each(function(){
                 var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
                 if ((t.data('field') == 'pageid' ||
@@ -442,9 +440,7 @@ var Dashboard = function(options){
             });
             widget.widget('set_name');
             widget.widget('set_color');
-            if (reload) {
-                widget.widget('set_content');
-            }
+            if (reload) { widget.widget('set_content'); }
         }
     };
     that.settings_render_general_tab = function(data, tabs, active){
