@@ -4301,15 +4301,6 @@ body {
           flex-direction: row;
 }
 
-/*
-.control__container_horizontal > * {
-    margin-right: 10px;
-}
-.control__container_horizontal > *:last-child {
-    margin-right: 0;
-}
-*/
-
 .control__container_text-align_right {
   text-align: right;
 }
@@ -5648,6 +5639,19 @@ body {
 
 .modal_fullscreen .modal__dialog {
   width: 100%;
+}
+
+.asyst_editform {
+  visibility: visible;
+}
+
+.asyst_editform .container {
+  margin: 0;
+  width: 100%;
+  box-shadow: none !important;
+  border: solid 1px #ccc;
+  border-radius: 0;
+  overflow: hidden;
 }
 
 /*

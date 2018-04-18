@@ -506,7 +506,7 @@ var Dashboard = function(options){
     };
     that.settings_render_source_tab = function(data, tabs, active, widget){
         var $control__library = $([
-                '<div class="control">',
+                '<div class="control" style="flex: 0 0 auto;">',
                 '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">Источник данных</div>',
                 '</div>',
@@ -516,7 +516,7 @@ var Dashboard = function(options){
                 '</div>'
             ].join('')),
             $control__widgets = $([
-                '<div class="control">',
+                '<div class="control" style="flex: 0 0 auto;">',
                 '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">Виджет</div>',
                 '</div>',
@@ -526,7 +526,7 @@ var Dashboard = function(options){
                 '</div>'
             ].join('')),
             $control__dbm = $([
-                '<div class="control" style="display:none;">',
+                '<div class="control" style="flex: 1 1 auto; display:none;">',
                 '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">ДБМ</div>',
                 '</div>',
@@ -640,7 +640,7 @@ var Dashboard = function(options){
                     name: 'Источник данных',
                     active: active,
                     content:
-                        $('<div></div>').append($control__library, $control__widgets, $control__dbm)
+                        $('<div style="display: flex; flex-direction: column; height: 100%;"></div>').append($control__library, $control__widgets, $control__dbm)
                 });
             }
         }
