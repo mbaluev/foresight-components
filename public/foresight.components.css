@@ -4285,6 +4285,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: hidden;
 }
 
 .control__container_vertical {
@@ -5706,7 +5707,7 @@ body {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  padding-top: 20px;
+  padding-top: 10px;
   overflow: auto;
 }
 
@@ -5716,6 +5717,10 @@ body {
 
 .asyst_editform .dbPanel {
   margin-bottom: 10px;
+}
+
+.asyst_editform .cardCode {
+  margin: 0 0 10px;
 }
 
 /*
