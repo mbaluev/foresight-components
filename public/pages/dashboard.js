@@ -423,27 +423,12 @@ var Dashboard = function(options){
         that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
             .on('reload.fc.modal', function(){
-                apply($(this), true);
+                that.settings_apply(widget, data, true);
             })
             .on('save.fc.modal', function(){
-                apply($(this), false);
+                that.settings_apply(widget, data, false);
                 $(this).modal__('destroy');
             });
-        function apply($modal, reload){
-            $modal.find('[data-field]').each(function(){
-                var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
-                if ((t.data('field') == 'pageid' ||
-                    t.data('field') == 'elementid') &&
-                    data[t.data('field')] != val) {
-                    reload = true;
-                }
-                _.set(data, t.data('field'), val);
-                _.set(widget.data(), t.data('field'), val);
-            });
-            widget.widget('set_name');
-            widget.widget('set_color');
-            if (reload) { widget.widget('set_content'); }
-        }
     };
     that.settings_render_general_tab = function(data, tabs, active, widget){
         tabs.push({
@@ -696,6 +681,21 @@ var Dashboard = function(options){
         function render_dbm_control(){
             $control__dbm.show();
         }
+    };
+    that.settings_apply = function(widget, data, reload){
+        that.data.modal.find('[data-field]').each(function(){
+            var t = $(this), val = t[t.data('fc').replace('-','_')]('value');
+            if ((t.data('field') == 'pageid' ||
+                t.data('field') == 'elementid') &&
+                data[t.data('field')] != val) {
+                reload = true;
+            }
+            _.set(data, t.data('field'), val);
+            _.set(widget.data(), t.data('field'), val);
+        });
+        widget.widget('set_name');
+        widget.widget('set_color');
+        if (reload) { widget.widget('set_content'); }
     };
     /* modal for settings - end */
 
