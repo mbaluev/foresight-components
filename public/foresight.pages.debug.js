@@ -530,7 +530,7 @@ var Dashboard = function(options){
                 '<div class="control__caption control__caption_size_s">',
                 '<div class="control__text">ДБМ</div>',
                 '</div>',
-                '<div class="control__container control__container_horizontal" id="dbm__container"></div>',
+                '<div class="control__container control__container_horizontal asyst_editform" id="dbm__container"></div>',
                 '</div>'
             ].join('')),
             $button_add = $([
