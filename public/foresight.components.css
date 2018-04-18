@@ -5650,7 +5650,6 @@ body {
   margin: 0;
   width: 100%;
   box-shadow: none !important;
-  border: solid 1px #ccc;
   border-radius: 0;
   overflow: hidden;
 }
@@ -5689,6 +5688,10 @@ body {
   color: #999;
 }
 
+.asyst_editform .nav-tabs > li > a:first-child {
+  margin: 0;
+}
+
 .asyst_editform .nav-tabs > li > a:hover {
   border-bottom: solid 1px #ccc;
   background-color: #eee;
@@ -5709,6 +5712,8 @@ body {
           flex: 1 1 auto;
   padding-top: 10px;
   overflow: auto;
+  border: solid 1px #ccc;
+  border-top: none;
 }
 
 .asyst_editform .tab-pane {
