@@ -9,23 +9,23 @@
     border-radius: 0;
     overflow: hidden;
 }
-.asyst_editform .nav_tabs {
+.asyst_editform .nav-tabs {
     padding-top: 10px !important;
     border-color: #ccc;
 }
-.asyst_editform .nav_tabs > li > a {
+.asyst_editform .nav-tabs > li > a {
     margin: 0 0 0 20px;
     padding: 0 10px;
     line-height: 28px;
     border-radius: 3px !important;
     color: #999;
 }
-.asyst_editform .nav_tabs > li > a:hover {
+.asyst_editform .nav-tabs > li > a:hover {
     border-bottom: solid 1px #ccc;
     background-color: #eee;
 }
-.asyst_editform .nav_tabs > li.active > a,
-.asyst_editform .nav_tabs > li.active > a:hover {
+.asyst_editform .nav-tabs > li.active > a,
+.asyst_editform .nav-tabs > li.active > a:hover {
     background-color: #fff;
     border: solid 1px #ccc;
     border-bottom: solid 1px transparent;
