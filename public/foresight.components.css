@@ -4745,7 +4745,7 @@ body {
 .tabs__pane {
   display: none;
   visibility: hidden;
-  padding: 20px 20px 0 20px;
+  padding: 20px 20px 10px 20px;
   box-sizing: border-box;
   height: 100%;
 }
@@ -4755,9 +4755,11 @@ body {
   visibility: visible;
 }
 
+/*
 .tabs__pane .control:last-child {
-  padding-bottom: 20px;
+    padding-bottom: 20px;
 }
+*/
 
 .table {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;

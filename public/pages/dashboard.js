@@ -524,13 +524,25 @@ var Dashboard = function(options){
                 '</div>',
                 '</div>'
             ].join('')),
+            $control__dbm = $([
+                '<div class="control" style="display:none;">',
+                '<div class="control__caption control__caption_size_s">',
+                '<div class="control__text">ДБМ</div>',
+                '</div>',
+                '<div class="control__container control__container_horizontal" id="dbm__container"></div>',
+                '</div>'
+            ].join('')),
             $button_add = $([
                 '<button class="button" data-fc="button">',
                 '<span class="icon icon_svg_plus"></span>',
                 '</button>'
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.addWidget == 'function') {
+                    $control__widgets.find('[data-fc="select"]').select('uncheck_all');
+                    selected.widget = null;
+                    update_dbm_buttons();
                     resize_dbm_modal();
+                    render_dbm_control();
                     that.data.dbm.addWidget(that.data.modal, widget, selected);
                 }
             }),
@@ -541,6 +553,7 @@ var Dashboard = function(options){
             ].join('')).on('click', function(){
                 if (typeof that.data.dbm.editWidget == 'function') {
                     resize_dbm_modal();
+                    render_dbm_control();
                     that.data.dbm.editWidget(that.data.modal, widget, selected);
                 }
             }),
@@ -614,7 +627,7 @@ var Dashboard = function(options){
                     name: 'Источник данных',
                     active: active,
                     content:
-                        $('<div></div>').append($control__library, $control__widgets)
+                        $('<div></div>').append($control__library, $control__widgets, $control__dbm)
                 });
             }
         }
@@ -631,6 +644,7 @@ var Dashboard = function(options){
             }
         }
         function update_dbm_buttons(){
+            $control__dbm.hide();
             $button_add.button('hide');
             $button_edit.button('hide');
             if (selected.lib == dbmKey) {
@@ -654,12 +668,15 @@ var Dashboard = function(options){
                 height: $(window).outerHeight()
             };
             var modal_dimm = {
-                left: ((widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? '10px' : window_dimm.width/2 + 'px'),
+                left: ((widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? '10px' : window_dimm.width/3 + 'px'),
                 top: '10px',
-                width: window_dimm.width/2 - 10 + 'px',
+                width: window_dimm.width*2/3 - 10 + 'px',
                 height: window_dimm.height - 20 + 'px'
             };
             that.data.modal.data()._el.modal__dialog.css(modal_dimm);
+        }
+        function render_dbm_control(){
+            $control__dbm.show();
         }
     };
     /* modal for settings - end */
