@@ -36,7 +36,8 @@ var Dashboard = function(options){
         dbm: {
             addWidget: null,
             editWidget: null,
-            deleteWidget: null
+            saveWidget: null,
+            changeWidget: null
         },
         grid: null,
         add: function(data){},
@@ -533,7 +534,7 @@ var Dashboard = function(options){
                 '</div>'
             ].join('')),
             $button_add = $([
-                '<button class="button" data-fc="button">',
+                '<button class="button" data-fc="button" style="margin-right: 10px;">',
                 '<span class="icon icon_svg_plus"></span>',
                 '</button>'
             ].join('')).on('click', function(){
@@ -544,10 +545,11 @@ var Dashboard = function(options){
                     resize_dbm_modal();
                     render_dbm_control();
                     that.data.dbm.addWidget(that.data.modal, widget, selected);
+                    $button_save.button('show');
                 }
             }),
             $button_edit = $([
-                '<button class="button" data-fc="button">',
+                '<button class="button" data-fc="button" style="margin-left: 10px;">',
                 '<span class="icon icon_svg_edit"></span>',
                 '</button>'
             ].join('')).on('click', function(){
@@ -555,14 +557,25 @@ var Dashboard = function(options){
                     resize_dbm_modal();
                     render_dbm_control();
                     that.data.dbm.editWidget(that.data.modal, widget, selected);
+                    $button_save.button('show');
+                }
+            }),
+            $button_save = $([
+                '<button class="button" data-fc="button" style="margin-left: 10px;">',
+                '<span class="icon icon_svg_ok"></span>',
+                '</button>'
+            ].join('')).on('click', function(){
+                if (typeof that.data.dbm.editWidget == 'function') {
+                    that.data.dbm.saveWidget(that.data.modal, widget, selected);
                 }
             }),
             render = false, opened = false,
             selected = { lib: null, library: null, widget: null },
             dbmKey = 'dbm';
         if (typeof data.lib == 'object') {
+            $control__widgets.find('.control__container').prepend($button_add);
             $control__widgets.find('.control__container').append($button_edit);
-            $control__widgets.find('.control__container').append($button_add);
+            $control__widgets.find('.control__container').append($button_save);
             for (key in data.lib) {
                 if (data.lib[key]) {
                     if (data.lib[key].library) {
@@ -634,6 +647,7 @@ var Dashboard = function(options){
         function prepare_dbm_buttons(){
             $button_add.attr('data-hidden', true);
             $button_edit.attr('data-hidden', true);
+            $button_save.attr('data-hidden', true);
             if (selected.lib == dbmKey) {
                 if (selected.widget) {
                     $button_add.removeAttr('data-hidden');
@@ -647,6 +661,7 @@ var Dashboard = function(options){
             $control__dbm.hide();
             $button_add.button('hide');
             $button_edit.button('hide');
+            $button_save.button('hide');
             if (selected.lib == dbmKey) {
                 if (selected.widget) {
                     $button_add.button('show');
@@ -654,6 +669,9 @@ var Dashboard = function(options){
                 } else {
                     $button_add.button('show');
                 }
+            }
+            if (typeof that.data.dbm.changeWidget == 'function') {
+                that.data.dbm.changeWidget(that.data.modal, widget, selected);
             }
         }
         function resize_dbm_modal(){
