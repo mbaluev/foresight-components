@@ -1,6 +1,9 @@
 .select {
     display: none;
 }
+.select__container {
+    overflow: hidden;
+}
 .select__container.select_checked > .button {
     background: #63c163;
 }

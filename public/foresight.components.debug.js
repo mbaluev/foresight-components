@@ -627,12 +627,12 @@ $(function(){
                     that.set_width = function(width){
                         if (width == 'full' || width == '100%') {
                             width = that.data._el.source.outerWidth();
-                        };
+                        }
                         self.css({ 'width': width, 'max-width': width });
                     };
                     that.set_height = function(height){
                         self.css('max-height', height);
-                        self.css('height', height);
+                        //self.css('height', height);
                     };
                     that.set_position = function(position, i){
                         if (typeof i === 'undefined') { i = 0; }
@@ -6821,7 +6821,14 @@ $(function(){
                         data: null,
                         show: true,
                         position: null,
-                        size: null
+                        size: null,
+                        draggable: false,
+                        draggable_grid_size: 1,
+                        render_tabs_row: true,
+                        fullscreen: {
+                            active: false,
+                            dimentions: null
+                        }
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -6901,14 +6908,34 @@ $(function(){
                         }, 0);
                         that.data.show = true;
                     };
+                    that.fullscreen = function(){
+                        if (that.data.fullscreen.active) {
+                            that.data.fullscreen.active = false;
+                            that.data._el.modal__dialog.css(that.data.fullscreen.dimentions);
+                        } else {
+                            that.data.fullscreen.active = true;
+                            that.data.fullscreen.dimentions = {
+                                left: that.data._el.modal__dialog.offset().left,
+                                top: that.data._el.modal__dialog.offset().top,
+                                height: that.data._el.modal__dialog.outerHeight(),
+                                width: that.data._el.modal__dialog.outerWidth()
+                            };
+                            that.data._el.modal__dialog.css({
+                                top: 5,
+                                left: 5,
+                                width: that.data._el.modal__view.width(),
+                                height: that.data._el.modal__view.height()
+                            });
+                        }
+                    };
 
                     that.render_view = function(){
                         self.append(that.data._el.modal__view
                             .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
                                 .append(that.data._el.card
                                     .append(that.data._el.card__header
-                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name, that.data._el.card__header_row_tabs
-                                            .append(that.data._el.tabs__list)),
+                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name,
+                                        (that.data.render_tabs_row ? that.data._el.card__header_row_tabs.append(that.data._el.tabs__list) : null)),
                                     that.data._el.card__main
                                         .append(that.data._el.card__middle
                                             .append(that.data._el.card__middle_scroll))))));
@@ -7074,7 +7101,12 @@ $(function(){
                                     props.top = dd.offsetY;
                                     props.left = dd.offsetX;
                                 }
-                                $(this).css( props );
+                                $(this).css({
+                                    top: Math.round(props.top / that.data.draggable_grid_size) * that.data.draggable_grid_size,
+                                    left: Math.round(props.left / that.data.draggable_grid_size) * that.data.draggable_grid_size,
+                                    width: Math.round(props.width / that.data.draggable_grid_size) * that.data.draggable_grid_size,
+                                    height: Math.round(props.height / that.data.draggable_grid_size) * that.data.draggable_grid_size
+                                });
                             });
                     };
                     that.init_components = function(){

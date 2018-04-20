@@ -33,22 +33,16 @@ var Dashboard = function(options){
                 loader: null
             }
         },
-        dbm: {
-            addWidget: null,
-            editWidget: null,
-            saveWidget: null,
-            changeWidget: null
-        },
         grid: null,
         add: function(data){},
         save: function(data){},
         headerExtraControlsRenderer: null,
         params: null,
         type: 'page',
-        modal: null
+        modal: null,
+        modal_dbm: null
     };
     that.data = $.extend(that.data, options);
-
     that.data._el = {
         target: $('#' + that.data.containerid),
         loader: $('<span class="spinner spinner_align_center"></span>')
@@ -411,7 +405,8 @@ var Dashboard = function(options){
             },
             content: { tabs: [] },
             data: data,
-            size: 'md',
+            size: 'sm',
+            position: 'top center',
             draggable: true
         };
         if (that.data.single) {
@@ -493,7 +488,7 @@ var Dashboard = function(options){
         var $control__library = $([
                 '<div class="control" style="flex: 0 0 auto;">',
                 '<div class="control__caption control__caption_size_s">',
-                '<div class="control__text">Источник данных</div>',
+                '<div class="control__text">Страница</div>',
                 '</div>',
                 '<div class="control__container">',
                 '<select class="select" name="pageid" data-fc="select" data-field="pageid" data-mode="radio-check" data-height="350"></select>',
@@ -510,6 +505,7 @@ var Dashboard = function(options){
                 '</div>',
                 '</div>'
             ].join('')),
+            /*
             $control__dbm = $([
                 '<div class="control" style="flex: 1 1 auto; display:none;">',
                 '<div class="control__caption control__caption_size_s">',
@@ -518,41 +514,53 @@ var Dashboard = function(options){
                 '<div class="control__container control__container_horizontal asyst_editform" id="dbm__container"></div>',
                 '</div>'
             ].join('')),
+            */
             $button_add = $([
                 '<button class="button" data-fc="button" style="margin-right: 10px;">',
                 '<span class="icon icon_svg_plus"></span>',
                 '</button>'
             ].join('')).on('click', function(){
+                $control__widgets.find('[data-fc="select"]').select('uncheck_all');
+                selected.widget = null;
+                update_widgets_buttons();
+                that.dbm(widget, data, selected);
+                /*
                 if (typeof that.data.dbm.addWidget == 'function') {
                     $control__widgets.find('[data-fc="select"]').select('uncheck_all');
                     selected.widget = null;
-                    update_dbm_buttons();
+                    update_widgets_buttons();
                     resize_dbm_modal();
                     render_dbm_control();
                     that.data.dbm.addWidget(that.data.modal, widget, selected);
                     $button_save.button('show');
                 }
+                */
             }),
             $button_edit = $([
                 '<button class="button" data-fc="button" style="margin-left: 10px;">',
                 '<span class="icon icon_svg_edit"></span>',
                 '</button>'
             ].join('')).on('click', function(){
+                that.dbm(widget, data, selected);
+                /*
                 if (typeof that.data.dbm.editWidget == 'function') {
                     resize_dbm_modal();
                     render_dbm_control();
                     that.data.dbm.editWidget(that.data.modal, widget, selected);
                     $button_save.button('show');
                 }
+                */
             }),
             $button_save = $([
                 '<button class="button" data-fc="button" style="margin-left: 10px;">',
                 '<span class="icon icon_svg_ok"></span>',
                 '</button>'
             ].join('')).on('click', function(){
+                /*
                 if (typeof that.data.dbm.editWidget == 'function') {
                     that.data.dbm.saveWidget(that.data.modal, widget, selected);
                 }
+                */
             }),
             render = false, opened = false,
             selected = { lib: null, library: null, widget: null },
@@ -579,7 +587,7 @@ var Dashboard = function(options){
                             }
                             $control__library.find('.select').append($option);
                             render = true;
-                            prepare_dbm_buttons();
+                            prepare_widgets_buttons();
                         });
                         $control__library.find('.select').on('change', function(e){
                             var value = $(this).select('value'), items = [];
@@ -600,7 +608,7 @@ var Dashboard = function(options){
                                 }
                             }
                             $control__widgets.find('.select').select('update', items);
-                            update_dbm_buttons();
+                            update_widgets_buttons();
                         });
                         $control__widgets.find('.select').on('change', function(e){
                             var value = $(this).select('value'), items = [];
@@ -613,7 +621,7 @@ var Dashboard = function(options){
                             } else {
                                 selected.widget = null;
                             }
-                            update_dbm_buttons();
+                            update_widgets_buttons();
                         });
                         opened = true;
                     }
@@ -625,11 +633,11 @@ var Dashboard = function(options){
                     name: 'Источник данных',
                     active: active,
                     content:
-                        $('<div style="display: flex; flex-direction: column; height: 100%;"></div>').append($control__library, $control__widgets, $control__dbm)
+                        $('<div style="display: flex; flex-direction: column; height: 100%;"></div>').append($control__library, $control__widgets)
                 });
             }
         }
-        function prepare_dbm_buttons(){
+        function prepare_widgets_buttons(){
             $button_add.attr('data-hidden', true);
             $button_edit.attr('data-hidden', true);
             $button_save.attr('data-hidden', true);
@@ -642,8 +650,8 @@ var Dashboard = function(options){
                 }
             }
         }
-        function update_dbm_buttons(){
-            $control__dbm.hide();
+        function update_widgets_buttons(){
+            //$control__dbm.hide();
             $button_add.button('hide');
             $button_edit.button('hide');
             $button_save.button('hide');
@@ -679,7 +687,7 @@ var Dashboard = function(options){
             that.data.modal.data()._el.modal__dialog.css(modal_dimm);
         }
         function render_dbm_control(){
-            $control__dbm.show();
+            //$control__dbm.show();
         }
     };
     that.settings_apply = function(widget, data, reload){
@@ -698,6 +706,74 @@ var Dashboard = function(options){
         if (reload) { widget.widget('set_content'); }
     };
     /* modal for settings - end */
+
+    /* modal for dbm */
+    that.dbm = function(widget, data, selected){
+        var widget_dimm = {
+            left: widget.offset().left,
+            top: widget.offset().top,
+            width: widget.outerWidth(),
+            height: widget.outerHeight()
+        };
+        var window_dimm = {
+            width: $(window).outerWidth(),
+            height: $(window).outerHeight()
+        };
+        var modal_options = {
+            buttons: [
+                {
+                    name: 'reload',
+                    action: 'reload',
+                    icon: 'icon_svg_refresh'
+                },
+                {
+                    name: 'save',
+                    action: 'save',
+                    icon: 'icon_svg_save_red'
+                },
+                {
+                    name: 'destroy',
+                    action: 'destroy',
+                    icon: 'icon_svg_close'
+                },
+                {
+                    name: 'fullscreen',
+                    action: 'fullscreen',
+                    icon: 'icon_svg_fullscreen'
+                }
+            ],
+            header: {
+                caption: 'ДБМ',
+                name: (selected.widget ? selected.widget.text : 'Новый виджет')
+            },
+            content: { tabs: [{
+                id: 'general',
+                name: 'general',
+                active: true,
+                content: $('<div class="asyst_editform"></div>')
+            }] },
+            size: 'md',
+            position: (widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? 'top left' : 'top right',
+            draggable: true,
+            render_tabs_row: false
+        };
+        that.data.modal_dbm = $('<span class="modal__"></span>').appendTo('body')
+            .modal__(modal_options)
+            .on('reload.fc.modal', function(){
+
+            })
+            .on('save.fc.modal', function(){
+                $(this).modal__('destroy');
+            })
+            .on('shown.fc.modal', function(){
+                that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
+                if (typeof that.data.lib.dbm.loadForm == 'function') {
+                    var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
+                    that.data.lib.dbm.loadForm($container, widget, selected);
+                }
+            });
+    };
+    /* modal for dbm */
 
     that.loader_add = function(){
         that.data._el.target.before(that.data._el.loader)

@@ -36,13 +36,26 @@ Asyst.PageDashboard = function(options){
             },
             dbm: {
                 library: [],
-                loader: Asyst.MetaElementLoader
+                loader: Asyst.MetaElementLoader,
+                loadForm: function(container, widget, selected){
+                    var fields = null;
+                    if (!selected.widget) {
+                        selected.widget = { value: 'new', text: 'Новый виджет' };
+                        fields = { PageId: selected.library.value, IsUserWidget: 1, IsTemplate: 1, IsLib: 0, Name: setWidgetName('') };
+                    }
+                    container.load('/asyst/MetaPageElementWidgetEditForm/form/ajax/' + selected.widget.value +
+                        '?refreshrandom=1&noaction=true', { fields: JSON.stringify(fields) }, function(){});
+                },
+                saveForm: function(widget, selected){
+                    Asyst.Workspace.currentForm.Save(function(){
+                        Asyst.Workspace.currentForm.Load();
+                        widget.widget('set_content');
+                    });
+                },
+                closeForm: function(widget, selected){
+                    Asust.Workspace.removeForm(Asyst.Workspace.currentForm);
+                }
             }
-        },
-        dbm: {
-            addWidget: null,
-            editWidget: null,
-            deleteWidget: null
         },
         single: false,
         margin: true,
@@ -153,7 +166,6 @@ Asyst.PageDashboard = function(options){
                     margin: that.data.margin,
                     editable: that.data.editable,
                     lib: that.data.lib,
-                    dbm: that.data.dbm,
                     page: that.data.page,
                     headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                     tumblerContainerSelector: that.data.tumblerContainerSelector,
@@ -177,11 +189,6 @@ Asyst.Dashboard = function(options){
         margin: true,
         editable: true,
         lib: null,
-        dbm: {
-            addWidget: null,
-            editWidget: null,
-            deleteWidget: null
-        },
         user: { Id: -1 }, //Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
@@ -327,7 +334,6 @@ Asyst.Dashboard = function(options){
                 pageid: that.data.page.pageId,
                 items: that.data.items,
                 lib: that.data.lib,
-                dbm: that.data.dbm,
                 save: function(items){
                     that.saveItems(items);
                 },

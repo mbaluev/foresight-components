@@ -76,12 +76,12 @@
                     that.set_width = function(width){
                         if (width == 'full' || width == '100%') {
                             width = that.data._el.source.outerWidth();
-                        };
+                        }
                         self.css({ 'width': width, 'max-width': width });
                     };
                     that.set_height = function(height){
                         self.css('max-height', height);
-                        self.css('height', height);
+                        //self.css('height', height);
                     };
                     that.set_position = function(position, i){
                         if (typeof i === 'undefined') { i = 0; }
