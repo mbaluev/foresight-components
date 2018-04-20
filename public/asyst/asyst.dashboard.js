@@ -37,14 +37,18 @@ Asyst.PageDashboard = function(options){
             dbm: {
                 library: [],
                 loader: Asyst.MetaElementLoader,
-                loadForm: function(container, widget, selected){
+                loadForm: function(container, widget, selected, callback){
                     var fields = null;
                     if (!selected.widget) {
                         selected.widget = { value: 'new', text: 'Новый виджет' };
                         fields = { PageId: selected.library.value, IsUserWidget: 1, IsTemplate: 1, IsLib: 0, Name: setWidgetName('') };
                     }
                     container.load('/asyst/MetaPageElementWidgetEditForm/form/ajax/' + selected.widget.value +
-                        '?refreshrandom=1&noaction=true', { fields: JSON.stringify(fields) }, function(){});
+                        '?refreshrandom=1&noaction=true', { fields: JSON.stringify(fields) }, function(){
+                        if (typeof callback == 'function') {
+                            callback();
+                        }
+                    });
                 },
                 saveForm: function(widget, selected){
                     Asyst.Workspace.currentForm.Save(function(){

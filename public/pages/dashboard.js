@@ -766,14 +766,21 @@ var Dashboard = function(options){
                 that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
                 if (typeof that.data.lib.dbm.loadForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
-                    that.data.lib.dbm.loadForm($container, widget, selected);
+                    that.loader_add($container);
+                    that.data.lib.dbm.loadForm($container, widget, selected, function(){
+                        that.loader.remove();
+                    });
                 }
             });
     };
     /* modal for dbm */
 
-    that.loader_add = function(){
-        that.data._el.target.before(that.data._el.loader)
+    that.loader_add = function(target){
+        if (target) {
+            target.before(that.data._el.loader)
+        } else {
+            that.data._el.target.before(that.data._el.loader)
+        }
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();
