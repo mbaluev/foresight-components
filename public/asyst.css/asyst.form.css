@@ -309,13 +309,16 @@ loader
 
 .loader-indicator {
     display: inline-block;
-    color: #666;
+    color: #fff;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -15px;
-    margin-top: -15px;
+    margin-left: -35px;
+    margin-top: -35px;
     z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #ccc;
 }
 .loader-indicator label {
     display: none;
