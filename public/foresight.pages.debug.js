@@ -768,7 +768,7 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);
                     that.data.lib.dbm.loadForm($container, widget, selected, function(){
-                        that.loader.remove();
+                        that.loader_remove();
                     });
                 }
             });
