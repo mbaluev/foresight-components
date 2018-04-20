@@ -749,7 +749,7 @@ var Dashboard = function(options){
                 active: true,
                 content: ''
             }] },
-            size: 'lg',
+            size: 'lg_max',
             position: (widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? 'top left' : 'top right',
             draggable: true,
             render_tabs_row: false
@@ -763,7 +763,7 @@ var Dashboard = function(options){
                 $(this).modal__('destroy');
             })
             .on('showed.fc.modal', function(e){
-                that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
+                //that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
                 if (typeof that.data.lib.dbm.loadForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);

@@ -112,7 +112,7 @@
                                 }
                                 self.trigger(that.data._triggers.shown);
                                 self.trigger(that.data._triggers.showed);
-                            }, 100);
+                            }, 200);
                         });
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
@@ -272,8 +272,13 @@
                     };
 
                     that.init_draggable = function(){
+                        var dimm = that.data._el.modal__dialog.offset();
+                        dimm.width = that.data._el.modal__dialog.outerWidth();
+                        if (that.data._el.modal__dialog.is('[class*="max"]')) {
+                            dimm.height = that.data._el.modal__dialog.outerHeight();
+                        }
                         that.data._el.modal__dialog
-                            .css(that.data._el.modal__dialog.offset())
+                            .css(dimm)
                             .append(
                                 that.data._el.modal__dialog_handle_NE,
                                 that.data._el.modal__dialog_handle_NN,
