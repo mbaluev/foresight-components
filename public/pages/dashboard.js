@@ -765,7 +765,8 @@ var Dashboard = function(options){
             .on('save.fc.modal', function(){
                 $(this).modal__('destroy');
             })
-            .on('shown.fc.modal', function(){
+            .on('shown.fc.modal', function(e){
+                e.preventDefault();
                 that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
                 if (typeof that.data.lib.dbm.loadForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
