@@ -750,9 +750,9 @@ var Dashboard = function(options){
                 id: 'general',
                 name: 'general',
                 active: true,
-                content: $('<div class="asyst_editform"></div>')
+                content: $('<div class="asyst_editform" style="height: 100%;"></div>')
             }] },
-            size: 'md',
+            size: 'lg',
             position: (widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? 'top left' : 'top right',
             draggable: true,
             render_tabs_row: false

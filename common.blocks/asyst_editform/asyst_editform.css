@@ -4,6 +4,7 @@
 .asyst_editform .container {
     margin: 0;
     width: 100%;
+    height: 100%;
     box-shadow: none !important;
     border-radius: 0;
     overflow: hidden;
@@ -33,9 +34,6 @@
     border-radius: 3px !important;
     color: #999;
 }
-.asyst_editform .nav-tabs > li:first-child > a {
-    margin: 0;
-}
 .asyst_editform .nav-tabs > li > a:hover {
     border-bottom: solid 1px #ccc;
     background-color: #eee;
@@ -53,8 +51,7 @@
     flex: 1 1 auto;
     padding-top: 10px;
     overflow: auto;
-    border: solid 1px #ccc;
-    border-top: none;
+    border: none;
 }
 .asyst_editform .tab-pane {
     margin: 0 10px;
