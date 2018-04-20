@@ -74,6 +74,7 @@
                     that.data._triggers = {
                         show: 'show.fc.modal',
                         shown: 'shown.fc.modal',
+                        showed: 'showed.fc.modal',
                         hide: 'hide.fc.modal',
                         hidden: 'hidden.fc.modal',
                         loaded: 'loaded.fc.modal'
@@ -110,6 +111,7 @@
                                     that.init_draggable();
                                 }
                                 self.trigger(that.data._triggers.shown);
+                                self.trigger(that.data._triggers.showed);
                             }, 100);
                         });
                         self.removeClass('modal_hidden');
