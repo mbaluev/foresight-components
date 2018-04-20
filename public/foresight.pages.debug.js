@@ -663,9 +663,6 @@ var Dashboard = function(options){
                     $button_add.button('show');
                 }
             }
-            if (typeof that.data.dbm.changeWidget == 'function') {
-                that.data.dbm.changeWidget(that.data.modal, widget, selected);
-            }
         }
         function resize_dbm_modal(){
             var widget_dimm = {
