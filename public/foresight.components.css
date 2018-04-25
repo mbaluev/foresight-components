@@ -1635,8 +1635,10 @@ body {
   background-color: rgba(255,255,255,0.1);
 }
 
-.menu__item-link_disabled {
+.menu__item-link_disabled,
+.menu__item-link_disabled:hover {
   opacity: .5;
+  cursor: default;
 }
 
 .menu__item-link-content {

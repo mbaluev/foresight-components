@@ -7087,6 +7087,7 @@ $(function(){
                                 dd.height = $(this).height();
                             })
                             .drag(function(ev, dd){
+                                that.data.fullscreen.active = false;
                                 var props = {};
                                 if (dd.attr.indexOf('E') > -1) {
                                     props.width = Math.max(400, dd.width + dd.deltaX);
