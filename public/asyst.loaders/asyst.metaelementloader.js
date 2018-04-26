@@ -45,9 +45,12 @@ Asyst.MetaElementLoader = {
                 error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
                 success: function(data) {
                     that.data.template.id = 'Widget__' + (new Date()).valueOf();
-                    that.data.template.Content = that.data.template.Content
-                        .split(that.data.template.ElementName)
-                        .join(that.data.template.id);
+                    if (that.data.template.Content) {
+                        that.data.template.Content = that.data.template.Content.split(that.data.template.ElementName).join(that.data.template.id);
+                        that.data.template.Content = that.data.template.Content.split('{WidgetName}').join(that.data.template.id);
+                        that.data.template.Content = that.data.template.Content.split('{WidgetNameDiv}').join(that.data.template.id + 'Div');
+                        that.data.template.Content = that.data.template.Content.split('{WidgetNameChart}').join(that.data.template.id + 'Chart');
+                    }
                     Asyst.Workspace.currentPage.templates[that.data.template.id] = that.data.template.Content;
                     Asyst.Workspace.currentPage.TemplateData[that.data.template.id] = data;
                     if (typeof Asyst.Workspace.currentPage.Widgets == typeof undefined) {
