@@ -57,11 +57,15 @@ Asyst.PageDashboard = function(options){
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
                                         selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
+                                        data.pageid = Asyst.Workspace.currentForm.Data.PageId;
+                                        data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
+                                        /*
                                         that.reload.element(data.elementid, {
                                             lib: that.data.lib,
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
                                             elementid: Asyst.Workspace.currentForm.Data.PageElementId
                                         }, null);
+                                        */
                                         that.reload.widgets({ lib: that.data.lib }, null);
                                         if (typeof callback == 'function') { callback(); }
                                     });
