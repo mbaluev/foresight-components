@@ -150,7 +150,7 @@ Asyst.PageDashboard = function(options){
                                     };
                                 }
                                 if (that.data.lib[libname].library.filter(function(dd){
-                                        return dd.value == libs[metaPageName];
+                                        return dd.value == libs[metaPageName].value;
                                     }).length == 0){
                                     that.data.lib[libname].library.push(libs[metaPageName]);
                                 }
