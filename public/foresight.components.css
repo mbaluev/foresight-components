@@ -5467,9 +5467,7 @@ body {
   max-height: 100%;
   z-index: 2;
   background-color: #fff;
-  /*box-shadow: 0 5px 10px rgba(51,51,51,.25);*/
   box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.25);
-  /*overflow: hidden;*/
   transition: 0.25s;
   opacity: 1;
   display: -webkit-box;
@@ -5479,6 +5477,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  /*overflow: hidden;*/
 }
 
 .modal__dialog_hidden {
