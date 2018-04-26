@@ -769,12 +769,13 @@ var Dashboard = function(options){
             })
             .on('save.fc.modal', function(){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
+                    var $this = $(this);
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
                         that.data.lib.dbm.saveForm(widget, selected, function(){
                             that.loader_remove();
-                            $(this).modal__('destroy');
+                            $this.modal__('destroy');
                             if (typeof that.data.lib.dbm.closeForm == 'function') {
                                 that.data.lib.dbm.closeForm(widget, selected);
                             }
