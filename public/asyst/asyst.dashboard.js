@@ -51,6 +51,7 @@ Asyst.PageDashboard = function(options){
                 },
                 saveForm: function(widget, selected, callback){
                     if (typeof safeSave == 'function') {
+                        console.log(widget, selected);
                         safeSave({
                             success: function(){
                                 widget.widget('set_content');
