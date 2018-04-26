@@ -6878,11 +6878,16 @@ $(function(){
                         }, 500);
                     };
                     that.hide = function(){
+                        that.data.transitioning = true;
                         that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                            self.addClass('modal_hidden');
-                            self.trigger(that.data._triggers.hidden);
+                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                            if (that.data.transitioning) {
+                                that.data.transitioning = false;
+                                $(this).off(e);
+                                self.addClass('modal_hidden');
+                                self.trigger(that.data._triggers.hidden);
+                            }
                         });
                         self.find('.modal__dialog').addClass('modal__dialog_hidden');
                         that.data.show = false;
