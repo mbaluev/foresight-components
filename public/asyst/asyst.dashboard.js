@@ -58,7 +58,7 @@ Asyst.PageDashboard = function(options){
                                         data.lib = that.data.lib;
                                         data.pageid = Asyst.Workspace.currentForm.Data.PageId;
                                         data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
-                                        that.reload.dashboard({ lib: that.data.lib }, null);
+                                        that.reload.widgets({ lib: that.data.lib }, null);
                                         if (typeof callback == 'function') { callback(); }
                                     });
                                     /*
