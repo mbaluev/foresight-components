@@ -739,7 +739,7 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.saveForm(widget, that.data.modal, selected, function(){
+                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, function(){
                             that.loader_remove();
                         });
                     }, 100);
@@ -751,11 +751,11 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.saveForm(widget, that.data.modal, selected, function(){
+                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, function(){
                             that.loader_remove();
                             $this.modal__('destroy');
                             if (typeof that.data.lib.dbm.closeForm == 'function') {
-                                that.data.lib.dbm.closeForm(widget, that.data.modal, selected);
+                                that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected);
                             }
                         });
                     }, 100);
@@ -766,7 +766,7 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.loadForm($container, widget, that.data.modal, selected, function(){
+                        that.data.lib.dbm.loadForm($container, widget, data, that.data.modal, selected, function(){
                             that.loader_remove();
                         });
                     }, 100);
@@ -774,7 +774,7 @@ var Dashboard = function(options){
             })
             .on('hidden.fc.modal', function(e){
                 if (typeof that.data.lib.dbm.closeForm == 'function') {
-                    that.data.lib.dbm.closeForm(widget, that.data.modal, selected);
+                    that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected);
                 }
             });
     };
