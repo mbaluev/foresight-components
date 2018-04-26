@@ -57,16 +57,9 @@ Asyst.PageDashboard = function(options){
                             }
                         });
                     }
-                    /*
-                    Asyst.Workspace.currentForm.Save(function(){
-                        Asyst.Workspace.currentForm.Load();
-                        widget.widget('set_content');
-                        if (typeof callback == 'function') { callback(); }
-                    });
-                    */
                 },
                 closeForm: function(widget, selected, callback){
-                    //Asyst.Workspace.removeCurrentForm();
+                    Asyst.Workspace.removeCurrentForm();
                     if (typeof callback == 'function') { callback(); }
                 }
             }
