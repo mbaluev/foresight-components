@@ -50,13 +50,14 @@ Asyst.PageDashboard = function(options){
                 },
                 saveForm: function(widget, selected, callback){
                     Asyst.Workspace.currentForm.Save(function(){
-                        Asyst.Workspace.currentForm.Load();
+                        //Asyst.Workspace.removeCurrentForm();
+                        Asyst.Workspace.currentForm.Reset();
                         widget.widget('set_content');
                         if (typeof callback == 'function') { callback(); }
                     });
                 },
                 closeForm: function(widget, selected, callback){
-                    Asyst.Workspace.removeForm(Asyst.Workspace.currentForm);
+                    Asyst.Workspace.removeCurrentForm();
                     if (typeof callback == 'function') { callback(); }
                 }
             }
