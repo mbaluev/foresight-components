@@ -57,7 +57,7 @@ Asyst.PageDashboard = function(options){
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
                                         selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
-                                        $.extend(data, {
+                                        $.extend(widget.data(), {
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
                                             elementid: Asyst.Workspace.currentForm.Data.PageElementId
                                         });
