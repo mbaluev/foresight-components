@@ -6881,7 +6881,7 @@ $(function(){
                         that.data.transitioning = true;
                         that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
