@@ -51,9 +51,14 @@ Asyst.PageDashboard = function(options){
                 },
                 saveForm: function(widget, data, modal_settings, selected, callback){
                     if (typeof safeSave == 'function') {
-                        console.log(widget, selected);
                         safeSave({
                             success: function(){
+                                if (selected.widget.value == 'new'){
+                                    selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
+                                    selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
+                                    data.pageid = Asyst.Workspace.currentForm.Data.PageId;
+                                    data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
+                                }
                                 widget.widget('set_content');
                                 if (typeof callback == 'function') { callback(); }
                             }
