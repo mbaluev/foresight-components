@@ -87,7 +87,7 @@ Asyst.PageDashboard = function(options){
     that.loader_remove = function(){
         that.data._el.loader.remove();
     };
-    that.loadLibForesight = function(callback){
+    that.loadLibrary = function(callback){
         Asyst.APIv2.DataSet.load({
             name: 'WidgetLibrary',
             data: {
@@ -161,7 +161,7 @@ Asyst.PageDashboard = function(options){
     };
     that.init = function(){
         that.loader_add();
-        that.loadLibForesight(function(){
+        that.loadLibrary(function(){
             asystDashboard();
             function asystDashboard(){
                 that.loader_remove();

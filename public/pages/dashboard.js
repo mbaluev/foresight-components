@@ -664,28 +664,6 @@ var Dashboard = function(options){
                 }
             }
         }
-        function resize_dbm_modal(){
-            var widget_dimm = {
-                left: widget.offset().left,
-                top: widget.offset().top,
-                width: widget.outerWidth(),
-                height: widget.outerHeight()
-            };
-            var window_dimm = {
-                width: $(window).outerWidth(),
-                height: $(window).outerHeight()
-            };
-            var modal_dimm = {
-                left: ((widget_dimm.left + widget_dimm.width/2) > window_dimm.width/2 ? '10px' : window_dimm.width/3 + 'px'),
-                top: '10px',
-                width: window_dimm.width*2/3 - 10 + 'px',
-                height: window_dimm.height - 20 + 'px'
-            };
-            that.data.modal.data()._el.modal__dialog.css(modal_dimm);
-        }
-        function render_dbm_control(){
-            //$control__dbm.show();
-        }
     };
     that.settings_apply = function(widget, data, reload){
         that.data.modal.find('[data-field]').each(function(){
@@ -756,7 +734,7 @@ var Dashboard = function(options){
         };
         that.data.modal_dbm = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
-            .on('reload.fc.modal', function(){
+            .on('reload.fc.modal', function(e){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
@@ -767,7 +745,7 @@ var Dashboard = function(options){
                     }, 100);
                 }
             })
-            .on('save.fc.modal', function(){
+            .on('save.fc.modal', function(e){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
                     var $this = $(this);
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
@@ -777,7 +755,7 @@ var Dashboard = function(options){
                             that.loader_remove();
                             $this.modal__('destroy');
                             if (typeof that.data.lib.dbm.closeForm == 'function') {
-                                that.data.lib.dbm.closeForm(widget, selected);
+                                that.data.lib.dbm.closeForm(widget, that.data.modal, selected);
                             }
                         });
                     }, 100);
