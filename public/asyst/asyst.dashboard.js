@@ -45,6 +45,7 @@ Asyst.PageDashboard = function(options){
                     }
                     container.load('/asyst/MetaPageElementWidgetEditForm/form/ajax/' + selected.widget.value +
                         '?refreshrandom=1&noaction=true', { fields: JSON.stringify(fields) }, function(){
+                        Asyst.Workspace.currentForm.Data.IsSpecialWidget = true;
                         if (typeof callback == 'function') { callback(); }
                     });
                 },
