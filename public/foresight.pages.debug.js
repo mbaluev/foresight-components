@@ -760,31 +760,37 @@ var Dashboard = function(options){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
-                    that.data.lib.dbm.saveForm(widget, selected, function(){
-                        that.loader_remove();
-                    });
+                    setTimeout(function(){
+                        that.data.lib.dbm.saveForm(widget, selected, function(){
+                            that.loader_remove();
+                        });
+                    }, 100);
                 }
             })
             .on('save.fc.modal', function(){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
-                    that.data.lib.dbm.saveForm(widget, selected, function(){
-                        that.loader_remove();
-                    });
+                    setTimeout(function(){
+                        that.data.lib.dbm.saveForm(widget, selected, function(){
+                            that.loader_remove();
+                        });
+                    }, 100);
                 }
+                $(this).modal__('destroy');
                 if (typeof that.data.lib.dbm.closeForm == 'function') {
                     that.data.lib.dbm.closeForm(widget, selected);
                 }
-                $(this).modal__('destroy');
             })
             .on('showed.fc.modal', function(e){
                 if (typeof that.data.lib.dbm.loadForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);
-                    that.data.lib.dbm.loadForm($container, widget, selected, function(){
-                        that.loader_remove();
-                    });
+                    setTimeout(function(){
+                        that.data.lib.dbm.loadForm($container, widget, selected, function(){
+                            that.loader_remove();
+                        });
+                    }, 100);
                 }
             });
     };
