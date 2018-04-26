@@ -758,6 +758,7 @@ var Dashboard = function(options){
             .modal__(modal_options)
             .on('reload.fc.modal', function(){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
+                    var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     that.data.lib.dbm.saveForm(widget, selected, function(){
                         that.loader_remove();
@@ -766,6 +767,7 @@ var Dashboard = function(options){
             })
             .on('save.fc.modal', function(){
                 if (typeof that.data.lib.dbm.saveForm == 'function') {
+                    var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     that.data.lib.dbm.saveForm(widget, selected, function(){
                         that.loader_remove();
