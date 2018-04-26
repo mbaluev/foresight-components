@@ -55,10 +55,16 @@ Asyst.PageDashboard = function(options){
                             success: function(){
                                 if (selected.widget.value == 'new'){
                                     that.loadLibrary(function(){
+                                        /*
                                         data.pageid = Asyst.Workspace.currentForm.Data.PageId;
                                         data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
-                                        that.reload.widgets({ lib: that.data.lib }, null);
-                                        that.reload.element(data.elementid, { lib: that.data.lib }, null);
+                                        */
+                                        that.reload.element(data.elementid, {
+                                            lib: that.data.lib,
+                                            pageid: Asyst.Workspace.currentForm.Data.PageId,
+                                            elementid: Asyst.Workspace.currentForm.Data.PageElementId
+                                        }, null);
+                                        //that.reload.widgets({ lib: that.data.lib }, null);
                                         if (typeof callback == 'function') { callback(); }
                                     });
                                     /*
