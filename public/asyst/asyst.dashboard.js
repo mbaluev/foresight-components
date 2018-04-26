@@ -49,15 +49,22 @@ Asyst.PageDashboard = function(options){
                     });
                 },
                 saveForm: function(widget, selected, callback){
+                    if (typeof safeSave == 'function') {
+                        safeSave(function(){
+                            widget.widget('set_content');
+                            if (typeof callback == 'function') { callback(); }
+                        });
+                    }
+                    /*
                     Asyst.Workspace.currentForm.Save(function(){
-                        //Asyst.Workspace.removeCurrentForm();
-                        Asyst.Workspace.currentForm.Reset();
+                        Asyst.Workspace.currentForm.Load();
                         widget.widget('set_content');
                         if (typeof callback == 'function') { callback(); }
                     });
+                    */
                 },
                 closeForm: function(widget, selected, callback){
-                    Asyst.Workspace.removeCurrentForm();
+                    //Asyst.Workspace.removeCurrentForm();
                     if (typeof callback == 'function') { callback(); }
                 }
             }
