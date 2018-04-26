@@ -757,13 +757,26 @@ var Dashboard = function(options){
         that.data.modal_dbm = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)
             .on('reload.fc.modal', function(){
-
+                if (typeof that.data.lib.dbm.saveForm == 'function') {
+                    that.loader_add($container);
+                    that.data.lib.dbm.saveForm(widget, selected, function(){
+                        that.loader_remove();
+                    });
+                }
             })
             .on('save.fc.modal', function(){
+                if (typeof that.data.lib.dbm.saveForm == 'function') {
+                    that.loader_add($container);
+                    that.data.lib.dbm.saveForm(widget, selected, function(){
+                        that.loader_remove();
+                    });
+                }
+                if (typeof that.data.lib.dbm.closeForm == 'function') {
+                    that.data.lib.dbm.closeForm(widget, selected);
+                }
                 $(this).modal__('destroy');
             })
             .on('showed.fc.modal', function(e){
-                //that.data.modal_dbm.data()._el.modal__dialog.css({ height: $(window).height() - 10 });
                 if (typeof that.data.lib.dbm.loadForm == 'function') {
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);

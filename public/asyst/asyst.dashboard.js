@@ -45,19 +45,19 @@ Asyst.PageDashboard = function(options){
                     }
                     container.load('/asyst/MetaPageElementWidgetEditForm/form/ajax/' + selected.widget.value +
                         '?refreshrandom=1&noaction=true', { fields: JSON.stringify(fields) }, function(){
-                        if (typeof callback == 'function') {
-                            callback();
-                        }
+                        if (typeof callback == 'function') { callback(); }
                     });
                 },
-                saveForm: function(widget, selected){
+                saveForm: function(widget, selected, callback){
                     Asyst.Workspace.currentForm.Save(function(){
                         Asyst.Workspace.currentForm.Load();
                         widget.widget('set_content');
+                        if (typeof callback == 'function') { callback(); }
                     });
                 },
-                closeForm: function(widget, selected){
-                    Asust.Workspace.removeForm(Asyst.Workspace.currentForm);
+                closeForm: function(widget, selected, callback){
+                    Asyst.Workspace.removeForm(Asyst.Workspace.currentForm);
+                    if (typeof callback == 'function') { callback(); }
                 }
             }
         },
