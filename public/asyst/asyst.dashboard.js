@@ -50,9 +50,11 @@ Asyst.PageDashboard = function(options){
                 },
                 saveForm: function(widget, selected, callback){
                     if (typeof safeSave == 'function') {
-                        safeSave(function(){
-                            widget.widget('set_content');
-                            if (typeof callback == 'function') { callback(); }
+                        safeSave({
+                            success: function(){
+                                widget.widget('set_content');
+                                if (typeof callback == 'function') { callback(); }
+                            }
                         });
                     }
                     /*
