@@ -37,7 +37,7 @@ Asyst.PageDashboard = function(options){
             dbm: {
                 library: [],
                 loader: Asyst.MetaElementLoader,
-                loadForm: function(container, widget, selected, callback){
+                loadForm: function(container, widget, modal_settings, selected, callback){
                     var fields = null;
                     if (!selected.widget) {
                         selected.widget = { value: 'new', text: 'Новый виджет' };
@@ -49,7 +49,7 @@ Asyst.PageDashboard = function(options){
                         if (typeof callback == 'function') { callback(); }
                     });
                 },
-                saveForm: function(widget, selected, callback){
+                saveForm: function(widget, modal_settings, selected, callback){
                     if (typeof safeSave == 'function') {
                         console.log(widget, selected);
                         safeSave({
@@ -60,7 +60,7 @@ Asyst.PageDashboard = function(options){
                         });
                     }
                 },
-                closeForm: function(widget, selected, callback){
+                closeForm: function(widget, modal_settings, selected, callback){
                     Asyst.Workspace.removeCurrentForm();
                     if (typeof callback == 'function') { callback(); }
                 }
