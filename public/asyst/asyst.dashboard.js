@@ -153,6 +153,8 @@ Asyst.PageDashboard = function(options){
                                         return dd.value == libs[metaPageName].value;
                                     }).length == 0){
                                     that.data.lib[libname].library.push(libs[metaPageName]);
+                                } else {
+                                    that.data.lib[libname].library.items = libs[metaPageName].items;
                                 }
                             }
                         }
