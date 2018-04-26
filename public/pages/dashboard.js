@@ -774,12 +774,12 @@ var Dashboard = function(options){
                     setTimeout(function(){
                         that.data.lib.dbm.saveForm(widget, selected, function(){
                             that.loader_remove();
+                            $(this).modal__('destroy');
+                            if (typeof that.data.lib.dbm.closeForm == 'function') {
+                                that.data.lib.dbm.closeForm(widget, selected);
+                            }
                         });
                     }, 100);
-                }
-                $(this).modal__('destroy');
-                if (typeof that.data.lib.dbm.closeForm == 'function') {
-                    that.data.lib.dbm.closeForm(widget, selected);
                 }
             })
             .on('showed.fc.modal', function(e){
