@@ -57,6 +57,9 @@ Asyst.PageDashboard = function(options){
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
                                         selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
+                                        that.data.asystDashboard.data.lib = that.data.lib;
+                                        that.data.asystDashboard.data.dashboard.data.lib = that.data.lib;
+                                        data.lib = that.data.lib;
                                         data.pageid = Asyst.Workspace.currentForm.Data.PageId;
                                         data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
                                         widget.widget('set_content');
