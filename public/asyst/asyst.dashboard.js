@@ -149,7 +149,11 @@ Asyst.PageDashboard = function(options){
                                         loader: Asyst.MetaElementLoader
                                     };
                                 }
-                                that.data.lib[libname].library.push(libs[metaPageName]);
+                                if (that.data.lib[libname].library.filter(function(dd){
+                                        return dd.value == libs[metaPageName];
+                                    }).length == 0){
+                                    that.data.lib[libname].library.push(libs[metaPageName]);
+                                }
                             }
                         }
                     }
