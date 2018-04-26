@@ -793,6 +793,11 @@ var Dashboard = function(options){
                         });
                     }, 100);
                 }
+            })
+            .on('hidden.fc.modal', function(e){
+                if (typeof that.data.lib.dbm.closeForm == 'function') {
+                    that.data.lib.dbm.closeForm(widget, selected);
+                }
             });
     };
     /* modal for dbm */
