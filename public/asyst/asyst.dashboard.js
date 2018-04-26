@@ -54,6 +54,13 @@ Asyst.PageDashboard = function(options){
                         safeSave({
                             success: function(){
                                 if (selected.widget.value == 'new'){
+                                    that.loadLibrary(function(){
+                                        data.lib = that.data.lib;
+                                        data.pageid = Asyst.Workspace.currentForm.Data.PageId;
+                                        data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
+                                        that.reload({ lib: that.data.lib }, null);
+                                        if (typeof callback == 'function') { callback(); }
+                                    });
                                     /*
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
@@ -67,9 +74,10 @@ Asyst.PageDashboard = function(options){
                                         if (typeof callback == 'function') { callback(); }
                                     });
                                     */
+                                } else {
+                                    widget.widget('set_content');
+                                    if (typeof callback == 'function') { callback(); }
                                 }
-                                widget.widget('set_content');
-                                if (typeof callback == 'function') { callback(); }
                             }
                         });
                     }
