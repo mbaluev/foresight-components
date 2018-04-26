@@ -6894,15 +6894,13 @@ $(function(){
                     };
                     that.show = function(){
                         self.trigger(that.data._triggers.show);
-                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
-                            setTimeout(function(){
-                                that.data._el.card.css('max-height', '100%');
-                                if (that.data.draggable) {
-                                    that.init_draggable();
-                                }
-                                self.trigger(that.data._triggers.shown);
-                                self.trigger(that.data._triggers.showed);
-                            }, 200);
+                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                            that.data._el.card.css('max-height', '100%');
+                            if (that.data.draggable) {
+                                that.init_draggable();
+                            }
+                            self.trigger(that.data._triggers.shown);
+                            self.trigger(that.data._triggers.showed);
                         });
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
