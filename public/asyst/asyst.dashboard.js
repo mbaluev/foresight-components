@@ -149,12 +149,13 @@ Asyst.PageDashboard = function(options){
                                         loader: Asyst.MetaElementLoader
                                     };
                                 }
-                                if (that.data.lib[libname].library.filter(function(dd){
-                                        return dd.value == libs[metaPageName].value;
-                                    }).length == 0){
+                                var library = that.data.lib[libname].library.filter(function(dd){
+                                    return dd.value == libs[metaPageName].value;
+                                });
+                                if (library.length == 0) {
                                     that.data.lib[libname].library.push(libs[metaPageName]);
                                 } else {
-                                    that.data.lib[libname].library.items = libs[metaPageName].items;
+                                    library[0].items = libs[metaPageName].items;
                                 }
                             }
                         }
