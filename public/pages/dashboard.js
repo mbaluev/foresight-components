@@ -566,7 +566,7 @@ var Dashboard = function(options){
             selected = { lib: null, library: null, widget: null },
             selects = {
                 library: $control__library.find('.select'),
-                widget: $control__library.find('.select')
+                widget: $control__widgets.find('.select')
             },
             dbmKey = 'dbm';
         if (typeof data.lib == 'object') {
