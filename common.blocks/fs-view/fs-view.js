@@ -17,8 +17,8 @@ $(function(){
             if ($main.find('.fs-view__backdrop').length == 0) {
                 $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
             }
-            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
@@ -34,8 +34,8 @@ $(function(){
             $left.addClass('fs-view__left_hidden');
             $middle.addClass('fs-view__middle_full');
             $main.find('.fs-view__backdrop').remove();
-            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
