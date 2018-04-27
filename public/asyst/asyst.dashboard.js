@@ -57,6 +57,7 @@ Asyst.PageDashboard = function(options){
                                     that.loadLibrary(function(){
                                         // update widget lib
                                         data.lib = that.data.lib;
+
                                         // update select
                                         var items = [];
                                         for (key in data.lib) {
@@ -74,15 +75,15 @@ Asyst.PageDashboard = function(options){
                                         selects.widget.select('update', items);
                                         selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
 
-                                        // update widget
                                         /*
                                         $.extend(widget.data(), {
                                             lib: data.lib,
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
                                             elementid: Asyst.Workspace.currentForm.Data.PageElementId
                                         });
-                                        widget.widget('set_content');
                                         */
+                                        widget.widget('set_content');
+                                        // update widget
                                         that.reload.widget_(widget, {
                                             lib: data.lib,
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
@@ -92,35 +93,6 @@ Asyst.PageDashboard = function(options){
 
                                         if (typeof callback == 'function') { callback(); }
                                     });
-                                    /*
-                                    that.loadLibrary(function(){
-                                        selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
-                                        selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
-                                        // update widget
-                                        $.extend(widget.data(), {
-                                            lib: that.data.lib,
-                                            pageid: Asyst.Workspace.currentForm.Data.PageId,
-                                            elementid: Asyst.Workspace.currentForm.Data.PageElementId
-                                        });
-                                        widget.widget('set_content');
-                                        // update widgets lib
-                                        that.reload.widgets({ lib: that.data.lib }, null);
-                                        if (typeof callback == 'function') { callback(); }
-                                    });
-                                    */
-                                    /*
-                                    that.loadLibrary(function(){
-                                        selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
-                                        selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
-                                        that.data.asystDashboard.data.lib = that.data.lib;
-                                        that.data.asystDashboard.data.dashboard.data.lib = that.data.lib;
-                                        data.lib = that.data.lib;
-                                        data.pageid = Asyst.Workspace.currentForm.Data.PageId;
-                                        data.elementid = Asyst.Workspace.currentForm.Data.PageElementId;
-                                        widget.widget('set_content');
-                                        if (typeof callback == 'function') { callback(); }
-                                    });
-                                    */
                                 } else {
                                     widget.widget('set_content');
                                     if (typeof callback == 'function') { callback(); }
