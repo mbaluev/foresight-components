@@ -219,14 +219,17 @@ Asyst.PageDashboard = function(options){
         dashboard: function(options, params){
             that.data.asystDashboard.reload.dashboard(options, params);
         },
-        widgets: function(options, params){
-            that.data.asystDashboard.reload.widgets(options, params);
+        widgets: function(options, params, reload){
+            that.data.asystDashboard.reload.widgets(options, params, reload);
         },
-        widget: function(id, options, params){
-            that.data.asystDashboard.reload.widget(id, options, params);
+        widget: function(id, options, params, reload){
+            that.data.asystDashboard.reload.widget(id, options, params, reload);
         },
-        element: function(elementname, options, params){
-            that.data.asystDashboard.reload.element(elementname, options, params);
+        widget_: function(widget, options, params, reload){
+            that.data.asystDashboard.reload.widget_(widget, options, params, reload);
+        },
+        element: function(elementname, options, params, reload){
+            that.data.asystDashboard.reload.element(elementname, options, params, reload);
         },
         title: function(title){
             that.data.asystDashboard.reload.title(title);
@@ -387,14 +390,17 @@ Asyst.Dashboard = function(options){
         dashboard: function(options, params){
             that.data.dashboard.reload.dashboard(options, params);
         },
-        widgets: function(options, params){
-            that.data.dashboard.reload.widgets(options, params);
+        widgets: function(options, params, reload){
+            that.data.dashboard.reload.widgets(options, params, reload);
         },
-        widget: function(id, options, params){
-            that.data.dashboard.reload.widget(id, options, params);
+        widget: function(id, options, params, reload){
+            that.data.dashboard.reload.widget(id, options, params, reload);
         },
-        element: function(elementid, options, params){
-            that.data.dashboard.reload.element(elementid, options, params);
+        widget_: function(widget, options, params, reload){
+            that.data.dashboard.reload.widget_(widget, options, params, reload);
+        },
+        element: function(elementid, options, params, reload){
+            that.data.dashboard.reload.element(elementid, options, params, reload);
         },
         title: function(title){
             that.data.dashboard.reload.title(title);
