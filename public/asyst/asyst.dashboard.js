@@ -70,6 +70,7 @@ Asyst.PageDashboard = function(options){
                                                 }
                                             }
                                         }
+                                        selected.library.items = items;
                                         selects.widget.select('update', items);
                                         selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
                                         // update widget
