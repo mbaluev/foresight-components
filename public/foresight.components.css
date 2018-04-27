@@ -5749,6 +5749,17 @@ body {
 
 .asyst_editform .chosen-container {
   width: 100% !important;
+  position: relative;
+}
+
+.asyst_editform .chosen-container .chosen-drop {
+  position: absolute;
+  top: 25px !important;
+  width: 100% !important;
+}
+
+.asyst_editform .chosen-container-active .chosen-drop {
+  left: 0 !important;
 }
 
 /*
