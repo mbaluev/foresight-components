@@ -66,5 +66,12 @@
 }
 
 .asyst_editform [class^="span"] {
-    width: auto !important;
+    width: 100% !important;
+    box-sizing: border-box;
+}
+.asyst_editform input {
+    height: auto;
+}
+.asyst_editform table {
+    width: 100%;
 }
