@@ -800,7 +800,7 @@ var Dashboard = function(options){
             that.init();
         },
         widgets: function(options, params, reload){
-            if (!reload) { reload = true; }
+            if (typeof reload == 'undefined') { reload = true; }
             that.data.grid[0].obj.options.items.map(function(item){
                 $.extend(item.widget.data(), options, { params: params });
                 item.widget.widget('set_name');
@@ -811,7 +811,7 @@ var Dashboard = function(options){
             });
         },
         widget: function(id, options, params, reload){
-            if (!reload) { reload = true; }
+            if (typeof reload == 'undefined') { reload = true; }
             var item = that.data.grid[0].obj.options.items.filter(function(d){
                 return d._id == id;
             });
@@ -826,7 +826,7 @@ var Dashboard = function(options){
             }
         },
         widget_: function(widget, options, params, reload){
-            if (!reload) { reload = true; }
+            if (typeof reload == 'undefined') { reload = true; }
             $.extend(widget.data(), options, { params: params });
             widget.widget('set_name');
             widget.widget('set_color');
@@ -835,7 +835,7 @@ var Dashboard = function(options){
             }
         },
         element: function(elementid, options, params, reload){
-            if (!reload) { reload = true; }
+            if (typeof reload == 'undefined') { reload = true; }
             var item = that.data.grid[0].obj.options.items.filter(function(d){
                 return d.widget[0].obj.data.elementid == elementid;
             });
