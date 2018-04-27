@@ -196,6 +196,17 @@
                         that.init();
                         that.data._el.spinner.remove();
                     };
+                    that.get_items = function(){
+                        var items = [];
+                        that.data._options.map(function($option){
+                            items.push({
+                                value: $option.attr('value'),
+                                tex: $option.text(),
+                                selected: ($option.attr('selected') ? true : false)
+                            });
+                        });
+                        return items;
+                    };
 
                     that.focus = function(){
                         that.data._el.popup.popup('show');
@@ -575,6 +586,21 @@
                 var _arr = [];
                 this.each(function() {
                     _arr.push(this.obj.get_value());
+                });
+                return _arr;
+            }
+        },
+        get_items : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.get_items();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.get_items());
                 });
                 return _arr;
             }

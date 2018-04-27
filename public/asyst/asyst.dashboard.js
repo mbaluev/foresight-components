@@ -37,7 +37,7 @@ Asyst.PageDashboard = function(options){
             dbm: {
                 library: [],
                 loader: Asyst.MetaElementLoader,
-                loadForm: function(container, widget, data, modal_settings, selected, callback){
+                loadForm: function(container, widget, data, modal_settings, selected, selects, callback){
                     var fields = null;
                     if (!selected.widget) {
                         selected.widget = { value: 'new', text: 'Новый виджет' };
@@ -49,28 +49,46 @@ Asyst.PageDashboard = function(options){
                         if (typeof callback == 'function') { callback(); }
                     });
                 },
-                saveForm: function(widget, data, modal_settings, selected, callback){
+                saveForm: function(widget, data, modal_settings, selected, selects, callback){
                     if (typeof safeSave == 'function') {
                         safeSave({
                             success: function(){
                                 if (selected.widget.value == 'new'){
+                                    selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
+                                    selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
+                                    // update select
+                                    var items = selects.widget.select('get_items');
+                                    items.map(function(item){ item.selected = false; });
+                                    items.push({
+                                        value: Asyst.Workspace.currentForm.Data.PageElementId,
+                                        text: Asyst.Workspace.currentForm.Data.Title
+                                    });
+                                    selects.widget.select('update', items);
+                                    selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
+                                    // update widget
+                                    $.extend(widget.data(), {
+                                        lib: that.data.lib,
+                                        pageid: Asyst.Workspace.currentForm.Data.PageId,
+                                        elementid: Asyst.Workspace.currentForm.Data.PageElementId
+                                    });
+                                    widget.widget('set_content');
+                                    if (typeof callback == 'function') { callback(); }
+                                    /*
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
                                         selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
+                                        // update widget
                                         $.extend(widget.data(), {
-                                            pageid: Asyst.Workspace.currentForm.Data.PageId,
-                                            elementid: Asyst.Workspace.currentForm.Data.PageElementId
-                                        });
-                                        /*
-                                        that.reload.element(data.elementid, {
                                             lib: that.data.lib,
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
                                             elementid: Asyst.Workspace.currentForm.Data.PageElementId
-                                        }, null);
-                                        */
+                                        });
+                                        widget.widget('set_content');
+                                        // update widgets lib
                                         that.reload.widgets({ lib: that.data.lib }, null);
                                         if (typeof callback == 'function') { callback(); }
                                     });
+                                    */
                                     /*
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
@@ -92,7 +110,7 @@ Asyst.PageDashboard = function(options){
                         });
                     }
                 },
-                closeForm: function(widget, data, modal_settings, selected, callback){
+                closeForm: function(widget, data, modal_settings, selected, selects, callback){
                     Asyst.Workspace.removeCurrentForm();
                     if (typeof callback == 'function') { callback(); }
                 }

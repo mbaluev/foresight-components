@@ -520,10 +520,10 @@ var Dashboard = function(options){
                 '<span class="icon icon_svg_plus"></span>',
                 '</button>'
             ].join('')).on('click', function(){
-                $control__widgets.find('[data-fc="select"]').select('uncheck_all');
+                selects.widget.select('uncheck_all');
                 selected.widget = null;
                 update_widgets_buttons();
-                that.dbm(widget, data, selected);
+                that.dbm(widget, data, selected, selects);
                 /*
                 if (typeof that.data.dbm.addWidget == 'function') {
                     $control__widgets.find('[data-fc="select"]').select('uncheck_all');
@@ -541,7 +541,7 @@ var Dashboard = function(options){
                 '<span class="icon icon_svg_edit"></span>',
                 '</button>'
             ].join('')).on('click', function(){
-                that.dbm(widget, data, selected);
+                that.dbm(widget, data, selected, selects);
                 /*
                 if (typeof that.data.dbm.editWidget == 'function') {
                     resize_dbm_modal();
@@ -564,6 +564,10 @@ var Dashboard = function(options){
             }),
             render = false, opened = false,
             selected = { lib: null, library: null, widget: null },
+            selects = {
+                library: $control__library.find('.select'),
+                widget: $control__library.find('.select')
+            },
             dbmKey = 'dbm';
         if (typeof data.lib == 'object') {
             $control__widgets.find('.control__container').prepend($button_add);
@@ -589,7 +593,7 @@ var Dashboard = function(options){
                             render = true;
                             prepare_widgets_buttons();
                         });
-                        $control__library.find('.select').on('change', function(e){
+                        selects.library.on('change', function(e){
                             var value = $(this).select('value'), items = [];
                             for (lib in data.lib) {
                                 if (data.lib[lib]) {
@@ -610,7 +614,7 @@ var Dashboard = function(options){
                             $control__widgets.find('.select').select('update', items);
                             update_widgets_buttons();
                         });
-                        $control__widgets.find('.select').on('change', function(e){
+                        selects.widget.on('change', function(e){
                             var value = $(this).select('value'), items = [];
                             if (value) {
                                 var widget = selected.library.items.filter(function(d){ return d.value == value; });
@@ -651,7 +655,6 @@ var Dashboard = function(options){
             }
         }
         function update_widgets_buttons(){
-            //$control__dbm.hide();
             $button_add.button('hide');
             $button_edit.button('hide');
             $button_save.button('hide');
@@ -683,7 +686,7 @@ var Dashboard = function(options){
     /* modal for settings - end */
 
     /* modal for dbm */
-    that.dbm = function(widget, data, selected){
+    that.dbm = function(widget, data, selected, selects){
         var widget_dimm = {
             left: widget.offset().left,
             top: widget.offset().top,
@@ -739,7 +742,7 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, function(){
+                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, selects, function(){
                             that.loader_remove();
                         });
                     }, 100);
@@ -751,11 +754,11 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('.asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, function(){
+                        that.data.lib.dbm.saveForm(widget, data, that.data.modal, selected, selects, function(){
                             that.loader_remove();
                             $this.modal__('destroy');
                             if (typeof that.data.lib.dbm.closeForm == 'function') {
-                                that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected);
+                                that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected, selects);
                             }
                         });
                     }, 100);
@@ -766,7 +769,7 @@ var Dashboard = function(options){
                     var $container = that.data.modal_dbm.data()._el.card__middle_scroll.find('#general').addClass('asyst_editform');
                     that.loader_add($container);
                     setTimeout(function(){
-                        that.data.lib.dbm.loadForm($container, widget, data, that.data.modal, selected, function(){
+                        that.data.lib.dbm.loadForm($container, widget, data, that.data.modal, selected, selects, function(){
                             that.loader_remove();
                         });
                     }, 100);
@@ -774,7 +777,7 @@ var Dashboard = function(options){
             })
             .on('hidden.fc.modal', function(e){
                 if (typeof that.data.lib.dbm.closeForm == 'function') {
-                    that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected);
+                    that.data.lib.dbm.closeForm(widget, data, that.data.modal, selected, selects);
                 }
             });
     };
