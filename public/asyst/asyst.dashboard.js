@@ -54,25 +54,33 @@ Asyst.PageDashboard = function(options){
                         safeSave({
                             success: function(){
                                 if (selected.widget.value == 'new'){
-                                    selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;
-                                    selected.widget.text = Asyst.Workspace.currentForm.Data.Title;
-                                    // update select
-                                    var items = selects.widget.select('get_items');
-                                    items.map(function(item){ item.selected = false; });
-                                    items.push({
-                                        value: Asyst.Workspace.currentForm.Data.PageElementId,
-                                        text: Asyst.Workspace.currentForm.Data.Title
+                                    that.loadLibrary(function(){
+                                        // update modal lib
+                                        data.lib = that.data.lib;
+                                        // update select
+                                        var items = [];
+                                        for (key in data.lib) {
+                                            if (data.lib[key]) {
+                                                if (data.lib[key].library) {
+                                                    data.lib[key].library.forEach(function(item){
+                                                        if (item.value == Asyst.Workspace.currentForm.Data.PageId) {
+                                                            items = item.items;
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+                                        selects.widget.select('update', items);
+                                        selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
+                                        // update widget
+                                        $.extend(widget.data(), {
+                                            lib: data.lib,
+                                            pageid: Asyst.Workspace.currentForm.Data.PageId,
+                                            elementid: Asyst.Workspace.currentForm.Data.PageElementId
+                                        });
+                                        widget.widget('set_content');
+                                        if (typeof callback == 'function') { callback(); }
                                     });
-                                    selects.widget.select('update', items);
-                                    selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
-                                    // update widget
-                                    $.extend(widget.data(), {
-                                        lib: that.data.lib,
-                                        pageid: Asyst.Workspace.currentForm.Data.PageId,
-                                        elementid: Asyst.Workspace.currentForm.Data.PageElementId
-                                    });
-                                    widget.widget('set_content');
-                                    if (typeof callback == 'function') { callback(); }
                                     /*
                                     that.loadLibrary(function(){
                                         selected.widget.value = Asyst.Workspace.currentForm.Data.PageElementId;

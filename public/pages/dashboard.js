@@ -583,13 +583,13 @@ var Dashboard = function(options){
                                 selected.library = item;
                                 item.items.forEach(function(item){
                                     var $option = $('<option value="' + item.value + '" ' + (item.value == data.elementid ? 'selected="selected"' : '') + '>' + item.text + '</option>');
-                                    $control__widgets.find('.select').append($option);
+                                    selects.widget.append($option);
                                     if (item.value == data.elementid) {
                                         selected.widget = item;
                                     }
                                 });
                             }
-                            $control__library.find('.select').append($option);
+                            selects.library.append($option);
                             render = true;
                             prepare_widgets_buttons();
                         });

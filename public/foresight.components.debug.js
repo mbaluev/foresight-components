@@ -1693,7 +1693,7 @@ $(function(){
                         that.data._options.map(function($option){
                             items.push({
                                 value: $option.attr('value'),
-                                tex: $option.text(),
+                                text: $option.text(),
                                 selected: ($option.attr('selected') ? true : false)
                             });
                         });
