@@ -5734,6 +5734,25 @@ body {
   margin: 0 0 10px;
 }
 
+.asyst_editform .controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.asyst_editform .controls > * {
+  margin-right: 10px;
+}
+
+.asyst_editform .controls > *:last-child {
+  margin-right: 10px;
+}
+
+.asyst_editform #PickListViewId + #btnFilter,
+.asyst_editform #PickListViewId_chosen + #btnFilter {
+  padding: 2px 10px;
+}
+
 .asyst_editform [class^="span"] {
   width: 100% !important;
   max-width: 500px;
