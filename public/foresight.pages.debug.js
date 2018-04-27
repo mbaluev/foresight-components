@@ -799,15 +799,19 @@ var Dashboard = function(options){
             that.data = $.extend(that.data, options, { params: params });
             that.init();
         },
-        widgets: function(options, params){
+        widgets: function(options, params, reload){
+            if (!reload) { reload = true; }
             that.data.grid[0].obj.options.items.map(function(item){
                 $.extend(item.widget.data(), options, { params: params });
                 item.widget.widget('set_name');
                 item.widget.widget('set_color');
-                item.widget.widget('set_content');
+                if (reload) {
+                    item.widget.widget('set_content');
+                }
             });
         },
-        widget: function(id, options, params){
+        widget: function(id, options, params, reload){
+            if (!reload) { reload = true; }
             var item = that.data.grid[0].obj.options.items.filter(function(d){
                 return d._id == id;
             });
@@ -816,10 +820,22 @@ var Dashboard = function(options){
                 $.extend(item.widget.data(), options, { params: params });
                 item.widget.widget('set_name');
                 item.widget.widget('set_color');
-                item.widget.widget('set_content');
+                if (reload) {
+                    item.widget.widget('set_content');
+                }
             }
         },
-        element: function(elementid, options, params){
+        widget_: function(widget, options, params, reload){
+            if (!reload) { reload = true; }
+            $.extend(widget.data(), options, { params: params });
+            widget.widget('set_name');
+            widget.widget('set_color');
+            if (reload) {
+                widget.widget('set_content');
+            }
+        },
+        element: function(elementid, options, params, reload){
+            if (!reload) { reload = true; }
             var item = that.data.grid[0].obj.options.items.filter(function(d){
                 return d.widget[0].obj.data.elementid == elementid;
             });
@@ -828,7 +844,9 @@ var Dashboard = function(options){
                 $.extend(item.widget.data(), options, { params: params });
                 item.widget.widget('set_name');
                 item.widget.widget('set_color');
-                item.widget.widget('set_content');
+                if (reload) {
+                    item.widget.widget('set_content');
+                }
             }
         },
         title: function(title){

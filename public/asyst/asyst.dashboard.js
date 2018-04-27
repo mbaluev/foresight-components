@@ -55,7 +55,7 @@ Asyst.PageDashboard = function(options){
                             success: function(){
                                 if (selected.widget.value == 'new'){
                                     that.loadLibrary(function(){
-                                        // update modal lib
+                                        // update widget lib
                                         data.lib = that.data.lib;
                                         // update select
                                         var items = [];
@@ -73,13 +73,23 @@ Asyst.PageDashboard = function(options){
                                         selected.library.items = items;
                                         selects.widget.select('update', items);
                                         selects.widget.select('check', Asyst.Workspace.currentForm.Data.PageElementId);
+
                                         // update widget
+                                        /*
                                         $.extend(widget.data(), {
                                             lib: data.lib,
                                             pageid: Asyst.Workspace.currentForm.Data.PageId,
                                             elementid: Asyst.Workspace.currentForm.Data.PageElementId
                                         });
                                         widget.widget('set_content');
+                                        */
+                                        that.reload.widget_(widget, {
+                                            lib: data.lib,
+                                            pageid: Asyst.Workspace.currentForm.Data.PageId,
+                                            elementid: Asyst.Workspace.currentForm.Data.PageElementId
+                                        }, null, true);
+                                        that.reload.widgets({ lib: that.data.lib }, null, false);
+
                                         if (typeof callback == 'function') { callback(); }
                                     });
                                     /*
