@@ -72,11 +72,15 @@
     margin-right: 10px;
 }
 .asyst_editform .controls > *:last-child {
-    margin-right: 10px;
+    margin-right: 0;
 }
-.asyst_editform #PickListViewId + #btnFilter,
-.asyst_editform #PickListViewId_chosen + #btnFilter {
+.asyst_editform #PicklistViewId + #btnFilter,
+.asyst_editform #PicklistViewId_chosen + #btnFilter {
     padding: 2px 10px;
+}
+.asyst_editform .required-input {
+    margin-left: 0;
+    margin-right: 0;
 }
 
 .asyst_editform [class^="span"] {
