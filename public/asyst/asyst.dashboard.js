@@ -117,7 +117,7 @@ Asyst.PageDashboard = function(options){
         tumblerContainerSelector: null,
         params: null
     };
-    that.data = $.extend(that.data, options);
+    that.data = $.extend(true, that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
         loader: $('<span class="spinner spinner_align_center"></span>')
