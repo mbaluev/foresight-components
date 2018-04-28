@@ -1,3 +1,182 @@
+$(function(){
+    $('[data-toggle="menu-left"]').each(function(){
+        var self = $(this),
+            $iconmenu = self.find('.icon__menu'),
+            $main = $('.fs-view__main').addClass('fs-view__main_transition'),
+            $left = $('.fs-view__left'),
+            $middle = $('.fs-view__middle');
+        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
+            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+        }
+        function show(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $left.removeClass('fs-view__left_hidden');
+            $middle.removeClass('fs-view__middle_full');
+            if ($main.find('.fs-view__backdrop').length == 0) {
+                $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+            }
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', false);
+            }
+        }
+        function hide(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $left.addClass('fs-view__left_hidden');
+            $middle.addClass('fs-view__middle_full');
+            $main.find('.fs-view__backdrop').remove();
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', true);
+            }
+        }
+        function click(){
+            if ($left.hasClass('fs-view__left_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $main.addClass('fs-view__main_transition');
+        }, 100);
+        self.on('click', click);
+    });
+    $('[data-toggle="menu-right"]').each(function(){
+        var self = $(this),
+            $iconmenu = self.find('.icon__menu'),
+            $middle = $('.fs-view__middle'),
+            $middle_right = $('.fs-view__middle-right');
+        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
+            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+        }
+        function show(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $middle_right.removeClass('fs-view__middle-right_hidden');
+            if ($middle.find('.fs-view__middle-backdrop').length == 0) {
+                $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+            }
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', false);
+            }
+        }
+        function hide(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $middle_right.addClass('fs-view__middle-right_hidden');
+            $middle.find('.fs-view__middle-backdrop').remove();
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', true);
+            }
+        }
+        function click(){
+            if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_right_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $middle.addClass('fs-view__middle_transition');
+        }, 100);
+        self.on('click', click);
+    });
+    $('[data-toggle="header"]').each(function(){
+        var self = $(this),
+            $icon = self.find('.icon'),
+            $header = $('.fs-view__header');
+        function show(){
+            $icon.removeClass('icon_rotate_180deg');
+            $header.removeClass('fs-view__header_hidden');
+            $header.css('margin-top', '');
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', false);
+            }
+        }
+        function hide(){
+            $icon.addClass('icon_rotate_180deg');
+            $header.addClass('fs-view__header_hidden');
+            $header.css('margin-top', -$header.outerHeight());
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', true);
+            }
+        }
+        function click(){
+            if ($header.hasClass('fs-view__header_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('header_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $('.fs-view').addClass('fs-view_transition');
+            $icon.addClass('icon_animate');
+        }, 100);
+        self.on('click', click);
+    });
+});
 (function($){
     var methods = {
         init : function(options) {
@@ -302,185 +481,6 @@
 })( jQuery );
 $(function(){
     $('[data-fc="button"]').button();
-});
-$(function(){
-    $('[data-toggle="menu-left"]').each(function(){
-        var self = $(this),
-            $iconmenu = self.find('.icon__menu'),
-            $main = $('.fs-view__main').addClass('fs-view__main_transition'),
-            $left = $('.fs-view__left'),
-            $middle = $('.fs-view__middle');
-        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
-            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
-        }
-        function show(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $left.removeClass('fs-view__left_hidden');
-            $middle.removeClass('fs-view__middle_full');
-            if ($main.find('.fs-view__backdrop').length == 0) {
-                $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
-            }
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_hidden', false);
-            }
-        }
-        function hide(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $left.addClass('fs-view__left_hidden');
-            $middle.addClass('fs-view__middle_full');
-            $main.find('.fs-view__backdrop').remove();
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_hidden', true);
-            }
-        }
-        function click(){
-            if ($left.hasClass('fs-view__left_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('menu_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $main.addClass('fs-view__main_transition');
-        }, 100);
-        self.on('click', click);
-    });
-    $('[data-toggle="menu-right"]').each(function(){
-        var self = $(this),
-            $iconmenu = self.find('.icon__menu'),
-            $middle = $('.fs-view__middle'),
-            $middle_right = $('.fs-view__middle-right');
-        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
-            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
-        }
-        function show(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $middle_right.removeClass('fs-view__middle-right_hidden');
-            if ($middle.find('.fs-view__middle-backdrop').length == 0) {
-                $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
-            }
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_right_hidden', false);
-            }
-        }
-        function hide(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $middle_right.addClass('fs-view__middle-right_hidden');
-            $middle.find('.fs-view__middle-backdrop').remove();
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_right_hidden', true);
-            }
-        }
-        function click(){
-            if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('menu_right_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $middle.addClass('fs-view__middle_transition');
-        }, 100);
-        self.on('click', click);
-    });
-    $('[data-toggle="header"]').each(function(){
-        var self = $(this),
-            $icon = self.find('.icon'),
-            $header = $('.fs-view__header');
-        function show(){
-            $icon.removeClass('icon_rotate_180deg');
-            $header.removeClass('fs-view__header_hidden');
-            $header.css('margin-top', '');
-            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('header_hidden', false);
-            }
-        }
-        function hide(){
-            $icon.addClass('icon_rotate_180deg');
-            $header.addClass('fs-view__header_hidden');
-            $header.css('margin-top', -$header.outerHeight());
-            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('header_hidden', true);
-            }
-        }
-        function click(){
-            if ($header.hasClass('fs-view__header_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('header_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $('.fs-view').addClass('fs-view_transition');
-            $icon.addClass('icon_animate');
-        }, 100);
-        self.on('click', click);
-    });
 });
 (function($){
     var methods = {
@@ -973,6 +973,128 @@ $(function(){
 })( jQuery );
 $(function(){
     $('[data-fc="menu"]').menu();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'codearea', target: self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        mime: 'text/html',
+                        editor: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        that.render();
+                    };
+                    that.render = function(){
+                        if (!that.data.disabled) {
+                            that.data.editor = CodeMirror.fromTextArea(self[0], {
+                                mode: that.data.mime,
+                                tabSize: 2,
+                                lineNumbers: true,
+                                matchBrackets: true,
+                                autoCloseBrackets: true,
+                                autoCloseTags: true,
+                                foldGutter: true,
+                                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+                            });
+                        }
+                    };
+                    that.get_value = function(){
+                        if (that.data.editor) {
+                            return that.data.editor.getValue();
+                        } else {
+                            return null;
+                        }
+                    };
+                    that.set_value = function(value){
+                        if (that.data.editor) {
+                            that.data.editor.setValue(value);
+                        }
+                    };
+                    that.init = function(){
+                        that.render();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        render : function() {
+            return this.each(function() {
+                this.obj.render();
+            });
+        },
+        set_value : function(value) {
+            return this.each(function() {
+                this.obj.set_value(value);
+            });
+        },
+        get_value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.get_value();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.get_value());
+                });
+                return _arr;
+            }
+        },
+        value : function(value) {
+            if (value) {
+                return this.each(function() {
+                    this.obj.set_value(value);
+                });
+            } else {
+                if (this.length == 1) {
+                    var _val = false;
+                    this.each(function() {
+                        _val = this.obj.get_value();
+                    });
+                    return _val;
+                } else {
+                    var _arr = [];
+                    this.each(function() {
+                        _arr.push(this.obj.get_value());
+                    });
+                    return _arr;
+                }
+            }
+        }
+    };
+    $.fn.codearea = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.button' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="codearea"]').codearea();
 });
 (function($){
     var methods = {
@@ -1489,6 +1611,338 @@ $(function(){
 })( jQuery );
 $(function(){
     $('[data-fc="widget"]').widget();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'video', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {};
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._video = null;
+                    that.data._video__controls_timer = null;
+                    that.data._el = {
+                        target: self,
+                        parent: self.parent(),
+                        video: $('<div class="video" id="' + (new Date()).valueOf() + '"></div>'),
+                        video__container: $('<div class="video__container"></div>'),
+                        video__controls: $('<div class="video__controls"></div>'),
+                        video__controls_top: $('<div class="video__controls_top"></div>'),
+                        video__controls_bottom: $('<div class="video__controls_bottom"></div>'),
+                        video__controls_left: $('<div class="video__controls_left"></div>'),
+                        video__controls_middle: $('<div class="video__controls_middle"></div>'),
+                        video__controls_right: $('<div class="video__controls_right"></div>'),
+                        progress: $('<div class="video__progress" data-tooltip="0"></div>'),
+                        progress_value: $('<div class="video__progress_value"></div>'),
+                        alertbox: $('<label class="alertbox"><span class="alertbox__text">0:00&nbsp;/&nbsp;0:00</span></label>'),
+                        slider_volume: $('<div class="video__volume"></div>'),
+                        slider_volume_progress: $('<div class="video__progress" data-tooltip="100"></div>'),
+                        slider_volume_progress_value: $('<div class="video__progress_value"></div>'),
+                        loader: $('<span class="spinner spinner_align_center spinner_white"></span>')
+                    };
+                    that.data._buttons = {
+                        play: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_player_fill_white"></span></button>'),
+                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_mute_white"></span></button>'),
+                        fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="Во весь экран"><span class="icon icon_svg_fullscreen_white"></span></button>')
+                    };
+                    that.data._fullscreen = {
+                        status: undefined,
+                        request: undefined,
+                        exit: undefined
+                    };
+                    that.data._volume = 100;
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.error = function(){
+                        that.data._el.target.attr('controls', 'true');
+                        that.data.error = 'Browser doesn\'t support fullscreen mode';
+                    };
+
+                    that.render = function(){
+                        that.render_controls();
+                        var data = $.extend(true, {}, that.data);
+                        that.data._el.target.removeClass('video').remove();
+                        that.data._el.parent.append(
+                            that.data._el.video.append(
+                                that.data._el.video__container.append(
+                                    that.data._el.target
+                                ),
+                                that.data._el.video__controls.append(
+                                    that.data._el.video__controls_top,
+                                    that.data._el.video__controls_bottom.append(
+                                        that.data._el.video__controls_left,
+                                        that.data._el.video__controls_middle,
+                                        that.data._el.video__controls_right
+                                    )
+                                )
+                            )
+                        );
+                        that.data._el.target.data(data);
+                    };
+                    that.render_controls = function(){
+                        that.data._el.video__controls_top.append(
+                            that.data._el.progress.append(
+                                that.data._el.progress_value
+                            )
+                        );
+                        that.data._el.video__controls_left.append(
+                            that.data._buttons.play,
+                            that.data._el.alertbox
+                        );
+                        that.data._el.video__controls_middle.append(
+                            that.data._el.slider_volume.append(
+                                that.data._el.slider_volume_progress.append(
+                                    that.data._el.slider_volume_progress_value
+                                )
+                            ),
+                            that.data._buttons.mute
+                        );
+                        that.data._el.video__controls_right.append(
+                            that.data._buttons.fullscreen
+                        );
+                    };
+
+                    that.controls_hide = function(){
+                        if (!that.data._video.paused && !that.data._video.ended) {
+                            that.data._el.video__controls.addClass('video__controls_hidden');
+                        }
+                    };
+                    that.controls_show = function(){
+                        that.data._el.video__controls.removeClass('video__controls_hidden');
+                    };
+                    that.controls_timer = function(){
+                        clearTimeout(that.data._video__controls_timer);
+                        that.controls_show();
+                        that.data._video__controls_timer = setTimeout(that.controls_hide, 5000);
+                    };
+
+                    that.loader_add = function(){
+                        that.data._el.parent.prepend(that.data._el.loader)
+                    };
+                    that.loader_remove = function(){
+                        that.data._el.loader.remove();
+                    };
+
+                    that.bind = function(){
+                        that.data._el.video.on('mouseout.video', that.controls_hide);
+                        that.data._el.video.on('mousemove.video', that.controls_timer);
+                        that.data._buttons.play.on('click.video', that.video_play_pause);
+                        that.data._buttons.play.button('disable');
+                        that.data._buttons.mute.on('click.video', that.video_mute);
+                        that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
+                        that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
+                        that.data._el.progress.on('mousemove', that.video_progress_tooltip);
+                        that.data._el.progress.on('click drag', that.video_seek);
+                        that.data._el.slider_volume_progress.on('mousemove', that.video_volume_tooltip);
+                        that.data._el.slider_volume_progress.on('click drag', that.video_volume);
+                    };
+
+                    that.video_init = function(){
+                        if (!that.data._el.target.attr('id')) {
+                            that.data._el.target.attr('id', (new Date()).valueOf());
+                        }
+                        that.data._video = document.getElementById(that.data._el.target.attr('id'));
+                        that.data._video.controls = false;
+                        that.data._fullscreen.request = function(){
+                            var root = document.documentElement;
+                            return root.requestFullscreen ||
+                                root.webkitRequestFullscreen ||
+                                root.mozRequestFullScreen ||
+                                root.msRequestFullscreen;
+                        }();
+                        that.data._fullscreen.exit = function(){
+                            return document.exitFullscreen ||
+                                document.webkitExitFullscreen ||
+                                document.mozCancelFullScreen ||
+                                document.msExitFullscreen;
+                        }();
+                        that.data._fullscreen.status = function(){
+                            return document.fullscreenElement ||
+                                document.webkitFullscreenElement ||
+                                document.mozFullScreenElement ||
+                                document.msFullscreenElement;
+                        };
+                    };
+                    that.video_loaded = function(){
+                        that.data._video.onloadedmetadata = that.video_set_metadata;
+                    };
+                    that.video_canplay = function(){
+                        that.data._video.oncanplay = that.video_play_pause_enale;
+                    };
+                    that.video_set_metadata = function(){
+                        that.video_set_progress_text();
+                        that.loader_remove();
+                    };
+                    that.video_play_pause_enale = function(){
+                        that.data._buttons.play.button('enable');
+                    };
+                    that.video_play_pause = function(){
+                        that.loader_remove();
+                        if (that.data._video.paused || that.data._video.ended) {
+                            that.data._video.play();
+                            that.data._buttons.play.find('.icon').removeClass('icon_svg_player_fill_white').addClass('icon_svg_pause_white');
+                        } else {
+                            that.data._video.pause();
+                            that.data._buttons.play.find('.icon').removeClass('icon_svg_pause_white').addClass('icon_svg_player_fill_white');
+                        }
+                    };
+                    that.video_stop = function(){
+                        that.data._video.pause();
+                        that.data._video.currentTime = 0;
+                    };
+                    that.video_louder = function(){
+                        that.data._video.volume += that.data._video.volume == 1 ? 0 : 0.1;
+                        that.data._video.volume = parseFloat(that.data._video.volume).toFixed(1);
+                    };
+                    that.video_quieter = function(){
+                        that.data._video.volume -= that.data._video.volume == 0 ? 0 : 0.1;
+                        that.data._video.volume = parseFloat(that.data._video.volume).toFixed(1);
+                    };
+                    that.video_mute = function(){
+                        that.data._volume = that.data._video.volume;
+                        that.data._video.muted = !that.data._video.muted;
+                        if (that.data._video.muted) {
+                            that.video_set_volume(0);
+                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_mute_white').addClass('icon_svg_unmute_white');
+                            that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip();
+                            that.data._buttons.mute.tooltip('update', 'Включить звук');
+                        } else {
+                            that.video_set_volume(that.data._volume);
+                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_unmute_white').addClass('icon_svg_mute_white');
+                            that.data._buttons.mute.tooltip('clear');
+                            that.data._buttons.mute.tooltip();
+                            that.data._buttons.mute.tooltip('update', 'Отключить звук');
+                        }
+                    };
+                    that.video_fullscreen = function(){
+                        if (that.data._fullscreen.request) {
+                            if (that.data._fullscreen.status() == null) {
+                                that.data._fullscreen.request.call(document.getElementById(that.data._el.video.attr('id')));
+                            } else {
+                                that.data._fullscreen.exit.call(document);
+                            }
+                        } else {
+                            alert('browser doesn\'t allow fullscreen mode');
+                        }
+                    };
+                    that.video_update_progress_bar = function(){
+                        var value = (100 / that.data._video.duration) * that.data._video.currentTime;
+                        that.data._el.progress_value.width(value + '%');
+                        that.video_set_progress_text();
+                    };
+                    that.video_progress_tooltip = function(e){
+                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
+                        var value = that.data._video.duration / 100 * percent;
+                        that.data._el.progress.tooltip();
+                        that.data._el.progress.tooltip('update', that.video_seconds_to_time(value));
+                    };
+                    that.video_seek = function(e){
+                        if (e.offsetX < 0) { return; }
+                        if (e.offsetX > that.data._el.progress.width()) { return; }
+                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
+                        var value = that.data._video.duration / 100 * percent;
+                        that.data._video.currentTime = value;
+                    };
+                    that.video_seconds_to_time = function(seconds) {
+                        var hours   = Math.floor(seconds / 3600);
+                        var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+                        var seconds = Math.floor(seconds - (hours * 3600) - (minutes * 60));
+                        var time = "";
+
+                        if (hours != 0) {
+                            time = hours+":";
+                        }
+                        if (minutes != 0 || time !== "") {
+                            minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
+                            time += minutes+":";
+                        }
+                        seconds = (seconds < 10) ? "0"+seconds : String(seconds);
+                        if (time === "") {
+                            time = "0:"+seconds;
+                        }
+                        else {
+                            time += seconds;
+                        }
+                        return time;
+                    };
+                    that.video_set_progress_text = function(){
+                        that.data._el.alertbox.find('.alertbox__text').html(
+                            that.video_seconds_to_time(that.data._video.currentTime) + '&nbsp;/&nbsp;' +
+                            that.video_seconds_to_time(that.data._video.duration)
+                        );
+                    };
+                    that.video_volume_tooltip = function(e){
+                        var volume = Math.floor(100 / that.data._el.slider_volume_progress.width() * e.offsetX);
+                        that.data._el.slider_volume_progress.tooltip();
+                        that.data._el.slider_volume_progress.tooltip('update', volume);
+                    };
+                    that.video_volume = function(e){
+                        if (e.offsetX < 0) { return ; }
+                        if (e.offsetX > that.data._el.slider_volume_progress.width()) { return; }
+                        that.data._volume = e.offsetX / that.data._el.slider_volume_progress.width();
+                        that.data._video.volume = that.data._volume;
+                        that.video_set_volume(that.data._volume);
+                        if (that.data._video.muted) {
+                            that.video_mute();
+                        }
+                    };
+                    that.video_set_volume = function(value){
+                        that.data._el.slider_volume_progress_value.width(value * 100 + '%');
+                    };
+
+                    that.init_components = function(){
+                        for (var button in that.data._buttons) {
+                            that.data._buttons[button].button();
+                        }
+                    };
+                    that.init = function(){
+                        that.loader_add();
+                        that.video_init();
+                        that.video_loaded();
+                        if (that.data._fullscreen.request) {
+                            that.render();
+                            that.init_components();
+                            that.bind();
+                            that.video_canplay();
+                        } else {
+                            that.error();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.video = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.video' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="video"]').video();
 });
 (function($){
     var methods = {
@@ -2307,338 +2761,6 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'video', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {};
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._video = null;
-                    that.data._video__controls_timer = null;
-                    that.data._el = {
-                        target: self,
-                        parent: self.parent(),
-                        video: $('<div class="video" id="' + (new Date()).valueOf() + '"></div>'),
-                        video__container: $('<div class="video__container"></div>'),
-                        video__controls: $('<div class="video__controls"></div>'),
-                        video__controls_top: $('<div class="video__controls_top"></div>'),
-                        video__controls_bottom: $('<div class="video__controls_bottom"></div>'),
-                        video__controls_left: $('<div class="video__controls_left"></div>'),
-                        video__controls_middle: $('<div class="video__controls_middle"></div>'),
-                        video__controls_right: $('<div class="video__controls_right"></div>'),
-                        progress: $('<div class="video__progress" data-tooltip="0"></div>'),
-                        progress_value: $('<div class="video__progress_value"></div>'),
-                        alertbox: $('<label class="alertbox"><span class="alertbox__text">0:00&nbsp;/&nbsp;0:00</span></label>'),
-                        slider_volume: $('<div class="video__volume"></div>'),
-                        slider_volume_progress: $('<div class="video__progress" data-tooltip="100"></div>'),
-                        slider_volume_progress_value: $('<div class="video__progress_value"></div>'),
-                        loader: $('<span class="spinner spinner_align_center spinner_white"></span>')
-                    };
-                    that.data._buttons = {
-                        play: $('<button class="button" type="button" data-fc="button"><span class="icon icon_svg_player_fill_white"></span></button>'),
-                        mute: $('<button class="button" type="button" data-fc="button" data-tooltip="Отключить звук"><span class="icon icon_svg_mute_white"></span></button>'),
-                        fullscreen: $('<button class="button" type="button" data-fc="button" data-tooltip="Во весь экран"><span class="icon icon_svg_fullscreen_white"></span></button>')
-                    };
-                    that.data._fullscreen = {
-                        status: undefined,
-                        request: undefined,
-                        exit: undefined
-                    };
-                    that.data._volume = 100;
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.error = function(){
-                        that.data._el.target.attr('controls', 'true');
-                        that.data.error = 'Browser doesn\'t support fullscreen mode';
-                    };
-
-                    that.render = function(){
-                        that.render_controls();
-                        var data = $.extend(true, {}, that.data);
-                        that.data._el.target.removeClass('video').remove();
-                        that.data._el.parent.append(
-                            that.data._el.video.append(
-                                that.data._el.video__container.append(
-                                    that.data._el.target
-                                ),
-                                that.data._el.video__controls.append(
-                                    that.data._el.video__controls_top,
-                                    that.data._el.video__controls_bottom.append(
-                                        that.data._el.video__controls_left,
-                                        that.data._el.video__controls_middle,
-                                        that.data._el.video__controls_right
-                                    )
-                                )
-                            )
-                        );
-                        that.data._el.target.data(data);
-                    };
-                    that.render_controls = function(){
-                        that.data._el.video__controls_top.append(
-                            that.data._el.progress.append(
-                                that.data._el.progress_value
-                            )
-                        );
-                        that.data._el.video__controls_left.append(
-                            that.data._buttons.play,
-                            that.data._el.alertbox
-                        );
-                        that.data._el.video__controls_middle.append(
-                            that.data._el.slider_volume.append(
-                                that.data._el.slider_volume_progress.append(
-                                    that.data._el.slider_volume_progress_value
-                                )
-                            ),
-                            that.data._buttons.mute
-                        );
-                        that.data._el.video__controls_right.append(
-                            that.data._buttons.fullscreen
-                        );
-                    };
-
-                    that.controls_hide = function(){
-                        if (!that.data._video.paused && !that.data._video.ended) {
-                            that.data._el.video__controls.addClass('video__controls_hidden');
-                        }
-                    };
-                    that.controls_show = function(){
-                        that.data._el.video__controls.removeClass('video__controls_hidden');
-                    };
-                    that.controls_timer = function(){
-                        clearTimeout(that.data._video__controls_timer);
-                        that.controls_show();
-                        that.data._video__controls_timer = setTimeout(that.controls_hide, 5000);
-                    };
-
-                    that.loader_add = function(){
-                        that.data._el.parent.prepend(that.data._el.loader)
-                    };
-                    that.loader_remove = function(){
-                        that.data._el.loader.remove();
-                    };
-
-                    that.bind = function(){
-                        that.data._el.video.on('mouseout.video', that.controls_hide);
-                        that.data._el.video.on('mousemove.video', that.controls_timer);
-                        that.data._buttons.play.on('click.video', that.video_play_pause);
-                        that.data._buttons.play.button('disable');
-                        that.data._buttons.mute.on('click.video', that.video_mute);
-                        that.data._buttons.fullscreen.on('click.video', that.video_fullscreen);
-                        that.data._video.addEventListener('timeupdate', that.video_update_progress_bar);
-                        that.data._el.progress.on('mousemove', that.video_progress_tooltip);
-                        that.data._el.progress.on('click drag', that.video_seek);
-                        that.data._el.slider_volume_progress.on('mousemove', that.video_volume_tooltip);
-                        that.data._el.slider_volume_progress.on('click drag', that.video_volume);
-                    };
-
-                    that.video_init = function(){
-                        if (!that.data._el.target.attr('id')) {
-                            that.data._el.target.attr('id', (new Date()).valueOf());
-                        }
-                        that.data._video = document.getElementById(that.data._el.target.attr('id'));
-                        that.data._video.controls = false;
-                        that.data._fullscreen.request = function(){
-                            var root = document.documentElement;
-                            return root.requestFullscreen ||
-                                root.webkitRequestFullscreen ||
-                                root.mozRequestFullScreen ||
-                                root.msRequestFullscreen;
-                        }();
-                        that.data._fullscreen.exit = function(){
-                            return document.exitFullscreen ||
-                                document.webkitExitFullscreen ||
-                                document.mozCancelFullScreen ||
-                                document.msExitFullscreen;
-                        }();
-                        that.data._fullscreen.status = function(){
-                            return document.fullscreenElement ||
-                                document.webkitFullscreenElement ||
-                                document.mozFullScreenElement ||
-                                document.msFullscreenElement;
-                        };
-                    };
-                    that.video_loaded = function(){
-                        that.data._video.onloadedmetadata = that.video_set_metadata;
-                    };
-                    that.video_canplay = function(){
-                        that.data._video.oncanplay = that.video_play_pause_enale;
-                    };
-                    that.video_set_metadata = function(){
-                        that.video_set_progress_text();
-                        that.loader_remove();
-                    };
-                    that.video_play_pause_enale = function(){
-                        that.data._buttons.play.button('enable');
-                    };
-                    that.video_play_pause = function(){
-                        that.loader_remove();
-                        if (that.data._video.paused || that.data._video.ended) {
-                            that.data._video.play();
-                            that.data._buttons.play.find('.icon').removeClass('icon_svg_player_fill_white').addClass('icon_svg_pause_white');
-                        } else {
-                            that.data._video.pause();
-                            that.data._buttons.play.find('.icon').removeClass('icon_svg_pause_white').addClass('icon_svg_player_fill_white');
-                        }
-                    };
-                    that.video_stop = function(){
-                        that.data._video.pause();
-                        that.data._video.currentTime = 0;
-                    };
-                    that.video_louder = function(){
-                        that.data._video.volume += that.data._video.volume == 1 ? 0 : 0.1;
-                        that.data._video.volume = parseFloat(that.data._video.volume).toFixed(1);
-                    };
-                    that.video_quieter = function(){
-                        that.data._video.volume -= that.data._video.volume == 0 ? 0 : 0.1;
-                        that.data._video.volume = parseFloat(that.data._video.volume).toFixed(1);
-                    };
-                    that.video_mute = function(){
-                        that.data._volume = that.data._video.volume;
-                        that.data._video.muted = !that.data._video.muted;
-                        if (that.data._video.muted) {
-                            that.video_set_volume(0);
-                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_mute_white').addClass('icon_svg_unmute_white');
-                            that.data._buttons.mute.tooltip('clear');
-                            that.data._buttons.mute.tooltip();
-                            that.data._buttons.mute.tooltip('update', 'Включить звук');
-                        } else {
-                            that.video_set_volume(that.data._volume);
-                            that.data._buttons.mute.find('.icon').removeClass('icon_svg_unmute_white').addClass('icon_svg_mute_white');
-                            that.data._buttons.mute.tooltip('clear');
-                            that.data._buttons.mute.tooltip();
-                            that.data._buttons.mute.tooltip('update', 'Отключить звук');
-                        }
-                    };
-                    that.video_fullscreen = function(){
-                        if (that.data._fullscreen.request) {
-                            if (that.data._fullscreen.status() == null) {
-                                that.data._fullscreen.request.call(document.getElementById(that.data._el.video.attr('id')));
-                            } else {
-                                that.data._fullscreen.exit.call(document);
-                            }
-                        } else {
-                            alert('browser doesn\'t allow fullscreen mode');
-                        }
-                    };
-                    that.video_update_progress_bar = function(){
-                        var value = (100 / that.data._video.duration) * that.data._video.currentTime;
-                        that.data._el.progress_value.width(value + '%');
-                        that.video_set_progress_text();
-                    };
-                    that.video_progress_tooltip = function(e){
-                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
-                        var value = that.data._video.duration / 100 * percent;
-                        that.data._el.progress.tooltip();
-                        that.data._el.progress.tooltip('update', that.video_seconds_to_time(value));
-                    };
-                    that.video_seek = function(e){
-                        if (e.offsetX < 0) { return; }
-                        if (e.offsetX > that.data._el.progress.width()) { return; }
-                        var percent = 100 / that.data._el.progress.width() * e.offsetX;
-                        var value = that.data._video.duration / 100 * percent;
-                        that.data._video.currentTime = value;
-                    };
-                    that.video_seconds_to_time = function(seconds) {
-                        var hours   = Math.floor(seconds / 3600);
-                        var minutes = Math.floor((seconds - (hours * 3600)) / 60);
-                        var seconds = Math.floor(seconds - (hours * 3600) - (minutes * 60));
-                        var time = "";
-
-                        if (hours != 0) {
-                            time = hours+":";
-                        }
-                        if (minutes != 0 || time !== "") {
-                            minutes = (minutes < 10 && time !== "") ? "0"+minutes : String(minutes);
-                            time += minutes+":";
-                        }
-                        seconds = (seconds < 10) ? "0"+seconds : String(seconds);
-                        if (time === "") {
-                            time = "0:"+seconds;
-                        }
-                        else {
-                            time += seconds;
-                        }
-                        return time;
-                    };
-                    that.video_set_progress_text = function(){
-                        that.data._el.alertbox.find('.alertbox__text').html(
-                            that.video_seconds_to_time(that.data._video.currentTime) + '&nbsp;/&nbsp;' +
-                            that.video_seconds_to_time(that.data._video.duration)
-                        );
-                    };
-                    that.video_volume_tooltip = function(e){
-                        var volume = Math.floor(100 / that.data._el.slider_volume_progress.width() * e.offsetX);
-                        that.data._el.slider_volume_progress.tooltip();
-                        that.data._el.slider_volume_progress.tooltip('update', volume);
-                    };
-                    that.video_volume = function(e){
-                        if (e.offsetX < 0) { return ; }
-                        if (e.offsetX > that.data._el.slider_volume_progress.width()) { return; }
-                        that.data._volume = e.offsetX / that.data._el.slider_volume_progress.width();
-                        that.data._video.volume = that.data._volume;
-                        that.video_set_volume(that.data._volume);
-                        if (that.data._video.muted) {
-                            that.video_mute();
-                        }
-                    };
-                    that.video_set_volume = function(value){
-                        that.data._el.slider_volume_progress_value.width(value * 100 + '%');
-                    };
-
-                    that.init_components = function(){
-                        for (var button in that.data._buttons) {
-                            that.data._buttons[button].button();
-                        }
-                    };
-                    that.init = function(){
-                        that.loader_add();
-                        that.video_init();
-                        that.video_loaded();
-                        if (that.data._fullscreen.request) {
-                            that.render();
-                            that.init_components();
-                            that.bind();
-                            that.video_canplay();
-                        } else {
-                            that.error();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.video = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.video' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="video"]').video();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'gallery', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -2882,6 +3004,310 @@ $(function(){
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on $.gallery' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'visit', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        title: 'Паспорта регионов',
+                        items: [],
+                        headerRenderer: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data.private = {
+                        subjects: [],
+                        sections: [],
+                        items: []
+                    };
+                    that.data.current = {
+                        subject: null,
+                        section: null,
+                        groupings: [],
+                        item: null
+                    };
+                    that.data._el = {
+                        target: self,
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row card__header-column_start"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                            '<label class="card__name">',
+                            '<span class="card__name-text">' + that.data.title + '</span>',
+                            '</label>',
+                            '</div>'
+                        ].join('')),
+                        card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_right"></span>',
+                            '</button>'
+                        ].join('')),
+
+                        card__header_row_tabs: $([
+                            '<div class="card__header-row tabs">',
+                            '<ul class="tabs__list"></ul>',
+                            '</div>'
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__left: $('<div class="card__left"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        visit__frame_container: $('<div class="visit__frame-container"></div>'),
+                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
+
+                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
+                        tabs__list: $('<ul class="tabs__list"></ul>'),
+                        tabs: [],
+                        loader: $('<span class="spinner spinner_align_center"></span>')
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.nulls = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
+
+                    that.render = function(){
+                        that.data._el.target.append(
+                            that.data._el.card.append(
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_subjects
+                                    )
+                                ),
+                                that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
+                                    that.data._el.card__middle.append(
+                                        that.data._el.visit__frame_container
+                                    )
+                                )
+                            )
+                        );
+                    };
+                    that.render_select = function(){
+                        that.loader_add();
+                        var distinct = {};
+                        that.data.private.subjects = [];
+                        that.data.items.map(function(d){
+                            if (d.subjectnameid in distinct) {
+                                distinct[d.subjectnameid]++;
+                            } else {
+                                distinct[d.subjectnameid] = 1;
+                                that.data.private.subjects.push({
+                                    subjectname: d.subjectname,
+                                    subjectnameid: d.subjectnameid
+                                });
+                            }
+                        });
+                        that.data.current.subject = that.data.private.subjects[0];
+                        that.data.private.subjects.map(function(d){
+                            that.data._el.select.append('<option value="' + d.subjectnameid + '">' + d.subjectname + '</option>');
+                        });
+
+                        that.data._el.card__header_column_subjects.append( that.data._el.select );
+                        that.data._el.select.select();
+                        that.data._el.select.on('change', function(){
+                            var value = $(this).select('value');
+                            that.data.current.subject = that.data.private.subjects.filter(function(d){ return d.subjectnameid == value; })[0];
+                            that.data.current.subjectnameid = value;
+                            that.render_tabs();
+                        });
+                        that.data._el.select.select('check', that.data.current.subject.subjectnameid);
+                        that.loader_remove();
+                    };
+                    that.render_tabs = function(){
+                        that.loader_add();
+                        that.data.current.item = null;
+                        that.render_item();
+                        that.data._el.card__header_row_tabs.remove();
+                        that.data._el.card__header_row_tabs.find('.tabs__list').empty();
+
+                        var distinct = {};
+                        that.data.private.sections = [];
+                        that.data.items.map(function(d){
+                            if (d.sectionnameid in distinct) {
+                                distinct[d.sectionnameid]++;
+                            } else {
+                                distinct[d.sectionnameid] = 1;
+                                that.data.private.sections.push({
+                                    sectionname: d.sectionname,
+                                    sectionnameid: d.sectionnameid
+                                });
+                            }
+                        });
+                        that.data.current.section = that.data.private.sections[0];
+                        that.data.private.sections.map(function(d,i){
+                            var $tab = $([
+                                '<li class="tabs__tab'+ (i == 0 ? ' tabs__tab_active' : '') +'" data-id="'+ d.sectionnameid +'">',
+                                '<a class="tabs__link link" href="#section_'+ d.sectionnameid +'" data-fc="tab">',
+                                '<button class="button" data-fc="button" style="width: auto;">',
+                                '<span class="button__text">'+ d.sectionname +'</span>',
+                                '</button>',
+                                '</a>',
+                                '</li>'
+                            ].join(''));
+                            $tab.on('click', function(){
+                                var value = $(this).attr('data-id');
+                                that.data.current.section = that.data.private.sections.filter(function(d){ return d.sectionnameid == value; })[0];
+                                that.data.current.sectionnameid = value;
+                                that.render_menu();
+                            });
+                            that.data._el.card__header_row_tabs.find('.tabs__list').append($tab);
+                        });
+
+                        that.data._el.card__header.append(that.data._el.card__header_row_tabs);
+                        that.data._el.card__header_row_tabs.find('[data-fc="tab"]').tabs();
+                        that.data._el.card__header_row_tabs.find('.tabs__tab[data-id="'+ that.data.current.section.sectionnameid +'"]').trigger('click');
+                        that.loader_remove();
+                    };
+                    that.render_menu = function(){
+                        that.loader_add();
+                        that.data.current.item = null;
+                        that.render_item();
+                        that.data._el.menu.menu();
+                        that.data._el.menu.menu('destroy');
+                        that.data._el.menu.empty();
+
+                        that.data.private.items = that.data.items.filter(function(d){
+                            return (d.subjectnameid == that.data.current.subject.subjectnameid &&
+                                    d.sectionnameid == that.data.current.section.sectionnameid);
+                        });
+
+                        var distinct = {};
+                        that.data.current.groupings = [];
+                        that.data.private.items.map(function(d){
+                            if (d.groupingnameid in distinct) {
+                                distinct[d.groupingnameid]++;
+                            } else {
+                                distinct[d.groupingnameid] = 1;
+                                that.data.current.groupings.push({
+                                    groupingname: d.groupingname,
+                                    groupingnameid: d.groupingnameid
+                                });
+                            }
+                        });
+
+                        var $menu__list = $('<ul class="menu__list"></ul>');
+                        that.data.current.groupings.map(function(d){
+                            var $menu__item = $([
+                                '<li class="menu__item" id=' + d.groupingnameid + '>',
+                                    '<a class="menu__item-link link">',
+                                    '<span class="menu__item-link-content">',
+                                        '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                        '<span class="menu__item-text">' + d.groupingname + '</span>',
+                                    '</span>',
+                                    '</a>',
+                                    '<div class="menu menu__submenu-container">',
+                                        '<ul class="menu__list menu__submenu"></ul>',
+                                    '</div>',
+                                '</li>'
+                            ].join(''));
+                            that.data.private.items.map(function(item){
+                                if (item.groupingnameid == d.groupingnameid) {
+                                    if (item.sectionnameid == 1) {
+                                        item.icon = 'icon_svg_document';
+                                    } else {
+                                        item.icon = 'icon_svg_chart';
+                                    }
+                                    var $menu__subitem = $([
+                                        '<li class="menu__item" id=' + item.nameid + '>',
+                                        '<a class="menu__item-link link">',
+                                        '<span class="menu__item-link-content">',
+                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
+                                            '<span class="menu__item-text">' + item.name + '</span>',
+                                        '</span>',
+                                        '</a>',
+                                        '</li>'
+                                    ].join(''));
+                                    $menu__item.find('.menu__list').append($menu__subitem);
+                                    $menu__subitem.find('.menu__item-link').on('click', function(){
+                                        that.data.current.item = item;
+                                        that.render_item();
+                                    });
+                                }
+                            });
+                            $menu__list.append($menu__item);
+                        });
+                        that.data._el.menu.append($menu__list);
+                        that.data._el.menu.menu();
+                        that.loader_remove();
+                    };
+                    that.render_item = function(){
+                        if (that.data.onItemClick) {
+                            if (typeof(that.data.onItemClick) == 'function') {
+                                that.data.onItemClick(that.data.current.item, that.data._el.visit__frame_container);
+                            }
+                        }
+                    };
+
+                    that.loader_add = function(container){
+                        if (!container) {
+                            that.data._el.target.before(that.data._el.loader);
+                        } else {
+                            container.before(that.data._el.loader);
+                        }
+                    };
+                    that.loader_remove = function(){
+                        that.data._el.loader.remove();
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="select"]').select();
+                        self.find('[data-tooltip]').tooltip();
+                    };
+                    that.init = function(){
+                        that.nulls();
+                        that.render();
+                        that.render_select();
+                        that.init_components();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.visit = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.visit' );
         }
     };
 })( jQuery );
@@ -3720,310 +4146,6 @@ $(function(){
 $(function(){
     $('[data-fc="carousel"]').carousel();
 });
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'visit', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        title: 'Паспорта регионов',
-                        items: [],
-                        headerRenderer: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data.private = {
-                        subjects: [],
-                        sections: [],
-                        items: []
-                    };
-                    that.data.current = {
-                        subject: null,
-                        section: null,
-                        groupings: [],
-                        item: null
-                    };
-                    that.data._el = {
-                        target: self,
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row card__header-column_start"></div>'),
-                        card__header_column: $([
-                            '<div class="card__header-column">',
-                            '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data.title + '</span>',
-                            '</label>',
-                            '</div>'
-                        ].join('')),
-                        card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
-                        button_toggle_left: $([
-                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_right"></span>',
-                            '</button>'
-                        ].join('')),
-
-                        card__header_row_tabs: $([
-                            '<div class="card__header-row tabs">',
-                            '<ul class="tabs__list"></ul>',
-                            '</div>'
-                        ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        visit__frame_container: $('<div class="visit__frame-container"></div>'),
-                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
-
-                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
-                        tabs__list: $('<ul class="tabs__list"></ul>'),
-                        tabs: [],
-                        loader: $('<span class="spinner spinner_align_center"></span>')
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.nulls = function(){
-                        that.data.items.map(function(item){
-                            for (var key in item){
-                                if (item.hasOwnProperty(key)) {
-                                    if (item[key] == 'null') {
-                                        item[key] = '';
-                                    }
-                                }
-                            }
-                        });
-                    };
-
-                    that.render = function(){
-                        that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header.append(
-                                    that.data._el.card__header_row.append(
-                                        that.data._el.card__header_column.prepend(
-                                            that.data._el.button_toggle_left
-                                        ),
-                                        that.data._el.card__header_column_subjects
-                                    )
-                                ),
-                                that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle.append(
-                                        that.data._el.visit__frame_container
-                                    )
-                                )
-                            )
-                        );
-                    };
-                    that.render_select = function(){
-                        that.loader_add();
-                        var distinct = {};
-                        that.data.private.subjects = [];
-                        that.data.items.map(function(d){
-                            if (d.subjectnameid in distinct) {
-                                distinct[d.subjectnameid]++;
-                            } else {
-                                distinct[d.subjectnameid] = 1;
-                                that.data.private.subjects.push({
-                                    subjectname: d.subjectname,
-                                    subjectnameid: d.subjectnameid
-                                });
-                            }
-                        });
-                        that.data.current.subject = that.data.private.subjects[0];
-                        that.data.private.subjects.map(function(d){
-                            that.data._el.select.append('<option value="' + d.subjectnameid + '">' + d.subjectname + '</option>');
-                        });
-
-                        that.data._el.card__header_column_subjects.append( that.data._el.select );
-                        that.data._el.select.select();
-                        that.data._el.select.on('change', function(){
-                            var value = $(this).select('value');
-                            that.data.current.subject = that.data.private.subjects.filter(function(d){ return d.subjectnameid == value; })[0];
-                            that.data.current.subjectnameid = value;
-                            that.render_tabs();
-                        });
-                        that.data._el.select.select('check', that.data.current.subject.subjectnameid);
-                        that.loader_remove();
-                    };
-                    that.render_tabs = function(){
-                        that.loader_add();
-                        that.data.current.item = null;
-                        that.render_item();
-                        that.data._el.card__header_row_tabs.remove();
-                        that.data._el.card__header_row_tabs.find('.tabs__list').empty();
-
-                        var distinct = {};
-                        that.data.private.sections = [];
-                        that.data.items.map(function(d){
-                            if (d.sectionnameid in distinct) {
-                                distinct[d.sectionnameid]++;
-                            } else {
-                                distinct[d.sectionnameid] = 1;
-                                that.data.private.sections.push({
-                                    sectionname: d.sectionname,
-                                    sectionnameid: d.sectionnameid
-                                });
-                            }
-                        });
-                        that.data.current.section = that.data.private.sections[0];
-                        that.data.private.sections.map(function(d,i){
-                            var $tab = $([
-                                '<li class="tabs__tab'+ (i == 0 ? ' tabs__tab_active' : '') +'" data-id="'+ d.sectionnameid +'">',
-                                '<a class="tabs__link link" href="#section_'+ d.sectionnameid +'" data-fc="tab">',
-                                '<button class="button" data-fc="button" style="width: auto;">',
-                                '<span class="button__text">'+ d.sectionname +'</span>',
-                                '</button>',
-                                '</a>',
-                                '</li>'
-                            ].join(''));
-                            $tab.on('click', function(){
-                                var value = $(this).attr('data-id');
-                                that.data.current.section = that.data.private.sections.filter(function(d){ return d.sectionnameid == value; })[0];
-                                that.data.current.sectionnameid = value;
-                                that.render_menu();
-                            });
-                            that.data._el.card__header_row_tabs.find('.tabs__list').append($tab);
-                        });
-
-                        that.data._el.card__header.append(that.data._el.card__header_row_tabs);
-                        that.data._el.card__header_row_tabs.find('[data-fc="tab"]').tabs();
-                        that.data._el.card__header_row_tabs.find('.tabs__tab[data-id="'+ that.data.current.section.sectionnameid +'"]').trigger('click');
-                        that.loader_remove();
-                    };
-                    that.render_menu = function(){
-                        that.loader_add();
-                        that.data.current.item = null;
-                        that.render_item();
-                        that.data._el.menu.menu();
-                        that.data._el.menu.menu('destroy');
-                        that.data._el.menu.empty();
-
-                        that.data.private.items = that.data.items.filter(function(d){
-                            return (d.subjectnameid == that.data.current.subject.subjectnameid &&
-                                    d.sectionnameid == that.data.current.section.sectionnameid);
-                        });
-
-                        var distinct = {};
-                        that.data.current.groupings = [];
-                        that.data.private.items.map(function(d){
-                            if (d.groupingnameid in distinct) {
-                                distinct[d.groupingnameid]++;
-                            } else {
-                                distinct[d.groupingnameid] = 1;
-                                that.data.current.groupings.push({
-                                    groupingname: d.groupingname,
-                                    groupingnameid: d.groupingnameid
-                                });
-                            }
-                        });
-
-                        var $menu__list = $('<ul class="menu__list"></ul>');
-                        that.data.current.groupings.map(function(d){
-                            var $menu__item = $([
-                                '<li class="menu__item" id=' + d.groupingnameid + '>',
-                                    '<a class="menu__item-link link">',
-                                    '<span class="menu__item-link-content">',
-                                        '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
-                                        '<span class="menu__item-text">' + d.groupingname + '</span>',
-                                    '</span>',
-                                    '</a>',
-                                    '<div class="menu menu__submenu-container">',
-                                        '<ul class="menu__list menu__submenu"></ul>',
-                                    '</div>',
-                                '</li>'
-                            ].join(''));
-                            that.data.private.items.map(function(item){
-                                if (item.groupingnameid == d.groupingnameid) {
-                                    if (item.sectionnameid == 1) {
-                                        item.icon = 'icon_svg_document';
-                                    } else {
-                                        item.icon = 'icon_svg_chart';
-                                    }
-                                    var $menu__subitem = $([
-                                        '<li class="menu__item" id=' + item.nameid + '>',
-                                        '<a class="menu__item-link link">',
-                                        '<span class="menu__item-link-content">',
-                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
-                                            '<span class="menu__item-text">' + item.name + '</span>',
-                                        '</span>',
-                                        '</a>',
-                                        '</li>'
-                                    ].join(''));
-                                    $menu__item.find('.menu__list').append($menu__subitem);
-                                    $menu__subitem.find('.menu__item-link').on('click', function(){
-                                        that.data.current.item = item;
-                                        that.render_item();
-                                    });
-                                }
-                            });
-                            $menu__list.append($menu__item);
-                        });
-                        that.data._el.menu.append($menu__list);
-                        that.data._el.menu.menu();
-                        that.loader_remove();
-                    };
-                    that.render_item = function(){
-                        if (that.data.onItemClick) {
-                            if (typeof(that.data.onItemClick) == 'function') {
-                                that.data.onItemClick(that.data.current.item, that.data._el.visit__frame_container);
-                            }
-                        }
-                    };
-
-                    that.loader_add = function(container){
-                        if (!container) {
-                            that.data._el.target.before(that.data._el.loader);
-                        } else {
-                            container.before(that.data._el.loader);
-                        }
-                    };
-                    that.loader_remove = function(){
-                        that.data._el.loader.remove();
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="card"]').card();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="select"]').select();
-                        self.find('[data-tooltip]').tooltip();
-                    };
-                    that.init = function(){
-                        that.nulls();
-                        that.render();
-                        that.render_select();
-                        that.init_components();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.visit = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.visit' );
-        }
-    };
-})( jQuery );
 (function($){
     var methods = {
         init : function(options) {

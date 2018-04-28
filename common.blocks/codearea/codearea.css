@@ -1,0 +1,16 @@
+.codearea {
+    display: none;
+}
+
+.codearea + .CodeMirror {
+    height: 300px;
+    line-height: normal;
+}
+.codearea + .CodeMirror:hover {
+    cursor: text;
+}
+
+.codearea_height_full + .CodeMirror {
+    height: 100%;
+    min-height: 500px;
+}
