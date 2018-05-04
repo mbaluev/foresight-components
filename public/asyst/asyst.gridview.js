@@ -103,6 +103,10 @@ Asyst.GridView = function(options){
                     var metaview = data[0];
                     if (!that.data.entityname && !(that.data.viewname instanceof Array) && that.data.viewname) {
                         metaview = metaview.filter(function(view){ return view.viewName == that.data.viewname; });
+                        if (metaview.length > 0) {
+                            that.data.entityname = metaview[0].entityName;
+                            that.data.entitytitle = metaview[0].entityTitle;
+                        }
                     }
                     metaview.map(function(view){
                         //if no metaview rows
