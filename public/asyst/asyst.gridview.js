@@ -99,7 +99,6 @@ Asyst.GridView = function(options){
             },
             success: function(data){
                 if (data[0].length > 0) {
-                    
                     // get views parameters
                     var metaview = data[0];
                     if (!that.data.entityname && !(that.data.viewname instanceof Array) && that.data.viewname) {
