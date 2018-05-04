@@ -9,7 +9,8 @@
                     that.defaults = {
                         disabled: false,
                         mime: 'text/html',
-                        editor: null
+                        editor: null,
+                        value: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -23,6 +24,9 @@
                     };
                     that.render = function(){
                         if (!that.data.disabled) {
+                            if (that.data.value) {
+                                self.val(that.data.value);
+                            }
                             that.data.editor = CodeMirror.fromTextArea(self[0], {
                                 mode: that.data.mime,
                                 tabSize: 2,
@@ -37,14 +41,14 @@
                     };
                     that.get_value = function(){
                         if (that.data.editor) {
-                            return that.data.editor.getValue();
-                        } else {
-                            return null;
+                            that.data.value = that.data.editor.getValue();
                         }
+                        return that.data.value;
                     };
                     that.set_value = function(value){
+                        that.data.value = decodeURI(value);
                         if (that.data.editor) {
-                            that.data.editor.setValue(value);
+                            that.data.editor.setValue(that.data.value);
                         }
                     };
                     that.init = function(){
