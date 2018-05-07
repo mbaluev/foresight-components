@@ -92,7 +92,9 @@
                         node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
                         node.settings.reloadable = true;
                         node.settings.lib = that.data.lib;
-                        //node.settings.loader = that.data.loader;
+                        if (that.data.loader) {
+                            node.settings.loader = that.data.loader;
+                        }
                         //node.settings.library = that.data.library;
                         node.settings.params = that.data.params;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
