@@ -89,7 +89,7 @@ Asyst.GridView = function(options){
             }
         }
     };
-    that.load_metaView = function(callback1, callback2){
+    that.load_metaView = function(callbackEntity, callbackSuccess, callbackError){
         Asyst.APIv2.DataSet.load({
             name: 'MetaView',
             data: {
@@ -141,8 +141,8 @@ Asyst.GridView = function(options){
                                 isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                 isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
-                                isCreate: (view.IsCreate ? view.IsCreate : false),
-                                isDelete: (view.IsDelete ? view.IsDelete : false),
+                                isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
+                                isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
                                 viewSamples: {}
                             }, view.viewName);
@@ -166,12 +166,83 @@ Asyst.GridView = function(options){
                         document.title = that.data.title;
                     }
                     // do callback
-                    if (typeof callback1 == 'function') {
-                        callback1();
+                    if (typeof callbackSuccess == 'function') {
+                        callbackSuccess();
                     }
                 } else {
-                    if (typeof callback2 == 'function') {
-                        callback2();
+                    if (typeof callbackEntity == 'function') {
+                        callbackEntity(callbackSuccess, callbackError);
+                    } else {
+                        if (typeof callbackError == 'function') {
+                            callbackError();
+                        }
+                    }
+                }
+            },
+            error: function(data){
+                console.log(data);
+                that.loader_remove();
+            }
+        });
+    };
+    that.load_metaViewEntity = function(callbackSuccess, callbackError){
+        Asyst.APIv2.DataSet.load({
+            name: 'MetaViewEntity',
+            data: {
+                EntityName: that.data.entityname,
+                AccountId: that.data.user.Id
+            },
+            success: function(data){
+                if (data[0].length > 0) {
+                    // get views parameters
+                    var view = data[0];
+                    if (view.length > 0) {
+                        view = view[0];
+                        view.viewTitle = view.entityTitle;
+                        view.viewName = view.entityName;
+                        view.IsEditable = false;
+                        view.IsViewSampled = false;
+                        view.selected = true;
+                        if (!Asyst.Workspace.views[view.viewName]) {
+                            Asyst.Workspace.addView({
+                                entity: {
+                                    idName: view.idName,
+                                    isViewProcessLink: view.IsViewProcessLink,
+                                    name: view.entityName,
+                                    title: view.entityTitle
+                                },
+                                title: view.viewTitle,
+                                isEditable: false,
+                                isViewSampled: false,
+                                isExtFilterVisible: false,
+                                isInitiallyCollapsed: false,
+                                isWideString: false,
+                                isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
+                                isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
+                                preprocessFunctionText: 'console.log(666);',
+                                viewSamples: {}
+                            }, view.viewName);
+                        }
+                        that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
+                    }
+                    that.data.entityname = view.entityName;
+                    that.data.entitytitle = view.entityTitle;
+                    that.data.viewname = view.viewName;
+                    that.data.viewtitle = view.viewTitle;
+                    if (!that.data.title) {
+                        that.data.title = view.entityTitle;
+                    }
+                    // set document title
+                    if (that.data.setDocumentTitle) {
+                        document.title = that.data.title;
+                    }
+                    // do callback
+                    if (typeof callbackSuccess == 'function') {
+                        callbackSuccess();
+                    }
+                } else {
+                    if (typeof callbackError == 'function') {
+                        callbackError();
                     }
                 }
             },
@@ -492,25 +563,29 @@ Asyst.GridView = function(options){
     that.init = function(){
         that.loader_add();
         that.load_metaViewNames(function(){
-            that.load_metaView(function(){
-                that.init_header();
-                that.init_settings();
-                that.store_to_window();
-                that.loader_remove();
-                that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
-                that.data.gridview = new that.data.gridViewClass({
-                    containerid: that.data.containerid,
-                    title: that.data.title,
-                    header: that.data.header,
-                    render: that.load_view
-                });
-            }, function(){
-                that.loader_remove();
-                that.data.gridview = new GridViewEmpty({
-                    containerid: that.data.containerid,
-                    title: 'Нет доступных представлений'
-                });
-            });
+            that.load_metaView(
+                that.load_metaViewEntity,
+                function(){
+                    that.init_header();
+                    that.init_settings();
+                    that.store_to_window();
+                    that.loader_remove();
+                    that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
+                    that.data.gridview = new that.data.gridViewClass({
+                        containerid: that.data.containerid,
+                        title: that.data.title,
+                        header: that.data.header,
+                        render: that.load_view
+                    });
+                },
+                function(){
+                    that.loader_remove();
+                    that.data.gridview = new GridViewEmpty({
+                        containerid: that.data.containerid,
+                        title: 'Нет доступных представлений'
+                    });
+                }
+            );
         });
     };
     that.init();
