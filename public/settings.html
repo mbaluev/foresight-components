@@ -189,7 +189,7 @@
     <script src="asyst.loaders/asyst.contentloader.js"></script>
     <script>
         $(function(){
-            var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"collapsed":false,"color":"#ccc","name":"Пользователи и разрешения","pagename":"LibrarySettings","elementname":"Пользователи и разрешения"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"collapsed":false,"color":"#ff5940","name":"Системные настройки","pagename":"LibrarySettings","elementname":"Системные настройки"}},{"x":4,"y":0,"width":2,"height":4,"settings":{"collapsed":false,"color":"#ff5940","name":"Настройка интерфейсов","pagename":"LibrarySettings","elementname":"Настройка интерфейсов"}},{"x":6,"y":0,"width":3,"height":14,"settings":{"collapsed":false,"color":"#5a97f2","name":"Сущности системы","pagename":"LibrarySettings","elementname":"Сущности системы"}},{"x":9,"y":0,"width":3,"height":9,"settings":{"collapsed":false,"color":"#5a97f2","name":"Бизнес настройки","pagename":"LibrarySettings","elementname":"Бизнес настройки"}},{"x":4,"y":4,"width":2,"height":11,"settings":{"collapsed":false,"color":"#5a97f2","name":"Справочники системы","pagename":"LibrarySettings","elementname":"Справочники системы"}},{"x":0,"y":5,"width":2,"height":6,"settings":{"collapsed":false,"color":"#ccc","name":"Настройки галерей","pagename":"LibrarySettings","elementname":"Настройки галерей"}},{"x":2,"y":8,"width":2,"height":6,"settings":{"collapsed":false,"color":"#ff5940","name":"Глобальные системные настройки","pagename":"LibrarySettings","elementname":"Глобальные системные настройки"}}];
+            var items = [{"x":0,"y":0,"width":2,"height":5,"settings":{"collapsed":false,"color":"#ccc","name":"Пользователи и разрешения","pageid":"LibrarySettings","elementid":"Пользователи и разрешения"}},{"x":2,"y":0,"width":2,"height":8,"settings":{"collapsed":false,"color":"#ff5940","name":"Системные настройки","pageid":"LibrarySettings","elementid":"Системные настройки"}},{"x":4,"y":0,"width":2,"height":4,"settings":{"collapsed":false,"color":"#ff5940","name":"Настройка интерфейсов","pageid":"LibrarySettings","elementid":"Настройка интерфейсов"}},{"x":6,"y":0,"width":3,"height":14,"settings":{"collapsed":false,"color":"#5a97f2","name":"Сущности системы","pageid":"LibrarySettings","elementid":"Сущности системы"}},{"x":9,"y":0,"width":3,"height":9,"settings":{"collapsed":false,"color":"#5a97f2","name":"Бизнес настройки","pageid":"LibrarySettings","elementid":"Бизнес настройки"}},{"x":4,"y":4,"width":2,"height":11,"settings":{"collapsed":false,"color":"#5a97f2","name":"Справочники системы","pageid":"LibrarySettings","elementid":"Справочники системы"}},{"x":0,"y":5,"width":2,"height":6,"settings":{"collapsed":false,"color":"#ccc","name":"Настройки галерей","pageid":"LibrarySettings","elementid":"Настройки галерей"}},{"x":2,"y":8,"width":2,"height":6,"settings":{"collapsed":false,"color":"#ff5940","name":"Глобальные системные настройки","pageid":"LibrarySettings","elementid":"Глобальные системные настройки"}}];
             var settings = [
                 {
                     name: "Стадии жизненного цикла",
@@ -554,8 +554,12 @@
             var dashboard = new Dashboard({
                 containerid: 'container',
                 items: items,
-                library: library,
-                loader: $.extend(Asyst.ContentLoader, { contents: contents }),
+                lib: {
+                    settings: {
+                        library: library,
+                        loader: $.extend(Asyst.ContentLoader, { contents: contents })
+                    }
+                },
                 add: function(data){},
                 save: function(data){
                     console.log(JSON.stringify(data));
@@ -586,8 +590,8 @@
                         }
                     });
                     contents.push({
-                        pagename: library[0].value,
-                        elementname: li.value,
+                        pageid: library[0].value,
+                        elementid: li.value,
                         content: [
                             '<div class="widget__content widget__content_scroll">',
                             '<table class="table">',

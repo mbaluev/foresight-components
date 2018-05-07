@@ -50,8 +50,8 @@ Asyst.SettingsDashboard = function(options){
                     }
                 });
                 contents.push({
-                    pagename: library[0].value,
-                    elementname: li.value,
+                    pageid: library[0].value,
+                    elementid: li.value,
                     content: [
                         '<div class="widget__content widget__content_scroll">',
                         '<table class="table">',
