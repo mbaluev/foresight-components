@@ -75,8 +75,12 @@ Asyst.SettingsDashboard = function(options){
                 title: that.data.title,
                 containerid: that.data.containerid,
                 editable: that.data.editable,
-                library: that.data.library,
-                loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents }),
+                lib: {
+                    settings: {
+                        library: that.data.library,
+                        loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents })
+                    }
+                },
                 page: that.data.page,
                 tumblerContainerSelector: that.data.tumblerContainerSelector
             });
