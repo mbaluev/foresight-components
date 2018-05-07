@@ -460,7 +460,7 @@
                     if (d.type == 'select') {
                         var value = d.input.select('value');
                         remove_filter(d.id);
-                        if (value.length > 0) {
+                        if (value) {
                             add_filter(d.id, d.id, 'equal', value);
                         }
                     } else if (d.type == 'input') {
