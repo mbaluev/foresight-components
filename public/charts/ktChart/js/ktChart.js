@@ -1,7 +1,6 @@
 /**
  * Created by mbaluev on 15.11.2016.
  */
-
 ;(function(){
     // [CHANGE] Создаю неймспейсы
     // begin
