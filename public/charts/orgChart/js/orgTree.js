@@ -25,8 +25,8 @@ var tree = d3.layout.tree().size([viewerWidth, viewerHeight]);
 
 // define a d3 diagonal projection for use by the node paths later on.
 var diagonal = d3.svg.diagonal().projection(function(d) {
-		return [d.x, d.y];
-	});
+	return [d.x, d.y];
+});
 
 // A recursive helper function for performing some setup by walking through all nodes
 function visit(parent, visitFn, childrenFn) {
