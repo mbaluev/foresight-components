@@ -1,6 +1,8 @@
 var OrgChart = function(options){
     var that = this._orgchart = {};
-    that.data = {};
+    that.data = {
+        data: null,
+    };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid).css({ height: '100%' }),
@@ -47,7 +49,7 @@ var OrgChart = function(options){
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.data._private = {
-        onSearch: function(){}
+        search_results: []
     };
 
     that.render = function(){
@@ -474,6 +476,28 @@ var OrgChart = function(options){
         that.data._el.loader.remove();
     };
 
+    that.bind = function(){
+        that.data._el.input.find('.input__control').on('keydown', function(e){
+            if (e.which == 13) {
+                that.loader_add();
+                var value = that.data._el.input.input('value');
+                that.data._el.button__left.button('disable');
+                that.data._el.button__right.button('disable');
+                that.data._private.search_results = [];
+                /*
+                that.data.data.map(function(item){
+                    if (item.OrgName.toLowerCase().indexOf(value.toLowerCase()) > 0) {
+                        that.data._private.search_results.push(item);
+                    }
+                });
+                console.log(that.data._private.search_results);
+                */
+                that.data._el.button__left.button('enable');
+                that.data._el.button__right.button('enable');
+                that.loader_remove();
+            }
+        });
+    };
     that.init_components = function(){
         that.data._el.input.input();
         that.data._el.button__left.button();
@@ -485,6 +509,7 @@ var OrgChart = function(options){
             that.render();
             that.renderTree();
             that.init_components();
+            that.bind();
             that.loader_remove();
         }, 100);
     };
