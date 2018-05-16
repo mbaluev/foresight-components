@@ -46,6 +46,9 @@ var OrgChart = function(options){
         ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
+    that.data._private = {
+        onSearch: function(){}
+    };
 
     that.render = function(){
         that.data._el.content.find('#orgchart__actions').append(
@@ -67,10 +70,10 @@ var OrgChart = function(options){
         var duration = 300;
         var root;
         var margin = {
-            top: 100, right: 100, bottom: 100, left: 100
+            top: 150, right: 100, bottom: 100, left: 100
         };
         var dims = {
-            width: 100, height: 100
+            width: 100, height: 150
         };
         var padding = {
             top: 100,
@@ -138,7 +141,8 @@ var OrgChart = function(options){
             y = -source.y0;
             x = -source.x0;
             x = x * scale + viewerWidth / 2;
-            y = y * scale + viewerHeight / 2;
+            //y = y * scale + viewerHeight / 2;
+            y = y * scale + margin.top;
             d3.select('g').transition()
                 .duration(duration)
                 .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");
@@ -454,7 +458,8 @@ var OrgChart = function(options){
         // Define the root
         root = that.data.data;
         root.x0 = viewerWidth / 2;
-        root.y0 = viewerHeight / 2;
+        //root.y0 = viewerHeight / 2;
+        root.y0 = margin.top;
 
         // Layout the tree initially and center on the root node.
         root.children.forEach(collapse);
