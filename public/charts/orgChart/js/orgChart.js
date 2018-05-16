@@ -2,6 +2,7 @@ var OrgChart = function(options){
     var that = this._orgchart = {};
     that.data = {
         data: null,
+        dataTree: null
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
@@ -50,6 +51,19 @@ var OrgChart = function(options){
     };
     that.data._private = {
         search_results: []
+    };
+
+    that.prepare = function(){
+
+    };
+    that.hierarchy = function(items, parent){
+        items.map(function(item){
+            if (item.parentid == parent.id) {
+                if (typeof parent.children == 'undefined') { parent.children = []; }
+                parent.children.push(item);
+                hierarchy(items, item);
+            }
+        });
     };
 
     that.render = function(){
@@ -104,7 +118,7 @@ var OrgChart = function(options){
                 }
             }
         }
-        visit(that.data.data, function(d) {
+        visit(that.data.dataTree, function(d) {
             totalNodes++;
             d.id = totalNodes;
             maxLabelLength = Math.max(d.name.length, maxLabelLength);
@@ -458,7 +472,7 @@ var OrgChart = function(options){
         var svgGroup = baseSvg.append("g");
 
         // Define the root
-        root = that.data.data;
+        root = that.data.dataTree;
         root.x0 = viewerWidth / 2;
         //root.y0 = viewerHeight / 2;
         root.y0 = margin.top;
