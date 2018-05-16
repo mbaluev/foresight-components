@@ -16,7 +16,7 @@ var OrgChart = function(options){
                 '</div>',
                 '<div class="card__main">',
                     '<div class="card__middle">',
-                        '<div class="card__middle-scroll" id="orgchart__container"></div>',
+                        '<div class="card__middle-scroll" id="orgchart__container" style="overflow: hidden;"></div>',
                     '</div>',
                 '</div>',
             '</div>'
