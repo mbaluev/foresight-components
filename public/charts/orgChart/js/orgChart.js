@@ -30,12 +30,12 @@ OrgChart.Init = function(options){
                     '<div class="card__middle">',
                         '<div class="card__middle-scroll" id="orgchart__container" style="overflow: hidden;"></div>',
                     '</div>',
-                    '<div class="card__right" style="border-left: solid 1px #ccc;"></div>',
+                    '<div class="card__right card__right_border card__right_size_lg"></div>',
                 '</div>',
             '</div>'
         ].join('')),
         input: $([
-            '<span class="input input__has-clear card__header-element_stretch" data-width="500">',
+            '<span class="input input__has-clear card__header-element_stretch" data-width="auto">',
             '<span class="input__box">',
             '<span class="alertbox" data-fc="alertbox">',
             '<span class="icon icon_svg_search"></span>',

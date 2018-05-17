@@ -218,6 +218,30 @@
 .card__right_hidden {
     display: none;
 }
+.card__right_border {
+    border-left: solid 1px #ccc;
+    background-color: #fff;
+}
+.card__right_size_xs {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+}
+.card__right_size_sm {
+    width: 150px;
+    min-width: 150px;
+    max-width: 150px;
+}
+.card__right_size_md {
+    width: 230px;
+    min-width: 230px;
+    max-width: 230px;
+}
+.card__right_size_lg {
+    width: 400px;
+    min-width: 400px;
+    max-width: 400px;
+}
 
 .card__middle {
     z-index: 1;
