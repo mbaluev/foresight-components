@@ -43,12 +43,12 @@ var OrgChart = function(options){
             '</span>'
         ].join('')),
         button__left: $([
-            '<button class="button" type="button" data-fc="button" data-tooltip="Предыдущий" data-disabled="true">',
+            '<button class="button" type="button" data-fc="button" data-disabled="true">',
             '<span class="icon icon_svg_left"></span>',
             '</button>'
         ].join('')),
         button__right: $([
-            '<button class="button" type="button" data-fc="button" data-tooltip="Следующий" data-disabled="true">',
+            '<button class="button" type="button" data-fc="button" data-disabled="true">',
             '<span class="icon icon_svg_right"></span>',
             '</button>'
         ].join('')),
@@ -77,7 +77,6 @@ var OrgChart = function(options){
             }
         });
     };
-
     that.render = function(){
         that.data._el.content.find('#orgchart__actions').append(
             that.data._el.input,
@@ -99,6 +98,7 @@ var OrgChart = function(options){
         duration = 300,
         i = 0,
         root,
+        currentNode,
         margin = {
             top: 150, right: 100, bottom: 100, left: 100
         },
@@ -161,6 +161,14 @@ var OrgChart = function(options){
         that.update(root);
         that.centerNode(root);
     };
+    that.resizeTree = function(){
+        viewerWidth = $('#' + containerid).outerWidth();
+        viewerHeight = $('#' + containerid).outerHeight();
+        d3.select("svg")
+            .attr("width", viewerWidth)
+            .attr("height", viewerHeight);
+        that.centerNode(currentNode);
+    };
     // A recursive helper function for performing some setup by walking through all nodes
     that.visit = function(parent, visitFn, childrenFn) {
         if (!parent) return;
@@ -183,9 +191,15 @@ var OrgChart = function(options){
     that.zoom = function() {
         svgGroup.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     };
-
     // Function to center node when clicked/highlighted so node doesn't get lost when collapsing/moving with large amount of children.
     that.centerNode = function(source) {
+        currentNode = source;
+        that.data._private.search.results.map(function(result, index){
+            if (result.id == source.id) {
+                that.data._private.search.index = index;
+            }
+        });
+        that.update_buttons();
         scale = zoomListener.scale();
         scale = 1;
         y = -source.y0;
@@ -203,7 +217,6 @@ var OrgChart = function(options){
         var source = search(id);
         centerNode(source);
     };
-
     // Toggle children function
     that.toggleChildren = function(d) {
         if (d.children) {
@@ -233,7 +246,6 @@ var OrgChart = function(options){
             d._collapsed = false;
         }
     };
-
     // Toggle children on click.
     that.click = function(d) {
         //if (d3.event.defaultPrevented) return; // click suppressed
@@ -431,7 +443,6 @@ var OrgChart = function(options){
             })
             .remove();
     };
-
     // search node
     that.search = function(id) {
         var node = null;
@@ -462,35 +473,40 @@ var OrgChart = function(options){
         });
         return node;
     };
-    that.toggle = function(id) {
+    that.toggle = function(id, first) {
+        if (typeof first == 'undefined') { first = true; }
         var node = that.search(id);
         var parent = that.searchParent(id);
         if (parent) {
-            that.highlight(parent.id);
+            that.highlight(parent.id, false);
             if (parent._collapsed) {
                 that.toggleChildren(parent);
                 that.update(parent);
-                that.centerNode(parent);
             }
         }
-        that.toggleChildren(node);
-        that.update(node);
-        that.centerNode(node);
+        if (first) {
+            that.toggleChildren(node);
+            that.update(node);
+            that.centerNode(node);
+            console.log(node.name);
+        }
     };
-    that.highlight = function(id) {
+    that.highlight = function(id, first) {
+        if (typeof first == 'undefined') { first = true; }
         var node = that.search(id);
         var parent = that.searchParent(id);
         if (parent) {
-            that.highlight(parent.id);
+            that.highlight(parent.id, false);
             if (parent._collapsed) {
                 that.toggleChildren(parent);
                 that.update(parent);
-                that.centerNode(parent);
             }
         }
-        that.update(node);
-        that.centerNode(node);
-        console.log(node.name);
+        if (first) {
+            that.update(node);
+            that.centerNode(node);
+            console.log(node.name);
+        }
     };
     // -------------------
     // d3 functions. end
@@ -508,45 +524,60 @@ var OrgChart = function(options){
             if (e.which == 13) {
                 that.loader_add();
                 var value = that.data._el.input.input('value');
-                that.data._el.button__left.button('disable');
-                that.data._el.button__right.button('disable');
-                that.data._private.search.index = 0;
+                that.data._private.search.index = -1;
                 that.data._private.search.results = [];
-                that.data.data.map(function(item){
-                    if (item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        that.data._private.search.results.push(item);
-                    }
-                });
-                if (that.data._private.search.results.length > 0) {
-                    that.highlight(that.data._private.search.results[0].id);
-                    if (that.data._private.search.results.length > 1) {
-                        that.data._el.button__left.button('enable');
-                        that.data._el.button__right.button('enable');
-                    }
+                if (typeof that.data.func.search == 'function') {
+                    that.data.func.search(function(results){
+                        that.data._private.search.results = results;
+                        if (that.data._private.search.results.length > 0) {
+                            that.next();
+                        }
+                        that.loader_remove();
+                    }, value, that.data.data);
+                } else {
+                    that.loader_remove();
                 }
-                that.loader_remove();
             }
         });
         that.data._el.input.find('.button').on('click', function(){
+            that.data._private.search.index = -1;
+            that.data._private.search.results = [];
+            that.data._el.button__left.button('disable');
+            that.data._el.button__right.button('disable');
+            that.data.dataTree.children.forEach(that.collapse);
             that.highlight(that.data.dataTree.id);
         });
-        that.data._el.button__right.on('click.search', function(){
-            that.data._private.search.index++;
-            if (that.data._private.search.index == that.data._private.search.results.length) {
-                that.data._private.search.index = that.data._private.search.results.length - 1;
-            } else {
-                that.highlight(that.data._private.search.results[that.data._private.search.index].id);
-            }
-        });
-        that.data._el.button__left.on('click.search', function(){
-            that.data._private.search.index--;
-            if (that.data._private.search.index < 0) {
-                that.data._private.search.index = 0;
-            } else {
-                that.highlight(that.data._private.search.results[that.data._private.search.index].id);
-            }
-        });
+        that.data._el.button__right.on('click.search', that.next);
+        that.data._el.button__left.on('click.search', that.prev);
+        $(window).on('resize', that.resizeTree);
     };
+    that.prev = function(){
+        that.data._private.search.index--;
+        if (that.data._private.search.index < 0) {
+            that.data._private.search.index = 0;
+        }
+        that.highlight(that.data._private.search.results[that.data._private.search.index].id);
+        that.update_buttons();
+    };
+    that.next = function(){
+        that.data._private.search.index++;
+        if (that.data._private.search.index == that.data._private.search.results.length) {
+            that.data._private.search.index = that.data._private.search.results.length - 1;
+        }
+        that.highlight(that.data._private.search.results[that.data._private.search.index].id);
+        that.update_buttons();
+    };
+    that.update_buttons = function(){
+        that.data._el.button__left.button('enable');
+        that.data._el.button__right.button('enable');
+        if (that.data._private.search.index <= 0) {
+            that.data._el.button__left.button('disable');
+        }
+        if (that.data._private.search.index >= that.data._private.search.results.length - 1) {
+            that.data._el.button__right.button('disable');
+        }
+    };
+
     that.init_components = function(){
         that.data._el.input.input();
         that.data._el.button__left.button();
@@ -555,11 +586,11 @@ var OrgChart = function(options){
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
-            that.prepare();
             that.render();
-            that.renderTree();
             that.bind();
             that.init_components();
+            that.prepare();
+            that.renderTree();
             that.loader_remove();
         }, 100);
     };
