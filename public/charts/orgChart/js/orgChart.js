@@ -532,6 +532,7 @@ OrgChart.Init = function(options){
                 that.data._private.search.results = [];
                 if (typeof that.data.func.search == 'function') {
                     that.data.func.search(function(results){
+                        if (!results) { results = []; }
                         that.data._private.search.results = results;
                         if (that.data._private.search.results.length > 0) {
                             that.next();
