@@ -7,6 +7,9 @@ var OrgChart = function(options){
         root: {
             id: null,
             name: 'ПМ Форсайт'
+        },
+        func: {
+            search: null
         }
     };
     that.data = $.extend(true, {}, that.data, options);
