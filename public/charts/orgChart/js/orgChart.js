@@ -1,4 +1,5 @@
-var OrgChart = function(options){
+var OrgChart = {};
+OrgChart.Init = function(options){
     var that = this._orgchart = {};
     that.data = {
         containerid: '',
@@ -599,4 +600,31 @@ var OrgChart = function(options){
     };
     that.init();
     return that;
+};
+OrgChart.Search = function(callback, value, data){
+    var results = [];
+    data.map(function(item){
+        if (item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+            results.push(item);
+        }
+    });
+    if (typeof callback == 'function') { callback(results); }
+};
+OrgChart.Asyst = {};
+OrgChart.Asyst.Search = function(callback, value, data){
+    Asyst.APIv2.DataSet.load({
+        name: 'OrgSearch',
+        data: { OrgId: null, Filter: value },
+        success: function(data){
+            var results = [];
+            data[0].map(function(d){
+                d.id = d.OrgId;
+                d.parentid = d.ParentId;
+                d.name = d.OrgName;
+                var org = results.filter(function(r){ return r.id == d.OrgId; });
+                if (org.length == 0) { results.push(d); }
+            });
+            if (typeof callback == 'function') { callback(results); }
+        }
+    });
 };
