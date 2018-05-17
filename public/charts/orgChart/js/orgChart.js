@@ -30,6 +30,7 @@ OrgChart.Init = function(options){
                     '<div class="card__middle">',
                         '<div class="card__middle-scroll" id="orgchart__container" style="overflow: hidden;"></div>',
                     '</div>',
+                    '<div class="card__right" style="border-left: solid 1px #ccc;"></div>',
                 '</div>',
             '</div>'
         ].join('')),
@@ -54,6 +55,11 @@ OrgChart.Init = function(options){
         button__right: $([
             '<button class="button" type="button" data-fc="button" data-disabled="true">',
             '<span class="icon icon_svg_right"></span>',
+            '</button>'
+        ].join('')),
+        button__toggle: $([
+            '<button class="button" type="button" data-fc="button" data-toggle="right">',
+            '<span class="icon icon_svg_bars"></span>',
             '</button>'
         ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')
@@ -85,7 +91,8 @@ OrgChart.Init = function(options){
         that.data._el.content.find('#orgchart__actions').append(
             that.data._el.input,
             that.data._el.button__left,
-            that.data._el.button__right
+            that.data._el.button__right,
+            that.data._el.button__toggle
         );
         that.data._el.target.append(
             that.data._el.content
@@ -166,9 +173,11 @@ OrgChart.Init = function(options){
         that.centerNode(root);
     };
     that.resizeTree = function(){
+        d3.select("svg").style('display', 'none');
         viewerWidth = $('#' + containerid).outerWidth();
         viewerHeight = $('#' + containerid).outerHeight();
         d3.select("svg")
+            .style('display', 'block')
             .attr("width", viewerWidth)
             .attr("height", viewerHeight);
         that.centerNode(currentNode);
@@ -587,13 +596,14 @@ OrgChart.Init = function(options){
         that.data._el.input.input();
         that.data._el.button__left.button();
         that.data._el.button__right.button();
+        that.data._el.content.card();
     };
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
             that.render();
-            that.bind();
             that.init_components();
+            that.bind();
             that.prepare();
             that.renderTree();
             that.loader_remove();
