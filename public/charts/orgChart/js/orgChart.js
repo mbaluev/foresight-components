@@ -370,9 +370,19 @@ OrgChart.Init = function(options){
             .attr("width", dims.width)
             .attr("dy", ".35em")
             .attr('class', 'nodeText')
-            .attr("data-tooltip", function(d){ return d.name; })
+            .attr("data-tooltip", function(d){
+                if (d.Title) {
+                    return d.Title + '<br>' + d.RoleName;
+                } else {
+                    return '';
+                }
+            })
             .text(function(d) {
-                return (d.name.length > 9 ? d.name.substring(0, 9) + '...' : d.name);
+                if (d.Title) {
+                    return (d.Title.length > 9 ? d.Title.substring(0, 9) + '...' : d.Title);
+                } else {
+                    return '';
+                }
             })
             .style("fill-opacity", 0);
 
