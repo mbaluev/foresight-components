@@ -371,16 +371,15 @@ OrgChart.Init = function(options){
             .attr("dy", ".35em")
             .attr('class', 'nodeText')
             .attr("data-tooltip", function(d){
-                if (d.Title && d.Title != "null") {
-                    console.log(d);
-                    return d.Title + '<br>' + d.RoleName;
+                if (d.FullName && d.FullName != "null") {
+                    return (d.Title && d.Title != 'null' ? d.Title + '<br><br>' : '') + d.FullName;
                 } else {
                     return '';
                 }
             })
             .text(function(d) {
-                if (d.Title && d.Title != "null") {
-                    return (d.Title.length > 9 ? d.Title.substring(0, 9) + '...' : d.Title);
+                if (d.FullName && d.FullName != "null") {
+                    return (d.FullName.length > 9 ? d.FullName.substring(0, 9) + '...' : d.FullName);
                 } else {
                     return '';
                 }
