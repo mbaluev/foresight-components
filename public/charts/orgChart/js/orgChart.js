@@ -518,7 +518,7 @@ OrgChart.Init = function(options){
         if (first) {
             that.update(node);
             that.centerNode(node);
-            console.log(node.name);
+            //console.log(node.name);
         }
     };
     // -------------------
@@ -570,6 +570,7 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index < 0) {
             that.data._private.search.index = 0;
         }
+        console.log(that.data._private.search.results[that.data._private.search.index]);
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
         that.update_buttons();
     };
@@ -578,6 +579,7 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index == that.data._private.search.results.length) {
             that.data._private.search.index = that.data._private.search.results.length - 1;
         }
+        console.log(that.data._private.search.results[that.data._private.search.index]);
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
         that.update_buttons();
     };
