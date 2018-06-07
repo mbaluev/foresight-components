@@ -352,19 +352,46 @@ OrgChart.Init = function(options){
             .on("click", function(d){ return that.click(d); });
 
         nodeEnter.append("text")
-            .attr("x", function(d) {
-                //return d.children || d._children ? -10 : 10;
-                return 0;
-            })
+            .attr("x", -dims.width/2 + 12)
+            .attr("y", -dims.height/2 + 20)
+            .attr("width", dims.width)
             .attr("dy", ".35em")
             .attr('class', 'nodeText')
-            .attr("text-anchor", "middle")
+            //.attr("text-anchor", "middle")
+            .attr("data-tooltip", function(d){ return d.name; })
             .text(function(d) {
-                return d.name;
+                return (d.name.length > 9 ? d.name.substring(0, 9) + '...' : d.name);
             })
             .style("fill-opacity", 0);
 
+        nodeEnter.append("text")
+            .attr("x", -dims.width/2 + 12)
+            .attr("y", dims.height/2 - 20)
+            .attr("width", dims.width)
+            .attr("dy", ".35em")
+            .attr('class', 'nodeText')
+            .attr("data-tooltip", function(d){ return d.name; })
+            .text(function(d) {
+                return (d.name.length > 9 ? d.name.substring(0, 9) + '...' : d.name);
+            })
+            .style("fill-opacity", 0);
+
+        nodeEnter.append("image")
+            .attr("x", -dims.width/2 + 10)
+            .attr("y", -dims.height/2 + 40)
+            .attr("width", function(d) {
+                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width - 20 : 0);
+            })
+            .attr("height", function(d) {
+                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width - 25 : 0);
+            })
+            .attr("href", function(d) {
+                if (d.PhotoUrl && d.PhotoUrl != 'null') { console.log(d.PhotoUrl); }
+                return (d.PhotoUrl && d.PhotoUrl != 'null' ? d.PhotoUrl : '');
+            });
+
         // Update the text to reflect whether node has children or not.
+        /*
         node.select('text')
             .attr("x", function(d) {
                 //return d.children || d._children ? -10 : 10;
@@ -377,6 +404,7 @@ OrgChart.Init = function(options){
             .text(function(d) {
                 return d.name;
             });
+        */
 
         // Change the circle fill depending on whether it has children and is collapsed
         node.select("circle.nodeCircleOut")
@@ -400,7 +428,7 @@ OrgChart.Init = function(options){
             });
 
         // Fade the text in
-        nodeUpdate.select("text")
+        nodeUpdate.selectAll("text")
             .style("fill-opacity", 1);
 
         // Transition exiting nodes to the parent's new position.
@@ -414,7 +442,7 @@ OrgChart.Init = function(options){
         nodeExit.select("circle")
             .attr("r", 0);
 
-        nodeExit.select("text")
+        nodeExit.selectAll("text")
             .style("fill-opacity", 0);
     };
     that.renderLink = function(link, source) {
