@@ -372,6 +372,7 @@ OrgChart.Init = function(options){
             .attr('class', 'nodeText')
             .attr("data-tooltip", function(d){
                 if (d.Title && d.Title != "null") {
+                    console.log(d);
                     return d.Title + '<br>' + d.RoleName;
                 } else {
                     return '';
