@@ -143,12 +143,14 @@ OrgChart.Init = function(options){
                 {
                     id: "user",
                     name: 'Сотрудник',
-                    content: 'Сотрудник'
+                    content: 'Сотрудник',
+                    padding: 15
                 },
                 {
                     id: "results",
                     name: 'Результаты поиска',
-                    content: 'Результаты поиска'
+                    content: 'Результаты поиска',
+                    padding: 15
                 }
             ]
         };
@@ -280,17 +282,28 @@ OrgChart.Init = function(options){
         );
     };
     that.render_tab_group = function(id){
-        var group = that.get_group(id);
+        var group = that.getDataItemById(id);
         var $content = $('<div></div>');
-        $content.append(render_control(group, 'OrgName', 'Название организации'));
-        $content.append(render_control(group, 'UserCount', 'Количество сотрудников'));
-        $content.append(render_control(group, 'FullName', 'Руководитель'));
-        $content.append(render_control(group, 'Title', 'Должность'));
-        $content.append(render_control(group, 'PhotoUrl', ''));
+        $content.append(that.render_tab_control(group, 'OrgName', 'Название организации'));
+        $content.append(that.render_tab_control(group, 'UserCount', 'Количество сотрудников'));
+        $content.append(that.render_tab_control(group, 'FullName', 'Руководитель'));
+        $content.append(that.render_tab_control(group, 'Title', 'Должность'));
+        $content.append(that.render_tab_control(group, 'PhotoUrl', ''));
         that.render_tab('group', $content);
-        function render_control(item, fieldName, title){
-            if (item) {
-                if (typeof item[fieldName] != 'undefined') {
+    };
+    that.render_tab_user = function(user){
+        var $content = $('<div></div>');
+        $content.append(that.render_tab_control(user, 'FullName', 'ФИО'));
+        $content.append(that.render_tab_control(user, 'Title', 'Должность'));
+        $content.append(that.render_tab_control(user, 'PhotoUrl', ''));
+        $content.append(that.render_tab_control(user, 'OrgName', 'Название организации'));
+        $content.append(that.render_tab_control(user, 'RoleName', 'Роль'));
+        that.render_tab('user', $content);
+    };
+    that.render_tab_control = function(item, fieldName, title){
+        if (item) {
+            if (typeof item[fieldName] != 'undefined') {
+                if (item[fieldName] && item[fieldName] != 'null') {
                     var _el = {
                         control: $('<div class="control control_padding-bottom_none"></div>'),
                         control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
@@ -302,19 +315,17 @@ OrgChart.Init = function(options){
                             _el.control__text.clone().text(title)
                         ),
                         _el.control__container.append(
-                            _el.control__text.clone().text(
-                                (item[fieldName] && item[fieldName] != 'null' ? item[fieldName] : '')
-                            )
+                            _el.control__text.clone().text(item[fieldName])
                         )
                     );
                     return _el.control;
                 }
             }
-            return null;
         }
-        console.log(group);
+        return null;
     };
-    that.get_group = function(id){
+
+    that.getDataItemById = function(id){
         var item = that.data.data.filter(function(d){
             return d.id == id;
         });
@@ -811,15 +822,18 @@ OrgChart.Init = function(options){
                 that.data._private.search.index = -1;
                 that.data._private.search.results = [];
                 if (typeof that.data.func.search == 'function') {
-                    that.data.func.search(function(results){
-                        if (!results) { results = []; }
-                        that.data._private.search.results = results;
-                        if (that.data._private.search.results.length > 0) {
-                            that.next();
+                    that.data.func.search(
+                        that.data.data, null, value,
+                        function(results){
+                            if (!results) { results = []; }
+                            that.data._private.search.results = results;
+                            if (that.data._private.search.results.length > 0) {
+                                that.next();
+                            }
+                            that.render_results();
+                            that.loader_remove();
                         }
-                        that.render_results();
-                        that.loader_remove();
-                    }, value, that.data.data);
+                    );
                 } else {
                     that.loader_remove();
                 }
@@ -843,8 +857,9 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index < 0) {
             that.data._private.search.index = 0;
         }
-        console.log(that.data._private.search.results[that.data._private.search.index]);
+        //console.log(that.data._private.search.results[that.data._private.search.index]);
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
+        that.render_tab_user(that.data._private.search.results[that.data._private.search.index]);
         that.update_buttons();
     };
     that.next = function(){
@@ -852,8 +867,9 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index == that.data._private.search.results.length) {
             that.data._private.search.index = that.data._private.search.results.length - 1;
         }
-        console.log(that.data._private.search.results[that.data._private.search.index]);
+        //console.log(that.data._private.search.results[that.data._private.search.index]);
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
+        that.render_tab_user(that.data._private.search.results[that.data._private.search.index]);
         that.update_buttons();
     };
     that.update_buttons = function(){
@@ -890,7 +906,7 @@ OrgChart.Init = function(options){
     that.init();
     return that;
 };
-OrgChart.Search = function(callback, value, data){
+OrgChart.Search = function(data, orgid, value, callback){
     var results = [];
     data.map(function(item){
         if (item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
@@ -900,10 +916,13 @@ OrgChart.Search = function(callback, value, data){
     if (typeof callback == 'function') { callback(results); }
 };
 OrgChart.Asyst = {};
-OrgChart.Asyst.Search = function(callback, value, data){
+OrgChart.Asyst.Search = function(data, orgid, value, callback){
     Asyst.APIv2.DataSet.load({
         name: 'OrgSearch',
-        data: { OrgId: null, Filter: value },
+        data: {
+            OrgId: orgid,
+            Filter: value
+        },
         success: function(data){
             var results = [];
             data[0].map(function(d){
