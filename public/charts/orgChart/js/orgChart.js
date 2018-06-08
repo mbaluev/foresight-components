@@ -376,12 +376,15 @@ OrgChart.Init = function(options){
     };
 
     that.update_search_index = function(source){
-        that.data._private.search.index = [-1];
+        that.data._private.search.index = [];
         that.data._private.search.results.map(function(result, index){
             if (result.id == source.id) {
                 that.data._private.search.index.push(index);
             }
         });
+        if (that.data._private.search.index.length == 0) {
+            that.data._private.search.index = [-1];
+        }
     };
     that.update_buttons = function(){
         that.data._el.button__left.button('enable');
@@ -397,7 +400,8 @@ OrgChart.Init = function(options){
         that.data.right._el.card__middle_scroll
             .find('#results').find('tr').each(function(item){
                 $(this).find('.link').css('color', '');
-                if (that.data._private.search.index == $(this).data('index')) {
+                var index = $(this).data('index');
+                if (that.data._private.search.index.indexOf(index) >= 0) {
                     $(this).find('.link').css('color', '#ff5940');
                 }
             });
