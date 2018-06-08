@@ -324,6 +324,11 @@ OrgChart.Init = function(options){
         }
         return null;
     };
+    that.active_tab = function(id){
+        that.data.right._el.tabs__list
+            .find('[href="#' + id + '"]')
+            .tabs('show');
+    };
 
     that.getDataItemById = function(id){
         var item = that.data.data.filter(function(d){
@@ -341,8 +346,8 @@ OrgChart.Init = function(options){
         var $table = $('<table class="table"></table>');
         var $thead = $([
             '<thead><tr>',
-            '<td class="align_left">ФИО</td>',
-            '<td class="align_left">Должность</td>',
+            '<td class="align_left" width="50%">ФИО</td>',
+            '<td class="align_left" width="50%">Должность</td>',
             '</tr></thead>'
         ].join(''));
         var $tbody = $('<tbody></tbody>');
@@ -369,6 +374,15 @@ OrgChart.Init = function(options){
             });
         }
         that.render_tab('results', $table.append($thead, $tbody));
+    };
+    that.render_results_highlight = function(){
+        that.data.right._el.card__middle_scroll
+            .find('#results').find('tr').each(function(item){
+                $(this).find('.link').css('color', '');
+                if (that.data._private.search.index == $(this).data('index')) {
+                    $(this).find('.link').css('color', '#ff5940');
+                }
+            });
     };
 
     // -------------------
@@ -860,10 +874,11 @@ OrgChart.Init = function(options){
                         function(results){
                             if (!results) { results = []; }
                             that.data._private.search.results = results;
+                            that.render_results();
                             if (that.data._private.search.results.length > 0) {
                                 that.next();
                             }
-                            that.render_results();
+                            that.active_tab('results');
                             that.loader_remove();
                         }
                     );
@@ -918,6 +933,7 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index >= that.data._private.search.results.length - 1) {
             that.data._el.button__right.button('disable');
         }
+        that.render_results_highlight();
     };
 
     that.init_components = function(){
