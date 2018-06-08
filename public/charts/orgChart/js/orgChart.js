@@ -627,7 +627,7 @@ OrgChart.Init = function(options){
                 var that = this;
                 if (d.PhotoUrl && d.PhotoUrl != 'null') {
                     var image = new Image();
-                    image.onload = function(){ that.attr("href", d.PhotoUrl); };
+                    image.onload = function(){ $(that).attr("href", d.PhotoUrl); };
                     image.onerror = function(){};
                     image.src = d.PhotoUrl;
                 }
