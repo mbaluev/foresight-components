@@ -137,20 +137,20 @@ OrgChart.Init = function(options){
                 {
                     id: "group",
                     name: 'Отдел',
-                    content: 'Отдел',
+                    content: null,
                     padding: 15
                 },
                 {
                     id: "user",
                     name: 'Сотрудник',
-                    content: 'Сотрудник',
+                    content: null,
                     padding: 15
                 },
                 {
                     id: "results",
                     name: 'Результаты поиска',
-                    content: 'Результаты поиска',
-                    padding: 15
+                    content: null,
+                    padding: 0
                 }
             ]
         };
@@ -337,7 +337,26 @@ OrgChart.Init = function(options){
         return item;
     };
 
-    that.render_results = function(){};
+    that.render_results = function(){
+        var $table = $('<table class="table"></table>');
+        var $thead = $('<thead><tr><td class="align_left">ФИО</td></tr></thead>');
+        var $tbody = $('<tbody></tbody>');
+        that.data._private.search.results.map(function(res, index){
+            var $a = $('<a class="link" data-index="' + index + '">' + res.FullName + '</a>');
+            $a.on('click', function(){
+                that.goto($(this).data('index'));
+            });
+            $tbody.append(
+                $('<tr></tr>').append(
+                    $('<td></td>').append(
+                        $a
+                    )
+                )
+            );
+            //that.data._private.search.index
+        });
+        that.render_tab('results', $table.append($thead, $tbody));
+    };
 
     // -------------------
     // d3 functions. begin
@@ -801,6 +820,7 @@ OrgChart.Init = function(options){
             that.update(node);
             that.centerNode(node);
             that.render_tab_group(id);
+            that.render_tab_user();
         }
     };
     // -------------------
@@ -857,7 +877,6 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index < 0) {
             that.data._private.search.index = 0;
         }
-        //console.log(that.data._private.search.results[that.data._private.search.index]);
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
         that.render_tab_user(that.data._private.search.results[that.data._private.search.index]);
         that.update_buttons();
@@ -867,7 +886,12 @@ OrgChart.Init = function(options){
         if (that.data._private.search.index == that.data._private.search.results.length) {
             that.data._private.search.index = that.data._private.search.results.length - 1;
         }
-        //console.log(that.data._private.search.results[that.data._private.search.index]);
+        that.highlight(that.data._private.search.results[that.data._private.search.index].id);
+        that.render_tab_user(that.data._private.search.results[that.data._private.search.index]);
+        that.update_buttons();
+    };
+    that.goto = function(index){
+        that.data._private.search.index = index;
         that.highlight(that.data._private.search.results[that.data._private.search.index].id);
         that.render_tab_user(that.data._private.search.results[that.data._private.search.index]);
         that.update_buttons();
