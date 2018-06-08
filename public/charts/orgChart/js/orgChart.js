@@ -314,11 +314,13 @@ OrgChart.Init = function(options){
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
         var $content = $('<div></div>');
+        group.Empty = ' ';
         $content.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
         $content.append(that.render_tab_control(1, group, 'UserCount', 'Количество сотрудников'));
         $content.append(that.render_tab_control(2, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
         $content.append(that.render_tab_control(3, group, 'Title', 'Должность'));
         $content.append(that.render_tab_control(4, group, 'PhotoUrl', ''));
+        $content.append(that.render_tab_control(5, group, 'Empty', 'Сотрудники'));
         that.render_tab('group', $content);
         that.render_tab_group_users(group.OrgId, function($data){
             $content.append($data);
@@ -360,8 +362,8 @@ OrgChart.Init = function(options){
         var $table = $('<table class="table"></table>');
         var $thead = $([
             '<thead><tr>',
-            '<td class="align_left" width="50%">ФИО</td>',
-            '<td class="align_left" width="50%">Должность</td>',
+            '<td class="align_left" width="115">ФИО</td>',
+            '<td class="align_left">Должность</td>',
             '</tr></thead>'
         ].join(''));
         var $tbody = $('<tbody></tbody>');
