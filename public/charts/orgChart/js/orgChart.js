@@ -983,8 +983,9 @@ OrgChart.Asyst.Search = function(data, orgid, value, callback){
                 d.id = d.OrgId;
                 d.parentid = d.ParentId;
                 d.name = d.OrgName;
-                var org = results.filter(function(r){ return r.id == d.OrgId; });
-                if (org.length == 0) { results.push(d); }
+                results.push(d);
+                //var org = results.filter(function(r){ return r.id == d.OrgId; });
+                //if (org.length == 0) { results.push(d); }
             });
             if (typeof callback == 'function') { callback(results); }
         }
