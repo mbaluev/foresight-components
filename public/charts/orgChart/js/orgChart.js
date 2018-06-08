@@ -138,13 +138,13 @@ OrgChart.Init = function(options){
                     id: "group",
                     name: 'Подразделение',
                     content: null,
-                    padding: 15
+                    padding: 0
                 },
                 {
                     id: "user",
                     name: 'Сотрудник',
                     content: null,
-                    padding: 15
+                    padding: 0
                 },
                 {
                     id: "results",
@@ -281,17 +281,18 @@ OrgChart.Init = function(options){
             content
         );
     };
-    that.render_tab_control = function(item, fieldName, title, fieldId, link){
+    that.render_tab_control = function(index, item, fieldName, title, fieldId, link){
         if (item) {
             if (typeof item[fieldName] != 'undefined') {
                 if (item[fieldName] && item[fieldName] != 'null') {
                     var _el = {
-                        control: $('<div class="control control_padding-bottom_none"></div>'),
+                        control: $('<div class="control control_padding-bottom_none control_padding-left control_padding-right"></div>'),
                         control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
                         control__text: $('<div class="control__text"></div>'),
                         control__container: $('<div class="control__container"></div>'),
                         link: (fieldId ? $('<a class="link" href="' + link + item[fieldId] + '?mode=view" target="_blank"></a>') : $('') )
                     };
+                    if (index == 0) { _el.control.addClass('control_padding-top'); }
                     _el.control.append(
                         _el.control__caption.append(
                             _el.control__text.clone().text(title)
@@ -313,23 +314,49 @@ OrgChart.Init = function(options){
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
         var $content = $('<div></div>');
-        $content.append(that.render_tab_control(group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
-        $content.append(that.render_tab_control(group, 'UserCount', 'Количество сотрудников'));
-        $content.append(that.render_tab_control(group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
-        $content.append(that.render_tab_control(group, 'Title', 'Должность'));
-        $content.append(that.render_tab_control(group, 'PhotoUrl', ''));
+        $content.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
+        $content.append(that.render_tab_control(1, group, 'UserCount', 'Количество сотрудников'));
+        $content.append(that.render_tab_control(2, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
+        $content.append(that.render_tab_control(3, group, 'Title', 'Должность'));
+        $content.append(that.render_tab_control(4, group, 'PhotoUrl', ''));
         that.render_tab('group', $content);
+        that.render_tab_group_users(group.OrgId, function($data){
+            $content.append($data);
+        });
+    };
+    that.render_tab_group_users = function(orgid, callback){
+        that.loader_add();
+        if (typeof that.data.func.search == 'function') {
+            that.data.func.search(
+                that.data.data, orgid, null,
+                function(results){
+                    var $users = null;
+                    if (results) {
+                        $users = $('<div class="control control_padding-top"></div>').append(
+                            that.render_table_users(results)
+                        );
+                    }
+                    that.loader_remove();
+                    if (typeof callback == 'function') { callback($users); }
+                }
+            );
+        } else {
+            that.loader_remove();
+        }
     };
     that.render_tab_user = function(user){
         var $content = $('<div></div>');
-        $content.append(that.render_tab_control(user, 'FullName', 'ФИО', 'UserId', '/asyst/User/form/auto/'));
-        $content.append(that.render_tab_control(user, 'Title', 'Должность'));
-        $content.append(that.render_tab_control(user, 'PhotoUrl', ''));
-        $content.append(that.render_tab_control(user, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
-        $content.append(that.render_tab_control(user, 'RoleName', 'Роль'));
+        $content.append(that.render_tab_control(0, user, 'FullName', 'ФИО', 'UserId', '/asyst/User/form/auto/'));
+        $content.append(that.render_tab_control(1, user, 'Title', 'Должность'));
+        $content.append(that.render_tab_control(2, user, 'PhotoUrl', ''));
+        $content.append(that.render_tab_control(3, user, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
+        $content.append(that.render_tab_control(4, user, 'RoleName', 'Роль'));
         that.render_tab('user', $content);
     };
     that.render_tab_results = function(){
+        that.render_tab('results', that.render_table_users(that.data._private.search.results));
+    };
+    that.render_table_users = function(arr){
         var $table = $('<table class="table"></table>');
         var $thead = $([
             '<thead><tr>',
@@ -338,10 +365,10 @@ OrgChart.Init = function(options){
             '</tr></thead>'
         ].join(''));
         var $tbody = $('<tbody></tbody>');
-        if (that.data._private.search.results.length == 0) {
+        if (arr.length == 0) {
             $tbody.append($('<tr><td colspan="2">Ничего не найдено</td></tr>'));
         } else {
-            that.data._private.search.results.map(function(res, index){
+            arr.map(function(res, index){
                 var $tr = $([
                     '<tr data-index="' + index + '">',
                     '<td>',
@@ -360,7 +387,7 @@ OrgChart.Init = function(options){
                 $tbody.append($tr);
             });
         }
-        that.render_tab('results', $table.append($thead, $tbody));
+        return $table.append($thead, $tbody);
     };
     that.active_tab = function(id){
         that.data.right._el.tabs__list
@@ -985,11 +1012,20 @@ OrgChart.Init = function(options){
 };
 OrgChart.Search = function(data, orgid, value, callback){
     var results = [];
-    data.map(function(item){
-        if (item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-            results.push(item);
-        }
-    });
+    if (orgid) {
+        data.map(function(item){
+            if (item.OrgId == orgid) {
+                results.push(item);
+            }
+        });
+    }
+    if (value) {
+        data.map(function(item){
+            if (item.name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                results.push(item);
+            }
+        });
+    }
     if (typeof callback == 'function') { callback(results); }
 };
 OrgChart.Asyst = {};
