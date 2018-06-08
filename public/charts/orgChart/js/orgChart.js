@@ -136,7 +136,7 @@ OrgChart.Init = function(options){
             tabs: [
                 {
                     id: "group",
-                    name: 'Отдел',
+                    name: 'Подразделение',
                     content: null,
                     padding: 15
                 },
@@ -281,7 +281,7 @@ OrgChart.Init = function(options){
             content
         );
     };
-    that.render_tab_control = function(item, fieldName, title){
+    that.render_tab_control = function(item, fieldName, title, fieldId, link){
         if (item) {
             if (typeof item[fieldName] != 'undefined') {
                 if (item[fieldName] && item[fieldName] != 'null') {
@@ -289,14 +289,19 @@ OrgChart.Init = function(options){
                         control: $('<div class="control control_padding-bottom_none"></div>'),
                         control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
                         control__text: $('<div class="control__text"></div>'),
-                        control__container: $('<div class="control__container"></div>')
+                        control__container: $('<div class="control__container"></div>'),
+                        link: (fieldId ? $('<a class="link" href="' + link + item[fieldId] + '?mode=view"></a>') : $('') )
                     };
                     _el.control.append(
                         _el.control__caption.append(
                             _el.control__text.clone().text(title)
                         ),
                         _el.control__container.append(
-                            _el.control__text.clone().text(item[fieldName])
+                            fieldId ?
+                                _el.control__text.clone().append(
+                                    _el.link.text(item[fieldName])
+                                ) :
+                                _el.control__text.clone().text(item[fieldName])
                         )
                     );
                     return _el.control;
@@ -308,19 +313,19 @@ OrgChart.Init = function(options){
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
         var $content = $('<div></div>');
-        $content.append(that.render_tab_control(group, 'OrgName', 'Название организации'));
+        $content.append(that.render_tab_control(group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
         $content.append(that.render_tab_control(group, 'UserCount', 'Количество сотрудников'));
-        $content.append(that.render_tab_control(group, 'FullName', 'Руководитель'));
+        $content.append(that.render_tab_control(group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
         $content.append(that.render_tab_control(group, 'Title', 'Должность'));
         $content.append(that.render_tab_control(group, 'PhotoUrl', ''));
         that.render_tab('group', $content);
     };
     that.render_tab_user = function(user){
         var $content = $('<div></div>');
-        $content.append(that.render_tab_control(user, 'FullName', 'ФИО'));
+        $content.append(that.render_tab_control(user, 'FullName', 'ФИО', 'UserId', '/asyst/User/form/auto/'));
         $content.append(that.render_tab_control(user, 'Title', 'Должность'));
         $content.append(that.render_tab_control(user, 'PhotoUrl', ''));
-        $content.append(that.render_tab_control(user, 'OrgName', 'Название организации'));
+        $content.append(that.render_tab_control(user, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
         $content.append(that.render_tab_control(user, 'RoleName', 'Роль'));
         that.render_tab('user', $content);
     };
