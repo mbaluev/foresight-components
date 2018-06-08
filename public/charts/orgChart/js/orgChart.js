@@ -314,7 +314,7 @@ OrgChart.Init = function(options){
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
         var $content = $('<div></div>');
-        group.Empty = ' ';
+        if (group) { group.Empty = ' '; }
         $content.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
         $content.append(that.render_tab_control(1, group, 'UserCount', 'Количество сотрудников'));
         $content.append(that.render_tab_control(2, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
@@ -322,9 +322,9 @@ OrgChart.Init = function(options){
         $content.append(that.render_tab_control(4, group, 'PhotoUrl', ''));
         $content.append(that.render_tab_control(5, group, 'Empty', 'Сотрудники'));
         that.render_tab('group', $content);
-        that.render_tab_group_users(group.OrgId, function($data){
-            $content.append($data);
-        });
+        if (group) { that.render_tab_group_users(group.OrgId, function($data){
+                $content.append($data);
+            }); }
     };
     that.render_tab_group_users = function(orgid, callback){
         that.loader_add();
