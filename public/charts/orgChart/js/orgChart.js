@@ -285,30 +285,32 @@ OrgChart.Init = function(options){
         $content.append(render_control(group, 'OrgName', 'Название организации'));
         $content.append(render_control(group, 'UserCount', 'Количество сотрудников'));
         $content.append(render_control(group, 'FullName', 'Руководитель'));
+        $content.append(render_control(group, 'Title', 'Должность'));
         $content.append(render_control(group, 'PhotoUrl', ''));
         that.render_tab('group', $content);
         function render_control(item, fieldName, title){
             if (item) {
-                var _el = {
-                    control: $('<div class="control control_padding-bottom_none"></div>'),
-                    control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
-                    control__text: $('<div class="control__text"></div>'),
-                    control__container: $('<div class="control__container"></div>')
-                };
-                _el.control.append(
-                    _el.control__caption.append(
-                        _el.control__text.clone().text(title)
-                    ),
-                    _el.control__container.append(
-                        _el.control__text.clone().text(
-                            (item[fieldName] && item[fieldName] != 'null' ? item[fieldName] : '')
+                if (typeof item[fieldName] != 'undefined') {
+                    var _el = {
+                        control: $('<div class="control control_padding-bottom_none"></div>'),
+                        control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
+                        control__text: $('<div class="control__text"></div>'),
+                        control__container: $('<div class="control__container"></div>')
+                    };
+                    _el.control.append(
+                        _el.control__caption.append(
+                            _el.control__text.clone().text(title)
+                        ),
+                        _el.control__container.append(
+                            _el.control__text.clone().text(
+                                (item[fieldName] && item[fieldName] != 'null' ? item[fieldName] : '')
+                            )
                         )
-                    )
-                );
-                return _el.control;
-            } else {
-                return null;
+                    );
+                    return _el.control;
+                }
             }
+            return null;
         }
         console.log(group);
     };
