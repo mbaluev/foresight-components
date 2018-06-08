@@ -290,7 +290,7 @@ OrgChart.Init = function(options){
                         control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
                         control__text: $('<div class="control__text"></div>'),
                         control__container: $('<div class="control__container"></div>'),
-                        link: (fieldId ? $('<a class="link" href="' + link + item[fieldId] + '?mode=view"></a>') : $('') )
+                        link: (fieldId ? $('<a class="link" href="' + link + item[fieldId] + '?mode=view" target="_blank"></a>') : $('') )
                     };
                     _el.control.append(
                         _el.control__caption.append(
