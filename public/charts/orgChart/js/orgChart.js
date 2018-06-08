@@ -16,6 +16,8 @@ OrgChart.Init = function(options){
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid).css({ height: '100%' }),
+
+        /*
         content: $([
             '<div class="card">',
                 '<div class="card__header">',
@@ -34,6 +36,21 @@ OrgChart.Init = function(options){
                 '</div>',
             '</div>'
         ].join('')),
+        */
+        card: $('<div class="card"></div>'),
+        card__header: $('<div class="card__header"></div>'),
+        card__header_row: $('<div class="card__header-row"></div>'),
+        card__header_name: $([
+            '<div class="card__header-column card__header-column_start">',
+            '<label class="card__name"><span class="card__name-text">Оргструктура</span></label>',
+            '</div>'
+        ].join('')),
+        card__header_actions: $('<div class="card__header-column card__header-element_stretch"></div>'),
+        card__main: $('<div class="card__main"></div>'),
+        card__middle: $('<div class="card__middle"></div>'),
+        card__middle_container: $('<div class="card__middle-scroll" id="orgchart__container" style="overflow: hidden;"></div>'),
+        card__right: $('<div class="card__right card__right_border card__right_size_lg"></div>'),
+
         input: $([
             '<span class="input input__has-clear card__header-element_stretch" data-width="auto">',
             '<span class="input__box">',
@@ -87,23 +104,232 @@ OrgChart.Init = function(options){
             }
         });
     };
+
     that.render = function(){
-        that.data._el.content.find('#orgchart__actions').append(
-            that.data._el.input,
-            that.data._el.button__left,
-            that.data._el.button__right,
-            that.data._el.button__toggle
-        );
         that.data._el.target.append(
-            that.data._el.content
+            that.data._el.card.append(
+                that.data._el.card__header.append(
+                    that.data._el.card__header_row.append(
+                        that.data._el.card__header_name,
+                        that.data._el.card__header_actions.append(
+                            that.data._el.input,
+                            that.data._el.button__left,
+                            that.data._el.button__right,
+                            that.data._el.button__toggle
+                        )
+                    )
+                ),
+                that.data._el.card__main.append(
+                    that.data._el.card__middle.append(
+                        that.data._el.card__middle_container
+                    ),
+                    that.data._el.card__right
+                )
+            )
         );
     };
+    that.render_right = function(){
+        that.data.right = {
+            caption: 'Заголовок',
+            name: 'Название',
+            buttons: [],
+            tabs: [
+                {
+                    id: "group",
+                    name: 'Отдел',
+                    content: 'Отдел',
+                    padding: 15
+                },
+                {
+                    id: "user",
+                    name: 'Сотрудник',
+                    content: 'Сотрудник'
+                },
+                {
+                    id: "results",
+                    name: 'Результаты поиска',
+                    content: 'Результаты поиска'
+                }
+            ]
+        };
+        that.data.right._el = {
+            card: $('<div class="card" data-fc="card"></div>'),
+            card__header: $('<div class="card__header"></div>'),
+            card__header_row_caption: $('<div class="card__header-row"></div>'),
+            card__header_row_name: $('<div class="card__header-row"></div>'),
+            card__header_row_tabs: $('<div class="card__header-row tabs"></div>'),
+            tabs__list: $('<ul class="tabs__list"></ul>'),
+            card__main: $('<div class="card__main"></div>'),
+            card__middle: $('<div class="card__middle"></div>'),
+            card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
+            tabs_pane: $('<div class="tabs__pane"></div>')
+        };
+        that.render_view();
+        that.render_header();
+        that.render_tabs();
+    };
+    that.render_view = function(){
+        that.data._el.card__right.append(
+            that.data.right._el.card.append(
+                that.data.right._el.card__header.append(
+                    //that.data.right._el.card__header_row_caption,
+                    //that.data.right._el.card__header_row_name,
+                    that.data.right._el.card__header_row_tabs.append(
+                        that.data.right._el.tabs__list
+                    )
+                ),
+                that.data.right._el.card__main.append(
+                    that.data.right._el.card__middle.append(
+                        that.data.right._el.card__middle_scroll
+                    )
+                )
+            )
+        );
+    };
+    that.render_header = function(){
+        that.render_header_caption();
+        that.render_header_name();
+    };
+    that.render_header_caption = function(){
+        that.render_header_caption_name();
+        that.render_header_caption_buttons();
+    };
+    that.render_header_caption_name = function(){
+        that.data.right._el.card__header_row_caption.append($(
+            '<div class="card__header-column">' +
+            '<label class="card__caption">' +
+            '<span class="card__caption-text">' + that.data.right.caption + '</span>' +
+            '</label>' +
+            '</div>'
+        ));
+    };
+    that.render_header_caption_buttons = function(){
+        var $buttons_column = $('<div class="card__header-column"></div>');
+        that.data.right._el.card__header_row_caption.append($buttons_column);
+        that.data.right.buttons.forEach(function(button){
+            var $button = $(
+                '<button class="button button__' + button.name + '" data-fc="button" ' +
+                (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>' +
+                (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
+                (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
+                '</button>'
+            );
+            if (button.action) {
+                if (typeof that[button.action] === "function") {
+                    $button.on('click', that[button.action]);
+                }
+                if (!that.data._triggers[button.action]) {
+                    $button.on('click', function(){
+                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                    });
+                }
+            }
+            $buttons_column.append($button);
+        });
+    };
+    that.render_header_name = function(){
+        that.data.right._el.card__header_row_name.append($(
+            '<div class="card__header-column card__header-column_start card__header-column_flex_1-1-auto">' +
+            '<label class="card__name">' +
+            '<span class="card__name-text">' + that.data.right.name + '</span>' +
+            '</label>' +
+            '</div>'
+        ));
+    };
+    that.render_tabs = function(){
+        if (that.data.right.tabs.length == 1) {
+            that.data.right.tabs[0].active = true;
+        } else {
+            var has_active_tab = false;
+            that.data.right.tabs.forEach(function(tab) {
+                if (tab.active) {
+                    has_active_tab = true;
+                }
+            });
+            if (!has_active_tab) {
+                that.data.right.tabs[0].active = true;
+            }
+        }
+        that.data.right.tabs.forEach(function(tab){
+            var $tab__link = $([
+                '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">',
+                '<button class="button" data-fc="button">',
+                '<span class="button__text">' + tab.name + '</span>',
+                '</button>',
+                '</a>'
+            ].join(''));
+            $tab__link.data('data', tab.data);
+            $tab__link.data('onclick', tab.onclick);
+            that.data.right._el.tabs__list.append(
+                $((tab.active ? '<li class="tabs__tab tabs__tab_active"></li>' : '<li class="tabs__tab"></li>' ))
+                    .append(
+                    $tab__link
+                )
+            );
+            that.data.right._el.card__middle_scroll.append(
+                that.data.right._el.tabs_pane.clone()
+                    .attr('id', tab.id)
+                    .addClass((tab.active ? 'tabs__pane_active' : ''))
+                    .css('padding', tab.padding)
+                    .append(tab.content));
+        });
+    };
+    that.render_tab = function(id, content){
+        that.data.right._el.card__middle_scroll.find('#' + id).html('').append(
+            content
+        );
+    };
+    that.render_tab_group = function(id){
+        var group = that.get_group(id);
+        var $content = $('<div></div>');
+        $content.append(render_control(group, 'OrgName', 'Название организации'));
+        $content.append(render_control(group, 'UserCount', 'Количество сотрудников'));
+        $content.append(render_control(group, 'FullName', 'Руководитель'));
+        $content.append(render_control(group, 'PhotoUrl', ''));
+        that.render_tab('group', $content);
+        function render_control(item, fieldName, title){
+            if (item) {
+                var _el = {
+                    control: $('<div class="control control_padding-bottom_none"></div>'),
+                    control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
+                    control__text: $('<div class="control__text"></div>'),
+                    control__container: $('<div class="control__container"></div>')
+                };
+                _el.control.append(
+                    _el.control__caption.append(
+                        _el.control__text.clone().text(title)
+                    ),
+                    _el.control__container.append(
+                        _el.control__text.clone().text(
+                            (item[fieldName] && item[fieldName] != 'null' ? item[fieldName] : '')
+                        )
+                    )
+                );
+                return _el.control;
+            } else {
+                return null;
+            }
+        }
+        console.log(group);
+    };
+    that.get_group = function(id){
+        var item = that.data.data.filter(function(d){
+            return d.id == id;
+        });
+        if (item.length > 0) {
+            item = item[0];
+        } else {
+            item = null;
+        }
+        return item;
+    };
+
+    that.render_results = function(){};
 
     // -------------------
     // d3 functions. begin
     // -------------------
-    var containerid = 'orgchart__container',
-        totalNodes = 0,
+    var totalNodes = 0,
         levelNodes = [],
         maxLabelLength = 0,
         duration = 300,
@@ -128,8 +354,8 @@ OrgChart.Init = function(options){
         svgGroup;
 
     that.renderTree = function(){
-        viewerWidth = $('#' + containerid).outerWidth();
-        viewerHeight = $('#' + containerid).outerHeight();
+        viewerWidth = that.data._el.card__middle_container.outerWidth();
+        viewerHeight = that.data._el.card__middle_container.outerHeight();
         tree = d3.layout.tree().size([viewerWidth, viewerHeight]);
 
         // define a d3 diagonal projection for use by the node paths later on.
@@ -152,7 +378,7 @@ OrgChart.Init = function(options){
         zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", that.zoom);
 
         // define the baseSvg, attaching a class for styling and the zoomListener
-        baseSvg = d3.select('#' + containerid).append("svg")
+        baseSvg = d3.select('#' + that.data._el.card__middle_container.attr('id')).append("svg")
             .attr("width", viewerWidth)
             .attr("height", viewerHeight)
             .attr("class", "overlay")
@@ -174,8 +400,8 @@ OrgChart.Init = function(options){
     };
     that.resizeTree = function(){
         d3.select("svg").style('display', 'none');
-        viewerWidth = $('#' + containerid).outerWidth();
-        viewerHeight = $('#' + containerid).outerHeight();
+        viewerWidth = that.data._el.card__middle_container.outerWidth();
+        viewerHeight = that.data._el.card__middle_container.outerHeight();
         d3.select("svg")
             .style('display', 'block')
             .attr("width", viewerWidth)
@@ -396,8 +622,13 @@ OrgChart.Init = function(options){
                 return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width - 25 : 0);
             })
             .attr("href", function(d) {
-                if (d.PhotoUrl && d.PhotoUrl != 'null') { console.log(d.PhotoUrl); }
-                return (d.PhotoUrl && d.PhotoUrl != 'null' ? d.PhotoUrl : '');
+                var that = this;
+                if (d.PhotoUrl && d.PhotoUrl != 'null') {
+                    var image = new Image();
+                    image.onload = function(){ that.attr("href", d.PhotoUrl); };
+                    image.onerror = function(){};
+                    image.src = d.PhotoUrl;
+                }
             });
 
         // Update the text to reflect whether node has children or not.
@@ -556,7 +787,7 @@ OrgChart.Init = function(options){
         if (first) {
             that.update(node);
             that.centerNode(node);
-            //console.log(node.name);
+            that.render_tab_group(id);
         }
     };
     // -------------------
@@ -584,6 +815,7 @@ OrgChart.Init = function(options){
                         if (that.data._private.search.results.length > 0) {
                             that.next();
                         }
+                        that.render_results();
                         that.loader_remove();
                     }, value, that.data.data);
                 } else {
@@ -598,6 +830,7 @@ OrgChart.Init = function(options){
             that.data._el.button__right.button('disable');
             that.data.dataTree.children.forEach(that.collapse);
             that.highlight(that.data.dataTree.id);
+            that.render_results();
         });
         that.data._el.button__right.on('click.search', that.next);
         that.data._el.button__left.on('click.search', that.prev);
@@ -636,12 +869,15 @@ OrgChart.Init = function(options){
         that.data._el.input.input();
         that.data._el.button__left.button();
         that.data._el.button__right.button();
-        that.data._el.content.card();
+        that.data._el.card.card();
+        that.data.right._el.card.card();
+        that.data.right._el.card.find('[data-fc="tab"]').tabs();
     };
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
             that.render();
+            that.render_right();
             that.init_components();
             that.bind();
             that.prepare();
