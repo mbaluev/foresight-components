@@ -352,7 +352,9 @@ OrgChart.Init = function(options){
             that.data._private.search.results.map(function(res, index){
                 var $tr = $([
                     '<tr data-index="' + index + '">',
-                    '<td>' + res.FullName + '</td>',
+                    '<td>',
+                    '<a class="link" href="/asyst/User/form/auto/' + res.UserId + '?mode=view" target="_blank">' + res.FullName + '</a>',
+                    '</td>',
                     '<td>' + (res.Title ? res.Title : '') + '</td>',
                     '</tr>'
                 ].join(''));
