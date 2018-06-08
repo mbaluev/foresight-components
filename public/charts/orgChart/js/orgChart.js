@@ -339,22 +339,33 @@ OrgChart.Init = function(options){
 
     that.render_results = function(){
         var $table = $('<table class="table"></table>');
-        var $thead = $('<thead><tr><td class="align_left">ФИО</td></tr></thead>');
+        var $thead = $([
+            '<thead><tr>',
+            '<td class="align_left">ФИО</td>',
+            '<td class="align_left">Должность</td>',
+            '</tr></thead>'
+        ].join(''));
         var $tbody = $('<tbody></tbody>');
-        that.data._private.search.results.map(function(res, index){
-            var $a = $('<a class="link" data-index="' + index + '">' + res.FullName + '</a>');
-            $a.on('click', function(){
-                that.goto($(this).data('index'));
+        if (that.data._private.search.results.length == 0) {
+            $tbody.append($('<tr><td colspan="2">Ничего не найдено</td></tr>'));
+        } else {
+            that.data._private.search.results.map(function(res, index){
+                var $tr = $([
+                    '<tr data-index="' + index + '">',
+                    '<td>' + res.FullName + '</td>',
+                    '<td>' + (res.Title ? res.Title : '') + '</td>',
+                    '</tr>'
+                ].join(''));
+                $tr.on('click', function(){
+                    that.goto($(this).data('index'));
+                }).on('mouseover', function(){
+                    $(this).css('cursor', 'pointer');
+                }).on('mouseout', function(){
+                    $(this).css('cursor', 'default');
+                });
+                $tbody.append($tr);
             });
-            $tbody.append(
-                $('<tr></tr>').append(
-                    $('<td></td>').append(
-                        $a
-                    )
-                )
-            );
-            //that.data._private.search.index
-        });
+        }
         that.render_tab('results', $table.append($thead, $tbody));
     };
 
@@ -920,6 +931,7 @@ OrgChart.Init = function(options){
         setTimeout(function(){
             that.render();
             that.render_right();
+            that.render_results();
             that.init_components();
             that.bind();
             that.prepare();
