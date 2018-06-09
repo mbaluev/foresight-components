@@ -313,28 +313,42 @@ OrgChart.Init = function(options){
     };
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
-        var $content = $('<div></div>');
-        if (group) { group.Empty = ' '; }
-        $content.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
-        $content.append(that.render_tab_control(1, group, 'UserCount', 'Количество сотрудников'));
-        $content.append(that.render_tab_control(2, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
-        $content.append(that.render_tab_control(3, group, 'Title', 'Должность'));
-        $content.append(that.render_tab_control(4, group, 'PhotoUrl', ''));
-        $content.append(that.render_tab_control(5, group, 'Empty', 'Сотрудники'));
-        that.render_tab('group', $content);
-        if (group) { that.render_tab_group_users(group.OrgId, function($data){
-                $content.append($data);
-            }); }
+        var _el = {
+            card: $('<div class="card" data-fc="card"></div>'),
+            card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
+            card__top: $('<div class="card__top"></div>'),
+            card__middle: $('<div class="card__middle" style="padding-top: 10px;"></div>'),
+            card__middle_scroll: $('<div class="card__middle-scroll" style="border-top: solid 1px #ddd;"></div>')
+        };
+        that.render_tab('group', _el.card);
+        if (group) {
+            _el.card.append(
+                _el.card__main.append(
+                    _el.card__top,
+                    _el.card__middle.append(
+                        _el.card__middle_scroll
+                    )
+                )
+            );
+            _el.card__top.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
+            _el.card__top.append(that.render_tab_control(1, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
+            _el.card__top.append(that.render_tab_control(2, group, 'Title', 'Должность'));
+            _el.card__top.append(that.render_tab_control(3, group, 'PhotoUrl', ''));
+            _el.card__top.append(that.render_tab_control(4, group, 'UserCount', 'Количество сотрудников'));
+            that.render_tab_group_users(group.OrgId, _el.card__middle_scroll, function($data){
+                _el.card__middle_scroll.append($data);
+            });
+        }
     };
-    that.render_tab_group_users = function(orgid, callback){
-        that.loader_add();
+    that.render_tab_group_users = function(orgid, cont, callback){
+        that.loader_add(cont);
         if (typeof that.data.func.search == 'function') {
             that.data.func.search(
                 that.data.data, orgid, null,
                 function(results){
                     var $users = null;
                     if (results) {
-                        $users = $('<div class="control control_padding-top"></div>').append(
+                        $users = $('<div class="control"></div>').append(
                             that.render_table_users(results)
                         );
                     }
@@ -907,8 +921,14 @@ OrgChart.Init = function(options){
     // d3 functions. end
     // -----------------
 
-    that.loader_add = function(){
-        that.data._el.target.before(that.data._el.loader)
+    that.loader_add = function(cont){
+        var target;
+        if (cont) {
+            target = cont;
+        } else {
+            target = that.data._el.target;
+        }
+        target.before(that.data._el.loader)
     };
     that.loader_remove = function(){
         that.data._el.loader.remove();

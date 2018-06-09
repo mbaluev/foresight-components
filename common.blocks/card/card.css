@@ -204,6 +204,16 @@
     box-sizing: border-box;
 }
 
+.card__top {
+    z-index: 4;
+    overflow: hidden;
+    position: relative;
+    flex: 0 0 auto;
+}
+.card__top > * {
+    height: 100%;
+}
+
 .card__right {
     z-index: 3;
     width: 230px;
