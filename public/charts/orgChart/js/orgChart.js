@@ -144,7 +144,8 @@ OrgChart.Init = function(options){
                     id: "group",
                     name: 'Подразделение',
                     content: null,
-                    padding: 0
+                    padding: 0,
+                    onclick: that.update_tab_group_users
                 },
                 {
                     id: "user",
