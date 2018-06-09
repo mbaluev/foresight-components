@@ -84,7 +84,9 @@ OrgChart.Init = function(options){
     that.data._private = {
         search: {
             results: [],
-            index: [0]
+            index: [0],
+            userid: [0],
+            users: []
         }
     };
 
@@ -348,8 +350,11 @@ OrgChart.Init = function(options){
                 function(results){
                     var $users = null;
                     if (results) {
+                        that.data._private.search.users = results;
                         $users = $('<div class="control"></div>').append(
-                            that.render_table_users(results)
+                            that.render_table_users(results, function(index, userid){
+                                that.gotouser(userid);
+                            })
                         );
                     }
                     that.loader_remove();
@@ -370,9 +375,11 @@ OrgChart.Init = function(options){
         that.render_tab('user', $content);
     };
     that.render_tab_results = function(){
-        that.render_tab('results', that.render_table_users(that.data._private.search.results));
+        that.render_tab('results', that.render_table_users(that.data._private.search.results, function(index, userid){
+            that.goto(index);
+        }));
     };
-    that.render_table_users = function(arr){
+    that.render_table_users = function(arr, onclick){
         var $table = $('<table class="table"></table>');
         var $thead = $([
             '<thead><tr>',
@@ -386,7 +393,7 @@ OrgChart.Init = function(options){
         } else {
             arr.map(function(res, index){
                 var $tr = $([
-                    '<tr data-index="' + index + '">',
+                    '<tr data-index="' + index + '" data-userid=' + res.UserId + '>',
                     '<td>',
                     '<a class="link" href="/asyst/User/form/auto/' + res.UserId + '?mode=view" target="_blank">' + res.FullName + '</a>',
                     '</td>',
@@ -394,7 +401,9 @@ OrgChart.Init = function(options){
                     '</tr>'
                 ].join(''));
                 $tr.on('click', function(){
-                    that.goto($(this).data('index'));
+                    var index = $(this).data('index');
+                    var userid = $(this).data('userid');
+                    onclick(index, userid);
                 }).on('mouseover', function(){
                     $(this).css('cursor', 'pointer');
                 }).on('mouseout', function(){
@@ -425,13 +434,16 @@ OrgChart.Init = function(options){
 
     that.update_search_index = function(source){
         that.data._private.search.index = [];
+        that.data._private.search.userid = [];
         that.data._private.search.results.map(function(result, index){
             if (result.id == source.id) {
                 that.data._private.search.index.push(index);
+                that.data._private.search.userid.push(result.UserId);
             }
         });
         if (that.data._private.search.index.length == 0) {
             that.data._private.search.index = [-1];
+            that.data._private.search.userid = [0];
         }
     };
     that.update_buttons = function(){
@@ -446,10 +458,20 @@ OrgChart.Init = function(options){
     };
     that.update_results = function(){
         that.data.right._el.card__middle_scroll
-            .find('#results').find('tr').each(function(item){
+            .find('#results').find('tr').each(function(){
                 $(this).find('.link').css('color', '');
                 var index = $(this).data('index');
                 if (that.data._private.search.index.indexOf(index) >= 0) {
+                    $(this).find('.link').css('color', '#ff5940');
+                }
+            });
+    };
+    that.update_group_users = function(){
+        that.data.right._el.card__middle_scroll
+            .find('#group').find('tr').each(function(){
+                $(this).find('.link').css('color', '');
+                var userid = $(this).data('userid');
+                if (that.data._private.search.userid.indexOf(userid) >= 0) {
                     $(this).find('.link').css('color', '#ff5940');
                 }
             });
@@ -915,6 +937,7 @@ OrgChart.Init = function(options){
             that.render_tab_group(id);
             that.render_tab_user();
             that.update_results();
+            that.update_group_users();
         }
     };
     // -------------------
@@ -940,6 +963,7 @@ OrgChart.Init = function(options){
                 that.loader_add();
                 var value = that.data._el.input.input('value');
                 that.data._private.search.index = [-1];
+                that.data._private.search.userid = [0];
                 that.data._private.search.results = [];
                 if (typeof that.data.func.search == 'function') {
                     that.data.func.search(
@@ -976,15 +1000,13 @@ OrgChart.Init = function(options){
     that.prev = function(){
         var index = Math.min.apply(null, that.data._private.search.index);
         index--;
-        if (index < 0) {
-            index = 0;
-        }
+        if (index < 0) { index = 0; }
+        that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.highlight(that.data._private.search.results[that.data._private.search.index[0]].id);
-        that.data._private.search.index = [index];
-        that.render_tab_user(that.data._private.search.results[that.data._private.search.index[0]]);
+        that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
+        that.update_group_users();
     };
     that.next = function(){
         var index = Math.max.apply(null, that.data._private.search.index);
@@ -992,20 +1014,36 @@ OrgChart.Init = function(options){
         if (index == that.data._private.search.results.length) {
             index = that.data._private.search.results.length - 1;
         }
+        that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.highlight(that.data._private.search.results[that.data._private.search.index[0]].id);
-        that.data._private.search.index = [index];
-        that.render_tab_user(that.data._private.search.results[that.data._private.search.index[0]]);
+        that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
+        that.update_group_users();
     };
     that.goto = function(index){
+        that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.highlight(that.data._private.search.results[that.data._private.search.index[0]].id);
-        that.data._private.search.index = [index];
-        that.render_tab_user(that.data._private.search.results[that.data._private.search.index[0]]);
+        that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
+        that.update_group_users();
+    };
+    that.gotouser = function(userid){
+        var user = that.data._private.search.users.filter(function(d){ return d.UserId == userid; });
+        if (user.length > 0) {
+            user = user[0];
+            that.highlight(user.id);
+            that.render_tab_user(user);
+            that.data._private.search.results.map(function(d, index){
+                if (d.UserId == userid) {
+                    that.data._private.search.index = [index];
+                }
+            });
+            that.update_buttons();
+            that.update_results();
+            that.update_group_users();
+        }
     };
 
     that.init_components = function(){
