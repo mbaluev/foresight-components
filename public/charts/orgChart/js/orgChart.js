@@ -401,17 +401,19 @@ OrgChart.Init = function(options){
         var $table = $('<table class="table"></table>');
         var $thead = $([
             '<thead><tr>',
+            '<td class="align_right" width="10" style="padding-right:0;"></td>',
             '<td class="align_left" width="115">ФИО</td>',
             '<td class="align_left">Должность</td>',
             '</tr></thead>'
         ].join(''));
         var $tbody = $('<tbody></tbody>');
         if (arr.length == 0) {
-            $tbody.append($('<tr><td colspan="2">Ничего не найдено</td></tr>'));
+            $tbody.append($('<tr><td colspan="3">Ничего не найдено</td></tr>'));
         } else {
             arr.map(function(res, index){
                 var $tr = $([
                     '<tr data-index="' + index + '" data-userid=' + res.UserId + '>',
+                    '<td class="align_right" style="padding-right:0;">' + ++index + '</td>',
                     '<td>',
                     '<a class="link" href="/asyst/User/form/auto/' + res.UserId + '?mode=view" target="_blank">' + res.FullName + '</a>',
                     '</td>',
