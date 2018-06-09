@@ -493,6 +493,16 @@ OrgChart.Init = function(options){
                     $(this).find('.link').css('color', '#ff5940');
                 }
             });
+        var index = Math.min.apply(null, that.data._private.search.index);
+        if (index) {
+            var userid = that.data._private.search.results[index].UserId;
+            that.data.right._el.card__middle_scroll
+                .find('#group .card__middle_scroll')
+                .animate({
+                    scrollTop: that.data.right._el.card__middle_scroll
+                        .find('#group').find('tr[data-userid="' + userid + '"]').position().top - 10
+                });
+        }
     };
 
     // -------------------
