@@ -320,7 +320,7 @@ OrgChart.Init = function(options){
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
         if (that.data._private.selected.orgid == id) {
-            that.update_group_users();
+            that.update_tab_group_users();
         } else {
             var _el = {
                 card: $('<div class="card" data-fc="card"></div>'),
@@ -369,7 +369,7 @@ OrgChart.Init = function(options){
                     if (typeof callback == 'function') {
                         callback($users);
                     }
-                    that.update_group_users();
+                    that.update_tab_group_users();
                     that.loader_remove();
                 }
             );
@@ -474,7 +474,7 @@ OrgChart.Init = function(options){
             that.data._el.button__right.button('disable');
         }
     };
-    that.update_results = function(){
+    that.update_tab_results = function(){
         that.data.right._el.card__middle_scroll
             .find('#results').find('tr').each(function(){
                 $(this).find('.link').css('color', '');
@@ -484,7 +484,7 @@ OrgChart.Init = function(options){
                 }
             });
     };
-    that.update_group_users = function(){
+    that.update_tab_group_users = function(){
         that.data.right._el.card__middle_scroll
             .find('#group').find('tr').each(function(){
                 $(this).find('.link').css('color', '');
@@ -954,7 +954,7 @@ OrgChart.Init = function(options){
             that.update_buttons();
             that.render_tab_group(id);
             that.render_tab_user();
-            that.update_results();
+            that.update_tab_results();
         }
     };
     // -------------------
@@ -1019,38 +1019,42 @@ OrgChart.Init = function(options){
         index--;
         if (index < 0) { index = 0; }
         that.highlight(that.data._private.search.results[index].id);
+        /* update for selected user */
         that.data._private.search.index = [index];
         that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
-        that.update_results();
+        that.update_tab_results();
+        that.update_tab_group_users();
     };
     that.next = function(){
         var index = Math.max.apply(null, that.data._private.search.index);
         index++;
-        if (index == that.data._private.search.results.length) {
-            index = that.data._private.search.results.length - 1;
-        }
+        if (index == that.data._private.search.results.length) { index = that.data._private.search.results.length - 1; }
         that.highlight(that.data._private.search.results[index].id);
+        /* update for selected user */
         that.data._private.search.index = [index];
         that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
-        that.update_results();
+        that.update_tab_results();
+        that.update_tab_group_users();
+        that.update_tab_group_users();
     };
     that.goto = function(index){
         that.highlight(that.data._private.search.results[index].id);
+        /* update for selected user */
         that.data._private.search.index = [index];
         that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
-        that.update_results();
+        that.update_tab_results();
+        that.update_tab_group_users();
     };
     that.gotouser = function(userid){
         var user = that.data._private.search.users.filter(function(d){ return d.UserId == userid; });
         if (user.length > 0) {
-            user = user[0];
-            that.render_tab_user(user);
+            that.render_tab_user(user[0]);
             that.active_tab('user');
         }
     };
