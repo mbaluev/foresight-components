@@ -357,8 +357,11 @@ OrgChart.Init = function(options){
                             })
                         );
                     }
+                    if (typeof callback == 'function') {
+                        callback($users);
+                    }
+                    that.update_group_users();
                     that.loader_remove();
-                    if (typeof callback == 'function') { callback($users); }
                 }
             );
         } else {
@@ -937,7 +940,6 @@ OrgChart.Init = function(options){
             that.render_tab_group(id);
             that.render_tab_user();
             that.update_results();
-            that.update_group_users();
         }
     };
     // -------------------
@@ -1006,7 +1008,6 @@ OrgChart.Init = function(options){
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
-        that.update_group_users();
     };
     that.next = function(){
         var index = Math.max.apply(null, that.data._private.search.index);
@@ -1019,7 +1020,6 @@ OrgChart.Init = function(options){
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
-        that.update_group_users();
     };
     that.goto = function(index){
         that.highlight(that.data._private.search.results[index].id);
@@ -1027,7 +1027,6 @@ OrgChart.Init = function(options){
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
-        that.update_group_users();
     };
     that.gotouser = function(userid){
         var user = that.data._private.search.users.filter(function(d){ return d.UserId == userid; });
