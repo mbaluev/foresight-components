@@ -1033,16 +1033,8 @@ OrgChart.Init = function(options){
         var user = that.data._private.search.users.filter(function(d){ return d.UserId == userid; });
         if (user.length > 0) {
             user = user[0];
-            that.highlight(user.id);
             that.render_tab_user(user);
-            that.data._private.search.results.map(function(d, index){
-                if (d.UserId == userid) {
-                    that.data._private.search.index = [index];
-                }
-            });
-            that.update_buttons();
-            that.update_results();
-            that.update_group_users();
+            that.active_tab('user');
         }
     };
 
