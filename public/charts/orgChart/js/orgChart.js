@@ -485,24 +485,22 @@ OrgChart.Init = function(options){
             });
     };
     that.update_tab_group_users = function(){
+        var scrolled = false;
         that.data.right._el.card__middle_scroll
             .find('#group').find('tr').each(function(){
                 $(this).find('.link').css('color', '');
                 var userid = $(this).data('userid');
                 if (that.data._private.search.userid.indexOf(userid) >= 0) {
                     $(this).find('.link').css('color', '#ff5940');
+                    if (!scrolled) {
+                        scrolled = true;
+                        that.data.right._el.card__middle_scroll.find('#group .card__middle_scroll')
+                            .animate({
+                                scrollTop: $(this).position().top - 10
+                            });
+                    }
                 }
             });
-        var index = Math.min.apply(null, that.data._private.search.index);
-        if (index) {
-            var userid = that.data._private.search.results[index].UserId;
-            that.data.right._el.card__middle_scroll
-                .find('#group .card__middle_scroll')
-                .animate({
-                    scrollTop: that.data.right._el.card__middle_scroll
-                        .find('#group').find('tr[data-userid="' + userid + '"]').position().top - 10
-                });
-        }
     };
 
     // -------------------
