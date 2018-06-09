@@ -497,9 +497,9 @@ OrgChart.Init = function(options){
                     if (!scrolled) {
                         scrolled = true;
                         that.data.right._el.card__middle_scroll.find('#group .card__middle-scroll')
-                            .css({
+                            .animate({
                                 scrollTop: $(this).position().top - 10
-                            });
+                            }, 100);
                     }
                 }
             });
