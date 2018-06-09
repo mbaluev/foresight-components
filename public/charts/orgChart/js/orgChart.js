@@ -1005,7 +1005,7 @@ OrgChart.Init = function(options){
         if (index < 0) { index = 0; }
         that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.data._private.search.userid = that.data._private.search.results[index].UserId;
+        that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
@@ -1018,7 +1018,7 @@ OrgChart.Init = function(options){
         }
         that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.data._private.search.userid = that.data._private.search.results[index].UserId;
+        that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
@@ -1026,7 +1026,7 @@ OrgChart.Init = function(options){
     that.goto = function(index){
         that.highlight(that.data._private.search.results[index].id);
         that.data._private.search.index = [index];
-        that.data._private.search.userid = that.data._private.search.results[index].UserId;
+        that.data._private.search.userid = [that.data._private.search.results[index].UserId];
         that.render_tab_user(that.data._private.search.results[index]);
         that.update_buttons();
         that.update_results();
