@@ -82,11 +82,15 @@ OrgChart.Init = function(options){
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.data._private = {
+        selected: {
+            orgid: null,
+            userid: null
+        },
         search: {
+            users: [],
             results: [],
             index: [0],
-            userid: [0],
-            users: []
+            userid: [0]
         }
     };
 
@@ -315,32 +319,37 @@ OrgChart.Init = function(options){
     };
     that.render_tab_group = function(id){
         var group = that.getDataItemById(id);
-        var _el = {
-            card: $('<div class="card" data-fc="card"></div>'),
-            card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
-            card__top: $('<div class="card__top"></div>'),
-            card__middle: $('<div class="card__middle" style="padding-top: 10px;"></div>'),
-            card__middle_scroll: $('<div class="card__middle-scroll" style="border-top: solid 1px #ddd;"></div>')
-        };
-        that.render_tab('group', _el.card);
-        if (group) {
-            _el.card.append(
-                _el.card__main.append(
-                    _el.card__top,
-                    _el.card__middle.append(
-                        _el.card__middle_scroll
+        if (that.data._private.selected.orgid == id) {
+            that.update_group_users();
+        } else {
+            var _el = {
+                card: $('<div class="card" data-fc="card"></div>'),
+                card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
+                card__top: $('<div class="card__top"></div>'),
+                card__middle: $('<div class="card__middle" style="padding-top: 10px;"></div>'),
+                card__middle_scroll: $('<div class="card__middle-scroll" style="border-top: solid 1px #ddd;"></div>')
+            };
+            that.render_tab('group', _el.card);
+            if (group) {
+                _el.card.append(
+                    _el.card__main.append(
+                        _el.card__top,
+                        _el.card__middle.append(
+                            _el.card__middle_scroll
+                        )
                     )
-                )
-            );
-            _el.card__top.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
-            _el.card__top.append(that.render_tab_control(1, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
-            _el.card__top.append(that.render_tab_control(2, group, 'Title', 'Должность'));
-            _el.card__top.append(that.render_tab_control(3, group, 'PhotoUrl', ''));
-            _el.card__top.append(that.render_tab_control(4, group, 'UserCount', 'Количество сотрудников'));
-            that.render_tab_group_users(group.OrgId, _el.card__middle_scroll, function($data){
-                _el.card__middle_scroll.append($data);
-            });
+                );
+                _el.card__top.append(that.render_tab_control(0, group, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
+                _el.card__top.append(that.render_tab_control(1, group, 'FullName', 'Руководитель', 'UserId', '/asyst/User/form/auto/'));
+                _el.card__top.append(that.render_tab_control(2, group, 'Title', 'Должность'));
+                _el.card__top.append(that.render_tab_control(3, group, 'PhotoUrl', ''));
+                _el.card__top.append(that.render_tab_control(4, group, 'UserCount', 'Количество сотрудников'));
+                that.render_tab_group_users(group.OrgId, _el.card__middle_scroll, function($data){
+                    _el.card__middle_scroll.append($data);
+                });
+            }
         }
+        that.data._private.selected.orgid = id;
     };
     that.render_tab_group_users = function(orgid, cont, callback){
         that.loader_add(cont);
@@ -369,13 +378,19 @@ OrgChart.Init = function(options){
         }
     };
     that.render_tab_user = function(user){
-        var $content = $('<div></div>');
-        $content.append(that.render_tab_control(0, user, 'FullName', 'ФИО', 'UserId', '/asyst/User/form/auto/'));
-        $content.append(that.render_tab_control(1, user, 'Title', 'Должность'));
-        $content.append(that.render_tab_control(2, user, 'PhotoUrl', ''));
-        $content.append(that.render_tab_control(3, user, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
-        $content.append(that.render_tab_control(4, user, 'RoleName', 'Роль'));
-        that.render_tab('user', $content);
+        if (user) { userid = user.id; } else { userid = null; }
+        if (that.data._private.selected.userid != userid) {
+            var $content = $('<div></div>');
+            if (user) {
+                $content.append(that.render_tab_control(0, user, 'FullName', 'ФИО', 'UserId', '/asyst/User/form/auto/'));
+                $content.append(that.render_tab_control(1, user, 'Title', 'Должность'));
+                $content.append(that.render_tab_control(2, user, 'PhotoUrl', ''));
+                $content.append(that.render_tab_control(3, user, 'OrgName', 'Название организации', 'OrgId', '/asyst/OrgUnit/form/auto/'));
+                $content.append(that.render_tab_control(4, user, 'RoleName', 'Роль'));
+                that.data._private.selected.userid = user.UserId;
+            }
+            that.render_tab('user', $content);
+        }
     };
     that.render_tab_results = function(){
         that.render_tab('results', that.render_table_users(that.data._private.search.results, function(index, userid){
