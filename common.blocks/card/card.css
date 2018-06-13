@@ -256,8 +256,11 @@
     display: flex;
     width: 100%;
     position: relative;
+}
+.card__middle_hidden {
     overflow: hidden;
 }
+
 .card__middle-scroll {
     flex: 1 1 auto;
     overflow: auto;

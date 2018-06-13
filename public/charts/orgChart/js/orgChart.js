@@ -353,7 +353,7 @@ OrgChart.Init = function(options){
                 card: $('<div class="card" data-fc="card"></div>'),
                 card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
                 card__top: $('<div class="card__top"></div>'),
-                card__middle: $('<div class="card__middle" style="padding-top: 10px;"></div>'),
+                card__middle: $('<div class="card__middle card__middle_hidden" style="padding-top: 10px;"></div>'),
                 card__middle_scroll: $('<div class="card__middle-scroll" style="border-top: solid 1px #ddd;"></div>')
             };
             that.render_tab('group', _el.card);
