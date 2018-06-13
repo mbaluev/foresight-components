@@ -520,7 +520,7 @@ OrgChart.Init = function(options){
             top: 150, right: 100, bottom: 100, left: 100
         },
         dims = {
-            width: 100, height: 150
+            width: 200, height: 150
         },
         padding = {
             top: 100,
@@ -760,7 +760,7 @@ OrgChart.Init = function(options){
             //.attr("text-anchor", "middle")
             .attr("data-tooltip", function(d){ return d.name; })
             .text(function(d) {
-                return (d.name.length > 9 ? d.name.substring(0, 9) + '...' : d.name);
+                return (d.name.length > 24 ? d.name.substring(0, 24) + '...' : d.name);
             })
             .style("fill-opacity", 0);
 
@@ -779,7 +779,7 @@ OrgChart.Init = function(options){
             })
             .text(function(d) {
                 if (d.FullName && d.FullName != "null") {
-                    return (d.FullName.length > 9 ? d.FullName.substring(0, 9) + '...' : d.FullName);
+                    return (d.FullName.length > 24 ? d.FullName.substring(0, 24) + '...' : d.FullName);
                 } else {
                     return '';
                 }
@@ -790,10 +790,10 @@ OrgChart.Init = function(options){
             .attr("x", -dims.width/2 + 10)
             .attr("y", -dims.height/2 + 40)
             .attr("width", function(d) {
-                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width - 20 : 0);
+                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width/2 - 20 : 0);
             })
             .attr("height", function(d) {
-                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width - 25 : 0);
+                return (d.PhotoUrl && d.PhotoUrl != 'null' ? dims.width/2 - 25 : 0);
             })
             .attr("href", function(d) {
                 var that = this;
