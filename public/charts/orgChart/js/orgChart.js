@@ -327,7 +327,7 @@ OrgChart.Init = function(options){
                         control__caption: $('<div class="control__caption control__caption_size_s"></div>'),
                         control__text: $('<div class="control__text"></div>'),
                         control__container: $('<div class="control__container"></div>'),
-                        link: $('<a class="link" data-ligthbox="' + item[fieldId] + '" href="' + item[fieldName] + '" target="_blank"></a>')
+                        link: $('<a class="link" data-lightbox="' + item[fieldId] + '" href="' + item[fieldName] + '" target="_blank"></a>')
                     };
                     if (index == 0) { _el.control.addClass('control_padding-top'); }
                     _el.control.append(
