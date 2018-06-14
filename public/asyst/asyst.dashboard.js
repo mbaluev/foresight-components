@@ -116,7 +116,14 @@ Asyst.UserDashboard = function(){
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
         params: null,
-        settings: {
+        dashboardSettings: {
+            editAccess: true,
+            userDashboardId: null,
+            account: { Id: -1, Name: 'Общий' },
+            accountList: null,
+            accessList: null
+        },
+        userSettings: {
             resize: true,
             delete: false,
             edit: false
@@ -192,6 +199,43 @@ Asyst.UserDashboard = function(){
             error: function(data){ console.log(data); }
         });
     };
+    that.loadAccountList = function(callback){
+        Asyst.APIv2.View.load({
+            viewName: 'group',
+            success: function(data){
+                if (data.data) {
+                    var list = [{
+                        value: -1,
+                        text: 'Общий',
+                        EntityId: null,
+                        EntityName: null
+                    }];
+                    data.data.map(function(d){
+                        list.push({
+                            value: d.GroupId,
+                            text: d.Name,
+                            EntityId: data.EntityId,
+                            EntityName: data.EntityName
+                        });
+                    });
+                    if (typeof callback == 'function') {
+                        callback(list);
+                    }
+                }
+            }
+        });
+    };
+    that.loadAccessList = function(callback){
+        var list = [{
+            value: -1,
+            text: 'Общий',
+            EntityId: null,
+            EntityName: null
+        }];
+        if (typeof callback == 'function') {
+            callback(list);
+        }
+    };
     that.reload = {
         dashboard: function(options, params){
             that.data.asystDashboard.reload.dashboard(options, params);
@@ -243,6 +287,7 @@ Asyst.UserDashboard = function(){
     that.init();
     return that;
 };
+
 Asyst.PageDashboard = function(options){
     var that = this._pageDashboard = {};
     that.data = {
@@ -479,7 +524,7 @@ Asyst.Dashboard = function(options){
         user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         items: [],
-        userdashboardid: null,
+        userDashboardId: null,
         dashboard: null,
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
@@ -499,7 +544,7 @@ Asyst.Dashboard = function(options){
     that.saveItems = function(userid, items){
         that.data.items = items;
         Asyst.APIv2.Entity.save({
-            dataId: that.data.userdashboardid,
+            dataId: that.data.userDashboardId,
             entityName: 'UserDashboard',
             data: {
                 AccountId: userid,
@@ -507,7 +552,7 @@ Asyst.Dashboard = function(options){
                 Items: JSON.stringify(that.data.items)
             },
             success: function(data){
-                that.data.userdashboardid = data.id;
+                that.data.userDashboardId = data.id;
             },
             error: function(data){ console.log(data); }
         });
@@ -524,7 +569,7 @@ Asyst.Dashboard = function(options){
                     that.data.items = JSON.parse(data[0][0].Items);
                     that.check_items();
                     if (data[0][0].AccountId == userid) {
-                        that.data.userdashboardid = data[0][0].UserDashboardId;
+                        that.data.userDashboardId = data[0][0].UserDashboardId;
                     }
                     if (typeof callback == 'function') { callback(); }
                 } else {
