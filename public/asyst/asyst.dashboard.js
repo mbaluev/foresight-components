@@ -655,7 +655,7 @@ Asyst.Dashboard = function(options){
     that.init = function(){
         that.data.user = {
             Id: -1,
-            IsFunctionalAdministrator: false
+            IsFunctionalAdministrator: that.data.user.IsFunctionalAdministrator
         };
         that.loader_add();
         that.loadItems(that.data.user.Id, function(){
