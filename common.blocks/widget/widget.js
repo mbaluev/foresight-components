@@ -30,6 +30,7 @@
                         libraries: null,
                         loader: null,
 
+                        admin: true,
                         reloadable: false,
                         onResize: null,
                         resizeOnExpand: false

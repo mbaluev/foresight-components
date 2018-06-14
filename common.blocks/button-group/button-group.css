@@ -3,7 +3,9 @@
     white-space: nowrap;
 }
 
-.button-group .button+.button { margin-left: -1px; }
+.button-group .button + .button,
+.button-group .select__container + .button,
+.button-group .button + .select__container { margin-left: -1px; }
 .button-group .button.button_hovered { z-index: 1; }
 
 .button-group .button { border-radius: 0; }

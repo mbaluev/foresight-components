@@ -20,6 +20,7 @@ var Dashboard = function(options){
         single: false,
         margin: true,
         editable: true,
+        admin: true,
         tumblerContainerSelector: null,
         pageid: '',
         items: [],
@@ -88,17 +89,22 @@ var Dashboard = function(options){
             button_add: $([
                 '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
                 '<span class="icon icon_svg_plus"></span>',
-                '<span class="button__text mobile mobile_hide">Добавить</span>',
+                //'<span class="button__text mobile mobile_hide">Добавить</span>',
                 '<span class="button__anim"></span>',
                 '</button>'
             ].join('')).button(),
             button_save: $([
                 '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
                 '<span class="icon icon_svg_save"></span>',
-                '<span class="button__text mobile mobile_hide">Сохранить</span>',
+                (!that.data.admin ? '<span class="button__text mobile mobile_hide">Сохранить</span>' : ''),
                 '<span class="button__anim"></span>',
                 '</button>',
             ].join('')).button(),
+            select_load: $([
+                '<select data-fc="select" data-width="200" data-autoclose="true" data-mode="radio" data-hidden="true">',
+                '<option value="-1" selected="selected">Общий',
+                '</select>'
+            ].join('')),
             card: $('<div class="card"></div>'),
             card__header: $([
                 '<div class="card__header">',
@@ -161,10 +167,12 @@ var Dashboard = function(options){
             }
         }
         if (that.data.editable) {
-            that.render_tumbler();
-            that.render_buttons();
-            if (!that.data.tumblerContainerSelector) {
-                render = true;
+            if (that.data.admin || !that.data.admin && !that.data.single) {
+                that.render_tumbler();
+                that.render_buttons();
+                if (!that.data.tumblerContainerSelector) {
+                    render = true;
+                }
             }
         }
         if (typeof(that.data.headerExtraControlsRenderer) == 'function') {
@@ -228,8 +236,12 @@ var Dashboard = function(options){
                 that.loader_add();
                 setTimeout(function(){
                     that.data._el.button_group.show();
-                    that.data._el.button_add.button('show');
+                    if (!that.data._el.select_load.data('_widget')) {
+                        that.data._el.select_load.select();
+                    }
+                    that.data._el.select_load.select('show');
                     that.data._el.button_save.button('show');
+                    that.data._el.button_add.button('show');
                     that.data.grid.widget_grid('edit_mode');
                     if (that.data.single) {
                         that.data.grid.widget_grid('disable');
@@ -241,8 +253,11 @@ var Dashboard = function(options){
                 that.loader_add();
                 setTimeout(function(){
                     that.data._el.button_group.hide();
-                    that.data._el.button_add.button('hide');
+                    if (that.data._el.select_load.data('_widget')) {
+                        that.data._el.select_load.select('hide');
+                    }
                     that.data._el.button_save.button('hide');
+                    that.data._el.button_add.button('hide');
                     that.data.grid.widget_grid('view_mode');
                     that.loader_remove();
                 }, 100);
@@ -260,7 +275,10 @@ var Dashboard = function(options){
     that.render_buttons = function(){
         that.data._el.button_group.hide();
         that.render_button_save();
-        that.render_button_add();
+        if (that.data.admin) {
+            that.render_select_load();
+            that.render_button_add();
+        }
         if (that.data.tumblerContainerSelector) {
             $(that.data.tumblerContainerSelector).prepend(
                 that.data._el.button_group
@@ -286,7 +304,7 @@ var Dashboard = function(options){
             that.data.grid.widget_grid('add_widget', item, function(data){
                 if (typeof that.data.add == 'function') {
                     that.data.add(data);
-                };
+                }
             });
             if (that.data.single) {
                 that.data._el.button_add.button('unhover').remove();
@@ -295,7 +313,7 @@ var Dashboard = function(options){
         if (that.data.single && isnew) {
             that.data._el.button_add.button({ hidden: false });
         }
-        that.data._el.button_group.prepend(
+        that.data._el.button_group.append(
             that.data._el.button_add
         );
     };
@@ -304,12 +322,21 @@ var Dashboard = function(options){
             that.data.grid.widget_grid('save', function(data){
                 if (typeof that.data.save == 'function') {
                     that.data.save(data);
-                };
+                }
                 that.data._el.tumbler.tumbler('uncheck');
             });
         });
         that.data._el.button_group.append(
             that.data._el.button_save
+        );
+    };
+    that.render_select_load = function(){
+        that.data._el.select_load.on('change', function(){
+            var value = $(this).select('value');
+            console.log(value);
+        });
+        that.data._el.button_group.prepend(
+            that.data._el.select_load
         );
     };
 
@@ -322,6 +349,27 @@ var Dashboard = function(options){
         }
     };
     that.render_grid = function(){
+        var buttons = [{
+            id: 'button_settings',
+            icon: 'icon_svg_settings',
+            mode: 'edit',
+            click: function(widget, data){
+                that.settings(widget, data);
+            }
+        }];
+        if (that.data.admin) {
+            buttons.push({
+                id: 'button_remove',
+                icon: 'icon_svg_trash',
+                mode: 'edit',
+                click: function(widget, data){
+                    that.data.grid.widget_grid('remove_widget', data.id);
+                    if (that.data.single) {
+                        that.render_button_add(true);
+                    }
+                }
+            });
+        }
         that.data.grid = that.data._el.grid
             .widget_grid({
                 single: that.data.single,
@@ -334,27 +382,7 @@ var Dashboard = function(options){
                 //library: that.data.library,
 
                 params: that.data.params,
-                widget_buttons: [
-                    {
-                        id: 'button_settings',
-                        icon: 'icon_svg_settings',
-                        mode: 'edit',
-                        click: function(widget, data){
-                            that.settings(widget, data);
-                        }
-                    },
-                    {
-                        id: 'button_remove',
-                        icon: 'icon_svg_trash',
-                        mode: 'edit',
-                        click: function(widget, data){
-                            that.data.grid.widget_grid('remove_widget', data.id);
-                            if (that.data.single) {
-                                that.render_button_add(true);
-                            }
-                        }
-                    }
-                ]
+                widget_buttons: buttons
             });
     };
 
@@ -409,11 +437,17 @@ var Dashboard = function(options){
             position: 'top center',
             draggable: true
         };
-        if (that.data.single) {
-            that.settings_render_source_tab(data, modal_options.content.tabs, true, widget);
+        if (that.data.admin) {
+            if (that.data.single) {
+                that.settings_render_source_tab(data, modal_options.content.tabs, true, widget);
+            } else {
+                that.settings_render_general_tab(data, modal_options.content.tabs, true, widget);
+                that.settings_render_source_tab(data, modal_options.content.tabs, false, widget);
+            }
         } else {
-            that.settings_render_general_tab(data, modal_options.content.tabs, true, widget);
-            that.settings_render_source_tab(data, modal_options.content.tabs, false, widget);
+            if (!that.data.single) {
+                that.settings_render_general_tab(data, modal_options.content.tabs, true, widget);
+            }
         }
         that.data.modal = $('<span class="modal__"></span>').appendTo('body')
             .modal__(modal_options)

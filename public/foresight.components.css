@@ -3320,7 +3320,9 @@ body {
   white-space: nowrap;
 }
 
-.button-group .button+.button {
+.button-group .button + .button,
+.button-group .select__container + .button,
+.button-group .button + .select__container {
   margin-left: -1px;
 }
 

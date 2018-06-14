@@ -117,7 +117,6 @@ Asyst.UserDashboard = function(){
         tumblerContainerSelector: null,
         params: null,
         dashboardSettings: {
-            editAccess: true,
             userDashboardId: null,
             account: { Id: -1, Name: 'Общий' },
             accountList: null,
@@ -667,6 +666,7 @@ Asyst.Dashboard = function(options){
                 single: that.data.single,
                 margin: that.data.margin,
                 editable: that.data.editable,
+                admin: that.data.user.IsFunctionalAdministrator,
                 pageid: that.data.page.pageId,
                 items: that.data.items,
                 lib: that.data.lib,
