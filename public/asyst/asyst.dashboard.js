@@ -337,7 +337,7 @@ Asyst.PageDashboard = function(options){
         margin: true,
         editable: true,
         asystDashboard: null,
-        user: { Id: -1 }, //Asyst.Workspace.currentUser,
+        user: Asyst.Workspace.currentUser,
         page: Asyst.Workspace.currentPage,
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
@@ -609,6 +609,7 @@ Asyst.Dashboard = function(options){
         }
     };
     that.init = function(){
+        that.data.user = { Id: -1 };
         that.loader_add();
         that.loadItems(that.data.user.Id, function(){
             that.loader_remove();
