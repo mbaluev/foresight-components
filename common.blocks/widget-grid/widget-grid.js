@@ -158,10 +158,6 @@
                             node.widget.widget('collapse');
                             if (!save_state) {
                                 node.widget.data().collapsed = _collapsed;
-                            } else {
-                                if (typeof that.data.widget_collapse_callback == 'function') {
-                                    that.data.widget_collapse_callback();
-                                }
                             }
                         }
                     };
@@ -174,10 +170,6 @@
                             node.widget.widget('expand');
                             if (!save_state) {
                                 node.widget.data().collapsed = _collapsed;
-                            } else {
-                                if (typeof that.data.widget_collapse_callback == 'function') {
-                                    that.data.widget_collapse_callback();
-                                }
                             }
                         }
                     };

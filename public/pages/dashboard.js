@@ -21,7 +21,6 @@ var Dashboard = function(options){
         margin: true,
         editable: true,
         admin: true,
-        collapseSave: false,
         tumblerContainerSelector: null,
         pageid: '',
         items: [],
@@ -513,16 +512,7 @@ var Dashboard = function(options){
                 //library: that.data.library,
 
                 params: that.data.params,
-                widget_buttons: buttons,
-                widget_collapse_callback: function(){
-                    if (that.data.collapseSave) {
-                        that.data.grid.widget_grid('save', function(data){
-                            if (typeof that.data.save == 'function') {
-                                that.data.save(data, that.data.account.id);
-                            }
-                        });
-                    }
-                }
+                widget_buttons: buttons
             });
     };
     that.update_grid = function(items){
