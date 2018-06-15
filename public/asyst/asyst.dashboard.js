@@ -457,7 +457,7 @@ Asyst.Dashboard = function(options){
             that.data.accountSettings.id = that.data.user.Id;
         }
         that.loader_add();
-        that.loadItems(that.data.accountSettings.Id, function(){
+        that.loadItems(that.data.accountSettings.id, function(){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
                 id: that.data.id,
