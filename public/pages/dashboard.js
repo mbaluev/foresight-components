@@ -21,6 +21,7 @@ var Dashboard = function(options){
         margin: true,
         editable: true,
         admin: true,
+        collapseSave: false,
         tumblerContainerSelector: null,
         pageid: '',
         items: [],
@@ -36,7 +37,13 @@ var Dashboard = function(options){
         },
         grid: null,
         add: function(data){},
-        save: function(data){},
+        save: function(data, accountid, option){},
+        load: function(accountid){},
+        account: {
+            id: -1,
+            list: [],
+            saved: []
+        },
         headerExtraControlsRenderer: null,
         params: null,
         type: 'page',
@@ -46,6 +53,7 @@ var Dashboard = function(options){
     that.data = $.extend(that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
+        targetTumbler: null,
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
 
@@ -58,53 +66,6 @@ var Dashboard = function(options){
         // remove for reloading success - end
         $.extend(that.data._el, {
             grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
-            card__caption: $([
-                '<label class="card__caption">',
-                '<span class="card__caption-text"></span>',
-                '</label>'
-            ].join('')),
-            card__name: $([
-                '<label class="card__name">',
-                '<span class="card__name-text"></span>',
-                '</label>'
-            ].join('')),
-            tumbler: $([
-                '<span class="header__column-item tumbler" id="tumbler_edit-page">',
-                '<span class="tumbler__box">',
-                '<div class="tumbler__sticker tumbler__sticker_position_left">',
-                '<div class="tumbler__sticker-label">Вкл</div>',
-                '</div>',
-                '<div class="tumbler__sticker tumbler__sticker_position_right">',
-                '<div class="tumbler__sticker-label">Выкл</div>',
-                '</div>',
-                '<button class="button" type="button" data-fc="button">',
-                '<span class="icon icon_svg_edit"></span>',
-                '<span class="button__anim"></span>',
-                '</button>',
-                '</span>',
-                '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
-                '</span>'
-            ].join('')).tumbler(),
-            button_group: $('<span class="button-group header__column-item"></span>'),
-            button_add: $([
-                '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
-                '<span class="icon icon_svg_plus"></span>',
-                //'<span class="button__text mobile mobile_hide">Добавить</span>',
-                '<span class="button__anim"></span>',
-                '</button>'
-            ].join('')).button(),
-            button_save: $([
-                '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
-                '<span class="icon icon_svg_save"></span>',
-                (!that.data.admin ? '<span class="button__text mobile mobile_hide">Сохранить</span>' : ''),
-                '<span class="button__anim"></span>',
-                '</button>',
-            ].join('')).button(),
-            select_load: $([
-                '<select data-fc="select" data-width="200" data-autoclose="true" data-mode="radio" data-hidden="true">',
-                '<option value="-1" selected="selected">Общий',
-                '</select>'
-            ].join('')),
             card: $('<div class="card"></div>'),
             card__header: $([
                 '<div class="card__header">',
@@ -126,7 +87,72 @@ var Dashboard = function(options){
                 '</div>',
                 '</div>',
                 '</div>'
-            ].join(''))
+            ].join('')),
+            card__caption: $([
+                '<label class="card__caption">',
+                '<span class="card__caption-text"></span>',
+                '</label>'
+            ].join('')),
+            card__name: $([
+                '<label class="card__name">',
+                '<span class="card__name-text"></span>',
+                '</label>'
+            ].join('')),
+
+            tumbler: $([
+                '<span class="header__column-item tumbler" id="tumbler_edit-page">',
+                '<span class="tumbler__box">',
+                '<div class="tumbler__sticker tumbler__sticker_position_left">',
+                '<div class="tumbler__sticker-label">Вкл</div>',
+                '</div>',
+                '<div class="tumbler__sticker tumbler__sticker_position_right">',
+                '<div class="tumbler__sticker-label">Выкл</div>',
+                '</div>',
+                '<button class="button" type="button" data-fc="button">',
+                '<span class="icon icon_svg_edit"></span>',
+                '<span class="button__anim"></span>',
+                '</button>',
+                '</span>',
+                '<input class="tumbler__input" type="checkbox" name="_tumbler" hidden/>',
+                '</span>'
+            ].join('')).tumbler(),
+            select_load: $('<select data-fc="select" data-width="200" data-autoclose="true" data-mode="radio" data-hidden="true" style="display:none;"></select>'),
+            button_add: $([
+                '<button class="button button_hidden" type="button" data-hidden="true" id="button_add-widget">',
+                '<span class="icon icon_svg_plus"></span>',
+                '</button>'
+            ].join('')).button(),
+            button_group_save: $('<span class="button-group header__column-item"></span>'),
+            button_save: $([
+                '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-grid">',
+                '<span class="icon icon_svg_save"></span>',
+                (!that.data.admin ? '<span class="button__text mobile mobile_hide">Сохранить</span>' : ''),
+                '</button>'
+            ].join('')).button(),
+            button_more: $([
+                '<button class="button button_hidden" type="button" data-hidden="true" id="button_save-arrow">',
+                '<span class="icon icon_animate icon_svg_down"></span>',
+                '</button>'
+            ].join('')).button(),
+
+            input: $([
+                '<span class="input input__has-clear">',
+                '<span class="input__box">',
+                '<span class="alertbox">',
+                '<span class="icon icon_svg_search"></span>',
+                '</span>',
+                '<input type="text" class="input__control">',
+                '<button class="button" type="button">',
+                '<span class="icon icon_svg_close"></span>',
+                '</button>',
+                '</span>',
+                '</span>'
+            ].join('')),
+            popup_save: $('<div class="popup" data-fc="popup"></div>'),
+            popup__input: $('<div class="popup__input"></div>'),
+            popup__scroll: $('<div class="popup__scroll"></div>'),
+            popup__list: $('<ul class="popup__list"></ul>'),
+            popup__list_items: []
         });
         that.data._el.target.empty();
         that.data._el.target.append(
@@ -235,12 +261,13 @@ var Dashboard = function(options){
             .on('on.fc.tumbler', function(){
                 that.loader_add();
                 setTimeout(function(){
-                    that.data._el.button_group.show();
+                    that.data._el.button_group_save.show();
                     if (!that.data._el.select_load.data('_widget')) {
                         that.data._el.select_load.select();
                     }
                     that.data._el.select_load.select('show');
                     that.data._el.button_save.button('show');
+                    that.data._el.button_more.button('show');
                     that.data._el.button_add.button('show');
                     that.data.grid.widget_grid('edit_mode');
                     if (that.data.single) {
@@ -252,41 +279,32 @@ var Dashboard = function(options){
             .on('off.fc.tumbler', function(){
                 that.loader_add();
                 setTimeout(function(){
-                    that.data._el.button_group.hide();
+                    that.data._el.button_group_save.hide();
                     if (that.data._el.select_load.data('_widget')) {
                         that.data._el.select_load.select('hide');
                     }
                     that.data._el.button_save.button('hide');
+                    that.data._el.button_more.button('hide');
                     that.data._el.button_add.button('hide');
                     that.data.grid.widget_grid('view_mode');
                     that.loader_remove();
                 }, 100);
             });
         if (that.data.tumblerContainerSelector) {
-            $(that.data.tumblerContainerSelector).prepend(
-                that.data._el.tumbler
-            );
+            that.data._el.targetTumbler = $(that.data.tumblerContainerSelector);
         } else {
-            that.data._el.card__header.find('#actions').prepend(
-                that.data._el.tumbler
-            );
+            that.data._el.targetTumbler = that.data._el.card__header.find('#actions');
         }
+        that.data._el.targetTumbler.prepend(
+            that.data._el.tumbler
+        );
     };
     that.render_buttons = function(){
-        that.data._el.button_group.hide();
-        that.render_button_save();
+        that.data._el.button_group_save.hide();
+        that.render_button_group_save();
         if (that.data.admin) {
-            that.render_select_load();
             that.render_button_add();
-        }
-        if (that.data.tumblerContainerSelector) {
-            $(that.data.tumblerContainerSelector).prepend(
-                that.data._el.button_group
-            );
-        } else {
-            that.data._el.card__header.find('#actions').prepend(
-                that.data._el.button_group
-            );
+            that.render_select_load();
         }
     };
     that.render_button_add = function(isnew){
@@ -313,31 +331,144 @@ var Dashboard = function(options){
         if (that.data.single && isnew) {
             that.data._el.button_add.button({ hidden: false });
         }
-        that.data._el.button_group.append(
+        that.data._el.targetTumbler.prepend(
             that.data._el.button_add
         );
     };
-    that.render_button_save = function(){
+    that.render_button_group_save = function(){
         that.data._el.button_save.on('click', function(){
             that.data.grid.widget_grid('save', function(data){
                 if (typeof that.data.save == 'function') {
-                    that.data.save(data);
+                    that.data.save(data, that.data.account.id);
                 }
-                that.data._el.tumbler.tumbler('uncheck');
             });
         });
-        that.data._el.button_group.append(
+        that.data._el.button_group_save.append(
             that.data._el.button_save
         );
+        if (that.data.admin) {
+            that.render_popup_save();
+            that.data._el.button_group_save.append(
+                that.data._el.button_more,
+                that.data._el.popup_save
+            );
+        }
+        that.data._el.targetTumbler.prepend(
+            that.data._el.button_group_save
+        );
+    };
+    that.render_popup_save = function(){
+        that.data.account.list.unshift({
+            value: -1,
+            text: 'Общий'
+        });
+        that.data.account.list.map(function(a){
+            //a.selected = that.data.account.id == a.value;
+            // render popup__list_item
+            var $popup__list_item = $([
+                '<li class="popup__list-item',
+                (a.selected ? ' popup__list-item_checked' : ''),
+                (a.disabled ? ' popup__list-item_disabled' : '') + '">',
+                '<button class="popup__link">',
+                (a.icon ? '<span class="icon ' + a.icon + '"></span>' : ''),
+                '<span class="popup__text">' + a.text + '</span>',
+                '</button>',
+                '</li>'
+            ].join(''));
+            that.data._el.popup__list_items.push($popup__list_item);
+            // store data to element
+            $popup__list_item.data(a);
+        });
+        that.data._el.popup_save.append(
+            that.data._el.popup__input.append(
+                that.data._el.input.input()
+            ),
+            that.data._el.popup__scroll.append(
+                that.data._el.popup__list.append(
+                    that.data._el.popup__list_items
+                )
+            )
+        );
+        that.bind_popup_save();
+        that.bind_popup_save_input();
     };
     that.render_select_load = function(){
+        var default_account = that.data.account.saved.filter(function(a){ return a.value == -1; });
+        if (default_account.length == 0) {
+            that.data.account.saved.unshift({
+                value: -1,
+                text: 'Общий'
+            });
+        }
+        if (that.data.account.saved) {
+            that.data.account.saved.map(function(a){
+                a.selected = that.data.account.id == a.value;
+                that.data._el.select_load.append(
+                    $('<option value="' + a.value + '" ' + (a.selected ? 'selected="selected"' : '') + '>' + a.text + '</option>')
+                );
+            });
+        }
         that.data._el.select_load.on('change', function(){
             var value = $(this).select('value');
-            console.log(value);
+            if (value) {
+                that.data.account.id = value;
+                if (typeof that.data.load == 'function') {
+                    that.data.load(that.data.account.id);
+                }
+            }
         });
-        that.data._el.button_group.prepend(
+        that.data._el.targetTumbler.prepend(
             that.data._el.select_load
         );
+    };
+    that.update_select_load = function(item){
+        if (that.data.admin) {
+            var saved = that.data.account.saved.filter(function(a){ return that.data.account.id == a.value; });
+            if (saved.length == 0) { that.data.account.saved.push(item); }
+            that.data.account.saved.map(function(a){ a.selected = that.data.account.id == a.value; });
+            if (that.data._el.select_load.data('_widget')) {
+                that.data._el.select_load.select('update', that.data.account.saved);
+            }
+        }
+    };
+
+    /*
+    that.check_popup_item = function(item){
+        that.data._el.popup__list_items.forEach(function(item){
+            item.removeClass('popup__list-item_checked');
+            item.data().selected = false;
+        });
+        item.data().selected = true;
+        item.addClass('popup__list-item_checked');
+    };
+    */
+
+    that.bind_popup_save = function(){
+        that.data._el.popup__list_items.forEach(function(item){
+            item.on('click', function(){
+                //that.check_popup_item(item);
+                that.data.grid.widget_grid('save', function(data){
+                    var option = item.data();
+                    if (typeof that.data.save == 'function') {
+                        that.data.account.id = option.value;
+                        that.data.save(data, that.data.account.id, option);
+                    }
+                });
+                that.data._el.popup_save.popup('hide');
+            });
+        });
+    };
+    that.bind_popup_save_input = function(){
+        that.data._el.input.find('.input__control').on('keyup', function(){
+            var value = that.data._el.input.input('value');
+            that.data._el.popup__list_items.forEach(function(item) {
+                if (item.data().text.toLowerCase().includes(value.toLowerCase())) {
+                    item.removeClass('popup__list-item_hidden');
+                } else {
+                    item.addClass('popup__list-item_hidden');
+                }
+            });
+        });
     };
 
     that.render_single = function(){
@@ -382,8 +513,16 @@ var Dashboard = function(options){
                 //library: that.data.library,
 
                 params: that.data.params,
-                widget_buttons: buttons
+                widget_buttons: buttons,
+                widget_collapse_callback: function(){
+                    if (that.data.collapseSave) {
+                        that.data.save(that.data.items, that.data.account.id);
+                    }
+                }
             });
+    };
+    that.update_grid = function(items){
+        that.data.grid.widget_grid('load_items', items);
     };
 
     that.store_to_window = function(){
@@ -891,10 +1030,21 @@ var Dashboard = function(options){
         }
     };
 
+    that.init_components = function(){
+        that.data._el.popup_save.popup({
+            source: that.data._el.button_more,
+            height: 300,
+            width: 250,
+            animation: true,
+            select: false,
+            position: 'bottom right'
+        })
+    };
     that.init = function(){
         that.loader_add();
         setTimeout(function(){
             that.render_card();
+            that.init_components();
             that.render_single();
             that.render_grid();
             that.store_to_window();

@@ -13,6 +13,7 @@
                         closely: false,
                         lib: null,
                         widget_buttons: [],
+                        widget_collapse_callback: null,
                         mode: 'view',
                         disabled: true,
                         grid: {
@@ -41,9 +42,10 @@
                     };
                     that.clear = function(){
                         that.data._el.grid.removeAll();
-                        _.each(that.data._nodes, function(node) {
+                        _.each(that.data._el.nodes, function(node) {
                             node.widget.widget('destroy');
                         });
+                        that.data._el.nodes = [];
                     };
                     that.save = function(callback){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
@@ -77,6 +79,11 @@
                         _.each(items, function(item) {
                             that.load_widget(item);
                         });
+                    };
+                    that.load_items = function(items){
+                        that.clear();
+                        that.data.items = $.extend(true, {}, items);
+                        that.load();
                     };
                     that.load_widget = function(node){
                         if (that.data.single) {
@@ -151,6 +158,10 @@
                             node.widget.widget('collapse');
                             if (!save_state) {
                                 node.widget.data().collapsed = _collapsed;
+                            } else {
+                                if (typeof that.data.widget_collapse_callback == 'function') {
+                                    that.data.widget_collapse_callback();
+                                }
                             }
                         }
                     };
@@ -163,6 +174,10 @@
                             node.widget.widget('expand');
                             if (!save_state) {
                                 node.widget.data().collapsed = _collapsed;
+                            } else {
+                                if (typeof that.data.widget_collapse_callback == 'function') {
+                                    that.data.widget_collapse_callback();
+                                }
                             }
                         }
                     };
@@ -324,6 +339,11 @@
         resize : function() {
             return this.each(function() {
                 this.obj.resize();
+            });
+        },
+        load_items : function(items) {
+            return this.each(function() {
+                this.obj.load_items(items);
             });
         }
     };

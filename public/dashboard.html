@@ -260,6 +260,59 @@
                     }
                 }
             ];
+            var items_new = [
+                {
+                    "x":0,
+                    "y":0,
+                    "width":4,
+                    "height":5,
+                    "settings":{
+                        "collapsible":false,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "calendar":false,
+                        "resizeOnExpand":false,
+                        "name":"MyMeetings",
+                        "pageid":"LibraryChart",
+                        "elementid":"MyMeetings",
+                        "params":null
+                    }
+                },
+                {
+                    "x":4,
+                    "y":0,
+                    "width":4,
+                    "height":5,
+                    "settings":{
+                        "collapsible":true,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "calendar":false,
+                        "resizeOnExpand":false,
+                        "name":"Риски моих проектов",
+                        "pageid":"LibraryChart",
+                        "elementid":"MyRisksPie",
+                        "params":null
+                    }
+                },
+                {
+                    "x":0,
+                    "y":5,
+                    "width":4,
+                    "height":5,
+                    "settings":{
+                        "collapsible":true,
+                        "collapsed":false,
+                        "color":"#ccc",
+                        "calendar":false,
+                        "resizeOnExpand":false,
+                        "name":"Инициативы для меня",
+                        "pageid":"LibraryChart",
+                        "elementid":"ForMeInitiative",
+                        "params":null
+                    }
+                }
+            ];
             var library = [
                 {
                     text: 'Графики',
@@ -552,13 +605,45 @@
                     changeWidget: function(modal, widget, data){}
                 },
                 add: function(data){
-                    //console.log(JSON.stringify(data));
                     console.log(data);
                 },
-                save: function(data){
-                    //console.log(JSON.stringify(data));
-                    console.log(data);
+                save: function(data, acoountid, option){
+                    console.log(data, acoountid, option);
+                    dashboard.update_select_load(option);
                 },
+                load: function(acoountid){
+                    console.log(acoountid);
+                    dashboard.update_grid(items_new);
+                },
+                /*
+                account: {
+                    id: -1,
+                    saved: [
+                        {
+                            value: 1,
+                            text: 'group1'
+                        },
+                        {
+                            value: 2,
+                            text: 'group2'
+                        }
+                    ],
+                    list: [
+                        {
+                            value: 1,
+                            text: 'group1'
+                        },
+                        {
+                            value: 2,
+                            text: 'group2'
+                        },
+                        {
+                            value: 3,
+                            text: 'group3'
+                        }
+                    ]
+                },
+                */
                 headerExtraControlsRenderer: function(){
                     var $button = $([
                         '<button class="button" type="button" data-fc="button" data-tooltip="Reload widgets">',
@@ -650,6 +735,7 @@
                     return [$button, $button2, $button3, $button4, $button5, $select];
                 },
                 editable: true,
+                collapseSave: true,
                 admin: true,
                 single: false
             });

@@ -2697,6 +2697,10 @@ body {
   overflow: hidden;
 }
 
+.select__container_hidden {
+  display: none;
+}
+
 .select__container.select_checked > .button {
   background: #63c163;
 }
@@ -3320,9 +3324,7 @@ body {
   white-space: nowrap;
 }
 
-.button-group .button + .button,
-.button-group .select__container + .button,
-.button-group .button + .select__container {
+.button-group .button + .button {
   margin-left: -1px;
 }
 
@@ -3330,30 +3332,45 @@ body {
   z-index: 1;
 }
 
-.button-group .button {
+.button-group > .button {
   border-radius: 0;
 }
 
-.button-group .button:before {
+.button-group > .button:before {
   border-radius: 0;
 }
 
-.button-group .button:first-child {
+.button-group > [class~='button']:first-of-type {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.button-group .button:first-child:before {
+.button-group > [class~='button']:first-of-type:before {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
 
-.button-group .button:last-child {
+.button-group > [class~='button']:last-of-type {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.button-group .button:last-child:before {
+.button-group > [class~='button']:last-of-type:before {
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.button-group .select__container + .button,
+.button-group .button + select + .select__container {
+  margin-left: -1px;
+}
+
+.button-group > :last-child > .button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.button-group > :last-child > .button:before {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }

@@ -95,12 +95,14 @@
                         that.data.disabled = false;
                     };
                     that.hide = function(){
+                        that.data._el.select.addClass('select__container_hidden');
                         that.data._el.button.button('hide');
                         that.data._el.input.input('hide');
                         that.data._el.popup.popup('hide');
                         that.data.hidden = true;
                     };
                     that.show = function(){
+                        that.data._el.select.removeClass('select__container_hidden');
                         that.data._el.button.button('show');
                         that.data._el.input.input('show');
                         that.data.hidden = false;
