@@ -340,6 +340,7 @@ var Dashboard = function(options){
                 if (typeof that.data.save == 'function') {
                     that.data.save(data, that.data.account.id);
                 }
+                that.data._el.tumbler.tumbler('uncheck');
             });
         });
         that.data._el.button_group_save.append(
@@ -452,6 +453,7 @@ var Dashboard = function(options){
                         that.data.account.id = option.value;
                         that.data.save(data, that.data.account.id, option);
                     }
+                    that.data._el.tumbler.tumbler('uncheck');
                 });
                 that.data._el.popup_save.popup('hide');
             });
