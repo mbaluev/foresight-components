@@ -516,7 +516,11 @@ var Dashboard = function(options){
                 widget_buttons: buttons,
                 widget_collapse_callback: function(){
                     if (that.data.collapseSave) {
-                        that.data.save(that.data.items, that.data.account.id);
+                        that.data.grid.widget_grid('save', function(data){
+                            if (typeof that.data.save == 'function') {
+                                that.data.save(data, that.data.account.id);
+                            }
+                        });
                     }
                 }
             });
