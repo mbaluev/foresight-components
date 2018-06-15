@@ -366,7 +366,9 @@ Asyst.Dashboard = function(options){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
                     that.check_items();
-                    that.data.userDashboardId = data[0][0].UserDashboardId;
+                    if (that.data.admin) {
+                        that.data.userDashboardId = data[0][0].UserDashboardId;
+                    }
                 }
                 if (typeof callback == 'function') { callback(); }
             },
