@@ -481,7 +481,7 @@ Asyst.Dashboard = function(options){
                 items: that.data.items,
                 lib: that.data.lib,
                 save: function(items, accountid, option){
-                    if (accountid != that.data.account.id) {
+                    if (accountid != that.data.accountSettings.id) {
                         that.loadUserDashboardId(accountid, save);
                     } else {
                         save();
