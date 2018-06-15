@@ -457,12 +457,9 @@ Asyst.Dashboard = function(options){
         }
     };
     that.init = function(){
-        /*
-        that.data.user = {
-            Id: -1,
-            IsFunctionalAdministrator: that.data.user.IsFunctionalAdministrator
-        };
-        */
+        if (!that.data.user.IsFunctionalAdministrator) {
+            that.data.account.id = that.data.user.Id;
+        }
         that.loader_add();
         that.loadItems(that.data.user.Id, function(){
             that.loader_remove();
