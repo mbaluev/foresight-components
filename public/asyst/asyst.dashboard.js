@@ -346,9 +346,7 @@ Asyst.Dashboard = function(options){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
                     that.check_items();
-                    if (data[0][0].AccountId == accountid) {
-                        that.data.userDashboardId = data[0][0].UserDashboardId;
-                    }
+                    that.data.userDashboardId = data[0][0].UserDashboardId;
                     if (typeof callback == 'function') { callback(); }
                 } else {
                     that.loadDefaults(callback);
@@ -368,6 +366,7 @@ Asyst.Dashboard = function(options){
                 if (data[0][0]) {
                     that.data.items = JSON.parse(data[0][0].Items);
                     that.check_items();
+                    that.data.userDashboardId = data[0][0].UserDashboardId;
                 }
                 if (typeof callback == 'function') { callback(); }
             },
@@ -454,9 +453,10 @@ Asyst.Dashboard = function(options){
         }
     };
     that.init = function(){
-        if (!that.data.user.IsFunctionalAdministrator) {
-            that.data.accountSettings.id = that.data.user.Id;
-        }
+        /*
+        if (!that.data.user.IsFunctionalAdministrator) {}
+        */
+        that.data.accountSettings.id = that.data.user.Id;
         that.loader_add();
         that.loadItems(that.data.user.Id, function(){
             that.loader_remove();
