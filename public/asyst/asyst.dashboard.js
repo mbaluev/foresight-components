@@ -453,12 +453,11 @@ Asyst.Dashboard = function(options){
         }
     };
     that.init = function(){
-        /*
-        if (!that.data.user.IsFunctionalAdministrator) {}
-        */
-        that.data.accountSettings.id = that.data.user.Id;
+        if (!that.data.user.IsFunctionalAdministrator) {
+            that.data.accountSettings.id = that.data.user.Id;
+        }
         that.loader_add();
-        that.loadItems(that.data.user.Id, function(){
+        that.loadItems(that.data.accountSettings.Id, function(){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
                 id: that.data.id,
