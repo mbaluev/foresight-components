@@ -8,11 +8,20 @@
     margin: 6px 0;
 }
 .grid img {
+    /*
     width: 16px;
     height: 22px;
+    */
     display: block;
+    padding: 4px 0;
 }
-.grid img.s18 {}
+.grid img.s18 {
+    height: 21px;
+    width: 21px;
+}
+.grid img.p2 {
+    padding: 2px !important;
+}
 
 /* Slick Grid */
 .slick-row .slick-cell:first-child {
