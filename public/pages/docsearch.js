@@ -204,20 +204,26 @@ var DocSearch = function(options){
     that.set_filter = function(){
         that.data._private.fdata = Enumerable.From(that.data.data);
         var data1 = Enumerable.Empty();
-        that.data._private.filters.doctype.forEach(function(val){
-            var data = that.data._private.fdata.Where('$.ext=="' + val + '"');
-            data1 = data1.Concat(data);
-        });
+        if (that.data._private.filters.doctype) {
+            that.data._private.filters.doctype.forEach(function(val){
+                var data = that.data._private.fdata.Where('$.ext=="' + val + '"');
+                data1 = data1.Concat(data);
+            });
+        }
         var data2 = Enumerable.Empty();
-        that.data._private.filters.author.forEach(function(val){
-            var data = that.data._private.fdata.Where('$.creationAuthorId=="' + val + '"');
-            data2 = data2.Concat(data);
-        });
+        if (that.data._private.filters.author) {
+            that.data._private.filters.author.forEach(function(val){
+                var data = that.data._private.fdata.Where('$.creationAuthorId=="' + val + '"');
+                data2 = data2.Concat(data);
+            });
+        }
         var data3 = Enumerable.Empty();
-        that.data._private.filters.entity.forEach(function(val){
-            var data = that.data._private.fdata.Where('$.entityName=="' + val + '"');
-            data3 = data3.Concat(data);
-        });
+        if (that.data._private.filters.entity) {
+            that.data._private.filters.entity.forEach(function(val){
+                var data = that.data._private.fdata.Where('$.entityName=="' + val + '"');
+                data3 = data3.Concat(data);
+            });
+        }
         if (data1.Count() == 0) { data1 = Enumerable.From(that.data.data); }
         if (data2.Count() == 0) { data2 = Enumerable.From(that.data.data); }
         if (data3.Count() == 0) { data3 = Enumerable.From(that.data.data); }
