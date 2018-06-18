@@ -484,22 +484,9 @@
         return kpiChart;
     })();
     $(function(){
-		$(document).on("updateKPIChart",function(event, data){
-			var contID = "p-kpi";
-			Loader.show();
-			Asyst.APIv2.DataSet.load({name:'GoalTree',data:data, async:true, success: function(data){
-				$('#'+contID).empty();
-				var options = new kpiOptions(contID, data);
-				var kpichart = new kpiChart(options);
-				Loader.hide();
-				
-			},
-			error:function(){
-				Loader.hide();
-			}
-			});
-			//var data = null;
-			
-		});
+        var contID = "p-kpi";
+        var data = Asyst.APIv2.DataSet.load({ name: 'GoalTree', async: false });
+        var options = new kpiOptions(contID, data);
+        var kpichart = new kpiChart(options);
     });
 }).call(this);
