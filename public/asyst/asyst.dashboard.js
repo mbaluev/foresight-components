@@ -457,6 +457,11 @@ Asyst.Dashboard = function(options){
     that.init = function(){
         if (!that.data.user.IsFunctionalAdministrator) {
             that.data.accountSettings.id = that.data.user.Id;
+        } else {
+            that.data.accountSettings.saved.push({
+                value: that.data.user.Id,
+                text: that.data.user.Name
+            });
         }
         that.loader_add();
         that.loadItems(that.data.accountSettings.id, function(){
