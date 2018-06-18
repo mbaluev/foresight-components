@@ -128,6 +128,7 @@ Asyst.GridView = function(options){
                             }
                         }
                         if (!Asyst.Workspace.views[view.viewName]) {
+                            if (typeof window.views == 'undefined') { window.views = {}; }
                             Asyst.Workspace.addView({
                                 entity: {
                                     idName: view.idName,
@@ -204,6 +205,7 @@ Asyst.GridView = function(options){
                         view.IsViewSampled = false;
                         view.selected = true;
                         if (!Asyst.Workspace.views[view.viewName]) {
+                            if (typeof window.views == 'undefined') { window.views = {}; }
                             Asyst.Workspace.addView({
                                 entity: {
                                     idName: view.idName,
