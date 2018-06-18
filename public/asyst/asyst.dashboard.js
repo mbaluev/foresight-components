@@ -458,7 +458,7 @@ Asyst.Dashboard = function(options){
         if (!that.data.user.IsFunctionalAdministrator) {
             that.data.accountSettings.id = that.data.user.Id;
         } else {
-            that.data.accountSettings.saved.push({
+            that.data.accountSettings.list.push({
                 value: that.data.user.Id,
                 text: that.data.user.Name
             });
