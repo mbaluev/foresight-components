@@ -454,16 +454,27 @@ Asyst.Dashboard = function(options){
             that.data.dashboard.reload.name(name);
         }
     };
-    that.init = function(){
+    that.initAccountSettings = function(){
         if (!that.data.user.IsFunctionalAdministrator) {
             that.data.accountSettings.id = that.data.user.Id;
         } else {
+            /*
+            // временно закоментим
             that.data.accountSettings.list.push({
                 value: that.data.user.Id,
                 text: that.data.user.Name
             });
+            */
         }
+        // load accountSettins.saved
+        // надо делать
+
+        // load accountSettins.list
+        // надо делать
+    };
+    that.init = function(){
         that.loader_add();
+        that.initAccountSettings();
         that.loadItems(that.data.accountSettings.id, function(){
             that.loader_remove();
             that.data.dashboard = new Dashboard({
