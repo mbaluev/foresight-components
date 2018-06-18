@@ -480,16 +480,11 @@ Asyst.Dashboard = function(options){
                 items: that.data.items,
                 lib: that.data.lib,
                 save: function(items, accountid, option){
-                    if (accountid != that.data.accountSettings.id) {
-                        that.loadUserDashboardId(accountid, save);
-                    } else {
-                        save();
-                    }
-                    function save(){
+                    that.loadUserDashboardId(accountid, function(){
                         that.saveItems(items, accountid, function(){
                             that.data.dashboard.update_select_load(option);
                         });
-                    }
+                    });
                 },
                 load: function(accountid){
                     that.loadItems(accountid, function(){
