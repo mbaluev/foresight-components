@@ -3340,40 +3340,68 @@ body {
   border-radius: 0;
 }
 
-.button-group > [class~='button']:first-of-type {
+.button-group > .button:first-child {
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
 
-.button-group > [class~='button']:first-of-type:before {
+.button-group > .button:first-child:before {
   border-top-left-radius: 2px;
   border-bottom-left-radius: 2px;
 }
 
-.button-group > [class~='button']:last-of-type {
+.button-group > .button:last-child {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.button-group > [class~='button']:last-of-type:before {
+.button-group > .button:last-child:before {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+
+/* ------------------------------------------------- */
+
+/* --- for select first or last element in group --- */
 
 .button-group .select__container + .button,
 .button-group .button + select + .select__container {
   margin-left: -1px;
 }
 
-.button-group > :last-child > .button {
+.button-group > :first-child + .select__container > .button {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.button-group > :first-child + .select__container > .button:before {
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.button-group > :first-child + .select__container + .button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group > :first-child + .select__container + .button:before {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group > .select__container:last-child > .button {
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 
-.button-group > :last-child > .button:before {
+.button-group > .select__container:last-child > .button:before {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
 }
+
+/* --- for select first or last element in group --- */
+
+/* ------------------------------------------------- */
 
 /* override bootstrap checkbox styles */
 
