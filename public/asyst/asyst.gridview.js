@@ -265,9 +265,9 @@ Asyst.GridView = function(options){
         if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.data.gridview.data.loading = true;
         if (!that.data.params.hasOwnProperty('ViewSampleId')) {
-            params.ViewSampleId = null;
+            that.data.params.ViewSampleId = null;
         } else if (that.data.params.ViewSampleId == 'null') {
-            params.ViewSampleId = null;
+            that.data.params.ViewSampleId = null;
         }
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
