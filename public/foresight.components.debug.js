@@ -2077,10 +2077,7 @@ $(function(){
                                     ) : null
                                 ),
                                 that.data._el.popup__scroll.append(
-                                    that.data._el.popup__list.append(
-                                        (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
-                                        that.data._el.popup__list_items
-                                    )
+                                    that.data._el.popup__list
                                 )
                             )
                         );
@@ -2133,29 +2130,24 @@ $(function(){
                             $option.data(_option.data);
                             _option.popup__list_item.data(_option.data);
                         });
+                        that.data._el.popup__list.append(
+                            (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
+                            that.data._el.popup__list_items
+                        )
                     };
                     that.update = function(data){
                         that.data._el.button.find('.button__text').after(that.data._el.spinner);
                         that.clear();
+                        self.html('');
+                        that.data._options = [];
+                        that.data._el.popup__list.html('');
+                        that.data._el.popup__list_items = [];
                         data.forEach(function(item, i, arr){
                             var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
                             self.append($option);
                         });
                         that.render_popup_list();
-                        /*
-                        self.html('');
-                        that.data._options = [];
-                        that.data._el.popup__list.html('');
-                        that.data._el.popup__list_items = [];
-                        that.data._el.button.button('destroy');
-                        that.data._el.input.input('destroy');
-                        that.data._el.popup.popup('destroy');
-                        data.forEach(function(item, i, arr){
-                            var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
-                            self.append($option);
-                        });
-                        that.init();
-                        */
+                        that.bind();
                         that.data._el.spinner.remove();
                     };
                     that.get_items = function(){
