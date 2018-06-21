@@ -498,7 +498,8 @@ Asyst.GridView = function(options){
                 });
                 that.data._el.select__view_sample.select('update', options);
                 that.data._el.select__view_sample.on('change', function(){
-                    that.data.grid.saveCurrent(); // save current viewSample
+                    // save current viewSample
+                    that.data.grid.saveCurrent();
                     that.data.params.viewSampleId = $(this).val();
                     that.load_view();
                 });
@@ -562,7 +563,11 @@ Asyst.GridView = function(options){
                 value: key,
                 selected: that.data.viewname == key,
                 onclick: function(){
-                    that.data.grid.saveCurrent(); // save current viewSample
+                    // save current viewSample
+                    if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+                        Asyst.Workspace.views[that.data.viewname].isViewSampled) {
+                        that.data.grid.saveCurrent();
+                    }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
                     that.load_view();
