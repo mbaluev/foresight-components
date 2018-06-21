@@ -488,10 +488,6 @@ Asyst.GridView = function(options){
                     width: 200,
                     autoclose: true
                 });
-                that.data._el.select__view_sample.on('change', function(){
-                    that.data.params.viewSampleId = $(this).val();
-                    that.load_view();
-                });
             }
             var options = [];
             that.data.viewSamples.map(function(sample){
@@ -501,7 +497,12 @@ Asyst.GridView = function(options){
                     selected: sample.ViewSampleId == that.data.params.viewSampleId
                 });
             });
+            that.data._el.select__view_sample.off('change');
             that.data._el.select__view_sample.select('update', options);
+            that.data._el.select__view_sample.on('change', function(){
+                that.data.params.viewSampleId = $(this).val();
+                that.load_view();
+            });
         }
     };
     that.render_extFilter = function(){
