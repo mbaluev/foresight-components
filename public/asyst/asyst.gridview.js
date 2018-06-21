@@ -478,7 +478,7 @@ Asyst.GridView = function(options){
     that.render_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            if (!that.data._el.select__view_sample.data('widget')) {
+            if (typeof that.data._el.select__view_sample.data('_widget') == 'undefined') {
                 that.data.gridview.data._el.content.find('#grid__view').append(
                     that.data._el.select__view_sample
                 );
