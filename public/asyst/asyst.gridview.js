@@ -496,7 +496,7 @@ Asyst.GridView = function(options){
                 var options = [{
                     text: Globa.ViewSampleDefault.locale(),
                     value: null,
-                    selected: that.data.params.viewSampleId == null
+                    selected: typeof that.data.params.viewSampleId == 'null'
                 }];
                 that.data.viewSamples.map(function(sample){
                     if (sample.Name) {
