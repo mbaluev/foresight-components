@@ -38,7 +38,18 @@ Asyst.GridView = function(options){
     that.data = $.extend(that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
+        button_group__view_sample: $('<span class="button-group"></span>'),
         select__view_sample: $('<select class="select" data-fc="select" id="select__viewSample"></select>'),
+        button__view_sample_save: $([
+            '<button class="button" type="button">',
+            '<span class="icon icon_svg_save"></span>',
+            '</button>'
+        ].join('')),
+        button__view_sample_delete: $([
+            '<button class="button" type="button">',
+            '<span class="icon icon_svg_trash"></span>',
+            '</button>'
+        ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
@@ -487,7 +498,11 @@ Asyst.GridView = function(options){
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
             if (typeof that.data._el.select__view_sample.data('_widget') == 'undefined') {
                 that.data.gridview.data._el.content.find('#grid__view').append(
-                    that.data._el.select__view_sample
+                    that.data._el.button_group__view_sample.append(
+                        that.data._el.select__view_sample,
+                        that.data._el.button__view_sample_save,
+                        that.data._el.button__view_sample_delete
+                    )
                 );
                 that.data._el.select__view_sample.select({
                     mode: 'radio',
