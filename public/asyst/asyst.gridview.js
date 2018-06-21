@@ -163,6 +163,7 @@ Asyst.GridView = function(options){
                     }
                     that.data.viewname = metaviewSelected.viewName;
                     that.data.viewtitle = metaviewSelected.viewTitle;
+                    that.data.viewSamples = metaviewSelected.viewSamples;
                     if (!that.data.title) {
                         that.data.title = metaviewSelected.entityTitle;
                     }
@@ -474,7 +475,8 @@ Asyst.GridView = function(options){
         that.data.gridview.render_settings_popup();
     };
     that.render_viewSample = function(){
-        if (that.data.data.viewSample) {
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isViewSampled) {
             var _el = {
                 select: $('<select class="select" data-fc="select"></select>'),
                 card__header_filter: $([
@@ -512,11 +514,12 @@ Asyst.GridView = function(options){
                 placeholder: Globa.ViewSample.locale(),
                 width: 200
             });
-            var options = [], i = 0;
-            Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(sample){
+            var options = [];
+            that.data.viewSamples.map(function(sample){
                 options.push({
                     text: (sample.Name ? sample.Name : Globa.ViewSample.locale()),
-                    value: sample.ViewSampleId
+                    value: sample.ViewSampleId,
+                    selected: sample.ViewSampleId == that.data.viewSample.guid
                 });
             });
             _el.select.select('update', options).on('change', function(){
@@ -525,7 +528,8 @@ Asyst.GridView = function(options){
         }
     };
     that.render_extFilter = function(){
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             if (!that.data.params.hideFilterPanel) {
 
             }
