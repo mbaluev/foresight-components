@@ -269,11 +269,13 @@ Asyst.GridView = function(options){
         } else if (that.data.params.viewSampleId == 'null') {
             that.data.params.viewSampleId = null;
         }
+        that.data.params.view = key;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
             data: that.data.params,
             success: function(data){
                 that.data.data = data;
+                that.data.viewSamples = Asyst.Workspace.views[that.data.viewname].viewSamples;
                 that.init_settings();
                 that.render_view();
                 //that.render_settings();
@@ -581,7 +583,6 @@ Asyst.GridView = function(options){
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
-                    that.data.params.view = key;
                     that.load_view();
                 }
             });
