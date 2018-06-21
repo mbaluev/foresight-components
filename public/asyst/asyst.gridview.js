@@ -519,7 +519,7 @@ Asyst.GridView = function(options){
                 options.push({
                     text: (sample.Name ? sample.Name : Globa.ViewSampleDefault.locale()),
                     value: sample.ViewSampleId,
-                    selected: sample.Name == that.data.viewSample.name
+                    selected: sample.Name == that.data.data.viewSample.name
                 });
             });
             _el.select.select('update', options).on('change', function(){
