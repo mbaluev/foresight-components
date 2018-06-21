@@ -498,6 +498,7 @@ Asyst.GridView = function(options){
                 });
                 that.data._el.select__view_sample.select('update', options);
                 that.data._el.select__view_sample.on('change', function(){
+                    that.data.grid.saveCurrent(); // save current viewSample
                     that.data.params.viewSampleId = $(this).val();
                     that.load_view();
                 });
@@ -561,6 +562,7 @@ Asyst.GridView = function(options){
                 value: key,
                 selected: that.data.viewname == key,
                 onclick: function(){
+                    that.data.grid.saveCurrent(); // save current viewSample
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
                     that.load_view();
