@@ -117,49 +117,7 @@
                                 hidden: false
                             });
                         }
-                        self.find('option').each(function(){
-                            var $option = $(this);
-                            var _option = {};
-                            _option.defaults = {
-                                text: $option.text(),
-                                value: $option.attr('value'),
-                                selected: $option[0].hasAttribute("selected"),
-                                disabled: false,
-                                hidden: false,
-                                icon: ''
-                            };
-
-                            // render popup__list-item
-                            _option.data = $.extend(true, {}, _option.defaults, $option.data());
-                            _option.popup__list_item = $([
-                                '<li class="popup__list-item',
-                                    (_option.data.selected ? ' popup__list-item_checked' : ''),
-                                    (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
-                                    '<button class="popup__link">',
-                                        (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
-                                        '<span class="popup__text">' + _option.data.text + '</span>',
-                                    '</button>',
-                                '</li>'
-                            ].join(''));
-
-                            that.data._options.push($option);
-                            that.data._el.popup__list_items.push(_option.popup__list_item);
-
-                            // checked count of selected items
-                            if (_option.data.selected) {
-                                if (((that.data.mode == 'radio' || that.data.mode == 'radio-check') && (that.data._value.length == 0)) ||
-                                    (that.data.mode == 'check')) {
-                                    that.check_item(_option.popup__list_item, _option.data);
-                                } else {
-                                    _option.data.selected = false;
-                                    that.uncheck_item(_option.popup__list_item, _option.data);
-                                }
-                            }
-
-                            // store data to element
-                            $option.data(_option.data);
-                            _option.popup__list_item.data(_option.data);
-                        });
+                        that.render_popup_list();
                         that.data._el.select.append(
                             that.data._el.button,
                             that.data._el.popup.append(
@@ -181,8 +139,60 @@
                         self.css('display', 'none');
                         self.after(that.data._el.select);
                     };
+                    that.render_popup_list = function(){
+                        self.find('option').each(function(){
+                            var $option = $(this);
+                            var _option = {};
+                            _option.defaults = {
+                                text: $option.text(),
+                                value: $option.attr('value'),
+                                selected: $option[0].hasAttribute("selected"),
+                                disabled: false,
+                                hidden: false,
+                                icon: ''
+                            };
+
+                            // render popup__list-item
+                            _option.data = $.extend(true, {}, _option.defaults, $option.data());
+                            _option.popup__list_item = $([
+                                '<li class="popup__list-item',
+                                (_option.data.selected ? ' popup__list-item_checked' : ''),
+                                (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
+                                '<button class="popup__link">',
+                                (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
+                                '<span class="popup__text">' + _option.data.text + '</span>',
+                                '</button>',
+                                '</li>'
+                            ].join(''));
+
+                            that.data._options.push($option);
+                            that.data._el.popup__list_items.push(_option.popup__list_item);
+
+                            // checked count of selected items
+                            if (_option.data.selected) {
+                                if (((that.data.mode == 'radio' || that.data.mode == 'radio-check') && (that.data._value.length == 0)) ||
+                                    (that.data.mode == 'check')) {
+                                    that.check_item(_option.popup__list_item, _option.data);
+                                } else {
+                                    _option.data.selected = false;
+                                    that.uncheck_item(_option.popup__list_item, _option.data);
+                                }
+                            }
+
+                            // store data to element
+                            $option.data(_option.data);
+                            _option.popup__list_item.data(_option.data);
+                        });
+                    };
                     that.update = function(data){
                         that.data._el.button.find('.button__text').after(that.data._el.spinner);
+                        that.clear();
+                        data.forEach(function(item, i, arr){
+                            var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
+                            self.append($option);
+                        });
+                        that.render_popup_list();
+                        /*
                         self.html('');
                         that.data._options = [];
                         that.data._el.popup__list.html('');
@@ -194,8 +204,8 @@
                             var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
                             self.append($option);
                         });
-                        that.clear();
                         that.init();
+                        */
                         that.data._el.spinner.remove();
                     };
                     that.get_items = function(){
