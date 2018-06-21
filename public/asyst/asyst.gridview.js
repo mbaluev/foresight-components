@@ -512,7 +512,8 @@ Asyst.GridView = function(options){
             _el.select.select({
                 mode: 'radio-check',
                 placeholder: Globa.ViewSample.locale(),
-                width: 200
+                width: 200,
+                autoclose: true
             });
             var options = [];
             that.data.viewSamples.map(function(sample){
@@ -525,7 +526,8 @@ Asyst.GridView = function(options){
                 });
             });
             _el.select.select('update', options).on('change', function(){
-                console.log($(this).val());
+                that.data.params.viewSampleId = $(this).val();
+                that.load_view();
             });
         }
     };
