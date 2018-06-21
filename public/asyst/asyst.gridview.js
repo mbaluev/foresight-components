@@ -118,6 +118,9 @@ Asyst.GridView = function(options){
                         //view.IsExtFilterVisible = false; //override
                         //view.IsViewSampled = false;
                         view.IsEditable = false;
+                        view.viewSamples = viewSamples.filter(function(d){
+                            return d.viewName == view.viewName;
+                        });
 
                         if (that.data.viewname && !(that.data.viewname instanceof Array)) {
                             if (view.viewName == that.data.viewname) {
@@ -146,7 +149,7 @@ Asyst.GridView = function(options){
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
-                                viewSamples: viewSamples
+                                viewSamples: view.viewSamples
                             }, view.viewName);
                         }
                         that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
@@ -510,14 +513,15 @@ Asyst.GridView = function(options){
                 width: 200
             });
             var options = [], i = 0;
-            for (var sampleName in Asyst.Workspace.views[that.data.viewname].viewSamples) {
-                i++;
+            Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(sample){
                 options.push({
-                    text: sampleName,
-                    value: Asyst.Workspace.views[that.data.viewname].viewSamples[sampleName]
+                    text: (sample.Name ? sample.Name : Globa.ViewSample.locale()),
+                    value: sample.ViewSampleId
                 });
-            }
-            _el.select.select('update', options);
+            });
+            _el.select.select('update', options).on('change', function(){
+                console.log($(this).val());
+            });
         }
     };
     that.render_extFilter = function(){
