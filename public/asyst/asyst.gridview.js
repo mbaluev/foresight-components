@@ -100,7 +100,8 @@ Asyst.GridView = function(options){
             success: function(data){
                 if (data[0].length > 0) {
                     // get views parameters
-                    var metaview = data[0];
+                    var metaview = data[0],
+                        viewSamples = data[1];
                     if (!that.data.entityname && !(that.data.viewname instanceof Array) && that.data.viewname) {
                         metaview = metaview.filter(function(view){ return view.viewName == that.data.viewname; });
                         if (metaview.length > 0) {
@@ -115,8 +116,8 @@ Asyst.GridView = function(options){
 
                         //view.IsWideString = false; //override
                         //view.IsExtFilterVisible = false; //override
+                        //view.IsViewSampled = false;
                         view.IsEditable = false;
-                        view.IsViewSampled = false;
 
                         if (that.data.viewname && !(that.data.viewname instanceof Array)) {
                             if (view.viewName == that.data.viewname) {
@@ -145,7 +146,7 @@ Asyst.GridView = function(options){
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
-                                viewSamples: {}
+                                viewSamples: viewSamples
                             }, view.viewName);
                         }
                         that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
@@ -470,40 +471,53 @@ Asyst.GridView = function(options){
         that.data.gridview.render_settings_popup();
     };
     that.render_viewSample = function(){
-        var _el = {
-            select: $('<select class="select" data-fc="select" data-placeholder="Выборка"></select>'),
-            card__header_filter: $([
-                '<div class="card__header">',
-                '<div class="card__header-row">',
-                '<div class="card__header-column card__header-column_start" id="filter__applied"></div>',
-                '<div class="card__header-column" id="filter__buttons"></div>',
-                '</div>',
-                '</div>'
-            ].join('')),
-            button_filter_edit: $([
-                '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
-                '<span class="icon icon_svg_controls"></span>',
-                '</button>'
-            ].join('')),
-            alertbox: $([
-                '<span class="alertbox-group alertbox-group_highlighted">',
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">IndicatorId</span>',
-                '</label>',
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">равно</span>',
-                '</label>',
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">0</span>',
-                '</label>',
-                '</span>'
-            ].join('')).alertbox()
-        };
         if (that.data.data.viewSample) {
+            var _el = {
+                select: $('<select class="select" data-fc="select"></select>'),
+                card__header_filter: $([
+                    '<div class="card__header">',
+                    '<div class="card__header-row">',
+                    '<div class="card__header-column card__header-column_start" id="filter__applied"></div>',
+                    '<div class="card__header-column" id="filter__buttons"></div>',
+                    '</div>',
+                    '</div>'
+                ].join('')),
+                button_filter_edit: $([
+                    '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+                    '<span class="icon icon_svg_controls"></span>',
+                    '</button>'
+                ].join('')),
+                alertbox: $([
+                    '<span class="alertbox-group alertbox-group_highlighted">',
+                    '<label class="alertbox" data-fc="alertbox">',
+                    '<span class="alertbox__text">IndicatorId</span>',
+                    '</label>',
+                    '<label class="alertbox" data-fc="alertbox">',
+                    '<span class="alertbox__text">равно</span>',
+                    '</label>',
+                    '<label class="alertbox" data-fc="alertbox">',
+                    '<span class="alertbox__text">0</span>',
+                    '</label>',
+                    '</span>'
+                ].join('')).alertbox()
+            };
             that.data.gridview.data._el.content.find('#grid__view').append(
                 _el.select
             );
-            _el.select.select();
+            _el.select.select({
+                mode: 'radio-check',
+                placeholder: Globa.ViewSample.locale(),
+                width: 200
+            });
+            var options = [], i = 0;
+            for (var sampleName in Asyst.Workspace.views[this.viewName].viewSamples) {
+                i++;
+                options.push({
+                    text: sampleName,
+                    value: Asyst.Workspace.views[this.viewName].viewSamples[sampleName]
+                });
+            }
+            _el.select.select('update', options);
         }
     };
     that.render_extFilter = function(){
