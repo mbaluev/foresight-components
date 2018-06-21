@@ -510,11 +510,11 @@ Asyst.GridView = function(options){
                 width: 200
             });
             var options = [], i = 0;
-            for (var sampleName in Asyst.Workspace.views[that.data.viewName].viewSamples) {
+            for (var sampleName in Asyst.Workspace.views[that.data.viewname].viewSamples) {
                 i++;
                 options.push({
                     text: sampleName,
-                    value: Asyst.Workspace.views[that.data.viewName].viewSamples[sampleName]
+                    value: Asyst.Workspace.views[that.data.viewname].viewSamples[sampleName]
                 });
             }
             _el.select.select('update', options);
