@@ -38,6 +38,7 @@ Asyst.GridView = function(options){
     that.data = $.extend(that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
+        select__view_sample: $('<select class="select" data-fc="select" id="select__viewSample"></select>'),
         loader: $('<span class="spinner spinner_align_center"></span>')
     };
     that.loader_add = function(){
@@ -477,61 +478,62 @@ Asyst.GridView = function(options){
     that.render_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            var _el = {
-                select: $('<select class="select" data-fc="select"></select>'),
-                card__header_filter: $([
-                    '<div class="card__header">',
-                    '<div class="card__header-row">',
-                    '<div class="card__header-column card__header-column_start" id="filter__applied"></div>',
-                    '<div class="card__header-column" id="filter__buttons"></div>',
-                    '</div>',
-                    '</div>'
-                ].join('')),
-                button_filter_edit: $([
-                    '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
-                    '<span class="icon icon_svg_controls"></span>',
-                    '</button>'
-                ].join('')),
-                alertbox: $([
-                    '<span class="alertbox-group alertbox-group_highlighted">',
-                    '<label class="alertbox" data-fc="alertbox">',
-                    '<span class="alertbox__text">IndicatorId</span>',
-                    '</label>',
-                    '<label class="alertbox" data-fc="alertbox">',
-                    '<span class="alertbox__text">равно</span>',
-                    '</label>',
-                    '<label class="alertbox" data-fc="alertbox">',
-                    '<span class="alertbox__text">0</span>',
-                    '</label>',
-                    '</span>'
-                ].join('')).alertbox()
-            };
-            that.data.gridview.data._el.content.find('#grid__view').append(
-                _el.select
-            );
-            _el.select.select({
-                mode: 'radio-check',
-                placeholder: Globa.ViewSample.locale(),
-                width: 200,
-                autoclose: true
-            });
+            if (!that.data._el.select__view_sample.data('widget')) {
+                that.data.gridview.data._el.content.find('#grid__view').append(
+                    that.data._el.select__view_sample
+                );
+                that.data._el.select__view_sample.select({
+                    mode: 'radio-check',
+                    placeholder: Globa.ViewSample.locale(),
+                    width: 200,
+                    autoclose: true
+                });
+                that.data._el.select__view_sample.on('change', function(){
+                    that.data.params.viewSampleId = $(this).val();
+                    that.load_view();
+                });
+            }
             var options = [];
             that.data.viewSamples.map(function(sample){
                 options.push({
                     text: (sample.Name ? sample.Name : Globa.ViewSampleDefault.locale()),
                     value: sample.ViewSampleId,
-                    selected: (sample.Name == that.data.data.viewSample.name ||
-                        sample.Name == null && that.data.data.viewSample.name == "" ||
-                        sample.Name == "" && that.data.data.viewSample.name == null)
+                    selected: sample.ViewSampleId == that.data.params.viewSampleId
                 });
             });
-            _el.select.select('update', options).on('change', function(){
-                that.data.params.viewSampleId = $(this).val();
-                that.load_view();
-            });
+            that.data._el.select__view_sample.select('update', options);
         }
     };
     that.render_extFilter = function(){
+        var _el = {
+            select: $('<select class="select" data-fc="select" id="select__viewSample"></select>'),
+            card__header_filter: $([
+                '<div class="card__header">',
+                '<div class="card__header-row">',
+                '<div class="card__header-column card__header-column_start" id="filter__applied"></div>',
+                '<div class="card__header-column" id="filter__buttons"></div>',
+                '</div>',
+                '</div>'
+            ].join('')),
+            button_filter_edit: $([
+                '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+                '<span class="icon icon_svg_controls"></span>',
+                '</button>'
+            ].join('')),
+            alertbox: $([
+                '<span class="alertbox-group alertbox-group_highlighted">',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">IndicatorId</span>',
+                '</label>',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">равно</span>',
+                '</label>',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">0</span>',
+                '</label>',
+                '</span>'
+            ].join('')).alertbox()
+        };
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             if (!that.data.params.hideFilterPanel) {
