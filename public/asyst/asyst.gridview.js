@@ -500,8 +500,12 @@ Asyst.GridView = function(options){
                 that.data.gridview.data._el.content.find('#grid__view').append(
                     that.data._el.button_group__view_sample.append(
                         that.data._el.select__view_sample,
-                        that.data._el.button__view_sample_save.button().on('click', that.save_named_viewSample),
-                        that.data._el.button__view_sample_delete.button().on('click', that.delete_named_viewSample)
+                        that.data._el.button__view_sample_save.button({
+                            disabled: true
+                        }).on('click', that.save_named_viewSample),
+                        that.data._el.button__view_sample_delete.button({
+                            disabled: true
+                        }).on('click', that.delete_named_viewSample)
                     )
                 );
                 that.data._el.select__view_sample.select({
@@ -532,6 +536,8 @@ Asyst.GridView = function(options){
             });
             that.data._el.select__view_sample.select('update', options);
             that.data._el.select__view_sample.select('enable');
+            that.data._el.button__view_sample_save.button('enable');
+            that.data._el.button__view_sample_delete.select('enable');
         }
     };
     that.render_extFilter = function(){
@@ -604,6 +610,8 @@ Asyst.GridView = function(options){
                         that.data.grid.saveCurrent();
                         that.data.params.viewSampleId = undefined;
                         that.data._el.select__view_sample.select('disable');
+                        that.data._el.button__view_sample_save.button('disable');
+                        that.data._el.button__view_sample_delete.select('disable');
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
