@@ -508,28 +508,30 @@ Asyst.GridView = function(options){
                     mode: 'radio',
                     placeholder: Globa.ViewSample.locale(),
                     width: 200,
-                    autoclose: true
+                    autoclose: true,
+                    disabled: true
                 });
-                var options = [{
-                    text: Globa.ViewSampleDefault.locale(),
-                    value: null,
-                    selected: typeof that.data.params.viewSampleId == 'object' && that.data.params.viewSampleId == null
-                }];
-                that.data.viewSamples.map(function(sample){
-                    if (sample.Name) {
-                        options.push({
-                            text: sample.Name,
-                            value: sample.ViewSampleId,
-                            selected: sample.ViewSampleId == that.data.params.viewSampleId
-                        });
-                    }
-                });
-                that.data._el.select__view_sample.select('update', options);
                 that.data._el.select__view_sample.on('change', function(){
                     that.data.params.viewSampleId = $(this).val();
                     that.load_view();
                 });
             }
+            var options = [{
+                text: Globa.ViewSampleDefault.locale(),
+                value: null,
+                selected: typeof that.data.params.viewSampleId == 'object' && that.data.params.viewSampleId == null
+            }];
+            that.data.viewSamples.map(function(sample){
+                if (sample.Name) {
+                    options.push({
+                        text: sample.Name,
+                        value: sample.ViewSampleId,
+                        selected: sample.ViewSampleId == that.data.params.viewSampleId
+                    });
+                }
+            });
+            that.data._el.select__view_sample.select('update', options);
+            that.data._el.select__view_sample.select('enable');
         }
     };
     that.render_extFilter = function(){
@@ -601,7 +603,7 @@ Asyst.GridView = function(options){
                         Asyst.Workspace.views[that.data.viewname].isViewSampled) {
                         that.data.grid.saveCurrent();
                         that.data.params.viewSampleId = undefined;
-                        that.data._el.select__view_sample.select('destroy');
+                        that.data._el.select__view_sample.select('disable');
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;

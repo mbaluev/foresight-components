@@ -2166,7 +2166,9 @@ $(function(){
                     that.clear = function(){
                         that.data._value = [];
                         that.uncheck_all();
-                        self.trigger('change');
+                        if (!that.data.disabled) {
+                            self.trigger('change');
+                        }
                     };
 
                     that.focusin = function(){
@@ -2315,7 +2317,9 @@ $(function(){
                             }
                         });
                         if (_trigger) {
-                            self.trigger('change');
+                            if (!that.data.disabled) {
+                                self.trigger('change');
+                            }
                         }
                         that.highlight();
                     };
@@ -2330,7 +2334,9 @@ $(function(){
                             }
                         });
                         if (_trigger) {
-                            self.trigger('change');
+                            if (!that.data.disabled) {
+                                self.trigger('change');
+                            }
                         }
                         that.highlight();
                     };
@@ -2392,7 +2398,9 @@ $(function(){
                                     if (that.data.highlight) {
                                         that.highlight();
                                     }
-                                    self.trigger('change');
+                                    if (!that.data.disabled) {
+                                        self.trigger('change');
+                                    }
                                 });
                             }
                         });
@@ -2418,7 +2426,9 @@ $(function(){
                                 if (that.data.highlight) {
                                     that.highlight();
                                 }
-                                self.trigger('change');
+                                if (!that.data.disabled) {
+                                    self.trigger('change');
+                                }
                             });
                         }
                     };
