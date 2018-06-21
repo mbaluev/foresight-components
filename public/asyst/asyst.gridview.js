@@ -493,13 +493,19 @@ Asyst.GridView = function(options){
                     width: 200,
                     autoclose: true
                 });
-                var options = [];
+                var options = [{
+                    text: Globa.ViewSampleDefault.locale(),
+                    value: null,
+                    selected: that.data.params.viewSampleId == null
+                }];
                 that.data.viewSamples.map(function(sample){
-                    options.push({
-                        text: (sample.Name ? sample.Name : Globa.ViewSampleDefault.locale()),
-                        value: (sample.Name ? sample.ViewSampleId : null),
-                        selected: sample.ViewSampleId == that.data.params.viewSampleId
-                    });
+                    if (sample.Name) {
+                        options.push({
+                            text: sample.Name,
+                            value: sample.ViewSampleId,
+                            selected: sample.ViewSampleId == that.data.params.viewSampleId
+                        });
+                    }
                 });
                 that.data._el.select__view_sample.select('update', options);
                 that.data._el.select__view_sample.on('change', function(){
