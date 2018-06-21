@@ -264,8 +264,8 @@ Asyst.GridView = function(options){
         that.loader_add();
         if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.data.gridview.data.loading = true;
-        if (!that.data.params.hasOwnProperty('viewSampleId')) {
-            that.data.params.viewSampleId = that.data.params.viewSampleId;
+        if (typeof that.data.params.viewSampleId == 'undefined') {
+            that.data.params.viewSampleId = undefined;
         } else if (that.data.params.viewSampleId == 'null') {
             that.data.params.viewSampleId = null;
         }
@@ -497,14 +497,12 @@ Asyst.GridView = function(options){
                 that.data.viewSamples.map(function(sample){
                     options.push({
                         text: (sample.Name ? sample.Name : Globa.ViewSampleDefault.locale()),
-                        value: sample.ViewSampleId,
+                        value: (sample.Name ? sample.ViewSampleId : null),
                         selected: sample.ViewSampleId == that.data.params.viewSampleId
                     });
                 });
                 that.data._el.select__view_sample.select('update', options);
                 that.data._el.select__view_sample.on('change', function(){
-                    // save current viewSample
-                    that.data.grid.saveCurrent();
                     that.data.params.viewSampleId = $(this).val();
                     that.load_view();
                 });
@@ -572,7 +570,7 @@ Asyst.GridView = function(options){
                     if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
                         Asyst.Workspace.views[that.data.viewname].isViewSampled) {
                         that.data.grid.saveCurrent();
-                        that.data.params.viewSampleId = null;
+                        that.data.params.viewSampleId = undefined;
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
