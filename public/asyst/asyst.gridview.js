@@ -517,6 +517,9 @@ Asyst.GridView = function(options){
                 });
                 that.data._el.select__view_sample.on('change', function(){
                     that.data.params.viewSampleId = $(this).val();
+                    that.data._el.select__view_sample.select('disable');
+                    that.data._el.button__view_sample_save.button('disable');
+                    that.data._el.button__view_sample_delete.button('disable');
                     that.load_view();
                 });
             }
@@ -537,7 +540,7 @@ Asyst.GridView = function(options){
             that.data._el.select__view_sample.select('update', options);
             that.data._el.select__view_sample.select('enable');
             that.data._el.button__view_sample_save.button('enable');
-            that.data._el.button__view_sample_delete.select('enable');
+            that.data._el.button__view_sample_delete.button('enable');
         }
     };
     that.render_extFilter = function(){
@@ -611,7 +614,7 @@ Asyst.GridView = function(options){
                         that.data.params.viewSampleId = undefined;
                         that.data._el.select__view_sample.select('disable');
                         that.data._el.button__view_sample_save.button('disable');
-                        that.data._el.button__view_sample_delete.select('disable');
+                        that.data._el.button__view_sample_delete.button('disable');
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
