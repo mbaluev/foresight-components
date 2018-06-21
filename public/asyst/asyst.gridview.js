@@ -581,6 +581,7 @@ Asyst.GridView = function(options){
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
+                    that.data.params.view = key;
                     that.load_view();
                 }
             });
