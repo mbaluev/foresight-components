@@ -577,6 +577,7 @@ Asyst.GridView = function(options){
                         Asyst.Workspace.views[that.data.viewname].isViewSampled) {
                         that.data.grid.saveCurrent();
                         that.data.params.viewSampleId = undefined;
+                        that.data._el.select__view_sample.select('uncheck_all');
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
