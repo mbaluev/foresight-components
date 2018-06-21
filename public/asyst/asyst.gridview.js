@@ -278,9 +278,9 @@ Asyst.GridView = function(options){
                 that.data.viewSamples = Asyst.Workspace.views[that.data.viewname].viewSamples;
                 that.init_settings();
                 that.render_view();
-                //that.render_settings();
                 that.render_viewSample();
                 that.render_extFilter();
+                //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
@@ -490,7 +490,7 @@ Asyst.GridView = function(options){
                     that.data._el.select__view_sample
                 );
                 that.data._el.select__view_sample.select({
-                    mode: 'radio-check',
+                    mode: 'radio',
                     placeholder: Globa.ViewSample.locale(),
                     width: 200,
                     autoclose: true
