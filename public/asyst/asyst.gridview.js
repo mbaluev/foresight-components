@@ -517,9 +517,9 @@ Asyst.GridView = function(options){
             var options = [];
             that.data.viewSamples.map(function(sample){
                 options.push({
-                    text: (sample.Name ? sample.Name : Globa.ViewSample.locale()),
+                    text: (sample.Name ? sample.Name : Globa.ViewSampleDefault.locale()),
                     value: sample.ViewSampleId,
-                    selected: sample.ViewSampleId == that.data.viewSample.guid
+                    selected: sample.Name.trim().toLowerCase() == that.data.viewSample.name.trim().toLowerCase()
                 });
             });
             _el.select.select('update', options).on('change', function(){
