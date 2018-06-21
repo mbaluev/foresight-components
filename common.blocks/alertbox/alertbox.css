@@ -100,3 +100,13 @@
     left: 0;
     background: #58c9f3;
 }
+
+.alertbox_highlighted {
+    background: #63c163;
+}
+.alertbox_highlighted:before {
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+}

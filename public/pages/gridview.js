@@ -398,7 +398,7 @@ var GridView3 = function(options){
         button_toggle_left: $([
             '<button class="button" type="button" data-fc="button" data-toggle="left">',
             '<span class="icon icon_svg_double_right"></span>',
-            '</button>',
+            '</button>'
         ].join('')),
         name: $([
             '<label class="card__name">',
@@ -423,21 +423,20 @@ var GridView3 = function(options){
         container: $('<div class="grid"></div>'),
         content: $([
             '<div class="card">',
-            '<div class="card__header">',
-            '<div class="card__header-row">',
-            '<div class="card__header-column card__header-column_start" id="grid__view"></div>',
-            '<div class="card__header-column" id="grid__actions"></div>',
-            '</div>',
-            '</div>',
-            '<div class="card__main">',
-                '<div class="card__left">',
-                '<div class="menu menu_color_light" data-fc="menu"> ',
+                '<div class="card__header">',
+                    '<div class="card__header-row">',
+                        '<div class="card__header-column card__header-column_start" id="grid__view"></div>',
+                        '<div class="card__header-column" id="grid__actions"></div>',
+                    '</div>',
                 '</div>',
+                '<div class="card__main">',
+                    '<div class="card__left">',
+                        '<div class="menu menu_color_light" data-fc="menu"></div>',
+                    '</div>',
+                    '<div class="card__middle">',
+                        '<div class="card__middle-scroll" id="grid__container"></div>',
+                    '</div>',
                 '</div>',
-            '<div class="card__middle">',
-            '<div class="card__middle-scroll" id="grid__container"></div>',
-            '</div>',
-            '</div>',
             '</div>'
         ].join('')),
         loader: $('<span class="spinner spinner_align_center"></span>')

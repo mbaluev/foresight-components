@@ -3938,6 +3938,17 @@ body {
   background: #58c9f3;
 }
 
+.alertbox_highlighted {
+  background: #63c163;
+}
+
+.alertbox_highlighted:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
 .alertbox-group {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -3975,6 +3986,23 @@ body {
 .alertbox-group .alertbox:last-child:before {
   border-top-right-radius: 2px;
   border-bottom-right-radius: 2px;
+}
+
+.alertbox-group_highlighted .alertbox {
+  background: #63c163;
+}
+
+.alertbox-group_highlighted .alertbox:before {
+  top: 2px;
+  bottom: 2px;
+}
+
+.alertbox-group_highlighted .alertbox:first-child:before {
+  left: 2px;
+}
+
+.alertbox-group_highlighted .alertbox:last-child:before {
+  right: 2px;
 }
 
 .input {

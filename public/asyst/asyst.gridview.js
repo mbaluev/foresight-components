@@ -266,6 +266,8 @@ Asyst.GridView = function(options){
                 that.init_settings();
                 that.render_view();
                 //that.render_settings();
+                that.render_viewSample();
+                that.render_extFilter();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
@@ -313,8 +315,11 @@ Asyst.GridView = function(options){
         };
 
         //todo replace
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].hasOwnProperty('preprocessFunction'))
+        if (Asyst.Workspace.views &&
+            Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].hasOwnProperty('preprocessFunction')) {
             Asyst.Workspace.views[that.data.viewname].preprocessFunction(viewEl, data.data, data.columns, options, data.groups);
+        }
 
         if (data.EditFormName) {
             viewEl.css("overflow", "hidden");
@@ -366,27 +371,35 @@ Asyst.GridView = function(options){
         // --------------------
         // было закоментировано
 
-        if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable)
+        /*
+        if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable) {
             $('#menuItemAdd').hide();
-        else
+        } else {
             $('#menuItemAdd').show();
+        }
+        */
 
-        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible)
+        // перенесено в that.render_extFilter
+        /*
+        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible) {
             $('.ext-filter-menu').show();
-        else
+        } else {
             $('.ext-filter-menu').hide();
+        }
+        */
 
         //$('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
         //$('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
             window[viewName].CollapseAllGroups();
         }
-
-        if (that.data.params.hasOwnProperty("ExpandGroup"))
-            if (that.data.params.ExpandGroup == "true")
+        if (that.data.params.hasOwnProperty("ExpandGroup")) {
+            if (that.data.params.ExpandGroup == "true") {
                 view.ExpandAllGroups();
-            else
+            } else {
                 view.CollapseAllGroups();
+            }
+        }
 
         var needInvalidate = false;
 
@@ -396,16 +409,16 @@ Asyst.GridView = function(options){
             view.DataView.setFilterArgs(filterArgs);
             view.DataView.refresh();
             needInvalidate = true;
-            //$('#BrowseSearchGroup').hide();
+            /*
             if (!that.data.params.hideFilterPanel)
                 MakeFilterLine(filterArgs);
             ToggleClearFilterButton(true);
+            */
         } else {
             view.QuickFilterClear();
-            ToggleClearFilterButton(false);
+            //ToggleClearFilterButton(false);
             !(!!data.EditFormName) && Grid.ClearExtFilter(view);
         }
-
         if (filterArgs && filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
             $('#BrowseSearch').val(filterArgs.searchString);
             view.UpdateQuickFilter(filterArgs.searchString);
@@ -423,14 +436,19 @@ Asyst.GridView = function(options){
             needInvalidate = true;
         }
 
-        //восстанавливаем меню.
-        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName])
+        // восстанавливаем меню.
+        // перенесено в that.render_viewSample
+        /*
+        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName]) {
             $('#viewSelectBtn').text(Asyst.Workspace.views[viewName].title);
-        if (data.viewSample && data.viewSample.name != "")
+        }
+        if (data.viewSample && data.viewSample.name != "") {
             $('#viewSampleSelectBtn').text(data.viewSample.name);
-        else
+        } else {
             $('#viewSampleSelectBtn').text(Globa.ViewSample.locale());
+        }
         view.viewSampleMenuRebuild();
+        */
 
         if (needInvalidate) {
             view.Grid.invalidate();
@@ -450,6 +468,50 @@ Asyst.GridView = function(options){
     that.render_settings = function(){
         that.data.gridview.data.header.settings = that.data.header.settings;
         that.data.gridview.render_settings_popup();
+    };
+    that.render_viewSample = function(){
+        var _el = {
+            select: $('<select class="select" data-fc="select" data-placeholder="Выборка"></select>'),
+            card__header_filter: $([
+                '<div class="card__header">',
+                '<div class="card__header-row">',
+                '<div class="card__header-column card__header-column_start" id="filter__applied"></div>',
+                '<div class="card__header-column" id="filter__buttons"></div>',
+                '</div>',
+                '</div>'
+            ].join('')),
+            button_filter_edit: $([
+                '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+                '<span class="icon icon_svg_controls"></span>',
+                '</button>'
+            ].join('')),
+            alertbox: $([
+                '<span class="alertbox-group alertbox-group_highlighted">',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">IndicatorId</span>',
+                '</label>',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">равно</span>',
+                '</label>',
+                '<label class="alertbox" data-fc="alertbox">',
+                '<span class="alertbox__text">0</span>',
+                '</label>',
+                '</span>'
+            ].join('')).alertbox()
+        };
+        if (that.data.data.viewSample) {
+            that.data.gridview.data._el.content.find('#grid__view').append(
+                _el.select
+            );
+            _el.select.select();
+        }
+    };
+    that.render_extFilter = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            if (!that.data.params.hideFilterPanel) {
+
+            }
+        }
     };
 
     that.store_to_window = function(){
@@ -531,15 +593,6 @@ Asyst.GridView = function(options){
                 that.data.grid.CollapseAllGroups();
             }
         });
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            that.data.header.settings.push({
-                icon: 'icon_svg_search',
-                name: 'Расширенный фильтр',
-                onclick: function(){
-                    that.data.grid.ExtendFilter();
-                }
-            });
-        }
         if (that.data.isExport) {
             that.data.header.settings.push({
                 icon: 'icon_svg_export',

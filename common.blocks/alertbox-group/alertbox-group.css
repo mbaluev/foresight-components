@@ -11,3 +11,8 @@
 .alertbox-group .alertbox:first-child:before { border-top-left-radius: 2px; border-bottom-left-radius: 2px; }
 .alertbox-group .alertbox:last-child { border-top-right-radius: 3px; border-bottom-right-radius: 3px; }
 .alertbox-group .alertbox:last-child:before { border-top-right-radius: 2px; border-bottom-right-radius: 2px; }
+
+.alertbox-group_highlighted .alertbox { background: #63c163; }
+.alertbox-group_highlighted .alertbox:before { top: 2px; bottom: 2px; }
+.alertbox-group_highlighted .alertbox:first-child:before { left: 2px; }
+.alertbox-group_highlighted .alertbox:last-child:before { right: 2px; }

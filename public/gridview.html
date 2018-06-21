@@ -212,6 +212,7 @@
     <script src="third/slickgrid/slick.grid.js"></script>
 
     <script>
+        var gridview;
         $(function(){
             var project = {
                 "EntityId":"46caa4ad-02b8-4d70-a1db-196bab860742",
@@ -1144,9 +1145,9 @@
                     }
                 ]
             };
-            var gridViewClassName = 'GridView4';
+            var gridViewClassName = 'GridView3';
             var gridViewClass = (window || this)[gridViewClassName];
-            var gridview = new gridViewClass({
+            gridview = new gridViewClass({
                 containerid: 'container',
                 title: 'Проекты',
                 header: {
@@ -1230,7 +1231,7 @@
             function render_grid(){
                 var viewName = 'MyProjects';
                 var params = $.extend(splitGETString(), { viewSampleId: null });
-                load(project);
+                //load(project);
                 function load(data){
 
                     var filterArgs = filterDataByGET(data, data.columns);
