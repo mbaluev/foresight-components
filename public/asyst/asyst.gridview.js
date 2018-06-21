@@ -500,8 +500,8 @@ Asyst.GridView = function(options){
                 that.data.gridview.data._el.content.find('#grid__view').append(
                     that.data._el.button_group__view_sample.append(
                         that.data._el.select__view_sample,
-                        that.data._el.button__view_sample_save,
-                        that.data._el.button__view_sample_delete
+                        that.data._el.button__view_sample_save.button().on('click', that.save_named_viewSample),
+                        that.data._el.button__view_sample_delete.button().on('click', that.delete_named_viewSample)
                     )
                 );
                 that.data._el.select__view_sample.select({
@@ -568,6 +568,13 @@ Asyst.GridView = function(options){
 
             }
         }
+    };
+
+    that.save_named_viewSample = function(){
+        console.log('save');
+    };
+    that.delete_named_viewSample = function(){
+        console.log('delete');
     };
 
     that.store_to_window = function(){
