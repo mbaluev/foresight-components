@@ -797,7 +797,12 @@ Asyst.GridView = function(options){
                         that.data.filter.rendered = false;
                     }
                 }
+                // that.show_extFilter
+            } else {
+                // that.hide_extFilter
             }
+        } else {
+            that.data.gridview.data._el.content.children('.card__header').find('#filter__hide').button('hide');
         }
         $(window).trigger('resize');
     };
@@ -915,6 +920,7 @@ Asyst.GridView = function(options){
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
                     $(this).find('.icon').toggleClass('icon_rotate_180deg');
+                    // that.toggle_extFilter
                 }
             });
         }
