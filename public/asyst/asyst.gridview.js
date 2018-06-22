@@ -728,7 +728,7 @@ Asyst.GridView = function(options){
                         '</div>',
                         '</div>',
                         '<div class="control__container">',
-                        that.data._el.select__view_sample[0].outerHTML,
+                        that.data._el.select__view_sample.clone().attr('data-required', true)[0].outerHTML,
                         '</div>',
                         '</div>',
                         '</div>'
