@@ -553,6 +553,16 @@ Asyst.GridView = function(options){
                             );
                         });
                     }
+                } else {
+                    if (that.data.filter.rendered) {
+                        that.data._el.card__header_filter.find('#filter__applied').html('');
+                        that.data._el.card__header_filter.find('#filter__buttons').html('');
+                        that.data._el.card__header_filter.remove();
+                        that.data._el.button_filter_edit.button('destroy');
+                        that.data._el.button_filter_clear.button('destroy');
+                        that.data._el.button_filter_hide.button('destroy');
+                        that.data.filter.rendered = false;
+                    }
                 }
             }
         }
