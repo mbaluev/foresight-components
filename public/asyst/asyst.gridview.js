@@ -767,12 +767,13 @@ Asyst.GridView = function(options){
                             data: { viewSampleId: viewSampleId },
                             async: false,
                             success: function () {
-                                Asyst.Workspace.views[that.data.viewname].viewSamples =
-                                    Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(v){
-                                        if (v.ViewSampleId != viewSampleId) {
-                                            return v;
-                                        }
-                                    });
+                                var viewSamples = [];
+                                Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(v){
+                                    if (v.ViewSampleId != viewSampleId) {
+                                        viewSamples.push(v);
+                                    }
+                                });
+                                Asyst.Workspace.views[that.data.viewname].viewSamples = viewSamples;
                                 if (that.data.params.viewSampleId == viewSampleId) {
                                     that.data.params.viewSampleId = null;
                                 }
