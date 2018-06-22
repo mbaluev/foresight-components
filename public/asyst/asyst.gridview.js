@@ -37,7 +37,8 @@ Asyst.GridView = function(options){
         filter: {
             filterArgs: [],
             rendered: false,
-            hidden: false
+            hidden: false,
+            buttonId: 'filter__hide'
         }
     };
     that.data = $.extend(that.data, options);
@@ -769,30 +770,11 @@ Asyst.GridView = function(options){
                         );
                         that.data.filter.rendered = true;
                     }
-                    that.data._el.card__header_filter.find('#filter__applied').html('');
-                    that.data.filter.filterArgs.filterItems.map(function(d){
-                        that.data._el.card__header_filter.find('#filter__applied').append(
-                            that.data._el.alertbox_group.clone().append(
-                                that.data._el.alertbox.clone().append(
-                                    that.data._el.alertbox__text.clone().text(d.column)
-                                ).alertbox(),
-                                that.data._el.alertbox.clone().append(
-                                    that.data._el.alertbox__text.clone().text(d.oper)
-                                ).alertbox(),
-                                that.data._el.alertbox.clone().append(
-                                    that.data._el.alertbox__text.clone().text(d.value)
-                                ).alertbox()
-                            )
-                        );
-                    });
+                    that.render_set_extFilter();
                 }
             } else {
                 if (that.data.filter.rendered) {
-                    that.data._el.card__header_filter.find('#filter__applied').html('');
-                    that.data._el.card__header_filter.find('#filter__buttons').html('');
-                    that.data._el.card__header_filter.remove();
-                    that.data._el.button_filter_edit.button('destroy');
-                    that.data._el.button_filter_clear.button('destroy');
+                    that.render_remove_extFilter();
                     that.data.filter.rendered = false;
                 }
             }
@@ -816,6 +798,36 @@ Asyst.GridView = function(options){
         } else {
             that.hide_extFilter();
         }
+    };
+    that.render_set_extFilter = function(){
+        that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).addClass('button_highlighted');
+        that.data._el.card__header_filter.find('#filter__applied').html('');
+        that.data.filter.filterArgs.filterItems.map(function(d){
+            that.data._el.card__header_filter.find('#filter__applied').append(
+                that.data._el.alertbox_group.clone().append(
+                    that.data._el.alertbox.clone().append(
+                        that.data._el.alertbox__text.clone().text(d.column)
+                    ).alertbox(),
+                    that.data._el.alertbox.clone().append(
+                        that.data._el.alertbox__text.clone().text(d.oper)
+                    ).alertbox(),
+                    that.data._el.alertbox.clone().append(
+                        that.data._el.alertbox__text.clone().text(d.value)
+                    ).alertbox()
+                )
+            );
+        });
+    };
+    that.render_clear_extFilter = function(){
+        that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).removeClass('button_highlighted');
+        that.data._el.card__header_filter.find('#filter__applied').html('');
+    };
+    that.render_remove_extFilter = function(){
+        that.render_clear_extFilter();
+        that.data._el.card__header_filter.find('#filter__buttons').html('');
+        that.data._el.card__header_filter.remove();
+        that.data._el.button_filter_edit.button('destroy');
+        that.data._el.button_filter_clear.button('destroy');
     };
 
     that.store_to_window = function(){
@@ -926,7 +938,7 @@ Asyst.GridView = function(options){
         }
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             that.data.header.settings.push({
-                id: 'filter__hide',
+                id: that.data.filter.buttonId,
                 icon: 'icon_svg_up_fill icon_animate',
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
