@@ -842,7 +842,9 @@ Asyst.GridView = function(options){
     that.set_extFilter = function(){
         that.render_set_extFilter();
     };
-    that.edit_extFilter = function(){};
+    that.edit_extFilter = function(){
+        that.set_extFilter();
+    };
     that.clear_extFilter = function(){
         that.render_clear_extFilter();
     };
