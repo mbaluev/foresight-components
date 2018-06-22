@@ -2364,15 +2364,15 @@ $(function(){
                         if (that.data.required) {
                             if (!that.get_value()) {
                                 that.data.validate = false;
-                                that.data._el.select.addClass('select_has-error');
-                                if (self.parent().find('.control__error').length == 0) {
-                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
+                                that.data._el.select.addClass('select__has-error');
+                                if (that.data._el.select.parent().find('.control__error').length == 0) {
+                                    that.data._el.select.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
                                 }
                             } else {
                                 that.data.validate = true;
-                                self.removeClass('select_has-error');
-                                if (self.parent().find('.control__error').length != 0) {
-                                    self.parent().find('.control__error').remove();
+                                that.data._el.select.removeClass('select__has-error');
+                                if (that.data._el.select.parent().find('.control__error').length != 0) {
+                                    that.data._el.select.parent().find('.control__error').remove();
                                 }
                             }
                         }
