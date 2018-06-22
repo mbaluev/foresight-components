@@ -566,6 +566,7 @@ Asyst.GridView = function(options){
                 }
             }
         }
+        $(window).trigger('resize');
     };
 
     that.update_viewSampleSelect = function(){
