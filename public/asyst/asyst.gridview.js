@@ -518,11 +518,8 @@ Asyst.GridView = function(options){
                 '</button>'
             ].join('')),
             alertbox_group: $('<span class="alertbox-group alertbox-group_highlighted"></span>'),
-            alertbox: $([
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text"></span>',
-                '</label>'
-            ].join('')).alertbox()
+            alertbox: $('<label class="alertbox" data-fc="alertbox"></label>'),
+            alertbox__text: $('<span class="alertbox__text"></span>')
         };
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
@@ -544,9 +541,11 @@ Asyst.GridView = function(options){
                         that.data.filter.filterArgs.filterItems.map(function(d){
                             _el.card__header_filter.find('#filter__applied').append(
                                 _el.alertbox_group.clone().append(
-                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.column),
-                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.oper),
-                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.value)
+                                    _el.alertbox.clone().append(
+                                        _el.alertbox__text.clone().text(d.column),
+                                        _el.alertbox__text.clone().text(d.oper),
+                                        _el.alertbox__text.clone().text(d.value)
+                                    ).alertbox()
                                 )
                             );
                         });
