@@ -778,7 +778,7 @@ Asyst.GridView = function(options){
                     that.data.filter.rendered = false;
                 }
             }
-            if (that.data.params.hideFilterPanel) {
+            if (that.data.params.hideFilterPanel || that.data.filter.hidden) {
                 that.hide_extFilter();
             }
         }
@@ -788,14 +788,14 @@ Asyst.GridView = function(options){
         that.data._el.card__header_filter.addClass('hidden');
         that.data.filter.hidden = true;
         if (typeof setCookie == 'function') {
-            that.data.filter.hidden = setCookie('register_ext_filter_hidden', true);
+            setCookie('register_ext_filter_hidden', true);
         }
     };
     that.show_extFilter = function(){
         that.data._el.card__header_filter.removeClass('hidden');
         that.data.filter.hidden = false;
         if (typeof setCookie == 'function') {
-            that.data.filter.hidden = setCookie('register_ext_filter_hidden', false);
+            setCookie('register_ext_filter_hidden', false);
         }
     };
     that.toggle_extFilter = function(){
