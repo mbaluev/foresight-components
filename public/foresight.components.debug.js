@@ -6934,6 +6934,11 @@ $(function(){
                                 that.data.validate = false;
                             }
                         });
+                        that.data._el.selects.each(function(){
+                            if (!$(this).select('validate')) {
+                                that.data.validate = false;
+                            }
+                        });
                         return that.data.validate;
                     };
                     that.bind = function(){
