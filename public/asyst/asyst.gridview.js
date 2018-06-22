@@ -910,6 +910,7 @@ Asyst.GridView = function(options){
         }
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             that.data.header.settings.push({
+                id: 'filter__hide',
                 icon: 'icon_svg_up_fill icon_animate',
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){

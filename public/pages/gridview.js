@@ -492,7 +492,8 @@ var GridView3 = function(options){
     that.render_buttons = function(){
         that.data.header.settings.forEach(function(item){
             var $button = $([
-                '<button class="button" type="button" data-fc="button" data-tooltip="' + item.name + '">',
+                '<button class="button" type="button" data-fc="button"' + (item.id ? ' id="' + item.id + '"' : ''),
+                ' data-tooltip="' + item.name + '">',
                 '<span class="icon ' + item.icon + '"></span>',
                 '</button>'
             ].join(''));
