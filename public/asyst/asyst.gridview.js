@@ -762,8 +762,8 @@ Asyst.GridView = function(options){
                 if (that.data.filter.filterArgs.filterItems) {
                     if (!that.data.filter.rendered) {
                         that.data._el.card__header_filter.find('#filter__buttons').append(
-                            that.data._el.button_filter_edit.button(),
-                            that.data._el.button_filter_clear.button()
+                            that.data._el.button_filter_edit.button().on('click', that.edit_extFilter),
+                            that.data._el.button_filter_clear.button().on('click', that.clear_extFilter)
                         );
                         that.data.gridview.data._el.content.children('.card__header').after(
                             that.data._el.card__header_filter
@@ -787,10 +787,16 @@ Asyst.GridView = function(options){
     that.hide_extFilter = function(){
         that.data._el.card__header_filter.addClass('hidden');
         that.data.filter.hidden = true;
+        if (typeof setCookie == 'function') {
+            that.data.filter.hidden = setCookie('register_ext_filter_hidden', true);
+        }
     };
     that.show_extFilter = function(){
         that.data._el.card__header_filter.removeClass('hidden');
         that.data.filter.hidden = false;
+        if (typeof setCookie == 'function') {
+            that.data.filter.hidden = setCookie('register_ext_filter_hidden', false);
+        }
     };
     that.toggle_extFilter = function(){
         if (that.data.filter.hidden) {
@@ -828,6 +834,13 @@ Asyst.GridView = function(options){
         that.data._el.card__header_filter.remove();
         that.data._el.button_filter_edit.button('destroy');
         that.data._el.button_filter_clear.button('destroy');
+    };
+    that.set_extFilter = function(){
+        that.render_set_extFilter();
+    };
+    that.edit_extFilter = function(){};
+    that.clear_extFilter = function(){
+        that.render_clear_extFilter();
     };
 
     that.store_to_window = function(){
