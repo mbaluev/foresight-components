@@ -785,6 +785,7 @@ Asyst.GridView = function(options){
         $(window).trigger('resize');
     };
     that.hide_extFilter = function(){
+        that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).addClass('icon_rotate_180deg');
         that.data._el.card__header_filter.addClass('hidden');
         that.data.filter.hidden = true;
         if (typeof setCookie == 'function') {
@@ -792,6 +793,7 @@ Asyst.GridView = function(options){
         }
     };
     that.show_extFilter = function(){
+        that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).removeClass('icon_rotate_180deg');
         that.data._el.card__header_filter.removeClass('hidden');
         that.data.filter.hidden = false;
         if (typeof setCookie == 'function') {
@@ -955,7 +957,6 @@ Asyst.GridView = function(options){
                 icon: 'icon_svg_up_fill icon_animate',
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
-                    $(this).find('.icon').toggleClass('icon_rotate_180deg');
                     that.toggle_extFilter();
                 }
             });
