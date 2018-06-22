@@ -289,16 +289,16 @@ Asyst.GridView = function(options){
                 that.render_extFilter();
                 //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
-                that.data.gridview.data.loading = false;
                 that.enable_viewSample();
+                that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
             error: function(data){
+                console.error('error. Asyst.APIv2.View.load');
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
-                console.log(data);
             }
         });
     };
@@ -576,7 +576,7 @@ Asyst.GridView = function(options){
     that.disable_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            if (that.data._el.select__view_sample.data('_widget') == 'select') {
+            if (typeof that.data._el.select__view_sample.data('_widget') != 'undefined') {
                 that.data._el.select__view_sample.select('disable');
                 that.data._el.button__view_sample_save.button('disable');
                 that.data._el.button__view_sample_delete.button('disable');
@@ -592,7 +592,7 @@ Asyst.GridView = function(options){
     that.enable_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            if (that.data._el.select__view_sample.data('_widget') == 'select') {
+            if (typeof that.data._el.select__view_sample.data('_widget') != 'undefined') {
                 that.data._el.select__view_sample.select('enable');
                 that.data._el.button__view_sample_save.button('enable');
                 that.data._el.button__view_sample_delete.button('enable');
