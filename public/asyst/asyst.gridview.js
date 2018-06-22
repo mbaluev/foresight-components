@@ -758,29 +758,33 @@ Asyst.GridView = function(options){
     that.render_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            if (!that.data.filter.rendered) {
+                that.data._el.card__header_filter.find('#filter__buttons').append(
+                    that.data._el.button_filter_edit.button().on('click', that.edit_extFilter),
+                    that.data._el.button_filter_clear.button().on('click', that.clear_extFilter)
+                );
+                that.data.gridview.data._el.content.children('.card__header').after(
+                    that.data._el.card__header_filter
+                );
+                that.data.filter.rendered = true;
+            }
             if (that.data.filter.filterArgs) {
                 if (that.data.filter.filterArgs.filterItems) {
-                    if (!that.data.filter.rendered) {
-                        that.data._el.card__header_filter.find('#filter__buttons').append(
-                            that.data._el.button_filter_edit.button().on('click', that.edit_extFilter),
-                            that.data._el.button_filter_clear.button().on('click', that.clear_extFilter)
-                        );
-                        that.data.gridview.data._el.content.children('.card__header').after(
-                            that.data._el.card__header_filter
-                        );
-                        that.data.filter.rendered = true;
-                    }
                     that.render_set_extFilter();
+                    if (that.data.filter.hidden || that.data.params.hideFilterPanel) {
+                        that.hide_extFilter();
+                    }
+                } else {
+                    that.hide_extFilter();
                 }
             } else {
-                if (that.data.filter.rendered) {
-                    that.render_remove_extFilter();
-                    that.data.filter.rendered = false;
-                }
-            }
-            if (that.data.params.hideFilterPanel || that.data.filter.hidden) {
                 that.hide_extFilter();
             }
+        } else {
+            if (that.data.filter.rendered) {
+                that.render_remove_extFilter();
+            }
+            that.data.filter.rendered = false;
         }
         $(window).trigger('resize');
     };
