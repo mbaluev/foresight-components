@@ -773,6 +773,8 @@ Asyst.GridView = function(options){
                     that.render_set_extFilter();
                     if (that.data.filter.hidden || that.data.params.hideFilterPanel) {
                         that.hide_extFilter(false);
+                    } else {
+                        that.show_extFilter(false);
                     }
                 } else {
                     that.render_clear_extFilter();
