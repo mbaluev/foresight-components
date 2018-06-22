@@ -757,54 +757,65 @@ Asyst.GridView = function(options){
     that.render_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            if (!that.data.params.hideFilterPanel) {
-                if (that.data.filter.filterArgs) {
-                    if (that.data.filter.filterArgs.filterItems) {
-                        if (!that.data.filter.rendered) {
-                            that.data._el.card__header_filter.find('#filter__buttons').append(
-                                that.data._el.button_filter_edit.button(),
-                                that.data._el.button_filter_clear.button()
-                            );
-                            that.data.gridview.data._el.content.children('.card__header').after(
-                                that.data._el.card__header_filter
-                            );
-                            that.data.filter.rendered = true;
-                        }
-                        that.data._el.card__header_filter.find('#filter__applied').html('');
-                        that.data.filter.filterArgs.filterItems.map(function(d){
-                            that.data._el.card__header_filter.find('#filter__applied').append(
-                                that.data._el.alertbox_group.clone().append(
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.column)
-                                    ).alertbox(),
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.oper)
-                                    ).alertbox(),
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.value)
-                                    ).alertbox()
-                                )
-                            );
-                        });
+            if (that.data.filter.filterArgs) {
+                if (that.data.filter.filterArgs.filterItems) {
+                    if (!that.data.filter.rendered) {
+                        that.data._el.card__header_filter.find('#filter__buttons').append(
+                            that.data._el.button_filter_edit.button(),
+                            that.data._el.button_filter_clear.button()
+                        );
+                        that.data.gridview.data._el.content.children('.card__header').after(
+                            that.data._el.card__header_filter
+                        );
+                        that.data.filter.rendered = true;
                     }
-                } else {
-                    if (that.data.filter.rendered) {
-                        that.data._el.card__header_filter.find('#filter__applied').html('');
-                        that.data._el.card__header_filter.find('#filter__buttons').html('');
-                        that.data._el.card__header_filter.remove();
-                        that.data._el.button_filter_edit.button('destroy');
-                        that.data._el.button_filter_clear.button('destroy');
-                        that.data.filter.rendered = false;
-                    }
+                    that.data._el.card__header_filter.find('#filter__applied').html('');
+                    that.data.filter.filterArgs.filterItems.map(function(d){
+                        that.data._el.card__header_filter.find('#filter__applied').append(
+                            that.data._el.alertbox_group.clone().append(
+                                that.data._el.alertbox.clone().append(
+                                    that.data._el.alertbox__text.clone().text(d.column)
+                                ).alertbox(),
+                                that.data._el.alertbox.clone().append(
+                                    that.data._el.alertbox__text.clone().text(d.oper)
+                                ).alertbox(),
+                                that.data._el.alertbox.clone().append(
+                                    that.data._el.alertbox__text.clone().text(d.value)
+                                ).alertbox()
+                            )
+                        );
+                    });
                 }
-                // that.show_extFilter
             } else {
-                // that.hide_extFilter
+                if (that.data.filter.rendered) {
+                    that.data._el.card__header_filter.find('#filter__applied').html('');
+                    that.data._el.card__header_filter.find('#filter__buttons').html('');
+                    that.data._el.card__header_filter.remove();
+                    that.data._el.button_filter_edit.button('destroy');
+                    that.data._el.button_filter_clear.button('destroy');
+                    that.data.filter.rendered = false;
+                }
             }
-        } else {
-            that.data.gridview.data._el.content.children('.card__header').find('#filter__hide').button('hide');
+            if (that.data.params.hideFilterPanel) {
+                that.hide_extFilter();
+            }
         }
         $(window).trigger('resize');
+    };
+    that.hide_extFilter = function(){
+        that.data._el.card__header_filter.addClass('hidden');
+        that.data.filter.hidden = true;
+    };
+    that.show_extFilter = function(){
+        that.data._el.card__header_filter.removeClass('hidden');
+        that.data.filter.hidden = false;
+    };
+    that.toggle_extFilter = function(){
+        if (that.data.filter.hidden) {
+            that.show_extFilter();
+        } else {
+            that.hide_extFilter();
+        }
     };
 
     that.store_to_window = function(){
@@ -920,9 +931,12 @@ Asyst.GridView = function(options){
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
                     $(this).find('.icon').toggleClass('icon_rotate_180deg');
-                    // that.toggle_extFilter
+                    that.toggle_extFilter();
                 }
             });
+        }
+        if (typeof getCookie == 'function') {
+            that.data.filter.hidden = getCookie('register_ext_filter_hidden');
         }
     };
     that.init = function(){
