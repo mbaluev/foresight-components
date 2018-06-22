@@ -627,7 +627,7 @@ Asyst.GridView = function(options){
                         '<div>',
                         '<div class="control">',
                         '<div class="control__caption">',
-                        '<div class="control__text">Порядок</div>',
+                        '<div class="control__text">Название выборки</div>',
                         '<div class="control__icons">',
                         '<span class="icon icon_svg_star_red" data-tooltip="Обязательное поле"></span>',
                         '</div>',
@@ -658,8 +658,32 @@ Asyst.GridView = function(options){
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
-                    var sampleName = form.find('[data-fc="input"]').input('value');
-                    console.log(sampleName);
+                    var name = form.find('[data-fc="input"]').input('value').replace('\n', ' ').substring(0, 250);
+                    var sample = that.data.grid.getViewSample();
+                    sample.name = name;
+                    var asystViewSample = Asyst.Workspace.views[that.data.viewname].viewSamples.filter(function(v){ return v.Name == name; });
+                    if (asystViewSample.length > 0) {
+                        asystViewSample = asystViewSample[0];
+                        sample.guid = asystViewSample.ViewSampleId;
+                    } else {
+                        asystViewSample = null;
+                    }
+                    Asyst.APIv2.ViewSample.save({
+                        viewName: that.data.viewname,
+                        data: { name: sample.name, guid: sample.guid, sample: JSON.stringify(sample) },
+                        async: false
+                    });
+                    if (!asystViewSample) {
+                        Asyst.Workspace.views[that.data.viewname].viewSamples.push({
+                            ViewSampleId: sample.guid,
+                            viewName: that.data.viewname,
+                            Name: sample.name,
+                            Sample: JSON.stringify(sample)
+                        });
+                    }
+                    console.log(sample);
+                    // update menu
+                    // set currentname
                     that.data.modal.modal__('hide');
                 }
             })
