@@ -851,6 +851,10 @@ Asyst.GridView = function(options){
                 that.render_set_extFilter();
             }
         }
+        if (typeof getCookie == 'function') {
+            that.data.filter.hidden = getCookie('register_ext_filter_hidden') == 'true';
+            that.toggle_extFilter();
+        }
     };
     that.edit_extFilter = function(){
         that.set_extFilter();
