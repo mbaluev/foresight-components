@@ -763,13 +763,15 @@ Asyst.GridView = function(options){
                     var viewSampleId = form.find('[data-fc="select"]').select('value');
                     if (viewSampleId != '') {
                         Asyst.APIv2.ViewSample.delete({
-                            viewName: viewName,
+                            viewName: that.data.viewname,
                             data: { viewSampleId: viewSampleId },
                             async: false,
                             success: function () {
                                 Asyst.Workspace.views[that.data.viewname].viewSamples =
                                     Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(v){
-                                        return v.ViewSampleId != viewSampleId;
+                                        if (v.ViewSampleId != viewSampleId) {
+                                            return v;
+                                        }
                                     });
                                 if (that.data.params.viewSampleId == viewSampleId) {
                                     that.data.params.viewSampleId = null;
