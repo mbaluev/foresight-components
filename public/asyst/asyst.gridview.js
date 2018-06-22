@@ -772,15 +772,15 @@ Asyst.GridView = function(options){
                 if (that.data.filter.filterArgs.filterItems) {
                     that.render_set_extFilter();
                     if (that.data.filter.hidden || that.data.params.hideFilterPanel) {
-                        that.hide_extFilter();
+                        that.hide_extFilter(false);
                     }
                 } else {
                     that.render_clear_extFilter();
-                    that.hide_extFilter();
+                    that.hide_extFilter(false);
                 }
             } else {
                 that.render_clear_extFilter();
-                that.hide_extFilter();
+                that.hide_extFilter(false);
             }
         } else {
             if (that.data.filter.rendered) {
@@ -790,29 +790,29 @@ Asyst.GridView = function(options){
         }
         $(window).trigger('resize');
     };
-    that.hide_extFilter = function(){
+    that.hide_extFilter = function(cookie){
         that.data.gridview.data._el.content.children('.card__header')
             .find('#' + that.data.filter.buttonId + ' .icon').addClass('icon_rotate_180deg');
         that.data._el.card__header_filter.addClass('hidden');
         that.data.filter.hidden = true;
-        if (typeof setCookie == 'function') {
+        if (typeof setCookie == 'function' && cookie) {
             setCookie('register_ext_filter_hidden', true);
         }
     };
-    that.show_extFilter = function(){
+    that.show_extFilter = function(cookie){
         that.data.gridview.data._el.content.children('.card__header')
             .find('#' + that.data.filter.buttonId + ' .icon').removeClass('icon_rotate_180deg');
         that.data._el.card__header_filter.removeClass('hidden');
         that.data.filter.hidden = false;
-        if (typeof setCookie == 'function') {
+        if (typeof setCookie == 'function' && cookie) {
             setCookie('register_ext_filter_hidden', false);
         }
     };
     that.toggle_extFilter = function(){
         if (that.data.filter.hidden) {
-            that.show_extFilter();
+            that.show_extFilter(true);
         } else {
-            that.hide_extFilter();
+            that.hide_extFilter(true);
         }
     };
     that.render_set_extFilter = function(){
