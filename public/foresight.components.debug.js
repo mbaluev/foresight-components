@@ -2502,7 +2502,6 @@ $(function(){
                         that.set_width(that.data.width);
                         that.set_button_text();
                         that.highlight();
-                        that.validate();
                     };
                     that.init();
                 }
