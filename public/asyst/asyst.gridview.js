@@ -962,7 +962,7 @@ Asyst.GridView = function(options){
             });
         }
         if (typeof getCookie == 'function') {
-            that.data.filter.hidden = getCookie('register_ext_filter_hidden');
+            that.data.filter.hidden = getCookie('register_ext_filter_hidden') == 'true';
         }
     };
     that.init = function(){
