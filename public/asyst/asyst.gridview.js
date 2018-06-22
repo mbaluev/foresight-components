@@ -463,6 +463,7 @@ Asyst.GridView = function(options){
             ToggleClearFilterButton(true);
             */
         } else {
+            that.data.filter.filterArgs = undefined;
             view.QuickFilterClear();
             !(!!data.EditFormName) && Grid.ClearExtFilter(view);
         }
