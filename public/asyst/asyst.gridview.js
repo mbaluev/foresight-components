@@ -600,7 +600,6 @@ Asyst.GridView = function(options){
         }
     };
     that.save_named_viewSample = function(){
-        var form = $('<div data-fc="form"></div>');
         var modal_options = {
             size: 'md',
             buttons: [
@@ -619,27 +618,53 @@ Asyst.GridView = function(options){
                 caption: 'Сохранение',
                 name: 'Введите название выборки'
             },
-            content: { tabs: [] },
+            content: {
+                tabs: [{
+                    id: 'general',
+                    name: null,
+                    active: true,
+                    content: $([
+                        '<div>',
+                        '<div class="control">',
+                        '<div class="control__caption">',
+                        '<div class="control__text">Порядок</div>',
+                        '<div class="control__icons">',
+                        '<span class="icon icon_svg_star_red" data-tooltip="Обязательное поле"></span>',
+                        '</div>',
+                        '</div>',
+                        '<div class="control__container">',
+                            '<span class="input input__has-clear" data-fc="input" data-required="true" style="width: 100%;">',
+                            '<span class="input__box">',
+                            '<input type="text" name="sampleName" class="input__control">',
+                            '<button class="button" type="button" data-fc="button" style="width: auto;" tabindex="-1">',
+                            '<span class="icon icon_svg_close"></span>',
+                            '</button>',
+                            '</span>',
+                            '</span>',
+                        '</div>',
+                        '</div>',
+                        '</div>'
+                    ].join(''))
+                }]
+            },
             data: null,
             draggable: true
         };
+        that.data.form = $('<div data-fc="form"></div>');
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
-                var form = $(this).closest('[data-fc="form"]'),
-                    valid = true;
-                if (!that.data.item) { that.data.item = {}; }
-                if (form.length > 0) {
-                    valid = form.form('validate')
-                }
+                var form = $(this).closest('[data-fc="form"]'), valid = true;
+                if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
-                    console.log('saved');
+                    // do something
+                    form.form('hide');
                 }
             })
             .on('hidden.fc.modal', function(){
-                form.remove();
+                that.data.form.remove();
             });
-        form.append(that.data.modal).appendTo('body').form();
+        that.data.form.append(that.data.modal).appendTo('body').form();
     };
     that.delete_named_viewSample = function(){
         console.log('delete');
