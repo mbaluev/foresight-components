@@ -701,7 +701,7 @@ Asyst.GridView = function(options){
                 {
                     name: 'save',
                     action: 'save',
-                    icon: 'icon_svg_save_red'
+                    icon: 'icon_svg_trash'
                 },
                 {
                     name: 'destroy',
@@ -760,33 +760,25 @@ Asyst.GridView = function(options){
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
-                    var value = form.find('[data-fc="select"]').select('value');
-                    /*
-                    var sample = that.data.grid.getViewSample();
-                    sample.name = name;
-                    var asystViewSample = Asyst.Workspace.views[that.data.viewname].viewSamples.filter(function(v){ return v.Name == name; });
-                    if (asystViewSample.length > 0) {
-                        asystViewSample = asystViewSample[0];
-                        sample.guid = asystViewSample.ViewSampleId;
-                    } else {
-                        asystViewSample = null;
-                    }
-                    Asyst.APIv2.ViewSample.save({
-                        viewName: that.data.viewname,
-                        data: { name: sample.name, guid: sample.guid, sample: JSON.stringify(sample) },
-                        async: false
-                    });
-                    if (!asystViewSample) {
-                        Asyst.Workspace.views[that.data.viewname].viewSamples.push({
-                            ViewSampleId: sample.guid,
-                            viewName: that.data.viewname,
-                            Name: sample.name,
-                            Sample: JSON.stringify(sample)
+                    var viewSampleId = form.find('[data-fc="select"]').select('value');
+                    if (viewSampleId != '') {
+                        Asyst.APIv2.ViewSample.delete({
+                            viewName: viewName,
+                            data: { viewSampleId: viewSampleId },
+                            async: false,
+                            success: function () {
+                                Asyst.Workspace.views[that.data.viewname].viewSamples =
+                                    Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(v){
+                                        return v.ViewSampleId != viewSampleId;
+                                    });
+                                if (that.data.params.viewSampleId == viewSampleId) {
+                                    that.data.params.viewSampleId = null;
+                                }
+                                that.update_viewSampleSelect();
+                                that.load_view();
+                            }
                         });
                     }
-                    that.data.params.viewSampleId = sample.guid;
-                    that.update_viewSampleSelect();
-                    */
                     that.data.modal.modal__('hide');
                 }
             })
