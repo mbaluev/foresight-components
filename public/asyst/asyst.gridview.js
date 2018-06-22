@@ -621,7 +621,7 @@ Asyst.GridView = function(options){
             content: {
                 tabs: [{
                     id: 'general',
-                    name: null,
+                    name: 'Основное',
                     active: true,
                     content: $([
                         '<div>',
@@ -648,7 +648,8 @@ Asyst.GridView = function(options){
                 }]
             },
             data: null,
-            draggable: true
+            draggable: true,
+            render_tabs_row: false
         };
         that.data.form = $('<div data-fc="form"></div>');
         that.data.modal = $('<span class="modal__"></span>')
@@ -657,8 +658,9 @@ Asyst.GridView = function(options){
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
-                    // do something
-                    form.form('hide');
+                    var sampleName = form.find('[name="sampleName"]').input('value');
+                    console.log(sampleName);
+                    form.remove();
                 }
             })
             .on('hidden.fc.modal', function(){
