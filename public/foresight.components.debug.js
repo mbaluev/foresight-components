@@ -1956,6 +1956,9 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'select', target : self });
                     var that = this.obj = {};
+                    that.const = {
+                        REQUIRED: 'Необходимо заполнить'
+                    };
                     that.defaults = {
                         name: self.attr('name'),
                         disabled: false,
