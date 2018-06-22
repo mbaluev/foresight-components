@@ -518,21 +518,7 @@ Asyst.GridView = function(options){
                     that.load_view();
                 });
             }
-            var options = [{
-                text: Globa.ViewSampleDefault.locale(),
-                value: null,
-                selected: typeof that.data.params.viewSampleId == 'object' && that.data.params.viewSampleId == null
-            }];
-            that.data.viewSamples.map(function(sample){
-                if (sample.Name) {
-                    options.push({
-                        text: sample.Name,
-                        value: sample.ViewSampleId,
-                        selected: sample.ViewSampleId == that.data.params.viewSampleId
-                    });
-                }
-            });
-            that.data._el.select__view_sample.select('update', options);
+            that.update_viewSampleSelect();
         }
     };
     that.render_extFilter = function(){
@@ -573,6 +559,23 @@ Asyst.GridView = function(options){
         }
     };
 
+    that.update_viewSampleSelect = function(){
+        var options = [{
+            text: Globa.ViewSampleDefault.locale(),
+            value: null,
+            selected: typeof that.data.params.viewSampleId == 'object' && that.data.params.viewSampleId == null
+        }];
+        that.data.viewSamples.map(function(sample){
+            if (sample.Name) {
+                options.push({
+                    text: sample.Name,
+                    value: sample.ViewSampleId,
+                    selected: sample.ViewSampleId == that.data.params.viewSampleId
+                });
+            }
+        });
+        that.data._el.select__view_sample.select('update', options);
+    };
     that.disable_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
@@ -681,9 +684,7 @@ Asyst.GridView = function(options){
                             Sample: JSON.stringify(sample)
                         });
                     }
-                    console.log(sample);
-                    // update menu
-                    // set currentname
+                    that.update_viewSampleSelect();
                     that.data.modal.modal__('hide');
                 }
             })
