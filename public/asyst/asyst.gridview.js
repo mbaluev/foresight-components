@@ -33,6 +33,10 @@ Asyst.GridView = function(options){
             reload: {},
             settings: [],
             search: {}
+        },
+        filter: {
+            filterArgs: [],
+            rendered: false
         }
     };
     that.data = $.extend(that.data, options);
@@ -390,9 +394,6 @@ Asyst.GridView = function(options){
             if (grid) grid.resizeCanvas();
         });
 
-        // --------------------
-        // было закоментировано
-
         /*
         if (!window['views'] || !views.hasOwnProperty(viewName) || !Asyst.Workspace.views[viewName].isEditable) {
             $('#menuItemAdd').hide();
@@ -410,8 +411,6 @@ Asyst.GridView = function(options){
         }
         */
 
-        //$('#BrowseSearch').keyup(window[viewName].QuickFilterKeyup);
-        //$('.search-clear').click(window[viewName].QuickFilterClear);
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isInitiallyCollapsed) {
             window[viewName].CollapseAllGroups();
         }
@@ -422,15 +421,16 @@ Asyst.GridView = function(options){
                 view.CollapseAllGroups();
             }
         }
-
         var needInvalidate = false;
-
         if (filterArgs && filterArgs.hasOwnProperty('oper')) {
             view.DataView.setFilter(Grid.ExtFilter);
             filterArgs = $.extend(filterArgs, {gridView: view});
+            that.data.filter.filterArgs = filterArgs;
             view.DataView.setFilterArgs(filterArgs);
             view.DataView.refresh();
             needInvalidate = true;
+
+            // перенесено в that.render_extFilter
             /*
             if (!that.data.params.hideFilterPanel)
                 MakeFilterLine(filterArgs);
@@ -438,17 +438,14 @@ Asyst.GridView = function(options){
             */
         } else {
             view.QuickFilterClear();
-            //ToggleClearFilterButton(false);
             !(!!data.EditFormName) && Grid.ClearExtFilter(view);
         }
         if (filterArgs && filterArgs.hasOwnProperty('searchString') && filterArgs.searchString !== "") {
             $('#BrowseSearch').val(filterArgs.searchString);
             view.UpdateQuickFilter(filterArgs.searchString);
-            ToggleClearFilterButton(true);
             view.DataView.refresh();
             needInvalidate = true;
         }
-
         if (data.viewSample && data.viewSample.hasOwnProperty('groups')) {
             view.SetGroupsCollapsed(data.viewSample.groups);
             needInvalidate = true;
@@ -457,35 +454,9 @@ Asyst.GridView = function(options){
             view.Grid.scrollToRow(data.viewSample.viewport.top);
             needInvalidate = true;
         }
-
-        // восстанавливаем меню.
-        // перенесено в that.render_viewSample
-        /*
-        if (Asyst.Workspace.views && Asyst.Workspace.views[viewName]) {
-            $('#viewSelectBtn').text(Asyst.Workspace.views[viewName].title);
-        }
-        if (data.viewSample && data.viewSample.name != "") {
-            $('#viewSampleSelectBtn').text(data.viewSample.name);
-        } else {
-            $('#viewSampleSelectBtn').text(Globa.ViewSample.locale());
-        }
-        view.viewSampleMenuRebuild();
-        */
-
         if (needInvalidate) {
             view.Grid.invalidate();
         }
-
-        //быстрокостыль для нового хрома и ширины реестра
-        {
-            $('#view').css({width: '1200px'});
-            setTimeout(function () {
-                $('#view').css({width: '100%'});
-            }, 100);
-        }
-        // было закоментировано
-        // --------------------
-        //Loader.hide();
     };
     that.render_settings = function(){
         that.data.gridview.data.header.settings = that.data.header.settings;
@@ -523,7 +494,6 @@ Asyst.GridView = function(options){
     };
     that.render_extFilter = function(){
         var _el = {
-            select: $('<select class="select" data-fc="select" id="select__viewSample"></select>'),
             card__header_filter: $([
                 '<div class="card__header">',
                 '<div class="card__header-row">',
@@ -534,27 +504,54 @@ Asyst.GridView = function(options){
             ].join('')),
             button_filter_edit: $([
                 '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
-                '<span class="icon icon_svg_controls"></span>',
+                '<span class="icon icon_svg_edit"></span>',
                 '</button>'
             ].join('')),
+            button_filter_clear: $([
+                '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+                '<span class="icon icon_svg_close"></span>',
+                '</button>'
+            ].join('')),
+            button_filter_hide: $([
+                '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+                '<span class="icon icon_svg_up_fill icon_animane"></span>',
+                '</button>'
+            ].join('')),
+            alertbox_group: $('<span class="alertbox-group alertbox-group_highlighted"></span>'),
             alertbox: $([
-                '<span class="alertbox-group alertbox-group_highlighted">',
                 '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">IndicatorId</span>',
-                '</label>',
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">равно</span>',
-                '</label>',
-                '<label class="alertbox" data-fc="alertbox">',
-                '<span class="alertbox__text">0</span>',
-                '</label>',
-                '</span>'
+                '<span class="alertbox__text"></span>',
+                '</label>'
             ].join('')).alertbox()
         };
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             if (!that.data.params.hideFilterPanel) {
-
+                if (that.data.filter.filterArgs) {
+                    if (that.data.filter.filterArgs.filterItems) {
+                        if (!that.data.filter.rendered) {
+                            _el.card__header_filter.find('#filter__buttons').append(
+                                _el.button_filter_edit,
+                                _el.button_filter_clear,
+                                _el.button_filter_hide
+                            );
+                            that.data.gridview.data._el.content.children('.card__header').after(
+                                _el.card__header_filter
+                            );
+                            that.data.filter.rendered = true;
+                        }
+                        _el.card__header_filter.find('#filter__applied').html();
+                        that.data.filter.filterArgs.filterItems.map(function(d){
+                            _el.card__header_filter.find('#filter__applied').append(
+                                _el.alertbox_group.clone().append(
+                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.column),
+                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.oper),
+                                    _el.alertbox.clone().alertbox().find('.alertbox__text').text(d.value)
+                                )
+                            );
+                        });
+                    }
+                }
             }
         }
     };
