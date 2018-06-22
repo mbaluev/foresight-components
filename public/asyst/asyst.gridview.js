@@ -73,11 +73,6 @@ Asyst.GridView = function(options){
             '<span class="icon icon_svg_close"></span>',
             '</button>'
         ].join('')),
-        button_filter_hide: $([
-            '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
-            '<span class="icon icon_svg_up_fill icon_animane"></span>',
-            '</button>'
-        ].join('')),
         alertbox_group: $('<span class="alertbox-group alertbox-group_highlighted"></span>'),
         alertbox: $('<label class="alertbox" data-fc="alertbox"></label>'),
         alertbox__text: $('<span class="alertbox__text"></span>'),
@@ -490,6 +485,7 @@ Asyst.GridView = function(options){
         that.data.gridview.data.header.settings = that.data.header.settings;
         that.data.gridview.render_settings_popup();
     };
+
     that.render_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
@@ -520,56 +516,6 @@ Asyst.GridView = function(options){
             that.update_viewSampleSelect();
         }
     };
-    that.render_extFilter = function(){
-        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
-            Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            if (!that.data.params.hideFilterPanel) {
-                if (that.data.filter.filterArgs) {
-                    if (that.data.filter.filterArgs.filterItems) {
-                        if (!that.data.filter.rendered) {
-                            that.data._el.card__header_filter.find('#filter__buttons').append(
-                                that.data._el.button_filter_edit.button(),
-                                that.data._el.button_filter_clear.button(),
-                                that.data._el.button_filter_hide.button()
-                            );
-                            that.data.gridview.data._el.content.children('.card__header').after(
-                                that.data._el.card__header_filter
-                            );
-                            that.data.filter.rendered = true;
-                        }
-                        that.data._el.card__header_filter.find('#filter__applied').html('');
-                        that.data.filter.filterArgs.filterItems.map(function(d){
-                            that.data._el.card__header_filter.find('#filter__applied').append(
-                                that.data._el.alertbox_group.clone().append(
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.column)
-                                    ).alertbox(),
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.oper)
-                                    ).alertbox(),
-                                    that.data._el.alertbox.clone().append(
-                                        that.data._el.alertbox__text.clone().text(d.value)
-                                    ).alertbox()
-                                )
-                            );
-                        });
-                    }
-                } else {
-                    if (that.data.filter.rendered) {
-                        that.data._el.card__header_filter.find('#filter__applied').html('');
-                        that.data._el.card__header_filter.find('#filter__buttons').html('');
-                        that.data._el.card__header_filter.remove();
-                        that.data._el.button_filter_edit.button('destroy');
-                        that.data._el.button_filter_clear.button('destroy');
-                        that.data._el.button_filter_hide.button('destroy');
-                        that.data.filter.rendered = false;
-                    }
-                }
-            }
-        }
-        $(window).trigger('resize');
-    };
-
     that.update_viewSampleSelect = function(){
         var options = [{
             text: Globa.ViewSampleDefault.locale(),
@@ -806,6 +752,54 @@ Asyst.GridView = function(options){
                 that.data.form.remove();
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
+    };
+
+    that.render_extFilter = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            if (!that.data.params.hideFilterPanel) {
+                if (that.data.filter.filterArgs) {
+                    if (that.data.filter.filterArgs.filterItems) {
+                        if (!that.data.filter.rendered) {
+                            that.data._el.card__header_filter.find('#filter__buttons').append(
+                                that.data._el.button_filter_edit.button(),
+                                that.data._el.button_filter_clear.button()
+                            );
+                            that.data.gridview.data._el.content.children('.card__header').after(
+                                that.data._el.card__header_filter
+                            );
+                            that.data.filter.rendered = true;
+                        }
+                        that.data._el.card__header_filter.find('#filter__applied').html('');
+                        that.data.filter.filterArgs.filterItems.map(function(d){
+                            that.data._el.card__header_filter.find('#filter__applied').append(
+                                that.data._el.alertbox_group.clone().append(
+                                    that.data._el.alertbox.clone().append(
+                                        that.data._el.alertbox__text.clone().text(d.column)
+                                    ).alertbox(),
+                                    that.data._el.alertbox.clone().append(
+                                        that.data._el.alertbox__text.clone().text(d.oper)
+                                    ).alertbox(),
+                                    that.data._el.alertbox.clone().append(
+                                        that.data._el.alertbox__text.clone().text(d.value)
+                                    ).alertbox()
+                                )
+                            );
+                        });
+                    }
+                } else {
+                    if (that.data.filter.rendered) {
+                        that.data._el.card__header_filter.find('#filter__applied').html('');
+                        that.data._el.card__header_filter.find('#filter__buttons').html('');
+                        that.data._el.card__header_filter.remove();
+                        that.data._el.button_filter_edit.button('destroy');
+                        that.data._el.button_filter_clear.button('destroy');
+                        that.data.filter.rendered = false;
+                    }
+                }
+            }
+        }
+        $(window).trigger('resize');
     };
 
     that.store_to_window = function(){
