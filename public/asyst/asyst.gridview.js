@@ -775,9 +775,11 @@ Asyst.GridView = function(options){
                         that.hide_extFilter();
                     }
                 } else {
+                    that.render_clear_extFilter();
                     that.hide_extFilter();
                 }
             } else {
+                that.render_clear_extFilter();
                 that.hide_extFilter();
             }
         } else {
