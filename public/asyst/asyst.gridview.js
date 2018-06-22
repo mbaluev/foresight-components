@@ -600,7 +600,46 @@ Asyst.GridView = function(options){
         }
     };
     that.save_named_viewSample = function(){
-        console.log('save');
+        var form = $('<div data-fc="form"></div>');
+        var modal_options = {
+            size: 'md',
+            buttons: [
+                {
+                    name: 'save',
+                    action: 'save',
+                    icon: 'icon_svg_save_red'
+                },
+                {
+                    name: 'destroy',
+                    action: 'destroy',
+                    icon: 'icon_svg_close'
+                }
+            ],
+            header: {
+                caption: 'Сохранение',
+                name: 'Введите название выборки'
+            },
+            content: { tabs: [] },
+            data: null,
+            draggable: true
+        };
+        that.data.modal = $('<span class="modal__"></span>')
+            .modal__(modal_options)
+            .on('save.fc.modal', function(){
+                var form = $(this).closest('[data-fc="form"]'),
+                    valid = true;
+                if (!that.data.item) { that.data.item = {}; }
+                if (form.length > 0) {
+                    valid = form.form('validate')
+                }
+                if (valid) {
+                    console.log('saved');
+                }
+            })
+            .on('hidden.fc.modal', function(){
+                form.remove();
+            });
+        form.append(that.data.modal).appendTo('body').form();
     };
     that.delete_named_viewSample = function(){
         console.log('delete');
