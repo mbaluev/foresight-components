@@ -846,7 +846,11 @@ Asyst.GridView = function(options){
         that.data._el.button_filter_clear.button('destroy');
     };
     that.set_extFilter = function(){
-        that.render_set_extFilter();
+        if (that.data.filter.filterArgs) {
+            if (that.data.filter.filterArgs.filterItems) {
+                that.render_set_extFilter();
+            }
+        }
     };
     that.edit_extFilter = function(){
         that.set_extFilter();
