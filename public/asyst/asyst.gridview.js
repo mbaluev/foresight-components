@@ -728,7 +728,21 @@ Asyst.GridView = function(options){
                         '</div>',
                         '</div>',
                         '<div class="control__container">',
-                        that.data._el.select__view_sample.clone().attr('data-required', true)[0].outerHTML,
+
+                        '<select class="select" data-fc="select" data-mode="radio" data-autoclose="true" data-required="true"',
+                        ' data-placeholder="' + Globa.ViewSample.locale() + '">',
+                        that.data.viewSamples.map(function(sample){
+                            if (sample.Name) {
+                                return [
+                                    '<option value="' + sample.ViewSampleId + '" ',
+                                    (sample.ViewSampleId == that.data.params.viewSampleId ? 'selected="selected"' : '') + '>',
+                                    sample.Name,
+                                    '</option>'
+                                ].join('');
+                            }
+                        }).join(''),
+                        '</select>',
+
                         '</div>',
                         '</div>',
                         '</div>'
