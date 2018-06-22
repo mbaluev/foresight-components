@@ -728,7 +728,7 @@ Asyst.GridView = function(options){
                         '</div>',
                         '</div>',
                         '<div class="control__container">',
-                        that.data._el.select__view_sample.html(),
+                        that.data._el.select__view_sample[0].outerHTML,
                         '</div>',
                         '</div>',
                         '</div>'
