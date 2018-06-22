@@ -25,6 +25,7 @@
                         minimum_count_selected: 2,
                         autoclose: false,
                         highlight: false,
+                        validate: false,
                         search: true
                     };
                     that.data = self.data();
@@ -337,6 +338,7 @@
                             that.check_checkall();
                         }
                         that.highlight();
+                        that.validate();
                     };
                     that.uncheck_all = function(){
                         that.data._el.popup__list_items.forEach(function(item){
@@ -353,6 +355,7 @@
                             that.uncheck_checkall();
                         }
                         that.highlight();
+                        that.validate();
                     };
 
                     that.check = function(value){
@@ -377,6 +380,7 @@
                             }
                         }
                         that.highlight();
+                        that.validate();
                     };
                     that.uncheck = function(value){
                         var _trigger = false;
@@ -394,6 +398,7 @@
                             }
                         }
                         that.highlight();
+                        that.validate();
                     };
 
                     that.check_checkall = function(){
@@ -475,6 +480,7 @@
                                     if (!that.data.disabled) {
                                         self.trigger('change');
                                     }
+                                    that.validate();
                                 });
                             }
                         });
@@ -503,6 +509,7 @@
                                 if (!that.data.disabled) {
                                     self.trigger('change');
                                 }
+                                that.validate();
                             });
                         }
                     };
@@ -545,6 +552,7 @@
                         that.set_width(that.data.width);
                         that.set_button_text();
                         that.highlight();
+                        that.validate();
                     };
                     that.init();
                 }
