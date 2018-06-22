@@ -273,13 +273,9 @@ Asyst.GridView = function(options){
     };
     that.load_view = function(){
         that.loader_add();
-        if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.data.gridview.data.loading = true;
-        if (typeof that.data.params.viewSampleId == 'undefined') {
-            that.data.params.viewSampleId = undefined;
-        } else if (that.data.params.viewSampleId == 'null') {
-            that.data.params.viewSampleId = null;
-        }
+        if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
+        that.disable_viewSample();
         that.data.params.view = key;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
@@ -294,10 +290,12 @@ Asyst.GridView = function(options){
                 //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.data.gridview.data.loading = false;
+                that.enable_viewSample();
                 that.loader_remove();
             },
             error: function(data){
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
+                that.enable_viewSample();
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
                 console.log(data);
@@ -517,9 +515,6 @@ Asyst.GridView = function(options){
                 });
                 that.data._el.select__view_sample.on('change', function(){
                     that.data.params.viewSampleId = $(this).val();
-                    that.data._el.select__view_sample.select('disable');
-                    that.data._el.button__view_sample_save.button('disable');
-                    that.data._el.button__view_sample_delete.button('disable');
                     that.load_view();
                 });
             }
@@ -538,9 +533,6 @@ Asyst.GridView = function(options){
                 }
             });
             that.data._el.select__view_sample.select('update', options);
-            that.data._el.select__view_sample.select('enable');
-            that.data._el.button__view_sample_save.button('enable');
-            that.data._el.button__view_sample_delete.button('enable');
         }
     };
     that.render_extFilter = function(){
@@ -581,6 +573,28 @@ Asyst.GridView = function(options){
         }
     };
 
+    that.disable_viewSample = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isViewSampled) {
+            that.data._el.select__view_sample.select('disable');
+            that.data._el.button__view_sample_save.button('disable');
+            that.data._el.button__view_sample_delete.button('disable');
+            // set undefined for correct api working
+            if (typeof that.data.params.viewSampleId == 'undefined') {
+                that.data.params.viewSampleId = undefined;
+            } else if (that.data.params.viewSampleId == 'null') {
+                that.data.params.viewSampleId = null;
+            }
+        }
+    };
+    that.enable_viewSample = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isViewSampled) {
+            that.data._el.select__view_sample.select('enable');
+            that.data._el.button__view_sample_save.button('enable');
+            that.data._el.button__view_sample_delete.button('enable');
+        }
+    };
     that.save_named_viewSample = function(){
         console.log('save');
     };
@@ -612,9 +626,6 @@ Asyst.GridView = function(options){
                         Asyst.Workspace.views[that.data.viewname].isViewSampled) {
                         that.data.grid.saveCurrent();
                         that.data.params.viewSampleId = undefined;
-                        that.data._el.select__view_sample.select('disable');
-                        that.data._el.button__view_sample_save.button('disable');
-                        that.data._el.button__view_sample_delete.button('disable');
                     }
                     setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
