@@ -576,9 +576,11 @@ Asyst.GridView = function(options){
     that.disable_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            that.data._el.select__view_sample.select('disable');
-            that.data._el.button__view_sample_save.button('disable');
-            that.data._el.button__view_sample_delete.button('disable');
+            if (that.data._el.select__view_sample.data('_widget') == 'select') {
+                that.data._el.select__view_sample.select('disable');
+                that.data._el.button__view_sample_save.button('disable');
+                that.data._el.button__view_sample_delete.button('disable');
+            }
             // set undefined for correct api working
             if (typeof that.data.params.viewSampleId == 'undefined') {
                 that.data.params.viewSampleId = undefined;
@@ -590,9 +592,11 @@ Asyst.GridView = function(options){
     that.enable_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
-            that.data._el.select__view_sample.select('enable');
-            that.data._el.button__view_sample_save.button('enable');
-            that.data._el.button__view_sample_delete.button('enable');
+            if (that.data._el.select__view_sample.data('_widget') == 'select') {
+                that.data._el.select__view_sample.select('enable');
+                that.data._el.button__view_sample_save.button('enable');
+                that.data._el.button__view_sample_delete.button('enable');
+            }
         }
     };
     that.save_named_viewSample = function(){
