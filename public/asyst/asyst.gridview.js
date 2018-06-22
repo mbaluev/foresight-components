@@ -658,9 +658,9 @@ Asyst.GridView = function(options){
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
-                    var sampleName = form.find('[name="sampleName"]').input('value');
+                    var sampleName = form.find('[data-fc="input"]').input('value');
                     console.log(sampleName);
-                    form.remove();
+                    that.data.modal.modal__('hide');
                 }
             })
             .on('hidden.fc.modal', function(){
