@@ -36,7 +36,8 @@ Asyst.GridView = function(options){
         },
         filter: {
             filterArgs: [],
-            rendered: false
+            rendered: false,
+            hidden: false
         }
     };
     that.data = $.extend(that.data, options);
@@ -668,6 +669,7 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
+                that.loader_add();
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
@@ -699,6 +701,7 @@ Asyst.GridView = function(options){
                     that.update_viewSampleSelect();
                     that.data.modal.modal__('hide');
                 }
+                that.loader_remove();
             })
             .on('hidden.fc.modal', function(){
                 that.data.form.remove();
@@ -768,6 +771,7 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
+                that.loader_add();
                 var form = $(this).closest('[data-fc="form"]'), valid = true;
                 if (form.length > 0) { valid = form.form('validate') }
                 if (valid) {
@@ -796,6 +800,7 @@ Asyst.GridView = function(options){
                     }
                     that.data.modal.modal__('hide');
                 }
+                that.loader_remove();
             })
             .on('hidden.fc.modal', function(){
                 that.data.form.remove();
@@ -906,6 +911,15 @@ Asyst.GridView = function(options){
                 name: 'Закрыть реестр',
                 onclick: function(){
                     window.history.back();
+                }
+            });
+        }
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            that.data.header.settings.push({
+                icon: 'icon_svg_up_fill icon_animate',
+                name: 'Скрыть / показать расширенный фильтр',
+                onclick: function(){
+                    $(this).toggleClass('icon_rotate_180deg');
                 }
             });
         }
