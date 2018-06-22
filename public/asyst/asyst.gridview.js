@@ -542,8 +542,12 @@ Asyst.GridView = function(options){
                             _el.card__header_filter.find('#filter__applied').append(
                                 _el.alertbox_group.clone().append(
                                     _el.alertbox.clone().append(
-                                        _el.alertbox__text.clone().text(d.column),
-                                        _el.alertbox__text.clone().text(d.oper),
+                                        _el.alertbox__text.clone().text(d.column)
+                                    ).alertbox(),
+                                    _el.alertbox.clone().append(
+                                        _el.alertbox__text.clone().text(d.oper)
+                                    ).alertbox(),
+                                    _el.alertbox.clone().append(
                                         _el.alertbox__text.clone().text(d.value)
                                     ).alertbox()
                                 )
