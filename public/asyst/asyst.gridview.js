@@ -919,7 +919,7 @@ Asyst.GridView = function(options){
                 icon: 'icon_svg_up_fill icon_animate',
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
-                    $(this).toggleClass('icon_rotate_180deg');
+                    $(this).find('.icon').toggleClass('icon_rotate_180deg');
                 }
             });
         }
