@@ -187,7 +187,7 @@
                     };
                     that.update = function(data){
                         that.data._el.button.find('.button__text').after(that.data._el.spinner);
-                        that.clear();
+                        that.clear(true);
                         self.html('');
                         that.data._options = [];
                         that.data._el.popup__list.html('');
@@ -215,10 +215,10 @@
                     that.focus = function(){
                         that.data._el.popup.popup('show');
                     };
-                    that.clear = function(){
+                    that.clear = function(disabled){
                         that.data._value = [];
                         that.uncheck_all();
-                        if (!that.data.disabled) {
+                        if (!that.data.disabled && !disabled) {
                             self.trigger('change');
                         }
                     };

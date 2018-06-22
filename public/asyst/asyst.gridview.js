@@ -684,6 +684,7 @@ Asyst.GridView = function(options){
                             Sample: JSON.stringify(sample)
                         });
                     }
+                    that.data.params.viewSampleId = sample.guid;
                     that.update_viewSampleSelect();
                     that.data.modal.modal__('hide');
                 }
