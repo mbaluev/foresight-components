@@ -664,7 +664,7 @@ Asyst.GridView = function(options){
                     var name = form.find('[data-fc="input"]').input('value').replace('\n', ' ').substring(0, 250);
                     var sample = that.data.grid.getViewSample();
                     sample.name = name;
-                    var asystViewSample = Asyst.Workspace.views[that.data.viewname].viewSamples.filter(function(v){ return v.Name == name; });
+                    var asystViewSample = that.data.viewSamples.filter(function(v){ return v.Name == name; });
                     if (asystViewSample.length > 0) {
                         asystViewSample = asystViewSample[0];
                         sample.guid = asystViewSample.ViewSampleId;
@@ -677,13 +677,14 @@ Asyst.GridView = function(options){
                         async: false
                     });
                     if (!asystViewSample) {
-                        Asyst.Workspace.views[that.data.viewname].viewSamples.push({
+                        that.data.viewSamples.push({
                             ViewSampleId: sample.guid,
                             viewName: that.data.viewname,
                             Name: sample.name,
                             Sample: JSON.stringify(sample)
                         });
                     }
+                    Asyst.Workspace.views[that.data.viewname].viewSamples = that.data.viewSamples;
                     that.data.params.viewSampleId = sample.guid;
                     that.update_viewSampleSelect();
                     that.data.modal.modal__('hide');
@@ -768,11 +769,12 @@ Asyst.GridView = function(options){
                             async: false,
                             success: function () {
                                 var viewSamples = [];
-                                Asyst.Workspace.views[that.data.viewname].viewSamples.map(function(v){
+                                that.data.viewSamples.map(function(v){
                                     if (v.ViewSampleId != viewSampleId) {
                                         viewSamples.push(v);
                                     }
                                 });
+                                that.data.viewSamples = viewSamples;
                                 Asyst.Workspace.views[that.data.viewname].viewSamples = viewSamples;
                                 that.update_viewSampleSelect();
                                 if (that.data.params.viewSampleId == viewSampleId) {
