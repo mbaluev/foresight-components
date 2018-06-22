@@ -528,16 +528,16 @@ Asyst.GridView = function(options){
                     if (that.data.filter.filterArgs.filterItems) {
                         if (!that.data.filter.rendered) {
                             _el.card__header_filter.find('#filter__buttons').append(
-                                _el.button_filter_edit,
-                                _el.button_filter_clear,
-                                _el.button_filter_hide
+                                _el.button_filter_edit.button(),
+                                _el.button_filter_clear.button(),
+                                _el.button_filter_hide.button()
                             );
                             that.data.gridview.data._el.content.children('.card__header').after(
                                 _el.card__header_filter
                             );
                             that.data.filter.rendered = true;
                         }
-                        _el.card__header_filter.find('#filter__applied').html();
+                        _el.card__header_filter.find('#filter__applied').html('');
                         that.data.filter.filterArgs.filterItems.map(function(d){
                             _el.card__header_filter.find('#filter__applied').append(
                                 _el.alertbox_group.clone().append(
