@@ -695,7 +695,91 @@ Asyst.GridView = function(options){
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
     that.delete_named_viewSample = function(){
-        console.log('delete');
+        var modal_options = {
+            size: 'md',
+            buttons: [
+                {
+                    name: 'save',
+                    action: 'save',
+                    icon: 'icon_svg_save_red'
+                },
+                {
+                    name: 'destroy',
+                    action: 'destroy',
+                    icon: 'icon_svg_close'
+                }
+            ],
+            header: {
+                caption: 'Удаление',
+                name: 'Выберите выборку'
+            },
+            content: {
+                tabs: [{
+                    id: 'general',
+                    name: 'Основное',
+                    active: true,
+                    content: $([
+                        '<div>',
+                        '<div class="control">',
+                        '<div class="control__caption">',
+                        '<div class="control__text">Выборка</div>',
+                        '<div class="control__icons">',
+                        '<span class="icon icon_svg_star_red" data-tooltip="Обязательное поле"></span>',
+                        '</div>',
+                        '</div>',
+                        '<div class="control__container">',
+                        that.data._el.select__view_sample.html(),
+                        '</div>',
+                        '</div>',
+                        '</div>'
+                    ].join(''))
+                }]
+            },
+            data: null,
+            draggable: true,
+            render_tabs_row: false
+        };
+        that.data.form = $('<div data-fc="form"></div>');
+        that.data.modal = $('<span class="modal__"></span>')
+            .modal__(modal_options)
+            .on('save.fc.modal', function(){
+                var form = $(this).closest('[data-fc="form"]'), valid = true;
+                if (form.length > 0) { valid = form.form('validate') }
+                if (valid) {
+                    var value = form.find('[data-fc="select"]').select('value');
+                    /*
+                    var sample = that.data.grid.getViewSample();
+                    sample.name = name;
+                    var asystViewSample = Asyst.Workspace.views[that.data.viewname].viewSamples.filter(function(v){ return v.Name == name; });
+                    if (asystViewSample.length > 0) {
+                        asystViewSample = asystViewSample[0];
+                        sample.guid = asystViewSample.ViewSampleId;
+                    } else {
+                        asystViewSample = null;
+                    }
+                    Asyst.APIv2.ViewSample.save({
+                        viewName: that.data.viewname,
+                        data: { name: sample.name, guid: sample.guid, sample: JSON.stringify(sample) },
+                        async: false
+                    });
+                    if (!asystViewSample) {
+                        Asyst.Workspace.views[that.data.viewname].viewSamples.push({
+                            ViewSampleId: sample.guid,
+                            viewName: that.data.viewname,
+                            Name: sample.name,
+                            Sample: JSON.stringify(sample)
+                        });
+                    }
+                    that.data.params.viewSampleId = sample.guid;
+                    that.update_viewSampleSelect();
+                    */
+                    that.data.modal.modal__('hide');
+                }
+            })
+            .on('hidden.fc.modal', function(){
+                that.data.form.remove();
+            });
+        that.data.form.append(that.data.modal).appendTo('body').form();
     };
 
     that.store_to_window = function(){
