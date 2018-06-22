@@ -7,7 +7,7 @@
                     self.data('_widget', { type: 'select', target : self });
                     var that = this.obj = {};
                     that.const = {
-                        REQUIRED: 'Необходимо заполнить'
+                        REQUIRED: 'Необходимо выбрать из списка'
                     };
                     that.defaults = {
                         name: self.attr('name'),
