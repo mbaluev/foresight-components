@@ -774,11 +774,11 @@ Asyst.GridView = function(options){
                                     }
                                 });
                                 Asyst.Workspace.views[that.data.viewname].viewSamples = viewSamples;
+                                that.update_viewSampleSelect();
                                 if (that.data.params.viewSampleId == viewSampleId) {
                                     that.data.params.viewSampleId = null;
+                                    that.load_view();
                                 }
-                                that.update_viewSampleSelect();
-                                that.load_view();
                             }
                         });
                     }
