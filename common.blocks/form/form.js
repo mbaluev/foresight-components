@@ -16,7 +16,8 @@
                     self.data(that.options);
                     that.data._el = {
                         button_submit: null,
-                        inputs: []
+                        inputs: [],
+                        select: []
                     };
 
                     that.destroy = function(){
@@ -27,6 +28,7 @@
                     that.get = function(){
                         that.data._el.button_submit = self.find('button[type="submit"]');
                         that.data._el.inputs = self.find('[data-fc="input"]');
+                        that.data._el.selects = self.find('[data-fc="select"]');
                     };
                     that.validate = function(){
                         that.data.validate = true;

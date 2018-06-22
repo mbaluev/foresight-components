@@ -16,3 +16,11 @@
     bottom: 2px;
     left: 2px;
 }
+
+.select__container.select__has-error > .button { background: #ff5940; }
+.select__container.select__has-error > .button:before {
+    top: 1px;
+    right: 1px;
+    bottom: 1px;
+    left: 1px;
+}

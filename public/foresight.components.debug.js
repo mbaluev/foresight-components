@@ -2356,6 +2356,25 @@ $(function(){
                         item.removeClass('popup__list-item_checked');
                     };
 
+                    that.validate = function(){
+                        that.data.validate = true;
+                        if (that.data.required) {
+                            if (!that.get_value()) {
+                                that.data.validate = false;
+                                that.data._el.select.addClass('select_has-error');
+                                if (self.parent().find('.control__error').length == 0) {
+                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
+                                }
+                            } else {
+                                that.data.validate = true;
+                                self.removeClass('select_has-error');
+                                if (self.parent().find('.control__error').length != 0) {
+                                    self.parent().find('.control__error').remove();
+                                }
+                            }
+                        }
+                        return that.data.validate;
+                    };
                     that.highlight = function(){
                         if (that.data.highlight) {
                             if (that.get_value()) {
@@ -2538,6 +2557,21 @@ $(function(){
             return this.each(function() {
                 this.obj.clear();
             });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
         },
         value : function() {
             if (this.length == 1) {
@@ -6879,7 +6913,8 @@ $(function(){
                     self.data(that.options);
                     that.data._el = {
                         button_submit: null,
-                        inputs: []
+                        inputs: [],
+                        select: []
                     };
 
                     that.destroy = function(){
@@ -6890,6 +6925,7 @@ $(function(){
                     that.get = function(){
                         that.data._el.button_submit = self.find('button[type="submit"]');
                         that.data._el.inputs = self.find('[data-fc="input"]');
+                        that.data._el.selects = self.find('[data-fc="select"]');
                     };
                     that.validate = function(){
                         that.data.validate = true;

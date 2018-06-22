@@ -2712,6 +2712,17 @@ body {
   left: 2px;
 }
 
+.select__container.select__has-error > .button {
+  background: #ff5940;
+}
+
+.select__container.select__has-error > .button:before {
+  top: 1px;
+  right: 1px;
+  bottom: 1px;
+  left: 1px;
+}
+
 .counter {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   display: -webkit-box;
