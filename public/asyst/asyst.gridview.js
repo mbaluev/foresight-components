@@ -790,22 +790,26 @@ Asyst.GridView = function(options){
         }
         $(window).trigger('resize');
     };
-    that.hide_extFilter = function(cookie){
+    that.hide_extFilter = function(saveState){
         that.data.gridview.data._el.content.children('.card__header')
             .find('#' + that.data.filter.buttonId + ' .icon').addClass('icon_rotate_180deg');
         that.data._el.card__header_filter.addClass('hidden');
-        that.data.filter.hidden = true;
-        if (typeof setCookie == 'function' && cookie) {
-            setCookie('register_ext_filter_hidden', true);
+        if (saveState) {
+            that.data.filter.hidden = true;
+            if (typeof setCookie == 'function') {
+                setCookie('register_ext_filter_hidden', true);
+            }
         }
     };
-    that.show_extFilter = function(cookie){
+    that.show_extFilter = function(saveState){
         that.data.gridview.data._el.content.children('.card__header')
             .find('#' + that.data.filter.buttonId + ' .icon').removeClass('icon_rotate_180deg');
         that.data._el.card__header_filter.removeClass('hidden');
-        that.data.filter.hidden = false;
-        if (typeof setCookie == 'function' && cookie) {
-            setCookie('register_ext_filter_hidden', false);
+        if (saveState) {
+            that.data.filter.hidden = false;
+            if (typeof setCookie == 'function') {
+                setCookie('register_ext_filter_hidden', false);
+            }
         }
     };
     that.toggle_extFilter = function(){
@@ -850,10 +854,6 @@ Asyst.GridView = function(options){
             if (that.data.filter.filterArgs.filterItems) {
                 that.render_set_extFilter();
             }
-        }
-        if (typeof getCookie == 'function') {
-            that.data.filter.hidden = getCookie('register_ext_filter_hidden') == 'true';
-            that.toggle_extFilter();
         }
     };
     that.edit_extFilter = function(){
