@@ -790,7 +790,6 @@ Asyst.GridView = function(options){
             }
             that.data.filter.rendered = false;
         }
-        $(window).trigger('resize');
     };
     that.hide_extFilter = function(saveState){
         that.data.gridview.data._el.content.children('.card__header')
@@ -802,6 +801,7 @@ Asyst.GridView = function(options){
                 setCookie('register_ext_filter_hidden', true);
             }
         }
+        $(window).trigger('resize');
     };
     that.show_extFilter = function(saveState){
         that.data.gridview.data._el.content.children('.card__header')
@@ -813,6 +813,7 @@ Asyst.GridView = function(options){
                 setCookie('register_ext_filter_hidden', false);
             }
         }
+        $(window).trigger('resize');
     };
     that.toggle_extFilter = function(){
         if (that.data.filter.hidden) {
