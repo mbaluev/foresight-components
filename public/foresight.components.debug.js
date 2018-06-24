@@ -1992,7 +1992,7 @@ $(function(){
                         button: $([
                             '<button class="button" data-fc="button">',
                                 '<span class="button__text">' + that.data.placeholder + '</span>',
-                                '<span class="icon icon_svg_down"></span>',
+                                '<span class="icon icon_animate icon_svg_down"></span>',
                             '</button>'
                         ].join('')),
                         spinner: $([
