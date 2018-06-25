@@ -1027,13 +1027,16 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
+                that.data.filter.filterArgs.filterItems = [];
                 that.data.modal.find('.control__row').each(function(){
                     var select_field = $(this).find('.selectName'),
                         select_oper = $(this).find('.selectComparison'),
                         input_value = $(this).find('.inputValue');
-                    console.log(select_field.select('value'));
-                    console.log(select_oper.select('value'));
-                    console.log(input_value.input('value'));
+                    that.data.filter.filterArgs.filterItems.push({
+                        column: select_field,
+                        oper: select_oper,
+                        value: input_value
+                    });
                 });
                 if (typeof callback == 'function') { callback(); }
                 that.data.modal.modal__('hide');
