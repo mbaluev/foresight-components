@@ -487,6 +487,8 @@ Asyst.GridView = function(options){
         that.data.gridview.render_settings_popup();
     };
 
+    /* ------------------ */
+    /* viewSample methods */
     that.render_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isViewSampled) {
@@ -756,7 +758,11 @@ Asyst.GridView = function(options){
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
+    /* viewSample methods */
+    /* ------------------ */
 
+    /* ----------------- */
+    /* extFilter methods */
     that.render_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
@@ -824,6 +830,7 @@ Asyst.GridView = function(options){
             that.hide_extFilter(true);
         }
     };
+
     that.render_set_extFilter = function(){
         that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).addClass('button_highlighted');
         that.data._el.card__header_filter.find('#filter__applied').html('');
@@ -878,18 +885,23 @@ Asyst.GridView = function(options){
         that.data._el.button_filter_edit.button('destroy');
         that.data._el.button_filter_clear.button('destroy');
     };
+
     that.set_extFilter = function(){
         if (that.data.filter.filterArgs) {
             if (that.data.filter.filterArgs.filterItems) {
-                if (that.data.filter.filterArgs.filterItems.length == 0) {
-                    that.data.filter.filterArgs.filterItems = null;
-                    that.data.filter.filterArgs.oper = null;
+                if (that.data.filter.filterArgs.filterItems.length > 0) {
+                    view.DataView.setFilter(Grid.ExtFilter);
+                    view.DataView.setFilterArgs(that.data.filter.filterArgs);
+                    view.DataView.refresh();
+                    that.render_set_extFilter();
+                } else {
+                    that.clear_extFilter();
                 }
-                view.DataView.setFilter(Grid.ExtFilter);
-                view.DataView.setFilterArgs(that.data.filter.filterArgs);
-                view.DataView.refresh();
-                that.render_set_extFilter();
+            } else {
+                that.clear_extFilter();
             }
+        } else {
+            that.clear_extFilter();
         }
     };
     that.edit_extFilter = function(){
@@ -905,6 +917,7 @@ Asyst.GridView = function(options){
         view.DataView.refresh();
         that.render_clear_extFilter();
     };
+
     that.render_modal_extFilter = function(callback){
         var modal_options = {
             size: 'md',
@@ -1129,6 +1142,8 @@ Asyst.GridView = function(options){
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
+    /* extFilter methods */
+    /* ----------------- */
 
     that.store_to_window = function(){
         if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
