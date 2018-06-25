@@ -840,9 +840,14 @@ Asyst.GridView = function(options){
                                 var text = '';
                                 that.data.grid.Filters.map(function(f){
                                     if (f.fieldName == d.column) {
-                                        text = (f.title && f.title != '' && f.title != ' ' ? f.title : f.fieldName);
+                                        if (f.title && f.title != '' && f.title != ' ') {
+                                            text = f.title;
+                                        }
                                     }
                                 });
+                                if (text == '') {
+                                    text = d.column;
+                                }
                                 return text;
                             }
                         )
@@ -858,11 +863,12 @@ Asyst.GridView = function(options){
                                     if (f.fieldName == d.column) {
                                         if (f.kind == 'date') {
                                             text = Asyst.date.format(d.value);
-                                        } else {
-                                            text = d.value;
                                         }
                                     }
                                 });
+                                if (text == '') {
+                                    text = d.value;
+                                }
                                 return text;
                             }
                         )
@@ -1072,15 +1078,18 @@ Asyst.GridView = function(options){
                             if (filterItem) {
                                 _select_field.select('check', filterItem.column);
                                 _select_oper.select('check', filterItem.oper);
+                                var is_date = false;
                                 that.data.grid.Filters.map(function(f){
                                     if (f.fieldName == filterItem.column) {
                                         if (f.kind == 'date') {
+                                            is_date = true;
                                             _input.input('value', Asyst.date.format(filterItem.value));
-                                        } else {
-                                            _input.input('value', filterItem.value);
                                         }
                                     }
                                 });
+                                if (!is_date) {
+                                    _input.input('value', filterItem.value);
+                                }
                             }
                         }
                         // восстанавливаем значения фильтров
