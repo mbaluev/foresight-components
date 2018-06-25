@@ -928,7 +928,7 @@ Asyst.GridView = function(options){
                                 '<label class="radio__label">' + Globa.OrTitle.locale() + '</label>',
                                 '</label>',
                                 '</span>'
-                            ].join('')).radio_group(),
+                            ].join('')),
                             button_trash: $([
                                 '<button class="button" data-fc="button" type="button">',
                                 '<span class="icon icon_svg_trash"></span>',
@@ -974,7 +974,7 @@ Asyst.GridView = function(options){
                                     _el.control__text.text('Выводить строки для которых выполняются')
                                 ),
                                 _el.control__container.clone().append(
-                                    _el.radio_group.clone()
+                                    _el.radio_group.clone().radio_group()
                                 )
                             ),
                             rows: $('<div></div>'),
