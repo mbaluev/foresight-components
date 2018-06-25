@@ -4752,6 +4752,17 @@ $(function(){
                         });
                         that.data.hidden = false;
                     };
+                    that.check = function(value){
+                        that.data._el.radio_list.each(function(){
+                            var radio = $(this);
+                            radio.radio('uncheck');
+                            if (radio.radio('value') == value) {
+                                radio.radio('check');
+                                that.data.checked = true;
+                                that.data.value = value;
+                            }
+                        });
+                    };
 
                     that.init_components = function(){
                         self.find('[data-tooltip]').tooltip();
@@ -4809,6 +4820,11 @@ $(function(){
         show : function() {
             return this.each(function() {
                 this.obj.show();
+            });
+        },
+        check : function(value) {
+            return this.each(function() {
+                this.obj.check(value);
             });
         },
         checked : function() {
