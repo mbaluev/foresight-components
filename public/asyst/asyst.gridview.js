@@ -955,6 +955,16 @@ Asyst.GridView = function(options){
                                 '</span>'
                             ].join(''))
                         };
+                        that.data.grid.Filters.map(function(d){
+                            _el.select_field.append(
+                                $('<option value="' + d.fieldName + '">' + (d.title && d.title != '' && d.title != ' ' ? d.title : d.fieldName) + '</option>')
+                            );
+                        });
+                        for (var c in Grid.ExtFilterOper) {
+                            _el.select_oper.append(
+                                $('<option value="' + c + '">' + Grid.ExtFilterOper[c].title + '</option>')
+                            );
+                        }
                         var _control = {
                             caption: _el.control.clone().addClass('control__container_vertical').append(
                                 _el.control__caption.clone().addClass('control__caption_size_xl').append(
