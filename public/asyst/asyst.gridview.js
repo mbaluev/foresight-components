@@ -1017,10 +1017,8 @@ Asyst.GridView = function(options){
                                         fieldOk = true;
                                     }
                                 });
-                                if (fieldOk) {
-                                    _select_field.select('check', filterItem.column);
-                                } else {
-                                    var _options = []
+                                if (!fieldOk) {
+                                    var _options = [];
                                     _options.push({
                                         value: filterItem.column,
                                         text: filterItem.column
@@ -1031,7 +1029,9 @@ Asyst.GridView = function(options){
                                             text: o.text()
                                         });
                                     });
+                                    _select_field.select('update', _options);
                                 }
+                                _select_field.select('check', filterItem.column);
                                 // set _select_oper
                                 _select_oper.select('check', filterItem.oper);
                                 // set _input
