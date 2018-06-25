@@ -833,11 +833,13 @@ Asyst.GridView = function(options){
                     that.data._el.alertbox.clone().append(
                         that.data._el.alertbox__text.clone().text(
                             function(){
-                                return that.data.grid.Filters.map(function(f){
+                                var text = '';
+                                that.data.grid.Filters.map(function(f){
                                     if (f.fieldName == d.column) {
-                                        return (f.title && f.title != '' && f.title != ' ' ? f.title : f.fieldName);
+                                        text = (f.title && f.title != '' && f.title != ' ' ? f.title : f.fieldName);
                                     }
                                 });
+                                return text;
                             }
                         )
                     ).alertbox(),
