@@ -881,6 +881,10 @@ Asyst.GridView = function(options){
     that.set_extFilter = function(){
         if (that.data.filter.filterArgs) {
             if (that.data.filter.filterArgs.filterItems) {
+                if (that.data.filter.filterArgs.filterItems.length == 0) {
+                    that.data.filter.filterArgs.filterItems = null;
+                    that.data.filter.filterArgs.oper = null;
+                }
                 view.DataView.setFilter(Grid.ExtFilter);
                 view.DataView.setFilterArgs(that.data.filter.filterArgs);
                 view.DataView.refresh();
@@ -894,7 +898,7 @@ Asyst.GridView = function(options){
         });
     };
     that.clear_extFilter = function(){
-        that.data.filter.filterArgs.filterItems = [];
+        that.data.filter.filterArgs.filterItems = null;
         that.data.filter.filterArgs.oper = null;
         view.DataView.setFilter(Grid.ExtFilter);
         view.DataView.setFilterArgs(that.data.filter.filterArgs);
