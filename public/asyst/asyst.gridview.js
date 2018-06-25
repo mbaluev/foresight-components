@@ -1044,7 +1044,7 @@ Asyst.GridView = function(options){
                         // восстанавливаем значения фильтров
                         if (that.data.filter.filterArgs) {
                             if (that.data.filter.filterArgs.oper) {
-                                _control.caption.find('.radio[value="' + that.data.filter.filterArgs.oper + '"]').radio('check');
+                                _control.caption.find('.radioFilterType').radio_group('check', that.data.filter.filterArgs.oper);
                             }
                             if (that.data.filter.filterArgs.filterItems) {
                                 that.data.filter.filterArgs.filterItems.map(function(d){
