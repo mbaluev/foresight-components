@@ -1010,8 +1010,31 @@ Asyst.GridView = function(options){
 
                             // set values for controls
                             if (filterItem) {
-                                _select_field.select('check', filterItem.column);
+                                // set _select_field
+                                var fieldOk = false;
+                                _select_field.data('_options').map(function(o){
+                                    if (o.val() == filterItem.column) {
+                                        fieldOk = true;
+                                    }
+                                });
+                                if (fieldOk) {
+                                    _select_field.select('check', filterItem.column);
+                                } else {
+                                    var _options = []
+                                    _options.push({
+                                        value: filterItem.column,
+                                        text: filterItem.column
+                                    });
+                                    _select_field.data('_options').map(function(o){
+                                        _options.push({
+                                            value: o.val(),
+                                            text: o.text()
+                                        });
+                                    });
+                                }
+                                // set _select_oper
                                 _select_oper.select('check', filterItem.oper);
+                                // set _input
                                 var is_date = false;
                                 that.data.grid.Filters.map(function(f){
                                     if (f.fieldName == filterItem.column) {
