@@ -890,7 +890,7 @@ Asyst.GridView = function(options){
                 }
             ],
             header: {
-                caption: that.data.entitytitle,
+                caption: that.data.title,
                 name: 'Расширенный фильтр'
             },
             content: {
