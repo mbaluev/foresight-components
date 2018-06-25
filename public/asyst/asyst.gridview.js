@@ -894,6 +894,11 @@ Asyst.GridView = function(options){
         });
     };
     that.clear_extFilter = function(){
+        that.data.filter.filterArgs.filterItems = [];
+        that.data.filter.filterArgs.oper = null;
+        view.DataView.setFilter(Grid.ExtFilter);
+        view.DataView.setFilterArgs(that.data.filter.filterArgs);
+        view.DataView.refresh();
         that.render_clear_extFilter();
     };
     that.render_modal_extFilter = function(callback){
