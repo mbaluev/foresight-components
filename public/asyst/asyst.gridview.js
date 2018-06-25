@@ -867,6 +867,9 @@ Asyst.GridView = function(options){
     that.set_extFilter = function(){
         if (that.data.filter.filterArgs) {
             if (that.data.filter.filterArgs.filterItems) {
+                view.DataView.setFilter(Grid.ExtFilter);
+                view.DataView.setFilterArgs(that.data.filter.filterArgs);
+                view.DataView.refresh();
                 that.render_set_extFilter();
             }
         }
