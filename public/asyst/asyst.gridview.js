@@ -943,16 +943,6 @@ Asyst.GridView = function(options){
                                 '</button>',
                                 '</span>',
                                 '</span>'
-                            ].join('')),
-                            input_datepicker: $([
-                                '<span class="input input__has-clear inputValue" data-fc="input" data-toggle="datapicker" data-placeholder="' + Globa.Value.locale() + '">',
-                                '<span class="input__box">',
-                                '<input type="text" class="input__control">',
-                                '<button class="button" type="button" data-fc="button" tabindex="-1">',
-                                '<span class="icon icon_svg_close"></span>',
-                                '</button>',
-                                '</span>',
-                                '</span>'
                             ].join(''))
                         };
                         that.data.grid.Filters.map(function(d){
@@ -989,6 +979,11 @@ Asyst.GridView = function(options){
                                 _select_field = _el.select_field.clone(),
                                 _select_oper = _el.select_oper.clone(),
                                 _input = _el.input.clone();
+                            if (filterItem) {
+                                if (filterItem.kind == 'date') {
+                                    _input.attr('data-toggle', 'datepicker');
+                                }
+                            }
                             var _row = _el.control.clone().addClass('control__row').append(
                                 _el.control__container.clone()
                                     .addClass('control__container_horizontal control__container_horizontal_margin').append(
@@ -1006,9 +1001,11 @@ Asyst.GridView = function(options){
                             _row.find('[data-fc="input"]').input();
 
                             // set values for controls
-                            _select_field.select('check', filterItem.column);
-                            _select_oper.select('check', filterItem.oper);
-                            _input.input('value', filterItem.value);
+                            if (filterItem) {
+                                _select_field.select('check', filterItem.column);
+                                _select_oper.select('check', filterItem.oper);
+                                _input.input('value', filterItem.value);
+                            }
                         }
                         // восстанавливаем значения фильтров
                         if (that.data.filter.filterArgs) {
@@ -1030,6 +1027,14 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
+                that.data.modal.find('.control__row').each(function(){
+                    var select_field = $(this).find('.selectName'),
+                        select_oper = $(this).find('.selectComparison'),
+                        input_value = $(this).find('.inputValue');
+                    console.log(select_field.select('value'));
+                    console.log(select_oper.select('value'));
+                    console.log(input_value.input('value'));
+                });
                 if (typeof callback == 'function') { callback(); }
                 that.data.modal.modal__('hide');
                 that.data.form.remove();
