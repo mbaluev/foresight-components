@@ -960,7 +960,7 @@ Asyst.GridView = function(options){
                             )
                         };
                         _el.button_add.on('click', add_row);
-                        function add_row(filterItem){
+                        function add_row(e, filterItem){
                             // render controls
                             var _button_trash = _el.button_trash.clone(),
                                 _select_field = _el.select_field.clone(),
@@ -1056,7 +1056,7 @@ Asyst.GridView = function(options){
                             }
                             if (that.data.filter.filterArgs.filterItems) {
                                 that.data.filter.filterArgs.filterItems.map(function(d){
-                                    add_row(d);
+                                    add_row(null, d);
                                 });
                             }
                         }
