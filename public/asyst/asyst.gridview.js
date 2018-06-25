@@ -824,7 +824,7 @@ Asyst.GridView = function(options){
         $(window).trigger('resize');
     };
     that.toggle_extFilter = function(){
-        if (that.data.filter.hidden) {
+        if (that.data._el.card__header_filter.hasClass('hidden')) {
             that.show_extFilter(true);
         } else {
             that.hide_extFilter(true);
