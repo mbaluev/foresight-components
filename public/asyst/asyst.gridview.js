@@ -1061,7 +1061,12 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
-                that.data.filter.filterArgs.filterItems = [];
+                var ragio_group = $(this).find('.filterType');
+                that.data.filter.filterArgs = {
+                    filterItems: [],
+                    gridView: that.data.grid,
+                    oper: ragio_group.radio_group('value')
+                };
                 that.data.modal.find('.control__row').each(function(){
                     var select_field = $(this).find('.selectName'),
                         select_oper = $(this).find('.selectComparison'),
