@@ -940,7 +940,7 @@ Asyst.GridView = function(options){
                                 '</button>'
                             ].join('')),
                             select_field: $([
-                                '<select class="select selectName" data-fc="select" data-mode="radio-check" data-autoclose="true" data-placeholder="' + Globa.FieldName.locale() + '">',
+                                '<select class="select selectName" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="' + Globa.FieldName.locale() + '">',
                                 '</select>'
                             ].join('')),
                             select_oper: $([
