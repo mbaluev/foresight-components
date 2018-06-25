@@ -847,7 +847,21 @@ Asyst.GridView = function(options){
                         that.data._el.alertbox__text.clone().text(d.oper)
                     ).alertbox(),
                     that.data._el.alertbox.clone().append(
-                        that.data._el.alertbox__text.clone().text(d.value)
+                        that.data._el.alertbox__text.clone().text(
+                            function(){
+                                var text = '';
+                                that.data.grid.Filters.map(function(f){
+                                    if (f.fieldName == d.column) {
+                                        if (f.kind == 'date') {
+                                            text = Asyst.date.format(d.value);
+                                        } else {
+                                            text = d.value;
+                                        }
+                                    }
+                                });
+                                return text;
+                            }
+                        )
                     ).alertbox()
                 )
             );
@@ -1038,7 +1052,15 @@ Asyst.GridView = function(options){
                             if (filterItem) {
                                 _select_field.select('check', filterItem.column);
                                 _select_oper.select('check', filterItem.oper);
-                                _input.input('value', filterItem.value);
+                                that.data.grid.Filters.map(function(f){
+                                    if (f.fieldName == filterItem.column) {
+                                        if (f.kind == 'date') {
+                                            _input.input('value', Asyst.date.format(filterItem.value));
+                                        } else {
+                                            _input.input('value', filterItem.value);
+                                        }
+                                    }
+                                });
                             }
                         }
                         // восстанавливаем значения фильтров
