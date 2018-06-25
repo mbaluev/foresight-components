@@ -831,7 +831,15 @@ Asyst.GridView = function(options){
             that.data._el.card__header_filter.find('#filter__applied').append(
                 that.data._el.alertbox_group.clone().append(
                     that.data._el.alertbox.clone().append(
-                        that.data._el.alertbox__text.clone().text(d.column)
+                        that.data._el.alertbox__text.clone().text(
+                            function(){
+                                return that.data.grid.Filters.map(function(f){
+                                    if (f.fieldName == d.column) {
+                                        return (f.title && f.title != '' && f.title != ' ' ? f.title : f.fieldName);
+                                    }
+                                });
+                            }
+                        )
                     ).alertbox(),
                     that.data._el.alertbox.clone().append(
                         that.data._el.alertbox__text.clone().text(d.oper)
@@ -979,6 +987,7 @@ Asyst.GridView = function(options){
                                 _select_field = _el.select_field.clone(),
                                 _select_oper = _el.select_oper.clone(),
                                 _input = _el.input.clone();
+
                             if (filterItem) {
                                 that.data.grid.Filters.map(function(d){
                                     if (d.fieldName == filterItem.column && d.kind == 'date') {
@@ -993,12 +1002,19 @@ Asyst.GridView = function(options){
                                     _select_field.on('change', function(){
                                         var value = $(this).select('value');
                                         that.data.grid.Filters.map(function(d){
-                                            if (d.fieldName == value && d.kind == 'date') {
-                                                _input.input('destroy');
-                                                _input = _el.input.clone();
-                                                _input.attr('data-toggle', 'datepicker');
-                                                _row.find('.control__container').append(_input);
-                                                _input.input();
+                                            if (d.fieldName == value) {
+                                                if (d.kind == 'date') {
+                                                    _input.input('destroy');
+                                                    _input = _el.input.clone();
+                                                    _input.attr('data-toggle', 'datepicker');
+                                                    _row.find('.control__container').append(_input);
+                                                    _input.input();
+                                                } else {
+                                                    _input.input('destroy');
+                                                    _input = _el.input.clone();
+                                                    _row.find('.control__container').append(_input);
+                                                    _input.input();
+                                                }
                                             }
                                         });
                                     }),
