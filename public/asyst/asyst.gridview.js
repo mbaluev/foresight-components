@@ -948,7 +948,7 @@ Asyst.GridView = function(options){
                                 '</select>'
                             ].join('')),
                             input: $([
-                                '<span class="input input__has-clear inputValue" data-fc="input" data-placeholder="' + Globa.Value.locale() + '">',
+                                '<span class="input input__has-clear inputValue" data-fc="input" data-placeholder="' + Globa.Value.locale() + '" style="margin-right:0;">',
                                 '<span class="input__box">',
                                 '<input type="text" class="input__control">',
                                 '<button class="button" type="button" data-fc="button" tabindex="-1">',
