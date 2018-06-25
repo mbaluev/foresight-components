@@ -487,7 +487,6 @@ Asyst.GridView = function(options){
         that.data.gridview.render_settings_popup();
     };
 
-    /* ------------------ */
     /* viewSample methods */
     that.render_viewSample = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
@@ -758,10 +757,8 @@ Asyst.GridView = function(options){
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
-    /* viewSample methods */
-    /* ------------------ */
+    /* end of viewSample methods */
 
-    /* ----------------- */
     /* extFilter methods */
     that.render_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
@@ -917,6 +914,7 @@ Asyst.GridView = function(options){
         view.DataView.refresh();
         that.render_clear_extFilter();
     };
+    /* end of extFilter methods */
 
     that.render_modal_extFilter = function(callback){
         var modal_options = {
@@ -1142,8 +1140,6 @@ Asyst.GridView = function(options){
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
-    /* extFilter methods */
-    /* ----------------- */
 
     that.store_to_window = function(){
         if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
