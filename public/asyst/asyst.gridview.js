@@ -65,12 +65,12 @@ Asyst.GridView = function(options){
             '</div>'
         ].join('')),
         button_filter_edit: $([
-            '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+            '<button class="button" type="button" data-fc="button" data-tooltip="Изменить фильтр">',
             '<span class="icon icon_svg_edit"></span>',
             '</button>'
         ].join('')),
         button_filter_clear: $([
-            '<button class="button" type="button" data-fc="button" data-tooltip="Расширенный фильтр">',
+            '<button class="button" type="button" data-fc="button" data-tooltip="Очистить фильтр">',
             '<span class="icon icon_svg_close"></span>',
             '</button>'
         ].join('')),
@@ -313,7 +313,7 @@ Asyst.GridView = function(options){
                 that.init_settings();
                 that.render_view();
                 that.render_viewSample();
-                that.render_extFilter();
+                that.render_line_extFilter();
                 //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
@@ -425,7 +425,7 @@ Asyst.GridView = function(options){
         }
         */
 
-        // перенесено в that.render_extFilter
+        // перенесено в that.render_line_extFilter
         /*
         if (Asyst.Workspace.views && Asyst.Workspace.views[viewName] && Asyst.Workspace.views[viewName].isExtFilterVisible) {
             $('.ext-filter-menu').show();
@@ -453,7 +453,7 @@ Asyst.GridView = function(options){
             view.DataView.refresh();
             needInvalidate = true;
 
-            // перенесено в that.render_extFilter
+            // перенесено в that.render_line_extFilter
             /*
             if (!that.data.params.hideFilterPanel)
                 MakeFilterLine(filterArgs);
@@ -760,7 +760,7 @@ Asyst.GridView = function(options){
     /* end of viewSample methods */
 
     /* extFilter methods */
-    that.render_extFilter = function(){
+    that.render_line_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
             if (!that.data.filter.rendered) {
@@ -796,38 +796,6 @@ Asyst.GridView = function(options){
             that.data.filter.rendered = false;
         }
     };
-    that.hide_extFilter = function(saveState){
-        that.data.gridview.data._el.content.children('.card__header')
-            .find('#' + that.data.filter.buttonId + ' .icon').addClass('icon_rotate_180deg');
-        that.data._el.card__header_filter.addClass('hidden');
-        if (saveState) {
-            that.data.filter.hidden = true;
-            if (typeof setCookie == 'function') {
-                setCookie('register_ext_filter_hidden', true);
-            }
-        }
-        $(window).trigger('resize');
-    };
-    that.show_extFilter = function(saveState){
-        that.data.gridview.data._el.content.children('.card__header')
-            .find('#' + that.data.filter.buttonId + ' .icon').removeClass('icon_rotate_180deg');
-        that.data._el.card__header_filter.removeClass('hidden');
-        if (saveState) {
-            that.data.filter.hidden = false;
-            if (typeof setCookie == 'function') {
-                setCookie('register_ext_filter_hidden', false);
-            }
-        }
-        $(window).trigger('resize');
-    };
-    that.toggle_extFilter = function(){
-        if (that.data._el.card__header_filter.hasClass('hidden')) {
-            that.show_extFilter(true);
-        } else {
-            that.hide_extFilter(true);
-        }
-    };
-
     that.render_set_extFilter = function(){
         that.data.gridview.data._el.content.children('.card__header').find('#' + that.data.filter.buttonId).addClass('button_highlighted');
         that.data._el.card__header_filter.find('#filter__applied').html('');
@@ -888,40 +856,6 @@ Asyst.GridView = function(options){
         that.data._el.button_filter_edit.button('destroy');
         that.data._el.button_filter_clear.button('destroy');
     };
-
-    that.set_extFilter = function(){
-        if (that.data.filter.filterArgs) {
-            if (that.data.filter.filterArgs.filterItems) {
-                if (that.data.filter.filterArgs.filterItems.length > 0) {
-                    view.DataView.setFilter(Grid.ExtFilter);
-                    view.DataView.setFilterArgs(that.data.filter.filterArgs);
-                    view.DataView.refresh();
-                    that.render_set_extFilter();
-                } else {
-                    that.clear_extFilter();
-                }
-            } else {
-                that.clear_extFilter();
-            }
-        } else {
-            that.clear_extFilter();
-        }
-    };
-    that.edit_extFilter = function(){
-        that.render_modal_extFilter(function(){
-            that.set_extFilter();
-        });
-    };
-    that.clear_extFilter = function(){
-        that.data.filter.filterArgs.filterItems = null;
-        that.data.filter.filterArgs.oper = null;
-        view.DataView.setFilter(Grid.ExtFilter);
-        view.DataView.setFilterArgs(that.data.filter.filterArgs);
-        view.DataView.refresh();
-        that.render_clear_extFilter();
-    };
-    /* end of extFilter methods */
-
     that.render_modal_extFilter = function(callback){
         var modal_options = {
             size: 'md',
@@ -1149,6 +1083,71 @@ Asyst.GridView = function(options){
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
     };
+
+    that.hide_extFilter = function(saveState){
+        that.data.gridview.data._el.content.children('.card__header')
+            .find('#' + that.data.filter.buttonId + ' .icon').addClass('icon_rotate_180deg');
+        that.data._el.card__header_filter.addClass('hidden');
+        if (saveState) {
+            that.data.filter.hidden = true;
+            if (typeof setCookie == 'function') {
+                setCookie('register_ext_filter_hidden', true);
+            }
+        }
+        $(window).trigger('resize');
+    };
+    that.show_extFilter = function(saveState){
+        that.data.gridview.data._el.content.children('.card__header')
+            .find('#' + that.data.filter.buttonId + ' .icon').removeClass('icon_rotate_180deg');
+        that.data._el.card__header_filter.removeClass('hidden');
+        if (saveState) {
+            that.data.filter.hidden = false;
+            if (typeof setCookie == 'function') {
+                setCookie('register_ext_filter_hidden', false);
+            }
+        }
+        $(window).trigger('resize');
+    };
+    that.toggle_extFilter = function(){
+        if (that.data._el.card__header_filter.hasClass('hidden')) {
+            that.show_extFilter(true);
+        } else {
+            that.hide_extFilter(true);
+        }
+    };
+
+    that.set_extFilter = function(){
+        if (that.data.filter.filterArgs) {
+            if (that.data.filter.filterArgs.filterItems) {
+                if (that.data.filter.filterArgs.filterItems.length > 0) {
+                    view.DataView.setFilter(Grid.ExtFilter);
+                    view.DataView.setFilterArgs(that.data.filter.filterArgs);
+                    view.DataView.refresh();
+                    that.render_set_extFilter();
+                } else {
+                    that.clear_extFilter();
+                }
+            } else {
+                that.clear_extFilter();
+            }
+        } else {
+            that.clear_extFilter();
+        }
+    };
+    that.edit_extFilter = function(){
+        that.render_modal_extFilter(function(){
+            that.set_extFilter();
+        });
+    };
+    that.clear_extFilter = function(){
+        that.data.filter.filterArgs.filterItems = null;
+        that.data.filter.filterArgs.oper = null;
+        view.DataView.setFilter(Grid.ExtFilter);
+        view.DataView.setFilterArgs(that.data.filter.filterArgs);
+        view.DataView.refresh();
+        that.render_clear_extFilter();
+    };
+    /* end of extFilter methods */
 
     that.store_to_window = function(){
         if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
