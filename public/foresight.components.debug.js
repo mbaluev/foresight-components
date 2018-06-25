@@ -4693,7 +4693,6 @@ $(function(){
         }
     };
 })( jQuery );
-
 $(function(){
     $('[data-fc="radio"]').radio();
 });

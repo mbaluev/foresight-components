@@ -1043,6 +1043,9 @@ Asyst.GridView = function(options){
                         }
                         // восстанавливаем значения фильтров
                         if (that.data.filter.filterArgs) {
+                            if (that.data.filter.filterArgs.filterItems.oper) {
+                                _control.find('.radio[value="' + that.data.filter.filterArgs.filterItems.oper + '"]').trigger('click');
+                            }
                             if (that.data.filter.filterArgs.filterItems) {
                                 that.data.filter.filterArgs.filterItems.map(function(d){
                                     add_row(d);
