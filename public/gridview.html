@@ -1217,9 +1217,7 @@
                         {
                             icon: 'icon_svg_search',
                             name: 'Расширенный фильтр',
-                            onclick: function(){
-
-                            }
+                            onclick: modal_extFilter
                         }
                     ],
                     search: {
@@ -1389,6 +1387,133 @@
                         view.Grid.invalidate();
                     }
                 }
+            }
+            function modal_extFilter(){
+                var modal_options = {
+                    size: 'md',
+                    buttons: [
+                        {
+                            name: 'save',
+                            action: 'save',
+                            icon: 'icon_svg_ok'
+                        },
+                        {
+                            name: 'destroy',
+                            action: 'destroy',
+                            icon: 'icon_svg_close'
+                        },
+                        {
+                            name: 'fullscreen',
+                            action: 'fullscreen',
+                            icon: 'icon_svg_fullscreen'
+                        }
+                    ],
+                    header: {
+                        caption: 'Проекты',
+                        name: 'Расширенный фильтр'
+                    },
+                    content: {
+                        tabs: [{
+                            id: 'general',
+                            name: 'Основное',
+                            active: true,
+                            content: function(){
+                                var _el = {
+                                    control: $('<div class="control"></div>'),
+                                    control__caption: $('<div class="control__caption"></div>'),
+                                    control__text: $('<div class="control__text"></div>'),
+                                    control__container: $('<div class="control__container"></div>'),
+                                    radio_group: $([
+                                        '<span class="radio-group radio-group_type_line" data-fc="radio-group">',
+                                        '<label class="radio radio_type_line" data-fc="radio" data-checked="true">',
+                                        '<input class="radio__input" type="radio" name="radio-group-disabled" value="0" hidden />',
+                                        '<label class="radio__label">Все условия одновременно</label>',
+                                        '</label>',
+                                        '<label class="radio radio_type_line" data-fc="radio">',
+                                        '<input class="radio__input" type="radio" name="radio-group-disabled" value="1" hidden />',
+                                        '<label class="radio__label">Хотя бы одно из условий</label>',
+                                        '</label>',
+                                        '</span>',
+                                    ].join('')),
+                                    button_trash: $([
+                                        '<button class="button" data-fc="button" type="button">',
+                                        '<span class="icon icon_svg_trash"></span>',
+                                        '</button>'
+                                    ].join('')),
+                                    button_add: $([
+                                        '<button class="button" data-fc="button" type="button">',
+                                        '<span class="icon icon_svg_plus"></span>',
+                                        '</button>'
+                                    ].join('')),
+                                    select_field: $([
+                                        '<select class="select" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="Поле">',
+                                        '</select>'
+                                    ].join('')),
+                                    select_oper: $([
+                                        '<select class="select" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="Операция">',
+                                        '</select>'
+                                    ].join('')),
+                                    input: $([
+                                        '<span class="input input__has-clear" data-fc="input" data-placeholder="Значение">',
+                                        '<span class="input__box">',
+                                        '<input type="text" class="input__control">',
+                                        '<button class="button" type="button" data-fc="button" tabindex="-1">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                        '</button>',
+                                        '</span>',
+                                        '</span>'
+                                    ].join(''))
+                                };
+                                var _control = {
+                                    caption: _el.control.clone().addClass('control__container_vertical').append(
+                                            _el.control__caption.clone().addClass('control__caption_size_xl').append(
+                                                    _el.control__text.text('Выводить строки для которых выполняются')
+                                            ),
+                                            _el.control__container.clone().append(
+                                                    _el.radio_group.clone()
+                                            )
+                                    ),
+                                    rows: $('<div></div>'),
+                                    add: _el.control.clone().append(
+                                            _el.control__container.clone()
+                                                    .addClass('control__container_horizontal control__container_horizontal_margin').append(
+                                                    _el.button_add
+                                            )
+                                    )
+                                };
+                                add_row();
+                                _el.button_add.on('click', add_row);
+                                function add_row(){
+                                    var _row = _el.control.clone().addClass('control__row').append(
+                                            _el.control__container.clone()
+                                                    .addClass('control__container_horizontal control__container_horizontal_margin').append(
+                                                    _el.button_trash.clone().on('click', function(){ _row.remove(); }),
+                                                    _el.select_field.clone(),
+                                                    _el.select_oper.clone(),
+                                                    _el.input.clone()
+                                            )
+                                    );
+                                    _control.rows.append(_row);
+                                    _row.find('[data-fc="button"]').button();
+                                    _row.find('[data-fc="select"]').select();
+                                    _row.find('[data-fc="input"]').input();
+                                }
+                                return [_control.caption, _control.rows, _control.add];
+                            }
+                        }]
+                    },
+                    data: null,
+                    draggable: true,
+                    render_tabs_row: false,
+                };
+                var form = $('<div data-fc="form"></div>');
+                var modal = $('<span class="modal__"></span>')
+                        .modal__(modal_options)
+                        .on('save.fc.modal', function(){})
+                        .on('hidden.fc.modal', function(){
+                            form.remove();
+                        });
+                form.append(modal).appendTo('body').form();
             }
         });
     </script>

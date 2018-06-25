@@ -4428,6 +4428,14 @@ body {
           flex-direction: row;
 }
 
+.control__container_horizontal_margin > * {
+  margin-right: 10px;
+}
+
+.control__container_horizontal_margin > :last-child {
+  margin-right: 0;
+}
+
 .control__container_text-align_right {
   text-align: right;
 }
