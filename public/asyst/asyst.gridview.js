@@ -918,7 +918,7 @@ Asyst.GridView = function(options){
                             control__text: $('<div class="control__text"></div>'),
                             control__container: $('<div class="control__container"></div>'),
                             radio_group: $([
-                                '<span class="radio-group radio-group_type_line" data-fc="radio-group">',
+                                '<span class="radio-group radio-group_type_line radioFilterType" data-fc="radio-group">',
                                 '<label class="radio radio_type_line" data-fc="radio" data-checked="true">',
                                 '<input class="radio__input" type="radio" name="filterType" value="and" hidden />',
                                 '<label class="radio__label">' + Globa.AndTitle.locale() + '</label>',
@@ -1061,7 +1061,7 @@ Asyst.GridView = function(options){
         that.data.modal = $('<span class="modal__"></span>')
             .modal__(modal_options)
             .on('save.fc.modal', function(){
-                var ragio_group = $(this).find('.filterType');
+                var ragio_group = $(this).find('.radioFilterType');
                 that.data.filter.filterArgs = {
                     filterItems: [],
                     gridView: that.data.grid,
