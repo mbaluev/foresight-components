@@ -1033,9 +1033,9 @@ Asyst.GridView = function(options){
                         select_oper = $(this).find('.selectComparison'),
                         input_value = $(this).find('.inputValue');
                     that.data.filter.filterArgs.filterItems.push({
-                        column: select_field,
-                        oper: select_oper,
-                        value: input_value
+                        column: select_field.select('value'),
+                        oper: select_oper.select('value'),
+                        value: input_value.input('value')
                     });
                 });
                 if (typeof callback == 'function') { callback(); }
