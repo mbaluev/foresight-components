@@ -1101,6 +1101,15 @@ Asyst.GridView = function(options){
                         oper: select_oper.select('value'),
                         value: input_value.input('value')
                     });
+                    that.data.filter.filterArgs.filterItems.map(function(d){
+                        that.data.grid.Filters.map(function(f){
+                            if (f.fieldName == d.column) {
+                                if (f.kind == 'date') {
+                                    d.value = Asyst.date.parse(d.value);
+                                }
+                            }
+                        });
+                    });
                 });
                 if (typeof callback == 'function') { callback(); }
                 that.data.modal.modal__('hide');
