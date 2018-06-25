@@ -647,6 +647,7 @@ Asyst.GridView = function(options){
                     that.data.params.viewSampleId = sample.guid;
                     that.update_viewSampleSelect();
                     that.data.modal.modal__('hide');
+                    that.data.form.remove();
                 }
                 that.loader_remove();
             })
@@ -746,6 +747,7 @@ Asyst.GridView = function(options){
                         });
                     }
                     that.data.modal.modal__('hide');
+                    that.data.form.remove();
                 }
                 that.loader_remove();
             })
@@ -990,6 +992,8 @@ Asyst.GridView = function(options){
             .modal__(modal_options)
             .on('save.fc.modal', function(){
                 if (typeof callback == 'function') { callback(); }
+                that.data.modal.modal__('hide');
+                that.data.form.remove();
             })
             .on('hidden.fc.modal', function(){
                 that.data.form.remove();
