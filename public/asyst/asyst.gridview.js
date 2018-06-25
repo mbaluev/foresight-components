@@ -982,32 +982,42 @@ Asyst.GridView = function(options){
                                 )
                             )
                         };
-                        add_row();
                         _el.button_add.on('click', add_row);
-                        function add_row(){
+                        function add_row(filterItem){
+                            // render controls
+                            var _button_trash = _el.button_trash.clone(),
+                                _select_field = _el.select_field.clone(),
+                                _select_oper = _el.select_oper.clone(),
+                                _input = _el.input.clone();
                             var _row = _el.control.clone().addClass('control__row').append(
                                 _el.control__container.clone()
                                     .addClass('control__container_horizontal control__container_horizontal_margin').append(
-                                    _el.button_trash.clone().on('click', function(){ _row.remove(); }),
-                                    _el.select_field.clone(),
-                                    _el.select_oper.clone(),
-                                    _el.input.clone()
+                                    _button_trash.on('click', function(){ _row.remove(); }),
+                                    _select_field,
+                                    _select_oper,
+                                    _input
                                 )
                             );
                             _control.rows.append(_row);
+
+                            // init controls
                             _row.find('[data-fc="button"]').button();
-                            _row.find('[data-fc="select"]').select();
+                            _row.find('[data-fc="select"]').select({ height: 300 });
                             _row.find('[data-fc="input"]').input();
+
+                            // set values for controls
+                            _select_field.select('check', filterItem.column);
+                            _select_oper.select('check', filterItem.oper);
+                            _input.input('value', filterItem.value);
                         }
                         // восстанавливаем значения фильтров
                         if (that.data.filter.filterArgs) {
                             if (that.data.filter.filterArgs.filterItems) {
                                 that.data.filter.filterArgs.filterItems.map(function(d){
-
+                                    add_row(d);
                                 });
                             }
                         }
-
                         return [_control.caption, _control.rows, _control.add];
                     }
                 }]
