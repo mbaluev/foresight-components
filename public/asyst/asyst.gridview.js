@@ -862,14 +862,14 @@ Asyst.GridView = function(options){
         }
     };
     that.edit_extFilter = function(){
-        that.render_extFilter_modal(function(){
+        that.render_modal_extFilter(function(){
             that.set_extFilter();
         });
     };
     that.clear_extFilter = function(){
         that.render_clear_extFilter();
     };
-    that.render_extFilter_modal = function(callback){
+    that.render_modal_extFilter = function(callback){
         var modal_options = {
             size: 'md',
             buttons: [
@@ -890,7 +890,7 @@ Asyst.GridView = function(options){
                 }
             ],
             header: {
-                caption: 'Проекты',
+                caption: that.data.entitytitle,
                 name: 'Расширенный фильтр'
             },
             content: {
@@ -907,14 +907,14 @@ Asyst.GridView = function(options){
                             radio_group: $([
                                 '<span class="radio-group radio-group_type_line" data-fc="radio-group">',
                                 '<label class="radio radio_type_line" data-fc="radio" data-checked="true">',
-                                '<input class="radio__input" type="radio" name="radio-group-disabled" value="0" hidden />',
-                                '<label class="radio__label">Все условия одновременно</label>',
+                                '<input class="radio__input" type="radio" name="filterType" value="and" hidden />',
+                                '<label class="radio__label">' + Globa.AndTitle.locale() + '</label>',
                                 '</label>',
                                 '<label class="radio radio_type_line" data-fc="radio">',
-                                '<input class="radio__input" type="radio" name="radio-group-disabled" value="1" hidden />',
-                                '<label class="radio__label">Хотя бы одно из условий</label>',
+                                '<input class="radio__input" type="radio" name="filterType" value="or" hidden />',
+                                '<label class="radio__label">' + Globa.OrTitle.locale() + '</label>',
                                 '</label>',
-                                '</span>',
+                                '</span>'
                             ].join('')),
                             button_trash: $([
                                 '<button class="button" data-fc="button" type="button">',
@@ -927,15 +927,25 @@ Asyst.GridView = function(options){
                                 '</button>'
                             ].join('')),
                             select_field: $([
-                                '<select class="select" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="Поле">',
+                                '<select class="select selectName" data-fc="select" data-mode="radio-check" data-autoclose="true" data-placeholder="' + Globa.FieldName.locale() + '">',
                                 '</select>'
                             ].join('')),
                             select_oper: $([
-                                '<select class="select" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="Операция">',
+                                '<select class="select selectComparison" data-fc="select" data-mode="radio" data-autoclose="true" data-placeholder="' + Globa.Comparison.locale() + '">',
                                 '</select>'
                             ].join('')),
                             input: $([
-                                '<span class="input input__has-clear" data-fc="input" data-placeholder="Значение">',
+                                '<span class="input input__has-clear inputValue" data-fc="input" data-placeholder="' + Globa.Value.locale() + '">',
+                                '<span class="input__box">',
+                                '<input type="text" class="input__control">',
+                                '<button class="button" type="button" data-fc="button" tabindex="-1">',
+                                '<span class="icon icon_svg_close"></span>',
+                                '</button>',
+                                '</span>',
+                                '</span>'
+                            ].join('')),
+                            input_datepicker: $([
+                                '<span class="input input__has-clear inputValue" data-fc="input" data-toggle="datapicker" data-placeholder="' + Globa.Value.locale() + '">',
                                 '<span class="input__box">',
                                 '<input type="text" class="input__control">',
                                 '<button class="button" type="button" data-fc="button" tabindex="-1">',
@@ -979,6 +989,15 @@ Asyst.GridView = function(options){
                             _row.find('[data-fc="select"]').select();
                             _row.find('[data-fc="input"]').input();
                         }
+                        // восстанавливаем значения фильтров
+                        if (that.data.filter.filterArgs) {
+                            if (that.data.filter.filterArgs.filterItems) {
+                                that.data.filter.filterArgs.filterItems.map(function(d){
+
+                                });
+                            }
+                        }
+
                         return [_control.caption, _control.rows, _control.add];
                     }
                 }]
