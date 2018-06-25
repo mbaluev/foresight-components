@@ -928,7 +928,7 @@ Asyst.GridView = function(options){
                                 '<label class="radio__label">' + Globa.OrTitle.locale() + '</label>',
                                 '</label>',
                                 '</span>'
-                            ].join('')),
+                            ].join('')).radio_group(),
                             button_trash: $([
                                 '<button class="button" data-fc="button" type="button">',
                                 '<span class="icon icon_svg_trash"></span>',
