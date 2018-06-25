@@ -1101,20 +1101,20 @@ Asyst.GridView = function(options){
                     var select_field = $(this).find('.selectName'),
                         select_oper = $(this).find('.selectComparison'),
                         input_value = $(this).find('.inputValue');
-                    that.data.filter.filterArgs.filterItems.push({
+                    var filterItem = {
                         column: select_field.select('value'),
                         oper: select_oper.select('value'),
                         value: input_value.input('value')
-                    });
-                    that.data.filter.filterArgs.filterItems.map(function(d){
-                        that.data.grid.Filters.map(function(f){
-                            if (f.fieldName == d.column) {
-                                if (f.kind == 'date') {
-                                    d.value = Asyst.date.parse(d.value);
-                                }
+                    };
+                    // date parse
+                    that.data.grid.Filters.map(function(f){
+                        if (f.fieldName == filterItem.column) {
+                            if (f.kind == 'date') {
+                                filterItem.value = Asyst.date.parse(filterItem.value);
                             }
-                        });
+                        }
                     });
+                    that.data.filter.filterArgs.filterItems.push(filterItem);
                 });
                 if (typeof callback == 'function') { callback(); }
                 that.data.modal.modal__('hide');
