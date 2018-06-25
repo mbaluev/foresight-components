@@ -995,7 +995,9 @@ Asyst.GridView = function(options){
                                         that.data.grid.Filters.map(function(d){
                                             if (d.fieldName == value && d.kind == 'date') {
                                                 _input.input('destroy');
+                                                _input = _el.input.clone();
                                                 _input.attr('data-toggle', 'datepicker');
+                                                _row.find('.control__container').append(_input);
                                                 _input.input();
                                             }
                                         });
