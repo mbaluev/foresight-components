@@ -980,15 +980,26 @@ Asyst.GridView = function(options){
                                 _select_oper = _el.select_oper.clone(),
                                 _input = _el.input.clone();
                             if (filterItem) {
-                                if (filterItem.kind == 'date') {
-                                    _input.attr('data-toggle', 'datepicker');
-                                }
+                                that.data.grid.Filters.map(function(d){
+                                    if (d.fieldName == filterItem.column && d.kind == 'date') {
+                                        _input.attr('data-toggle', 'datepicker');
+                                    }
+                                });
                             }
                             var _row = _el.control.clone().addClass('control__row').append(
                                 _el.control__container.clone()
                                     .addClass('control__container_horizontal control__container_horizontal_margin').append(
                                     _button_trash.on('click', function(){ _row.remove(); }),
-                                    _select_field,
+                                    _select_field.on('change', function(){
+                                        var value = $(this).select('value');
+                                        that.data.grid.Filters.map(function(d){
+                                            if (d.fieldName == value && d.kind == 'date') {
+                                                _input.input('destroy');
+                                                _input.attr('data-toggle', 'datepicker');
+                                                _input.input();
+                                            }
+                                        });
+                                    }),
                                     _select_oper,
                                     _input
                                 )
