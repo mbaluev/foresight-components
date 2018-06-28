@@ -135,6 +135,16 @@
                     };
 
                     that.render = function () {
+                        var tooltip = '';
+                        if (self.attr('tooltip')) {
+                            tooltip = self.attr('tooltip');
+                        }
+                        if (self.data('tooltip')) {
+                            tooltip = self.data('tooltip');
+                        }
+                        if (that.data.tooltip) {
+                            tooltip = that.data.tooltip;
+                        }
                         $('body').append(
                             that.data._tooltip.tooltip.append(
                                 that.data._tooltip.tooltip__text.html(that.data.tooltip),

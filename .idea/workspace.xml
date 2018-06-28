@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/tooltip/tooltip.js" afterPath="$PROJECT_DIR$/common.blocks/tooltip/tooltip.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/zimbargate/zimbargate.css" afterPath="$PROJECT_DIR$/common.blocks/zimbargate/zimbargate.css" />
     </list>
     <ignored path="foresight-components.iws" />
@@ -161,19 +162,38 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="zimbargate.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="zimbargate.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common.blocks/zimbargate/zimbargate.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1119403">
-              <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
               <folding>
                 <element signature="e#12#62#0" expanded="false" />
                 <element signature="e#81#322#0" expanded="false" />
                 <element signature="e#342#450#0" expanded="false" />
                 <element signature="e#471#509#0" expanded="false" />
-                <element signature="e#531#1561#0" expanded="false" />
-                <element signature="e#1595#1644#0" expanded="false" />
+                <element signature="e#1619#1668#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="button.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common.blocks/button/button.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="tooltip.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/tooltip/tooltip.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.53731346">
+              <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -1077,7 +1097,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common.blocks/button/button.css" />
         <option value="$PROJECT_DIR$/common.blocks/popup/popup.js" />
         <option value="$PROJECT_DIR$/mobile.blocks/modal__/modal__.css" />
         <option value="$PROJECT_DIR$/common.blocks/menu/menu.css" />
@@ -1128,6 +1147,7 @@
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/common.blocks/icon/icon.css" />
         <option value="$PROJECT_DIR$/common.blocks/zimbargate/zimbargate.css" />
+        <option value="$PROJECT_DIR$/common.blocks/tooltip/tooltip.js" />
       </list>
     </option>
   </component>
@@ -1239,6 +1259,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tooltip" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="page" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1276,6 +1314,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="copyright" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="button" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1448,13 +1504,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/ktchart.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="21" selection-start-line="69" selection-start-column="21" selection-end-line="69" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/docsearch.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3215,106 +3264,6 @@
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="49" />
           <folding>
             <element signature="e#16#70#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/button/button.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
-          <folding>
-            <element signature="e#12#13322#0" expanded="false" />
-            <element signature="e#32#12921#0" expanded="false" />
-            <element signature="e#67#11415#0" expanded="false" />
-            <element signature="e#108#11403#0" expanded="false" />
-            <element signature="e#202#11360#0" expanded="false" />
-            <element signature="e#363#920#0" expanded="false" />
-            <element signature="e#614#898#0" expanded="false" />
-            <element signature="e#1078#1116#0" expanded="false" />
-            <element signature="e#1247#1332#0" expanded="false" />
-            <element signature="e#1380#1644#0" expanded="false" />
-            <element signature="e#1447#1540#0" expanded="false" />
-            <element signature="e#1691#2391#0" expanded="false" />
-            <element signature="e#1989#2318#0" expanded="false" />
-            <element signature="e#2118#2252#0" expanded="false" />
-            <element signature="e#2437#3137#0" expanded="false" />
-            <element signature="e#2662#3011#0" expanded="false" />
-            <element signature="e#2730#2985#0" expanded="false" />
-            <element signature="e#2810#2953#0" expanded="false" />
-            <element signature="e#3181#3373#0" expanded="false" />
-            <element signature="e#3417#3613#0" expanded="false" />
-            <element signature="e#3659#3848#0" expanded="false" />
-            <element signature="e#3895#4089#0" expanded="false" />
-            <element signature="e#4135#4215#0" expanded="false" />
-            <element signature="e#4262#4345#0" expanded="false" />
-            <element signature="e#4390#4637#0" expanded="false" />
-            <element signature="e#4684#4828#0" expanded="false" />
-            <element signature="e#4883#4956#0" expanded="false" />
-            <element signature="e#5009#5096#0" expanded="false" />
-            <element signature="e#5141#5838#0" expanded="false" />
-            <element signature="e#5528#5816#0" expanded="false" />
-            <element signature="e#5601#5788#0" expanded="false" />
-            <element signature="e#5891#6290#0" expanded="false" />
-            <element signature="e#5977#6266#0" expanded="false" />
-            <element signature="e#6078#6157#0" expanded="false" />
-            <element signature="e#6163#6240#0" expanded="false" />
-            <element signature="e#6340#6655#0" expanded="false" />
-            <element signature="e#6426#6631#0" expanded="false" />
-            <element signature="e#6528#6605#0" expanded="false" />
-            <element signature="e#6711#9853#0" expanded="false" />
-            <element signature="e#6770#7071#0" expanded="false" />
-            <element signature="e#6897#7043#0" expanded="false" />
-            <element signature="e#7135#9831#0" expanded="false" />
-            <element signature="e#7252#7525#0" expanded="false" />
-            <element signature="e#7572#9595#0" expanded="false" />
-            <element signature="e#7774#9279#0" expanded="false" />
-            <element signature="e#7822#9245#0" expanded="false" />
-            <element signature="e#8002#8140#0" expanded="false" />
-            <element signature="e#8206#9207#0" expanded="false" />
-            <element signature="e#8274#8890#0" expanded="false" />
-            <element signature="e#8331#8844#0" expanded="false" />
-            <element signature="e#8391#8785#0" expanded="false" />
-            <element signature="e#8896#9165#0" expanded="false" />
-            <element signature="e#8953#9119#0" expanded="false" />
-            <element signature="e#9358#9565#0" expanded="false" />
-            <element signature="e#9898#11041#0" expanded="false" />
-            <element signature="e#10110#10312#0" expanded="false" />
-            <element signature="e#10381#10577#0" expanded="false" />
-            <element signature="e#10626#10697#0" expanded="false" />
-            <element signature="e#10703#10773#0" expanded="false" />
-            <element signature="e#10820#10888#0" expanded="false" />
-            <element signature="e#10894#10962#0" expanded="false" />
-            <element signature="e#11091#11308#0" expanded="false" />
-            <element signature="e#11140#11209#0" expanded="false" />
-            <element signature="e#11215#11286#0" expanded="false" />
-            <element signature="e#11446#11551#0" expanded="false" />
-            <element signature="e#11488#11539#0" expanded="false" />
-            <element signature="e#11582#11687#0" expanded="false" />
-            <element signature="e#11624#11675#0" expanded="false" />
-            <element signature="e#11717#11821#0" expanded="false" />
-            <element signature="e#11759#11809#0" expanded="false" />
-            <element signature="e#11852#11957#0" expanded="false" />
-            <element signature="e#11894#11945#0" expanded="false" />
-            <element signature="e#11986#12089#0" expanded="false" />
-            <element signature="e#12028#12077#0" expanded="false" />
-            <element signature="e#12117#12219#0" expanded="false" />
-            <element signature="e#12159#12207#0" expanded="false" />
-            <element signature="e#12247#12349#0" expanded="false" />
-            <element signature="e#12289#12337#0" expanded="false" />
-            <element signature="e#12387#12499#0" expanded="false" />
-            <element signature="e#12429#12487#0" expanded="false" />
-            <element signature="e#12536#12647#0" expanded="false" />
-            <element signature="e#12578#12635#0" expanded="false" />
-            <element signature="e#12676#12779#0" expanded="false" />
-            <element signature="e#12718#12767#0" expanded="false" />
-            <element signature="e#12810#12915#0" expanded="false" />
-            <element signature="e#12852#12903#0" expanded="false" />
-            <element signature="e#12960#13319#0" expanded="false" />
-            <element signature="e#12993#13099#0" expanded="false" />
-            <element signature="e#13151#13220#0" expanded="false" />
-            <element signature="e#13226#13313#0" expanded="false" />
-            <element signature="e#13347#13388#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -6332,16 +6281,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/common.blocks/zimbargate/zimbargate.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1119403">
-          <caret line="31" column="33" selection-start-line="31" selection-start-column="33" selection-end-line="31" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="30" column="22" selection-start-line="30" selection-start-column="22" selection-end-line="30" selection-end-column="22" />
           <folding>
             <element signature="e#12#62#0" expanded="false" />
             <element signature="e#81#322#0" expanded="false" />
             <element signature="e#342#450#0" expanded="false" />
             <element signature="e#471#509#0" expanded="false" />
-            <element signature="e#531#1561#0" expanded="false" />
-            <element signature="e#1595#1644#0" expanded="false" />
+            <element signature="e#1619#1668#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/button/button.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="12" selection-start-line="0" selection-start-column="12" selection-end-line="0" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/tooltip/tooltip.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53731346">
+          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
