@@ -2028,7 +2028,7 @@ var GridView2 = function(options){
         }
         that.data.header.settings.forEach(function(item){
             var $button = $([
-                '<button class="button" type="button" data-fc="button">',
+                '<button class="button" type="button" data-fc="button"' + (item.id ? ' id="' + item.id + '"' : ''),
                 '<span class="icon ' + item.icon + '"></span>',
                 '</button>'
             ].join(''));
@@ -2406,7 +2406,7 @@ var GridView4 = function(options){
         }
         that.data.header.settings.forEach(function(item){
             var $button = $([
-                '<button class="button" type="button" data-fc="button">',
+                '<button class="button" type="button" data-fc="button"' + (item.id ? ' id="' + item.id + '"' : ''),
                 '<span class="icon ' + item.icon + '"></span>',
                 '</button>'
             ].join(''));
