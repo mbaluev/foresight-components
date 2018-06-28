@@ -42,7 +42,6 @@ Asyst.Reports = function(options){
                 }
             },
             error: function(data){
-                console.log(data);
                 that.loader_remove();
             }
         });

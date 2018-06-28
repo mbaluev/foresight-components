@@ -970,7 +970,6 @@ OrgChart.Init = function(options){
             that.toggleChildren(node);
             that.update(node);
             that.centerNode(node);
-            console.log(node.name);
         }
     };
     that.highlight = function(id, first) {

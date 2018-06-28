@@ -128,7 +128,7 @@ Asyst.DashboardGrid = function(options){
                 that.data.editableDashboards = data[1];
                 if (typeof callback == 'function') { callback(); }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
 

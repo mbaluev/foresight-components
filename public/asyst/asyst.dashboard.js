@@ -186,10 +186,10 @@ Asyst.PageDashboard = function(options){
                     }
                     if (typeof callback == 'function') { callback(); }
                 } else {
-                    console.log(data);
+                    console.log('no data');
                 }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
     that.loadAccountList = function(callback){
@@ -332,7 +332,7 @@ Asyst.Dashboard = function(options){
                 that.data.userDashboardId = data.id;
                 if (typeof callback == 'function') { callback(); }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
     that.loadItems = function(accountid, callback){
@@ -352,7 +352,7 @@ Asyst.Dashboard = function(options){
                     that.loadDefaults(callback);
                 }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
     that.loadDefaults = function(callback){
@@ -372,7 +372,7 @@ Asyst.Dashboard = function(options){
                 }
                 if (typeof callback == 'function') { callback(); }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
     that.loadUserDashboardId = function(accountid, callback){
@@ -394,7 +394,7 @@ Asyst.Dashboard = function(options){
                 }
                 if (typeof callback == 'function') { callback(); }
             },
-            error: function(data){ console.log(data); }
+            error: function(data){}
         });
     };
     that.check_items = function(){

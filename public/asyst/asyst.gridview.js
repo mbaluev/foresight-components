@@ -109,11 +109,10 @@ Asyst.GridView = function(options){
                             callback();
                         }
                     } else {
-                        console.log(data);
+                        console.log('no data');
                     }
                 },
                 error: function(data){
-                    console.log(data);
                     that.loader_remove();
                 }
             });
@@ -187,7 +186,7 @@ Asyst.GridView = function(options){
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
-                                preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : 'console.log(666);'),
+                                preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : null),
                                 viewSamples: view.viewSamples
                             }, view.viewName);
                         }
@@ -225,7 +224,6 @@ Asyst.GridView = function(options){
                 }
             },
             error: function(data){
-                console.log(data);
                 that.loader_remove();
             }
         });
@@ -265,7 +263,7 @@ Asyst.GridView = function(options){
                                 isWideString: false,
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
-                                preprocessFunctionText: 'console.log(666);',
+                                preprocessFunctionText: null,
                                 viewSamples: {}
                             }, view.viewName);
                         }
@@ -293,7 +291,6 @@ Asyst.GridView = function(options){
                 }
             },
             error: function(data){
-                console.log(data);
                 that.loader_remove();
             }
         });

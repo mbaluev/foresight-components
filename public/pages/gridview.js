@@ -347,7 +347,6 @@ var GridView2 = function(options){
     that.bind = function(){
         that.data._el.radio_group.find('[data-fc="radio"]').on('click', function(){
             var value = $(this).radio_group('value');
-            console.log(value);
             var view = that.data.header.views.filter(function(v){ return v.value == value; });
             if (view.length > 0) {
                 view = view[0];
@@ -544,7 +543,6 @@ var GridView3 = function(options){
                 that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_selected');
                 $(this).addClass('menu__item-link_selected');
                 var value = $(this).data('value');
-                console.log(value);
                 that.data.header.views.map(function(v){ v.selected = false; });
                 var view = that.data.header.views.filter(function(v){ return v.value == value; });
                 if (view.length > 0) {
@@ -721,7 +719,6 @@ var GridView4 = function(options){
     that.bind = function(){
         that.data._el.radio_group.find('[data-fc="radio"]').on('click', function(){
             var value = $(this).radio_group('value');
-            console.log(value);
             var view = that.data.header.views.filter(function(v){ return v.value == value; });
             if (view.length > 0) {
                 view = view[0];
