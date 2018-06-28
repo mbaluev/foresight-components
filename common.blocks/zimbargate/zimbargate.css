@@ -1,0 +1,33 @@
+.zimbargate {
+    display: flex;
+    flex-direction: column;
+}
+.zimbargate .info {
+    font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+    background-color: #ff5940;
+    display: flex;
+    flex-direction: row-reverse;
+    float: none;
+    min-height: 30px;
+    align-items: center;
+}
+.zimbargate .z-btn {
+    color: #fff;
+    padding: 5px 10px;
+    line-height: normal;
+    float: none;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.zimbargate .z-text {
+    border-right: dotted 1px #fff;
+}
+.zimbargate .z-close {
+    background-size: 40px;
+    background-image: url('/asyst/img/svg/img-power.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 40px;
+    height: 30px;
+    cursor: pointer;
+}
