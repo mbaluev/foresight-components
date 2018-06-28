@@ -152,9 +152,6 @@ Asyst.GridView = function(options){
                         view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
                         view.viewName = (view.viewName ? view.viewName : view.entityName);
 
-                        //view.IsWideString = false; //override
-                        //view.IsExtFilterVisible = false; //override
-                        //view.IsViewSampled = false;
                         view.IsEditable = false;
                         view.viewSamples = viewSamples.filter(function(d){
                             return d.viewName == view.viewName;
@@ -184,6 +181,7 @@ Asyst.GridView = function(options){
                                 isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                 isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
+                                isFullWidthScreen: (view.isFullWidthScreen ? view.isFullWidthScreen : false),
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                 preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : ''),
@@ -261,6 +259,7 @@ Asyst.GridView = function(options){
                                 isExtFilterVisible: false,
                                 isInitiallyCollapsed: false,
                                 isWideString: false,
+                                isFullWidthScreen: false,
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                 preprocessFunctionText: '',
@@ -350,6 +349,7 @@ Asyst.GridView = function(options){
         viewEl[0].innerHtml = "";
 
         var options = {
+            forceFitColumns: Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isFullWidthScreen,
             disableCheckbox: that.data.disableCheckbox, // убираем чекбоксы
             enableCellNavigation: true,
             editable: false,
