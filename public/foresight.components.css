@@ -5994,6 +5994,56 @@ body {
   left: 0 !important;
 }
 
+.zimbargate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.zimbargate .info {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  background-color: #ff5940;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+          flex-direction: row-reverse;
+  float: none;
+  min-height: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.zimbargate .z-btn {
+  color: #fff;
+  padding: 5px 10px;
+  line-height: normal;
+  float: none;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.zimbargate .z-text {
+  border-right: dotted 1px #fff;
+}
+
+.zimbargate .z-close {
+  background-size: 40px;
+  background-image: url("images/foresight/asyst/img/svg/img-power.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+}
+
 /*
 @media (max-width: 768px) {
     .page {
