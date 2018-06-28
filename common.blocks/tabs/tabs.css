@@ -53,6 +53,11 @@
     display: block;
     visibility: visible;
 }
+.tabs__pane_flex_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}
 
 /*
 .tabs__pane .control:last-child {

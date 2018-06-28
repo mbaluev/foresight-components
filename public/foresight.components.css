@@ -4946,6 +4946,15 @@ body {
   visibility: visible;
 }
 
+.tabs__pane_flex_wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 20px;
+}
+
 /*
 .tabs__pane .control:last-child {
     padding-bottom: 20px;
