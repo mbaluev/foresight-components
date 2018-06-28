@@ -6050,6 +6050,11 @@ body {
   background-position: 50%;
 }
 
+.zimbargate .z-close:empty:after {
+  visibility: hidden;
+  content: '\00A0';
+}
+
 /*
 @media (max-width: 768px) {
     .page {
