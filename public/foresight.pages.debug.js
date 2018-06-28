@@ -1798,6 +1798,7 @@ var GridView = function(options){
         that.render_settings();
         that.render_settings_popup();
         that.render_search();
+        that.render_extFilter();
     };
 
     that.render_container = function(){
