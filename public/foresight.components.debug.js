@@ -6305,7 +6305,7 @@ $(function(){
                         var tooltip = '';
                         if (self.attr('title')) {
                             self.data('tooltip', self.attr('title'));
-                            self.removeAttribute('title');
+                            self.removeAttr('title');
                         }
                         if (self.data('tooltip')) {
                             tooltip = self.data('tooltip');
