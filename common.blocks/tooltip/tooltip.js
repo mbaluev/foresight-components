@@ -137,7 +137,8 @@
                     that.render = function () {
                         var tooltip = '';
                         if (self.attr('title')) {
-                            tooltip = self.attr('title');
+                            self.data('tooltip', self.attr('title'));
+                            self.removeAttribute('title');
                         }
                         if (self.data('tooltip')) {
                             tooltip = self.data('tooltip');
