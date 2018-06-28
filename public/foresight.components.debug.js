@@ -6314,7 +6314,7 @@ $(function(){
                         }
                         $('body').append(
                             that.data._tooltip.tooltip.append(
-                                that.data._tooltip.tooltip__text.html(that.data.tooltip),
+                                that.data._tooltip.tooltip__text.html(tooltip),
                                 that.data._tooltip.tooltip__arrow
                             )
                         );
