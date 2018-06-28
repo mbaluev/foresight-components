@@ -1767,6 +1767,7 @@ var GridView = function(options){
             '</span>',
             '</span>'
         ].join('')),
+        button_extFilter: null,
         container: $('<div class="grid"></div>'),
         content: $([
             '<div class="card">',
@@ -1886,6 +1887,22 @@ var GridView = function(options){
                     that.data._el.input_search
                 );
             }
+        }
+    };
+    that.render_extFilter = function(){
+        if (that.data.header.extFilter) {
+            var item = that.data.header.extFilter;
+            var $button = $([
+                '<button class="button" type="button" data-fc="button"' + (item.id ? ' id="' + item.id + '"' : ''),
+                ' data-tooltip="' + item.name + '">',
+                '<span class="icon ' + item.icon + '"></span>',
+                '</button>'
+            ].join(''));
+            if (typeof item.onclick == 'function') {
+                $button.on('click', item.onclick);
+            }
+            that.data._el.content.find('#grid__actions').append($button);
+            that.data._el.button_extFilter = $button;
         }
     };
 
