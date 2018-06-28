@@ -186,7 +186,7 @@ Asyst.GridView = function(options){
                                 isWideString: (view.IsWideString ? view.IsWideString : false),
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
-                                preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : null),
+                                preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : ''),
                                 viewSamples: view.viewSamples
                             }, view.viewName);
                         }
@@ -263,7 +263,7 @@ Asyst.GridView = function(options){
                                 isWideString: false,
                                 isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                 isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
-                                preprocessFunctionText: null,
+                                preprocessFunctionText: '',
                                 viewSamples: {}
                             }, view.viewName);
                         }
