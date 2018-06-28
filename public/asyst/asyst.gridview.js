@@ -32,7 +32,8 @@ Asyst.GridView = function(options){
             views: [],
             reload: {},
             settings: [],
-            search: {}
+            search: {},
+            extFilter: null
         },
         filter: {
             filterArgs: [],
@@ -1275,15 +1276,17 @@ Asyst.GridView = function(options){
                 }
             });
         }
+    };
+    that.init_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] && Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            that.data.header.settings.push({
+            that.data.header.extFilter = {
                 id: that.data.filter.buttonId,
                 icon: 'icon_svg_up_fill icon_animate',
                 name: 'Скрыть / показать расширенный фильтр',
                 onclick: function(){
                     that.toggle_extFilter();
                 }
-            });
+            };
         }
         if (typeof getCookie == 'function') {
             that.data.filter.hidden = getCookie('register_ext_filter_hidden') == 'true';
@@ -1297,6 +1300,7 @@ Asyst.GridView = function(options){
                 function(){
                     that.init_header();
                     that.init_settings();
+                    that.init_extFilter();
                     that.store_to_window();
                     that.loader_remove();
                     that.data.gridViewClass = (window || this)[that.data.gridViewClassName];

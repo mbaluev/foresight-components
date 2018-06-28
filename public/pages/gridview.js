@@ -305,6 +305,9 @@ var GridView2 = function(options){
         }
     };
     that.render_buttons = function(){
+        if (that.data.header.extFilter) {
+            that.data.header.settings.push(that.data.header.extFilter);
+        }
         that.data.header.settings.forEach(function(item){
             var $button = $([
                 '<button class="button" type="button" data-fc="button">',
@@ -489,6 +492,9 @@ var GridView3 = function(options){
         }
     };
     that.render_buttons = function(){
+        if (that.data.header.extFilter) {
+            that.data.header.settings.push(that.data.header.extFilter);
+        }
         that.data.header.settings.forEach(function(item){
             var $button = $([
                 '<button class="button" type="button" data-fc="button"' + (item.id ? ' id="' + item.id + '"' : ''),
@@ -677,6 +683,9 @@ var GridView4 = function(options){
         }
     };
     that.render_buttons = function(){
+        if (that.data.header.extFilter) {
+            that.data.header.settings.push(that.data.header.extFilter);
+        }
         that.data.header.settings.forEach(function(item){
             var $button = $([
                 '<button class="button" type="button" data-fc="button">',
