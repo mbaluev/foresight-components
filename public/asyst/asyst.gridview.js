@@ -1184,8 +1184,6 @@ Asyst.GridView = function(options){
         });
     };
     that.clear_extFilter = function(){
-        that.data.filter.filterArgs.filterItems = null;
-        that.data.filter.filterArgs.oper = null;
         that.data.filter.filterArgs = null;
         view.DataView.setFilter(Grid.ExtFilter);
         view.DataView.setFilterArgs(that.data.filter.filterArgs);
