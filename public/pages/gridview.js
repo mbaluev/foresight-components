@@ -180,7 +180,7 @@ var GridView = function(options){
                 ' data-tooltip="' + item.name + '">',
                 '<span class="icon ' + item.icon + '"></span>',
                 '</button>'
-            ].join(''));
+            ].join('')).button();
             if (typeof item.onclick == 'function') {
                 $button.on('click', item.onclick);
             }
@@ -195,9 +195,7 @@ var GridView = function(options){
         that.data._el.button_settings.button('disable');
         that.data._el.input_search.input('disable');
         if (that.data._el.button_extFilter) {
-            if (that.data._el.button_extFilter.data('_widget')) {
-                that.data._el.button_extFilter.button('disable');
-            }
+            that.data._el.button_extFilter.button('disable');
         }
     };
     that.menu__item_unlock = function(){
@@ -206,9 +204,7 @@ var GridView = function(options){
         that.data._el.button_settings.button('enable');
         that.data._el.input_search.input('enable');
         if (that.data._el.button_extFilter) {
-            if (that.data._el.button_extFilter.data('_widget')) {
-                that.data._el.button_extFilter.button('enable');
-            }
+            that.data._el.button_extFilter.button('disable');
         }
     };
 
