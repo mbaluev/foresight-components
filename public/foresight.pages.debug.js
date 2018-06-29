@@ -1922,7 +1922,7 @@ var GridView = function(options){
         that.data._el.button_settings.button('enable');
         that.data._el.input_search.input('enable');
         if (that.data._el.button_extFilter) {
-            that.data._el.button_extFilter.button('disable');
+            that.data._el.button_extFilter.button('enable');
         }
     };
 
