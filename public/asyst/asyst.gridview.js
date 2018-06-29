@@ -1110,7 +1110,7 @@ Asyst.GridView = function(options){
     that.disable_line_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            if (!that.data.filter.rendered) {
+            if (that.data.filter.rendered) {
                 that.data._el.button_filter_edit.button('disable');
                 that.data._el.button_filter_clear.button('disable');
             }
@@ -1119,7 +1119,7 @@ Asyst.GridView = function(options){
     that.enable_line_extFilter = function(){
         if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
             Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
-            if (!that.data.filter.rendered) {
+            if (that.data.filter.rendered) {
                 that.data._el.button_filter_edit.button('enable');
                 that.data._el.button_filter_clear.button('enable');
             }
