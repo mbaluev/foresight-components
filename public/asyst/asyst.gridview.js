@@ -822,7 +822,9 @@ Asyst.GridView = function(options){
                         )
                     ).alertbox(),
                     that.data._el.alertbox.clone().append(
-                        that.data._el.alertbox__text.clone().text(d.oper)
+                        that.data._el.alertbox__text.clone().text(
+                            Grid.ExtFilterOper[d.oper].title
+                        )
                     ).alertbox(),
                     that.data._el.alertbox.clone().append(
                         that.data._el.alertbox__text.clone().text(
