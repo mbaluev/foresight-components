@@ -1907,6 +1907,13 @@ var GridView = function(options){
         }
     };
 
+    that.menu__item_lock = function(){
+        that.data._el.select_view.select('disable');
+    };
+    that.menu__item_unlock = function(){
+        that.data._el.select_view.select('enable');
+    };
+
     that.loader_add = function(){
         that.data._el.target.before(that.data._el.loader)
     };
