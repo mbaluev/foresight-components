@@ -194,14 +194,18 @@ var GridView = function(options){
         that.data._el.button_reload.button('disable');
         that.data._el.button_settings.button('disable');
         that.data._el.input_search.input('disable');
-        that.data._el.button_extFilter.button('disable');
+        if (that.data._el.button_extFilter) {
+            that.data._el.button_extFilter.button('disable');
+        }
     };
     that.menu__item_unlock = function(){
         that.data._el.select_view.select('enable');
         that.data._el.button_reload.button('enable');
         that.data._el.button_settings.button('enable');
         that.data._el.input_search.input('enable');
-        that.data._el.button_extFilter.button('enable');
+        if (that.data._el.button_extFilter) {
+            that.data._el.button_extFilter.button('enable');
+        }
     };
 
     that.loader_add = function(){
