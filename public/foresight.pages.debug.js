@@ -2084,6 +2084,13 @@ var GridView2 = function(options){
         }
     };
 
+    that.menu__item_lock = function(){
+        that.data._el.radio_group.radio_group('disable');
+    };
+    that.menu__item_unlock = function(){
+        that.data._el.radio_group.radio_group('enable');
+    };
+
     that.loader_add = function(){
         that.data._el.target.before(that.data._el.loader)
     };
