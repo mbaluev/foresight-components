@@ -381,15 +381,15 @@ var GridView2 = function(options){
     that.menu__item_lock = function(){
         that.data._el.radio_group.radio_group('disable');
         that.data._el.input_search.input('disable');
-        that.data._el.buttons.map(function(){
-            $(this).button('disable');
+        that.data._el.buttons.map(function(b){
+            b.button('disable');
         });
     };
     that.menu__item_unlock = function(){
         that.data._el.radio_group.radio_group('enable');
         that.data._el.input_search.input('enable');
-        that.data._el.buttons.map(function(){
-            $(this).button('enable');
+        that.data._el.buttons.map(function(b){
+            b.button('enable');
         });
     };
 
