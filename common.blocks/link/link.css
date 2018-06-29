@@ -4,17 +4,17 @@
     color: #4983c4;
     border: none;
 }
-
 .link_nowrap {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 .link_code {
     font-family: 'Courier New', monospace;
 }
-
+.link_color_black {
+    color: #333;
+}
 .link:hover {
     text-decoration: none;
     color: #ff5940;

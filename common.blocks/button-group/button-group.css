@@ -1,6 +1,7 @@
 .button-group {
     display: inline-flex;
     white-space: nowrap;
+    flex-wrap: nowrap !important;
 }
 
 .button-group .button + .button { margin-left: -1px; }

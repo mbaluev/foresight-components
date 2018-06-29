@@ -2021,6 +2021,10 @@ body {
   font-family: 'Courier New', monospace;
 }
 
+.link_color_black {
+  color: #333;
+}
+
 .link:hover {
   text-decoration: none;
   color: #ff5940;
@@ -2771,12 +2775,25 @@ body {
   box-sizing: border-box;
 }
 
+.gallery__image-block:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0,.08);
+}
+
+.gallery__image-block_selected .gallery__image-link {
+  background-color: rgba(0,0,0,.08);
+}
+
 .gallery__image-link {
   position: relative;
   box-sizing: border-box;
   display: block;
   padding: 5px;
   text-decoration: none;
+}
+
+.gallery__image-link_padding_10 {
+  padding: 10px;
 }
 
 .gallery__image-link:hover {
@@ -3341,6 +3358,8 @@ body {
   display: -ms-inline-flexbox;
   display: inline-flex;
   white-space: nowrap;
+  -ms-flex-wrap: nowrap !important;
+      flex-wrap: nowrap !important;
 }
 
 .button-group .button + .button {
@@ -3664,6 +3683,8 @@ body {
   display: -ms-inline-flexbox;
   display: inline-flex;
   white-space: nowrap;
+  -ms-flex-wrap: nowrap !important;
+      flex-wrap: nowrap !important;
 }
 
 .radio-group_type_button .radio + .radio {
@@ -4952,7 +4973,7 @@ body {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 20px;
+  padding: 10px;
 }
 
 /*

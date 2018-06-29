@@ -11,6 +11,14 @@
     position: relative;
     box-sizing: border-box;
 }
+.gallery__image-block:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.08);
+}
+.gallery__image-block_selected .gallery__image-link {
+    background-color: rgba(0,0,0,.08);
+}
+
 .gallery__image-link {
     position: relative;
     box-sizing: border-box;
@@ -18,9 +26,13 @@
     padding: 5px;
     text-decoration: none;
 }
+.gallery__image-link_padding_10 {
+    padding: 10px;
+}
 .gallery__image-link:hover {
     text-decoration: none;
 }
+
 .gallery__image {
     overflow: hidden;
     display: block;
