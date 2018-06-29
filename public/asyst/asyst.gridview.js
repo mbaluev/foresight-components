@@ -300,6 +300,7 @@ Asyst.GridView = function(options){
         that.data.gridview.data.loading = true;
         if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.disable_viewSample();
+        that.disable_line_extFilter();
         that.data.params.view = key;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
@@ -314,6 +315,7 @@ Asyst.GridView = function(options){
                 //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
+                that.enable_line_extFilter();
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
@@ -321,6 +323,7 @@ Asyst.GridView = function(options){
                 console.error('error. Asyst.APIv2.View.load');
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
+                that.enable_line_extFilter();
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
             }
@@ -1103,6 +1106,24 @@ Asyst.GridView = function(options){
                 that.data.form.remove();
             });
         that.data.form.append(that.data.modal).appendTo('body').form();
+    };
+    that.disable_line_extFilter = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            if (!that.data.filter.rendered) {
+                that.data._el.button_filter_edit.button('disable');
+                that.data._el.button_filter_clear.button('disable');
+            }
+        }
+    };
+    that.enable_line_extFilter = function(){
+        if (Asyst.Workspace.views && Asyst.Workspace.views[that.data.viewname] &&
+            Asyst.Workspace.views[that.data.viewname].isExtFilterVisible) {
+            if (!that.data.filter.rendered) {
+                that.data._el.button_filter_edit.button('enable');
+                that.data._el.button_filter_clear.button('enable');
+            }
+        }
     };
 
     that.hide_extFilter = function(saveState){
