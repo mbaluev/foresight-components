@@ -1913,8 +1913,7 @@ var GridView = function(options){
         that.data._el.button_settings.button('disable');
         that.data._el.input_search.input('disable');
         if (that.data._el.button_extFilter) {
-            var _widget = that.data._el.button_extFilter.data('_widget');
-            if (_widget.type == 'button') {
+            if (that.data._el.button_extFilter.data('_widget')) {
                 that.data._el.button_extFilter.button('disable');
             }
         }
@@ -1925,8 +1924,7 @@ var GridView = function(options){
         that.data._el.button_settings.button('enable');
         that.data._el.input_search.input('enable');
         if (that.data._el.button_extFilter) {
-            var _widget = that.data._el.button_extFilter.data('_widget');
-            if (_widget.type == 'button') {
+            if (that.data._el.button_extFilter.data('_widget')) {
                 that.data._el.button_extFilter.button('enable');
             }
         }
