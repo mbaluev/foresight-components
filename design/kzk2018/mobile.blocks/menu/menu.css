@@ -1,0 +1,27 @@
+@media (max-width: 768px) {
+    .menu_color_krm {
+        background: #2057a7;
+    }
+    .menu_color_krm > .menu__list {
+        margin-left: 0;
+    }
+    .menu_color_krm .menu__submenu-container {
+        box-shadow: none;
+    }
+
+    .menu_color_krm .menu__item-link {
+        padding: 12px 10px;
+    }
+
+    .menu_color_krm .menu__submenu { background: #1e81c2; }
+    .menu_color_krm .menu__submenu .menu__item-link {
+        padding-left: 20px;
+    }
+    .menu_color_krm .menu__submenu-container:after {
+        display: none;
+    }
+
+    .menu_color_krm .menu__list {
+        background: none;
+    }
+}

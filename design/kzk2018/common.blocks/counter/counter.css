@@ -1,0 +1,23 @@
+.counter {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+.counter .alertbox {
+    width: 20px;
+    min-width: 20px;
+    background-color: #2057a7;
+    border-radius: 0;
+}
+.counter .alertbox:before {
+    background-color: transparent;
+    border-radius: 0;
+}
+.counter .alertbox__text {
+    font-weight: normal;
+    color: #fff;
+}
+.counter__date {
+    line-height: 10px;
+    font-size: 12px;
+    padding-left: 7px;
+}

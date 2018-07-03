@@ -1,0 +1,13 @@
+.fs-view {
+    z-index: 3;
+}
+.fs-view__header {
+    z-index: 2;
+    box-shadow: none;
+}
+.fs-view__left {}
+.fs-view__main {
+    z-index: 1;
+    box-shadow: none;
+    /*overflow: visible;*/
+}

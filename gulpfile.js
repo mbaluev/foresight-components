@@ -37,6 +37,15 @@ var krmsrvparams = {
     levels: ['design/krmsrv/common.blocks', 'design/krmsrv/mobile.blocks'],
     images: 'images/krmsrv/'
 };
+var kzk2018params = {
+    out: 'public',
+    cssOut: 'design.kzk2018.css',
+    jsOut: 'design.kzk2018.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/kzk2018/common.blocks', 'design/kzk2018/mobile.blocks'],
+    images: 'images/kzk2018/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -92,6 +101,7 @@ var pages_js = [
 var getFileNames = require('html2bl').getFileNames(params);
 var uniGetFileNames = require('html2bl').getFileNames(uni2019params);
 var krmGetFileNames = require('html2bl').getFileNames(krmsrvparams);
+var kzkGetFileNames = require('html2bl').getFileNames(kzk2018params);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -123,7 +133,7 @@ gulp.task('server', function(){
         return jsGlob;
     }), ['uni2019_js']);
 
-    /* watch design - uni2019 */
+    /* watch design - krmsrv */
     gulp.watch(krmsrvparams.levels.map(function(level){
         var cssGlob = level + '/**/*.css';
         return cssGlob;
@@ -132,6 +142,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['krmsrv_js']);
+
+    /* watch design - kzk2018 */
+    gulp.watch(kzk2018params.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['kzk2018_css']);
+    gulp.watch(kzk2018params.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['kzk2018_js']);
 });
 
 /* components */
@@ -241,7 +261,9 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019', 'krmsrv']);
+gulp.task('design', ['uni2019']);
+gulp.task('design', ['krmsrv']);
+gulp.task('design', ['kzk2018']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -296,7 +318,7 @@ gulp.task('uni2019_js', function() {
     }).done();
 });
 
-/* uni2019 */
+/* krm2018 */
 gulp.task('krmsrv', ['krmsrv_css', 'krmsrv_images', 'krmsrv_js']);
 gulp.task('krmsrv_css', function(){
     krmGetFileNames.then(function(files){
@@ -345,6 +367,59 @@ gulp.task('krmsrv_js', function() {
                 }
             }))
             .pipe(gulp.dest(krmsrvparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* kzk2018 */
+gulp.task('kzk2018', ['kzk2018_css', 'kzk2018_images', 'kzk2018_js']);
+gulp.task('kzk2018_css', function(){
+    kzkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(kzk2018params.cssOut))
+            .pipe(url({ prepend: kzk2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(kzk2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    kzkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(kzk2018params.cssOut))
+            .pipe(url({ prepend: kzk2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(kzk2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('kzk2018_images', function(){
+    kzkGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(kzk2018params.out, kzk2018params.images)));
+    }).done();
+});
+gulp.task('kzk2018_js', function() {
+    kzkGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(kzk2018params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(kzk2018params.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

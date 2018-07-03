@@ -1,6 +1,6 @@
 if (typeof viewName == typeof undefined) { var viewName = ''; }
 if (typeof Asyst == typeof undefined) { Asyst = {}; }
-Asyst.GridView = function(options){
+Asyst.GridView = function(options) {
     var that = this._gridview = {};
     that.data = {
         id: '' + Date.now(),
