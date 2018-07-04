@@ -199,8 +199,15 @@
                                     });
                                     that.data.date = date;
                                     that.data.formattedDate = formattedDate;
-                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
-                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                    that.data.displayDate = formattedDate;
+                                    if (Asyst) {
+                                        if (Asyst.date) {
+                                            if (typeof Asyst.date.convertToGenitive == 'function') {
+                                                that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());
+                                            }
+                                        }
+                                    }
+                                    that.data._el.card__name.find('.card__name-text').text(that.data.displayDate);
                                     if (that.data.events.render) {
                                         if (that.data._selectedItems.length > 0) {
                                             if (that.data._showModal) {
