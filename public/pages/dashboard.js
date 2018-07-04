@@ -8,6 +8,7 @@ var Dashboard = function(options){
         BORDER_COLOR_DEFAULT: '#ccc',
         BORDER_COLOR_PURPLE: '#8e6bf5',
         BORDER_COLOR_RED: '#ff5940',
+        BORDER_COLOR_GREEN: '#13a89e',
         BORDER_COLOR_NONE: 'transparent',
         CONTENT_TYPE_TEXT: 'text',
         CONTENT_TYPE_HTML: 'html',
@@ -645,6 +646,7 @@ var Dashboard = function(options){
                 '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
                 '<option value="' + that.const.BORDER_COLOR_PURPLE + '" ' + (data.color == that.const.BORDER_COLOR_PURPLE ? 'selected' : '' ) + '>Фиолетовый</option>' +
                 '<option value="' + that.const.BORDER_COLOR_RED + '" ' + (data.color == that.const.BORDER_COLOR_RED ? 'selected' : '' ) + '>Красный</option>' +
+                '<option value="' + that.const.BORDER_COLOR_GREEN + '" ' + (data.color == that.const.BORDER_COLOR_GREEN ? 'selected' : '' ) + '>Зеленый</option>' +
                 '<option value="' + that.const.BORDER_COLOR_NONE + '" ' + (data.color == that.const.BORDER_COLOR_NONE ? 'selected' : '' ) + '>Безцветный</option>' +
                 '</select>' +
                 '</div>' +

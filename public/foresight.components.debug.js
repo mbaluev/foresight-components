@@ -1116,6 +1116,7 @@ $(function(){
                         BORDER_COLOR_DEFAULT: '#ccc',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
+                        BORDER_COLOR_GREEN: '#13a89e',
                         BORDER_COLOR_NONE: 'transparent',
                         CONTENT_TYPE_TEXT: 'text',
                         CONTENT_TYPE_HTML: 'html',
@@ -1347,6 +1348,10 @@ $(function(){
                         else if (that.data.color === that.const.BORDER_COLOR_RED) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_GREEN) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_green');
                         }
                         else if (that.data.color === that.const.BORDER_COLOR_NONE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
