@@ -117,7 +117,7 @@ Asyst.PageDashboard = function(options){
             saved: []
         },
         user: Asyst.Workspace.currentUser,
-        page: Asyst.Workspace.currentPage,
+        pageId: Asyst.Workspace.currentPage.pageId,
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
         params: null
@@ -269,7 +269,7 @@ Asyst.PageDashboard = function(options){
                     editable: that.data.editable,
                     lib: that.data.lib,
                     user: that.data.user,
-                    page: that.data.page,
+                    pageId: that.data.pageId,
                     accountSettings: that.data.accountSettings,
                     headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                     tumblerContainerSelector: that.data.tumblerContainerSelector,
@@ -325,7 +325,7 @@ Asyst.Dashboard = function(options){
             entityName: 'UserDashboard',
             data: {
                 AccountId: accountid,
-                PageObjectId: that.data.page.pageId,
+                PageObjectId: that.data.pageId,
                 Items: JSON.stringify(that.data.items)
             },
             success: function(data){
@@ -340,7 +340,7 @@ Asyst.Dashboard = function(options){
             name: 'UserDashboard',
             data: {
                 AccountId: accountid,
-                PageObjectId: that.data.page.pageId
+                PageObjectId: that.data.pageId
             },
             success: function(data){
                 if (data[0][0]) {
@@ -360,7 +360,7 @@ Asyst.Dashboard = function(options){
             name: 'UserDashboard',
             data: {
                 AccountId: -1,
-                PageObjectId: that.data.page.pageId
+                PageObjectId: that.data.pageId
             },
             success: function(data){
                 if (data[0][0]) {
@@ -380,7 +380,7 @@ Asyst.Dashboard = function(options){
             name: 'UserDashboard',
             data: {
                 AccountId: accountid,
-                PageObjectId: that.data.page.pageId
+                PageObjectId: that.data.pageId
             },
             success: function(data){
                 if (data[0][0]) {
@@ -487,7 +487,7 @@ Asyst.Dashboard = function(options){
                 margin: that.data.margin,
                 editable: that.data.editable,
                 admin: that.data.user.IsFunctionalAdministrator,
-                pageid: that.data.page.pageId,
+                pageid: that.data.pageId,
                 items: that.data.items,
                 lib: that.data.lib,
                 save: function(items, accountid, option){
