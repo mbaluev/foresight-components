@@ -120,7 +120,7 @@ Asyst.GridView = function(options) {
                             if (view.viewName == that.data.view) {
                                 metaView = view;
                             }
-                            view.viewSamples = viewSamples.filter(function(f){ return f.viewName == view.ViewName; });
+                            view.viewSamples = viewSamples.filter(function(f){ return f.viewName == view.viewName; });
                             view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
                             view.viewName = (view.viewName ? view.viewName : view.entityName);
                             if (!Asyst.Workspace.views[view.viewName]) {
