@@ -14,7 +14,6 @@ Asyst.GridView = function(options) {
         entitytitle: null,
         viewname: null,
         viewtitle: null,
-        viewnameCookie: null,
         viewnameStartsWith: null,
 
         isSearch: true,
@@ -114,6 +113,11 @@ Asyst.GridView = function(options) {
                         }
                         if (data[3] || data[4]) {
                             viewSamples = [].concat(data[3], data[4]);
+                        }
+                        if (that.data.viewnameStartsWith) {
+                            metaViews = metaViews.map(function(view){
+                                return view.viewName.indexOf(that.data.viewnameStartsWith) == 0
+                            });
                         }
                         metaViews.map(function(view){
                             view.selected = false;
