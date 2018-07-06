@@ -141,9 +141,9 @@ Asyst.GridView = function(options) {
                             that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
                         });
                         if (!metaView) { metaView = metaViews[0]; }
-                        that.data.viewName = metaView.viewName;
-                        that.data.viewTitle = metaView.viewTitle;
-                        that.data.entityName = metaView.entityName;
+                        that.data.viewname = metaView.viewName;
+                        that.data.viewtitle = metaView.viewTitle;
+                        that.data.entityname = metaView.entityName;
                         that.data.entitytitle = metaView.entityTitle;
                         that.data.viewSamples = [];
                         if (!that.data.title) { that.data.title = metaView.entityTitle; }
