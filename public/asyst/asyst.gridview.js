@@ -116,8 +116,9 @@ Asyst.GridView = function(options) {
                             viewSamples = [].concat(data[3], data[4]);
                         }
                         metaViews.map(function(view){
-                            view.selected = view.viewName == that.data.view;
+                            view.selected = false;
                             if (view.viewName == that.data.view) {
+                                view.selected = true;
                                 metaView = view;
                             }
                             view.viewSamples = viewSamples.filter(function(f){ return f.viewName == view.viewName; });
@@ -147,7 +148,13 @@ Asyst.GridView = function(options) {
                             }
                             that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
                         });
-                        if (!metaView) { metaView = metaViews[0]; }
+                        if (!metaView) {
+                            metaView = metaViews.filter(function(f){ return f.viewName == that.get_cookie(); });
+                            if (metaView.length > 0) { metaView = metaView[0]; }
+                        }
+                        if (!metaView) {
+                            metaView = metaViews[0];
+                        }
                         that.data.viewname = metaView.viewName;
                         that.data.viewtitle = metaView.viewTitle;
                         that.data.entityname = metaView.entityName;
@@ -568,6 +575,13 @@ Asyst.GridView = function(options) {
     that.render_settings = function(){
         that.data.gridview.data.header.settings = that.data.header.settings;
         that.data.gridview.render_settings_popup();
+    };
+
+    that.set_cookie = function(){
+        setPageCookie('CurrentViewName' + (that.data.entityname ? '_' + that.data.entityname : ''), that.data.viewname);
+    };
+    that.get_cookie = function(){
+        return getPageCookie('CurrentViewName' + (that.data.entityname ? '_' + that.data.entityname : ''));
     };
 
     /* viewSample methods */
@@ -1299,8 +1313,8 @@ Asyst.GridView = function(options) {
                         that.data.grid.saveCurrent();
                         that.data.params.viewSampleId = undefined;
                     }
-                    setPageCookie('CurrentViewName' + (that.data.params.entity ? '_' + that.data.params.entity : ''), key);
                     that.data.viewname = key;
+                    that.set_cookie();
                     that.load_view();
                 }
             });
