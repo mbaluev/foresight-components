@@ -106,20 +106,23 @@ Asyst.GridView = function(options) {
                         }
                     });
                     if (allowed) {
-                        var metaView, metaViews;
+                        var metaView, metaViews, viewSamples = [];
                         if (data[0].length > 0 || data[1].length > 0) {
                             metaViews = [].concat(data[0], data[1]);
                         } else {
                             metaViews = data[2];
+                        }
+                        if (data[3] || data[4]) {
+                            viewSamples = [].concat(data[3], data[4]);
                         }
                         metaViews.map(function(view){
                             view.selected = view.viewName == that.data.view;
                             if (view.viewName == that.data.view) {
                                 metaView = view;
                             }
-                            view.viewName = (view.viewName ? view.viewName : view.entityName);
+                            view.viewSamples = viewSamples.filter(function(f){ return f.viewName == view.ViewName; });
                             view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
-                            view.viewSamples = [];
+                            view.viewName = (view.viewName ? view.viewName : view.entityName);
                             if (!Asyst.Workspace.views[view.viewName]) {
                                 if (typeof window.views == 'undefined') { window.views = {}; }
                                 Asyst.Workspace.addView({
