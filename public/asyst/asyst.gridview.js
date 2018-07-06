@@ -115,6 +115,7 @@ Asyst.GridView = function(options) {
                             }
                             view.viewName = (view.viewName ? view.viewName : view.entityName);
                             view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
+                            view.viewSamples = [];
                             if (!Asyst.Workspace.views[view.viewName]) {
                                 if (typeof window.views == 'undefined') { window.views = {}; }
                                 Asyst.Workspace.addView({
