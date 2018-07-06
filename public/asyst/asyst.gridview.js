@@ -21,7 +21,7 @@ Asyst.GridView = function(options) {
         isExport: true,
         editable: false,
         closeButton: false,
-        setDocumentTitle: false,
+        setDocumentTitle: true,
         params: splitGETString(),
 
         gridViewClassName: 'GridView',
