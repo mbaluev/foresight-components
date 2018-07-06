@@ -120,7 +120,7 @@ Asyst.GridView = function(options) {
                             });
                         }
                         that.data.entityname = metaViews[0].entityName;
-                        that.data.entitytitle = metaViews[0].entitytitle;
+                        that.data.entitytitle = metaViews[0].entityTitle;
                         metaViews.map(function(view){
                             view.selected = false;
                             if (view.viewName == that.data.view) {
@@ -157,10 +157,11 @@ Asyst.GridView = function(options) {
                         if (!metaView) {
                             var cookieViewName = that.get_cookie();
                             metaView = metaViews.filter(function(f){ return f.viewName == cookieViewName; });
-                            if (metaView.length > 0) { metaView = metaView[0]; }
-                        }
-                        if (!metaView) {
-                            metaView = metaViews[0];
+                            if (metaView.length > 0) {
+                                metaView = metaView[0];
+                            } else {
+                                metaView = metaViews[0];
+                            }
                         }
                         that.data.viewname = metaView.viewName;
                         that.data.viewtitle = metaView.viewTitle;
