@@ -153,7 +153,8 @@ Asyst.GridView = function(options) {
                             that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
                         });
                         if (!metaView) {
-                            metaView = metaViews.filter(function(f){ return f.viewName == that.get_cookie(); });
+                            var cookieViewName = that.get_cookie();
+                            metaView = metaViews.filter(function(f){ return f.viewName == cookieViewName; });
                             if (metaView.length > 0) { metaView = metaView[0]; }
                         }
                         if (!metaView) {
