@@ -6,6 +6,9 @@ Asyst.GridView = function(options) {
         id: '' + Date.now(),
         containerid: 'container',
         user: Asyst.Workspace.currentUser,
+        view: null,
+        views: {},
+
         title: null,
         entityname: null,
         entitytitle: null,
@@ -13,14 +16,14 @@ Asyst.GridView = function(options) {
         viewtitle: null,
         viewnameCookie: null,
         viewnameStartsWith: null,
-        editable: false,
-        closeButton: true,
+
         isSearch: true,
         isExport: true,
+        editable: false,
+        closeButton: false,
         setDocumentTitle: false,
-        metaviewnames: [],
         params: splitGETString(),
-        views: {},
+
         gridViewClassName: 'GridView',
         gridViewClass: null,
         gridview: null,
@@ -87,6 +90,76 @@ Asyst.GridView = function(options) {
         that.data._el.loader.remove();
     };
 
+    that.load_metaViewAll = function(callbackSuccess, callbackError){
+        if (that.data.view) {
+            Asyst.APIv2.DataSet.load({
+                name: 'MetaViewAll',
+                data: {
+                    View: that.data.view,
+                    AccountId: that.data.user.Id
+                },
+                success: function(data){
+                    var allowed = false;
+                    data.map(function(d){
+                        if (d.length > 0) {
+                            allowed = true;
+                        }
+                    });
+                    if (allowed) {
+                        var metaView;
+                        var metaViews = [].concat(data[0], data[1], data[2]);
+                        metaViews.map(function(view){
+                            view.selected = view.viewName == that.data.view;
+                            if (view.viewName == that.data.view) {
+                                metaView = view;
+                            }
+                            view.viewName = (view.viewName ? view.viewName : view.entityName);
+                            view.viewTitle = (view.viewTitle ? view.viewTitle : view.entityTitle);
+                            if (!Asyst.Workspace.views[view.viewName]) {
+                                if (typeof window.views == 'undefined') { window.views = {}; }
+                                Asyst.Workspace.addView({
+                                    entity: {
+                                        idName: view.idName,
+                                        isViewProcessLink: view.IsViewProcessLink,
+                                        name: view.entityName,
+                                        title: view.entityTitle
+                                    },
+                                    title: view.viewTitle,
+                                    isEditable: (view.IsEditable ? view.IsEditable : false),
+                                    isViewSampled: (view.IsViewSampled ? view.IsViewSampled : false),
+                                    isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
+                                    isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
+                                    isWideString: (view.IsWideString ? view.IsWideString : false),
+                                    isFullWidthScreen: (view.isFullWidthScreen ? view.isFullWidthScreen : true),
+                                    isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
+                                    isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
+                                    preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : ''),
+                                    viewSamples: view.viewSamples
+                                }, view.viewName);
+                            }
+                            that.data.views[view.viewName] = Asyst.Workspace.views[view.viewName];
+                        });
+                        if (!metaView) { metaView = metaViews[0]; }
+                        that.data.viewName = metaView.viewName;
+                        that.data.viewTitle = metaView.viewTitle;
+                        that.data.entityName = metaView.entityName;
+                        that.data.entitytitle = metaView.entityTitle;
+                        that.data.viewSamples = [];
+                        if (!that.data.title) { that.data.title = metaView.entityTitle; }
+                        if (that.data.setDocumentTitle) { document.title = that.data.title; }
+                        if (typeof callbackSuccess == 'function') { callbackSuccess(); }
+                    } else {
+                        if (typeof callbackError == 'function') { callbackError(); }
+                    }
+                },
+                error: function(){
+                    that.loader_remove();
+                }
+            });
+        } else {
+            that.loader_remove();
+        }
+    };
     that.load_metaViewNames = function(callback){
         if (that.data.entityname) {
             Asyst.APIv2.DataSet.load({
@@ -295,6 +368,7 @@ Asyst.GridView = function(options) {
             }
         });
     };
+
     that.load_view = function(){
         that.loader_add();
         that.data.gridview.data.loading = true;
@@ -1316,6 +1390,30 @@ Asyst.GridView = function(options) {
     };
     that.init = function(){
         that.loader_add();
+        that.load_metaViewAll(
+            function(){
+                that.init_header();
+                that.init_settings();
+                that.init_extFilter();
+                that.store_to_window();
+                that.loader_remove();
+                that.data.gridViewClass = (window || this)[that.data.gridViewClassName];
+                that.data.gridview = new that.data.gridViewClass({
+                    containerid: that.data.containerid,
+                    title: that.data.title,
+                    header: that.data.header,
+                    render: that.load_view
+                });
+            },
+            function(){
+                that.loader_remove();
+                that.data.gridview = new GridViewEmpty({
+                    containerid: that.data.containerid,
+                    title: 'Нет доступных представлений'
+                });
+            }
+        );
+        /*
         that.load_metaViewNames(function(){
             that.load_metaView(
                 that.load_metaViewEntity,
@@ -1342,6 +1440,7 @@ Asyst.GridView = function(options) {
                 }
             );
         });
+        */
     };
     that.init();
     return that;

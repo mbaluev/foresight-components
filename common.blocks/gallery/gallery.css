@@ -34,14 +34,19 @@
 }
 
 .gallery__image {
-    overflow: hidden;
-    display: block;
-    background-position: center center;
     width: 80px;
     height: 80px;
-    transition: opacity 500ms ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center center;
     background-size: cover;
+    transition: opacity 500ms ease-out;
+    overflow: hidden;
     margin: 0 auto;
+}
+.gallery__image > * {
+    display: none;
 }
 .gallery__filename {
     color: #333;
@@ -71,4 +76,11 @@
 .gallery__error-info {
     color: #ff5940;
     text-align: center;
+}
+
+.gallery__doc {
+    background: none !important;
+}
+.gallery__doc > * {
+    display: block;
 }
