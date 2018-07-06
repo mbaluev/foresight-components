@@ -119,6 +119,8 @@ Asyst.GridView = function(options) {
                                 return view.viewName.indexOf(that.data.viewnameStartsWith) == 0
                             });
                         }
+                        that.data.entityname = metaViews[0].entityName;
+                        that.data.entitytitle = metaViews[0].entitytitle;
                         metaViews.map(function(view){
                             view.selected = false;
                             if (view.viewName == that.data.view) {
@@ -162,8 +164,6 @@ Asyst.GridView = function(options) {
                         }
                         that.data.viewname = metaView.viewName;
                         that.data.viewtitle = metaView.viewTitle;
-                        that.data.entityname = metaView.entityName;
-                        that.data.entitytitle = metaView.entityTitle;
                         that.data.viewSamples = [];
                         if (!that.data.title) { that.data.title = metaView.entityTitle; }
                         if (that.data.setDocumentTitle) { document.title = that.data.title; }
