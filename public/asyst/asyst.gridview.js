@@ -106,8 +106,12 @@ Asyst.GridView = function(options) {
                         }
                     });
                     if (allowed) {
-                        var metaView;
-                        var metaViews = [].concat(data[0], data[1], data[2]);
+                        var metaView, metaViews;
+                        if (data[0].length > 0 || data[1].length > 0) {
+                            metaViews = [].concat(data[0], data[1]);
+                        } else {
+                            metaViews = data[2];
+                        }
                         metaViews.map(function(view){
                             view.selected = view.viewName == that.data.view;
                             if (view.viewName == that.data.view) {
