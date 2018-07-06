@@ -181,6 +181,7 @@ Asyst.GridView = function(options) {
             that.loader_remove();
         }
     };
+    /*
     that.load_metaViewNames = function(callback){
         if (that.data.entityname) {
             Asyst.APIv2.DataSet.load({
@@ -389,6 +390,7 @@ Asyst.GridView = function(options) {
             }
         });
     };
+    */
 
     that.load_view = function(){
         that.loader_add();
