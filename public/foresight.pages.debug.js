@@ -2302,10 +2302,18 @@ var GridView3 = function(options){
     };
 
     that.menu__item_lock = function(){
+        that.data._el.input_search.input('disable');
+        that.data._el.buttons.map(function(b){
+            b.button('disable');
+        });
         that.data._el.menu__list.find('.menu__item-link').addClass('menu__item-link_disabled');
         that.data._el.menu__list.find('.menu__item-link_selected').removeClass('menu__item-link_disabled');
     };
     that.menu__item_unlock = function(){
+        that.data._el.input_search.input('enable');
+        that.data._el.buttons.map(function(b){
+            b.button('enable');
+        });
         that.data._el.menu__list.find('.menu__item-link').removeClass('menu__item-link_disabled');
     };
 
