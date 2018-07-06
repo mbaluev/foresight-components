@@ -115,8 +115,8 @@ Asyst.GridView = function(options) {
                             viewSamples = [].concat(data[3], data[4]);
                         }
                         if (that.data.viewnameStartsWith) {
-                            metaViews = metaViews.map(function(view){
-                                return view.viewName.indexOf(that.data.viewnameStartsWith) == 0
+                            metaViews = metaViews.filter(function(view){
+                                return view.viewName.indexOf(that.data.viewnameStartsWith) == 0;
                             });
                         }
                         that.data.entityname = metaViews[0].entityName;
