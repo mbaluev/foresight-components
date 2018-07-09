@@ -47,17 +47,10 @@ html, body {
     width: 230px;
     min-width: 230px;
     max-width: 230px;
-    /*
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    overflow: hidden;
-    */
+    display: flex;
+    flex-direction: column;
 }
-.fs-view__left > * {
-    height: 100%;
-}
+.fs-view__left > * {}
 .fs-view__left_hidden {
     margin-left: -230px;
 }
