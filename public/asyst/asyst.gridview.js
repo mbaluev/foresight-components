@@ -107,12 +107,14 @@ Asyst.GridView = function(options) {
                     if (allowed) {
                         var metaView, metaViews, viewSamples = [];
                         if (data[0].length > 0 || data[1].length > 0) {
-                            metaViews = [].concat(data[0], data[1]);
+                            //metaViews = [].concat(data[0], data[1]);
+                            metaViews = _.unionBy(data[0], data[1], 'viewName');
                         } else {
                             metaViews = data[2];
                         }
                         if (data[3] || data[4]) {
-                            viewSamples = [].concat(data[3], data[4]);
+                            //viewSamples = [].concat(data[3], data[4]);
+                            viewSamples = _.unionBy(data[3], data[4], 'ViewSampleId');
                         }
                         if (that.data.viewnameStartsWith) {
                             metaViews = metaViews.filter(function(view){
