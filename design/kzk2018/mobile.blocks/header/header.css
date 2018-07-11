@@ -1,2 +1,13 @@
-@media (max-width: 1168px) {}
-@media (max-width: 768px) {}
+@media (max-width: 1168px) {
+    .header__column:nth-child(3) {
+        background: none;
+    }
+}
+@media (max-width: 768px) {
+    .header {
+        background: none;
+    }
+    .header__column {
+        padding-bottom: 0;
+    }
+}
