@@ -3,6 +3,16 @@
         background: none;
     }
 }
+@media (max-width: 1050px) {
+    .header__column_ship {
+        display: none;
+    }
+}
+@media (max-width: 850px) {
+    .header__column_station {
+        display: none;
+    }
+}
 @media (max-width: 768px) {
     .header {
         background: none;
@@ -10,4 +20,20 @@
     .header__column {
         padding-bottom: 0;
     }
+    .header__column_station {
+        display: block;
+    }
 }
+@media (max-width: 550px) {
+    .header__column_tank {
+        display: block;
+    }
+    .header__column_station {
+        display: none;
+    }
+    .header__column_ship {
+        display: none;
+    }
+}
+
+

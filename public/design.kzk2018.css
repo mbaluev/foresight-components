@@ -83,11 +83,24 @@
 }
 
 .header__column:nth-child(3) {
+  padding-bottom: 0;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  background: url("images/kzk2018/header-icons.png") no-repeat center;
-  background-position-y: 10px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.header__column:nth-child(3) > * {
+  margin: 0 20px 0 0!important;
 }
 
 .header__column:last-child {
@@ -141,6 +154,28 @@
   height: 70px;
   background: url("images/kzk2018/heraldry_small_blue.png") center center no-repeat;
   background-size: contain;
+}
+
+.header__column_tank {
+  width: 66px;
+  background: url("images/kzk2018/header-tank.png") no-repeat center bottom;
+}
+
+.header__column_station {
+  width: 96px;
+  background: url("images/kzk2018/header-station.png") no-repeat center bottom;
+}
+
+.header__column_ship {
+  width: 96px;
+  background: url("images/kzk2018/header-ship.png") no-repeat center bottom;
+}
+
+.header__column_flip {
+  -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+  -webkit-filter: FlipH;
+          filter: FlipH;
 }
 
 .button_color_blue:before {
@@ -309,6 +344,18 @@ fieldset {
   }
 }
 
+@media (max-width: 1050px) {
+  .header__column_ship {
+    display: none;
+  }
+}
+
+@media (max-width: 850px) {
+  .header__column_station {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .header {
     background: none;
@@ -316,6 +363,24 @@ fieldset {
 
   .header__column {
     padding-bottom: 0;
+  }
+
+  .header__column_station {
+    display: block;
+  }
+}
+
+@media (max-width: 550px) {
+  .header__column_tank {
+    display: block;
+  }
+
+  .header__column_station {
+    display: none;
+  }
+
+  .header__column_ship {
+    display: none;
   }
 }
 

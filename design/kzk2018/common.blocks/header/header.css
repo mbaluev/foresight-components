@@ -18,9 +18,14 @@
     flex: 0 0 auto;
 }
 .header__column:nth-child(3) {
+    padding-bottom: 0;
     flex: 1 1 auto;
-    background: url('header-icons.png') no-repeat center;
-    background-position-y: 10px;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+}
+.header__column:nth-child(3) > * {
+    margin: 0 20px 0 0!important;
 }
 .header__column:last-child {
     flex: 0 0 auto;
@@ -50,4 +55,21 @@
     height: 70px;
     background: url('heraldry_small_blue.png') center center no-repeat;
     background-size: contain;
+}
+
+.header__column_tank {
+    width: 66px;
+    background: url('header-tank.png') no-repeat center bottom;
+}
+.header__column_station {
+    width: 96px;
+    background: url('header-station.png') no-repeat center bottom;
+}
+.header__column_ship {
+    width: 96px;
+    background: url('header-ship.png') no-repeat center bottom;
+}
+.header__column_flip {
+    transform: scaleX(-1);
+    filter: FlipH;
 }
