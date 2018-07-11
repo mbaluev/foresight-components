@@ -147,7 +147,7 @@ Asyst.GridView = function(options) {
                                     isExtFilterVisible: (view.IsExtFilterVisible ? view.IsExtFilterVisible : false),
                                     isInitiallyCollapsed: (view.IsInitiallyCollapsed ? view.IsInitiallyCollapsed : false),
                                     isWideString: (view.IsWideString ? view.IsWideString : false),
-                                    isFullWidthScreen: (view.isFullWidthScreen ? view.isFullWidthScreen : false),
+                                    isFullWidthScreen: (view.IsFullWidthScreen ? view.IsFullWidthScreen : false),
                                     isCreate: (view.IsCreate && view.entityName ? view.IsCreate : false),
                                     isDelete: (view.IsDelete && view.entityName ? view.IsDelete : false),
                                     preprocessFunctionText: (view.PreprocessFunction ? view.PreprocessFunction : ''),
