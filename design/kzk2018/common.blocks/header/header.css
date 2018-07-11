@@ -37,7 +37,8 @@
     padding: 0;
 }
 .header__tumbler-container {
-    flex-direction: row;
+    flex-direction: row !important;
+    margin-right: 0 !important;
 }
 .header__row {
     flex: 1 1 auto;
