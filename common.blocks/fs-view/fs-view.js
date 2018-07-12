@@ -2,7 +2,7 @@ $(function(){
     $('[data-toggle="menu-left"]').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu'),
-            $main = $('.fs-view__main').addClass('fs-view__main_transition'),
+            $main = $('.fs-view__main'),
             $left = $('.fs-view__left'),
             $middle = $('.fs-view__middle');
         if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
