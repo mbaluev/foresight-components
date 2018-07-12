@@ -117,7 +117,7 @@
                         if (that.data._handlers_input) {
                             for (var type in that.data._handlers_input) {
                                 that.data._handlers_input[type].forEach(function(ev){
-                                    that.data._el.input.on(ev.type + '.' + ev.namespace, ev.handler);
+                                    that.data._el.input.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
                                 });
                             }
                         }
