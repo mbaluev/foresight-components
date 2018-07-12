@@ -5345,7 +5345,7 @@ $(function(){
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
                                 that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                    self.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
                                 });
                             }
                         }
