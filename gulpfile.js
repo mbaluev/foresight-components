@@ -46,6 +46,15 @@ var kzk2018params = {
     levels: ['design/kzk2018/common.blocks', 'design/kzk2018/mobile.blocks'],
     images: 'images/kzk2018/'
 };
+var gazpromparams = {
+    out: 'public',
+    cssOut: 'design.gazprom.css',
+    jsOut: 'design.gazprom.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/gazprom/common.blocks', 'design/gazprom/mobile.blocks'],
+    images: 'images/gazprom/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -102,6 +111,7 @@ var getFileNames = require('html2bl').getFileNames(params);
 var uniGetFileNames = require('html2bl').getFileNames(uni2019params);
 var krmGetFileNames = require('html2bl').getFileNames(krmsrvparams);
 var kzkGetFileNames = require('html2bl').getFileNames(kzk2018params);
+var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -152,6 +162,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['kzk2018_js']);
+
+    /* watch design - gazprom */
+    gulp.watch(gazpromparams.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['gazprom_css']);
+    gulp.watch(gazpromparams.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['gazprom_js']);
 });
 
 /* components */
@@ -264,6 +284,7 @@ gulp.task('pages', function(){
 gulp.task('design', ['uni2019']);
 gulp.task('design', ['krmsrv']);
 gulp.task('design', ['kzk2018']);
+gulp.task('design', ['gazprom']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -420,6 +441,59 @@ gulp.task('kzk2018_js', function() {
                 }
             }))
             .pipe(gulp.dest(kzk2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* kzk2018 */
+gulp.task('gazprom', ['gazprom_css', 'gazprom_images', 'gazprom_js']);
+gulp.task('gazprom_css', function(){
+    gazpromGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(gazpromparams.cssOut))
+            .pipe(url({ prepend: gazpromparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(gazpromparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    gazpromGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(gazpromparams.cssOut))
+            .pipe(url({ prepend: gazpromparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(gazpromparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('gazprom_images', function(){
+    gazpromGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(gazpromparams.out, gazpromparams.images)));
+    }).done();
+});
+gulp.task('gazprom_js', function() {
+    gazpromGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(gazpromparams.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(gazpromparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });
