@@ -1733,7 +1733,11 @@ var GridView = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).css({ height: '100%', display: 'flex' }),
+        target: $('#' + that.data.containerid).css({
+            width: '100%',
+            height: '100%',
+            display: 'flex'
+        }),
         name: $([
             '<label class="card__name">',
             '<span class="card__name-text"></span>',
@@ -1978,7 +1982,11 @@ var GridView2 = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).css({ height: '100%', display: 'flex' }),
+        target: $('#' + that.data.containerid).css({
+            width: '100%',
+            height: '100%',
+            display: 'flex'
+        }),
         name: $([
             '<label class="card__name">',
             '<span class="card__name-text"></span>',
@@ -2169,7 +2177,11 @@ var GridView3 = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).css({ height: '100%', display: 'flex' }),
+        target: $('#' + that.data.containerid).css({
+            width: '100%',
+            height: '100%',
+            display: 'flex'
+        }),
         button_toggle_left: $([
             '<button class="button" type="button" data-fc="button" data-toggle="left">',
             '<span class="icon icon_svg_double_right"></span>',
@@ -2380,7 +2392,11 @@ var GridView4 = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).css({ height: '100%', display: 'flex' }),
+        target: $('#' + that.data.containerid).css({
+            width: '100%',
+            height: '100%',
+            display: 'flex'
+        }),
         name: $([
             '<label class="card__name">',
             '<span class="card__name-text"></span>',
@@ -2564,7 +2580,11 @@ var GridViewEmpty = function(options){
     };
     that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
-        target: $('#' + that.data.containerid).css({ height: '100%', display: 'flex' }),
+        target: $('#' + that.data.containerid).css({
+            width: '100%',
+            height: '100%',
+            display: 'flex'
+        }),
         name: $([
             '<label class="card__name">',
             '<span class="card__name-text card__name-text_color_red"></span>',
