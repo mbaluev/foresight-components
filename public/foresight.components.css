@@ -4832,7 +4832,10 @@ body {
 }
 
 .card__left > * {
-  height: 100%;
+  /*height: 100%;*/
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .card__left_hidden {
@@ -4874,7 +4877,10 @@ body {
 }
 
 .card__right > * {
-  height: 100%;
+  /*height: 100%;*/
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .card__right_hidden {

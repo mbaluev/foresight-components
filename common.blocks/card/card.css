@@ -186,7 +186,8 @@
     position: relative;
 }
 .card__left > * {
-    height: 100%;
+    /*height: 100%;*/
+    flex: 1 1 auto;
 }
 .card__left_hidden {
     display: none;
@@ -221,7 +222,8 @@
     display: flex;
 }
 .card__right > * {
-    height: 100%;
+    /*height: 100%;*/
+    flex: 1 1 auto;
 }
 .card__right_hidden {
     display: none;
