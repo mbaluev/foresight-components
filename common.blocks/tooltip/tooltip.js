@@ -141,17 +141,19 @@
                             self.removeAttr('title');
                         }
                         if (self.data('tooltip')) {
-                            tooltip = self.data('tooltip');
+                            that.data.tooltip = self.data('tooltip');
                         }
                         if (that.data.tooltip) {
                             tooltip = that.data.tooltip;
                         }
-                        $('body').append(
-                            that.data._tooltip.tooltip.append(
-                                that.data._tooltip.tooltip__text.html(tooltip),
-                                that.data._tooltip.tooltip__arrow
-                            )
-                        );
+                        if (tooltip != '') {
+                            $('body').append(
+                                that.data._tooltip.tooltip.append(
+                                    that.data._tooltip.tooltip__text.html(tooltip),
+                                    that.data._tooltip.tooltip__arrow
+                                )
+                            );
+                        }
                     };
                     that.update = function(tooltip){
                         that.data.tooltip = tooltip;
