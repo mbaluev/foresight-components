@@ -1,6 +1,8 @@
 .widget-grid {
     margin: 9px 9px 18px;
     box-sizing: content-box;
+    width: 100%;
+    height: 100%;
 }
 .widget-grid.grid-stack > .grid-stack-item {}
 .widget-grid.grid-stack > .grid-stack-item > .grid-stack-item-content {
