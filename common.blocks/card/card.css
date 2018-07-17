@@ -249,6 +249,10 @@
     min-width: 400px;
     max-width: 400px;
 }
+.card__right .menu_color_light {
+    border-right: none;
+    border-left: solid 1px #ddd;
+}
 
 .card__middle {
     z-index: 1;
