@@ -207,15 +207,16 @@ body {
   width: 230px;
   min-width: 230px;
   max-width: 230px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .fs-view__middle-right_hidden {
   margin-right: -230px;
 }
 
-.fs-view__middle-right > * {
-  height: 100%;
-}
+
 
 .fs-view__middle-backdrop {
   display: none;
@@ -4942,6 +4943,9 @@ body {
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
   overflow: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 

@@ -110,13 +110,12 @@ html, body {
     width: 230px;
     min-width: 230px;
     max-width: 230px;
+    display: flex;
 }
 .fs-view__middle-right_hidden {
     margin-right: -230px;
 }
-.fs-view__middle-right > * {
-    height: 100%;
-}
+.fs-view__middle-right > * {}
 .fs-view__middle-backdrop {
     display: none;
     visibility: hidden;
