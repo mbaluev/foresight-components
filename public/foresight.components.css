@@ -5252,7 +5252,10 @@ body {
 .widget-grid_single,
 .widget-grid_single.grid-stack.grid-stack-one-column-mode {
   margin: 0;
-  height: 100% !important;
+  height: auto !important;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .widget-grid_single > .grid-stack-item {
