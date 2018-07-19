@@ -112,6 +112,7 @@
   box-sizing: border-box;
   display: block;
   margin: 0 10px 0 0 !important;
+  border: solid 2px transparent;
   border-radius: 5px;
   color: #333;
   text-decoration: none;
@@ -119,8 +120,8 @@
 
 .header__caption:hover {
   text-decoration: none;
-  background-color: #36c;
-  color: #fff;
+  border: solid 2px #333;
+  color: #333;
 }
 
 .header .spinner {
@@ -314,22 +315,16 @@ fieldset {
   }
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 1520px) {
   .header__column_icons_background {
     background: url("images/mtk17/header-center.png");
   }
 }
 
-@media (max-width: 1250px) {
-
-}
-
-@media (max-width: 1168px) {
-
-}
-
 @media (max-width: 1050px) {
-
+  .header__column_icons {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -373,16 +368,14 @@ fieldset {
     color: #fff;
     margin-bottom: 10px !important;
     margin-right: 10px !important;
+    border: none;
   }
 
   .header__caption:hover {
     background-color: #eee;
     color: #333;
+    border: none;
   }
-}
-
-@media (max-width: 550px) {
-
 }
 
 @media (max-width: 768px) {
