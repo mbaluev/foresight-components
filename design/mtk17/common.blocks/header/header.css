@@ -56,11 +56,10 @@
     font-size: 18px;
     line-height: normal;
     text-align: left;
-    padding: 4px 10px;
+    padding: 3px 10px;
     box-sizing: border-box;
     display: block;
     margin: 0 10px 0 0 !important;
-    border: solid 2px transparent;
 
     border-radius: 5px;
     color: #333;
@@ -68,7 +67,7 @@
 }
 .header__caption:hover {
     text-decoration: none;
-    border: solid 2px #333;
+    background-color: #eee;
     color: #333
 }
 
