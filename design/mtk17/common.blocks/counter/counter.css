@@ -1,0 +1,37 @@
+.counter {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+.counter .alertbox {
+    font-family: ProximaNova-Bold,Tahoma,Helvetica,Arial,'Open Sans',sans-serif;
+    font-weight: normal;
+
+    width: 20px;
+    min-width: 20px;
+    background-color: transparent;
+    border-radius: 0;
+}
+.counter .alertbox:before {
+    background-color: transparent;
+    border-radius: 0;
+}
+.counter .alertbox__text {
+    font-weight: bold !important;
+    color: #333;
+}
+
+.counter__date:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.counter__date .alertbox__text {
+    font-family: ProximaNova-Bold,Tahoma,Helvetica,Arial,'Open Sans',sans-serif;
+    font-weight: normal;
+
+    color: #333;
+    line-height: 13px;
+    padding-left: 7px;
+    margin: 0;
+}

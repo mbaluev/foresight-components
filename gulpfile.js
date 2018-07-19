@@ -55,6 +55,15 @@ var gazpromparams = {
     levels: ['design/gazprom/common.blocks', 'design/gazprom/mobile.blocks'],
     images: 'images/gazprom/'
 };
+var mtk17params = {
+    out: 'public',
+    cssOut: 'design.mtk17.css',
+    jsOut: 'design.mtk17.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/mtk17/common.blocks', 'design/mtk17/mobile.blocks'],
+    images: 'images/mtk17/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -112,6 +121,7 @@ var uniGetFileNames = require('html2bl').getFileNames(uni2019params);
 var krmGetFileNames = require('html2bl').getFileNames(krmsrvparams);
 var kzkGetFileNames = require('html2bl').getFileNames(kzk2018params);
 var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
+var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -172,6 +182,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['gazprom_js']);
+
+    /* watch design - mtk17 */
+    gulp.watch(mtk17params.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['mtk17_css']);
+    gulp.watch(mtk17params.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['mtk17_js']);
 });
 
 /* components */
@@ -281,10 +301,7 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019']);
-gulp.task('design', ['krmsrv']);
-gulp.task('design', ['kzk2018']);
-gulp.task('design', ['gazprom']);
+gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -445,7 +462,7 @@ gulp.task('kzk2018_js', function() {
     }).done();
 });
 
-/* kzk2018 */
+/* gazprom */
 gulp.task('gazprom', ['gazprom_css', 'gazprom_images', 'gazprom_js']);
 gulp.task('gazprom_css', function(){
     gazpromGetFileNames.then(function(files){
@@ -494,6 +511,59 @@ gulp.task('gazprom_js', function() {
                 }
             }))
             .pipe(gulp.dest(gazpromparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* mtk17 */
+gulp.task('mtk17', ['mtk17_css', 'mtk17_images', 'mtk17_js']);
+gulp.task('mtk17_css', function(){
+    mtkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(mtk17params.cssOut))
+            .pipe(url({ prepend: mtk17params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(mtk17params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    mtkGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(mtk17params.cssOut))
+            .pipe(url({ prepend: mtk17params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(mtk17params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('mtk17_images', function(){
+    mtkGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(mtk17params.out, mtk17params.images)));
+    }).done();
+});
+gulp.task('mtk17_js', function() {
+    mtkGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(mtk17params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(mtk17params.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

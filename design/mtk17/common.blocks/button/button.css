@@ -1,0 +1,29 @@
+.button_color_purple,
+.button_color_purple:before,
+.button_color_purple.button_clicked:before {
+    background: #833ac0;
+}
+.button_color_purple:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.button_color_purple .button__text {
+    color: #fff;
+}
+
+.button_color_blue,
+.button_color_blue:before,
+.button_color_blue.button_clicked:before {
+    background: #36c;
+}
+.button_color_blue:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.button_color_blue .button__text {
+    color: #fff;
+}

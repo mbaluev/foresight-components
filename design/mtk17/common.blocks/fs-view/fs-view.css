@@ -1,0 +1,14 @@
+.fs-view {
+    z-index: 3;
+}
+.fs-view__header {
+    z-index: 2;
+    box-shadow: none;
+    background: linear-gradient(to left,#8639c0 0,#36c 30%,#fff 60%);
+}
+.fs-view__left {}
+.fs-view__main {
+    z-index: 1;
+    box-shadow: none;
+    /*overflow: visible;*/
+}
