@@ -44,8 +44,8 @@
 }
 
 .header__column:last-child {
-  -ms-flex-preferred-size: 50%;
-      flex-basis: 50%;
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
@@ -55,9 +55,9 @@
 }
 
 .header__column_icons {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
   width: 450px;
   margin: 0 !important;
   display: -webkit-box;
