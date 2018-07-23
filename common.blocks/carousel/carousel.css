@@ -93,7 +93,7 @@
 .carousel__item_horizontal {
     display: flex;
     flex-direction: row;
-    padding: 10px 5px;
+    padding: 10px 10px 5px 10px;
     box-sizing: border-box;
     flex: 1 1 auto;
     width: 100%;
@@ -111,7 +111,7 @@
     flex: 1 1 50%;
 }
 .carousel__item_horizontal .carousel__item-image {
-    box-shadow: 0 0 0 1px rgba(0,0,0,.05), 0 0 10px 0 rgba(51,51,51,.1);
+    box-shadow: 0 0 10px 0 rgba(51,51,51,.1);
 }
 .carousel__item_horizontal .carousel__item-image-text {
     padding: 0 0 0 20px;
@@ -124,12 +124,14 @@
 .carousel__item-caption {
     font-size: 18px;
     color: #333;
+    white-space: normal;
     line-height: normal;
 }
 .carousel__item-date {
     font-size: 13px;
     color: #999;
     line-height: normal;
+    white-space: normal;
     padding-top: 5px;
 }
 .carousel__item-content {
