@@ -7,6 +7,7 @@
                     self.data('_widget', { type: 'card', target : self });
                     var that = this.obj = {};
                     that.defaults = {
+                        id: null,
                         hiddenLeft: false,
                         hiddenRight: false,
                         menuLeftId: 'id' + (new Date()).valueOf(),
@@ -35,7 +36,7 @@
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_left_hidden', true);
+                            setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
                         }
                         $(window).trigger('resize');
                     };
@@ -44,7 +45,7 @@
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_right_hidden', true);
+                            setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
                         }
                         $(window).trigger('resize');
                     };
@@ -59,7 +60,7 @@
                             })
                         );
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_left_hidden', false);
+                            setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
                         }
                         $(window).trigger('resize');
                     };
@@ -73,7 +74,7 @@
                             })
                         );
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_right_hidden', false);
+                            setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
                         }
                         $(window).trigger('resize');
                     };
@@ -118,7 +119,7 @@
                             if (that.data._el.button_toggle_left.length > 0) {
                                 that.data._el.button_toggle_left.button();
                                 if (typeof getCookie == 'function') {
-                                    that.data.hiddenLeft = (getCookie('card_menu_left_hidden') == 'true' ? true : false);
+                                    that.data.hiddenLeft = (getCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : '')) == 'true' ? true : false);
                                 }
                                 if (that.data.hiddenLeft) {
                                     that.hide_left();
@@ -134,7 +135,7 @@
                             if (that.data._el.button_toggle_right.length > 0) {
                                 that.data._el.button_toggle_right.button();
                                 if (typeof getCookie == 'function') {
-                                    that.data.hiddenRight = (getCookie('card_menu_right_hidden') == 'true' ? true : false);
+                                    that.data.hiddenRight = (getCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : '')) == 'true' ? true : false);
                                 }
                                 if (that.data.hiddenRight) {
                                     that.hide_right();
