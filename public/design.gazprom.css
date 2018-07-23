@@ -285,7 +285,12 @@
 .fs-view__middle-scroll_widget_overflow_visible .widget,
 .fs-view__middle-scroll_widget_overflow_visible .widget__border,
 .fs-view__middle-scroll_widget_overflow_visible .widget__body,
-.fs-view__middle-scroll_widget_overflow_visible .widget__body-data {
+.fs-view__middle-scroll_widget_overflow_visible .widget__body-data,
+.card__middle-scroll_widget_overflow_visible .grid-stack-item-content,
+.card__middle-scroll_widget_overflow_visible .widget,
+.card__middle-scroll_widget_overflow_visible .widget__border,
+.card__middle-scroll_widget_overflow_visible .widget__body,
+.card__middle-scroll_widget_overflow_visible .widget__body-data {
   overflow: visible;
 }
 
