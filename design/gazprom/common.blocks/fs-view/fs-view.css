@@ -1,0 +1,11 @@
+.fs-view__middle-scroll_widget_overflow_visible .grid-stack-item-content,
+.fs-view__middle-scroll_widget_overflow_visible .widget,
+.fs-view__middle-scroll_widget_overflow_visible .widget__border,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body-data {
+    overflow: visible !important;
+}
+
+.fs-view__middle-scroll_widget_overflow_visible .card__main {
+    overflow: hidden !important;
+}

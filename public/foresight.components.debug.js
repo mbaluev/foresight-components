@@ -1112,7 +1112,9 @@ $(function(){
                         CONTENT_LOADING: '<span class="spinner"></span>',
                         CONTENT_NODATA: 'Нет данных',
                         CONTENT_ERROR: 'Ошибка загрузки',
+                        BORDER_COLOR_DARK_BLUE: '#0070ba',
                         BORDER_COLOR_BLUE: '#5a97f2',
+                        BORDER_COLOR_LIGHT_BLUE: '#2fb4e9',
                         BORDER_COLOR_DEFAULT: '#ccc',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
@@ -1333,9 +1335,17 @@ $(function(){
                     };
                     that.set_color = function(){
                         var $border = self.closestChild('.widget__border');
-                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                        if (that.data.color === that.const.BORDER_COLOR_DARK_BLUE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_dark_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_BLUE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_LIGHT_BLUE) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_light_blue');
                         }
                         else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));

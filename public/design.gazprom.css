@@ -1,3 +1,15 @@
+.fs-view__middle-scroll_widget_overflow_visible .grid-stack-item-content,
+.fs-view__middle-scroll_widget_overflow_visible .widget,
+.fs-view__middle-scroll_widget_overflow_visible .widget__border,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body-data {
+  overflow: visible !important;
+}
+
+.fs-view__middle-scroll_widget_overflow_visible .card__main {
+  overflow: hidden !important;
+}
+
 .header {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
@@ -206,6 +218,64 @@
   background-color: #767676;
 }
 
+.widget__border_color_default {
+  color: #333;
+  border-color: #706f6f;
+}
+
+.widget__border_color_default .widget__count.link {
+  color: #333;
+}
+
+.widget__border_color_default .widget__count.link:hover {
+  opacity: .5;
+}
+
+.widget__border_color_default .widget__body-data_type_text.link {
+  color: #333;
+}
+
+.widget__border_color_default .widget__body-data_type_text.link:hover {
+  opacity: .5;
+}
+
+.widget__border_color_default .widget__body-data_type_text_align_center.link {
+  color: #333;
+}
+
+.widget__border_color_default .widget__body-data_type_text_align_center.link:hover {
+  opacity: .5;
+}
+
+.widget__border_color_blue {
+  color: #0097d8;
+  border-color: #0097d8;
+}
+
+.widget__border_color_blue .widget__count.link {
+  color: #0097d8;
+}
+
+.widget__border_color_blue .widget__count.link:hover {
+  opacity: .5;
+}
+
+.widget__border_color_blue .widget__body-data_type_text.link {
+  color: #0097d8;
+}
+
+.widget__border_color_blue .widget__body-data_type_text.link:hover {
+  opacity: .5;
+}
+
+.widget__border_color_blue .widget__body-data_type_text_align_center.link {
+  color: #0097d8;
+}
+
+.widget__border_color_blue .widget__body-data_type_text_align_center.link:hover {
+  opacity: .5;
+}
+
 .card__header_color_dark_blue {
   background-color: #0070ba;
 }
@@ -281,11 +351,6 @@
   background-size: 25px;
 }
 
-.fs-view__middle-scroll_widget_overflow_visible .grid-stack-item-content,
-.fs-view__middle-scroll_widget_overflow_visible .widget,
-.fs-view__middle-scroll_widget_overflow_visible .widget__border,
-.fs-view__middle-scroll_widget_overflow_visible .widget__body,
-.fs-view__middle-scroll_widget_overflow_visible .widget__body-data,
 .card__middle-scroll_widget_overflow_visible .grid-stack-item-content,
 .card__middle-scroll_widget_overflow_visible .widget,
 .card__middle-scroll_widget_overflow_visible .widget__border,
@@ -294,7 +359,6 @@
   overflow: visible !important;
 }
 
-.fs-view__middle-scroll_widget_overflow_visible .card__main,
 .card__middle-scroll_widget_overflow_visible .card__main {
   overflow: hidden !important;
 }
