@@ -424,7 +424,7 @@
             $.error( 'Method ' +  method + ' does not exist on $.carousel' );
         }
     };
-})( jQuery );
+})(jQuery);
 (function($){
     $.fn.touchwipe = function(settings) {
         var config = {
