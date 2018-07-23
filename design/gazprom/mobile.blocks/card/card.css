@@ -1,0 +1,30 @@
+@media (max-width: 768px) {
+    .card__header_color_dark_blue .alertbox,
+    .card__header_color_blue .alertbox,
+    .card__header_color_light_blue .alertbox,
+    .card__header_color_grey .alertbox {
+        background: transparent;
+        z-index: 2;
+        margin-left: 0;
+        margin-right: 10px;
+    }
+
+    .card__header_color_dark_blue .alertbox:before,
+    .card__header_color_blue .alertbox:before,
+    .card__header_color_light_blue .alertbox:before,
+    .card__header_color_grey .alertbox:before {
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border-radius: 50%;
+        box-shadow: none;
+    }
+
+    .card__header_color_dark_blue .alertbox .icon,
+    .card__header_color_blue .alertbox .icon,
+    .card__header_color_light_blue .alertbox .icon,
+    .card__header_color_grey .alertbox .icon {
+        background-size: initial;
+    }
+}
