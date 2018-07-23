@@ -1,0 +1,76 @@
+.card__header_color_dark_blue {
+    background-color: #0070ba;
+}
+.card__header_color_blue {
+    background-color: #0097d8;
+}
+.card__header_color_light_blue {
+    background-color: #2fb4e9;
+}
+.card__header_color_grey {
+    background-color: #706f6f;
+}
+
+.card__header_color_dark_blue .card__name-text,
+.card__header_color_blue .card__name-text,
+.card__header_color_light_blue .card__name-text,
+.card__header_color_grey .card__name-text {
+    color: #fff;
+}
+
+.card__header_color_dark_blue .button,
+.card__header_color_blue .button,
+.card__header_color_light_blue .button,
+.card__header_color_grey .button {
+    background: #fff;
+}
+
+.card__header_color_dark_blue .button:before {
+    background-color: #0070ba;
+}
+.card__header_color_blue .button:before {
+    background-color: #0097d8;
+}
+.card__header_color_light_blue .button:before {
+    background-color: #2fb4e9;
+}
+.card__header_color_grey .button:before {
+    background-color: #706f6f;
+}
+
+.card__header_color_dark_blue .alertbox,
+.card__header_color_blue .alertbox,
+.card__header_color_light_blue .alertbox,
+.card__header_color_grey .alertbox {
+    background: transparent;
+    z-index: 2;
+    margin-left: 15px;
+    margin-right: 20px;
+}
+
+.card__header_color_dark_blue .alertbox:before,
+.card__header_color_blue .alertbox:before,
+.card__header_color_light_blue .alertbox:before,
+.card__header_color_grey .alertbox:before {
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+}
+
+.card__header_color_dark_blue .alertbox .icon,
+.card__header_color_blue .alertbox .icon,
+.card__header_color_light_blue .alertbox .icon,
+.card__header_color_grey .alertbox .icon {
+    background-size: 25px;
+}
+
+.fs-view__middle-scroll_widget_overflow_visible .grid-stack-item-content,
+.fs-view__middle-scroll_widget_overflow_visible .widget,
+.fs-view__middle-scroll_widget_overflow_visible .widget__border,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body,
+.fs-view__middle-scroll_widget_overflow_visible .widget__body-data {
+    overflow: visible;
+}

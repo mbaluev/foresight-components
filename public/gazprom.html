@@ -199,7 +199,7 @@
                 </div>
             </div>
             <div class="fs-view__middle">
-                <div class="fs-view__middle-scroll" id="container">
+                <div class="fs-view__middle-scroll fs-view__middle-scroll_widget_overflow_visible" id="container">
                 </div>
             </div>
         </div>
@@ -289,55 +289,20 @@
                     }
                 }
             ];
-            var items_new = [
+            var items_gazprom = [
                 {
                     "x":0,
                     "y":0,
-                    "width":4,
-                    "height":5,
+                    "width":12,
+                    "height":10,
                     "settings":{
                         "collapsible":false,
                         "collapsed":false,
                         "color":"#ccc",
                         "calendar":false,
                         "resizeOnExpand":false,
-                        "name":"MyMeetings",
-                        "pageid":"LibraryChart",
-                        "elementid":"MyMeetings",
-                        "params":null
-                    }
-                },
-                {
-                    "x":4,
-                    "y":0,
-                    "width":4,
-                    "height":5,
-                    "settings":{
-                        "collapsible":true,
-                        "collapsed":false,
-                        "color":"#ccc",
-                        "calendar":false,
-                        "resizeOnExpand":false,
-                        "name":"Риски моих проектов",
-                        "pageid":"LibraryChart",
-                        "elementid":"MyRisksPie",
-                        "params":null
-                    }
-                },
-                {
-                    "x":0,
-                    "y":5,
-                    "width":4,
-                    "height":5,
-                    "settings":{
-                        "collapsible":true,
-                        "collapsed":false,
-                        "color":"#ccc",
-                        "calendar":false,
-                        "resizeOnExpand":false,
-                        "name":"Инициативы для меня",
-                        "pageid":"LibraryChart",
-                        "elementid":"ForMeInitiative",
+                        "pageid":"LibraryGazprom",
+                        "elementid":"Process",
                         "params":null
                     }
                 }
@@ -406,6 +371,16 @@
                         {
                             text: 'Логотип',
                             value: 'Logo'
+                        }
+                    ]
+                },
+                {
+                    text: 'Газпром',
+                    value: 'LibraryGazprom',
+                    items: [
+                        {
+                            text: 'Процессы',
+                            value: 'Process'
                         }
                     ]
                 }
@@ -608,6 +583,13 @@
                         '\<div class="box_center foresight"\>\<\/div\>',
                         '\<\/div\>'
                     ].join('')
+                },
+                {
+                    pageid: 'LibraryGazprom',
+                    elementid: 'Process',
+                    content: [
+                        '\<div class="card" data-fc="card" data-id="process" id="Widget__1532355477075Div"\>\<div class="card__header card__header_color_dark_blue"\>\<div class="card__header-row"\>\<div class="card__header-column"\>\<div class="alertbox"\>\<span class="icon icon_svg_profile"\>\<\/span\>\<\/div\>\<label class="card__name"\>\<span class="card__name-text"\>ПРОЦЕССЫ\<\/span\>\<\/label\>\<\/div\>\<div class="card__header-column"\>\<button class="button" type="button" data-fc="button" id="button_add_process" style="width: auto;"\>\<span class="icon icon_svg_plus"\>\<\/span\>\<\/button\>\<button class="button" type="button" data-fc="button" data-toggle="right" id="id1532355477075" style="width: auto;"\>\<span class="icon icon_svg_bars icon_rotate_180deg icon_animate"\>\<\/span\>\<\/button\>\<\/div\>\<\/div\>\<\/div\>\<div class="card__main"\>\<div class="card__middle"\>\<div class="carousel" id="Widget__1532355477075Div"\>\<div class="carousel__container"\>\<button class="button button_prev" type="button" data-fc="button" style="width: auto;"\>\<span class="icon icon_svg_left"\>\<\/span\>\<\/button\>\<div class="carousel__items carousel__items_custom"\>\<div class="carousel__item" style="left: 0px; display: none;"\>\<div class="carousel__item_horizontal"\>\<div class="carousel__item-image" style="background-image: url(\'images\/news\/1.jpg\'))"\>\<\/div\>\<div class="carousel__item-image-text"\>\<div class="carousel__item-caption"\>Актуализирован ОСК по управлению проектами\<\/div\>\<div class="carousel__item-date"\>09.02.2018\<\/div\>\<div class="carousel__item-content"\>1. Изменение ИК2. Изменение КТ-372\/672\<\/div\>\<\/div\>\<\/div\>\<\/div\>\<div class="carousel__item" style="left: 0px;"\>\<div class="carousel__item_horizontal"\>\<div class="carousel__item-image" style="background-image: url(\'images\/news\/1.jpg\')"\>\<\/div\>\<div class="carousel__item-image-text"\>\<div class="carousel__item-caption"\>Актуализирован ОСК по управлению проектами\<\/div\>\<div class="carousel__item-date"\>09.02.2018\<\/div\>\<div class="carousel__item-content"\>1. Изменение ИК2. Изменение КТ-372\/672\<\/div\>\<\/div\>\<\/div\>\<\/div\>\<\/div\>\<button class="button button_next button_clicked" type="button" data-fc="button" style="width: auto;"\>\<span class="icon icon_svg_right"\>\<\/span\>\<\/button\>\<\/div\>\<div class="carousel__circles"\>\<button class="button button_circle" type="button" data-fc="button" style="width: auto;"\>\<span class="icon"\>\<span class="icon icon__circle   icon__circle_grey"\>\<\/span\>\<\/span\>\<\/button\>\<button class="button button_circle" type="button" data-fc="button" style="width: auto;"\>\<span class="icon"\>\<span class="icon icon__circle  icon__circle_blue"\>\<\/span\>\<\/span\>\<\/button\>\<\/div\>\<\/div\>\<\/div\>\<div class="card__right"\>\<div class="menu menu_color_light" data-fc="menu"\>\<ul class="menu__list"\>\<li class="menu__item"\>\<a class="menu__item-link link"\>\<span class="menu__item-link-content"\>\<span class="menu__item-text"\>Перейти к НМД ИСУП 2.0\<\/span\>\<\/span\>\<\/a\>\<\/li\>\<li class="menu__item"\>\<a class="menu__item-link link"\>\<span class="menu__item-link-content"\>\<span class="menu__item-text"\>Материалы по развитию процессов\<\/span\>\<\/span\>\<\/a\>\<\/li\>\<li class="menu__item"\>\<a class="menu__item-link link"\>\<span class="menu__item-link-content"\>\<span class="menu__item-text"\>Портал управления ДИТАТ\<\/span\>\<\/span\>\<\/a\>\<\/li\>\<\/ul\>\<\/div\>\<\/div\>\<div class="card__backdrop"\>\<\/div\>\<\/div\>\<\/div\>'
+                    ].join('')
                 }
             ];
             var tumblerContainerSelector = '.header__row_top_tumbler';
@@ -617,7 +599,7 @@
                 tumblerContainerSelector: tumblerContainerSelector,
                 containerid: 'container',
                 type: 'card',
-                items: items,
+                items: items_gazprom,
                 lib: {
                     foresight: {
                         library: library,
