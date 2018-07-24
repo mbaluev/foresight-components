@@ -120,7 +120,8 @@
     line-height: normal;
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .carousel__item-caption {
