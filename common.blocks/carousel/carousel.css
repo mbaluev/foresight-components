@@ -120,6 +120,7 @@
     line-height: normal;
     display: flex;
     flex-direction: column;
+    overflow: auto;
 }
 
 .carousel__item-caption {
@@ -140,9 +141,7 @@
     color: #333;
     line-height: normal;
     margin-top: 20px;
-    flex: 1 1 auto;
     white-space: normal;
-    overflow: auto;
 }
 
 .carousel__circles {

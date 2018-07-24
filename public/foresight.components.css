@@ -3378,6 +3378,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  overflow: auto;
 }
 
 .carousel__item-caption {
@@ -3400,11 +3401,7 @@ body {
   color: #333;
   line-height: normal;
   margin-top: 20px;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
   white-space: normal;
-  overflow: auto;
 }
 
 .carousel__circles {

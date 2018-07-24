@@ -308,17 +308,23 @@
   background-color: #706f6f;
 }
 
+.card__header_color_green {
+  background-color: #13a89e;
+}
+
 .card__header_color_dark_blue .card__name-text,
 .card__header_color_blue .card__name-text,
 .card__header_color_light_blue .card__name-text,
-.card__header_color_grey .card__name-text {
+.card__header_color_grey .card__name-text,
+.card__header_color_green .card__name-text {
   color: #fff;
 }
 
 .card__header_color_dark_blue .button,
 .card__header_color_blue .button,
 .card__header_color_light_blue .button,
-.card__header_color_grey .button {
+.card__header_color_grey .button,
+.card__header_color_green .button {
   background: transparent;
 }
 
@@ -338,10 +344,15 @@
   background-color: #706f6f;
 }
 
+.card__header_color_green .button:before {
+  background-color: #13a89e;
+}
+
 .card__header_color_dark_blue .alertbox,
 .card__header_color_blue .alertbox,
 .card__header_color_light_blue .alertbox,
-.card__header_color_grey .alertbox {
+.card__header_color_grey .alertbox,
+.card__header_color_green .alertbox {
   background: transparent;
   z-index: 2;
   margin-left: 15px;
@@ -351,7 +362,8 @@
 .card__header_color_dark_blue .alertbox:before,
 .card__header_color_blue .alertbox:before,
 .card__header_color_light_blue .alertbox:before,
-.card__header_color_grey .alertbox:before {
+.card__header_color_grey .alertbox:before,
+.card__header_color_green .alertbox:before {
   top: -50%;
   right: -50%;
   bottom: -50%;
@@ -363,7 +375,8 @@
 .card__header_color_dark_blue .alertbox .icon,
 .card__header_color_blue .alertbox .icon,
 .card__header_color_light_blue .alertbox .icon,
-.card__header_color_grey .alertbox .icon {
+.card__header_color_grey .alertbox .icon,
+.card__header_color_green .alertbox .icon {
   background-size: 25px;
 }
 
