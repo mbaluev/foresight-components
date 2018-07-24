@@ -31,8 +31,13 @@
     flex: 0 0 auto;
     width: 450px;
     height: 80px;
-    background: url("header-center-transparent.png") center center no-repeat;
+    background: url("header-center.png") center center no-repeat;
+    /*background: url("header-center-transparent.png") center center no-repeat;*/
     margin: 0 !important;
+}
+
+.header__column_name {
+    flex-basis: 30%;
 }
 
 .header__column .popup {
@@ -59,7 +64,7 @@
     padding: 3px 10px;
     box-sizing: border-box;
     display: block;
-    margin: 0 10px 0 0 !important;
+    margin: 0 10px 10px 0 !important;
 
     border-radius: 5px;
     color: #333;

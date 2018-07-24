@@ -77,8 +77,14 @@
           flex: 0 0 auto;
   width: 450px;
   height: 80px;
-  background: url("images/mtk17/header-center-transparent.png") center center no-repeat;
+  background: url("images/mtk17/header-center.png") center center no-repeat;
+  /*background: url("header-center-transparent.png") center center no-repeat;*/
   margin: 0 !important;
+}
+
+.header__column_name {
+  -ms-flex-preferred-size: 30%;
+      flex-basis: 30%;
 }
 
 .header__column .popup {
@@ -115,7 +121,7 @@
   padding: 3px 10px;
   box-sizing: border-box;
   display: block;
-  margin: 0 10px 0 0 !important;
+  margin: 0 10px 10px 0 !important;
   border-radius: 5px;
   color: #333;
   text-decoration: none;
@@ -319,7 +325,7 @@ fieldset {
 
 @media (max-width: 1680px) {
   .header__column_icons_background {
-    background: url("images/mtk17/header-center.png");
+    /*background: url("header-center.png");*/
   }
 }
 
@@ -337,7 +343,6 @@ fieldset {
   .header__caption {
     background-color: #fff;
     color: #333;
-    margin-bottom: 10px !important;
     margin-right: 10px !important;
     border: none;
   }
