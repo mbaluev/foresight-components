@@ -72,6 +72,11 @@
                         if (that.data.type == 'custom') {
                             that.data._el.carousel__items.addClass('carousel__items_custom');
                         }
+                        if (that.data.items) {
+                            if (that.data.items.length > 1) {
+                                that.data._el.carousel__items.addClass('carousel__items_several');
+                            }
+                        }
                         that.data._el.button_prev = $([
                             '<button class="button button_prev" type="button" data-fc="button">',
                             '<span class="icon icon_svg_left',
