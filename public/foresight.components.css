@@ -3368,8 +3368,11 @@ body {
 }
 
 .carousel__item_horizontal .carousel__item-image {
-  box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
   background-position: center center;
+}
+
+.carousel__item_horizontal .carousel__item-image_box-shadow {
+  box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
 }
 
 .carousel__item_horizontal .carousel__item-image-text {
