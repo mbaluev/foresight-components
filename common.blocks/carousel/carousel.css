@@ -129,6 +129,9 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+.carousel__item_horizontal .carousel__item-image + .carousel__item-image-text {
+    padding-left: 0;
+}
 
 .carousel__item-caption {
     font-size: 18px;
