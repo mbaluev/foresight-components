@@ -121,7 +121,7 @@
     box-shadow: 0 0 20px 0 rgba(0,0,0,.1);
 }
 .carousel__item_horizontal .carousel__item-image-text {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 0;
     text-align: left;
     line-height: normal;
     display: flex;
@@ -130,7 +130,7 @@
     overflow-y: auto;
 }
 .carousel__item_horizontal .carousel__item-image + .carousel__item-image-text {
-    padding-left: 0;
+    padding-left: 15px;
 }
 
 .carousel__item-caption {
