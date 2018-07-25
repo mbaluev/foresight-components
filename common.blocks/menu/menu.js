@@ -11,7 +11,8 @@
                         scrollToSelectedItem: false,
                         maxItemLines: null,
                         maxItemSymbols: null,
-                        toggle: 'click'
+                        toggle: 'click',
+                        autoclose: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -77,12 +78,30 @@
                                 $icon.addClass('icon_animate');
                                 if (that.data.toggle == 'click') {
                                     $itemlink.on('click', function(){
+                                        var collapsed = $submenu.data('collapsed');
                                         $submenu.slideToggle(500);
+                                        $submenu.data('collapsed', !collapsed);
                                         $icon.toggleClass('icon_rotate_0deg');
+                                        if (that.data.autoclose) {
+                                            item.siblings().each(function(){
+                                                var sibling = $(this),
+                                                    ssubmenu = sibling.children('.menu__submenu-container'),
+                                                    sicon = sibling.children('.menu__item-link').children('.menu__item-link-content').children('.menu__icon');
+                                                var scollapsed = ssubmenu.data('collapsed');
+                                                if (!scollapsed) {
+                                                    ssubmenu.slideUp(500);
+                                                    ssubmenu.data('collapsed', true);
+                                                    sicon.toggleClass('icon_rotate_0deg');
+                                                }
+                                            });
+                                        }
                                     });
                                     if (that.data.expanded) {
                                         $submenu.show();
+                                        $submenu.data('collapsed', false);
                                         $icon.toggleClass('icon_rotate_0deg');
+                                    } else {
+                                        $submenu.data('collapsed', true);
                                     }
                                 }
                                 if (that.data.toggle == 'hover') {

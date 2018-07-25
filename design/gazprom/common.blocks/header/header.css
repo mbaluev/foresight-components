@@ -19,12 +19,21 @@
     align-items: flex-end;
     width: 230px;
     box-sizing: border-box;
-    background: url("logo.svg") 20px center no-repeat;
-    background-size: 110px;
+    padding: 0 !important;
 }
 .header__column_search {
     align-items: flex-end;
     background: url("header-bg-right.png") right bottom no-repeat;
+}
+
+.header__logo {
+    flex: 1 1 auto;
+    height: 100%;
+    background: url("logo.svg") 20px center no-repeat;
+    background-size: 110px;
+}
+.header__logo:hover {
+    opacity: .5;
 }
 
 .header__row_bottom {
