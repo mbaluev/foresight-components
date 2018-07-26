@@ -391,6 +391,10 @@ body {
   background: #ff5940;
 }
 
+.button_color_red .button__text {
+  color: #fff;
+}
+
 .button_color_blue {
   color: #fff;
 }
@@ -403,6 +407,10 @@ body {
   background: #4983c4;
 }
 
+.button_color_blue .button__text {
+  color: #fff;
+}
+
 .button_color_blue_light {
   color: #fff;
 }
@@ -413,6 +421,10 @@ body {
   bottom: 0;
   left: 0;
   background: #5a97f2;
+}
+
+.button_color_blue_light .button__text {
+  color: #fff;
 }
 
 .button__text {
