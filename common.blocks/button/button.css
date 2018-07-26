@@ -51,7 +51,8 @@
     left: 0;
     background: #ff5940;
 }
-.button_color_red .button__text { color: #fff; }
+.button_color_red .button__text,
+.button_color_red .button__text:hover { color: #fff; }
 
 .button_color_blue { color: #fff; }
 .button_color_blue:before {
@@ -61,7 +62,8 @@
     left: 0;
     background: #4983c4;
 }
-.button_color_blue .button__text { color: #fff; }
+.button_color_blue .button__text,
+.button_color_blue .button__text:hover { color: #fff; }
 
 .button_color_blue_light { color: #fff; }
 .button_color_blue_light:before {
@@ -71,7 +73,8 @@
     left: 0;
     background: #5a97f2;
 }
-.button_color_blue_light .button__text { color: #fff; }
+.button_color_blue_light .button__text,
+.button_color_blue_light .button__text:hover { color: #fff; }
 
 .button__text {
     position: relative;
