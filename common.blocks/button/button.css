@@ -18,11 +18,6 @@
     text-decoration: none;
     border-radius: 0;
 }
-.button_size_small {
-    font-size: 12px;
-    line-height: 24px;
-}
-
 .button:before {
     position: absolute;
     top: 1px;
@@ -31,6 +26,32 @@
     left: 1px;
     content: '';
     background: #fff;
+}
+
+.button_size_small {
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.button__text {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    margin: 0 10px;
+    flex: 1 1 auto;
+    text-align: left;
+}
+
+a.button .button__text,
+a.button:hover .button__text {
+    color: #333;
+}
+
+a.button .button__text_placeholder,
+a.button:hover .button__text_placeholder {
+    color: #999;
 }
 
 .button_border_none {
@@ -51,8 +72,8 @@
     left: 0;
     background: #ff5940;
 }
-.button_color_red .button__text,
-.button_color_red .button__text:hover { color: #fff; }
+a.button_color_red .button__text,
+a.button_color_red:hover .button__text { color: #fff; }
 
 .button_color_blue { color: #fff; }
 .button_color_blue:before {
@@ -62,8 +83,8 @@
     left: 0;
     background: #4983c4;
 }
-.button_color_blue .button__text,
-.button_color_blue .button__text:hover { color: #fff; }
+a.button_color_blue .button__text,
+a.button_color_blue:hover .button__text { color: #fff; }
 
 .button_color_blue_light { color: #fff; }
 .button_color_blue_light:before {
@@ -73,23 +94,8 @@
     left: 0;
     background: #5a97f2;
 }
-.button_color_blue_light .button__text,
-.button_color_blue_light .button__text:hover { color: #fff; }
-
-.button__text {
-    position: relative;
-    display: inline-block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    vertical-align: top;
-    margin: 0 10px;
-    flex: 1 1 auto;
-    text-align: left;
-}
-
-.button__text_placeholder {
-    color: #999;
-}
+a.button_color_blue_light .button__text,
+a.button_color_blue_light:hover .button__text { color: #fff; }
 
 .button.button_hidden { display: none; visibility: hidden; }
 .button.button_disabled { background: rgba(0,0,0,.08); }
