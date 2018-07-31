@@ -152,6 +152,11 @@
                         }
                         that.highlight();
                     };
+                    that.get_value = function(){
+                        var val = that.data._el.input.val();
+                        if (val == that.data.placeholder) { val = null; }
+                        return val;
+                    };
 
                     that.validate = function(){
                         that.data.validate = true;
@@ -331,13 +336,13 @@
                 if (this.length == 1) {
                     var _val = false;
                     this.each(function() {
-                        _val = this.obj.data._el.input.val();
+                        _val = this.obj.get_value();
                     });
                     return _val;
                 } else {
                     var _arr = [];
                     this.each(function() {
-                        _arr.push(this.obj.data._el.input.val());
+                        _arr.push(this.obj.get_value());
                     });
                     return _arr;
                 }

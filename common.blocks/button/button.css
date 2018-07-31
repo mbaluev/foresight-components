@@ -49,9 +49,11 @@ a.button:hover .button__text {
     color: #333;
 }
 
+.button .button__text_placeholder,
 a.button .button__text_placeholder,
 a.button:hover .button__text_placeholder {
-    color: #999;
+    /*color: #999;*/
+    color: #777;
 }
 
 .button_border_none {

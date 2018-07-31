@@ -1003,6 +1003,7 @@ $(function(){
                     var that = this.obj = {};
                     that.defaults = {
                         disabled: false,
+                        readonly: false,
                         mime: 'text/html',
                         editor: null,
                         value: null
@@ -1023,6 +1024,7 @@ $(function(){
                                 self.val(that.data.value);
                             }
                             that.data.editor = CodeMirror.fromTextArea(self[0], {
+                                readOnly: that.data.readonly,
                                 mode: that.data.mime,
                                 tabSize: 2,
                                 lineNumbers: true,
@@ -5458,6 +5460,11 @@ $(function(){
                         }
                         that.highlight();
                     };
+                    that.get_value = function(){
+                        var val = that.data._el.input.val();
+                        if (val == that.data.placeholder) { val = null; }
+                        return val;
+                    };
 
                     that.validate = function(){
                         that.data.validate = true;
@@ -5637,13 +5644,13 @@ $(function(){
                 if (this.length == 1) {
                     var _val = false;
                     this.each(function() {
-                        _val = this.obj.data._el.input.val();
+                        _val = this.obj.get_value();
                     });
                     return _val;
                 } else {
                     var _arr = [];
                     this.each(function() {
-                        _arr.push(this.obj.data._el.input.val());
+                        _arr.push(this.obj.get_value());
                     });
                     return _arr;
                 }
@@ -6999,7 +7006,7 @@ $(function(){
                     that.data._el = {
                         button_submit: null,
                         inputs: [],
-                        select: []
+                        selects: []
                     };
 
                     that.destroy = function(){
@@ -7009,8 +7016,16 @@ $(function(){
 
                     that.get = function(){
                         that.data._el.button_submit = self.find('button[type="submit"]');
-                        that.data._el.inputs = self.find('[data-fc="input"]');
-                        that.data._el.selects = self.find('[data-fc="select"]');
+                    };
+                    that.get_controls = function(){
+                        if (that.data._el.inputs.length == 0) {
+                            that.data._el.inputs = self.find('[data-fc="input"]');
+                            that.bind_validate_inputs();
+                        }
+                        if (that.data._el.selects.length == 0) {
+                            that.data._el.selects = self.find('[data-fc="select"]');
+                            that.bind_validate_selects();
+                        }
                     };
                     that.validate = function(){
                         that.data.validate = true;
@@ -7027,6 +7042,13 @@ $(function(){
                         return that.data.validate;
                     };
                     that.bind = function(){
+                        that.data._el.button_submit.on('click', function(e){
+                            if (!that.validate()) {
+                                e.preventDefault();
+                            }
+                        });
+                    };
+                    that.bind_validate_inputs = function(){
                         that.data._el.inputs.each(function(){
                             var $input = $(this);
                             if ($input.data().required) {
@@ -7035,9 +7057,14 @@ $(function(){
                                 })
                             }
                         });
-                        that.data._el.button_submit.on('click', function(e){
-                            if (!that.validate()) {
-                                e.preventDefault();
+                    };
+                    that.bind_validate_selects = function(){
+                        that.data._el.selects.each(function(){
+                            var $select = $(this);
+                            if ($select.data().required) {
+                                $select.on('change', function(){
+                                    $select.select('validate');
+                                })
                             }
                         });
                     };
@@ -7049,10 +7076,12 @@ $(function(){
                         self.find('[data-fc="textarea"]').textarea();
                         self.find('[data-fc="checkbox"]').checkbox();
                         self.find('[data-fc="tumbler"]').tumbler();
+                        self.find('[data-fc="select"]').select();
                     };
                     that.init = function(){
                         that.get();
                         that.init_components();
+                        that.get_controls();
                         that.bind();
                     };
                     that.init();
@@ -7063,6 +7092,11 @@ $(function(){
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
+            });
+        },
+        get_controls : function() {
+            return this.each(function() {
+                this.obj.get_controls();
             });
         },
         validate : function() {

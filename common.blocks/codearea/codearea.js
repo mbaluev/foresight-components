@@ -8,6 +8,7 @@
                     var that = this.obj = {};
                     that.defaults = {
                         disabled: false,
+                        readonly: false,
                         mime: 'text/html',
                         editor: null,
                         value: null
@@ -28,6 +29,7 @@
                                 self.val(that.data.value);
                             }
                             that.data.editor = CodeMirror.fromTextArea(self[0], {
+                                readOnly: that.data.readonly,
                                 mode: that.data.mime,
                                 tabSize: 2,
                                 lineNumbers: true,
