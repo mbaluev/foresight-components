@@ -64,6 +64,15 @@ var mtk17params = {
     levels: ['design/mtk17/common.blocks', 'design/mtk17/mobile.blocks'],
     images: 'images/mtk17/'
 };
+var akimov2018params = {
+    out: 'public',
+    cssOut: 'design.akimov2018.css',
+    jsOut: 'design.akimov2018.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/akimov2018/common.blocks', 'design/akimov2018/mobile.blocks'],
+    images: 'images/akimov2018/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -122,6 +131,7 @@ var krmGetFileNames = require('html2bl').getFileNames(krmsrvparams);
 var kzkGetFileNames = require('html2bl').getFileNames(kzk2018params);
 var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
 var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
+var akimovGetFileNames = require('html2bl').getFileNames(akimov2018params);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -192,6 +202,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['mtk17_js']);
+
+    /* watch design - akimov2018 */
+    gulp.watch(akimov2018params.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['akimov2018_css']);
+    gulp.watch(akimov2018params.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['akimov2018_js']);
 });
 
 /* components */
@@ -301,7 +321,7 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17']);
+gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -564,6 +584,59 @@ gulp.task('mtk17_js', function() {
                 }
             }))
             .pipe(gulp.dest(mtk17params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* akimov2018 */
+gulp.task('akimov2018', ['akimov2018_css', 'akimov2018_images', 'akimov2018_js']);
+gulp.task('akimov2018_css', function(){
+    akimovGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(akimov2018params.cssOut))
+            .pipe(url({ prepend: akimov2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(akimov2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    akimovGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(akimov2018params.cssOut))
+            .pipe(url({ prepend: akimov2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(akimov2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('akimov2018_images', function(){
+    akimovGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(akimov2018params.out, akimov2018params.images)));
+    }).done();
+});
+gulp.task('akimov2018_js', function() {
+    akimovGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(akimov2018params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(akimov2018params.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

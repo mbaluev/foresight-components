@@ -1,0 +1,42 @@
+.menu_color_akimov {
+    background-color: #2057a7;
+    border-top: solid 1px rgba(255,255,255,.15);
+}
+
+.menu_color_akimov .menu__item-link_selected,
+.menu_color_akimov .menu__item-link:hover,
+.menu_color_akimov .menu__item-link_hovered {
+    background-color: inherit;
+    opacity: .5;
+}
+
+.menu_color_akimov .menu__item-link_selected .menu__item-text,
+.menu_color_akimov .menu__item-link:hover .menu__item-text,
+.menu_color_akimov .menu__item-link_hovered .menu__item-text {  }
+
+.menu_color_akimov .menu__submenu-container {
+    background-color: #1e81c2;
+    box-shadow: rgba(51, 51, 51, 0.5) 0 10px 20px -5px;
+    border-right: none;
+}
+.menu_color_akimov .menu__submenu .menu__item {
+    border-top: solid 1px rgba(255, 255, 255, .1);
+}
+.menu_color_akimov .menu__submenu .menu__item-link_selected {
+    background-color: #2057a7;
+}
+.menu_color_akimov .menu__submenu .menu__item-link:hover {
+    background-color: transparent;
+    opacity: .5;
+}
+
+.menu_type_horizontal .menu__submenu {}
+.menu_type_horizontal .menu__item-text {
+    font-size: 14px;
+}
+.menu_type_horizontal .menu__item-link {
+    padding: 12px 15px;
+}
+.menu_type_horizontal .menu__submenu .menu__item-link {
+    padding-left: 15px;
+}
