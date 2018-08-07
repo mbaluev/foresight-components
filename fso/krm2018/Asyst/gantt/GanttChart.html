@@ -1,0 +1,56 @@
+﻿<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows1251" /> 
+<link rel="stylesheet" type="text/css" href="jsgantt.css"/>
+<script language="javascript" type="text/javascript" src="jsgantt.js"></script>
+<title>Контрольные точки проекта</title>
+</head>
+
+<body>
+<div class="gantt" id="GanttChartDIV" />
+
+
+<script type="text/javascript" language="javascript">
+    var g = new JSGantt.GanttChart('g', document.getElementById('GanttChartDIV'), 'month');
+
+    g.setShowInd(1); 
+    g.setShowRes(1); 
+    g.setShowStartDate(0); 
+    g.setShowDur(0); 
+    g.setShowComp(0); 
+
+    g.setCaptionType('None');  // Set to Show Caption (None,Caption,Resource,Duration,Complete)
+
+    g.setDateInputFormat('dd/mm/yyyy');
+    g.setDateDisplayFormat('dd.mm.yyyy');
+
+    g.setFormat('month');
+
+    if (g) {
+				g.AddTaskItem(new JSGantt.TaskItem(1, 4, 'Проект инициирован', '10/08/2011', '10/08/2011', '00723B', '', 1, 'OSIPOVA A.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(2, 4, 'Все планы разработаны и акцептованы', '20/08/2011', '20/08/2011', '00723B', '', 1, 'OSIPOVA A.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(3, 4, 'Формирования единой базы данных по номерному фонду г. Казани начато', '01/09/2011', '01/09/2011', '00723B', '', 1, 'OSIPOVA A.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(4, 4, 'Реестр по отелям, санаториям и базам отдыха, общежитиям, лагерям  в г. Казани и на расстоянии часа езды от города сформирован', '01/02/2012', '01/02/2012', '00723B', '', 1, 'SEMENOVA N.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(5, 4, 'Реестр по отелям, находящимся на стадии незавершенного строительства сформирован', '06/02/2012', '06/02/2012', '00723B', '', 1, 'SEMENOVA N.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(6, 4, 'Реестр по железнодорожным составам с возможностью использования в качестве мест размещения сформирован', '06/02/2012', '06/02/2012', '00723B', '', 1, 'SEMENOVA N.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(7, 4, 'Реестр по теплоходам с возможностью использования в качестве мест размещения сформирован', '06/02/2012', '06/02/2012', '00723B', '', 1, 'SEMENOVA N.', 100, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(8, 3, 'Детальный осмотр общежитий произведен', '15/02/2012', '15/02/2012', 'ED1B2F', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(9, 3, 'Реестр по помещениям Казанского высшего артиллерийского командного училища им. М. Н. Чистякова сформирован', '20/02/2012', '20/02/2012', 'ED1B2F', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(10, 3, 'Детальный осмотр отелей произведен', '01/03/2012', '01/03/2012', 'ED1B2F', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(11, 0, 'Реестр по жилым домам коммерческого назначения, социальной ипотеки, находящихся в стадии незавершенного строительства сформирован', '01/06/2012', '01/06/2012', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(12, 0, 'Детальный осмотр санаториев и баз отдыха произведен', '01/06/2012', '01/06/2012', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(13, 0, 'Детальный осмотр лагерей произведен, данные занесены в реестр', '20/06/2012', '20/06/2012', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(14, 0, 'Детальный осмотр железнодорожных составов и теплоходов произведен', '20/06/2012', '20/06/2012', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(15, 0, 'Данные по всем местам размещения сведены в единую электронную таблицу', '01/07/2012', '01/07/2012', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(16, 0, 'Результаты проекта приняты', '20/07/2013', '20/07/2013', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+				g.AddTaskItem(new JSGantt.TaskItem(17, 0, 'Проект закрыт', '30/07/2013', '30/07/2013', 'b7b7b7', '', 1, 'SEMENOVA N.', 0, 0, 0, 1));
+        //JSGantt.parseXML('project.xml', g)
+        g.Draw();
+        g.DrawDependencies();
+    }
+    else {
+        alert("not defined");
+    }
+</script>
+</body>
+</html>

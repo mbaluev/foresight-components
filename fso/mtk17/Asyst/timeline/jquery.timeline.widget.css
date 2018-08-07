@@ -1,0 +1,37 @@
+.tlTable { width: 100%; border-collapse: collapse; } 
+.tlTick { background-image: url('../timeline/timelineImg/bg.png'); height: 14px; background-repeat:repeat-y; background-position: RIGHT, TOP; text-align: center; border-top: 1px solid #B7B7B7; font-size: 9px; font-family:'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important; color: #B7B7B7;  } 
+.tlYear {  text-align: center; font-size: 11px; font-weight: bold; font-family:'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important; color: #B7B7B7; } 
+
+.tlTickCurrent { background-color: #D3FECD; }
+
+.tlDiv { background-image:none !important; height: 14px; }
+.tlDivEventEmpty { text-align:right !important; }
+
+.tlDiv-1 { background-image: url('../timeline/timelineImg/-1.png'); height: 14px; }
+.tlDivEvent-1 { color: #53b6e7; }
+.tlDivSep-1 { border-left: 2px solid #53b6e7; }
+.tlDivSepLast-1 { border-right: 2px solid #53b6e7; }
+
+.tlDiv0 { background-image: url('../timeline/timelineImg/0.png'); height: 14px; }
+.tlDivEvent0 { color: #009e59; }
+.tlDivSep0 { border-left: 2px solid #009e59; }
+.tlDivSepLast0 { border-right: 2px solid #009e59; }
+
+.tlDiv1 { background-image: url('../timeline/timelineImg/1.png'); height: 14px; }
+.tlDivEvent1 { color: #d0e1ee; }
+.tlDivSep1 { border-left: 2px solid #d0e1ee; }
+.tlDivSepLast1 { border-right: 2px solid #d0e1ee; }
+
+.tlDiv2 { background-image: url('../timeline/timelineImg/2.png'); height: 14px; }
+.tlDivEvent2 { color: #53b6e7; }
+.tlDivSep2 { border-left: 2px solid #53b6e7; }
+.tlDivSepLast2 { border-right: 2px solid #53b6e7; }
+
+.tlDiv3 { background-image: url('../timeline/timelineImg/3.png'); height: 14px; }
+.tlDivEvent3 { color: #009e59; }
+.tlDivSep3 { border-left: 2px solid #009e59; }
+.tlDivSepLast3 { border-right: 2px solid #009e59; }
+
+
+.tlEvent { font-size: 12px; font-family:'Segoe UI','Segoe',Tahoma,Helvetica,Arial,'Open Sans',sans-serif !important; text-align: center; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; float: right; }
+
