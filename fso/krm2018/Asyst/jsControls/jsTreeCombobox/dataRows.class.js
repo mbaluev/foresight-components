@@ -79,12 +79,10 @@ var DataRows = (function () {
 
     DataRows.prototype.loadFromAsystView = function (viewName) {
     	var self = this;
-        var data = null;
-        if (window.Asyst && Asyst.Workspace && Asyst.Workspace.currentForm && Asyst.Workspace.currentForm.Data)
-            data = Asyst.protocol.thiningData(Asyst.Workspace.currentForm.Data);
+
     	Asyst.APIv2.View.load({
     	    viewName: viewName,
-            data: data,
+    	    data: null,
     	    success: function(slick) {
     	        self.grid = new Slick.Grid(self.options.slickContainer, self.dataView, slick.columns, slickOptions);
     	        self.columnsArr = self.grid.getColumns();

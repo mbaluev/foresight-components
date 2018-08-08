@@ -362,7 +362,8 @@ if (typeof Slick === "undefined") {
             }
 
             if (canvasWidth != oldCanvasWidth || forceColumnWidthsUpdate) {
-                $('.slick-header-columns').width(canvasWidth);
+				$canvas.closest('.grid').find('.slick-header-columns').width(canvasWidth);
+                //$('.slick-header-columns').width(canvasWidth);
                 applyColumnWidths();
             }
         }
@@ -807,10 +808,10 @@ if (typeof Slick === "undefined") {
             var rowHeight = (options.rowHeight - cellHeightDiff);
             var rules = [
               //"." + uid + " .slick-header-column { left: 1000px; }",
-              "." + uid + " .slick-header-column {  }",
-              "." + uid + " .slick-top-panel { height:" + options.topPanelHeight + "px; }",
-              "." + uid + " .slick-headerrow-columns { height:" + options.headerRowHeight + "px; }",
-              "." + uid + " .slick-cell { height:" + (rowHeight - 1) + "px; }",
+              //"." + uid + " .slick-header-column {  }",
+              //"." + uid + " .slick-top-panel { height:" + options.topPanelHeight + "px; }",
+              //"." + uid + " .slick-headerrow-columns { height:" + options.headerRowHeight + "px; }",
+              "." + uid + " .slick-cell { height:" + options.rowHeight + "px; }",
               "." + uid + " .slick-row { height:" + options.rowHeight + "px; }"
             ];
 

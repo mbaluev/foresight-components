@@ -5,8 +5,8 @@
     <title>Вход в систему</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="stylesheet" href="anon/kzk2018/foresight.components.min.css" type="text/css" media="all">
-    <link rel="stylesheet" href="anon/kzk2018/design.kzk2018.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="anon/krm2018/foresight.components.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="anon/krm2018/design.krmsrv.min.css" type="text/css" media="all">
 </head>
 <body class="page proximanova">
     <div class="fs-view">
@@ -78,12 +78,13 @@
                         </div>
                     </div>
                 </div>
-				<div class="fs-view__background-center"></div>
+                <div class="fs-view__background-left"></div>
+                <div class="fs-view__background-right"></div>
             </div>
         </div>
     </div>
-    <script src="anon/kzk2018/jquery-3.2.1.min.js"></script>
-    <script src="anon/kzk2018/foresight.components.min.js"></script>
+    <script src="anon/krm2018/jquery-3.2.1.min.js"></script>
+    <script src="anon/krm2018/foresight.components.min.js"></script>
     <script>
         $(function(){
             var $asp_checkbox = $('#PersistCookie'),

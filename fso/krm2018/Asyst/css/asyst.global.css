@@ -63,10 +63,11 @@
 /*
     Переопределение глобальных стилей 
 */
-.scrollable-form
-/*body */{
+/*
+.scrollable-form {
     overflow-y: scroll
 }
+*/
     
 body  .container,  body  .container-fluid{
   font-family: "Trebuchet MS", Helvetica, Arial, sans-serif !important;
@@ -965,11 +966,11 @@ a.popover-label:hover
     font-size: 11px;
     padding-left: 4px;
     padding-right: 4px;
-    padding-top: 0;
-    padding-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
     line-height: 25px;
-    box-sizing: border-box;
-    height: 25px;
+	box-sizing: border-box;
+	height: 25px;
 }
 
 .slick-cell.selected
@@ -1030,7 +1031,7 @@ a.popover-label:hover
 
 .slick-group > .slick-cell
 {
-    border-top: 1px solid white !important;
+    /*border-top: 1px solid white !important;*/
 }
 
 .slick-group-toggle {

@@ -2,7 +2,6 @@
     page = this;
     page.pageName = extPage.Name;
     page.pageTitle = extPage.Title;
-    page.pageId = extPage.PageId;
 
     page.templates = {};
     page.TemplateData = {};

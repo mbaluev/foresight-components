@@ -18,59 +18,56 @@ CallService.Create = function(id, settings) {
 };
 
 
-
 CallService.CreateByDataAttr = function () {
     var getValue = function (value, name) {
         if (value == undefined && name) value = '(' + name + ')'; //это для случая, когда все параметры указаны в хранимке, но не найдены в параметрах - тогда попробуем подставить из Data
 
         if (value && value.toString().indexOf('(') > -1) {
             with (Asyst.Workspace.currentForm.Data)
-            value = eval(value);
+                value = eval(value);
         }
 
         return value;
     }
+    $('a[data-callservice-sp]').off().each(function (_, e) {
+        var a = $(e);
+        a.on('click', function () {
+            var element = $(this);
+            var settings = { params: {} };
+            settings['service'] = element.data('service') || '/asystSPUtil/SPUtil.asmx';
+            settings['method'] = element.data('method') || 'ExportManyProcToWord';
 
-    CallService.exportByAttr = function () {
-        var element = $(this);
-        var settings = { params: {} };
-        settings['service'] = element.data('service') || '/asystSPUtil/SPUtil.asmx';
-        settings['method'] = element.data('method') || 'ExportManyProcToWord';
+            settings.params['filePrefix'] = element.data('fileprefix');
+            settings.params['templateUrl'] = 'asyst/WindowsLogin.aspx?authSelect=true&ReturnUrl=%2fasyst%2fapi%2ffile%2fget%2f' + element.data('templateurl').replace('/', '%2f');
+            settings.params['sp'] = element.data('callservice-sp');
 
-        settings.params['filePrefix'] = element.data('fileprefix');
-        settings.params['templateUrl'] = 'asyst/WindowsLogin.aspx?authSelect=true&ReturnUrl=%2fasyst%2fapi%2ffile%2fget%2f' + element.data('templateurl').replace('/', '%2f');
-        settings.params['sp'] = element.data('callservice-sp');
+            if (settings.params.filePrefix.indexOf('(') > -1) {
+                with (Asyst.Workspace.currentForm.Data)
+                    settings.params.filePrefix = eval(settings.params.filePrefix);
+            }
 
-        if (settings.params.filePrefix.indexOf('(') > -1) {
-            with (Asyst.Workspace.currentForm.Data)
-            settings.params.filePrefix = eval(settings.params.filePrefix);
-        }
+            if (settings.params.sp.indexOf('@') > -1) {//это много хранимок и/или есть параметры, кторые надо подменить
+                settings.params.sp = settings.params.sp.replace(new RegExp('@([a-zA-Z0-9_]*)', 'g'), function (match, param) {
+                    var vlue = getValue(element.data('param-' + param.toLowerCase()), param);
+                    return match + '=' + value + ';#';
+                });
 
-        if (settings.params.sp.indexOf('@') > -1) {//это много хранимок и/или есть параметры, кторые надо подменить
-            settings.params.sp = settings.params.sp.replace(new RegExp('@([a-zA-Z0-9_]*)', 'g'), function (match, param) {
-                var value = getValue(element.data('param-' + param.toLowerCase()), param);
-                return match + '=' + value + ';#';
-            });
+                settings.params.sp = settings.params.sp.trim()
+                    //.replace(new RegExp('# @', 'g'), '#@')
+                    .replace(new RegExp(';# ##', 'g'), '##')
+                    .replace(new RegExp(';#$', 'g'), '');
+            }
+            else { //там только одна хранимка без параметров, тогда к ней надо приделать все параметры
+                var params = [].filter.call(this.attributes, function (at) { return /^data-param-/.test(at.name); })
+                    .map(function (at) { return '@' + at.name.replace('data-param-', '') + '=' + getValue(at.value) })
+                    .join(';#')
 
-            settings.params.sp = settings.params.sp.trim()
-                //.replace(new RegExp('# @', 'g'), '#@')
-                .replace(new RegExp(';# ##', 'g'), '##')
-                .replace(new RegExp(';#$', 'g'), '');
-        }
-        else { //там только одна хранимка без параметров, тогда к ней надо приделать все параметры
-            var params = [].filter.call(this.attributes, function (at) { return /^data-param-/.test(at.name); })
-                .map(function (at) { return '@' + at.name.replace('data-param-', '') + '=' + getValue(at.value) })
-                .join(';#')
+                settings.params.sp = settings.params.sp + ' ' + params;
+            }
 
-            settings.params.sp = settings.params.sp + ' ' + params;
-        }
-
-        CallService.FormInvoke(settings);
-    };
-
-    $('body')
-        .off('click', CallService.exportByAttr)
-        .on('click', 'a[data-callservice-sp]', CallService.exportByAttr);
+            CallService.FormInvoke(settings);
+        });
+    });
 };
 
 document.addEventListener("DOMContentLoaded", CallService.CreateByDataAttr);

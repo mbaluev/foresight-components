@@ -55,6 +55,8 @@
 			var monTotal = days_between(startDate, finishDate);
 			var onedayWidth = settings.width / daysTotal;
 
+            console.log({onedayWidth:onedayWidth});
+
 			//first point
 			if (settings.array[0].finish != "") { 
 				settings.array[0].left = days_between(startDate, strtodate(settings.array[0].finish)) * onedayWidth - emptyWidth;

@@ -2,7 +2,7 @@ $(function(){
     $('[data-toggle="menu-left"]').each(function(){
         var self = $(this),
             $iconmenu = self.find('.icon__menu'),
-            $main = $('.fs-view__main'),
+            $main = $('.fs-view__main').addClass('fs-view__main_transition'),
             $left = $('.fs-view__left'),
             $middle = $('.fs-view__middle');
         if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
@@ -17,8 +17,8 @@ $(function(){
             if ($main.find('.fs-view__backdrop').length == 0) {
                 $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
             }
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
@@ -34,8 +34,8 @@ $(function(){
             $left.addClass('fs-view__left_hidden');
             $middle.addClass('fs-view__middle_full');
             $main.find('.fs-view__backdrop').remove();
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+            $('.fs-view__middle').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
                     $(window).trigger('resize');
                 }, 100);
@@ -238,7 +238,7 @@ $(function(){
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
                                 that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
                             }
                         }
@@ -627,12 +627,12 @@ $(function(){
                     that.set_width = function(width){
                         if (width == 'full' || width == '100%') {
                             width = that.data._el.source.outerWidth();
-                        }
+                        };
                         self.css({ 'width': width, 'max-width': width });
                     };
                     that.set_height = function(height){
                         self.css('max-height', height);
-                        //self.css('height', height);
+                        self.css('height', height);
                     };
                     that.set_position = function(position, i){
                         if (typeof i === 'undefined') { i = 0; }
@@ -851,8 +851,7 @@ $(function(){
                         scrollToSelectedItem: false,
                         maxItemLines: null,
                         maxItemSymbols: null,
-                        toggle: 'click',
-                        autoclose: false
+                        toggle: 'click'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -918,30 +917,12 @@ $(function(){
                                 $icon.addClass('icon_animate');
                                 if (that.data.toggle == 'click') {
                                     $itemlink.on('click', function(){
-                                        var collapsed = $submenu.data('collapsed');
                                         $submenu.slideToggle(500);
-                                        $submenu.data('collapsed', !collapsed);
                                         $icon.toggleClass('icon_rotate_0deg');
-                                        if (that.data.autoclose) {
-                                            item.siblings().each(function(){
-                                                var sibling = $(this),
-                                                    ssubmenu = sibling.children('.menu__submenu-container'),
-                                                    sicon = sibling.children('.menu__item-link').children('.menu__item-link-content').children('.menu__icon');
-                                                var scollapsed = ssubmenu.data('collapsed');
-                                                if (!scollapsed) {
-                                                    ssubmenu.slideUp(500);
-                                                    ssubmenu.data('collapsed', true);
-                                                    sicon.toggleClass('icon_rotate_0deg');
-                                                }
-                                            });
-                                        }
                                     });
                                     if (that.data.expanded) {
                                         $submenu.show();
-                                        $submenu.data('collapsed', false);
                                         $icon.toggleClass('icon_rotate_0deg');
-                                    } else {
-                                        $submenu.data('collapsed', true);
                                     }
                                 }
                                 if (that.data.toggle == 'hover') {
@@ -999,147 +980,16 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'codearea', target: self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        readonly: false,
-                        mime: 'text/html',
-                        editor: null,
-                        value: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.enable = function(){
-                        that.data.disabled = false;
-                        that.render();
-                    };
-                    that.render = function(){
-                        if (!that.data.disabled) {
-                            if (that.data.value) {
-                                self.val(that.data.value);
-                            }
-                            that.data.editor = CodeMirror.fromTextArea(self[0], {
-                                readOnly: that.data.readonly,
-                                mode: that.data.mime,
-                                tabSize: 2,
-                                lineNumbers: true,
-                                matchBrackets: true,
-                                autoCloseBrackets: true,
-                                autoCloseTags: true,
-                                foldGutter: true,
-                                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
-                            });
-                        }
-                    };
-                    that.get_value = function(){
-                        if (that.data.editor) {
-                            that.data.value = that.data.editor.getValue();
-                        }
-                        return that.data.value;
-                    };
-                    that.set_value = function(value){
-                        that.data.value = decodeURI(value);
-                        if (that.data.editor) {
-                            that.data.editor.setValue(that.data.value);
-                        }
-                    };
-                    that.init = function(){
-                        that.render();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        render : function() {
-            return this.each(function() {
-                this.obj.render();
-            });
-        },
-        set_value : function(value) {
-            return this.each(function() {
-                this.obj.set_value(value);
-            });
-        },
-        get_value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.get_value();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.get_value());
-                });
-                return _arr;
-            }
-        },
-        value : function(value) {
-            if (value) {
-                return this.each(function() {
-                    this.obj.set_value(value);
-                });
-            } else {
-                if (this.length == 1) {
-                    var _val = false;
-                    this.each(function() {
-                        _val = this.obj.get_value();
-                    });
-                    return _val;
-                } else {
-                    var _arr = [];
-                    this.each(function() {
-                        _arr.push(this.obj.get_value());
-                    });
-                    return _arr;
-                }
-            }
-        }
-    };
-    $.fn.codearea = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.button' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="codearea"]').codearea();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'widget', target : self });
                     var that = this.obj = {};
                     that.const = {
                         CONTENT_LOADING: '<span class="spinner"></span>',
                         CONTENT_NODATA: 'Нет данных',
                         CONTENT_ERROR: 'Ошибка загрузки',
-                        BORDER_COLOR_DARK_BLUE: '#0070ba',
                         BORDER_COLOR_BLUE: '#5a97f2',
-                        BORDER_COLOR_LIGHT_BLUE: '#2fb4e9',
                         BORDER_COLOR_DEFAULT: '#ccc',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
-                        BORDER_COLOR_GREEN: '#13a89e',
                         BORDER_COLOR_NONE: 'transparent',
                         CONTENT_TYPE_TEXT: 'text',
                         CONTENT_TYPE_HTML: 'html',
@@ -1152,10 +1002,7 @@ $(function(){
                         calendar: false,
                         content: that.const.CONTENT_NODATA,
                         mode: 'view',
-
-                        libraries: null,
                         loader: null,
-
                         reloadable: false,
                         onResize: null,
                         resizeOnExpand: false
@@ -1356,17 +1203,9 @@ $(function(){
                     };
                     that.set_color = function(){
                         var $border = self.closestChild('.widget__border');
-                        if (that.data.color === that.const.BORDER_COLOR_DARK_BLUE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_dark_blue');
-                        }
-                        else if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                        if (that.data.color === that.const.BORDER_COLOR_BLUE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_blue');
-                        }
-                        else if (that.data.color === that.const.BORDER_COLOR_LIGHT_BLUE) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_light_blue');
                         }
                         else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
@@ -1380,10 +1219,6 @@ $(function(){
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_red');
                         }
-                        else if (that.data.color === that.const.BORDER_COLOR_GREEN) {
-                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
-                            $border.addClass('widget__border_color_green');
-                        }
                         else if (that.data.color === that.const.BORDER_COLOR_NONE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_none');
@@ -1395,27 +1230,10 @@ $(function(){
                             });
                         }
                     };
-                    that.set_loader = function(){
-                        if (typeof that.data.lib == 'object') {
-                            for (key in that.data.lib) {
-                                if (that.data.lib[key]) {
-                                    if (that.data.lib[key].library) {
-                                        var lib = that.data.lib[key].library.filter(function(d){
-                                            return d.value == that.data.pageid;
-                                        });
-                                        if (lib.length > 0) {
-                                            that.data.loader = that.data.lib[key].loader;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    };
                     that.set_content = function(){
                         var $body = self.closestChild('.widget__body'),
                             $bodydata = self.closestChild('.widget__body-data');
-                        that.set_loader();
-                        if (that.data.loader && typeof that.data.loader == 'object') {
+                        if (typeof that.data.loader == 'object') {
                             $body.addClass('widget__body_align_center');
                             $bodydata.attr('class', $bodydata.attr('class').replace(/\widget__body-data_type_.*?\b/g, ''));
                             $bodydata.html(that.const.CONTENT_LOADING);
@@ -1992,9 +1810,6 @@ $(function(){
                 if (!data) {
                     self.data('_widget', { type: 'select', target : self });
                     var that = this.obj = {};
-                    that.const = {
-                        REQUIRED: 'Необходимо выбрать из списка'
-                    };
                     that.defaults = {
                         name: self.attr('name'),
                         disabled: false,
@@ -2011,7 +1826,6 @@ $(function(){
                         minimum_count_selected: 2,
                         autoclose: false,
                         highlight: false,
-                        validate: false,
                         search: true
                     };
                     that.data = self.data();
@@ -2028,7 +1842,7 @@ $(function(){
                         button: $([
                             '<button class="button" data-fc="button">',
                                 '<span class="button__text">' + that.data.placeholder + '</span>',
-                                '<span class="icon icon_animate icon_svg_down"></span>',
+                                '<span class="icon icon_svg_down"></span>',
                             '</button>'
                         ].join('')),
                         spinner: $([
@@ -2085,14 +1899,12 @@ $(function(){
                         that.data.disabled = false;
                     };
                     that.hide = function(){
-                        that.data._el.select.addClass('select__container_hidden');
                         that.data._el.button.button('hide');
                         that.data._el.input.input('hide');
                         that.data._el.popup.popup('hide');
                         that.data.hidden = true;
                     };
                     that.show = function(){
-                        that.data._el.select.removeClass('select__container_hidden');
                         that.data._el.button.button('show');
                         that.data._el.input.input('show');
                         that.data.hidden = false;
@@ -2107,26 +1919,6 @@ $(function(){
                                 hidden: false
                             });
                         }
-                        that.render_popup_list();
-                        that.data._el.select.append(
-                            that.data._el.button,
-                            that.data._el.popup.append(
-                                (that.data.search ?
-                                    that.data._el.popup__input.append(
-                                        that.data._el.input
-                                    ) : null
-                                ),
-                                that.data._el.popup__scroll.append(
-                                    that.data._el.popup__list
-                                )
-                            )
-                        );
-                        that.data._el.select.data(that.data);
-                        that.data._el.select.data({'_widget': '_select'});
-                        self.css('display', 'none');
-                        self.after(that.data._el.select);
-                    };
-                    that.render_popup_list = function(){
                         self.find('option').each(function(){
                             var $option = $(this);
                             var _option = {};
@@ -2143,12 +1935,12 @@ $(function(){
                             _option.data = $.extend(true, {}, _option.defaults, $option.data());
                             _option.popup__list_item = $([
                                 '<li class="popup__list-item',
-                                (_option.data.selected ? ' popup__list-item_checked' : ''),
-                                (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
-                                '<button class="popup__link">',
-                                (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
-                                '<span class="popup__text">' + _option.data.text + '</span>',
-                                '</button>',
+                                    (_option.data.selected ? ' popup__list-item_checked' : ''),
+                                    (_option.data.disabled ? ' popup__list-item_disabled' : '') + '">',
+                                    '<button class="popup__link">',
+                                        (_option.data.icon == '' ? '' : '<span class="icon ' + _option.data.icon + '"></span>'),
+                                        '<span class="popup__text">' + _option.data.text + '</span>',
+                                    '</button>',
                                 '</li>'
                             ].join(''));
 
@@ -2170,47 +1962,52 @@ $(function(){
                             $option.data(_option.data);
                             _option.popup__list_item.data(_option.data);
                         });
-                        that.data._el.popup__list.append(
-                            (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
-                            that.data._el.popup__list_items
-                        )
+                        that.data._el.select.append(
+                            that.data._el.button,
+                            that.data._el.popup.append(
+                                (that.data.search ?
+                                    that.data._el.popup__input.append(
+                                        that.data._el.input
+                                    ) : null
+                                ),
+                                that.data._el.popup__scroll.append(
+                                    that.data._el.popup__list.append(
+                                        (that.data.mode == 'check' ? that.data._el.popup__list_item_checkall : null),
+                                        that.data._el.popup__list_items
+                                    )
+                                )
+                            )
+                        );
+                        that.data._el.select.data(that.data);
+                        that.data._el.select.data({'_widget': '_select'});
+                        self.css('display', 'none');
+                        self.after(that.data._el.select);
                     };
                     that.update = function(data){
                         that.data._el.button.find('.button__text').after(that.data._el.spinner);
-                        that.clear(true);
                         self.html('');
                         that.data._options = [];
                         that.data._el.popup__list.html('');
                         that.data._el.popup__list_items = [];
+                        that.data._el.button.button('destroy');
+                        that.data._el.input.input('destroy');
+                        that.data._el.popup.popup('destroy');
                         data.forEach(function(item, i, arr){
                             var $option = $('<option value="' + item.value + '" ' + (item.selected ? 'selected' : '') + '>' + item.text + '</option>');
                             self.append($option);
                         });
-                        that.render_popup_list();
-                        that.bind();
+                        that.clear();
+                        that.init();
                         that.data._el.spinner.remove();
-                    };
-                    that.get_items = function(){
-                        var items = [];
-                        that.data._options.map(function($option){
-                            items.push({
-                                value: $option.attr('value'),
-                                text: $option.text(),
-                                selected: ($option.attr('selected') ? true : false)
-                            });
-                        });
-                        return items;
                     };
 
                     that.focus = function(){
                         that.data._el.popup.popup('show');
                     };
-                    that.clear = function(disabled){
+                    that.clear = function(){
                         that.data._value = [];
                         that.uncheck_all();
-                        if (!that.data.disabled && !disabled) {
-                            self.trigger('change');
-                        }
+                        self.trigger('change');
                     };
 
                     that.focusin = function(){
@@ -2324,7 +2121,6 @@ $(function(){
                             that.check_checkall();
                         }
                         that.highlight();
-                        that.validate();
                     };
                     that.uncheck_all = function(){
                         that.data._el.popup__list_items.forEach(function(item){
@@ -2341,7 +2137,6 @@ $(function(){
                             that.uncheck_checkall();
                         }
                         that.highlight();
-                        that.validate();
                     };
 
                     that.check = function(value){
@@ -2361,12 +2156,9 @@ $(function(){
                             }
                         });
                         if (_trigger) {
-                            if (!that.data.disabled) {
-                                self.trigger('change');
-                            }
+                            self.trigger('change');
                         }
                         that.highlight();
-                        that.validate();
                     };
                     that.uncheck = function(value){
                         var _trigger = false;
@@ -2379,12 +2171,9 @@ $(function(){
                             }
                         });
                         if (_trigger) {
-                            if (!that.data.disabled) {
-                                self.trigger('change');
-                            }
+                            self.trigger('change');
                         }
                         that.highlight();
-                        that.validate();
                     };
 
                     that.check_checkall = function(){
@@ -2400,25 +2189,6 @@ $(function(){
                         item.removeClass('popup__list-item_checked');
                     };
 
-                    that.validate = function(){
-                        that.data.validate = true;
-                        if (that.data.required) {
-                            if (!that.get_value()) {
-                                that.data.validate = false;
-                                that.data._el.select.addClass('select__has-error');
-                                if (that.data._el.select.parent().find('.control__error').length == 0) {
-                                    that.data._el.select.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
-                                }
-                            } else {
-                                that.data.validate = true;
-                                that.data._el.select.removeClass('select__has-error');
-                                if (that.data._el.select.parent().find('.control__error').length != 0) {
-                                    that.data._el.select.parent().find('.control__error').remove();
-                                }
-                            }
-                        }
-                        return that.data.validate;
-                    };
                     that.highlight = function(){
                         if (that.data.highlight) {
                             if (that.get_value()) {
@@ -2463,10 +2233,7 @@ $(function(){
                                     if (that.data.highlight) {
                                         that.highlight();
                                     }
-                                    if (!that.data.disabled) {
-                                        self.trigger('change');
-                                    }
-                                    that.validate();
+                                    self.trigger('change');
                                 });
                             }
                         });
@@ -2492,10 +2259,7 @@ $(function(){
                                 if (that.data.highlight) {
                                     that.highlight();
                                 }
-                                if (!that.data.disabled) {
-                                    self.trigger('change');
-                                }
-                                that.validate();
+                                self.trigger('change');
                             });
                         }
                     };
@@ -2604,21 +2368,6 @@ $(function(){
                 this.obj.clear();
             });
         },
-        validate : function() {
-            if (this.length == 1) {
-                var _val = true;
-                this.each(function() {
-                    _val = this.obj.validate();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.validate());
-                });
-                return _arr;
-            }
-        },
         value : function() {
             if (this.length == 1) {
                 var _val = false;
@@ -2630,21 +2379,6 @@ $(function(){
                 var _arr = [];
                 this.each(function() {
                     _arr.push(this.obj.get_value());
-                });
-                return _arr;
-            }
-        },
-        get_items : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.get_items();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.get_items());
                 });
                 return _arr;
             }
@@ -3610,15 +3344,8 @@ $(function(){
                                     });
                                     that.data.date = date;
                                     that.data.formattedDate = formattedDate;
-                                    that.data.displayDate = formattedDate;
-                                    if (Asyst) {
-                                        if (Asyst.date) {
-                                            if (typeof Asyst.date.convertToGenitive == 'function') {
-                                                that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());
-                                            }
-                                        }
-                                    }
-                                    that.data._el.card__name.find('.card__name-text').text(that.data.displayDate);
+                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
+                                    that.data._el.card__name.find('.card__name-text').text(formattedDate);
                                     if (that.data.events.render) {
                                         if (that.data._selectedItems.length > 0) {
                                             if (that.data._showModal) {
@@ -3831,11 +3558,6 @@ $(function(){
                         }
                         if (that.data.type == 'custom') {
                             that.data._el.carousel__items.addClass('carousel__items_custom');
-                        }
-                        if (that.data.items) {
-                            if (that.data.items.length > 1) {
-                                that.data._el.carousel__items.addClass('carousel__items_several');
-                            }
                         }
                         that.data._el.button_prev = $([
                             '<button class="button button_prev" type="button" data-fc="button">',
@@ -4189,7 +3911,7 @@ $(function(){
             $.error( 'Method ' +  method + ' does not exist on $.carousel' );
         }
     };
-})(jQuery);
+})( jQuery );
 (function($){
     $.fn.touchwipe = function(settings) {
         var config = {
@@ -4556,7 +4278,7 @@ $(function(){
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
                                 that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
                             }
                         }
@@ -4741,6 +4463,7 @@ $(function(){
         }
     };
 })( jQuery );
+
 $(function(){
     $('[data-fc="radio"]').radio();
 });
@@ -4800,17 +4523,6 @@ $(function(){
                         });
                         that.data.hidden = false;
                     };
-                    that.check = function(value){
-                        that.data._el.radio_list.each(function(){
-                            var radio = $(this);
-                            radio.radio('uncheck');
-                            if (radio.radio('value') == value) {
-                                radio.radio('check');
-                                that.data.checked = true;
-                                that.data.value = value;
-                            }
-                        });
-                    };
 
                     that.init_components = function(){
                         self.find('[data-tooltip]').tooltip();
@@ -4868,11 +4580,6 @@ $(function(){
         show : function() {
             return this.each(function() {
                 this.obj.show();
-            });
-        },
-        check : function(value) {
-            return this.each(function() {
-                this.obj.check(value);
             });
         },
         checked : function() {
@@ -5381,7 +5088,7 @@ $(function(){
                         if (that.data._handlers) {
                             for (var type in that.data._handlers) {
                                 that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
                             }
                         }
@@ -5425,7 +5132,7 @@ $(function(){
                         if (that.data._handlers_input) {
                             for (var type in that.data._handlers_input) {
                                 that.data._handlers_input[type].forEach(function(ev){
-                                    that.data._el.input.on(ev.type + (ev.namespace? '.' + ev.namespace : ''), ev.handler);
+                                    that.data._el.input.on(ev.type + '.' + ev.namespace, ev.handler);
                                 });
                             }
                         }
@@ -5459,11 +5166,6 @@ $(function(){
                             }
                         }
                         that.highlight();
-                    };
-                    that.get_value = function(){
-                        var val = that.data._el.input.val();
-                        if (val == that.data.placeholder) { val = null; }
-                        return val;
                     };
 
                     that.validate = function(){
@@ -5644,13 +5346,13 @@ $(function(){
                 if (this.length == 1) {
                     var _val = false;
                     this.each(function() {
-                        _val = this.obj.get_value();
+                        _val = this.obj.data._el.input.val();
                     });
                     return _val;
                 } else {
                     var _arr = [];
                     this.each(function() {
-                        _arr.push(this.obj.get_value());
+                        _arr.push(this.obj.data._el.input.val());
                     });
                     return _arr;
                 }
@@ -5912,7 +5614,6 @@ $(function(){
                     self.data('_widget', { type: 'card', target : self });
                     var that = this.obj = {};
                     that.defaults = {
-                        id: null,
                         hiddenLeft: false,
                         hiddenRight: false,
                         menuLeftId: 'id' + (new Date()).valueOf(),
@@ -5941,7 +5642,7 @@ $(function(){
                         that.data._el.card__left.addClass('card__left_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
+                            setCookie('card_menu_left_hidden', true);
                         }
                         $(window).trigger('resize');
                     };
@@ -5950,7 +5651,7 @@ $(function(){
                         that.data._el.card__right.addClass('card__right_hidden');
                         that.data._el.card__backdrop.remove();
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
+                            setCookie('card_menu_right_hidden', true);
                         }
                         $(window).trigger('resize');
                     };
@@ -5965,7 +5666,7 @@ $(function(){
                             })
                         );
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
+                            setCookie('card_menu_left_hidden', false);
                         }
                         $(window).trigger('resize');
                     };
@@ -5979,7 +5680,7 @@ $(function(){
                             })
                         );
                         if (typeof setCookie == 'function') {
-                            setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
+                            setCookie('card_menu_right_hidden', false);
                         }
                         $(window).trigger('resize');
                     };
@@ -6024,7 +5725,7 @@ $(function(){
                             if (that.data._el.button_toggle_left.length > 0) {
                                 that.data._el.button_toggle_left.button();
                                 if (typeof getCookie == 'function') {
-                                    that.data.hiddenLeft = (getCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : '')) == 'true' ? true : false);
+                                    that.data.hiddenLeft = (getCookie('card_menu_left_hidden') == 'true' ? true : false);
                                 }
                                 if (that.data.hiddenLeft) {
                                     that.hide_left();
@@ -6040,7 +5741,7 @@ $(function(){
                             if (that.data._el.button_toggle_right.length > 0) {
                                 that.data._el.button_toggle_right.button();
                                 if (typeof getCookie == 'function') {
-                                    that.data.hiddenRight = (getCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : '')) == 'true' ? true : false);
+                                    that.data.hiddenRight = (getCookie('card_menu_right_hidden') == 'true' ? true : false);
                                 }
                                 if (that.data.hiddenRight) {
                                     that.hide_right();
@@ -6356,25 +6057,12 @@ $(function(){
                     };
 
                     that.render = function () {
-                        var tooltip = '';
-                        if (self.attr('title')) {
-                            self.data('tooltip', self.attr('title'));
-                            self.removeAttr('title');
-                        }
-                        if (self.data('tooltip')) {
-                            that.data.tooltip = self.data('tooltip');
-                        }
-                        if (that.data.tooltip) {
-                            tooltip = that.data.tooltip;
-                        }
-                        if (tooltip != '') {
-                            $('body').append(
-                                that.data._tooltip.tooltip.append(
-                                    that.data._tooltip.tooltip__text.html(tooltip),
-                                    that.data._tooltip.tooltip__arrow
-                                )
-                            );
-                        }
+                        $('body').append(
+                            that.data._tooltip.tooltip.append(
+                                that.data._tooltip.tooltip__text.html(that.data.tooltip),
+                                that.data._tooltip.tooltip__arrow
+                            )
+                        );
                     };
                     that.update = function(tooltip){
                         that.data.tooltip = tooltip;
@@ -6444,9 +6132,9 @@ $(function(){
                         single: false,
                         margin: true,
                         closely: false,
-                        lib: null,
+                        loader: null,
+                        library: null,
                         widget_buttons: [],
-                        widget_collapse_callback: null,
                         mode: 'view',
                         disabled: true,
                         grid: {
@@ -6475,10 +6163,9 @@ $(function(){
                     };
                     that.clear = function(){
                         that.data._el.grid.removeAll();
-                        _.each(that.data._el.nodes, function(node) {
+                        _.each(that.data._nodes, function(node) {
                             node.widget.widget('destroy');
                         });
-                        that.data._el.nodes = [];
                     };
                     that.save = function(callback){
                         that.data.items = _.map(self.children('.grid-stack-item:visible'), function(el) {
@@ -6494,8 +6181,6 @@ $(function(){
                                         (key == 'mode') ||
                                         (key == 'loader') ||
                                         (key == 'library') ||
-                                        (key == 'libraries') ||
-                                        (key == 'lib') ||
                                         (key == 'content') ||
                                         (key == 'buttons') ||
                                         (key == 'id') ||
@@ -6513,14 +6198,9 @@ $(function(){
                             that.load_widget(item);
                         });
                     };
-                    that.load_items = function(items){
-                        that.clear();
-                        that.data.items = $.extend(true, {}, items);
-                        that.load();
-                    };
                     that.load_widget = function(node){
                         if (that.data.single) {
-                            node.settings.name = that.data.pageid;
+                            node.settings.name = that.data.pagename;
                         }
                         if (node.settings.id) {
                             node._id = node.settings.id;
@@ -6531,11 +6211,8 @@ $(function(){
                         node._height = node.height;
                         node.settings.buttons = $.extend([], that.data.widget_buttons, node.settings.buttons);
                         node.settings.reloadable = true;
-                        node.settings.lib = that.data.lib;
-                        if (that.data.loader) {
-                            node.settings.loader = that.data.loader;
-                        }
-                        //node.settings.library = that.data.library;
+                        node.settings.loader = that.data.loader;
+                        node.settings.library = that.data.library;
                         node.settings.params = that.data.params;
                         node.widget = $('<div class="widget" id="' + node._id + '"></div>').widget(node.settings);
                         node.el = $('<div><div class="grid-stack-item-content"></div></div>');
@@ -6561,12 +6238,7 @@ $(function(){
 
                     that.add_widget = function(item, callback){
                         that.load_widget(item);
-                        if (typeof callback == "function") {
-                            var data = $.extend(true, {}, item);
-                            _.unset(data, 'el');
-                            _.unset(data, 'widget');
-                            callback(data);
-                        }
+                        if (typeof callback == "function") { callback(item); }
                     };
                     that.remove_widget = function(_id, callback) {
                         var node = that.data._el.nodes.filter(function(d){ return d._id == _id; });
@@ -6764,11 +6436,6 @@ $(function(){
         resize : function() {
             return this.each(function() {
                 this.obj.resize();
-            });
-        },
-        load_items : function(items) {
-            return this.each(function() {
-                this.obj.load_items(items);
             });
         }
     };
@@ -7005,8 +6672,7 @@ $(function(){
                     self.data(that.options);
                     that.data._el = {
                         button_submit: null,
-                        inputs: [],
-                        selects: []
+                        inputs: []
                     };
 
                     that.destroy = function(){
@@ -7016,16 +6682,7 @@ $(function(){
 
                     that.get = function(){
                         that.data._el.button_submit = self.find('button[type="submit"]');
-                    };
-                    that.get_controls = function(){
-                        if (that.data._el.inputs.length == 0) {
-                            that.data._el.inputs = self.find('[data-fc="input"]');
-                            that.bind_validate_inputs();
-                        }
-                        if (that.data._el.selects.length == 0) {
-                            that.data._el.selects = self.find('[data-fc="select"]');
-                            that.bind_validate_selects();
-                        }
+                        that.data._el.inputs = self.find('[data-fc="input"]');
                     };
                     that.validate = function(){
                         that.data.validate = true;
@@ -7034,21 +6691,9 @@ $(function(){
                                 that.data.validate = false;
                             }
                         });
-                        that.data._el.selects.each(function(){
-                            if (!$(this).select('validate')) {
-                                that.data.validate = false;
-                            }
-                        });
                         return that.data.validate;
                     };
                     that.bind = function(){
-                        that.data._el.button_submit.on('click', function(e){
-                            if (!that.validate()) {
-                                e.preventDefault();
-                            }
-                        });
-                    };
-                    that.bind_validate_inputs = function(){
                         that.data._el.inputs.each(function(){
                             var $input = $(this);
                             if ($input.data().required) {
@@ -7057,14 +6702,9 @@ $(function(){
                                 })
                             }
                         });
-                    };
-                    that.bind_validate_selects = function(){
-                        that.data._el.selects.each(function(){
-                            var $select = $(this);
-                            if ($select.data().required) {
-                                $select.on('change', function(){
-                                    $select.select('validate');
-                                })
+                        that.data._el.button_submit.on('click', function(e){
+                            if (!that.validate()) {
+                                e.preventDefault();
                             }
                         });
                     };
@@ -7076,12 +6716,10 @@ $(function(){
                         self.find('[data-fc="textarea"]').textarea();
                         self.find('[data-fc="checkbox"]').checkbox();
                         self.find('[data-fc="tumbler"]').tumbler();
-                        self.find('[data-fc="select"]').select();
                     };
                     that.init = function(){
                         that.get();
                         that.init_components();
-                        that.get_controls();
                         that.bind();
                     };
                     that.init();
@@ -7092,11 +6730,6 @@ $(function(){
         destroy : function() {
             return this.each(function() {
                 this.obj.destroy();
-            });
-        },
-        get_controls : function() {
-            return this.each(function() {
-                this.obj.get_controls();
             });
         },
         validate : function() {
@@ -7161,14 +6794,7 @@ $(function(){
                         data: null,
                         show: true,
                         position: null,
-                        size: null,
-                        draggable: false,
-                        draggable_grid_size: 1,
-                        render_tabs_row: true,
-                        fullscreen: {
-                            active: false,
-                            dimentions: null
-                        }
+                        size: null
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -7180,14 +6806,6 @@ $(function(){
                         modal__view: $('<div class="modal__view"></div>'),
                         modal__backdrop: $('<div class="modal__backdrop"></div>'),
                         modal__dialog: $('<div class="modal__dialog modal__dialog_hidden"></div>'),
-                        modal__dialog_handle_NE: $('<div class="modal__dialog_handle modal__dialog_handle_NE"></div>'),
-                        modal__dialog_handle_NN: $('<div class="modal__dialog_handle modal__dialog_handle_NN"></div>'),
-                        modal__dialog_handle_NW: $('<div class="modal__dialog_handle modal__dialog_handle_NW"></div>'),
-                        modal__dialog_handle_WW: $('<div class="modal__dialog_handle modal__dialog_handle_WW"></div>'),
-                        modal__dialog_handle_EE: $('<div class="modal__dialog_handle modal__dialog_handle_EE"></div>'),
-                        modal__dialog_handle_SW: $('<div class="modal__dialog_handle modal__dialog_handle_SW"></div>'),
-                        modal__dialog_handle_SS: $('<div class="modal__dialog_handle modal__dialog_handle_SS"></div>'),
-                        modal__dialog_handle_SE: $('<div class="modal__dialog_handle modal__dialog_handle_SE"></div>'),
                         card: $('<div class="card" data-fc="card"></div>'),
                         card__header: $('<div class="card__header"></div>'),
                         card__header_row_caption: $('<div class="card__header-row"></div>'),
@@ -7204,7 +6822,6 @@ $(function(){
                     that.data._triggers = {
                         show: 'show.fc.modal',
                         shown: 'shown.fc.modal',
-                        showed: 'showed.fc.modal',
                         hide: 'hide.fc.modal',
                         hidden: 'hidden.fc.modal',
                         loaded: 'loaded.fc.modal'
@@ -7218,16 +6835,10 @@ $(function(){
                         }, 500);
                     };
                     that.hide = function(){
-                        that.data.transitioning = true;
-                        that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
-                            if (that.data.transitioning) {
-                                that.data.transitioning = false;
-                                $(this).off(e);
-                                self.addClass('modal_hidden');
-                                self.trigger(that.data._triggers.hidden);
-                            }
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                            self.addClass('modal_hidden');
+                            self.trigger(that.data._triggers.hidden);
                         });
                         self.find('.modal__dialog').addClass('modal__dialog_hidden');
                         that.data.show = false;
@@ -7238,19 +6849,12 @@ $(function(){
                         that.data.show = false;
                     };
                     that.show = function(){
-                        that.data.transitioning = true;
                         self.trigger(that.data._triggers.show);
-                        that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
-                            if (that.data.transitioning) {
-                                that.data.transitioning = false;
-                                $(this).off(e);
+                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function() {
+                            setTimeout(function(){
                                 that.data._el.card.css('max-height', '100%');
-                                if (that.data.draggable) {
-                                    that.init_draggable();
-                                }
                                 self.trigger(that.data._triggers.shown);
-                                self.trigger(that.data._triggers.showed);
-                            }
+                            }, 100);
                         });
                         self.removeClass('modal_hidden');
                         setTimeout(function(){
@@ -7258,34 +6862,14 @@ $(function(){
                         }, 0);
                         that.data.show = true;
                     };
-                    that.fullscreen = function(){
-                        if (that.data.fullscreen.active) {
-                            that.data.fullscreen.active = false;
-                            that.data._el.modal__dialog.css(that.data.fullscreen.dimentions);
-                        } else {
-                            that.data.fullscreen.active = true;
-                            that.data.fullscreen.dimentions = {
-                                left: that.data._el.modal__dialog.offset().left,
-                                top: that.data._el.modal__dialog.offset().top,
-                                height: that.data._el.modal__dialog.outerHeight(),
-                                width: that.data._el.modal__dialog.outerWidth()
-                            };
-                            that.data._el.modal__dialog.css({
-                                top: 5,
-                                left: 5,
-                                width: that.data._el.modal__view.width(),
-                                height: that.data._el.modal__view.height()
-                            });
-                        }
-                    };
 
                     that.render_view = function(){
                         self.append(that.data._el.modal__view
                             .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
                                 .append(that.data._el.card
                                     .append(that.data._el.card__header
-                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name,
-                                        (that.data.render_tabs_row ? that.data._el.card__header_row_tabs.append(that.data._el.tabs__list) : null)),
+                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name, that.data._el.card__header_row_tabs
+                                            .append(that.data._el.tabs__list)),
                                     that.data._el.card__main
                                         .append(that.data._el.card__middle
                                             .append(that.data._el.card__middle_scroll))))));
@@ -7312,8 +6896,7 @@ $(function(){
                         that.data._el.card__header_row_caption.append($buttons_column);
                         that.data.buttons.forEach(function(button){
                             var $button = $(
-                                '<button class="button button__' + button.name + '" data-fc="button" ' +
-                                (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>' +
+                                '<button class="button button__' + button.name + '" data-fc="button">' +
                                 (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
                                 (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
                                 '</button>'
@@ -7409,62 +6992,6 @@ $(function(){
                         }
                     };
 
-                    that.init_draggable = function(){
-                        var dimm = that.data._el.modal__dialog.offset();
-                        dimm.width = that.data._el.modal__dialog.outerWidth();
-                        if (that.data._el.modal__dialog.is('[class*="max"]')) {
-                            dimm.height = that.data._el.modal__dialog.outerHeight();
-                        }
-                        that.data._el.modal__dialog
-                            .css(dimm)
-                            .append(
-                                that.data._el.modal__dialog_handle_NE,
-                                that.data._el.modal__dialog_handle_NN,
-                                that.data._el.modal__dialog_handle_NW,
-                                that.data._el.modal__dialog_handle_WW,
-                                that.data._el.modal__dialog_handle_EE,
-                                that.data._el.modal__dialog_handle_SW,
-                                that.data._el.modal__dialog_handle_SS,
-                                that.data._el.modal__dialog_handle_SE
-                            )
-                            .addClass('modal__dialog_absolute')
-                            .addClass('modal__dialog_draggable')
-                            .drag('start', function(ev, dd){
-                                dd.attr = $(ev.target).prop('className');
-                                dd.width = $(this).width();
-                                dd.height = $(this).height();
-                            })
-                            .drag(function(ev, dd){
-                                that.data.fullscreen.active = false;
-                                var props = {};
-                                if (dd.attr.indexOf('E') > -1) {
-                                    props.width = Math.max(400, dd.width + dd.deltaX);
-                                }
-                                if (dd.attr.indexOf('S') > -1) {
-                                    props.height = Math.max(200, dd.height + dd.deltaY);
-                                }
-                                if (dd.attr.indexOf('W') > -1) {
-                                    props.width = Math.max(400, dd.width - dd.deltaX);
-                                    props.left = dd.originalX + dd.width - props.width;
-                                }
-                                if (dd.attr.indexOf('N') > -1) {
-                                    props.height = Math.max(200, dd.height - dd.deltaY);
-                                    props.top = dd.originalY + dd.height - props.height;
-                                }
-                                if (dd.attr.indexOf('card__header') > -1 ||
-                                    dd.attr.indexOf('card__caption') > -1 ||
-                                    dd.attr.indexOf('card__name') > -1) {
-                                    props.top = dd.offsetY;
-                                    props.left = dd.offsetX;
-                                }
-                                $(this).css({
-                                    top: Math.round(props.top / that.data.draggable_grid_size) * that.data.draggable_grid_size,
-                                    left: Math.round(props.left / that.data.draggable_grid_size) * that.data.draggable_grid_size,
-                                    width: Math.round(props.width / that.data.draggable_grid_size) * that.data.draggable_grid_size,
-                                    height: Math.round(props.height / that.data.draggable_grid_size) * that.data.draggable_grid_size
-                                });
-                            });
-                    };
                     that.init_components = function(){
                         self.find('[data-fc="alertbox"]').alertbox();
                         self.find('[data-fc="button"]').button({

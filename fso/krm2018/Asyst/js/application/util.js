@@ -241,9 +241,9 @@ function enableInput(selector, value) {
         $el.addClass("disabled");
         $el.prop('disabled', true);
         $el.trigger("chosen:updated.chosen");
-        $el.find('*').not('option').attr("disabled", "");
-        $el.find('*').not('option').addClass("disabled");
-        $el.find('*').not('option').prop('disabled', true);
+        $el.find('*').attr("disabled", "");
+        $el.find('*').addClass("disabled");
+        $el.find('*').prop('disabled', true);
         $el.find('.chosen-select').trigger("chosen:updated.chosen");
     }
     return $el;

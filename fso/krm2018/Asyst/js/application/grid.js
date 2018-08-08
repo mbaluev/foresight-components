@@ -152,7 +152,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
     gridView.DataParams = dataParams;
     gridView.Filters = filters;
     gridView.Groups = groups;
-    gridView.QuickFilterVals = [];
+    gridView.QuickFilterVals = {};
 
     var sortcol = "";
     var sortdir = 1;
@@ -171,8 +171,6 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
     grid.onSort.subscribe(function (e, args) {
         setCompare(args.sortAsc, args.sortCol.field);
-        grid.measureHeights();
-        grid.invalidate();
     });
 
     //gridView.DataView.onRowCountChanged.subscribe(function (e, args) {
@@ -232,8 +230,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
         Asyst.APIv2.View.load({
             viewName: viewName,
             data: gridView.DataParams,
-            success: function (loadData) {
-                gridView.QuickFilterVals = [];
+            success: function(loadData) {
                 gridView.Data = loadData.data;
                 gridView.DataView.setItems(loadData.data);
                 gridView.Grid.invalidateAllRows();
@@ -292,7 +289,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
     gridView.DeleteSelected = function () {
         if (!this.Grid.EntityName || !this.Grid.KeyName)
-            return;
+            return false;
 
         var g = this;
         var items = g.GetSelectedItems();
@@ -300,44 +297,36 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
         if (!items || items.length === 0) {
             alert(Globa.CheckDocumentsDeleting.locale());
-            return;
+            return false;
         }
 
         if (!confirm(Globa.ConfirmDocumentsDeleting.locale()))
-            return;
+            return false;
+
+        var fail = function (errorThrown, text, context) {
+            if (errorThrown == 'ReferenceErorr')
+                ErrorHandler(Globa.DeleteReferenceError.locale(), text);
+            else
+                ErrorHandler(Globa.DeletingError.locale(), text);
+        };
 
         for (var i = 0; i < items.length; i++) {
             var item = items[i];
             if (item[g.Grid.KeyName]) {
 
-                var success = function (item) {
-                    return function() {
-                        g.DataView.deleteItem(item.id);
-                    }
-                }(item);
+                var success = function () {
+                    g.DataView.deleteItem(item.id);
+                };
 
-                var fail = function (item) {
-                    return function (errorThrown, text, context) {
-                        if (errorThrown === 'ReferenceErorr')
-                            ErrorHandler(Globa.DeleteReferenceError.locale(), text);
-                        else if (errorThrown === 'DeletionRuleError')
-                            NotifyWarning("Ошибка правила проверки при удалении сущности '" + item.Name + "'", text);
-                        else
-                            ErrorHandler(Globa.DeletingError.locale(), text);
-                    }
-                }(item);
-
-                Asyst.APIv2.Entity.delete({
-                    entityName: g.Grid.EntityName,
-                    dataId: item[g.Grid.KeyName],
-                    success: success,
-                    error: fail,
-                    async: true
-                });
+                if (Asyst.APIv2.Entity.delete({ entityName: g.Grid.EntityName, dataId: item[g.Grid.KeyName], success: success, error: fail, async: false })) {
+                }
+                else
+                    return false;
             }
         }
 
         this.ClearSelected();
+        return true;
     };
 
     gridView.ClearSelected = function () {
@@ -503,7 +492,7 @@ Grid.Create = function (element, data, columns, options, groups, dataParams, fil
 
     gridView.saveCurrent = function () {
         var sample = this.getViewSample();
-        sample.name = '';
+        sample.name = name;
         Asyst.APIv2.ViewSample.save({ viewName: viewName, data: { sample: JSON.stringify(sample) }, async: true});
     };
 
@@ -527,27 +516,15 @@ Grid.QuickFilter = function (item, args) {
         var val;
 
         if (item[column.field]) {
-
-            var existedItem;
-            var result = $.grep(args.gridView.QuickFilterVals, function (e) { return e["id"] === item.id });
-            if (result.length === 0) {
-                existedItem = null;
-            } else if (result.length === 1) {
-                existedItem = result[0];
-            } else {
-                console.error("Коллекция QuickFilterVals содержит более одного элемента с id = " + item.id);
-                return false;
-            }
-
-            if (existedItem && existedItem.hasOwnProperty(column.id)) {
-                val = existedItem[column.id];
+            if (args.gridView.QuickFilterVals.hasOwnProperty(item.id) && args.gridView.QuickFilterVals[item.id].hasOwnProperty(column.id)) {
+                val = args.gridView.QuickFilterVals[item.id][column.id];
             }
             else {
                 if (column.format)
                     val = column.formatter(0, 0, item[column.field], column, item);
                 else if (column.expression) {
                     var formed = column.formatter(0, 0, item[column.field], column, item);
-                    if (formed[0] === '<' && formed[formed.length - 1] === '>') {
+                    if (formed[0] == '<' && formed[formed.length - 1] == '>') {
                         val = $(formed).text();
                     } else {
                         val = $("<span>" + formed + "</span>").text();
@@ -556,14 +533,9 @@ Grid.QuickFilter = function (item, args) {
 
                 else
                     val = (item[column.field] + '');
-
-                if (!existedItem) {
-                    var newItem = [];
-                    newItem["id"] = item.id;
-                    args.gridView.QuickFilterVals.push(newItem);
-                } else {
-                    existedItem[column.id] = val;
-                }
+                if (!args.gridView.QuickFilterVals.hasOwnProperty(item.id))
+                    args.gridView.QuickFilterVals[item.id] = {};
+                args.gridView.QuickFilterVals[item.id][column.id] = val;
             }
             if (val.toUpperCase().indexOf(args.searchString.toUpperCase()) >= 0)
                 return true;
@@ -654,35 +626,15 @@ Grid.ExtFilter = function (item, args) {
 
     for (var ind = 0; ind < args.filterItems.length; ind++) {
         var filterItem = args.filterItems[ind];
-
-        if (!filterItem) continue;
-        
         var left = item[filterItem.column];
         var right = filterItem.value;
-
-        var itemType = filterItem.columnOptions && filterItem.columnOptions.kind || left.constructor.name || null;
-        var itemFormat = filterItem.columnOptions && filterItem.columnOptions.format || null;
-        var columnOptions = filterItem.columnOptions || {};
-
-        //Костыль. Возможность фильтровать даты (без этого сравнивается по строке)
-        if (filterItem.oper === "=" || filterItem.oper === "<>" || filterItem.oper === ">" || filterItem.oper === ">=" || filterItem.oper === "<" || filterItem.oper === "<=") {
-            left = parseValue(left, itemType, itemFormat) || left;
-            right = parseValue(right, itemType, itemFormat) || right;
-
-            //Для фильтрации обе даты должны быть датами или строками
-            if (!Grid._isDateType(itemType) || !isValidJSDate(left) || !isValidJSDate(right)
-            ) {
-                //Конвертация в строку по заданной маске
-                left = Grid.DefaultFormatter(null, null, left, columnOptions, item);
-                right = Grid.DefaultFormatter(null, null, right, columnOptions, item);
-            }
-        } else {
-            left = Grid.DefaultFormatter(null, null, left, columnOptions, item);
-            right = Grid.DefaultFormatter(null, null, right, columnOptions, item);
+        if (left && left.constructor == Date) {
+            left = left.valueOf();
+            if (right && right.constructor == Date) right = right.valueOf();
+            else if (right && right.constructor == String) right = Asyst.date.parse(right).valueOf();
         }
+        //if (right && right.constructor == Date) 
 
-		left = left.valueOf();
-		right = right.valueOf();
 
         if (Grid.ExtFilterOper.hasOwnProperty(filterItem.oper))
             result = Grid.ExtFilterOper[filterItem.oper].func(left, right);
@@ -695,34 +647,8 @@ Grid.ExtFilter = function (item, args) {
     if (args.oper == 'and') return true && Grid.QuickFilter(item, args);
 
     //если совместность OR и дошли до конца, значит true нигде не было по ходу выполнения и возвращаем false
-    if (args.oper == 'or') return false;
+    if (args.oper == 'or') return false && Grid.QuickFilter(item, args);
     return false;
-
-    function isValidJSDate(date) {
-        return Object.prototype.toString.call(date) === "[object Date]" && !isNaN(date);
-    }
-
-    function parseValue(value, type, format) {
-        var parser = getParser(type, value);
-        if (!parser) return value;
-
-        var parsedValue = parser(value, format);
-        return parsedValue;
-    }
-
-    function getParser(type, value) {
-        if (!type) {
-            if (!value) return null;
-            type = value.constructor.name;
-        }
-
-        if (Grid._isDateType(type))
-            return Asyst.date.parse;
-        else if (Grid._isNumberType(type))
-            return Asyst.number.pasrse;
-        else
-            return null
-    }
 };
 
 Grid.DefaultFormatter = function (row, cell, cellValue, columnDef, dataContext) {
@@ -773,9 +699,8 @@ Grid.LinkFormatter = function (row, cell, value, column, data) {
     else
         s = Grid.DefaultFormatter(row, cell, value, column, data);
 
-    var url = new LinkService.Url(templateProcessObj(column.url, data));
-
-    return "<a href='" + url.getLink()+"' data-save-tab-and-go='" + url.getLink() + "'>" + s + "</a>";
+    var url = templateProcessObj(column.url, data);
+    return "<a href='" + url + "'>" + s + "</a>";
 };
 
 Grid.ComboFormatter = function (row, cell, value, columnDef, dataContext) {
@@ -837,7 +762,292 @@ Grid.ExportToHTML = function () {
 };
 
 Grid.ExportToXlsx = function () {
-    
+
+    function datenum(v, date1904) {
+        if (date1904) v += 1462;
+        var epoch = Date.parse(v);
+        return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000);
+    }
+
+    function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+        return buf;
+    }
+
+    function colorNameToHexExcel(color) {
+
+        //if (color && color.indexOf('#') == 0) return 'FF' + color.substring(1, 7).toUpperCase();
+
+        var colors = {
+            "aliceblue": "#f0f8ff",
+            "antiquewhite": "#faebd7",
+            "aqua": "#00ffff",
+            "aquamarine": "#7fffd4",
+            "azure": "#f0ffff",
+            "beige": "#f5f5dc",
+            "bisque": "#ffe4c4",
+            "black": "#000000",
+            "blanchedalmond": "#ffebcd",
+            "blue": "#0000ff",
+            "blueviolet": "#8a2be2",
+            "brown": "#a52a2a",
+            "burlywood": "#deb887",
+            "cadetblue": "#5f9ea0",
+            "chartreuse": "#7fff00",
+            "chocolate": "#d2691e",
+            "coral": "#ff7f50",
+            "cornflowerblue": "#6495ed",
+            "cornsilk": "#fff8dc",
+            "crimson": "#dc143c",
+            "cyan": "#00ffff",
+            "darkblue": "#00008b",
+            "darkcyan": "#008b8b",
+            "darkgoldenrod": "#b8860b",
+            "darkgray": "#a9a9a9",
+            "darkgreen": "#006400",
+            "darkkhaki": "#bdb76b",
+            "darkmagenta": "#8b008b",
+            "darkolivegreen": "#556b2f",
+            "darkorange": "#ff8c00",
+            "darkorchid": "#9932cc",
+            "darkred": "#8b0000",
+            "darksalmon": "#e9967a",
+            "darkseagreen": "#8fbc8f",
+            "darkslateblue": "#483d8b",
+            "darkslategray": "#2f4f4f",
+            "darkturquoise": "#00ced1",
+            "darkviolet": "#9400d3",
+            "deeppink": "#ff1493",
+            "deepskyblue": "#00bfff",
+            "dimgray": "#696969",
+            "dodgerblue": "#1e90ff",
+            "firebrick": "#b22222",
+            "floralwhite": "#fffaf0",
+            "forestgreen": "#228b22",
+            "fuchsia": "#ff00ff",
+            "gainsboro": "#dcdcdc",
+            "ghostwhite": "#f8f8ff",
+            "gold": "#ffd700",
+            "goldenrod": "#daa520",
+            "gray": "#808080",
+            "green": "#008000",
+            "greenyellow": "#adff2f",
+            "honeydew": "#f0fff0",
+            "hotpink": "#ff69b4",
+            "indianred ": "#cd5c5c",
+            "indigo": "#4b0082",
+            "ivory": "#fffff0",
+            "khaki": "#f0e68c",
+            "lavender": "#e6e6fa",
+            "lavenderblush": "#fff0f5",
+            "lawngreen": "#7cfc00",
+            "lemonchiffon": "#fffacd",
+            "lightblue": "#add8e6",
+            "lightcoral": "#f08080",
+            "lightcyan": "#e0ffff",
+            "lightgoldenrodyellow": "#fafad2",
+            "lightgrey": "#d3d3d3",
+            "lightgreen": "#90ee90",
+            "lightpink": "#ffb6c1",
+            "lightsalmon": "#ffa07a",
+            "lightseagreen": "#20b2aa",
+            "lightskyblue": "#87cefa",
+            "lightslategray": "#778899",
+            "lightsteelblue": "#b0c4de",
+            "lightyellow": "#ffffe0",
+            "lime": "#00ff00",
+            "limegreen": "#32cd32",
+            "linen": "#faf0e6",
+            "magenta": "#ff00ff",
+            "maroon": "#800000",
+            "mediumaquamarine": "#66cdaa",
+            "mediumblue": "#0000cd",
+            "mediumorchid": "#ba55d3",
+            "mediumpurple": "#9370d8",
+            "mediumseagreen": "#3cb371",
+            "mediumslateblue": "#7b68ee",
+            "mediumspringgreen": "#00fa9a",
+            "mediumturquoise": "#48d1cc",
+            "mediumvioletred": "#c71585",
+            "midnightblue": "#191970",
+            "mintcream": "#f5fffa",
+            "mistyrose": "#ffe4e1",
+            "moccasin": "#ffe4b5",
+            "navajowhite": "#ffdead",
+            "navy": "#000080",
+            "oldlace": "#fdf5e6",
+            "olive": "#808000",
+            "olivedrab": "#6b8e23",
+            "orange": "#ffa500",
+            "orangered": "#ff4500",
+            "orchid": "#da70d6",
+            "palegoldenrod": "#eee8aa",
+            "palegreen": "#98fb98",
+            "paleturquoise": "#afeeee",
+            "palevioletred": "#d87093",
+            "papayawhip": "#ffefd5",
+            "peachpuff": "#ffdab9",
+            "peru": "#cd853f",
+            "pink": "#ffc0cb",
+            "plum": "#dda0dd",
+            "powderblue": "#b0e0e6",
+            "purple": "#800080",
+            "red": "#ff0000",
+            "rosybrown": "#bc8f8f",
+            "royalblue": "#4169e1",
+            "saddlebrown": "#8b4513",
+            "salmon": "#fa8072",
+            "sandybrown": "#f4a460",
+            "seagreen": "#2e8b57",
+            "seashell": "#fff5ee",
+            "sienna": "#a0522d",
+            "silver": "#c0c0c0",
+            "skyblue": "#87ceeb",
+            "slateblue": "#6a5acd",
+            "slategray": "#708090",
+            "snow": "#fffafa",
+            "springgreen": "#00ff7f",
+            "steelblue": "#4682b4",
+            "tan": "#d2b48c",
+            "teal": "#008080",
+            "thistle": "#d8bfd8",
+            "tomato": "#ff6347",
+            "turquoise": "#40e0d0",
+            "violet": "#ee82ee",
+            "wheat": "#f5deb3",
+            "white": "#ffffff",
+            "whitesmoke": "#f5f5f5",
+            "yellow": "#ffff00",
+            "yellowgreen": "#9acd32"
+        };
+
+        return 'FF' + (colors[color.toLowerCase()] || color).substring(1, 7).toUpperCase();
+
+    }
+
+    function sheetData(data, columns, groups) {
+        var ws = {};
+        var range = {s: {c: 0, r: 0}, e: {c: 0, r: 0}};
+
+        ws['!cols'] = []; //массив для хранения свойств колонок, мы пишем туда ширину
+
+        var bold = {font: {bold: true}};
+
+
+        for (var c = 0; c < columns.length; c++) {
+            var cell = {v: columns[c].name, t: 's', s: bold};
+            var cell_ref = XLSX.utils.encode_cell({c: c, r: 0});
+            ws[cell_ref] = cell;
+            ws['!cols'].push({wch: columns[c].width / 8}); //8 - это магически подобранное число, 
+        }
+
+        //для группировок заполлним название колонок, если такие колонки есть в основной выборке.
+        //Не рабоатает, если колонки нет в ВИДИМЫХ колонках, она не передается в json ответе
+        //for (var j = 0; j < groups.length; j++) {
+        //    var item = groups[j].name;
+        //    var col = allColumns.FirstOrDefault(null, function (gg) { return gg.field == item });
+        //    if (col) {
+        //        var cell = { v: col.name, t: 's', s: bold };
+        //        var cell_ref = XLSX.utils.encode_cell({ c: c + j, r: 0 });
+        //        ws[cell_ref] = cell;
+        //    }
+        //}
+
+        //А теперь пройдемся по всем данным
+        for (var i = 0; i < data.length; i++) {
+            for (var c = 0; c < columns.length; c++) {
+                var item = data[i][columns[c].field];
+
+                if (item === null || item === undefined) continue;
+
+                var cell = {v: item, t: 's'};
+                var cell_ref = XLSX.utils.encode_cell({c: c, r: i + 1});
+
+                /*Форматирование не применяем, потому что у экселя свои форматы*/
+                //if (columns[c].format)
+                //    cell.z = columns[c].format;
+
+                if (columns[c].id.indexOf('Id') > -1 && data[i][columns[c].id.replace('Id', 'Title')]) { //Зашьём логику для индикаторов
+                    var indicatorName = columns[c].id.replace('Id', ''); //если в представлении много индикаторов - обработаем их по отдельности.
+                    var indicatorColor = data[i][indicatorName + 'Color'];
+                    var indicatorTitle = data[i][indicatorName + 'Title'];
+
+                    if (indicatorColor)
+                        cell.s = {fill: {fgColor: {rgb: colorNameToHexExcel(indicatorColor)}, patternType: 'solid'}};
+                    if (indicatorTitle)
+                        cell.v = indicatorTitle;
+
+                    cell.t = 's';
+                }
+                /*Толку от этого в экселе нет. Либо там картинка, которую нельзя вставить в ячейку, либо там форматированный текст,
+                 который тоже сложно в таком формате вставить в ячейку, просто вытащим title, alt или чистый текст*/
+                else if (columns[c].expression) {
+                    try {
+                        with (data[i]) {
+                            var value = eval(columns[c].expression);
+
+                            if (value !== null && value !== undefined) {
+                                delete cell.z;
+                                if (value.toString().indexOf('<') > -1) { //Это html - его надо преобразовать в простой текст
+                                    var val = $(value);
+
+                                    value = val.attr('title') || val.attr('alt') || val.text();
+                                    if (value) {
+                                        cell.v = value.toString();
+
+                                        cell.t = 's';
+                                    }
+                                }
+                                else {
+                                    cell.v = value;
+                                }
+                            }
+                        }
+                    } catch (error) {
+
+                    }
+                }
+
+
+                if (typeof cell.v === 'number') cell.t = 'n';
+                else if (typeof cell.v === 'boolean') {
+                    cell.v = cell.v ? Globa.Yes.locale() : Globa.No.locale();
+                    cell.t = 's';
+                }
+                else if (cell.v instanceof Date) {
+                    cell.t = 'n';
+                    cell.z = XLSX.SSF._table[14];
+                    cell.v = datenum(cell.v);
+                }
+
+
+                ws[cell_ref] = cell;
+            }
+
+            for (var j = 0; j < groups.length; j++) {
+                var item = data[i][groups[j].name];
+
+                if (item == null) continue;
+
+                var cell = {v: item, t: 's'};
+                var cell_ref = XLSX.utils.encode_cell({c: c + j, r: i + 1});
+
+                ws[cell_ref] = cell;
+            }
+        }
+
+        range.e.c = c + j - 1;
+        range.e.r = i;
+
+        if (isNaN(range.e.c))
+            range.e.c = 0;
+
+        ws['!ref'] = XLSX.utils.encode_range(range);
+        return ws;
+    }
+
     var viewName = Model.CurrentViewName;
     var grid = window[viewName];
     //var data = grid.Grid.getData().getFilteredAndPagedItems(grid.DataView.getItems()).rows;
@@ -845,7 +1055,6 @@ Grid.ExportToXlsx = function () {
     var dataGroups = window[viewName].DataView.getGroups();
 
     var data = []; //массив с данными мы заполним по содержимому групп, в том порядке, в котором они расположены в представлении.
-
     var addGroupsRow = function (gr) {
         if (gr.rows)
             data = data.concat(gr.rows);
@@ -856,7 +1065,6 @@ Grid.ExportToXlsx = function () {
         }
 
     };
-
     for (var g in dataGroups) {
         addGroupsRow(dataGroups[g]);
     }
@@ -866,13 +1074,25 @@ Grid.ExportToXlsx = function () {
 
     var groups = grid.Groups;
 
-    var result = {
-        data: data,
-        columns: columns,
-        groups: groups
-    };
+    if (columns[0].id == "_checkbox_selector") //Пропустим первую колонку с галочками, если она есть.
+        columns = columns.slice(1);
 
-    ViewExport(viewName, result);
+    if (columns[columns.length - 1].id == "_like_selector") //Пропустим последнюю колонку с лайками, если она есть.
+        columns = columns.slice(0, columns.length - 1);
+
+    var wb = {};
+    wb.SheetNames = [];
+    wb.Sheets = {};
+
+    var ws = sheetData(data, columns, groups);
+
+    wb.SheetNames.push(viewName);
+    wb.Sheets[viewName] = ws;
+
+    var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: true, type: 'binary', cellStyles: true});
+    saveAs(new Blob([s2ab(wbout)], {type: "application/octet-stream"}), viewName + ' ' + Asyst.date.format(new Date(), 'yyyyMMdd-HHmm') + ".xlsx");
+    //saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), viewName + ' ' + Asyst.date.format(new Date(), 'yyyyMMdd-HHmm', true) + ".xlsx");
+
 };
 
 Grid.ExportToCSV = function () {
@@ -1117,6 +1337,7 @@ Grid.LongTextEditor = function (args) {
 
 Grid.ShowFilterWindow = function (grid) {
     var filters = grid.Filters;
+    //fitlers - array of {order:0, fieldName:'ProjectId', title:'Проект', kind:'text'\'date'\'bool'\'reference',reference:'project'}    
     var id = 'Filter' + Math.random().toString().substring(2);
 
     var fieldSelect = '<select class="selectName chosen-select" data-placeholder="' + Globa.SelectValue.locale() + '">';
@@ -1132,38 +1353,21 @@ Grid.ShowFilterWindow = function (grid) {
     }
     comparisonSelect += '</select>';
 
-
-   
-    function getFilterRow(filterInput) {
-        if (!filterInput)
-            filterInput = getFilterInputWithTextBox();//Default filter input
     var filterRow =
         '<tr>\
             <td>\
             <a class="icon-trash delete-filter-row"></a>\
             </td>\
             <td>\
-                ' + fieldSelect + ' \
-            </td>\
-            <td>\
-                ' + comparisonSelect + ' \
-            </td>\
-            <td>\
-                '+ filterInput+'  \
-            </td>\
-        </tr>';
-        return filterRow;
-    }
-
-    function getFilterInputWithCalendar() {
-        return'<input type="text" class="value date-picker" style="margin-bottom:-1px;width: 300px;height: 15px;" data-datepicker="datepicker" >';
-    }
-
-    function getFilterInputWithTextBox() {
-        return '<input type="text" class="value" style="margin-bottom:-1px;width: 300px;height: 15px;">';
-    }
-
-    var filterRow = getFilterRow(getHtmlInput(filters[0] && filters[0].kind));
+              ' + fieldSelect + ' \
+    </td>\
+    <td>\
+        ' + comparisonSelect + ' \
+    </td>\
+    <td>\
+      <input type="text" class="value" style="margin-bottom:-1px;width: 300px;height: 15px;">  \
+    </td>\
+</tr>';
 
     var message = Globa.ShowLineFrom.locale();
     message += '<br><input type="radio" name="filterType" value="and" checked="true">' + Globa.AndTitle.locale() + '</input>';
@@ -1186,30 +1390,57 @@ Grid.ShowFilterWindow = function (grid) {
         ' </tbody>\
         </table>';
 
-    var extendedFilterId = Dialog(Globa.ExtFilter.locale(),
-        message,[{
-                text: '&nbsp;' + Globa.Accept.locale() + '&nbsp;',
-                cls: 'btn-primary',
-                click: acceptFilter,
-                close: true
-            },
-            {
-                text: '&nbsp;' + Globa.Cancel.locale() + '&nbsp;',
-                click: false,
-                close: true
-            }],
-        id);
 
+    var AcceptFilter = function () {
+        var filterItems = [];
+        var items = $('#filtersTable tbody tr');
+        for (var i = 0; i < items.length - 1; i++) {
+            var filterItem = {};
+            filterItem.column = $(items[i]).find('.selectName').val();
+            filterItem.oper = $(items[i]).find('.selectComparison').val();
+
+            //filterItem.value = $(items[i]).find('input.value').val();
+            var col = Enumerable.From(grid.Columns).Where('$.field =="' + filterItem.column + '"').FirstOrDefault();
+            var val = $(items[i]).find('input.value').val();
+            if (col && col.format) {
+                filterItem.value = Asyst.date.parse(val);
+                if (filterItem.value == 0)
+                    filterItem.value = val;
+            }
+            else filterItem.value = val;
+
+            filterItems.push(filterItem);
+        }
+
+        var filterArgs = grid.DataView.getFilterArgs();
+        filterArgs = $.extend(filterArgs, {oper: $('[name=filterType]:checked').val(), filterItems: filterItems});
+        $('#' + id).modal('hide');
+        grid.DataView.setFilter(Grid.ExtFilter);
+        grid.DataView.setFilterArgs(filterArgs);
+        grid.DataView.refresh();
+        //$('#BrowseSearchGroup').hide();
+        MakeFilterLine(filterArgs);
+    };
+    var DeleteRow = function (event) {
+        jQuery(event.target).parents('tr').remove();
+    };
+    var AddFilterRow = function (event) {
+        //$('#' + id + ' #filtersTable tbody').append(filterRow);
+        jQuery(event.target).parents('tr').before(filterRow);
+        $('.chosen-select').chosen();
+        jQuery(event.target).parents('tr').prev().find('a.delete-filter-row').on('click', DeleteRow);
+    };
+
+    Dialog(Globa.ExtFilter.locale(), message, [{
+        text: '&nbsp;' + Globa.Accept.locale() + '&nbsp;',
+        cls: 'btn-primary',
+        click: AcceptFilter,
+        close: true
+    }, {text: '&nbsp;' + Globa.Cancel.locale() + '&nbsp;', click: false, close: true}], id);
     $('.chosen-select').chosen();
     $('#' + id).css({top: '30%', left: '40%', width: '720px'});
-    $('#addRowButton').on('click', addFilterRow);
-    $('.delete-filter-row').on('click', deleteRow);
-
-    //First filter row
-    var extendedFilterElement = $('#' + extendedFilterId);
-    extendedFilterElement && extendedFilterElement.find('.date-picker').datepicker();
-    extendedFilterElement && extendedFilterElement.find('.selectName.chosen-select').change(onFilterSelectChange);
-    
+    $('#addRowButton').on('click', AddFilterRow);
+    $('.delete-filter-row').on('click', DeleteRow);
     //если были фильтры - восстанавливаем их значения
     if (hasFilters) {
         if (filterArgs.oper == 'or') {
@@ -1221,126 +1452,15 @@ Grid.ShowFilterWindow = function (grid) {
         for (var i = 0; i < filterArgs.filterItems.length; i++) {
             $(names[i]).val(filterArgs.filterItems[i].column);
             $(opers[i]).val(filterArgs.filterItems[i].oper);
-            var inputType = filterArgs.filterItems[i].columnOptions && filterArgs.filterItems[i].columnOptions.kind;
-            var inputElement = $(values[i]);
-            if (inputType) {
-                //var inputHtml = getHtmlInput(inputType);
-                var currentRow = inputElement.parents('tr');
-
-                inputElement = replaceInput(currentRow, inputType);
-
-                //inputElement.replaceWith(inputHtml);
-                //inputElement = currentRow.find('input.value');
-                //inputElement.datepicker();
-            }
-
             var val = filterArgs.filterItems[i].value;
             if (val && val.constructor == Date)
                 val = Asyst.date.format(val, Asyst.date.defaultDateFormat);
-            inputElement.val(val);
+            $(values[i]).val(val);
         }
         $('.selectName').trigger('chosen:updated');
         $('.selectComparison').trigger('chosen:updated');
     }
-
-    function acceptFilter() {
-        var filterItems = [];
-        var items = $('#filtersTable tbody tr');
-        for (var i = 0; i < items.length - 1; i++) {
-            var filterItem = {};
-            filterItem.column = $(items[i]).find('.selectName').val();
-            filterItem.oper = $(items[i]).find('.selectComparison').val();
-
-            var col = Enumerable.From(grid.Columns).Where('$.field =="' + filterItem.column + '"').FirstOrDefault();
-            var val = $(items[i]).find('input.value').val();
-
-            if (Grid._isDateType(col.kind))
-                val = Asyst.date.parse(val, col.format) || val; // In case if Asyst.date.parse return '0'
-
-            filterItem.columnOptions = col;
-            filterItem.value = val;
-
-            filterItems.push(filterItem);
-        }
-
-        var filterArgs = grid.DataView.getFilterArgs();
-        filterArgs = $.extend(filterArgs, { oper: $('[name=filterType]:checked').val(), filterItems: filterItems });
-        $('#' + id).modal('hide');
-        grid.DataView.setFilter(Grid.ExtFilter);
-        grid.DataView.setFilterArgs(filterArgs);
-        grid.DataView.refresh();
-        MakeFilterLine(filterArgs);
-    };
-
-    function deleteRow(event) {
-        jQuery(event.target).parents('tr').remove();
-    }
-
-    function addFilterRow(event) {
-        var filter = findFilter(grid.Filters, filters[0] && filters[0].fieldName);
-        if (!filter) return;
-
-        var inputHtml = getHtmlInput(filter.kind);
-
-        var lastRow = jQuery(event.target).parents('tr').before(getFilterRow(inputHtml));
-        var currentRow = lastRow.prev();
-        currentRow.find('a.delete-filter-row').on('click', deleteRow);
-
-        if (currentRow) {
-            var selectedElements = currentRow.find('.chosen-select').chosen();
-            selectedElements.filter('.selectName').change(onFilterSelectChange);
-            currentRow.find('.date-picker').datepicker();
-        }
-    }
-
-    function onFilterSelectChange(event, element) {
-        var filter = findFilter(grid.Filters, element.selected);
-        if (!filter) return;
-
-        //var inputHtml = getHtmlInput(filter.kind);
-
-        var currentRow = $(event.target).parents('tr');
-
-        replaceInput(currentRow, filter.kind);
-        //currentRow.find('input.value').replaceWith(inputHtml);
-        //currentRow.find('.date-picker').datepicker();
-    }
-
-    function findFilter(filters, fieldName) {
-        if (!filters) return null;
-
-        for (var i = 0; i < filters.length; ++i) {
-            var filter = filters[i];
-            if (!filter || !filter.fieldName) return null;
-            if (filter.fieldName === fieldName) return filter;
-        }
-        return null;
-    }
-
-    function getHtmlInput(type) {
-        return Grid._isDateType(type) ? getFilterInputWithCalendar() : getFilterInputWithTextBox();
-    }
-
-    function replaceInput(filterRow, inputType) {
-        if (!filterRow) return null;
-        var inputHtml = getHtmlInput(inputType);
-        filterRow.find('input.value').replaceWith(inputHtml);
-        filterRow.find('.date-picker').datepicker();
-
-        var inputElement = filterRow.find('input.value');
-        return inputElement;
-    }
 };
-
-Grid._isDateType = function(format) {
-    if (!format) return false;
-    return !!~["datetime", "date"].indexOf(format.toLowerCase());
-}
-
-Grid._isNumberType = function(format) {
-    if (!format) return false;
-    return !!~["number", "int"].indexOf(format.toLowerCase());
-}
 
 Grid.ClearExtFilter = function (grid) {
     var args = grid.DataView.getFilterArgs();

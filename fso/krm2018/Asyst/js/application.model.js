@@ -4,7 +4,7 @@
 
 //поверхнстное копирование
 function clone(obj) {
-
+    
     if (obj == null || typeof (obj) != 'object')
         return obj;
     if (obj.constructor == Array)
@@ -102,7 +102,7 @@ Binding.prototype.equals = function (a, b) {
     return equals(v1, v2);
 };
 
-Binding.prototype.changed = function () {
+Binding.prototype.changed = function() {
     return !this.equals(this.OldValue, this.NewValue);
 };
 
@@ -122,7 +122,7 @@ Binding.prototype.value = function () {
         if (this.Kind == "date") {
             if (typeof this.DisplayMask !== "undefined")
                 value = Asyst.date.parse(value, this.DisplayMask);
-            else
+            else 
                 value = Asyst.date.parse(value, Asyst.date.defaultDateFormat);
         } else if (this.Kind == "datetime") {
             if (typeof this.DisplayMask !== "undefined")
@@ -174,7 +174,7 @@ Binding.prototype.value = function () {
             if (this.Type == "date") {
                 if (typeof this.DisplayMask !== "undefined")
                     value = Asyst.date.format(value, this.DisplayMask, true);
-                else
+                else 
                     value = Asyst.date.format(value, Asyst.date.defaultDateFormat, true);
             }
             else if (this.Type == "time") {
@@ -203,16 +203,7 @@ Binding.prototype.value = function () {
                 text = templateProcessNames(content, this.Form.Data);
             else {
                 if (typeof value == 'number') {
-                    if (this.Kind == "decimal" && !this.DisplayMask && this.Scale > 0) {
-                        var displayMask = "0,0";
-                        displayMask += ".[";
-                        for (var i = 0; i < this.Scale; i++)
-                            displayMask += "0";
-                        displayMask += "]";
-
-                        this.DisplayMask = displayMask;
-                    }
-                    text = Asyst.number.format(value, this.DisplayMask);
+                    text = Asyst.number.format(value, this.DisplayMask); 
                 }
                 else
                     text = StringToHtml(GetPropertyText(value, this, true));
@@ -225,15 +216,6 @@ Binding.prototype.value = function () {
             $el[0].checked = (value == true);
         } else if (this.Type == "number") {
             if (value || value === 0) {
-                if (this.Kind == "decimal" && !this.DisplayMask && this.Scale > 0) {
-                    var displayMask = "0,0";
-                    displayMask += ".[";
-                    for (var i = 0; i < this.Scale; i++)
-                        displayMask += "0";
-                    displayMask += "]";
-
-                    this.DisplayMask = displayMask;
-                }
                 var fmtValue = Asyst.number.format(value, this.DisplayMask);
                 $el.val(fmtValue);
             }
@@ -268,18 +250,7 @@ Binding.prototype.displayValue = function () {
         else
             value = "Нет";
     } else if (this.Type == "number") {
-        value = Asyst.number.format(value, this.DisplayMask);
-    }
-    else if (this.Kind == "decimal" && !this.DisplayMask && this.Scale > 0) {
-        var displayMask = "0,0";
-        displayMask += ".[";
-        for (var i = 0; i < this.Scale; i++)
-            displayMask += "0";
-        displayMask += "]";
-
-        this.DisplayMask = displayMask;
-
-        value = Asyst.number.format(value, this.DisplayMask);
+        value =  Asyst.number.format(value, this.DisplayMask);
     }
     else if (this.Type == "select" || this.Type == "account") {
         if (value) {
@@ -307,7 +278,7 @@ Binding.prototype.displayValue = function () {
 Правило
 */
 
-Rule = function (form, name, script) {
+Rule = function(form, name, script) {
     this.Form = form;
     this.Name = name;
     this.Script = script;
@@ -319,14 +290,11 @@ Rule = function (form, name, script) {
     Обработчик формы
 */
 
-FormHandler = function (form, name, ruleName, actions, position) {
+FormHandler = function(form, name, ruleName, actions) {
     this.Form = form;
     this.Name = name;
     this.RuleName = ruleName;
     this.Actions = actions;
-    if (position === null || position === undefined)
-        position = 0;
-    this.Position = position;
 
     form.Handlers[name] = this;
 };
@@ -335,7 +303,7 @@ FormHandler = function (form, name, ruleName, actions, position) {
     Действие формы
 */
 
-FormAction = function (id, elementName, trueAction, trueMessage, falseAction, falseMessage, trueScript, falseScript) {
+FormAction = function(id, elementName, trueAction, trueMessage, falseAction, falseMessage, trueScript, falseScript) {
     this.id = id;
     this.ElementName = elementName;
     this.TrueAction = trueAction;
@@ -350,12 +318,11 @@ FormAction = function (id, elementName, trueAction, trueMessage, falseAction, fa
     Привязка обработчиков к событиям
 */
 
-EventHandler = function (form, elementName, eventName, handlerName) {
+EventHandler = function(form, elementName, eventName, handlerName) {
     this.Form = form;
     this.ElementName = elementName;
     this.EventName = eventName;
     this.HandlerName = handlerName;
-    this.Handler = form.Handlers[handlerName];
 
     form.EventHandlers[elementName + eventName + handlerName] = this;
 };
@@ -390,8 +357,8 @@ function AsystFormData(formName, isAutoForm) {
     this.ApplyData = function (data) {
         var form = arguments.callee.context;
         form.Data = data;
-        form.InitialData = clone(data);//даты ломаются!! JSON.parse(JSON.stringify(data));
-
+        form.InitialData = clone(data) ;//даты ломаются!! JSON.parse(JSON.stringify(data));
+        
         Asyst.API.AdminTools.saveStats({ page: location.href, pageTitle: form.GetTitle(), type: form.IsEditCard() ? 'editCard' : 'viewCard', action: 'open', entityId: form.Data.classid, dataId: form.Data.id }, true);
 
         if (data["__access__"]) {
@@ -400,7 +367,7 @@ function AsystFormData(formName, isAutoForm) {
 
         form.userId = Asyst.Workspace.currentUser.Id;
 
-        if (form.defaults) {
+        if (form.defaults){
             for (var d in form.defaults) {
                 form.Data[d] = form.defaults[d];
 
@@ -414,7 +381,7 @@ function AsystFormData(formName, isAutoForm) {
         }
     };
 
-    this.GetTitle = function () {
+    this.GetTitle = function() {
         if (this.Data) {
             if (this.Data.Title) {
                 return this.Data.Title;
@@ -431,7 +398,7 @@ function AsystFormData(formName, isAutoForm) {
             }
         }
     };
-
+    
 
     this.ApplyData.context = this;
 
@@ -445,9 +412,9 @@ function AsystFormData(formName, isAutoForm) {
                 entityName: this.EntityName,
                 dataId: this.EntityId,
                 success: this.ApplyData,
-                error: function (error, text) { ErrorHandler(Globa.ErrorLoad.locale(), error + "<br>" + text); },
+                error: function(error, text) { ErrorHandler(Globa.ErrorLoad.locale(), error + "<br>" + text); },
                 isAccessNeed: true,
-                async: false
+                async:false
             });
         } else {
             Asyst.APIv2.Form.load({
@@ -455,7 +422,7 @@ function AsystFormData(formName, isAutoForm) {
                 dataId: this.EntityId,
                 success: this.ApplyData,
                 error: function (error, text) { ErrorHandler(Globa.ErrorLoad.locale(), error + "<br>" + text); },
-                async: false
+                async:false
             });
         }
     };
@@ -476,7 +443,7 @@ function AsystFormData(formName, isAutoForm) {
             if (binding.Type != "label" && binding.Type != "template") {
                 var value = binding.value();
                 var selector = "#" + this.FormName + " #" + binding.ElementName;
-
+                
                 if (binding.Type == "number") {
                     var $el = $(selector);
                     var val = $el.val();
@@ -495,7 +462,7 @@ function AsystFormData(formName, isAutoForm) {
                 binding.NewValue = value;
                 binding.NewDisplayValue = binding.displayValue();
                 if (this.Access && binding.changed()) {
-                    var access = this.Access[binding.PropertyName ? binding.PropertyName : binding.ElementName];
+                    var access = this.Access[binding.PropertyName ? binding.PropertyName: binding.ElementName];
 
                     if (access && access.ReviewCycleId > 0) {
                         if (!(access.IsSeparate)) {
@@ -504,7 +471,6 @@ function AsystFormData(formName, isAutoForm) {
                                 PropertyName: binding.PropertyName,
                                 ReviewCycleId: access.ReviewCycleId,
                                 ReviewCycleName: access.ReviewCycleName,
-                                ReviewCycleIsGrouping: access.ReviewCycleIsGrouping,
                                 Title: binding.Title,
                                 NewValue: binding.NewValue,
                                 OldValue: binding.OldValue,
@@ -521,7 +487,7 @@ function AsystFormData(formName, isAutoForm) {
 
                             Loader.show();
 
-                            var errorHandler = function (error, text) {
+                            var errorHandler = function(error, text) {
                                 Loader.hide();
                                 ErrorHandler(Globa.ErrorLoadComboItems.locale(), error + "<br>" + text);
                             };
@@ -530,7 +496,7 @@ function AsystFormData(formName, isAutoForm) {
                                 Loader.hide();
                                 picklist = data;
                             };
-                            var findInPicklist = function (picklist, key) {
+                            var findInPicklist = function(picklist, key) {
                                 for (var c in picklist) {
                                     if (!picklist.hasOwnProperty(c)) continue;
                                     if (picklist[c]['Key'] !== null && picklist[c]['Key'] == key)
@@ -546,7 +512,7 @@ function AsystFormData(formName, isAutoForm) {
                                 isPicklist: true
                             };
                             if (this.IsAutoForm) {
-                                $.extend(callArg, { sourceType: 'entity', sourceName: this.EntityName, elementName: binding.PropertyName });
+                                $.extend(callArg,{ sourceType: 'entity', sourceName: this.EntityName, elementName: binding.PropertyName });
                             } else {
                                 $.extend(callArg, { sourceType: 'form', sourceName: this.FormName, elementName: binding.ElementName });
                             }
@@ -556,18 +522,17 @@ function AsystFormData(formName, isAutoForm) {
                             //определяем, какие элементы удалены
                             for (var subValue in binding.OldValue) {
                                 if (!binding.OldValue.hasOwnProperty(subValue)) continue;
-
-
+                                
+                                
                                 if (!find(binding.NewValue, binding.OldValue[subValue])) {
                                     var value = Array();
                                     value.push(binding.OldValue[subValue]);
-
+                                   
                                     this.RequestsNeeded[binding.ElementName + iter] = {
                                         ElementName: binding.ElementName,
                                         PropertyName: binding.PropertyName,
                                         ReviewCycleId: access.ReviewCycleId,
                                         ReviewCycleName: access.ReviewCycleName,
-                                        ReviewCycleIsGrouping: access.ReviewCycleIsGrouping,
                                         Title: binding.Title,
                                         NewValue: Array(""),
                                         OldValue: value,
@@ -585,16 +550,16 @@ function AsystFormData(formName, isAutoForm) {
                             for (var subValue in binding.NewValue) {
                                 if (!binding.NewValue.hasOwnProperty(subValue)) continue;
 
-                                if (!find(binding.OldValue, binding.NewValue[subValue]) && binding.NewValue[subValue] != "") {
+                                if (!find(binding.OldValue, binding.NewValue[subValue]) && binding.NewValue[subValue] != "")
+                                {
                                     var value = Array();
                                     value.push(binding.NewValue[subValue]);
-
+                                    
                                     this.RequestsNeeded[binding.ElementName + iter] = {
                                         ElementName: binding.ElementName,
                                         PropertyName: binding.PropertyName,
                                         ReviewCycleId: access.ReviewCycleId,
                                         ReviewCycleName: access.ReviewCycleName,
-                                        ReviewCycleIsGrouping: access.ReviewCycleIsGrouping,
                                         Title: binding.Title,
                                         NewValue: value,
                                         OldValue: Array(""),
@@ -609,14 +574,14 @@ function AsystFormData(formName, isAutoForm) {
                                 }
                                 iter = iter + 1;
                             }
-
+                            
                         }
                     }
                 }
 
                 if (binding.IsRequired) {
                     if ((!value && (value + '') != "false" && value !== 0) || (value && value.constructor == Array && value.join() == "")) {
-                        errors.push({ 'binding': binding, 'message': Globa.FillField.locale() + ' "' + binding.Title + '"' });
+                        errors.push({ 'binding': binding, 'message': Globa.FillField.locale() +' "' + binding.Title + '"' });
                         if (highlight) $('#' + this.FormName + ' ' + binding.Block).addClass('error');
                     } else if (highlight)
                         $('#' + this.FormName + ' ' + binding.Block).removeClass('error');
@@ -631,7 +596,7 @@ function AsystFormData(formName, isAutoForm) {
         return errors;
     };
 
-    this.ShowErrors = function (errors, clickFunc) {
+    this.ShowErrors = function(errors, clickFunc) {
         var msg = '<ul>';
         for (var i in errors) {
             if (!errors.hasOwnProperty(i)) continue;
@@ -645,9 +610,9 @@ function AsystFormData(formName, isAutoForm) {
 
 
         Dialog(Globa.Saving.locale(), msg, undefined, "validate-modal");
+        
 
-
-        var click = function (event) {
+        var click = function(event) {
             if (clickFunc)
                 clickFunc(event.data);
             event.preventDefault();
@@ -657,7 +622,7 @@ function AsystFormData(formName, isAutoForm) {
             $('#validate-modal [errorid=' + i + ']').on('click', errors[i], click);
         }
     };
-
+    
     this.CheckCanSave = function () {
         this.Update();
 
@@ -689,9 +654,9 @@ function AsystFormData(formName, isAutoForm) {
 
     this.Save = function (success, reload, async) {
         Asyst.debugger('global');
-
+        
         if (async === null || async === undefined) async = false;
-
+        
         if (!this.CheckCanSave())
             return false;
 
@@ -709,7 +674,7 @@ function AsystFormData(formName, isAutoForm) {
         for (var prop in this.Data)
             postData[prop] = this.Data[prop];
 
-        var doSave = function (locSuccess) {
+        var doSave = function(locSuccess) {
 
             var successF = function (data) {
                 var stats = { page: location.href, pageTitle: form.GetTitle(), type: 'editCard', action: 'save', entityId: form.Data.classid, dataId: form.Data.id };
@@ -721,8 +686,8 @@ function AsystFormData(formName, isAutoForm) {
                 }
 
                 Asyst.API.AdminTools.saveStats(stats, true);
-
-
+                    
+                
                 form.LoadData();
                 form.ProcessEventHandlers('saved', this);
                 $(document).trigger("AsystFormAfterSave", this);
@@ -734,12 +699,12 @@ function AsystFormData(formName, isAutoForm) {
                     locSuccess();
             };
 
-            var errorF = function (error, text) {
+            var errorF = function(error, text) {
                 if (error == Globa.LicenseError) {
                     return;
                 }
                 else if (error == Globa.ErrorTooLongText.locale()) {
-                    ErrorHandler(error, Globa.SavingError.locale());
+                    ErrorHandler( error, Globa.SavingError.locale());
                 }
                 else if (error == Globa.ErrorOnCheckSave.locale()) {
                     NotifyError(error, text);
@@ -756,22 +721,21 @@ function AsystFormData(formName, isAutoForm) {
             }
         };
 
-        if (!$.isEmptyObject(this.RequestsNeeded)) {
+        if (! $.isEmptyObject(this.RequestsNeeded)) {
             this.ShowChangeRequestDialog(this.RequestsNeeded, postData, doSave, success);
         }
         else
-            doSave(success);
+            doSave(success );
     };
-
+    
     //создание элемента ЗИ по элементу form.Document
-    this.MakeFileChangeRequest = function (document, filename, operation) {
+    this.MakeFileChangeRequest = function(document, filename, operation) {
         if (document && document.access && document.access.ReviewCycleId > 0) {
             return {
                 ElementName: document.identifier,
                 PropertyName: document.identifier,
                 ReviewCycleId: document.access.ReviewCycleId,
                 ReviewCycleName: document.access.ReviewCycleName,
-                ReviewCycleIsGrouping: access.ReviewCycleIsGrouping,
                 Title: document.name,
                 NewValue: filename,
                 OldValue: filename,
@@ -791,7 +755,6 @@ function AsystFormData(formName, isAutoForm) {
             PropertyName: binding.PropertyName,
             ReviewCycleId: access.ReviewCycleId,
             ReviewCycleName: access.ReviewCycleName,
-            ReviewCycleIsGrouping: access.ReviewCycleIsGrouping,
             Title: binding.Title,
             NewValue: nextPhaseId,
             OldValue: binding.Form.Data[binding.ElementName],//binding.OldValue,
@@ -803,14 +766,15 @@ function AsystFormData(formName, isAutoForm) {
             DocumentId: access.DocumentId
         };
     };
-
+    
     //создание ЗИ
     //список запросов и набор данных, из которого нужно удалять данные попавшие под ЗИ(опционально)
     //doSave - функция с одни аргументом success, которая будет вызвана по OK в диалоге.
-    this.ShowChangeRequestDialog = function (requestsNeeded, postData, doSave, success) {
-
-
-
+    this.ShowChangeRequestDialog = function(requestsNeeded, postData, doSave,success) {
+        var requestsHtml = '';
+        var requestDialogId = '';
+        
+        
         //чистим отправляемые на сохранение данные от идущих через ЗИ
         var processPostData = function (postData, requestsNeeded) {
             for (var r in requestsNeeded) {
@@ -828,12 +792,12 @@ function AsystFormData(formName, isAutoForm) {
         if (Asyst.ChangeRequest.showCard) {
             Asyst.debugger('imw');
             var form = Asyst.Workspace.currentForm;
-            var allRequests = clone(requestsNeeded);
+
 
             var hasGrouping = false, needGrouping = false;
             var grouper = {};
             for (var ctx in requestsNeeded) {
-                if (requestsNeeded[ctx].ReviewCycleIsGrouping && grouper.hasOwnProperty(requestsNeeded[ctx].ReviewCycleId)) {
+                if (grouper.hasOwnProperty(requestsNeeded[ctx].ReviewCycleId)) {
                     hasGrouping = true;
                 }
                 else {
@@ -851,29 +815,14 @@ function AsystFormData(formName, isAutoForm) {
                     DataId: form.Data.id
                 });
 
-                var changeRequestformName = 'ChangeRequestEditForm';
-                Asyst.APIv2.Entity.load({
-                    entityName: 'reviewCycle',
-                    dataId: request.ReviewCycleId,
-                    isAccessNeed: false,
-                    async: false,
-                    success: function (reviewCycle) {
-                        if (reviewCycle.ReviewCycleCard && reviewCycle.ReviewCycleCard.EditForm) {
-                            changeRequestformName = reviewCycle.ReviewCycleCard.EditForm;
-                        }
-                    }
-                });
-
-
+                Asyst.Workspace.openEntityDialog('ChangeRequestEditForm', 'Запрос на изменение', 'new', function () { }, fields);
                 Asyst.ChangeRequest.Storage = {
                     form: form,
                     request: fields,
-                    requestsNeeded: allRequests,
                     groupedCR: needGrouping ? grouper[requestsNeeded[ctx].ReviewCycleId] : undefined,
+                    //groupedCR: grouper[requestsNeeded[ctx].ReviewCycleId],
                     needGrouping: needGrouping
-
                 };
-                Asyst.Workspace.openEntityDialog(changeRequestformName, 'Запрос на изменение', 'new', function () { }, fields);
 
                 //если включена группировка, то вычищаем из основного массива полей для ЗИ уже попавшие в группу
                 var rcId = request.ReviewCycleId;
@@ -884,21 +833,25 @@ function AsystFormData(formName, isAutoForm) {
                 }
 
                 var nextCard = function (event, form) {
-                    if (form.FormName == changeRequestformName) {
+                    if (form.FormName == 'ChangeRequestEditForm') {
                         $(document).off('AsystFormClosed', nextCard);
+                        //var flag = false;
                         var next = null;
                         for (var c in requestsNeeded) {
+                            //if (flag) {
                             next = c;
                             break;
+                            //}
+                            //flag = (c === ctx);
                         }
                         if (next) {
                             showCRCard(next);
-                        } else {/* все пукнты ЗИ обработаны - теперь принятие ЗИ, если нужно */
-
+                        } else {
+                            //Loader.show($('#' + Asyst.Workspace.currentForm.FormName), 'Обработка запроса на изменение');
                             Loader.show(null, 'Обработка запроса на изменение');
                             setTimeout(function () {
                                 doSave(success);
-
+                                /* принятие ЗИ, если нужно */
                                 Asyst.APIv2.DataSet.load({
                                     name: 'loadCRAutoAgree',
                                     data: { DataId: Asyst.ChangeRequest.Storage.form.Data.id, UserId: Asyst.Workspace.currentUser.Id },
@@ -925,7 +878,7 @@ function AsystFormData(formName, isAutoForm) {
             var groupContinue = function () {
                 needGrouping = true;
                 $('#CRNeedGroupingDialog').modal('hide');
-                showCRCard(Object.keys(requestsNeeded)[0]);
+                showCRCard(Object.keys(requestsNeeded)[0]);    
             }
 
             var noGroupContinue = function () {
@@ -936,17 +889,15 @@ function AsystFormData(formName, isAutoForm) {
 
             if (hasGrouping) {
                 //needGrouping = confirm('Группировать ЗИ по цепочкам согласования?');
-                needGrouping = Dialogs.Confirm('Групповые ЗИ', 'Группировать запросы на изменение по согласующим?', groupContinue, noGroupContinue, 'CRNeedGroupingDialog');
+                needGrouping = Dialogs.Confirm('Групповые ЗИ', 'Группировать ЗИ по цепочкам?', groupContinue, noGroupContinue, 'CRNeedGroupingDialog');
             }
             else {
                 noGroupContinue();
             }
-
-
-
-        } else { //устаревшая ветка - по сути не используется, т.к. всегда Asyst.ChangeRequest.showCard == true
-            var requestsHtml = '';
-            var requestDialogId = '';
+            
+            
+            
+        } else {
             if (!$.isEmptyObject(requestsNeeded)) {
                 for (var r in requestsNeeded) {
                     var request = requestsNeeded[r];
@@ -965,10 +916,10 @@ function AsystFormData(formName, isAutoForm) {
                     Asyst.APIv2.Document.getFiles({
                         data: this.Data,
                         async: true,
-                        success: function (data) {
+                        success: function(data) {
                             if (data) {
                                 form.Documents = data.documents;
-                                form.Documents.fileCount = function () {
+                                form.Documents.fileCount = function() {
                                     var cnt = 0;
                                     for (var d in form.Documents)
                                         if (jQuery.isArray(form.Documents[d].files))
@@ -978,7 +929,7 @@ function AsystFormData(formName, isAutoForm) {
                             }
                         }
                     });
-
+                    
                     //                var filesuccess = function(file) {
                     //$('#uploadFileButton').data('fileid',file.id); 
                     //$('#fileplace').html('<a href="'+file.url+'">' + file.filename+'</a>');
@@ -1013,7 +964,7 @@ function AsystFormData(formName, isAutoForm) {
             }
 
             if (requestsHtml) {
-                var crSuccess = function () {
+                var crSuccess = function() {
                     Loader.show(undefined, Globa.Saving.locale());
                     try {
                         var form = Asyst.Workspace.currentForm;
@@ -1067,7 +1018,7 @@ function AsystFormData(formName, isAutoForm) {
                 };
 
                 requestsHtml = requestsHtml;
-                var locDoSave = function () {
+                var locDoSave = function() {
                     doSave(crSuccess);
                 };
                 requestDialogId = Dialog(Globa.Saving.locale(), requestsHtml, [{ text: Globa.Continue.locale(), cls: 'btn-warning', click: locDoSave, close: false }, { text: Globa.Cancel.locale() }]);
@@ -1078,31 +1029,29 @@ function AsystFormData(formName, isAutoForm) {
                 $('[rel="tooltip"]').attr('data-html', 'true');
 
                 $('[rel="tooltip"]').tooltip();
-                $('[rel="tooltip"]').on('hidden', function () { return false; });
+                $('[rel="tooltip"]').on('hidden', function() { return false; });
             }
         }
     };
-
+    
     // Загружает данные в форму
     this.Reset = function () {
         var self = this;
-
+        
         if (self.TitleFormula) {
             with (self.Data)
-            self.Title = eval(self.TitleFormula);
+                self.Title = eval(self.TitleFormula);
         }
 
         var access;
         var $cr;
 
-        var sortedEventHandlers = Enumerable.From(Object.values(self.EventHandlers)).OrderBy('$.Handler.Position').ThenBy('$.HandlerName').ToArray();
-
-        for (var i = 0; i < sortedEventHandlers.length; i++) {
-            var event = sortedEventHandlers[i];
+        for (var i in this.EventHandlers) {
+            var event = this.EventHandlers[i];
             if (event.ElementName) {
                 var $el = $('#' + this.FormName + ' #' + event.ElementName);
                 (function () {
-                    var handler = event.Handler;
+                    var handler = self.Handlers[event.HandlerName];
 
                     if (handler.func) {
                         $el.on(event.EventName, handler.func);
@@ -1157,7 +1106,7 @@ function AsystFormData(formName, isAutoForm) {
                             if ($a.parent().find('.required-phase-input').length === 0)
                                 $a = $a.after('<span class="required-phase-input" rel="tooltip" title="' + Globa.JSRequiredPhase.locale() + '"></span>');
                         }
-
+                        
                         if (access.ChangeRequestId && access.ChangeRequestId > 0) {
                             $cr = $('#' + Asyst.Workspace.currentForm.FormName + ' #' + a + 'ChangeRequest');
                             if ($cr.length === 0) {
@@ -1181,7 +1130,7 @@ function AsystFormData(formName, isAutoForm) {
                 access = this.Access[binding.PropertyName];
                 if (!access)
                     access = this.Access[binding.ElementName];
-
+                
                 if (access) {
                     if (!access.IsVisible) {
                         $("#" + this.FormName + " " + binding.Block).hide();
@@ -1247,7 +1196,7 @@ function AsystFormData(formName, isAutoForm) {
             Asyst.APIv2.View.load({
                 viewName: view.ViewName,
                 data: this.Data,
-                success: function (data) {
+                success: function(data) {
                     for (var colIdx in data.columns) {
                         var column = data.columns[colIdx];
                         if (column.formatter)
@@ -1278,34 +1227,32 @@ function AsystFormData(formName, isAutoForm) {
                 document.title = this.Data.Name;
         }
         catch (error) {
-
+            
         }
 
         //добавляем data-html для нового тултипа bootstrapа
         $('[rel="tooltip"]').attr('data-html', 'true');
         $('[rel="tooltip"]').attr('data-container', 'body');
-
+        
         $('[rel="tooltip"]').tooltip();
         $('[rel="tooltip"]').on('hidden', function () { return false; });
         $('[rel="popover"]').on('hidden', function () { return false; });
     };
 
-    this.ProcessEventHandlers = function (eventName, context) {
-
-        var sortedHandlers = Enumerable.From(Object.values(this.EventHandlers))
-            .Where(function (a) { return !a.ElementName && a.EventName == eventName; })
-            .OrderBy('$.Handler.Position').ThenBy('$.HandlerName')
-            .Select("$.Handler").ToArray();
-
-        for (var i = 0; i < sortedHandlers.length; i++) {
-
-            var handler = sortedHandlers[i];
-            try {
-                context = this.ProcessHandler(handler, context);
-            } catch (e) {
-                console.error('error at handler "' + handler.Name + '"');
-                console.error(e);
-                throw e;
+    this.ProcessEventHandlers = function(eventName, context) {
+        for (var i in this.EventHandlers) {
+            var event = this.EventHandlers[i];
+            if (!event.ElementName) {
+                var handler = this.Handlers[event.HandlerName];
+                if (event.EventName == eventName) {
+                    try {
+                        context = this.ProcessHandler(handler, context);
+                    } catch (e) {
+                        console.error('error at handler "' + handler.Name + '"');
+                        console.error(e);
+                        throw e;
+                    }
+                }
             }
         }
         return context;
@@ -1416,9 +1363,10 @@ function AsystFormData(formName, isAutoForm) {
                 binding.IsRequired = true;
 
                 //добавляем звездочку                
-                if ($element.parent().find('.required-input').length == 0) {
+                if ($element.parent().find('.required-input').length == 0)
+                {
                     $element.after('<span class="required-input" rel="tooltip" title="Обязательно"></span>')
-                }
+                }                
             }
         }
         else if (act == "nonrequired") {
@@ -1436,7 +1384,7 @@ function AsystFormData(formName, isAutoForm) {
             } else {
                 //перенесено на вызов API.Form
                 //Asyst.protocol.send("/asyst/form/" + this.FormName + "/" + handler.Name + "/" + action.id + "/" + checked, "POST", this.Data, this);
-                Asyst.APIv2.Form.handlerAction({ formName: this.FormName, handlerName: handler.Name, actionId: action.id, checked: checked, data: this.Data, async: false });
+                Asyst.APIv2.Form.handlerAction({ formName: this.FormName, handlerName: handler.Name, actionId: action.id, checked: checked, data: this.Data, async: false});
             }
         }
 
@@ -1457,20 +1405,17 @@ function AsystFormData(formName, isAutoForm) {
         }
     };
 
-    this.SelectCount = 0;
-    this.SelectData = {};
+		//value - selected options
+    //value - selected options
     this.LoadSelect = function (elementName, value, reloadList) {
+        var binding, formData, hasHierarchy, select, renderTreeCombobox, renderChosen, currentFormName;
         
-        var binding, formData, hasHierarchy, select, renderTreeCombobox, renderChosen, currentFormElement;
-
         binding = this.Bindings[elementName];
         formData = this;
         formName = Asyst.Workspace.currentForm.FormName;
-        currentFormElement = document.getElementById(formName);
-        select = currentFormElement.querySelector("select#" + elementName);
-        hasHierarchy = select && select.getAttribute("data-has-hierarchy") === "true";
-
-       
+        currentForm = document.getElementById(formName);
+        select = currentForm.querySelector("select#" + elementName);
+        hasHierarchy = select.getAttribute("data-has-hierarchy") === "true";
 
         function isSelectedNode(val) {
             var selectedOptions = value;
@@ -1481,52 +1426,31 @@ function AsystFormData(formName, isAutoForm) {
             return ("" + val).toLowerCase() === "true";
         }
 
-        var success = function (data) {
-
+        var success = function (data) {            
             var dataCount, item, i, option, handler;
 
-            formData.SelectData[elementName] = data;
-
-            if (select) { //Элемент есть физически на форме, т.е. это не пустой биндинг из раздела Биндинг.
-                select.options.length = 0;
-                //select.options.add(new Option("", ""));
-                var options = ['<option value=""></option>'];
-
-                if (data) {
-                    dataCount = data.length;
-                    for (i = 0; i < dataCount; i++) {
-                        item = data[i];
-                        option = new Option(item.Value, item.Key);
-                        (item.ParentKey && option.setAttribute("data-parent-id", item.ParentKey));
-                        option.disabled = Boolean(item.Disabled);
-                        (isSelectedNode(item.Key) && option.setAttribute("selected", "selected"));
-                        options.push(option.outerHTML);
-                    }
+            select.options.length = 0;
+            //select.options.add(new Option("", ""));
+            var options = ['<option value=""></option>'];
+            
+            if (data) {
+                dataCount = data.length;
+                for (i = 0; i < dataCount; i++) {
+                    item = data[i];
+                    option = new Option(item.Value, item.Key);
+                    (item.ParentKey && option.setAttribute("data-parent-id", item.ParentKey));
+                    option.disabled = Boolean(item.Disabled);
+                    (isSelectedNode(item.Key) && option.setAttribute("selected", "selected"));
+                    options.push(option.outerHTML);                    
                 }
-                //Да, так быстрее, чем добавлять в select.options
-                $(select).html(options.join('\n'));
-
-                handler = hasHierarchy ? renderTreeCombobox : renderChosen;
-                handler.call(null, data, function () {
-                    Loader.hide(true);
-                });
-
             }
-            else { //Если это элемент без видимого элемента из раздела Биндинг - просто убрем крутилку
+            //Да, так быстрее, чем добавлять в select.options
+            $(select).html(options.join('\n'));
+            
+            handler = hasHierarchy ? renderTreeCombobox : renderChosen;
+            handler.call(null, data, function () {
                 Loader.hide(true);
-            }
-
-
-            formData.SelectCount--;
-
-            $(document).triggerHandler("AsystFormSelectLoaded", [currentForm, elementName, data]);
-
-            if (formData.SelectCount === 0) {
-                $(document).triggerHandler("AsystFormSelectsLoaded", currentForm);
-            }
-
-           
-
+            });
 
         };
 
@@ -1626,14 +1550,10 @@ function AsystFormData(formName, isAutoForm) {
         //}
 
         //this.Update(true);
-        var thinData = Asyst.protocol.thiningData(this.Data);
-        formData.SelectCount++;
-        delete formData.SelectData[elementName];
+
         var calArgs = {
-            data: thinData,
-            success: success,
-            error: function (error, text) {
-                formData.SelectCount--;
+            data: this.Data, success: success,
+            error: function(error, text) {
                 Loader.hide();
                 ErrorHandler(Globa.ErrorLoadComboItems.locale(), error + "<br>" + text);
             },
@@ -1646,68 +1566,50 @@ function AsystFormData(formName, isAutoForm) {
             $.extend(calArgs, { sourceType: 'form', sourceName: this.FormName, elementName: binding.ElementName });
         }
         Asyst.APIv2.DataSource.load(calArgs);
-
-
     };
-
+    
     this.TemplateCount = 0;
     this.TemplateData = {};
     this.LoadTemplate = function (elementName, content) {
-        try {
-            var binding = this.Bindings[elementName];
-            var that = this;
-            that.TemplateCount += 1;
+        var binding = this.Bindings[elementName];
+        var that = this;
+        //var count = this.TemplateCount;
+        that.TemplateCount += 1;
 
-            var success = function (data) {
-                var c = arguments.callee;
-                var formData = c.AsystFormData;
-                if (c.Binding.IsNeedData)
-                    formData.TemplateData[c.ElementName] = data;
-                var el = $("#" + formData.FormName + " #" + c.ElementName);
-                try {
-                    var s = ProcessTemplate(content, data, formData);
-                    el.html(s);
-                }
-                catch (err) {
-                    console.error("Error in Template " + elementName, err);
-                }
-                finally {
-                    that.TemplateCount -= 1;
+        var success = function (data) {
+            var c = arguments.callee;
+            var formData = c.AsystFormData;
+            if (c.Binding.IsNeedData)
+                formData.TemplateData[c.ElementName] = data;
+            var el = $("#" + formData.FormName + " #" + c.ElementName);
 
-                    if (that.TemplateCount === 0) {
-                        $(document).triggerHandler("AsystFormTemplatesLoaded", currentForm);
-                    }
-                }
-
-
-
-
-            };
-            success.ElementName = elementName;
-            success.Binding = binding;
-            success.AsystFormData = this;
-            if (binding.IsNeedData) {
-                var thinData = Asyst.protocol.thiningData(this.Data);
-                Asyst.APIv2.DataSource.load({
-                    sourceType: 'form',
-                    sourceName: this.FormName,
-                    elementName: elementName,
-                    data: thinData,
-                    success: success,
-                    error: function (error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
-                    async: !binding.IsSyncDataLoad,
-                    isPicklist: false
-                });
+            var s = ProcessTemplate(content, data, formData);
+            el.html(s);
+            that.TemplateCount -= 1;
+            
+            if (that.TemplateCount === 0) {
+                $(document).triggerHandler("AsystFormTemplatesLoaded", currentForm);
             }
-            else {
-                success(this.Data);
-            }
+        };
+        success.ElementName = elementName;
+        success.Binding = binding;
+        success.AsystFormData = this;
+        if (binding.IsNeedData) {
+            var thinData = Asyst.protocol.thiningData(this.Data);
+            Asyst.APIv2.DataSource.load({
+                sourceType: 'form',
+                sourceName: this.FormName,
+                elementName: elementName,
+                data: thinData,
+                success: success,
+                error: function(error, text) { ErrorHandler(Globa.ErrorDataListLoad.locale(), error + "<br>" + text); },
+                async: !binding.IsSyncDataLoad,
+                isPicklist: false
+            });
         }
-        catch (err) {
-            console.error("Error in Template " + elementName, err);
+        else {
+            success(this.Data);
         }
-
-
     };
 
     this.getActiveTab = function () {
@@ -1725,7 +1627,7 @@ function AsystFormData(formName, isAutoForm) {
     this.getTabByText = function (text) {
         return $('#' + this.FormName + ' #tabs a:contains("' + text + '")');
     };
-
+    
     this.getTabByName = function (name) {
         return $('#' + this.FormName + ' #tabs a[href*="' + this.FormName + name + '"]');
     };
@@ -1733,7 +1635,7 @@ function AsystFormData(formName, isAutoForm) {
     this.getNestedTabByName = function (name) {
         return $('#' + this.FormName + ' .nav-tabs a[href*="' + this.FormName + name + '"]');
     };
-
+    
     this.getNestedTabByText = function (text) {
         return $('#' + this.FormName + ' .nav-tabs a:contains("' + text + '")');
     };
@@ -1791,8 +1693,8 @@ function AsystFormData(formName, isAutoForm) {
         handlers: {},
         onDocumentChange: 'onDocumentChange',
         onBeforeDocumentUpload: 'onBeforeDocumentUpload', //при возникновении исключения в обработке - происходит отказ от загрузки
-
-        addHandler: function (eventName, func) {
+        
+        addHandler: function(eventName, func) {
             if (!this.handlers.hasOwnProperty(eventName))
                 this.handlers[eventName] = [];
             this.handlers[eventName].push(func);
@@ -1836,10 +1738,10 @@ function AsystFormData(formName, isAutoForm) {
 
 
 //по alt+ctrl+b показываем последнюю ошибку
-$(document).bind('keydown', 'ctrl+b', function (event) {
+$(document).bind('keydown', 'ctrl+b', function(event) {
     if (event.ctrlKey && event.altKey && event.keyCode == 66 && localStorage) {
         var d = Dialog('Last error', localStorage.getItem('/asyst/LastError'));
-        $('#' + d).css({ 'width': '900px', 'margin-left': '-450px' });
+        $('#'+d).css({ 'width': '900px', 'margin-left': '-450px' });
 
     }
 });
@@ -1851,8 +1753,9 @@ function ErrorHandler(message, text) {
     NotifyError(message, Asyst.date.format(new Date(), 'yyyy.MM.dd HH:mm:ss') + '\n' + Globa.ErrorDescription.locale());
 }
 
-function LicenseErrorHandler(error, text) {
-    NotifyError(Globa.LicenseError.locale(), Globa.JSLicenseExpired.locale());
+function LicenseErrorHandler(error, text)
+{
+    NotifyError(Globa.LicenseError.locale(), Globa.JSLicenseExpired.locale() );
 }
 
 
@@ -1873,27 +1776,18 @@ function ProcessTemplate(content, data, context) {
         rowTemplate = content.substring(start + 9, finish);
         rowsStr = "";
 
-        /*Для хранения выражений*/
-        var functionsArray = {};
-
         //Проход по данным
         for (var idx in data) {
             var item = data[idx];
 
             if (item) {
                 var rowStr = rowTemplate;
-
-
-                /*
-                PMF-430 В поле Встроенный HTML с галкой Шаблон добавить возможность простых программных выражений
-                можно писать простые выражения {(IsSuccess == 1 ? 'Успешно' : 'Неуспешно')}
-                */
-                rowStr = rowStr.replace(/{(\(.*\))}/g, function (str, exp, offset) {
-                    if (!functionsArray[offset]) {
-                        functionsArray[offset] = new Function(Object.keys(item).toString(), 'return ' + exp);
-                    }
-                    return functionsArray[offset].apply(null, Object.values(item));
-                });
+                //for (var prop in item) {
+                //    if (prop) {
+                //        while (rowStr.indexOf("{" + prop + "}") >= 0)
+                //            rowStr = rowStr.replace("{" + prop + "}", item[prop]);
+                //    }
+                //}
 
                 //#10306 Каров 16.10.2015 Поддержка форматирования в htmlrow
                 /*
@@ -1905,7 +1799,6 @@ function ProcessTemplate(content, data, context) {
                 Отдельно добавлен формат B для булевых данных, преобразует в Да/Нет
                 {boolValProp:B}
                 */
-
                 for (var prop in item) {
                     rowStr = rowStr.replace(new RegExp('{' + prop + '(?:\\:(.+?))?(?:\\?(.+?))?}', 'g'), function (match, mask, def) {
                         var value = item[prop];
@@ -1986,10 +1879,10 @@ function ProcessTemplate(content, data, context) {
 
 function GetPropertyValue(data, propPath) {
     var result;
-
+   
     if (propPath.indexOf('(') !== -1) {
         with (data)
-        result = eval(propPath);
+            result = eval(propPath);
     }
     else if (propPath.indexOf('.') != -1) {
 

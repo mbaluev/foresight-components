@@ -56,11 +56,9 @@ ul.top-menu > li { float: left; }
 #toolbar.gantttoolbar .top-menu input.srch {
     height: 32px;
     width: 32px;
-    /*margin: 0;*/
-    border: none;
     padding: 0 0 0 32px;
     box-sizing: border-box;
-    background-position: left center;
+    background-position: 10px center;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -73,7 +71,6 @@ ul.top-menu > li { float: left; }
     width: 300px;
     outline: 0;
     opacity: 1;
-    background-position-x: left;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
@@ -117,7 +114,8 @@ ul.top-menu > li { float: left; }
 #toolbar.gantttoolbar .c-btn.gantt-zoom-in			{ background-image: url('/asyst/img/svg/gantt-zoom-in.svg'); }
 #toolbar.gantttoolbar .c-btn.gantt-zoom-out			{ background-image: url('/asyst/img/svg/gantt-zoom-out.svg'); }
 #toolbar.gantttoolbar .c-btn.gantt-new-window		{ background-image: url('/asyst/img/svg/gantt-new-window.svg'); }
-#toolbar.gantttoolbar .c-btn.srch					{ background-image: url('/asyst/img/svg/gantt-search.svg'); }
+
+/*#toolbar.gantttoolbar .c-btn.srch					{ background-image: url('/asyst/img/svg/gantt-search.svg'); }*/
 
 /*--- toolbar ---*/
 /*---------------*/

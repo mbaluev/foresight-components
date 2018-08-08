@@ -50,8 +50,8 @@ Asyst.SettingsDashboard = function(options){
                     }
                 });
                 contents.push({
-                    pageid: library[0].value,
-                    elementid: li.value,
+                    pagename: library[0].value,
+                    elementname: li.value,
                     content: [
                         '<div class="widget__content widget__content_scroll">',
                         '<table class="table">',
@@ -75,12 +75,8 @@ Asyst.SettingsDashboard = function(options){
                 title: that.data.title,
                 containerid: that.data.containerid,
                 editable: that.data.editable,
-                lib: {
-                    settings: {
-                        library: that.data.library,
-                        loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents })
-                    }
-                },
+                library: that.data.library,
+                loader: $.extend(Asyst.ContentLoader, { contents: that.data.contents }),
                 page: that.data.page,
                 tumblerContainerSelector: that.data.tumblerContainerSelector
             });
@@ -128,7 +124,7 @@ Asyst.DashboardGrid = function(options){
                 that.data.editableDashboards = data[1];
                 if (typeof callback == 'function') { callback(); }
             },
-            error: function(data){}
+            error: function(data){ console.log(data); }
         });
     };
 

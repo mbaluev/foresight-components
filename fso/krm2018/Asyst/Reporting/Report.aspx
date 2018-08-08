@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Report.aspx.cs" Inherits="PRIZ.Reporting.ReportView" %>
-
 <%@ Register TagPrefix="rsweb" Namespace="Microsoft.Reporting.WebForms" Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" %>
 
 <%@ Import Namespace="PRIZ.Reporting" %>
@@ -13,23 +12,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" />
     <meta name="GENERATOR" content="Asyst.Report">
 
-
     <link href="/asyst/css/datepicker.css" rel="stylesheet" />
     <link href="/asyst/css/reporting.bootstrap.css" rel="stylesheet">
     <link href="/asyst/css/reporting.css" rel="stylesheet">
     <link href="/asyst/jsControls/multiple-select/multiple-select.css" rel="stylesheet" />
     <link href="/asyst/css/zimbargation.css" rel="stylesheet">
 
-    <script src="/asyst/js/jquery-1.11.1.js" type="text/javascript"></script>
+    <style>
+        .hidden {
+            visibility: hidden;
+        }
+
+        .loader-indicator {
+            display: inline-block;
+            padding: 10px;
+            color: #333;
+            z-index: 9999;
+            background-color: #f5f5f5;
+            background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
+            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+            background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+            background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+            background-image: linear-gradient(to top, #ffffff, #e6e6e6);
+            background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+            background-repeat: repeat-x;
+            border: 1px solid #0099d9;
+            -moz-border-radius: 8px;
+            -webkit-border-radius: 8px;
+            border-radius: 8px;
+            -moz-box-shadow: 0 0 8px #0099d9;
+            -webkit-box-shadow: 0px 0px 8px #0099d9;
+            box-shadow: 0px 0px 8px #0099d9;
+            -text-shadow: 1px 1px 1px white;
+            text-shadow: 1px 1px 1px white;
+        }
+
+            .loader-indicator label {
+                margin: 0;
+                padding: 10px;
+                padding-left: 48px;
+                font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+                background: url('/asyst/img/ajax-loader.gif') no-repeat center left;
+            }
+    </style>
+
+    <script src="/asyst/js/jquery-1.11.1.js" type="text/javascript"></script>    
     <script src="/asyst/js/reporting.parameters.js"></script>
     <script src="/asyst/js/numeral.min.js"></script>
     <script src="/asyst/jsControls/multiple-select/multiple-select.js"></script>
     <script src="/asyst/js/bootstrap-datepicker.js"></script>
     <script src="/asyst/jsControls/DBCalendar/moment.min.js"></script>
-
-    <script src="/asyst/js/bootstrap.js"></script>
-    <script src="/asyst/js/bootstrap-modal.js"></script>
-    <script src="/asyst/js/bootstrap-modalmanager.js"></script>
+    
+     
 
     <script src="/asyst/jsControls/MSAjax/MicrosoftAjax.js"></script>
     <script src="/asyst/jsControls/MSAjax/MicrosoftAjaxTimer.js"></script>
@@ -40,22 +74,9 @@
     <script src="/asyst/js/asyst.js"></script>
     <script src="/asyst/js/asyst.utils.js"></script>
     <script src="/asyst/js/application.js"></script>
-
     <script>
-        Asyst.API.AdminTools.saveStats({ page: location.href, pageTitle: document.title, type: 'asystReport', action: 'open' }, true);
-
-        <%if (parameterValidationResult != null && parameterValidationResult.HasErrors)
-        { %>
-
-        $(function () {
-            Dialogs.Message("<% =parameterValidationResult.ToString() %>", "Недопустимое значение параметров фильтров");
-        })
-        <%}%>
-
-
-</script>
-
-
+        Asyst.API.AdminTools.saveStats({ page: location.href, pageTitle: document.title, type: 'asystReport', action: 'open' },true);
+    </script>
 </head>
 <!--Должен занимать полный экран, прокрутки не должно быть-->
 <body>
@@ -64,7 +85,7 @@
             Response.Write("<link href=\"" + item + "\" rel=\"stylesheet\">");
         } %>
     <form runat="server">
-        <asp:ScriptManager runat="server" AsyncPostBackTimeout="120000">
+        <asp:ScriptManager runat="server" AsyncPostBackTimeOut="120000">
             <Scripts>
             </Scripts>
         </asp:ScriptManager>
@@ -85,46 +106,44 @@
                                     {%>
                                 <div class="row">
                                     <% if (!HiddenFields.Contains(Parameters[i].Name.ToLower()))
-    { %>
+                                        { %>
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="control-group <% if (parameterValidationResult.HasError(Parameters[i].Name)) { %> error <% } %>" >
+                                        <div class="control-group">
                                             <label class="control-label" for="<%= Parameters[i].Name %>">
                                                 <%= PMPractice.Db.MultiLanguageUtils.ReplaceSubstring(Parameters[i].Prompt) %>
                                             </label>
                                             <div class="controls">
                                                 <%= RenderParameterControl(Parameters[i]) %>
-                                                <span class="help-inline"><%=  parameterValidationResult.GetErrorMessage(Parameters[i].Name) %></span>
                                             </div>
                                         </div>
                                     </div>
                                     <% }
                                         if (i < Parameters.Count - 1)
                                         {
-                                            if (!HiddenFields.Contains(Parameters[i + 1].Name.ToLower()))
-                                            { %>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                        <div class="control-group <% if (parameterValidationResult.HasError(Parameters[i+1].Name)) { %> error <% } %>">
-                                            <label class="control-label" for="<%= Parameters[i + 1].Name %>"><%= PMPractice.Db.MultiLanguageUtils.ReplaceSubstring(Parameters[i + 1].Prompt) %></label>
-                                            <div class="controls">
-                                                <%= RenderParameterControl(Parameters[i + 1]) %>
-                                                  <span class="help-inline"><%= parameterValidationResult.GetErrorMessage(Parameters[i+1].Name) %></span>
+                                            if (!HiddenFields.Contains(Parameters[i + 1].Name.ToLower())) { %>
+                                            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                <div class="control-group">
+                                                    <label class="control-label" for="<%= Parameters[i + 1].Name %>"><%= PMPractice.Db.MultiLanguageUtils.ReplaceSubstring(Parameters[i + 1].Prompt) %></label>
+                                                    <div class="controls">
+                                                        <%= RenderParameterControl(Parameters[i + 1]) %>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <% }
+                                            <% }
                                         }%>
                                 </div>
                                 <%}%>
                             </div>
                             <div class="col-lg-1 col-md-2 col-sm-12 col-xs-12">
                                 <% if (HardApply)
-                                    { %>
-                                <asp:Button runat="server" OnClick="update_OnClick" Text="Применить" ID="update1" name="update1" value="update1" class="btn btn-primary pull-right"></asp:Button>
+                                   { %>
+                                    <ASP:Button runat="server" OnClick="update_OnClick" Text="Применить" id="update1" name="update1" value="update1" class="btn btn-primary pull-right"></ASP:Button>
                                 <% }
-                                    else
-                                    { %>
+                                   else
+                                   { %>
                                 <button type="submit" id="update" name="update" value="update" class="btn btn-primary pull-right"><%= Update %></button>
                                 <% } %>
+                                
                             </div>
                         </div>
 
@@ -137,6 +156,7 @@
                                 }
                             }
 
+                            debugger;
                             $('select[empty]').prop('value', false);
 
                             $('select.parameter[multiple]').multipleSelect({
@@ -156,7 +176,7 @@
                                         document.forms[0].submit();
                                     }
                                     delete atClose.that.openValues;
-
+                                    
                                 },
                                 onOpen: function (atOpen) {
                                     $('select').not(atOpen.that.$el).multipleSelect('close');
@@ -170,20 +190,20 @@
                                 filter: true,
                                 addTitle: true,
                                 noMatchesFound: "<%=NothingFound%>",
-
+                            
                                 placeholder: "Выберите значение",
-
+                            
                             });
 
-
+                           
 
                             $('[data-type=DateTime]').datepicker({
                                 autoclose: true,
                                 todayHighlight: true,
-                                DateTimeFormat: Asyst.date.defaultDateFormat
+                                DateTimeFormat: Asyst.date.defaultDateTimeFormat
                             });
                             $("#update").on("click", function () {
-                                $('select.parameter[multiple]').each(function () {
+                                $('select.parameter[multiple]').each(function() {
                                     var $select = $(this);
                                     var selectedArr = $select.multipleSelect("getSelects");
                                     if (!(selectedArr && selectedArr.length)) {
@@ -209,16 +229,16 @@
                 </div>
                 <%}%>
             </div>
-
+            
             <% if (IsCollapsed)
-                { %>
-            <script>
-                            $(function () {
-                                if ($(".parameters-form").is(":visible")) {
-                                    $(".parameters-toggle").trigger("click");
-                                }
-                            })
-            </script>
+               { %>
+                <script>
+                    $(function() {
+                        if ($(".parameters-form").is(":visible")) {
+                            $(".parameters-toggle").trigger("click");
+                        }
+                    })
+                </script>
             <% } %>
 
             <!--Этот контейнер должен занимать все доступное оставшееся пространство от параметру-->

@@ -16,7 +16,7 @@ Asyst.ContentLoader = {
         };
         that.loadContent = function(){
             var elem = that.data.contents.filter(function(d){
-                return d.pageid == that.data.data.pageid && d.elementid == that.data.data.elementid;
+                return d.pagename == that.data.data.pagename && d.elementname == that.data.data.elementname;
             });
             if (elem.length > 0) {
                 that.data.content = elem[0].content;

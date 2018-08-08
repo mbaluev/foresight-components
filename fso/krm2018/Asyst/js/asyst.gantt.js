@@ -25,7 +25,6 @@
         // bits - это объект следующей структуры: { isChanged: isChanged, isClearCritical: isClearCritical, isClearIndicator: isClearIndicator }
         // Данные поля в этом объекте можно изменить - и это повлияет на результаты работы метода ActivityUpdated.
         Custom_ActivityUpdated: null
-
     }, Options);
 
     /**
@@ -37,11 +36,11 @@
         if (!linkString) {
             return null;
         }
-
+        
         var pattern = /^(\d+)(\w{2})?([+-]\d+)?/;
         var matchArr = linkString.match(pattern);
-        if (!matchArr || !matchArr.length) { return null; }
-
+		if (!matchArr || !matchArr.length) { return null; }
+		
         return {
             pointId: matchArr[1],
             type: matchArr[2] || "FS",
@@ -58,10 +57,10 @@
         if (!linkString) {
             return null;
         }
-
+        
         var pattern = /^(\d+\-\d+|^\d+)(\w{2})?([+-]\d+)?/;
         var matchArr = linkString.match(pattern);
-        if (!matchArr || !matchArr.length || matchArr.length > 4) { return null; }
+        if (!matchArr || !matchArr.length) { return null; }
 
         return {
             pointId: matchArr[1],
@@ -78,7 +77,7 @@
      */
     function formatLinkInfoToString(code, link, divider) {
         var lag = (link.lag && divider ? link.lag / divider : link.lag);
-        return code + link.type + (lag ? (lag > 0 ? ('+' + lag) : lag) : '');
+        return code + link.type + (lag?(lag>0?('+'+lag):lag):'');
     }
 
 
@@ -154,7 +153,7 @@
                 isClearIndicator = isClearIndicator || updated.Parent != item.Parent;
                 changeInfo.ParentId = item.Parent ? item.Parent.ID : ActivityId;
                 /* чото про обновление родителей */
-                setTimeout(function () {
+                setTimeout(function() {
                     if (updated.Parent.OldValue) {
                         if (updated.Parent.OldValue.ChildActivities.length === 0) {
                             restoreSummaryDates(updated.Parent.OldValue);
@@ -183,7 +182,7 @@
                 if (updated.hasOwnProperty('EndTime')) {
                     isChanged = isChanged || updated.EndTime.OldValue != item.EndTime || (item.ChildActivities && item.ChildActivities.length > 0);
                     isClearCritical = isClearCritical || updated.EndTime.OldValue != item.EndTime || (item.ChildActivities && item.ChildActivities.length > 0);
-                    isClearIndicator = true; isClearIndicator || updated.EndTime.OldValue != item.EndTime;
+                    isClearIndicator = true;isClearIndicator || updated.EndTime.OldValue != item.EndTime;
                     if (item.ChildActivities.length == 0) {//суммарной задаче даты не пишем в базу
                         changeInfo.ForecastDate = Asyst.date.ajustToDay(item.EndTime);
                     }
@@ -209,7 +208,7 @@
                 if (updated.hasOwnProperty('StartTime')) {
                     isChanged = isChanged || updated.StartTime.OldValue != item.StartTime;
                     isClearCritical = isClearCritical || updated.StartTime.OldValue != item.StartTime;
-                    isClearIndicator = true; isClearIndicator || updated.StartTime.OldValue != item.StartTime;
+                    isClearIndicator = true;isClearIndicator || updated.StartTime.OldValue != item.StartTime;
                     if (item.ChildActivities.length == 0) { //суммарной задаче даты не пишем в базу
                         changeInfo.StartForecastDate = Asyst.date.ajustToDay(item.StartTime);
                     }
@@ -250,7 +249,7 @@
                 isClearCritical = isClearCritical || bits.isClearCritical;
                 isClearIndicator = isClearIndicator || bits.isClearIndicator;
             }
-
+        
             self.adjustTask(item.DataSource, changeInfo);
 
             if (isChanged) {
@@ -375,8 +374,8 @@
 
     function recalcDate(parent, propName, isStart) {
         //var parent = activity.Parent;
-        var pairs = { 'StartPlanDate': 'PlanDate', 'FactStartTime': 'FactEndTime' };
-
+        var pairs = { 'StartPlanDate': 'PlanDate', 'FactStartTime': 'FactEndTime'};
+        
         if (!parent || !parent.ChildActivities || parent.ChildActivities.length === 0) {
             return;
         }
@@ -402,14 +401,14 @@
                     date = value;
                 }
             }
-        }
+        } 
 
         parent.DataSource[propName] = (propName == 'FactEndTime' && notAll) ? null : date;
 
         recalcDate(parent.Parent, propName, isStart);
     }
 
-
+    
 
     var onPropertyChanged = function (item, args) {
         if (loading)
@@ -441,10 +440,10 @@
                         activity.Effort = new RQTimeSpan(0, 0, 0, 0, 0, 0);
                         //item.FactStartTime = item.FactEndTime; //????
                     } else {
-                        if (item.FactStartTime && item.FactEndTime && (!item.ChildActivities || item.ChildActivities.length == 0)) {
+                        if (item.FactStartTime && item.FactEndTime && item.ChildActivities.length == 0) {
                             activity.PreferredStartTime = item.FactStartTime;
                             activity.StartTime = item.FactStartTime;
-                            activity.Effort = (Asyst.date.ajustToDay(item.FactEndTime) - Asyst.date.ajustToDay(item.FactStartTime) + 86400000) / 86400000 + '.00:00:00';
+                            activity.Effort = (Asyst.date.ajustToDay(item.FactEndTime) -Asyst.date.ajustToDay(item.FactStartTime) + 86400000) / 86400000 + '.00:00:00';
                             //activity.EndTime = Asyst.date.ajustToDay(item.FactEndTime);
                         }
                     }
@@ -453,10 +452,10 @@
                 data.HasIndicator = false;
                 recalcDate(activity.Parent, 'FactEndTime', false);
             } else if (args.PropertyName == 'FactStartTime') {
-
+                
                 if (activity.StartTime != item.FactStartTime) {
                     var truEndTime = activity.EndTime;
-                    if (item.FactStartTime && (!item.ChildActivities || item.ChildActivities.length == 0) ) {
+                    if (item.FactStartTime && item.ChildActivities && item.ChildActivities.length == 0 ) {
                         activity.PreferredStartTime = item.FactStartTime;
                         activity.StartTime = item.FactStartTime;
                         activity.Effort = (Asyst.date.ajustToDay(truEndTime) - Asyst.date.ajustToDay(item.FactStartTime)/* + 86400000*/) / 86400000 + '.00:00:00';
@@ -514,7 +513,7 @@
         if (isForm) {
             Asyst.APIv2.View.load({
                 viewName: Options.Custom_LoadViewName,
-                data: { ActivityId: self.ActivityId },
+                data: {ActivityId: self.ActivityId},
                 success: function (tasks) {
                     tasks = Asyst.protocol.format(tasks);
 
@@ -601,11 +600,11 @@
             , ResponsibleAssistant: task.ResponsibleAssistant
             , WBSID: task.WBS
             , WBS: task.WBS
-            , pcdId: task.pcdId
-            , pcdName: task.pcdName
-            , pcdColor: task.pcdColor
-            , pcdBorderColor: task.pcdBorderColor
-            , pcdTitle: task.pcdTitle
+			, pcdId: task.pcdId
+			, pcdName: task.pcdName
+			, pcdColor: task.pcdColor
+			, pcdBorderColor: task.pcdBorderColor
+			, pcdTitle: task.pcdTitle
             , IsGanttChanged: task.IsGanttChanged
             , Predecessors: predecessorArr
             , ActivityPhaseId: task.ActivityPhaseId
@@ -615,7 +614,7 @@
                     return self.GetActivityIndicator(activity);
             }
             , GetAsystEndTime: function () {
-
+                
                 var activity = self.Control.Model.ActivityById[this.ID];
                 if (activity.ChildActivities && activity.ChildActivities.length > 0) {
                     var max = activity.ChildActivities[0];
@@ -636,21 +635,16 @@
             }, GetPredecessorCodes: function () {
                 if (this.PredecessorIndices) {
                     return this.PredecessorIndices.split(",").map(function (predecessor) {
-                        if (!predecessor) {
-                            return null;
-                        }
                         var linkInfo = getLinkInfoFromString(predecessor);
-                        if (!linkInfo) {
-                            return null;
-                        }
                         var activity = self.Control.Model.ActivityById[linkInfo.pointId];
                         if (activity) {
+
                             //return activity.DataSource.Code + linkInfo.type + linkInfo.lag;
                             return formatLinkInfoToString(activity.DataSource.Code, linkInfo, 24);
                         } else {
                             return "?";
                         }
-                    }).filter(Boolean).join(",");
+                    }).join(",");
 
                 } else {
                     return "";
@@ -658,21 +652,14 @@
             }
             , SetPredecessorCodes: function (values) {
                 if (values) {
-                    var result = values.split(",").map(function (predecessor) {
-                        if (!predecessor) {
-                            return null;
-                        }
+                    this.PredecessorIndices = values.split(",").map(function (predecessor) {
                         var linkInfo = getLinkInfoFromStringCode(predecessor);
-                        if (!linkInfo) {
-                            return null;
-                        }
                         if (linkInfo.lag)
                             linkInfo.lag *= 24;
                         var item = self.TaskByCode(linkInfo.pointId);
                         //return item && (item.ID + linkInfo.type + linkInfo.lag) || "";
-                        return (item && (formatLinkInfoToString(item.ID, linkInfo))) || null;
-                    }).filter(Boolean).join(",");
-                    this.PredecessorIndices = result;
+                        return item && (formatLinkInfoToString(item.ID, linkInfo)) || "";
+                    }).join(",");
                 } else {
                     this.PredecessorIndices = null;
                 }
@@ -731,7 +718,7 @@
                             self.Control.Model.ActivityUpdated.subscribe(self.ActivityUpdated);
                         }
 
-                    } finally {
+					} finally {
                         loading = false;
                     }
 
@@ -744,7 +731,7 @@
         $.holdReady(true);
         Asyst.APIv2.View.load({
             viewName: Options.Custom_LoadViewName,
-            data: { ActivityId: self.ActivityId },
+            data: {ActivityId: self.ActivityId},
             success: success,
             async: async
         });
@@ -782,31 +769,31 @@
                         if (!change.isEmpty()) {
 
                             var isChangeValid = true;
-
-                            if (change.hasOwnProperty('Name') && change.Name == '') {
-                                isChangeValid = false;
-                                alert('Невозможно сохранить задачу без названия');
+							
+							if (change.hasOwnProperty('Name') && change.Name == '') {
+								isChangeValid = false;
+								alert('Невозможно сохранить задачу без названия');
                             }
                             if (change.oldValues && change.oldValues.hasOwnProperty('Effort')) {
                                 var task = self.TaskById(change.id);
                                 var dbmTask = self.Control.Model.ActivityById[task.ID];
-                                if ((task.IsMilestone && task.Effort > 0) || (!task.IsMilestone && task.Effort == 0 && dbmTask.ChildActivities.length == 0)) {
+                                if ((task.IsMilestone && task.Effort > 0) || (!task.IsMilestone && task.Effort == 0 && dbmTask.ChildActivities.length ==0)) {
                                     isChangeValid = false;
                                     alert('Невозможно преобразовать задачу в точку и наоборот');
                                 }
                             }
-
+                            
                             if (change.PointPoint) {
                                 isChangeValid = (function (changeInfo) {
                                     // Список суммарных задач (для валидации)
                                     var summaryTasks = [];
                                     var pointId = changeInfo.id;
-
+									
                                     // Валидация суммарных задач
                                     changeInfo.PointPoint.forEach(function (item, index) {
                                         if (item) {
                                             var link = getLinkInfoFromString(item);
-
+											
                                             var taskSource = self.TaskById(link.pointId);
                                             var taskDestination = self.TaskById(pointId);
                                             if (self.ActivityIsParent(taskSource)) {
@@ -819,7 +806,7 @@
                                     });
 
                                     if (summaryTasks.length > 0) {
-                                        var summaryTasksCodes = summaryTasks.map(function (el) { return el.Code }).join(', ');
+                                        var summaryTasksCodes = summaryTasks.map(function(el) { return el.Code }).join(', ');
                                         if (summaryTasks.length == 1) {
                                             alert('Невозможно создать связь с участием суммарной задачи: ' + summaryTasksCodes);
                                         } else {
@@ -827,25 +814,25 @@
                                         }
                                         return false;
                                     }
-
+									
                                     // Валидация циклических связей
                                     // Создаем граф
                                     var graph = self.Tasks.map(function (el) {
-                                        return {
+                                        return { 
                                             ID: el.ID,
                                             predecessors: !el.PredecessorIndices ? null : el.PredecessorIndices
-                                                .split(",")
-                                                .map(function (el) {
-                                                    var linkInfo = getLinkInfoFromString(el);
-                                                    if (linkInfo) {
-                                                        var activity = self.Control.Model.ActivityById[linkInfo.pointId];
-                                                        if (activity) {
-                                                            return linkInfo.pointId;
-                                                        } else {
-                                                            return null;
-                                                        }
-                                                    }
-                                                })
+												.split(",")
+												.map(function (el) {
+												    var linkInfo = getLinkInfoFromString(el);
+												    if (linkInfo) {
+												        var activity = self.Control.Model.ActivityById[linkInfo.pointId];
+												        if (activity) {
+												            return linkInfo.pointId;
+												        } else {
+												            return null;
+												        }
+												    }
+												})
                                         };
                                     });
                                     // Применяем к графу сделанные изменения
@@ -867,13 +854,13 @@
                                         alert('Попытка создания циклической связи!');
                                         return false;
                                     }
-
+									
                                     // Непосредственное сохранение связей.
                                     // Если мы дошли до этого места - значит вся валидация пройдена.
                                     changeInfo.PointPoint.forEach(function (item, index) {
                                         if (item) {
                                             var link = getLinkInfoFromString(item);
-                                            ppArray.push(function () {
+                                            ppArray.push(function() {
                                                 Asyst.APIv2.DataSet.load({
                                                     name: "AppendPointLink",
                                                     data: {
@@ -901,8 +888,8 @@
                     }
                 }
                 if (changeCount > 0) {
-                    $.when(batch.save(success, error, async)).then(function () {
-                        ppArray.forEach(function (updFunc) { updFunc(); });
+					$.when(batch.save(success, error, async)).then(function() {
+                        ppArray.forEach(function(updFunc) {updFunc();});
                     });
                 } else {
                     self.Changes = {};
@@ -981,7 +968,7 @@
             activity.DataSource.IndicatorTitle = self.IndicatorTitles[activity.DataSource.Indicator];
             activity.DataSource.HasIndicator = true;
         }
-        return activity.DataSource.Indicator;
+		return activity.DataSource.Indicator;
     };
 
     self.RecalcActivityIndicator = function (activity) {
@@ -996,7 +983,7 @@
         }
     };
 
-    self.TruncDay = function (date) {
+    self.TruncDay =function(date) {
         if (date.constructor !== Date) return date;
         date.setHours(0, 0, 0, 0);
         return date;
@@ -1015,7 +1002,7 @@
     self.ActivityIsOut = function (activity) {
         var day = new Date();
         day.setDate(day.getDate() - 1);
-        if (activity.IsMilestone) {
+        if (activity.IsMilestone){
             return !activity.DataSource.FactEndTime && self.TruncDay(activity.DataSource.PlanDate) >= self.TruncDay(new Date()) && self.TruncDay(activity.EndTime) > self.TruncDay(activity.DataSource.PlanDate);
         }
         else {
@@ -1024,75 +1011,75 @@
         }
     };
 
-    // Является ли активность групповой задачей
+	// Является ли активность групповой задачей
     self.ActivityIsParent = function (activity) {
-        var tasks = self.Tasks;
-        for (var i = 0; i < tasks.length; i++) {
-            if (tasks[i].ParentId == activity.ID) {
-                return true;
-            }
-        }
+		var tasks = self.Tasks;
+		for (var i= 0; i < tasks.length; i++) {
+			if (tasks[i].ParentId == activity.ID) {
+				return true;
+			}
+		}
 
-        return false;
+		return false;
     };
 
-    // Содержит ли граф циклы.
-    // Функция принимает в себя массив объектов следующей структуры: { ID, predecessors[] }, где predecessors - массив идентификаторов предшествующих элементов.
-    // http://cybern.ru/proverka-orgrafa-na-aciklichnost-realizaciya-na-java.html
-    self.GraphHasCycles = function (graph) {
-        if (!graph || !graph.length) { return false; }
+	// Содержит ли граф циклы.
+	// Функция принимает в себя массив объектов следующей структуры: { ID, predecessors[] }, где predecessors - массив идентификаторов предшествующих элементов.
+	// http://cybern.ru/proverka-orgrafa-na-aciklichnost-realizaciya-na-java.html
+	self.GraphHasCycles = function(graph) {
+		if (!graph || !graph.length) { return false; }
+		
+		//массив для хранения цветов вершин
+		var color = [];
+		//флаг, показывающий содержит орграф цикл или нет
+		var hasCycle = false;
+	
+		//процедура обхода в глубину
+		function dfsCycle(graphElementId) { 
+			//если вершина является черной, то не производим из нее вызов процедуры
+			if (color[graphElementId] == 2) { 
+				return;
+			}
+			//выходим из процедуры, если уже нашли один из циклов
+			if (hasCycle) { 
+				return;
+			}
+			//если вершина является серой, то орграф содержит цикл
+			if (color[graphElementId] == 1) { 
+				hasCycle = true;
+				return;
+			}
+			//помечаем вершину как серую
+			color[graphElementId] = 1;
 
-        //массив для хранения цветов вершин
-        var color = [];
-        //флаг, показывающий содержит орграф цикл или нет
-        var hasCycle = false;
-
-        //процедура обхода в глубину
-        function dfsCycle(graphElementId) {
-            //если вершина является черной, то не производим из нее вызов процедуры
-            if (color[graphElementId] == 2) {
-                return;
-            }
-            //выходим из процедуры, если уже нашли один из циклов
-            if (hasCycle) {
-                return;
-            }
-            //если вершина является серой, то орграф содержит цикл
-            if (color[graphElementId] == 1) {
-                hasCycle = true;
-                return;
-            }
-            //помечаем вершину как серую
-            color[graphElementId] = 1;
-
-            // Проходим по связанным записям
-            var graphElement = graph.filter(function (el) { return el.ID == graphElementId; });
-            if (graphElement && graphElement.length) {
-                graphElement = graphElement[0];
-                if (graphElement.predecessors && graphElement.predecessors.length) {
-                    //запускаем обход из всех вершин, смежных с вершиной graphElement
-                    for (var i = 0; i < graphElement.predecessors.length; i++) {
-                        var predecessor = graphElement.predecessors[i];
-                        //вызов обхода от вершины predecessor, смежной с вершиной graphElement
-                        dfsCycle(predecessor);
-                        if (hasCycle) {
-                            return;
-                        }
-                    }
-                }
-            }
-
-            //помечаем вершину как черную
-            color[graphElementId] = 2;
-        }
-
-        for (var v = 0; v < graph.length; v++) {
+			// Проходим по связанным записям
+			var graphElement = graph.filter(function (el) { return el.ID == graphElementId; });
+			if (graphElement && graphElement.length) {
+				graphElement = graphElement[0];
+				if (graphElement.predecessors && graphElement.predecessors.length) {
+					//запускаем обход из всех вершин, смежных с вершиной graphElement
+					for (var i = 0; i < graphElement.predecessors.length; i++) { 
+						var predecessor = graphElement.predecessors[i];
+						//вызов обхода от вершины predecessor, смежной с вершиной graphElement
+						dfsCycle(predecessor); 
+						if (hasCycle) {
+							return;
+						}
+					}
+				}
+			}
+			
+			//помечаем вершину как черную
+			color[graphElementId] = 2;
+		}
+		
+		for (var v = 0; v < graph.length; v++) {
             dfsCycle(graph[v].ID);
-        }
-
-        return hasCycle;
-    };
-
+        }		
+		
+		return hasCycle;
+	};
+	
     self.TimeScale = function (timeUnitWidth, scroll) {
         var $chart = self.$Container.GanttControl('GetGanttChart');
         var chart = $chart.data("GanttChart");
@@ -1257,7 +1244,6 @@
     Options.UseVirtualization = true;
     Options.DataSource = self.Tasks;
     Options.CanInsertPropertyChangeTriggeringPropertiesInData = true;
-    Options.RoundTimeEditsTo = RadiantQ.Gantt.RoundToOptions.Day;
 
     if (!Options.hasOwnProperty("WBSIDBinding"))
         Options.WBSIDBinding = new RadiantQ.BindingOptions("WBSID");
@@ -1286,8 +1272,6 @@
         Options.MileStoneTemplate = Asyst.Gantt.MileStoneTemplate;
     if (!Options.hasOwnProperty("TaskBarBackgroundTemplate"))
         Options.TaskBarBackgroundTemplate = Asyst.Gantt.TaskBarBackgroundTemplate;
-    if (!Options.hasOwnProperty("TaskBarAdornerTemplate"))
-        Options.TaskBarAdornerTemplate = Asyst.Gantt.TaskBarAdornerTemplate;
     if (!Options.hasOwnProperty("ParentTaskItemTemplate"))
         Options.ParentTaskItemTemplate = Asyst.Gantt.ParentTaskItemTemplate;
     if (!Options.hasOwnProperty("TaskTooltipTemplate"))
@@ -1379,7 +1363,7 @@ Asyst.Gantt.registerDateEditor = function () {
                 var field = $input.data("field");
                 var act = data.Activity;
 
-                if (newDate) {
+                if (newDate){
                     if (field === 'EndTime') {
                         if (act.DataSource.IsMilestone) {
                             act.EndTime = ajustedDate;
@@ -1387,33 +1371,16 @@ Asyst.Gantt.registerDateEditor = function () {
                             act.Effort = new RQTimeSpan(0, 0, 0, 0, 0, 0);
                         } else {
                             ajustedDate.setDate(ajustedDate.getDate() + 1); // накидываем день, чтобы смирить ганта и однодневные задачи 
-                            act[field] = ajustedDate;
+                            act[field] = ajustedDate; 
                         }
                     } else if (field === 'StartTime') {
                         act[field] = ajustedDate;
-                    } else if (field === 'FactEndTime' && newDate) {
-
-                        if (act.DataSource.IsMilestone === false) {
-
-                            //Для работы: если установлено значение "Начало (факт)" - сравниваем с ним
-                            //иначе - сравниваем с "Начало (прогноз)"
-
-                            var factStartTime = act.DataSource['FactStartTime'];
-                            var forecastStartTime = act.DataSource['ForecastStartTime'];
-
-                            var timeToCompare = factStartTime ? factStartTime : forecastStartTime;
-
-                            if (newDate.compareTo(timeToCompare) < 0) {
-                                return;
-                            }
-                        }
-
-                        act.ProgressPercent = 100;
+                    } else {
                         act.DataSource[field] = newDate;
-
                     }
-                    else {
-                        act.DataSource[field] = newDate;
+
+                    if (field === 'FactEndTime' && newDate) {
+                        act.ProgressPercent = 100;
                     }
                 }
             }
@@ -1473,7 +1440,7 @@ Asyst.Gantt.registerPointTypeEditor = function () {
         sourceType: 'form',
         sourceName: 'PointEditForm',
         elementName: 'PointTypeId',
-        data: { ActivityId: Gantt.ActivityId },
+        data: {ActivityId: Gantt.ActivityId},
         success: function (data) {
             for (var i = 0; i < data.length; i++)
                 pointTypeList.push({
@@ -1507,7 +1474,7 @@ Asyst.Gantt.registerProjectStageEditor = function (ActivityId) {
             sourceType: 'form',
             sourceName: 'PointEditForm',
             elementName: 'ProjectStageTypeId',
-            data: { ProjectId: ActivityId, ProjectStageTypeId: currentValue },
+            data: {ProjectId: ActivityId, ProjectStageTypeId: currentValue},
             success: function (data) {
                 projectStageList.length = 0;
                 for (var i = 0; i < data.length; i++)
@@ -1573,10 +1540,9 @@ Asyst.Gantt.registerPredecessorsEditor = function () {
 
 
 //Asyst.Gantt.TaskItemTemplate = "<div class='taskbar-style ${Asyst.Gantt.UpdateCritical(data)}'><div id='GanttTaskBarLabel' class='rq-gc-taskbar-label'></div></div>";
-Asyst.Gantt.TaskItemTemplate = "<div class='taskbar-style ${Asyst.Gantt.UpdateCritical(data)}' onclick='Asyst.Gantt.StopPropagation2(event)' />";
+Asyst.Gantt.TaskItemTemplate = "<div class='taskbar-style ${Asyst.Gantt.UpdateCritical(data)}'/>";
 Asyst.Gantt.MileStoneTemplate = "<div class='rq-gc-milestoneBar ${Asyst.Gantt.UpdateCritical(data)} ${Asyst.Gantt.UpdateCompleted(data)}'/>";
 Asyst.Gantt.TaskBarBackgroundTemplate = "${Asyst.Gantt.BaselineUniversal(data)}";
-Asyst.Gantt.TaskBarAdornerTemplate = "${Asyst.Gantt.GetAdornerTemplate(data)}";
 
 /*Asyst.Gantt.ParentTaskItemTemplate = "<div class='rq-gc-parentBar''>\
  <div class='rq-gc-parentBar-leftCue'></div>\
@@ -1711,61 +1677,12 @@ Asyst.Gantt.BaselineUniversal = function (data) {
         return '<div class="baselineMilestone" style="margin-left: ' + (rightX - 7) + 'px;"/>';
     } else {
         var plannedStart = DataSource.StartPlanDate;
-        var plannedEnd = Asyst.date.addDay(DataSource.PlanDate, 1); //нам нужно окончание дня а не начало
-        var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd) - 1 : 0;
+        var plannedEnd = Asyst.date.addDay(DataSource.PlanDate,1); //нам нужно окончание дня а не начало
+        var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd)-1 : 0;
         var leftX = plannedStart ? ganttChart.ConvertTimeToX(plannedStart) : 0;
         return "<div class='backgroundBaseline-style' style='width: " + (rightX - leftX) + "px; margin:1px 0px 1px " + leftX + "px'/>";
     }
 };
-
-Asyst.Gantt.GetAdornerTemplate = function (data) {
-    var $ganttChart = $('#ganttplace').GanttControl('GetGanttChart');
-    var ganttChart = $ganttChart.data("GanttChart");
-    var DataSource = data.DataSource;
-    if (!DataSource)
-        DataSource = data.ActivityView.Activity.DataSource;
-    if (DataSource.IsMilestone) {
-
-        if (DataSource.FactEndTime) {
-            var rightX = ganttChart.ConvertTimeToX(DataSource.FactEndTime);
-            return '<div class="adorner milestoneAdorner" style="margin-left: ' + (rightX - 9) + 'px;" onclick="Asyst.Gantt.StopPropagation(event);" />';
-        }
-        else return null;
-    } else {
-        if (DataSource.FactEndTime) {
-
-            var forecastStartTime = DataSource.ForecastStartTime;
-            var forecastEndTime = Asyst.date.addDay(DataSource.ForecastEndTime, 1);
-            var leftX = forecastStartTime ? ganttChart.ConvertTimeToX(forecastStartTime) - 1 : 0;
-            var rightX = forecastEndTime ? ganttChart.ConvertTimeToX(forecastEndTime) + 1 : 0;
-
-            // "+3" для перекрытия элементов rq-pg-gc-taskBarResizer и rq-gc-progressbar-resizer
-            var result = '<div class="adorner taskAdorner" style="width: ' + (rightX - leftX) + 'px; margin-left:' + leftX + 'px; onclick="Asyst.Gantt.StopPropagation(event);" />';
-
-            return result;
-
-        } else return null;
-    }
-};
-
-Asyst.Gantt.GetTaskItemTemplate = function (data) {
-    var $ganttChart = $('#ganttplace').GanttControl('GetGanttChart');
-    var ganttChart = $ganttChart.data("GanttChart");
-    var DataSource = data.DataSource;
-    if (!DataSource)
-        DataSource = data.ActivityView.Activity.DataSource;
-
-    return '<div class="taskbar-style ${Asyst.Gantt.UpdateCritical(data)}" onclick="Asyst.Gantt.StopPropagation2(event);"/>';
-
-};
-
-Asyst.Gantt.StopPropagation2 = function (event) {
-    event.stopPropagation();
-}
-
-Asyst.Gantt.StopPropagation = function (event) {
-    event.stopPropagation();
-}
 
 Asyst.Gantt.ParentBaselineTemplate = function (data) {
     var $ganttChart = $('#ganttplace').GanttControl('GetGanttChart');
@@ -1783,9 +1700,9 @@ Asyst.Gantt.ParentBaselineTemplate = function (data) {
         return null;
 
     var offsetX = startTime ? ganttChart.ConvertTimeToX(startTime) : 0;
-    var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd) - 1 - offsetX : 0;
+    var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd)-1 - offsetX : 0;
     var leftX = plannedStart ? ganttChart.ConvertTimeToX(plannedStart) - offsetX : 0;
-    return "<div class='parentBaseline' style='width: " + (rightX - leftX) + "px; margin-left:" + (leftX + 7/*ПОЧЕМУ!??!*/) + "px'><div class='parentBaseline-middle'/></div>";
+    return "<div class='parentBaseline' style='width: " + (rightX - leftX) + "px; margin-left:" + (leftX+7/*ПОЧЕМУ!??!*/) + "px'><div class='parentBaseline-middle'/></div>";
 };
 
 Asyst.Gantt.WidthConverter = function (data) {
@@ -1796,7 +1713,7 @@ Asyst.Gantt.WidthConverter = function (data) {
     var plannedStart = DataSource.StartPlanDate;
     var plannedEnd = Asyst.date.addDay(DataSource.PlanDate, 1);
     // Use this utility in GanttChart to determine the location of the past due bar.
-    var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd) - 1 : 0;
+    var rightX = plannedEnd ? ganttChart.ConvertTimeToX(plannedEnd)-1 : 0;
     var leftX = plannedStart ? ganttChart.ConvertTimeToX(plannedStart) : 0;
     return (rightX - leftX) + "px";
 };
@@ -1812,7 +1729,7 @@ Asyst.Gantt.LeftConverter = function (data) {
     return "1px 0px 1px " + (plannedStart ? ganttChart.ConvertTimeToX(plannedStart) : 0) + "px";
 };
 */
-
+ 
  /* Не найдено использования
 // Using the bound data in tooltip for TaskBarBackgroundTemplate
 Asyst.Gantt.TaskBarBGTmplTooltip = function (data) {

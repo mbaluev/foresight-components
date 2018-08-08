@@ -95,8 +95,8 @@ if (!Dialogs) {
     Dialogs = {};
 }
 
-Dialogs.Message = function (message, title) {
-    return Dialog(title || Globa.Message.locale(), message, [{ text: '&nbsp ' + Globa.Close.locale() + ' &nbsp;', cls: 'btn-primary', click: null, close: null }]);
+Dialogs.Message = function (message) {
+    return Dialog(Globa.Message.locale(), message, [{ text: '&nbsp Ok &nbsp;', cls: 'btn-primary', click: null, close: null }]);
 };
 
 Dialogs.Confirm = function (title, message, yes, no, id) {

@@ -647,7 +647,7 @@ function ShowInfo(id, showInfo, showTags) {
         for (var j = 0, lenf = item.files.length; j < lenf; j++) {
             if (item.files[j].id == id) {
 				readonly = item.readonly;
-                isLink = item.files[j].isLink == 1;
+				isLink = item.isLink == 1;
 			}
         }
     }
@@ -862,7 +862,7 @@ function innerDocuments(options) {
                 documents: [
                     { id: 0, name: "Name", files: [{ id: 0, name: "File.txt", url: ".", icon: "/asyst/img/document.png" }] }
                 ],
-                showInfo: false, showTags: false, deleteRequest: true,
+                showInfo: false, showTags: false, deleteRequest: false,
             }, options);
 
             $(options.selector).documents(settings);
