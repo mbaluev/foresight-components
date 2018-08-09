@@ -69,26 +69,21 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    background: url('header-bg-caption.png') center center no-repeat;
 }
 .header__caption-text {
     font-size: 18px;
-    line-height: 20px;
-    color: #fff!important;
+    line-height: 25px;
+    color: #fff !important;
     display: flex;
-    padding: 5px 10px;
-    border-radius: 5px;
-    background: #f69;
-    background: linear-gradient(to bottom, #fe629b 0, #fb59a1 100%);
+    justify-content: center;
+    align-items: center;
+    height: 80px;
 }
-.header__caption-text:first-child {
-    padding-bottom: 0;
-    border-radius: 5px 5px 0 0;
-    background: linear-gradient(to bottom, #ff6699 0, #fe629b 100%);
-}
-.header__caption-text:last-child {
-    padding-top: 0;
-    border-radius: 0 0 5px 5px ;
-    background: linear-gradient(to bottom, #fb59a1 0, #fa55a4 100%);
+.header__caption-text:hover {
+    color: #2057a7 !important;
 }
 
 .header__logo {

@@ -1,16 +1,28 @@
 @media (max-width: 1500px) {
+    /*
     .header__column_absolute_center {
         display: none;
     }
+    */
     .header__column_absolute_gov {
         display: none;
     }
 }
 @media (max-width: 1366px) {
 }
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
+    .header__caption {
+        border-radius: 4px;
+        background: linear-gradient(to bottom, #fe629b 0, #fb59a1 100%);
+        box-shadow: 0 0 10px rgba(0,0,0,.5);
+    }
     .header__caption-text {
         font-size: 15px;
-        line-height: normal;
+        line-height: 20px;
+        color: #fff !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
     }
 }
