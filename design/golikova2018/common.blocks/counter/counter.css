@@ -1,0 +1,39 @@
+.counter {
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+}
+.counter .alertbox {
+    width: 20px;
+    min-width: 20px;
+    background-color: transparent;
+    border-radius: 0;
+}
+.counter .alertbox:before {
+    background-color: transparent;
+    border-radius: 0;
+}
+.counter .alertbox__text {
+    font-weight: bold;
+    color: #fff;
+    /*
+    font-style: italic;
+    width: 20px;
+    */
+}
+
+.counter__date {
+    background-color: transparent;
+}
+.counter__date:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: transparent;
+}
+.counter__date .alertbox__text {
+    color: #fff;
+    line-height: 13px;
+    padding-left: 7px;
+    margin: 0;
+}

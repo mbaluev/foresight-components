@@ -73,6 +73,15 @@ var akimov2018params = {
     levels: ['design/akimov2018/common.blocks', 'design/akimov2018/mobile.blocks'],
     images: 'images/akimov2018/'
 };
+var golikova2018params = {
+    out: 'public',
+    cssOut: 'design.golikova2018.css',
+    jsOut: 'design.golikova2018.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/golikova2018/common.blocks', 'design/golikova2018/mobile.blocks'],
+    images: 'images/golikova2018/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -132,6 +141,7 @@ var kzkGetFileNames = require('html2bl').getFileNames(kzk2018params);
 var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
 var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
 var akimovGetFileNames = require('html2bl').getFileNames(akimov2018params);
+var golikovaGetFileNames = require('html2bl').getFileNames(golikova2018params);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -212,6 +222,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['akimov2018_js']);
+
+    /* watch design - golikova2018 */
+    gulp.watch(golikova2018params.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['golikova2018_css']);
+    gulp.watch(golikova2018params.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['golikova2018_js']);
 });
 
 /* components */
@@ -321,7 +341,7 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018']);
+gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -637,6 +657,59 @@ gulp.task('akimov2018_js', function() {
                 }
             }))
             .pipe(gulp.dest(akimov2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* golikova2018 */
+gulp.task('golikova2018', ['golikova2018_css', 'golikova2018_images', 'golikova2018_js']);
+gulp.task('golikova2018_css', function(){
+    golikovaGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(golikova2018params.cssOut))
+            .pipe(url({ prepend: golikova2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(golikova2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    golikovaGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(golikova2018params.cssOut))
+            .pipe(url({ prepend: golikova2018params.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(golikova2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('golikova2018_images', function(){
+    golikovaGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(golikova2018params.out, golikova2018params.images)));
+    }).done();
+});
+gulp.task('golikova2018_js', function() {
+    golikovaGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(golikova2018params.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(golikova2018params.out))
             .pipe(reload({ stream: true }));
     }).done();
 });
