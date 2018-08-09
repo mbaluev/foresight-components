@@ -63,6 +63,8 @@ html, body {
 .fs-view__middle {
     z-index: 1;
     flex: 1 1 auto;
+    display: flex;
+    position: relative;
     /*
     position: absolute;
     height: 100%;
