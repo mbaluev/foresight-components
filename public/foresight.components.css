@@ -5461,6 +5461,9 @@ img + .card__text {
 .widget-grid_single,
 .widget-grid_single.grid-stack.grid-stack-one-column-mode {
   margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   height: auto !important;
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
@@ -5468,8 +5471,11 @@ img + .card__text {
 }
 
 .widget-grid_single > .grid-stack-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: auto !important;
   width: 100% !important;
-  height: 100% !important;
   margin: 0 !important;
 }
 
