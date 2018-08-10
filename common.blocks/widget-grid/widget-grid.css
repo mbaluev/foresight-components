@@ -61,14 +61,12 @@
 .widget-grid_single,
 .widget-grid_single.grid-stack.grid-stack-one-column-mode {
     margin: 0;
-    display: flex;
     height: auto !important;
     flex: 1 1 auto;
 }
 .widget-grid_single > .grid-stack-item {
-    display: flex;
-    height: auto !important;
     width: 100% !important;
+    height: 100% !important;
     margin: 0 !important;
 }
 .widget-grid_single > .grid-stack-item > .grid-stack-item-content {

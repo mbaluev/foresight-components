@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+    .widget-grid_single,
+    .widget-grid_single.grid-stack.grid-stack-one-column-mode {
+        display: flex;
+    }
+    .widget-grid_single > .grid-stack-item {
+        height: auto !important;
+        flex: 1 1 auto;
+    }
+}
