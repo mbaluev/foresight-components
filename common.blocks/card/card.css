@@ -273,7 +273,9 @@
     overflow: auto;
     display: flex;
 }
-.card__middle-inner {}
+.card__middle-inner {
+    flex: 1 1 auto;
+}
 
 .card__left + .card__middle {
     width: calc(100% - 230px);

@@ -2879,6 +2879,9 @@ a.button_color_blue_light:hover .button__text {
 .gallery {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 
 .gallery .tabs__pane {
@@ -5143,7 +5146,11 @@ a.button_color_blue_light:hover .button__text {
   display: flex;
 }
 
-
+.card__middle-inner {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
 
 .card__left + .card__middle {
   width: calc(100% - 230px);
