@@ -294,7 +294,8 @@
         background-color: rgba(51,51,51,.15);
     }
     .menu_type_horizontal .menu__buttons {
-        display: block;
+        display: flex;
         flex: 0 0 auto;
+        align-items: flex-start;
     }
 }

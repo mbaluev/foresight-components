@@ -2025,10 +2025,15 @@ a.button_color_blue_light:hover .button__text {
   }
 
   .menu_type_horizontal .menu__buttons {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 }
 
