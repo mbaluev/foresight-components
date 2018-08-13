@@ -8,6 +8,7 @@ Asyst.GridView = function(options) {
         user: Asyst.Workspace.currentUser,
         view: null,
         views: {},
+        single: false,
 
         title: null,
         entityname: null,
@@ -119,6 +120,11 @@ Asyst.GridView = function(options) {
                         if (that.data.viewnameStartsWith) {
                             metaViews = metaViews.filter(function(view){
                                 return view.viewName.indexOf(that.data.viewnameStartsWith) == 0;
+                            });
+                        }
+                        if (that.data.single) {
+                            metaViews = metaViews.filter(function(view){
+                                return view.viewName == that.data.view;
                             });
                         }
                         that.data.entityname = metaViews[0].entityName;
