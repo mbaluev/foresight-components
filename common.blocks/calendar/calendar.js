@@ -287,6 +287,13 @@
                         };
                     };
 
+                    that.update_datepicker = function(items){
+                        that.data.items = items;
+                        that.prepare_data();
+                        that.data._datepicker.destroy();
+                        that.render_datepicker();
+                    };
+
                     that.bind = function(){
                         that.data._el.button_today.on('click', function(){
                             //that.data._showModal = false;
@@ -331,6 +338,11 @@
         set_date : function(date) {
             return this.each(function() {
                 this.obj.set_date(date);
+            });
+        },
+        update : function(items) {
+            return this.each(function() {
+                this.obj.update_datepicker(items);
             });
         }
     };
