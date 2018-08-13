@@ -5709,221 +5709,6 @@ img + .card__text {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
 }
 
-.grid {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  /*width: 100% !important;*/
-  /*height: 100% !important;*/
-  color: #333;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-}
-
-.grid input[type="checkbox"] {
-  margin: 6px 0;
-}
-
-.grid img {
-  /*
-    width: 16px;
-    height: 22px;
-    */
-  display: block;
-  padding: 4px 0;
-  box-sizing: border-box;
-}
-
-.grid img.s18 {
-  height: 21px;
-  width: 21px;
-}
-
-.grid img.p2 {
-  padding: 2px !important;
-}
-
-.grid .pointColorDesign {
-  border-radius: 3px;
-  color: rgb(255, 255, 255);
-  font-family: Arial, sans-serif;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 10.89px;
-  padding-bottom: 4px;
-  padding-top: 4px;
-  text-align: center;
-  margin-top: 3px;
-  height: 10px;
-  width: 17px;
-}
-
-/* Slick Grid */
-
-.slick-row .slick-cell:first-child {
-  padding-left: 10px;
-}
-
-.slick-row .slick-cell:last-child {
-  padding-right: 10px;
-}
-
-.slick-header.ui-state-default {
-  border-radius: 0 0 0 0;
-  border-width: 0 0 1px;
-  border-bottom: 1px solid #dddddd;
-  background-color: #fafafa;
-}
-
-.slick-header-column.ui-state-default {
-  border-style: none;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 14px;
-  line-height: 25px;
-  height: 25px;
-}
-
-.slick-header-column.ui-state-default:first-child .slick-column-name {
-  padding-left: 6px;
-}
-
-.slick-row.ui-widget-content:hover,
-.slick-row.ui-state-active {
-  background-color: #fafafa;
-}
-
-.slick-top-panel {
-  height: 25px;
-}
-
-.slick-headerrow-columns {
-  height: 25px;
-}
-
-.slick-row {
-  height: 25px;
-}
-
-.slick-cell {
-  border-style: none;
-  border-bottom: 1px solid #eee;
-  padding: 0 5px;
-  box-sizing: border-box;
-  font-size: 13px;
-  line-height: 25px !important;
-  height: 25px;
-}
-
-.slick-cell.selected {
-  color: #ffffff;
-  background-color: #4983c4;
-}
-
-.slick-row .selected a {
-  color: #bef;
-  text-decoration: none;
-}
-
-.slick-row .selected a:hover {
-  color: #fff;
-  text-decoration: none;
-}
-
-.slick-cell.grid-align-right {
-  text-align: right;
-}
-
-.slick-cell.grid-align-left {
-  text-align: left;
-}
-
-.slick-cell.grid-align-center {
-  text-align: center;
-}
-
-.slick-group {
-  font-weight: normal;
-  color: #4983c4;
-}
-
-.slick-group-toggle {
-  min-width: 12px;
-  margin-right: 8px;
-  border-style: none;
-  padding-left: 0;
-  display: inline;
-  /*попробуем так, чтобы не разъезжались широкие строки и переносы*/
-  background: center no-repeat;
-  font-size: 13px;
-}
-
-.slick-group-toggle.expanded {
-  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
-  display: inline-block;
-  padding-left: 0;
-}
-
-.slick-group-toggle.collapsed {
-  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
-  display: inline-block;
-  padding-left: 0;
-  -webkit-transform: rotate(270deg);
-          transform: rotate(270deg);
-}
-
-.slick-group-toggle.expanded:after,
-.slick-group-toggle.collapsed:after {
-  visibility: hidden;
-  content: '\00A0';
-}
-
-.slick-columnpicker {
-  padding: 10px 15px 10px 10px;
-  border: none;
-  border-radius: 0;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.5);
-}
-
-.slick-columnpicker hr {
-  margin: 15px -15px 15px -10px;
-  box-shadow: none;
-  border-top: solid 1px #ddd;
-  border-bottom: none;
-}
-
-.slick-columnpicker label {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin-bottom: 5px;
-  line-height: 21px;
-}
-
-.slick-columnpicker input {
-  margin: 3px 10px 3px 3px;
-}
-
-.slick-row a {
-  color: #4983c4;
-  text-decoration: none;
-}
-
-.slick-row .selected a {
-  text-decoration: none;
-}
-
-.slick-row a:hover {
-  text-decoration: none;
-  color: #ff5940;
-}
-
-.slick-row .selected a:hover {
-  text-decoration: none;
-  color: #fff !important;
-}
-
 
 
 .modal_hidden {
@@ -6233,6 +6018,221 @@ img + .card__text {
 
 .modal_fullscreen .modal__dialog {
   width: 100%;
+}
+
+.grid {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  /*width: 100% !important;*/
+  /*height: 100% !important;*/
+  color: #333;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.grid input[type="checkbox"] {
+  margin: 6px 0;
+}
+
+.grid img {
+  /*
+    width: 16px;
+    height: 22px;
+    */
+  display: block;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.grid img.s18 {
+  height: 21px;
+  width: 21px;
+}
+
+.grid img.p2 {
+  padding: 2px !important;
+}
+
+.grid .pointColorDesign {
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 10.89px;
+  padding-bottom: 4px;
+  padding-top: 4px;
+  text-align: center;
+  margin-top: 3px;
+  height: 10px;
+  width: 17px;
+}
+
+/* Slick Grid */
+
+.slick-row .slick-cell:first-child {
+  padding-left: 10px;
+}
+
+.slick-row .slick-cell:last-child {
+  padding-right: 10px;
+}
+
+.slick-header.ui-state-default {
+  border-radius: 0 0 0 0;
+  border-width: 0 0 1px;
+  border-bottom: 1px solid #dddddd;
+  background-color: #fafafa;
+}
+
+.slick-header-column.ui-state-default {
+  border-style: none;
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 14px;
+  line-height: 25px;
+  height: 25px;
+}
+
+.slick-header-column.ui-state-default:first-child .slick-column-name {
+  padding-left: 6px;
+}
+
+.slick-row.ui-widget-content:hover,
+.slick-row.ui-state-active {
+  background-color: #fafafa;
+}
+
+.slick-top-panel {
+  height: 25px;
+}
+
+.slick-headerrow-columns {
+  height: 25px;
+}
+
+.slick-row {
+  height: 25px;
+}
+
+.slick-cell {
+  border-style: none;
+  border-bottom: 1px solid #eee;
+  padding: 0 5px;
+  box-sizing: border-box;
+  font-size: 13px;
+  line-height: 25px !important;
+  height: 25px;
+}
+
+.slick-cell.selected {
+  color: #ffffff;
+  background-color: #4983c4;
+}
+
+.slick-row .selected a {
+  color: #bef;
+  text-decoration: none;
+}
+
+.slick-row .selected a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+.slick-cell.grid-align-right {
+  text-align: right;
+}
+
+.slick-cell.grid-align-left {
+  text-align: left;
+}
+
+.slick-cell.grid-align-center {
+  text-align: center;
+}
+
+.slick-group {
+  font-weight: normal;
+  color: #4983c4;
+}
+
+.slick-group-toggle {
+  min-width: 12px;
+  margin-right: 8px;
+  border-style: none;
+  padding-left: 0;
+  display: inline;
+  /*попробуем так, чтобы не разъезжались широкие строки и переносы*/
+  background: center no-repeat;
+  font-size: 13px;
+}
+
+.slick-group-toggle.expanded {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+  display: inline-block;
+  padding-left: 0;
+}
+
+.slick-group-toggle.collapsed {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiMzMzMzMzMiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+  display: inline-block;
+  padding-left: 0;
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg);
+}
+
+.slick-group-toggle.expanded:after,
+.slick-group-toggle.collapsed:after {
+  visibility: hidden;
+  content: '\00A0';
+}
+
+.slick-columnpicker {
+  padding: 10px 15px 10px 10px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.5);
+}
+
+.slick-columnpicker hr {
+  margin: 15px -15px 15px -10px;
+  box-shadow: none;
+  border-top: solid 1px #ddd;
+  border-bottom: none;
+}
+
+.slick-columnpicker label {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-bottom: 5px;
+  line-height: 21px;
+}
+
+.slick-columnpicker input {
+  margin: 3px 10px 3px 3px;
+}
+
+.slick-row a {
+  color: #4983c4;
+  text-decoration: none;
+}
+
+.slick-row .selected a {
+  text-decoration: none;
+}
+
+.slick-row a:hover {
+  text-decoration: none;
+  color: #ff5940;
+}
+
+.slick-row .selected a:hover {
+  text-decoration: none;
+  color: #fff !important;
 }
 
 .asyst_editform {
