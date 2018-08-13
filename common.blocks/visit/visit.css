@@ -5,15 +5,17 @@
     display: flex;
 }
 .visit__frame-container {
-    height: 100%;
-    width: 100%;
     position: relative;
+    width: 100%;
+    height: auto;
+    flex: 1 1 auto;
     display: flex;
 }
 .visit__frame-container > iframe {
-    height: 100%;
-    width: 100%;
     border: none;
+    width: 100%;
+    height: auto;
+    flex: 1 1 auto;
 }
 .visit__frame_hidden {
     display: none;
