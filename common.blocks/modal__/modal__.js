@@ -114,8 +114,10 @@
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
-                                that.data._el.card.css('max-height', '100%');
-                                that.data._el.card.css('height', '100%');
+                                setTimeout(function(){
+                                    that.data._el.card.css('max-height', '100%');
+                                    that.data._el.card.css('height', '100%');
+                                }, 100);
                                 if (that.data.draggable) {
                                     that.init_draggable();
                                 }
