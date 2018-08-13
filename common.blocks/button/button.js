@@ -79,12 +79,14 @@
 
                     that.check = function(){
                         self.addClass('button_checked');
-                        self.attr('data-checked', 'true');
+                        //self.attr('data-checked', 'true');
+                        self[0].setAttribute('data-checked', 'true');
                         that.data.checked = true;
                     };
                     that.uncheck = function(){
                         self.removeClass('button_checked');
-                        self.attr('data-checked', 'false');
+                        //self.attr('data-checked', 'false');
+                        self[0].setAttribute('data-checked', 'false');
                         that.data.checked = false;
                     };
 

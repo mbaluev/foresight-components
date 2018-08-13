@@ -746,7 +746,7 @@ var GridView4 = function(options){
                 that.data._el.radio_group.append(
                     $([
                         '<label class="radio radio_type_button" data-fc="radio" data-tooltip="' + view.name + '" ' + (view.selected ? 'data-checked="true"' : '') + '>',
-                        '<button class="button button_toggable_radio" type="button" data-fc="button" data-checked="false">',
+                        '<button class="button button_toggable_radio" type="button" data-fc="button">',
                         '<span class="button__text">' + view.name + '</span>',
                         '</button>',
                         '<input class="radio__input" type="radio" name="radio-group-button" value="' + view.value + '" hidden="">',
