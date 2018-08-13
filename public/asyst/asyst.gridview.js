@@ -421,6 +421,7 @@ Asyst.GridView = function(options) {
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
                 that.enable_line_extFilter();
+                if (typeof that.data.onload == 'function') { that.data.onload(that.data.data.data); }
                 that.data.gridview.data.loading = false;
                 that.loader_remove();
             },
