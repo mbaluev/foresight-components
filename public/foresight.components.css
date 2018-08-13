@@ -4163,6 +4163,9 @@ a.button_color_blue_light:hover .button__text {
   -webkit-tap-highlight-color: transparent;
   font-size: 13px;
   line-height: 30px;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
 }
 
 .alertbox_hidden {
