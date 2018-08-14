@@ -1280,6 +1280,7 @@ Asyst.GridView = function(options) {
                     view.DataView.setFilter(Grid.ExtFilter);
                     view.DataView.setFilterArgs(that.data.filter.filterArgs);
                     view.DataView.refresh();
+                    view.Grid.invalidate();
                     that.render_set_extFilter();
                 } else {
                     that.clear_extFilter();
@@ -1301,6 +1302,7 @@ Asyst.GridView = function(options) {
         view.DataView.setFilter(Grid.ExtFilter);
         view.DataView.setFilterArgs(that.data.filter.filterArgs);
         view.DataView.refresh();
+        view.Grid.invalidate();
         that.render_clear_extFilter();
     };
     /* end of extFilter methods */
