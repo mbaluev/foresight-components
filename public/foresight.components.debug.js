@@ -5419,10 +5419,12 @@ $(function(){
                         that.data._el.input.trigger('focus');
                         that.data._el.input.trigger('mousedown');
                     };
-                    that.clear = function(){
+                    that.clear = function(isFocus){
                         that.data._el.input.val('');
                         that.data._el.input.trigger('keyup');
-                        that.focus();
+                        if (typeof isFocus != 'undefined' && isFocus) {
+                            that.focus();
+                        }
                     };
 
                     that.disable_input = function(){
@@ -5623,9 +5625,9 @@ $(function(){
                 this.obj.focus();
             });
         },
-        clear : function() {
+        clear : function(isFocus) {
             return this.each(function() {
-                this.obj.clear();
+                this.obj.clear(isFocus);
             });
         },
         set_width : function(value) {
