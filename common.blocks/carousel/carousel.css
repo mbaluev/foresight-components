@@ -164,6 +164,49 @@
     white-space: normal;
 }
 
+.carousel__item_layer {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    bottom: 5px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.carousel__item_layer .carousel__item-image {
+    background-size: cover;
+    height: 100%;
+}
+.carousel__item_layer .carousel__item-image-text {
+    position: absolute;
+    bottom: 0;
+    text-align: left;
+    background: rgba(0,0,0,.5);
+}
+.carousel__item_layer .carousel__item-caption {
+    font-size: 15px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.carousel__item_layer .carousel__item-date {
+    font-size: 13px;
+    color: #999;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.carousel__item_layer .carousel__item-content {
+    font-size: 13px;
+    color: #fff;
+    margin-top: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .carousel__circles {
     display: inline-flex;
     justify-content: center;
