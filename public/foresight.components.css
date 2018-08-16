@@ -3252,7 +3252,7 @@ a.button_color_blue_light:hover .button__text {
 .carousel {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -3267,6 +3267,7 @@ a.button_color_blue_light:hover .button__text {
       -ms-flex-direction: column;
           flex-direction: column;
   box-sizing: border-box;
+  margin: 0;
 }
 
 .carousel_padding_top {
@@ -3508,6 +3509,7 @@ a.button_color_blue_light:hover .button__text {
 .carousel__item_layer .carousel__item-image-text {
   position: absolute;
   bottom: 0;
+  left: 0;
   text-align: left;
   background: rgba(0,0,0,.5);
 }
