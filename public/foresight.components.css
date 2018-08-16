@@ -3266,7 +3266,6 @@ a.button_color_blue_light:hover .button__text {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding-bottom: 5px;
   box-sizing: border-box;
 }
 
@@ -3486,9 +3485,9 @@ a.button_color_blue_light:hover .button__text {
 
 .carousel__item_layer {
   position: absolute;
-  top: 5px;
+  top: 0;
   right: 0;
-  bottom: 5px;
+  bottom: 0;
   left: 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -3503,6 +3502,7 @@ a.button_color_blue_light:hover .button__text {
 
 .carousel__item_layer .carousel__item-image {
   height: 100%;
+  background-position: bottom center;
 }
 
 .carousel__item_layer .carousel__item-image-text {
@@ -3537,6 +3537,10 @@ a.button_color_blue_light:hover .button__text {
   text-overflow: ellipsis;
 }
 
+.carousel__items_several .carousel__item_layer {
+  bottom: 5px;
+}
+
 .carousel__circles {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -3545,6 +3549,7 @@ a.button_color_blue_light:hover .button__text {
       -ms-flex-pack: center;
           justify-content: center;
   z-index: 1;
+  padding-bottom: 5px;
 }
 
 .carousel .button {

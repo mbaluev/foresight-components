@@ -6,7 +6,6 @@
     justify-content: space-between;
     align-items: stretch;
     flex-direction: column;
-    padding-bottom: 5px;
     box-sizing: border-box;
 }
 .carousel_padding_top {
@@ -166,9 +165,9 @@
 
 .carousel__item_layer {
     position: absolute;
-    top: 5px;
+    top: 0;
     right: 0;
-    bottom: 5px;
+    bottom: 0;
     left: 0;
     display: flex;
     align-items: center;
@@ -176,6 +175,7 @@
 }
 .carousel__item_layer .carousel__item-image {
     height: 100%;
+    background-position: bottom center;
 }
 .carousel__item_layer .carousel__item-image-text {
     position: absolute;
@@ -206,10 +206,15 @@
     text-overflow: ellipsis;
 }
 
+.carousel__items_several .carousel__item_layer {
+    bottom: 5px;
+}
+
 .carousel__circles {
     display: inline-flex;
     justify-content: center;
     z-index: 1;
+    padding-bottom: 5px;
 }
 
 .carousel .button { background-color: #fff; }
