@@ -192,7 +192,7 @@
 }
 .carousel__item_layer .carousel__item-date {
     font-size: 13px;
-    color: #999;
+    color: #ccc;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -211,7 +211,9 @@
 .carousel__item_layer .carousel__item-image-text_white .carousel__item-caption {
     color: #333;
 }
-.carousel__item_layer .carousel__item-image-text_white .carousel__item-date {}
+.carousel__item_layer .carousel__item-image-text_white .carousel__item-date {
+    color: #999;
+}
 .carousel__item_layer .carousel__item-image-text_white .carousel__item-content {
     color: #333;
 }
