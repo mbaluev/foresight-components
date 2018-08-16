@@ -242,8 +242,11 @@ Asyst.PageDashboard = function(options){
         widget_: function(widget, options, params, reload){
             that.data.asystDashboard.reload.widget_(widget, options, params, reload);
         },
-        element: function(elementname, options, params, reload){
-            that.data.asystDashboard.reload.element(elementname, options, params, reload);
+        element: function(elementid, options, params, reload){
+            that.data.asystDashboard.reload.element(elementid, options, params, reload);
+        },
+        elementByName: function(elementname, options, params, reload){
+            that.data.asystDashboard.reload.elementByName(elementname, options, params, reload);
         },
         title: function(title){
             that.data.asystDashboard.reload.title(title);
@@ -446,6 +449,9 @@ Asyst.Dashboard = function(options){
         },
         element: function(elementid, options, params, reload){
             that.data.dashboard.reload.element(elementid, options, params, reload);
+        },
+        elementByName: function(elementname, options, params, reload){
+            that.data.dashboard.reload.elementByName(elementname, options, params, reload);
         },
         title: function(title){
             that.data.dashboard.reload.title(title);

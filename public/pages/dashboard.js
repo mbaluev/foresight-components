@@ -1024,6 +1024,21 @@ var Dashboard = function(options){
                 }
             }
         },
+        elementByName: function(elementname, options, params, reload){
+            if (typeof reload == 'undefined') { reload = true; }
+            var item = that.data.grid[0].obj.options.items.filter(function(d){
+                return d.widget[0].obj.data.elementname == elementname;
+            });
+            if (item.length > 0) {
+                item = item[0];
+                $.extend(item.widget.data(), options, { params: params });
+                item.widget.widget('set_name');
+                item.widget.widget('set_color');
+                if (reload) {
+                    item.widget.widget('set_content');
+                }
+            }
+        },
         title: function(title){
             that.set_title(title);
         },
