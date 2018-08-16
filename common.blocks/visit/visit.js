@@ -253,7 +253,11 @@
                     that.render_item = function(){
                         if (that.data.onItemClick) {
                             if (typeof(that.data.onItemClick) == 'function') {
-                                that.data.onItemClick(that.data.current.item, that.data._el.visit__frame_container);
+                                that.data.onItemClick(
+                                    that.data.current.item,
+                                    that.data.current.sectionnameid,
+                                    that.data._el.visit__frame_container
+                                );
                             }
                         }
                     };
