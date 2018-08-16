@@ -205,8 +205,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.carousel__item_layer .carousel__item-image-text_white {
+    background: rgba(255,255,255,.9);
+}
+.carousel__item_layer .carousel__item-image-text_white .carousel__item-caption {
+    color: #333;
+}
+.carousel__item_layer .carousel__item-image-text_white .carousel__item-date {}
+.carousel__item_layer .carousel__item-image-text_white .carousel__item-content {
+    color: #333;
+}
 
 .carousel__items_several .carousel__item_layer {
+    top: 20px;
     bottom: 5px;
 }
 
