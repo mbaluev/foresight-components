@@ -134,7 +134,7 @@
                         that.loader_remove();
                     };
                     that.render_tabs = function(){
-                        that.loader_add();
+                        //that.loader_add();
                         that.data.current.item = null;
                         that.render_item();
                         that.data._el.card__header_row_tabs.remove();
@@ -176,7 +176,7 @@
                         that.data._el.card__header.append(that.data._el.card__header_row_tabs);
                         that.data._el.card__header_row_tabs.find('[data-fc="tab"]').tabs();
                         that.data._el.card__header_row_tabs.find('.tabs__tab[data-id="'+ that.data.current.section.sectionnameid +'"]').trigger('click');
-                        that.loader_remove();
+                        //that.loader_remove();
                     };
                     that.render_menu = function(){
                         that.loader_add();
