@@ -2189,6 +2189,9 @@ $(function(){
                         });
                         that.render_popup_list();
                         that.bind();
+                        if (that.data.mode == 'check') {
+                            that.bind_checkall();
+                        }
                         that.data._el.spinner.remove();
                     };
                     that.get_items = function(){
