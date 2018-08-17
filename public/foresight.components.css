@@ -3029,10 +3029,8 @@ a.button_color_blue_light:hover .button__text {
 .visit__frame-container > iframe {
   border: none;
   width: 100%;
-  height: auto;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
+  height: 100%;
+  position: absolute;
 }
 
 .visit__frame_hidden {
