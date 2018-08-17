@@ -167,6 +167,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex: 1 1 auto;
+    height: auto;
 }
 .widget__content_scroll {
     overflow: auto;
