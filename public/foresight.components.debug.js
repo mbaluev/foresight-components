@@ -1,182 +1,3 @@
-$(function(){
-    $('[data-toggle="menu-left"]').each(function(){
-        var self = $(this),
-            $iconmenu = self.find('.icon__menu'),
-            $main = $('.fs-view__main'),
-            $left = $('.fs-view__left'),
-            $middle = $('.fs-view__middle');
-        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
-            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
-        }
-        function show(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $left.removeClass('fs-view__left_hidden');
-            $middle.removeClass('fs-view__middle_full');
-            if ($main.find('.fs-view__backdrop').length == 0) {
-                $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
-            }
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_hidden', false);
-            }
-        }
-        function hide(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $left.addClass('fs-view__left_hidden');
-            $middle.addClass('fs-view__middle_full');
-            $main.find('.fs-view__backdrop').remove();
-            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_hidden', true);
-            }
-        }
-        function click(){
-            if ($left.hasClass('fs-view__left_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('menu_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $main.addClass('fs-view__main_transition');
-        }, 100);
-        self.on('click', click);
-    });
-    $('[data-toggle="menu-right"]').each(function(){
-        var self = $(this),
-            $iconmenu = self.find('.icon__menu'),
-            $middle = $('.fs-view__middle'),
-            $middle_right = $('.fs-view__middle-right');
-        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
-            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
-        }
-        function show(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $middle_right.removeClass('fs-view__middle-right_hidden');
-            if ($middle.find('.fs-view__middle-backdrop').length == 0) {
-                $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
-            }
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_right_hidden', false);
-            }
-        }
-        function hide(){
-            if ($iconmenu.length > 0) {
-                $iconmenu.icon__menu('toggle');
-            }
-            $middle_right.addClass('fs-view__middle-right_hidden');
-            $middle.find('.fs-view__middle-backdrop').remove();
-            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('menu_right_hidden', true);
-            }
-        }
-        function click(){
-            if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('menu_right_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $middle.addClass('fs-view__middle_transition');
-        }, 100);
-        self.on('click', click);
-    });
-    $('[data-toggle="header"]').each(function(){
-        var self = $(this),
-            $icon = self.find('.icon'),
-            $header = $('.fs-view__header');
-        function show(){
-            $icon.removeClass('icon_rotate_180deg');
-            $header.removeClass('fs-view__header_hidden');
-            $header.css('margin-top', '');
-            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('header_hidden', false);
-            }
-        }
-        function hide(){
-            $icon.addClass('icon_rotate_180deg');
-            $header.addClass('fs-view__header_hidden');
-            $header.css('margin-top', -$header.outerHeight());
-            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
-                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
-                setTimeout(function(){
-                    $(window).trigger('resize');
-                }, 100);
-            });
-            if (typeof setCookie == 'function') {
-                setCookie('header_hidden', true);
-            }
-        }
-        function click(){
-            if ($header.hasClass('fs-view__header_hidden')) {
-                show();
-            } else {
-                hide();
-            }
-        }
-        if (typeof getCookie == 'function') {
-            if (getCookie('header_hidden') == 'true') {
-                hide();
-            } else {
-                show();
-            }
-        }
-        setTimeout(function(){
-            $('.fs-view').addClass('fs-view_transition');
-            $icon.addClass('icon_animate');
-        }, 100);
-        self.on('click', click);
-    });
-});
 (function($){
     var methods = {
         init : function(options) {
@@ -550,6 +371,185 @@ $(function(){
 
 $(function(){
     $('[data-fc="icon__menu"]').icon__menu();
+});
+$(function(){
+    $('[data-toggle="menu-left"]').each(function(){
+        var self = $(this),
+            $iconmenu = self.find('.icon__menu'),
+            $main = $('.fs-view__main'),
+            $left = $('.fs-view__left'),
+            $middle = $('.fs-view__middle');
+        if (!$left.hasClass('fs-view__left_hidden') && $main.find('.fs-view__backdrop').length == 0) {
+            $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+        }
+        function show(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $left.removeClass('fs-view__left_hidden');
+            $middle.removeClass('fs-view__middle_full');
+            if ($main.find('.fs-view__backdrop').length == 0) {
+                $('<div class="fs-view__backdrop"></div>').one('click', click).appendTo($main);
+            }
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', false);
+            }
+        }
+        function hide(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $left.addClass('fs-view__left_hidden');
+            $middle.addClass('fs-view__middle_full');
+            $main.find('.fs-view__backdrop').remove();
+            $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_hidden', true);
+            }
+        }
+        function click(){
+            if ($left.hasClass('fs-view__left_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $main.addClass('fs-view__main_transition');
+        }, 100);
+        self.on('click', click);
+    });
+    $('[data-toggle="menu-right"]').each(function(){
+        var self = $(this),
+            $iconmenu = self.find('.icon__menu'),
+            $middle = $('.fs-view__middle'),
+            $middle_right = $('.fs-view__middle-right');
+        if (!$middle_right.hasClass('fs-view__middle-right_hidden') && $middle.find('.fs-view__middle-backdrop').length == 0) {
+            $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+        }
+        function show(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $middle_right.removeClass('fs-view__middle-right_hidden');
+            if ($middle.find('.fs-view__middle-backdrop').length == 0) {
+                $('<div class="fs-view__middle-backdrop"></div>').one('click', click).appendTo($middle);
+            }
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', false);
+            }
+        }
+        function hide(){
+            if ($iconmenu.length > 0) {
+                $iconmenu.icon__menu('toggle');
+            }
+            $middle_right.addClass('fs-view__middle-right_hidden');
+            $middle.find('.fs-view__middle-backdrop').remove();
+            $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('menu_right_hidden', true);
+            }
+        }
+        function click(){
+            if ($middle_right.hasClass('fs-view__middle-right_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('menu_right_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $middle.addClass('fs-view__middle_transition');
+        }, 100);
+        self.on('click', click);
+    });
+    $('[data-toggle="header"]').each(function(){
+        var self = $(this),
+            $icon = self.find('.icon'),
+            $header = $('.fs-view__header');
+        function show(){
+            $icon.removeClass('icon_rotate_180deg');
+            $header.removeClass('fs-view__header_hidden');
+            $header.css('margin-top', '');
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', false);
+            }
+        }
+        function hide(){
+            $icon.addClass('icon_rotate_180deg');
+            $header.addClass('fs-view__header_hidden');
+            $header.css('margin-top', -$header.outerHeight());
+            $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
+                $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
+                setTimeout(function(){
+                    $(window).trigger('resize');
+                }, 100);
+            });
+            if (typeof setCookie == 'function') {
+                setCookie('header_hidden', true);
+            }
+        }
+        function click(){
+            if ($header.hasClass('fs-view__header_hidden')) {
+                show();
+            } else {
+                hide();
+            }
+        }
+        if (typeof getCookie == 'function') {
+            if (getCookie('header_hidden') == 'true') {
+                hide();
+            } else {
+                show();
+            }
+        }
+        setTimeout(function(){
+            $('.fs-view').addClass('fs-view_transition');
+            $icon.addClass('icon_animate');
+        }, 100);
+        self.on('click', click);
+    });
 });
 (function($){
     var methods = {
@@ -2863,258 +2863,6 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'gallery', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        title: 'Фотогалерея',
-                        items: []
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._el = {
-                        target: self,
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row"></div>'),
-                        card__header_column: $([
-                            '<div class="card__header-column">',
-                                '<label class="card__name">',
-                                '<span class="card__name-text">' + that.data.title + '</span>',
-                                '</label>',
-                            '</div>'
-                        ].join('')),
-                        button_toggle_left: $([
-                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_right"></span>',
-                            '</button>'
-                        ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__left: $('<div class="card__left"></div>'),
-                        card__backdrop: $('<div class="card__backdrop"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
-                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
-                        tabs: []
-                    };
-                    that.data.private = {
-                        datatree: [],
-                        datalevel: -1
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.nulls = function(){
-                        that.data.items.map(function(item){
-                            for (var key in item){
-                                if (item.hasOwnProperty(key)) {
-                                    if (item[key] == 'null') {
-                                        item[key] = '';
-                                    }
-                                }
-                            }
-                        });
-                    };
-                    that.prepare = function(){
-                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
-                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
-                        function prepareData(data, datalevel, parentid){
-                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
-                            datalevel++;
-                            roots.forEach(function(root){
-                                root.item.level = datalevel;
-                                if (!root.item.fileid)
-                                    root.child = prepareData(data, datalevel, root.item.id);
-                            });
-                            datalevel--;
-                            return roots;
-                        }
-                    };
-
-                    that.render = function(){
-                        that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header.append(
-                                    that.data._el.card__header_row.append(
-                                        that.data._el.card__header_column.prepend(
-                                            that.data._el.button_toggle_left
-                                        )
-                                    )
-                                ),
-                                that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle.append(
-                                        that.data._el.card__middle_scroll.append(
-                                            that.data._el.card__middle_inner
-                                        )
-                                    ),
-                                    that.data._el.card__backdrop
-                                )
-                            )
-                        );
-                    };
-                    that.render_data = function(){
-                        var $menu__list = $('<ul class="menu__list"></ul>');
-                        renderMenu(that.data.private.datatree, $menu__list);
-                        that.data._el.menu.append($menu__list);
-                        that.data._el.menu.menu();
-                        function renderMenu(data, container){
-                            var result = false,
-                                padding = 10;
-                            data.forEach(function(d){
-                                if (!d.item.fileid) {
-                                    result = true;
-                                    padding = 10;
-                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
-                                    //d.item.icon = 'icon_svg_folder';
-                                    var $menu__item = $([
-                                            '<li class="menu__item" id=' + d.item.id + '>',
-                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                            '<span class="menu__item-link-content">',
-                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
-                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                '<span class="menu__item-text">' + d.item.name + '</span>',
-                                            '</span>',
-                                            '</a>',
-                                            '</li>'
-                                        ].join(''));
-                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
-                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
-                                    $menu__item.append(
-                                        $menu__submenu.append(
-                                            $menu__list
-                                        )
-                                    );
-                                    if (d.child) {
-                                        if (!renderMenu(d.child, $menu__list)) {
-                                            d.item.icon = 'icon_svg_images';
-                                            $menu__item = $([
-                                                '<li class="menu__item" id=' + d.item.id + '>',
-                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                                '<span class="menu__item-link-content">',
-                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
-                                                '</span>',
-                                                '</a>',
-                                                '</li>'
-                                            ].join(''));
-                                            $menu__item.on('click', function(e){
-                                                console.log(d.item.id);
-                                                if (!d._loaded) {
-                                                    renderPanel(d);
-                                                }
-                                                that.data._el.card__middle.find('.tabs__pane').hide();
-                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
-                                            });
-                                        }
-                                    }
-                                    container.append($menu__item);
-                                }
-                            });
-                            return result;
-                        }
-                        function renderPanel(d){
-                            //set flag loaded
-                            d._loaded = true;
-
-                            //render panel
-                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
-                            that.data._el.tabs.push($tab);
-                            that.data._el.card__middle_inner.append($tab);
-
-                            // render images
-                            d.child.forEach(function(d) {
-                                var item = d.item;
-                                var _guid = item.url.replace('/asyst/api/file/get/','')
-                                var _slash = _guid.indexOf('/');
-                                _guid = _guid.substring(0,_slash);
-                                item.guid = _guid;
-                                renderImageBlock(item, $tab);
-                            });
-                        }
-                        function renderImageBlock(item, cont){
-                            var $imageblock = $([
-                                '<div class="gallery__image-block" data-url="' + item.url + '">',
-                                '<a class="gallery__image-link" href="' + item.url + '"',
-                                'data-description="' + item.description + '"',
-                                'data-lightbox="lightbox-' + item.parentid + '">',
-                                '<div class="spinner spinner_align_center"></div>',
-                                '<div class="gallery__image"></div>',
-                                '<div class="gallery__error">',
-                                '<div class="icon icon_svg_close"></div>',
-                                '<div class="gallery__error-info">Ошибка</div>',
-                                '</div>',
-                                '<div class="gallery__filename"></div>',
-                                '</a></div>'
-                            ].join('')).appendTo(cont);
-                            $imageblock.find('.spinner').show();
-                            $imageblock.find('.gallery__image').css('opacity', 0);
-                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
-                            var tempImg = new Image();
-                            tempImg.src = '/converter/converter?file=' + item.guid;
-                            tempImg.onload = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').css('opacity', 1);
-                            };
-                            tempImg.onerror = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').hide();
-                                $imageblock.find('.gallery__error').css('display', 'flex');
-                                $imageblock.find('.gallery__image-link').on('click', function(e){
-                                    e.preventDefault();
-                                    return false;
-                                }).removeAttr('data-lightbox');
-                            };
-                        }
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="card"]').card();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-tooltip]').tooltip();
-                    };
-                    that.init = function(){
-                        that.nulls();
-                        that.prepare();
-                        that.render();
-                        that.render_data();
-                        that.init_components();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.gallery = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
-        }
-    };
-})( jQuery );
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'visit', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -3414,6 +3162,258 @@ $(function(){
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on $.visit' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'gallery', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        title: 'Фотогалерея',
+                        items: []
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        target: self,
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                                '<label class="card__name">',
+                                '<span class="card__name-text">' + that.data.title + '</span>',
+                                '</label>',
+                            '</div>'
+                        ].join('')),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_right"></span>',
+                            '</button>'
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__left: $('<div class="card__left"></div>'),
+                        card__backdrop: $('<div class="card__backdrop"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
+                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
+                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
+                        tabs: []
+                    };
+                    that.data.private = {
+                        datatree: [],
+                        datalevel: -1
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.nulls = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    that.prepare = function(){
+                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
+                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
+                        function prepareData(data, datalevel, parentid){
+                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
+                            datalevel++;
+                            roots.forEach(function(root){
+                                root.item.level = datalevel;
+                                if (!root.item.fileid)
+                                    root.child = prepareData(data, datalevel, root.item.id);
+                            });
+                            datalevel--;
+                            return roots;
+                        }
+                    };
+
+                    that.render = function(){
+                        that.data._el.target.append(
+                            that.data._el.card.append(
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        )
+                                    )
+                                ),
+                                that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
+                                    that.data._el.card__middle.append(
+                                        that.data._el.card__middle_scroll.append(
+                                            that.data._el.card__middle_inner
+                                        )
+                                    ),
+                                    that.data._el.card__backdrop
+                                )
+                            )
+                        );
+                    };
+                    that.render_data = function(){
+                        var $menu__list = $('<ul class="menu__list"></ul>');
+                        renderMenu(that.data.private.datatree, $menu__list);
+                        that.data._el.menu.append($menu__list);
+                        that.data._el.menu.menu();
+                        function renderMenu(data, container){
+                            var result = false,
+                                padding = 10;
+                            data.forEach(function(d){
+                                if (!d.item.fileid) {
+                                    result = true;
+                                    padding = 10;
+                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
+                                    //d.item.icon = 'icon_svg_folder';
+                                    var $menu__item = $([
+                                            '<li class="menu__item" id=' + d.item.id + '>',
+                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                            '<span class="menu__item-link-content">',
+                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                '<span class="menu__item-text">' + d.item.name + '</span>',
+                                            '</span>',
+                                            '</a>',
+                                            '</li>'
+                                        ].join(''));
+                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
+                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
+                                    $menu__item.append(
+                                        $menu__submenu.append(
+                                            $menu__list
+                                        )
+                                    );
+                                    if (d.child) {
+                                        if (!renderMenu(d.child, $menu__list)) {
+                                            d.item.icon = 'icon_svg_images';
+                                            $menu__item = $([
+                                                '<li class="menu__item" id=' + d.item.id + '>',
+                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                                '<span class="menu__item-link-content">',
+                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
+                                                '</span>',
+                                                '</a>',
+                                                '</li>'
+                                            ].join(''));
+                                            $menu__item.on('click', function(e){
+                                                console.log(d.item.id);
+                                                if (!d._loaded) {
+                                                    renderPanel(d);
+                                                }
+                                                that.data._el.card__middle.find('.tabs__pane').hide();
+                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
+                                            });
+                                        }
+                                    }
+                                    container.append($menu__item);
+                                }
+                            });
+                            return result;
+                        }
+                        function renderPanel(d){
+                            //set flag loaded
+                            d._loaded = true;
+
+                            //render panel
+                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
+                            that.data._el.tabs.push($tab);
+                            that.data._el.card__middle_inner.append($tab);
+
+                            // render images
+                            d.child.forEach(function(d) {
+                                var item = d.item;
+                                var _guid = item.url.replace('/asyst/api/file/get/','')
+                                var _slash = _guid.indexOf('/');
+                                _guid = _guid.substring(0,_slash);
+                                item.guid = _guid;
+                                renderImageBlock(item, $tab);
+                            });
+                        }
+                        function renderImageBlock(item, cont){
+                            var $imageblock = $([
+                                '<div class="gallery__image-block" data-url="' + item.url + '">',
+                                '<a class="gallery__image-link" href="' + item.url + '"',
+                                'data-description="' + item.description + '"',
+                                'data-lightbox="lightbox-' + item.parentid + '">',
+                                '<div class="spinner spinner_align_center"></div>',
+                                '<div class="gallery__image"></div>',
+                                '<div class="gallery__error">',
+                                '<div class="icon icon_svg_close"></div>',
+                                '<div class="gallery__error-info">Ошибка</div>',
+                                '</div>',
+                                '<div class="gallery__filename"></div>',
+                                '</a></div>'
+                            ].join('')).appendTo(cont);
+                            $imageblock.find('.spinner').show();
+                            $imageblock.find('.gallery__image').css('opacity', 0);
+                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                            var tempImg = new Image();
+                            tempImg.src = '/converter/converter?file=' + item.guid;
+                            tempImg.onload = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').css('opacity', 1);
+                            };
+                            tempImg.onerror = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').hide();
+                                $imageblock.find('.gallery__error').css('display', 'flex');
+                                $imageblock.find('.gallery__image-link').on('click', function(e){
+                                    e.preventDefault();
+                                    return false;
+                                }).removeAttr('data-lightbox');
+                            };
+                        }
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-tooltip]').tooltip();
+                    };
+                    that.init = function(){
+                        that.nulls();
+                        that.prepare();
+                        that.render();
+                        that.render_data();
+                        that.init_components();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.gallery = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
         }
     };
 })( jQuery );
@@ -5332,6 +5332,239 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'textarea', target : self });
+                    var that = this.obj = {};
+                    that.const = {
+                        REQUIRED: 'Необходимо заполнить'
+                    };
+                    that.defaults = {
+                        disabled: false,
+                        hidden: false,
+                        width: '100%',
+                        rows: 5
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._handlers = null;
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.disable = function(){
+                        self.addClass('textarea_disabled');
+                        self.attr('data-disabled','true');
+                        self.attr('disabled', 'disabled');
+                        self.prop('disabled', true);
+                        that.data.disabled = true;
+                        //save handlers and unbind events
+                        if ($._data(self[0], "events")) {
+                            that.data._handlers = {};
+                            for (var type in $._data(self[0], "events")) {
+                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
+                            }
+                            self.off();
+                        }
+                    };
+                    that.enable = function(){
+                        self.removeClass('textarea_disabled');
+                        self.removeAttr('data-disabled');
+                        self.removeAttr('disabled');
+                        self.prop('disabled', false);
+                        //bind disabled handlers
+                        if (that.data._handlers) {
+                            for (var type in that.data._handlers) {
+                                that.data._handlers[type].forEach(function(ev){
+                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
+                                });
+                            }
+                        }
+                        that.data._handlers = null;
+                        that.data.disabled = false;
+                    };
+                    that.hide = function(){
+                        self.addClass('textarea_hidden');
+                        that.data.hidden = true;
+                    };
+                    that.show = function(){
+                        self.removeClass('textarea_hidden');
+                        that.data.hidden = false;
+                    };
+
+                    that.focus = function(){
+                        self.trigger('focus');
+                        self.trigger('mousedown');
+                    };
+                    that.clear = function(){
+                        self.val('');
+                        self.trigger('keyup');
+                        that.focus();
+                    };
+
+                    that.focusin = function(){
+                        self.addClass('textarea_focused');
+                        that.data.focused = true;
+                    };
+                    that.focusout = function(){
+                        self.removeClass('textarea_focused');
+                        that.data.focused = false;
+                    };
+
+                    that.set_width = function(value){
+                        self.css('width', value);
+                    };
+                    that.set_rows = function(value){
+                        if (value) {
+                            self.attr('rows', value);
+                        }
+                    };
+
+                    that.validate = function(){
+                        that.data.validate = true;
+                        if (that.data.required) {
+                            if (self.val() == '') {
+                                that.data.validate = false;
+                                self.addClass('textarea__has-error');
+                                if (self.parent().find('.control__error').length == 0) {
+                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
+                                }
+                            } else {
+                                that.data.validate = true;
+                                self.removeClass('textarea__has-error');
+                                if (self.parent().find('.control__error').length != 0) {
+                                    self.parent().find('.control__error').remove();
+                                }
+                            }
+                        }
+                        return that.data.validate;
+                    };
+
+                    that.bind = function(){
+                        self.bindFirst('focusin.textarea mousedown.textarea touchstart.textarea', null, null, that.focusin);
+                        self.bindFirst('focusout.textarea', null, null, that.focusout);
+                    };
+
+                    that.init_components = function(){};
+                    that.init = function(){
+                        that.init_components();
+                        that.bind();
+                        if (that.data.disabled) {
+                            that.disable();
+                        } else {
+                            that.enable();
+                        }
+                        if (that.data.hidden) {
+                            that.hide();
+                        } else {
+                            that.show();
+                        }
+                        that.set_width(that.data.width);
+                        that.set_rows(that.data.rows);
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        disable : function() {
+            return this.each(function() {
+                this.obj.disable();
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        },
+        focus: function() {
+            return this.each(function() {
+                this.obj.focus();
+            });
+        },
+        clear : function() {
+            return this.each(function() {
+                this.obj.clear();
+            });
+        },
+        set_width : function(value) {
+            return this.each(function() {
+                this.obj.set_width(value);
+            });
+        },
+        set_rows : function(value) {
+            return this.each(function() {
+                this.obj.set_rows(value);
+            });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
+        },
+        value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = $(this).val();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push($(this).val());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.textarea = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.textarea' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="textarea"]').textarea();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'input', target : self });
                     var that = this.obj = {};
                     that.const = {
@@ -5691,239 +5924,6 @@ $(function(){
 })( jQuery );
 $(function(){
     $('[data-fc="input"]').input();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'textarea', target : self });
-                    var that = this.obj = {};
-                    that.const = {
-                        REQUIRED: 'Необходимо заполнить'
-                    };
-                    that.defaults = {
-                        disabled: false,
-                        hidden: false,
-                        width: '100%',
-                        rows: 5
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._handlers = null;
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.disable = function(){
-                        self.addClass('textarea_disabled');
-                        self.attr('data-disabled','true');
-                        self.attr('disabled', 'disabled');
-                        self.prop('disabled', true);
-                        that.data.disabled = true;
-                        //save handlers and unbind events
-                        if ($._data(self[0], "events")) {
-                            that.data._handlers = {};
-                            for (var type in $._data(self[0], "events")) {
-                                that.data._handlers[type] = $._data(self[0], "events")[type].slice(0);
-                            }
-                            self.off();
-                        }
-                    };
-                    that.enable = function(){
-                        self.removeClass('textarea_disabled');
-                        self.removeAttr('data-disabled');
-                        self.removeAttr('disabled');
-                        self.prop('disabled', false);
-                        //bind disabled handlers
-                        if (that.data._handlers) {
-                            for (var type in that.data._handlers) {
-                                that.data._handlers[type].forEach(function(ev){
-                                    self.on(ev.type + '.' + ev.namespace, ev.handler);
-                                });
-                            }
-                        }
-                        that.data._handlers = null;
-                        that.data.disabled = false;
-                    };
-                    that.hide = function(){
-                        self.addClass('textarea_hidden');
-                        that.data.hidden = true;
-                    };
-                    that.show = function(){
-                        self.removeClass('textarea_hidden');
-                        that.data.hidden = false;
-                    };
-
-                    that.focus = function(){
-                        self.trigger('focus');
-                        self.trigger('mousedown');
-                    };
-                    that.clear = function(){
-                        self.val('');
-                        self.trigger('keyup');
-                        that.focus();
-                    };
-
-                    that.focusin = function(){
-                        self.addClass('textarea_focused');
-                        that.data.focused = true;
-                    };
-                    that.focusout = function(){
-                        self.removeClass('textarea_focused');
-                        that.data.focused = false;
-                    };
-
-                    that.set_width = function(value){
-                        self.css('width', value);
-                    };
-                    that.set_rows = function(value){
-                        if (value) {
-                            self.attr('rows', value);
-                        }
-                    };
-
-                    that.validate = function(){
-                        that.data.validate = true;
-                        if (that.data.required) {
-                            if (self.val() == '') {
-                                that.data.validate = false;
-                                self.addClass('textarea__has-error');
-                                if (self.parent().find('.control__error').length == 0) {
-                                    self.after($('<div class="control__error">' + that.const.REQUIRED + '</div>'));
-                                }
-                            } else {
-                                that.data.validate = true;
-                                self.removeClass('textarea__has-error');
-                                if (self.parent().find('.control__error').length != 0) {
-                                    self.parent().find('.control__error').remove();
-                                }
-                            }
-                        }
-                        return that.data.validate;
-                    };
-
-                    that.bind = function(){
-                        self.bindFirst('focusin.textarea mousedown.textarea touchstart.textarea', null, null, that.focusin);
-                        self.bindFirst('focusout.textarea', null, null, that.focusout);
-                    };
-
-                    that.init_components = function(){};
-                    that.init = function(){
-                        that.init_components();
-                        that.bind();
-                        if (that.data.disabled) {
-                            that.disable();
-                        } else {
-                            that.enable();
-                        }
-                        if (that.data.hidden) {
-                            that.hide();
-                        } else {
-                            that.show();
-                        }
-                        that.set_width(that.data.width);
-                        that.set_rows(that.data.rows);
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        disable : function() {
-            return this.each(function() {
-                this.obj.disable();
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        hide : function() {
-            return this.each(function() {
-                this.obj.hide();
-            });
-        },
-        show : function() {
-            return this.each(function() {
-                this.obj.show();
-            });
-        },
-        focus: function() {
-            return this.each(function() {
-                this.obj.focus();
-            });
-        },
-        clear : function() {
-            return this.each(function() {
-                this.obj.clear();
-            });
-        },
-        set_width : function(value) {
-            return this.each(function() {
-                this.obj.set_width(value);
-            });
-        },
-        set_rows : function(value) {
-            return this.each(function() {
-                this.obj.set_rows(value);
-            });
-        },
-        validate : function() {
-            if (this.length == 1) {
-                var _val = true;
-                this.each(function() {
-                    _val = this.obj.validate();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.validate());
-                });
-                return _arr;
-            }
-        },
-        value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = $(this).val();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push($(this).val());
-                });
-                return _arr;
-            }
-        }
-    };
-    $.fn.textarea = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.textarea' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="textarea"]').textarea();
 });
 (function($){
     var methods = {
@@ -6459,6 +6459,352 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'particles', target : self });
+                    var that = this.obj = {};
+                    that.const = {
+                        COLOR_BLUE: '#4983c4',
+                        COLOR_DEFAULT: '#333',
+                        COLOR_PURPLE: '#8e6bf5',
+                        COLOR_RED: '#ff5940',
+                        COLOR_WHITE: '#fff'
+                    };
+                    that.defaults = {
+                        color_nodes: 'default',
+                        color_nodes_value: that.const.COLOR_WHITE,
+                        color_background: null,
+                        color_background_value: that.const.COLOR_BLUE
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.init_color = function(){
+                        if (that.data.color_nodes == 'blue'){
+                            that.data.color_nodes_value = that.const.COLOR_BLUE;
+                        }
+                        if (that.data.color_nodes == 'default'){
+                            that.data.color_nodes_value = that.const.COLOR_DEFAULT;
+                        }
+                        if (that.data.color_nodes == 'purple'){
+                            that.data.color_nodes_value = that.const.COLOR_PURPLE;
+                        }
+                        if (that.data.color_nodes == 'red'){
+                            that.data.color_nodes_value = that.const.COLOR_RED;
+                        }
+                        if (that.data.color_nodes == 'white'){
+                            that.data.color_nodes_value = that.const.COLOR_WHITE;
+                        }
+                        if (that.data.color_background) {
+                            if (that.data.color_background == 'blue'){
+                                that.data.color_background_value = that.const.COLOR_BLUE;
+                            }
+                            if (that.data.color_background == 'default'){
+                                that.data.color_background_value = that.const.COLOR_DEFAULT;
+                            }
+                            if (that.data.color_background == 'purple'){
+                                that.data.color_background_value = that.const.COLOR_PURPLE;
+                            }
+                            if (that.data.color_background == 'red'){
+                                that.data.color_background_value = that.const.COLOR_RED;
+                            }
+                            if (that.data.color_background == 'white'){
+                                that.data.color_background_value = that.const.COLOR_WHITE;
+                            }
+                            self.css({ 'background-color': that.data.color_background_value });
+                        }
+                    };
+                    that.init = function(){
+                        that.init_color();
+                        that.data.id = 'particles_' + Date.now();
+                        self.attr('id', that.data.id);
+                        particlesJS(that.data.id, {
+                            "particles": {
+                                "number": {
+                                    "value": 80,
+                                    "density": {
+                                        "enable": true,
+                                        "value_area": 800
+                                    }
+                                },
+                                "color": {
+                                    "value": that.data.color_nodes_value
+                                },
+                                "shape": {
+                                    "type": "circle",
+                                    "stroke": {
+                                        "width": 0,
+                                        "color": that.data.color_nodes_value
+                                    },
+                                    "polygon": {
+                                        "nb_sides": 5
+                                    },
+                                    "image": {
+                                        "src": "img/github.svg",
+                                        "width": 100,
+                                        "height": 100
+                                    }
+                                },
+                                "opacity": {
+                                    "value": 0.5,
+                                    "random": false,
+                                    "anim": {
+                                        "enable": false,
+                                        "speed": 1,
+                                        "opacity_min": 0.1,
+                                        "sync": false
+                                    }
+                                },
+                                "size": {
+                                    "value": 3,
+                                    "random": true,
+                                    "anim": {
+                                        "enable": false,
+                                        "speed": 40,
+                                        "size_min": 0.1,
+                                        "sync": false
+                                    }
+                                },
+                                "line_linked": {
+                                    "enable": true,
+                                    "distance": 150,
+                                    "color": that.data.color_nodes_value,
+                                    "opacity": 0.25,
+                                    "width": 1
+                                },
+                                "move": {
+                                    "enable": true,
+                                    "speed": 3,
+                                    "direction": "none",
+                                    "random": true,
+                                    "straight": false,
+                                    "out_mode": "out",
+                                    "bounce": false,
+                                    "attract": {
+                                        "enable": false,
+                                        "rotateX": 600,
+                                        "rotateY": 1200
+                                    }
+                                }
+                            },
+                            "interactivity": {
+                                "detect_on": "canvas",
+                                "events": {
+                                    "onhover": {
+                                        "enable": true,
+                                        "mode": "grab"
+                                    },
+                                    "onclick": {
+                                        "enable": true,
+                                        "mode": "repulse"
+                                    },
+                                    "resize": true
+                                },
+                                "modes": {
+                                    "grab": {
+                                        "distance": 200,
+                                        "line_linked": {
+                                            "opacity": 0.5
+                                        }
+                                    },
+                                    "bubble": {
+                                        "distance": 400,
+                                        "size": 5,
+                                        "duration": 2,
+                                        "opacity": 1,
+                                        "speed": 3
+                                    },
+                                    "repulse": {
+                                        "distance": 200,
+                                        "duration": 0.4
+                                    },
+                                    "push": {
+                                        "particles_nb": 4
+                                    },
+                                    "remove": {
+                                        "particles_nb": 2
+                                    }
+                                }
+                            },
+                            "retina_detect": true
+                        });
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+    };
+    $.fn.particles = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.particles' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="particles"]').particles();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'calendar', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        validate: true
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+                    that.data._el = {
+                        button_submit: null,
+                        inputs: [],
+                        selects: []
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.get = function(){
+                        that.data._el.button_submit = self.find('button[type="submit"]');
+                    };
+                    that.get_controls = function(){
+                        if (that.data._el.inputs.length == 0) {
+                            that.data._el.inputs = self.find('[data-fc="input"]');
+                            that.bind_validate_inputs();
+                        }
+                        if (that.data._el.selects.length == 0) {
+                            that.data._el.selects = self.find('[data-fc="select"]');
+                            that.bind_validate_selects();
+                        }
+                    };
+                    that.validate = function(){
+                        that.data.validate = true;
+                        that.data._el.inputs.each(function(){
+                            if (!$(this).input('validate')) {
+                                that.data.validate = false;
+                            }
+                        });
+                        that.data._el.selects.each(function(){
+                            if (!$(this).select('validate')) {
+                                that.data.validate = false;
+                            }
+                        });
+                        return that.data.validate;
+                    };
+                    that.bind = function(){
+                        that.data._el.button_submit.on('click', function(e){
+                            if (!that.validate()) {
+                                e.preventDefault();
+                            }
+                        });
+                    };
+                    that.bind_validate_inputs = function(){
+                        that.data._el.inputs.each(function(){
+                            var $input = $(this);
+                            if ($input.data().required) {
+                                $input.data()._el.input.on('blur', function(){
+                                    $input.input('validate');
+                                })
+                            }
+                        });
+                    };
+                    that.bind_validate_selects = function(){
+                        that.data._el.selects.each(function(){
+                            var $select = $(this);
+                            if ($select.data().required) {
+                                $select.on('change', function(){
+                                    $select.select('validate');
+                                })
+                            }
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="input"]').input();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="tooltip"]').tooltip();
+                        self.find('[data-fc="textarea"]').textarea();
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="tumbler"]').tumbler();
+                        self.find('[data-fc="select"]').select();
+                    };
+                    that.init = function(){
+                        that.get();
+                        that.init_components();
+                        that.get_controls();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        get_controls : function() {
+            return this.each(function() {
+                this.obj.get_controls();
+            });
+        },
+        validate : function() {
+            if (this.length == 1) {
+                var _val = true;
+                this.each(function() {
+                    _val = this.obj.validate();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.validate());
+                });
+                return _arr;
+            }
+        }
+    };
+    $.fn.form = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.form' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="form"]').form();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'widget_grid', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -6804,352 +7150,6 @@ $(function(){
         }
     };
 })( jQuery );
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'particles', target : self });
-                    var that = this.obj = {};
-                    that.const = {
-                        COLOR_BLUE: '#4983c4',
-                        COLOR_DEFAULT: '#333',
-                        COLOR_PURPLE: '#8e6bf5',
-                        COLOR_RED: '#ff5940',
-                        COLOR_WHITE: '#fff'
-                    };
-                    that.defaults = {
-                        color_nodes: 'default',
-                        color_nodes_value: that.const.COLOR_WHITE,
-                        color_background: null,
-                        color_background_value: that.const.COLOR_BLUE
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.init_color = function(){
-                        if (that.data.color_nodes == 'blue'){
-                            that.data.color_nodes_value = that.const.COLOR_BLUE;
-                        }
-                        if (that.data.color_nodes == 'default'){
-                            that.data.color_nodes_value = that.const.COLOR_DEFAULT;
-                        }
-                        if (that.data.color_nodes == 'purple'){
-                            that.data.color_nodes_value = that.const.COLOR_PURPLE;
-                        }
-                        if (that.data.color_nodes == 'red'){
-                            that.data.color_nodes_value = that.const.COLOR_RED;
-                        }
-                        if (that.data.color_nodes == 'white'){
-                            that.data.color_nodes_value = that.const.COLOR_WHITE;
-                        }
-                        if (that.data.color_background) {
-                            if (that.data.color_background == 'blue'){
-                                that.data.color_background_value = that.const.COLOR_BLUE;
-                            }
-                            if (that.data.color_background == 'default'){
-                                that.data.color_background_value = that.const.COLOR_DEFAULT;
-                            }
-                            if (that.data.color_background == 'purple'){
-                                that.data.color_background_value = that.const.COLOR_PURPLE;
-                            }
-                            if (that.data.color_background == 'red'){
-                                that.data.color_background_value = that.const.COLOR_RED;
-                            }
-                            if (that.data.color_background == 'white'){
-                                that.data.color_background_value = that.const.COLOR_WHITE;
-                            }
-                            self.css({ 'background-color': that.data.color_background_value });
-                        }
-                    };
-                    that.init = function(){
-                        that.init_color();
-                        that.data.id = 'particles_' + Date.now();
-                        self.attr('id', that.data.id);
-                        particlesJS(that.data.id, {
-                            "particles": {
-                                "number": {
-                                    "value": 80,
-                                    "density": {
-                                        "enable": true,
-                                        "value_area": 800
-                                    }
-                                },
-                                "color": {
-                                    "value": that.data.color_nodes_value
-                                },
-                                "shape": {
-                                    "type": "circle",
-                                    "stroke": {
-                                        "width": 0,
-                                        "color": that.data.color_nodes_value
-                                    },
-                                    "polygon": {
-                                        "nb_sides": 5
-                                    },
-                                    "image": {
-                                        "src": "img/github.svg",
-                                        "width": 100,
-                                        "height": 100
-                                    }
-                                },
-                                "opacity": {
-                                    "value": 0.5,
-                                    "random": false,
-                                    "anim": {
-                                        "enable": false,
-                                        "speed": 1,
-                                        "opacity_min": 0.1,
-                                        "sync": false
-                                    }
-                                },
-                                "size": {
-                                    "value": 3,
-                                    "random": true,
-                                    "anim": {
-                                        "enable": false,
-                                        "speed": 40,
-                                        "size_min": 0.1,
-                                        "sync": false
-                                    }
-                                },
-                                "line_linked": {
-                                    "enable": true,
-                                    "distance": 150,
-                                    "color": that.data.color_nodes_value,
-                                    "opacity": 0.25,
-                                    "width": 1
-                                },
-                                "move": {
-                                    "enable": true,
-                                    "speed": 3,
-                                    "direction": "none",
-                                    "random": true,
-                                    "straight": false,
-                                    "out_mode": "out",
-                                    "bounce": false,
-                                    "attract": {
-                                        "enable": false,
-                                        "rotateX": 600,
-                                        "rotateY": 1200
-                                    }
-                                }
-                            },
-                            "interactivity": {
-                                "detect_on": "canvas",
-                                "events": {
-                                    "onhover": {
-                                        "enable": true,
-                                        "mode": "grab"
-                                    },
-                                    "onclick": {
-                                        "enable": true,
-                                        "mode": "repulse"
-                                    },
-                                    "resize": true
-                                },
-                                "modes": {
-                                    "grab": {
-                                        "distance": 200,
-                                        "line_linked": {
-                                            "opacity": 0.5
-                                        }
-                                    },
-                                    "bubble": {
-                                        "distance": 400,
-                                        "size": 5,
-                                        "duration": 2,
-                                        "opacity": 1,
-                                        "speed": 3
-                                    },
-                                    "repulse": {
-                                        "distance": 200,
-                                        "duration": 0.4
-                                    },
-                                    "push": {
-                                        "particles_nb": 4
-                                    },
-                                    "remove": {
-                                        "particles_nb": 2
-                                    }
-                                }
-                            },
-                            "retina_detect": true
-                        });
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-    };
-    $.fn.particles = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.particles' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="particles"]').particles();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'calendar', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        validate: true
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-                    that.data._el = {
-                        button_submit: null,
-                        inputs: [],
-                        selects: []
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-
-                    that.get = function(){
-                        that.data._el.button_submit = self.find('button[type="submit"]');
-                    };
-                    that.get_controls = function(){
-                        if (that.data._el.inputs.length == 0) {
-                            that.data._el.inputs = self.find('[data-fc="input"]');
-                            that.bind_validate_inputs();
-                        }
-                        if (that.data._el.selects.length == 0) {
-                            that.data._el.selects = self.find('[data-fc="select"]');
-                            that.bind_validate_selects();
-                        }
-                    };
-                    that.validate = function(){
-                        that.data.validate = true;
-                        that.data._el.inputs.each(function(){
-                            if (!$(this).input('validate')) {
-                                that.data.validate = false;
-                            }
-                        });
-                        that.data._el.selects.each(function(){
-                            if (!$(this).select('validate')) {
-                                that.data.validate = false;
-                            }
-                        });
-                        return that.data.validate;
-                    };
-                    that.bind = function(){
-                        that.data._el.button_submit.on('click', function(e){
-                            if (!that.validate()) {
-                                e.preventDefault();
-                            }
-                        });
-                    };
-                    that.bind_validate_inputs = function(){
-                        that.data._el.inputs.each(function(){
-                            var $input = $(this);
-                            if ($input.data().required) {
-                                $input.data()._el.input.on('blur', function(){
-                                    $input.input('validate');
-                                })
-                            }
-                        });
-                    };
-                    that.bind_validate_selects = function(){
-                        that.data._el.selects.each(function(){
-                            var $select = $(this);
-                            if ($select.data().required) {
-                                $select.on('change', function(){
-                                    $select.select('validate');
-                                })
-                            }
-                        });
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="input"]').input();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="tooltip"]').tooltip();
-                        self.find('[data-fc="textarea"]').textarea();
-                        self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="tumbler"]').tumbler();
-                        self.find('[data-fc="select"]').select();
-                    };
-                    that.init = function(){
-                        that.get();
-                        that.init_components();
-                        that.get_controls();
-                        that.bind();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        },
-        get_controls : function() {
-            return this.each(function() {
-                this.obj.get_controls();
-            });
-        },
-        validate : function() {
-            if (this.length == 1) {
-                var _val = true;
-                this.each(function() {
-                    _val = this.obj.validate();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.validate());
-                });
-                return _arr;
-            }
-        }
-    };
-    $.fn.form = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.form' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="form"]').form();
-});
 (function($){
     var methods = {
         init : function(options) {
