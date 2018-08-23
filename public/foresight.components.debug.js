@@ -3196,6 +3196,20 @@ $(function(){
                                 '</label>',
                             '</div>'
                         ].join('')),
+                        card__header_column_search: $('<div class="card__header-column card__header-element_stretch"></div>'),
+                        input: $([
+                            '<span class="input input__has-clear card__header-element_stretch" data-fc="input">',
+                                '<span class="input__box">',
+                                    '<span class="alertbox" data-fc="alertbox">',
+                                        '<span class="icon icon_svg_search"></span>',
+                                    '</span>',
+                                    '<input type="text" class="input__control">',
+                                    '<button class="button" type="button" data-fc="button" tabindex="-1">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                    '</button>',
+                                '</span>',
+                            '</span>',
+                        ].join('')),
                         button_toggle_left: $([
                             '<button class="button" type="button" data-fc="button" data-toggle="left">',
                             '<span class="icon icon_svg_double_right"></span>',
@@ -3212,7 +3226,11 @@ $(function(){
                     };
                     that.data.private = {
                         datatree: [],
-                        datalevel: -1
+                        datalevel: -1,
+                        search: {
+                            text: null,
+                            timer: null
+                        }
                     };
 
                     that.destroy = function(){
@@ -3253,6 +3271,9 @@ $(function(){
                                     that.data._el.card__header_row.append(
                                         that.data._el.card__header_column.prepend(
                                             that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_search.append(
+                                            that.data._el.input
                                         )
                                     )
                                 ),
@@ -3384,11 +3405,31 @@ $(function(){
                             };
                         }
                     };
+                    that.filter = function(){
+                        filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
+                        function filter(arr, text){
+                            arr.map(function(d){
+                                if (d.item.name.toLowerCase().indexOf(text) >= 0) {
+                                    self.find('.menu__item' + '#' + d.item.id).show();
+                                } else {
+                                    self.find('.menu__item' + '#' + d.item.id).hide();
+                                }
+                            });
+                        }
+                    };
+                    that.bind = function(){
+                        that.data._el.input.on('keyup', function(){
+                            clearTimeout(that.data.private.search.timer);
+                            that.data.private.search.text = $(this).input('value');
+                            that.data.private.search.timer = setTimeout(that.filter, 300);
+                        });
+                    };
 
                     that.init_components = function(){
                         self.find('[data-fc="card"]').card();
                         self.find('[data-fc="button"]').button();
                         self.find('[data-tooltip]').tooltip();
+                        self.find('[data-fc="input"]').input();
                     };
                     that.init = function(){
                         that.nulls();
@@ -3396,6 +3437,7 @@ $(function(){
                         that.render();
                         that.render_data();
                         that.init_components();
+                        that.bind();
                     };
                     that.init();
                 }
