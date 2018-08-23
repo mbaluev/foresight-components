@@ -1044,6 +1044,7 @@ $(function(){
                         return that.data.value;
                     };
                     that.set_value = function(value){
+                        value = value.replace(new RegExp('%', 'g'), '%25');
                         that.data.value = decodeURI(value);
                         if (that.data.editor) {
                             that.data.editor.setValue(that.data.value);
@@ -3619,7 +3620,7 @@ $(function(){
                                     that.data.date = date;
                                     that.data.formattedDate = formattedDate;
                                     that.data.displayDate = formattedDate;
-                                    if (Asyst) {
+                                    if (typeof Asyst != 'undefined') {
                                         if (Asyst.date) {
                                             if (typeof Asyst.date.convertToGenitive == 'function') {
                                                 that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());

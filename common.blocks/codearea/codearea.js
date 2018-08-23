@@ -48,6 +48,7 @@
                         return that.data.value;
                     };
                     that.set_value = function(value){
+                        value = value.replace(new RegExp('%', 'g'), '%25');
                         that.data.value = decodeURI(value);
                         if (that.data.editor) {
                             that.data.editor.setValue(that.data.value);

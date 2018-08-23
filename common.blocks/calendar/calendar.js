@@ -200,7 +200,7 @@
                                     that.data.date = date;
                                     that.data.formattedDate = formattedDate;
                                     that.data.displayDate = formattedDate;
-                                    if (Asyst) {
+                                    if (typeof Asyst != 'undefined') {
                                         if (Asyst.date) {
                                             if (typeof Asyst.date.convertToGenitive == 'function') {
                                                 that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());

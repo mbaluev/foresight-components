@@ -1,0 +1,283 @@
+<!doctype html>
+<head>
+    <title>foresight-orgchart</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+</head>
+<body class="page proximanova">
+<div class="fs-view">
+    <div class="fs-view__header">
+        <div class="header">
+            <div class="header__column header__column-left">
+                <button class="button" type="button" data-fc="button" data-toggle="menu-left">
+                    <span class="icon icon_svg_bars"></span>
+                    <span class="button__anim"></span>
+                </button>
+                <a class="button" href="dashboard.html" data-fc="button">
+                    <span class="icon icon_svg_home"></span>
+                    <span class="button__anim"></span>
+                </a>
+                <button class="button" type="button" data-fc="button">
+                    <span class="icon icon_svg_search"></span>
+                    <span class="button__anim"></span>
+                </button>
+            </div>
+            <div class="header__column header__column-right">
+                <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
+                    <span class="icon icon_svg_settings"></span>
+                    <span class="button__text mobile mobile_hide">Функциональный администратор</span>
+                    <span class="icon icon_svg_down icon_animate"></span>
+                </button>
+                <div class="popup" id="account" data-position="bottom left" data-width="auto">
+                    <ul class="popup__list">
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="#">
+                                <span class="icon icon_svg_settings"></span>
+                                <span class="popup__text">Профиль</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="settings.html">
+                                <span class="popup__text">Центр настроек</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="#">
+                                <span class="popup__text">Администрирование</span>
+                            </a>
+                        </li>
+                        <li class="popup__list-item">
+                            <a class="popup__link" href="logout.html">
+                                <span class="popup__text">Выход</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="fs-view__main">
+        <div class="fs-view__left fs-view__left_hidden">
+            <div class="menu" data-fc="menu">
+                <ul class="menu__list">
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="index.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Главная</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="gridview.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="docsearch.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Расширенный поиск документов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="dashboard.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="reports.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Центр отчетов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="bubble.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Баблчарт моих контрактов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="cloud.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Облако тэгов</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link" href="ktchart.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Визуализация иерархии контрольных точек</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li class="menu__item">
+                        <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Компоненты</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                        </a>
+                        <div class="menu menu__submenu-container">
+                            <ul class="menu__list menu__submenu">
+                                <li class="menu__item">
+                                    <a class="menu__item-link link" href="components.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Все</span>
+                                            </span>
+                                    </a>
+                                </li>
+                                <li class="menu__item">
+                                    <a class="menu__item-link link" href="icons.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Иконки</span>
+                                            </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="fs-view__middle fs-view__middle_full">
+            <div class="fs-view__middle-scroll">
+                <div class="gallery" id="container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="third/jquery-3.2.1.min.js"></script>
+<script src="third/jquery-ui.min.js"></script>
+<script src="third/jquery.event.drag-2.3.0.js"></script>
+<script src="third/jquery.event.drop-2.3.0.js"></script>
+<script src="third/highcharts.js"></script>
+
+<script src="foresight.third.min.js"></script>
+<script src="foresight.components.debug.js"></script>
+<script src="foresight.pages.min.js"></script>
+
+<script>
+    $(function(){
+        $('#container').gallery({
+            items: [
+                {
+                    id: 1,
+                    parentid: null,
+                    fileid: null,
+                    name: "Портфель",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 2,
+                    parentid: 1,
+                    fileid: null,
+                    name: "Проект",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 3,
+                    parentid: 2,
+                    fileid: null,
+                    name: "Октябрь",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 4,
+                    parentid: 3,
+                    fileid: null,
+                    name: "1я неделя",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 5,
+                    parentid: 4,
+                    fileid: null,
+                    name: "1й день",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 6,
+                    parentid: 5,
+                    fileid: 192322,
+                    name: "Экотуризм. Заповедники",
+                    url: "/images/news/1.jpg",
+                    description: "На Восточном",
+                    icon: "null"
+                },
+                {
+                    id: 7,
+                    parentid: 5,
+                    fileid: 192323,
+                    name: "Экотуризм. Заповедники",
+                    url: "/images/news/2.jpg",
+                    description: "На Восточном",
+                    icon: "null"
+                },
+                {
+                    id: 8,
+                    parentid: null,
+                    fileid: null,
+                    name: "Портфель 2",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 9,
+                    parentid: 8,
+                    fileid: null,
+                    name: "Сентябрь",
+                    url: "null",
+                    description: "null",
+                    icon: "null"
+                },
+                {
+                    id: 10,
+                    parentid: 9,
+                    fileid: 192324,
+                    name: "Экотуризм. Заповедники",
+                    url: "/images/news/3.jpg",
+                    description: "На Восточном",
+                    icon: "null"
+                }
+            ]
+        });
+    });
+</script>
+</body>
+</html>
