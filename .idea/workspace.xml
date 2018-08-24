@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.css" afterPath="$PROJECT_DIR$/public/foresight.components.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/foresight.components.min.css" afterPath="$PROJECT_DIR$/public/foresight.components.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/form/form.css" afterPath="$PROJECT_DIR$/common.blocks/form/form.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/widget/widget.css" afterPath="$PROJECT_DIR$/common.blocks/widget/widget.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common.blocks/gallery/gallery.js" afterPath="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,12 +23,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/package.json">
+      <file leaf-file-name="gallery.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3018576">
-              <caret line="13" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-              <folding />
+            <state vertical-scroll-proportion="0.73134327">
+              <caret line="258" column="0" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+              <folding>
+                <element signature="e#364#467#0" expanded="false" />
+                <element signature="e#625#663#0" expanded="false" />
+                <element signature="e#746#3350#0" expanded="false" />
+                <element signature="e#1071#1402#0" expanded="false" />
+                <element signature="e#1574#2397#0" expanded="false" />
+                <element signature="e#2455#2707#0" expanded="false" />
+                <element signature="e#3392#3632#0" expanded="false" />
+                <element signature="e#3503#3610#0" expanded="false" />
+                <element signature="e#3680#3785#0" expanded="false" />
+                <element signature="e#3830#4277#0" expanded="false" />
+                <element signature="e#3890#4253#0" expanded="false" />
+                <element signature="e#3941#4227#0" expanded="false" />
+                <element signature="e#4005#4197#0" expanded="false" />
+                <element signature="e#4068#4163#0" expanded="false" />
+                <element signature="e#4324#5209#0" expanded="false" />
+                <element signature="e#4632#5187#0" expanded="false" />
+                <element signature="e#4836#5076#0" expanded="false" />
+                <element signature="e#5256#6699#0" expanded="false" />
+                <element signature="e#6750#14288#0" expanded="false" />
+                <element signature="e#7081#10925#0" expanded="false" />
+                <element signature="e#7229#10854#0" expanded="false" />
+                <element signature="e#7283#10824#0" expanded="false" />
+                <element signature="e#7607#8474#0" expanded="false" />
+                <element signature="e#9006#10723#0" expanded="false" />
+                <element signature="e#9087#10685#0" expanded="false" />
+                <element signature="e#9226#10012#0" expanded="false" />
+                <element signature="e#10103#10641#0" expanded="false" />
+                <element signature="e#10241#10360#0" expanded="false" />
+                <element signature="e#10973#11919#0" expanded="false" />
+                <element signature="e#11476#11891#0" expanded="false" />
+                <element signature="e#11981#14266#0" expanded="false" />
+                <element signature="e#12031#12946#0" expanded="false" />
+                <element signature="e#13457#13644#0" expanded="false" />
+                <element signature="e#13703#14239#0" expanded="false" />
+                <element signature="e#14038#14179#0" expanded="false" />
+                <element signature="e#15829#16197#0" expanded="false" />
+                <element signature="e#15897#16173#0" expanded="false" />
+                <element signature="e#16253#16531#0" expanded="false" />
+                <element signature="e#16575#16844#0" expanded="false" />
+                <element signature="e#16982#17087#0" expanded="false" />
+                <element signature="e#17024#17075#0" expanded="false" />
+                <element signature="e#17133#17493#0" expanded="false" />
+                <element signature="e#17166#17272#0" expanded="false" />
+                <element signature="e#17324#17393#0" expanded="false" />
+                <element signature="e#17399#17487#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,9 +145,9 @@
         <option value="$PROJECT_DIR$/public/gallery.html" />
         <option value="$PROJECT_DIR$/common.blocks/tabs/tabs.css" />
         <option value="$PROJECT_DIR$/public/pages/gridview.js" />
-        <option value="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
         <option value="$PROJECT_DIR$/common.blocks/form/form.css" />
         <option value="$PROJECT_DIR$/common.blocks/widget/widget.css" />
+        <option value="$PROJECT_DIR$/common.blocks/gallery/gallery.js" />
       </list>
     </option>
   </component>
@@ -167,6 +210,128 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="proximanova" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="page" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="foresight-components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common.blocks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="gallery" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -339,13 +504,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/design/golikova2018/common.blocks/header/header.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08955224">
-          <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/design/golikova2018/mobile.blocks/header/header.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.04477612">
@@ -4161,62 +4319,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53571427">
-          <caret line="250" column="22" selection-start-line="250" selection-start-column="22" selection-end-line="250" selection-end-column="22" />
-          <folding>
-            <element signature="e#364#467#0" expanded="false" />
-            <element signature="e#625#663#0" expanded="false" />
-            <element signature="e#746#3350#0" expanded="false" />
-            <element signature="e#1071#1402#0" expanded="false" />
-            <element signature="e#1574#2397#0" expanded="false" />
-            <element signature="e#2455#2707#0" expanded="false" />
-            <element signature="e#3392#3632#0" expanded="false" />
-            <element signature="e#3680#3785#0" expanded="false" />
-            <element signature="e#3830#4277#0" expanded="false" />
-            <element signature="e#3890#4253#0" expanded="false" />
-            <element signature="e#3941#4227#0" expanded="false" />
-            <element signature="e#4005#4197#0" expanded="false" />
-            <element signature="e#4068#4163#0" expanded="false" />
-            <element signature="e#4324#5209#0" expanded="false" />
-            <element signature="e#4632#5187#0" expanded="false" />
-            <element signature="e#4836#5076#0" expanded="false" />
-            <element signature="e#5256#6699#0" expanded="false" />
-            <element signature="e#6750#14288#0" expanded="false" />
-            <element signature="e#7081#10925#0" expanded="false" />
-            <element signature="e#7607#8474#0" expanded="false" />
-            <element signature="e#9006#10723#0" expanded="false" />
-            <element signature="e#9087#10685#0" expanded="false" />
-            <element signature="e#9226#10012#0" expanded="false" />
-            <element signature="e#10103#10641#0" expanded="false" />
-            <element signature="e#10241#10360#0" expanded="false" />
-            <element signature="e#10973#11919#0" expanded="false" />
-            <element signature="e#11476#11891#0" expanded="false" />
-            <element signature="e#11981#14266#0" expanded="false" />
-            <element signature="e#12031#12946#0" expanded="false" />
-            <element signature="e#13457#13644#0" expanded="false" />
-            <element signature="e#13703#14239#0" expanded="false" />
-            <element signature="e#14038#14179#0" expanded="false" />
-            <element signature="e#14334#14961#0" expanded="false" />
-            <element signature="e#14498#14939#0" expanded="false" />
-            <element signature="e#14547#14911#0" expanded="false" />
-            <element signature="e#14631#14753#0" expanded="false" />
-            <element signature="e#14759#14881#0" expanded="false" />
-            <element signature="e#15005#15373#0" expanded="false" />
-            <element signature="e#15073#15349#0" expanded="false" />
-            <element signature="e#15429#15707#0" expanded="false" />
-            <element signature="e#15751#16020#0" expanded="false" />
-            <element signature="e#16158#16263#0" expanded="false" />
-            <element signature="e#16200#16251#0" expanded="false" />
-            <element signature="e#16309#16669#0" expanded="false" />
-            <element signature="e#16342#16448#0" expanded="false" />
-            <element signature="e#16500#16569#0" expanded="false" />
-            <element signature="e#16575#16663#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/package-lock.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-7.8935184">
@@ -4230,6 +4332,68 @@
         <state vertical-scroll-proportion="0.3018576">
           <caret line="13" column="24" selection-start-line="0" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/page/page.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common.blocks/gallery/gallery.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73134327">
+          <caret line="258" column="0" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+          <folding>
+            <element signature="e#364#467#0" expanded="false" />
+            <element signature="e#625#663#0" expanded="false" />
+            <element signature="e#746#3350#0" expanded="false" />
+            <element signature="e#1071#1402#0" expanded="false" />
+            <element signature="e#1574#2397#0" expanded="false" />
+            <element signature="e#2455#2707#0" expanded="false" />
+            <element signature="e#3392#3632#0" expanded="false" />
+            <element signature="e#3503#3610#0" expanded="false" />
+            <element signature="e#3680#3785#0" expanded="false" />
+            <element signature="e#3830#4277#0" expanded="false" />
+            <element signature="e#3890#4253#0" expanded="false" />
+            <element signature="e#3941#4227#0" expanded="false" />
+            <element signature="e#4005#4197#0" expanded="false" />
+            <element signature="e#4068#4163#0" expanded="false" />
+            <element signature="e#4324#5209#0" expanded="false" />
+            <element signature="e#4632#5187#0" expanded="false" />
+            <element signature="e#4836#5076#0" expanded="false" />
+            <element signature="e#5256#6699#0" expanded="false" />
+            <element signature="e#6750#14288#0" expanded="false" />
+            <element signature="e#7081#10925#0" expanded="false" />
+            <element signature="e#7229#10854#0" expanded="false" />
+            <element signature="e#7283#10824#0" expanded="false" />
+            <element signature="e#7607#8474#0" expanded="false" />
+            <element signature="e#9006#10723#0" expanded="false" />
+            <element signature="e#9087#10685#0" expanded="false" />
+            <element signature="e#9226#10012#0" expanded="false" />
+            <element signature="e#10103#10641#0" expanded="false" />
+            <element signature="e#10241#10360#0" expanded="false" />
+            <element signature="e#10973#11919#0" expanded="false" />
+            <element signature="e#11476#11891#0" expanded="false" />
+            <element signature="e#11981#14266#0" expanded="false" />
+            <element signature="e#12031#12946#0" expanded="false" />
+            <element signature="e#13457#13644#0" expanded="false" />
+            <element signature="e#13703#14239#0" expanded="false" />
+            <element signature="e#14038#14179#0" expanded="false" />
+            <element signature="e#15829#16197#0" expanded="false" />
+            <element signature="e#15897#16173#0" expanded="false" />
+            <element signature="e#16253#16531#0" expanded="false" />
+            <element signature="e#16575#16844#0" expanded="false" />
+            <element signature="e#16982#17087#0" expanded="false" />
+            <element signature="e#17024#17075#0" expanded="false" />
+            <element signature="e#17133#17493#0" expanded="false" />
+            <element signature="e#17166#17272#0" expanded="false" />
+            <element signature="e#17324#17393#0" expanded="false" />
+            <element signature="e#17399#17487#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -241,7 +241,22 @@
                         filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
                         function filter(arr, text){
                             arr.map(function(d){
-                                if (d.item.name.toLowerCase().indexOf(text) >= 0) {
+                                var fields = [], show = false;
+                                if (typeof d.item.ownerName != 'undefined') {
+                                    fields.push('ownerName');
+                                }
+                                if (typeof d.item.responsibleName != 'undefined') {
+                                    fields.push('responsibleName');
+                                }
+                                if (typeof d.item.name != 'undefined') {
+                                    fields.push('name');
+                                }
+                                fields.map(function(field){
+                                    if (d.item[field].toLowerCase().indexOf(text) >= 0) {
+                                        show = true;
+                                    }
+                                });
+                                if (show) {
                                     self.find('.menu__item' + '#' + d.item.id).show();
                                 } else {
                                     self.find('.menu__item' + '#' + d.item.id).hide();
