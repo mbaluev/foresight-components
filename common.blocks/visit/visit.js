@@ -130,7 +130,11 @@
                             that.data.current.subjectnameid = value;
                             that.render_tabs();
                         });
-                        that.data._el.select.select('check', that.data.current.subject.subjectnameid);
+                        if (typeof that.data.current.subject != 'undefined') {
+                            if (typeof that.data.current.subject.subjectnameid != 'undefined') {
+                                that.data._el.select.select('check', that.data.current.subject.subjectnameid);
+                            }
+                        }
                         that.loader_remove();
                     };
                     that.render_tabs = function(){
