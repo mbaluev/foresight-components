@@ -417,6 +417,7 @@ Asyst.GridView = function(options) {
                 that.render_view();
                 that.render_viewSample();
                 that.render_line_extFilter();
+                that.set_extFilter();
                 //that.render_settings();
                 if (typeof that.data.gridview.menu__item_unlock == 'function') { that.data.gridview.menu__item_unlock(); }
                 that.enable_viewSample();
