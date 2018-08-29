@@ -39,7 +39,7 @@ Asyst.GridView = function(options) {
             extFilter: null
         },
         filter: {
-            filterArgs: [],
+            filterArgs: null,
             rendered: false,
             hidden: false,
             buttonId: 'filter__hide'
@@ -444,9 +444,8 @@ Asyst.GridView = function(options) {
         if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
             filterArgs = data.viewSample.filterArgs;
             restoreDatesInFilterArgs(filterArgs, data.columns);
-        }
-        if (that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
-            if (that.data.filter.filterArgs.length > 0) {
+        } else {
+            if (that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
                 filterArgs = that.data.filter.filterArgs;
                 restoreDatesInFilterArgs(filterArgs, data.columns);
             }
