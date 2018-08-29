@@ -445,6 +445,12 @@ Asyst.GridView = function(options) {
             filterArgs = data.viewSample.filterArgs;
             restoreDatesInFilterArgs(filterArgs, data.columns);
         }
+        if (that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
+            if (that.data.filter.filterArgs.length > 0) {
+                filterArgs = that.data.filter.filterArgs;
+                restoreDatesInFilterArgs(filterArgs, data.columns);
+            }
+        }
 
         for (var colIdx in data.columns) {
             var column = data.columns[colIdx];
