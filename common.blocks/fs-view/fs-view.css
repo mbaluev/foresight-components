@@ -95,8 +95,15 @@ html, body {
     flex: 1 1 auto;
     display: flex;
 }
+.fs-view__middle-scroll_x {
+    overflow-x: auto;
+}
 .fs-view__middle-inner {
     position: relative;
+}
+.fs-view__middle-inner_horizontal {
+    display: flex;
+    padding: 0 10px;
 }
 .fs-view__middle .fs-view__header {
     box-shadow: none;

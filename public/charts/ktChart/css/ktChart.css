@@ -43,7 +43,15 @@
 .panel-filter { top: 0px; left: 0px; right: 0px; }
 
 /*filter*/
-.panel-filter .card__header .pf-buttons > * { flex-wrap: nowrap; }
+.panel-filter .card__header .pf-filters,
+.panel-filter .card__header .pf-functions {
+    flex-wrap: wrap;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+.panel-filter .card__header .pf-filters > div,
+.panel-filter .card__header .pf-filters > span { margin-bottom: 10px; }
 
 /*panel-legend*/
 .panel-legend { box-sizing: border-box; overflow-y: auto; overflow-x: hidden; padding: 5px 0; }

@@ -3,3 +3,8 @@
     margin: 0 20px 50px;
     position: relative;
 }
+.article:after {
+    display: block;
+    content: ' ';
+    height: 30px;
+}

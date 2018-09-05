@@ -443,11 +443,15 @@ Asyst.GridView = function(options) {
         var filterArgs = filterDataByGET(data, data.columns);
         if ((filterArgs === undefined || filterArgs === null) && data.viewSample && data.viewSample.hasOwnProperty('filterArgs')) {
             filterArgs = data.viewSample.filterArgs;
-            restoreDatesInFilterArgs(filterArgs, data.columns);
+            if (filterArgs) {
+                restoreDatesInFilterArgs(filterArgs, data.columns);
+            }
         } else {
             if (that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
                 filterArgs = that.data.filter.filterArgs;
-                restoreDatesInFilterArgs(filterArgs, data.columns);
+                if (filterArgs) {
+                    restoreDatesInFilterArgs(filterArgs, data.columns);
+                }
             }
         }
 
