@@ -446,13 +446,6 @@ Asyst.GridView = function(options) {
             if (filterArgs) {
                 restoreDatesInFilterArgs(filterArgs, data.columns);
             }
-        } else {
-            if (that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
-                filterArgs = that.data.filter.filterArgs;
-                if (filterArgs) {
-                    restoreDatesInFilterArgs(filterArgs, data.columns);
-                }
-            }
         }
 
         for (var colIdx in data.columns) {
