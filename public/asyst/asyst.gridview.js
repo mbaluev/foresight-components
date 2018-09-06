@@ -1288,7 +1288,7 @@ Asyst.GridView = function(options) {
         if (that.data.filter.filterArgs) {
             if (that.data.filter.filterArgs.filterItems) {
                 if (that.data.filter.filterArgs.filterItems.length > 0) {
-                    view.DataView.setFilter(Grid.ExtFilter);
+                    //view.DataView.setFilter(Grid.ExtFilter);
                     view.DataView.setFilterArgs(that.data.filter.filterArgs);
                     view.DataView.refresh();
                     view.Grid.invalidate();
@@ -1310,7 +1310,7 @@ Asyst.GridView = function(options) {
     };
     that.clear_extFilter = function(){
         that.data.filter.filterArgs = null;
-        view.DataView.setFilter(Grid.ExtFilter);
+        //view.DataView.setFilter(Grid.ExtFilter);
         view.DataView.setFilterArgs(that.data.filter.filterArgs);
         view.DataView.refresh();
         view.Grid.invalidate();
