@@ -42,7 +42,8 @@ Asyst.GridView = function(options) {
             filterArgs: null,
             rendered: false,
             hidden: false,
-            buttonId: 'filter__hide'
+            buttonId: 'filter__hide',
+            save: false
         }
     };
     that.data = $.extend(that.data, options);
@@ -445,6 +446,13 @@ Asyst.GridView = function(options) {
             filterArgs = data.viewSample.filterArgs;
             if (filterArgs) {
                 restoreDatesInFilterArgs(filterArgs, data.columns);
+            }
+        } else {
+            if (that.data.filter.save && that.data.filter.filterArgs !== undefined && that.data.filter.filterArgs !== null) {
+                filterArgs = that.data.filter.filterArgs;
+                if (filterArgs) {
+                    restoreDatesInFilterArgs(filterArgs, data.columns);
+                }
             }
         }
 
