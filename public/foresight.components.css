@@ -3985,6 +3985,7 @@ a.button_color_blue_light:hover .button__text {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   padding: 0 !important;
   margin: 0;
+  display: inline-block;
 }
 
 .radio.radio_hidden {
@@ -4003,6 +4004,8 @@ a.button_color_blue_light:hover .button__text {
   cursor: pointer;
   position: relative;
   padding-left: 22px;
+  display: inline-block;
+  line-height: normal;
 }
 
 .radio__label::before {

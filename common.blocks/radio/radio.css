@@ -2,6 +2,7 @@
     font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
     padding: 0 !important;
     margin: 0;
+    display: inline-block;
 }
 .radio.radio_hidden {
     display: none;
@@ -17,6 +18,8 @@
     cursor: pointer;
     position: relative;
     padding-left: 22px;
+    display: inline-block;
+    line-height: normal;
 }
 .radio__label::before {
     content: "";
