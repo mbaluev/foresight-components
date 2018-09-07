@@ -235,6 +235,22 @@
     background-color: transparent;
 }
 
+.menu_filter {}
+.menu_filter .menu__item-link {
+    padding: 12px 15px;
+}
+.menu_filter .menu__item-link .link {
+    color: #4983c4;
+}
+.menu_filter .menu__submenu .menu__item-link {
+    padding-left: 15px;
+    padding-top: 0;
+}
+.menu_filter .menu__submenu .menu__item-link {
+    padding-left: 15px;
+    padding-top: 0;
+}
+
 .menu__buttons {
     display: none;
 }
