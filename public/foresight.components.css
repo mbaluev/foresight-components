@@ -3851,6 +3851,7 @@ a.button_color_blue_light:hover .button__text {
   margin: 0;
   padding: 0;
   line-height: inherit;
+  display: inline-block;
 }
 
 .checkbox.checkbox_hidden {
@@ -3869,6 +3870,8 @@ a.button_color_blue_light:hover .button__text {
   cursor: pointer;
   position: relative;
   padding-left: 22px;
+  display: inline-block;
+  line-height: normal;
 }
 
 .checkbox__label::before {

@@ -10,6 +10,7 @@
     margin: 0;
     padding: 0;
     line-height: inherit;
+    display: inline-block;
 }
 .checkbox.checkbox_hidden {
     display: none;
@@ -25,6 +26,8 @@
     cursor: pointer;
     position: relative;
     padding-left: 22px;
+    display: inline-block;
+    line-height: normal;
 }
 .checkbox__label::before {
     content: "";
