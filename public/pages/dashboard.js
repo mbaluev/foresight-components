@@ -8,6 +8,7 @@ var Dashboard = function(options){
         BORDER_COLOR_BLUE: '#5a97f2',
         BORDER_COLOR_LIGHT_BLUE: '#2fb4e9',
         BORDER_COLOR_DEFAULT: '#ccc',
+        BORDER_COLOR_DARK_GREY: '#777',
         BORDER_COLOR_PURPLE: '#8e6bf5',
         BORDER_COLOR_RED: '#ff5940',
         BORDER_COLOR_GREEN: '#13a89e',
@@ -645,6 +646,7 @@ var Dashboard = function(options){
                 '<div class="control__container">' +
                 '<select class="select" name="color" data-fc="select" data-field="color">' +
                 '<option value="' + that.const.BORDER_COLOR_DEFAULT + '" ' + (data.color == that.const.BORDER_COLOR_DEFAULT ? 'selected' : '' ) + '>Серый</option>' +
+                '<option value="' + that.const.BORDER_COLOR_DARK_GREY + '" ' + (data.color == that.const.BORDER_COLOR_DARK_GREY ? 'selected' : '' ) + '>Темно-серый</option>' +
                 '<option value="' + that.const.BORDER_COLOR_DARK_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_DARK_BLUE ? 'selected' : '' ) + '>Темно-синий</option>' +
                 '<option value="' + that.const.BORDER_COLOR_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_BLUE ? 'selected' : '' ) + '>Синий</option>' +
                 '<option value="' + that.const.BORDER_COLOR_LIGHT_BLUE + '" ' + (data.color == that.const.BORDER_COLOR_LIGHT_BLUE ? 'selected' : '' ) + '>Светло-синий</option>' +

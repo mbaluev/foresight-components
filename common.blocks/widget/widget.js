@@ -14,6 +14,7 @@
                         BORDER_COLOR_BLUE: '#5a97f2',
                         BORDER_COLOR_LIGHT_BLUE: '#2fb4e9',
                         BORDER_COLOR_DEFAULT: '#ccc',
+                        BORDER_COLOR_DARK_GREY: '#777',
                         BORDER_COLOR_PURPLE: '#8e6bf5',
                         BORDER_COLOR_RED: '#ff5940',
                         BORDER_COLOR_GREEN: '#13a89e',
@@ -248,6 +249,10 @@
                         else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
                             $border.addClass('widget__border_color_default');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_DARK_GREY) {
+                            $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
+                            $border.addClass('widget__border_color_dark_grey');
                         }
                         else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
