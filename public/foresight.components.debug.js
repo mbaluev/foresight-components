@@ -1290,6 +1290,7 @@ $(function(){
                         }
                     };
                     that.get_buttons = function(){
+                        that.data.collapsed = self.hasClass('widget_collapsed');
                         that.data._el.button_collapse = self.closestChild('.button_collapse');
                         if (typeof that.data._el.button_collapse[0] != 'undefined') {
                             if (typeof that.data._el.button_collapse.find('.button__text')[0] != 'undefined') {
@@ -1491,7 +1492,6 @@ $(function(){
                         }
                     };
                     that.toggle = function(){
-                        self.toggleClass('widget_collapsed');
                         that.data.collapsed = !that.data.collapsed;
                         if (that.data.collapsed) {
                             that.collapse();
