@@ -405,7 +405,7 @@ a.button:hover .button__text_placeholder {
 }
 
 .button_border_none {
-  background: none;
+  background: transparent;
 }
 
 .button_border_none:before {
@@ -413,6 +413,7 @@ a.button:hover .button__text_placeholder {
   right: 0;
   bottom: 0;
   left: 0;
+  background: transparent;
 }
 
 .button_color_red {
