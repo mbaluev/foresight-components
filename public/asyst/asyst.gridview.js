@@ -407,7 +407,7 @@ Asyst.GridView = function(options) {
         if (typeof that.data.gridview.menu__item_lock == 'function') { that.data.gridview.menu__item_lock(); }
         that.disable_viewSample();
         that.disable_line_extFilter();
-        that.data.params.view = key;
+        //that.data.params.view = key;
         Asyst.APIv2.View.load({
             viewName: that.data.viewname,
             data: that.data.params,
