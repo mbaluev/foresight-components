@@ -24,6 +24,10 @@
                         tabs__link: self,
                         tabs__pane: self.closest('.card').find('.tabs__pane[id="' + self.attr('href').replace('#','') + '"]')
                     };
+                    that.data._triggers = {
+                        shown: 'shown.fc.tab',
+                        hidden: 'hidden.fc.tab'
+                    };
 
                     that.destroy = function(){
                         that.data._neighbors.forEach(function(el){
@@ -42,17 +46,21 @@
                     };
                     that.show = function(){
                         that.data._neighbors.forEach(function(tab){
-                            tab.data()._el.button.button('enable');
-                            tab.data()._el.tabs__tab.removeClass('tabs__tab_active');
-                            tab.data()._el.tabs__pane.removeClass('tabs__pane_active');
-                            tab.data().active = false;
-                            tab.data().disabled = false;
+                            if (tab.attr('href') != that.data._el.tabs__link.attr('href')) {
+                                tab.data()._el.button.button('enable');
+                                tab.data()._el.tabs__tab.removeClass('tabs__tab_active');
+                                tab.data()._el.tabs__pane.removeClass('tabs__pane_active');
+                                tab.data().active = false;
+                                tab.data().disabled = false;
+                                tab.trigger(that.data._triggers.hidden);
+                            }
                         });
                         that.data._el.button.button('disable');
                         that.data._el.tabs__tab.addClass('tabs__tab_active');
                         that.data._el.tabs__pane.addClass('tabs__pane_active');
                         that.data.active = true;
                         that.data.disabled = true;
+                        that.data._el.tabs__link.trigger(that.data._triggers.shown);
                     };
 
                     that.check_active = function(){
