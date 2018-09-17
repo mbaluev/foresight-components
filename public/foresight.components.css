@@ -5464,6 +5464,34 @@ img + .card__text {
   display: flex;
 }
 
+.tabs__radio .tabs__tab {
+  margin-bottom: 10px;
+}
+
+.tabs__radio .tabs__tab .button {
+  border-radius: 0;
+}
+
+.tabs__radio .tabs__tab .button.button_disabled:before {
+  display: block;
+}
+
+.tabs__radio .tabs__tab .button.button_hovered {
+  background-color: #aaa;
+}
+
+.tabs__radio .tabs__tab .button:before {
+  border-radius: 0;
+  background-color: #fff;
+}
+
+
+
+.tabs__radio .tabs__tab_active .button:before {
+  bottom: 1px;
+  background-color: #ffeba0;
+}
+
 .tabs__pane {
   display: none;
   visibility: hidden;
