@@ -7242,9 +7242,9 @@ $(function(){
                             }
                         ],
                         header: {
-                            icon: 'icon_svg_settings',
-                            caption: 'Модальное окно',
-                            name: 'Название'
+                            icon: null,
+                            caption: null,
+                            name: null
                         },
                         footer: {
                             buttons: null
@@ -7265,6 +7265,7 @@ $(function(){
                         draggable: false,
                         draggable_grid_size: 1,
                         render_tabs_row: true,
+                        render_backdrop: true,
                         fullscreen: {
                             active: false,
                             dimentions: null
@@ -7342,7 +7343,7 @@ $(function(){
                     that.show = function(){
                         that.data.transitioning = true;
                         self.trigger(that.data._triggers.show);
-                        that.data._el.modal__dialog.on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
@@ -7353,14 +7354,19 @@ $(function(){
                                 if (that.data.draggable) {
                                     that.init_draggable();
                                 }
+                                if (!that.data.render_backdrop) {
+                                    self.append(that.data._el.modal__dialog);
+                                    that.data._el.modal__view.remove();
+                                }
                                 self.trigger(that.data._triggers.shown);
                                 self.trigger(that.data._triggers.showed);
                             }
                         });
                         self.removeClass('modal_hidden');
+                        that.set_forward();
                         setTimeout(function(){
                             self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                        }, 0);
+                        }, 100);
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
@@ -7388,14 +7394,16 @@ $(function(){
                         that.render_view();
                         that.render_header();
                         that.render_footer();
-                        that.render_tabs();
+                        that.render_tabs_row();
                     };
                     that.render_view = function(){
                         self.append(that.data._el.modal__view
-                            .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
+                            .append((that.data.render_backdrop ? that.data._el.modal__backdrop : null), that.data._el.modal__dialog
                                 .append(that.data._el.card
                                     .append(that.data._el.card__header
-                                        .append(that.data._el.card__header_row_caption, that.data._el.card__header_row_name,
+                                        .append(
+                                        (that.data.header.caption || that.data.buttons ? that.data._el.card__header_row_caption : null),
+                                        (that.data.header.name ? that.data._el.card__header_row_name : null),
                                         (that.data.render_tabs_row ? that.data._el.card__header_row_tabs.append(that.data._el.tabs__list) : null)),
                                     that.data._el.card__main
                                         .append(that.data._el.card__middle
@@ -7410,20 +7418,29 @@ $(function(){
                     };
                     that.render_header_caption = function(){
                         that.render_header_caption_name();
-                        that.render_header_caption_buttons();
+                        if (that.data.buttons) {
+                            that.render_header_caption_buttons();
+                        }
                     };
                     that.render_header_caption_name = function(){
-                        that.data._el.card__header_row_caption.append($(
-                            '<div class="card__header-column">' +
-                                '<label class="card__caption">' +
-                                    '<span class="card__caption-text">' + that.data.header.caption + '</span>' +
-                                '</label>' +
-                            '</div>'
-                        ));
+                        that.data._el.card__header_row_caption.append(
+                            $('<div class="card__header-column"></div>').append(
+                                (that.data.header.caption ?
+                                    $([
+                                        '<label class="card__caption">' +
+                                        '<span class="card__caption-text bold">' + that.data.header.caption + '</span>' +
+                                        '</label>'
+                                    ].join('')) : null)
+                            )
+                        );
                     };
                     that.render_header_caption_buttons = function(){
                         var $buttons_column = $('<div class="card__header-column"></div>');
-                        that.data._el.card__header_row_caption.append($buttons_column);
+                        if (that.data.header.caption) {
+                            that.data._el.card__header_row_caption.append($buttons_column);
+                        } else {
+                            that.data._el.card__header_row_name.append($buttons_column);
+                        }
                         that.data.buttons.forEach(function(button){
                             var $button = $(
                                 '<button class="button button__' + button.name + '" data-fc="button" ' +
@@ -7446,7 +7463,7 @@ $(function(){
                         });
                     };
                     that.render_header_name = function(){
-                        that.data._el.card__header_row_name.append($(
+                        that.data._el.card__header_row_name.prepend($(
                             '<div class="card__header-column card__header-column_start card__header-column_flex_1-1-auto">' +
                                 '<label class="card__name">' +
                                     '<span class="card__name-text">' + that.data.header.name + '</span>' +
@@ -7483,7 +7500,7 @@ $(function(){
                             $buttons_column.append($button);
                         });
                     };
-                    that.render_tabs = function(){
+                    that.render_tabs_row = function(){
                         if (that.data.content.tabs.length == 1) {
                             that.data.content.tabs[0].active = true;
                         } else {
@@ -7564,6 +7581,10 @@ $(function(){
                             that.data._el.modal__dialog.addClass('modal__dialog_size_' + that.data.size);
                         }
                     };
+                    that.set_forward = function(){
+                        $('.modal__dialog').css('z-index', 1050);
+                        that.data._el.modal__dialog.css('z-index', 1051);
+                    };
 
                     that.init_draggable = function(){
                         var dimm = that.data._el.modal__dialog.offset();
@@ -7586,6 +7607,7 @@ $(function(){
                             .addClass('modal__dialog_absolute')
                             .addClass('modal__dialog_draggable')
                             .drag('start', function(ev, dd){
+                                that.set_forward();
                                 dd.attr = $(ev.target).prop('className');
                                 dd.width = $(this).width();
                                 dd.height = $(this).height();
@@ -7594,13 +7616,13 @@ $(function(){
                                 that.data.fullscreen.active = false;
                                 var props = {};
                                 if (dd.attr.indexOf('E') > -1) {
-                                    props.width = Math.max(400, dd.width + dd.deltaX);
+                                    props.width = Math.max(320, dd.width + dd.deltaX);
                                 }
                                 if (dd.attr.indexOf('S') > -1) {
                                     props.height = Math.max(200, dd.height + dd.deltaY);
                                 }
                                 if (dd.attr.indexOf('W') > -1) {
-                                    props.width = Math.max(400, dd.width - dd.deltaX);
+                                    props.width = Math.max(320, dd.width - dd.deltaX);
                                     props.left = dd.originalX + dd.width - props.width;
                                 }
                                 if (dd.attr.indexOf('N') > -1) {

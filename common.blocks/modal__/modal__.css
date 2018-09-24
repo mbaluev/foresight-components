@@ -72,7 +72,7 @@
     width: 768px;
     min-height: 200px;
     max-height: 100%;
-    z-index: 2;
+    z-index: 1050;
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 10px 20px -5px rgba(51,51,51,.25);
     transition: 0.25s;
@@ -149,8 +149,12 @@
     cursor: se-resize;
 }
 
+.modal__ > .modal__dialog .modal__dialog_handle {
+    background: rgba(0, 0, 0, .1);
+}
+
 .modal__dialog_handle:hover {
-    background: rgba(90, 151, 242, .5);
+    background: rgba(90, 151, 242, .5) !important;
 }
 .modal__dialog_handle_NE:hover {
     border-left: solid 1px #5a97f2;
