@@ -179,6 +179,10 @@
 .card__main_transition > * {
     transition: 0.5s;
 }
+.card__main + .card__header {
+    border-bottom: none;
+    border-top: solid 1px #ddd;
+}
 
 .card__left {
     z-index: 4;

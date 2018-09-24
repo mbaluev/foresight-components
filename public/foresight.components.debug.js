@@ -7246,6 +7246,9 @@ $(function(){
                             caption: 'Модальное окно',
                             name: 'Название'
                         },
+                        footer: {
+                            buttons: null
+                        },
                         content: {
                             tabs: [
                                 {
@@ -7290,12 +7293,14 @@ $(function(){
                         card__header_row_caption: $('<div class="card__header-row"></div>'),
                         card__header_row_name: $('<div class="card__header-row"></div>'),
                         card__header_row_tabs: $('<div class="card__header-row tabs"></div>'),
-                        tabs__list: $('<ul class="tabs__list"></ul>'),
+                        card__footer: $('<div class="card__header"></div>'),
+                        card__footer_row: $('<div class="card__header-row"></div>'),
                         card__main: $('<div class="card__main"></div>'),
                         card__middle: $('<div class="card__middle"></div>'),
                         card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
                         card__backdrop: $('<div class="card__backdrop"></div>'),
                         card__right: $('<div class="card__right"></div>'),
+                        tabs__list: $('<ul class="tabs__list"></ul>'),
                         tabs_pane: $('<div class="tabs__pane"></div>')
                     };
                     that.data._triggers = {
@@ -7379,6 +7384,12 @@ $(function(){
                         }
                     };
 
+                    that.render = function(){
+                        that.render_view();
+                        that.render_header();
+                        that.render_footer();
+                        that.render_tabs();
+                    };
                     that.render_view = function(){
                         self.append(that.data._el.modal__view
                             .append(that.data._el.modal__backdrop, that.data._el.modal__dialog
@@ -7388,7 +7399,10 @@ $(function(){
                                         (that.data.render_tabs_row ? that.data._el.card__header_row_tabs.append(that.data._el.tabs__list) : null)),
                                     that.data._el.card__main
                                         .append(that.data._el.card__middle
-                                            .append(that.data._el.card__middle_scroll))))));
+                                            .append(that.data._el.card__middle_scroll)),
+                                    (that.data.footer.buttons ? that.data._el.card__footer.append(that.data._el.card__footer_row) : null)
+                                )
+                            )));
                     };
                     that.render_header = function(){
                         that.render_header_caption();
@@ -7440,6 +7454,35 @@ $(function(){
                             '</div>'
                         ));
                     };
+                    that.render_footer = function(){
+                        if (that.data.footer.buttons) {
+                            that.render_footer_buttons();
+                        }
+                    };
+                    that.render_footer_buttons = function(){
+                        var $buttons_column = $('<div class="card__header-column"></div>');
+                        that.data._el.card__footer_row.append($buttons_column);
+                        that.data.footer.buttons.forEach(function(button){
+                            var $button = $(
+                                '<button class="button button__' + button.name + '" data-fc="button" ' +
+                                (button.tooltip ? 'data-tooltip="' + button.tooltip + '"' : '') + '>' +
+                                (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
+                                (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
+                                '</button>'
+                            );
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
+                            }
+                            $buttons_column.append($button);
+                        });
+                    };
                     that.render_tabs = function(){
                         if (that.data.content.tabs.length == 1) {
                             that.data.content.tabs[0].active = true;
@@ -7484,6 +7527,19 @@ $(function(){
                     };
                     that.bind_buttons = function(){
                         that.data.buttons.forEach(function(button){
+                            var $button = $(button.selector);
+                            if (button.action) {
+                                if (typeof that[button.action] === "function") {
+                                    $button.on('click', that[button.action]);
+                                }
+                                if (!that.data._triggers[button.action]) {
+                                    $button.on('click', function(){
+                                        self.trigger(button.action + '.fc.modal', [that.data.items]);
+                                    });
+                                }
+                            }
+                        });
+                        that.data.footer.buttons.forEach(function(button){
                             var $button = $(button.selector);
                             if (button.action) {
                                 if (typeof that[button.action] === "function") {
@@ -7590,9 +7646,7 @@ $(function(){
                         that.set_position();
                         that.set_size();
                         if (self.children().length == 0) {
-                            that.render_view();
-                            that.render_header();
-                            that.render_tabs();
+                            that.render();
                             that.init_components();
                         } else {
                             that.init_components();

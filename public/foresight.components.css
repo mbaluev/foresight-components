@@ -2098,18 +2098,6 @@ a.button_color_blue_light:hover .button__text {
   border: none;
 }
 
-.article {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  margin: 0 20px 50px;
-  position: relative;
-}
-
-.article:after {
-  display: block;
-  content: ' ';
-  height: 30px;
-}
-
 .heading {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   font-weight: normal;
@@ -2158,6 +2146,18 @@ a.button_color_blue_light:hover .button__text {
   font-size: 18px;
   line-height: 32px;
   margin: 31px 0 16px;
+}
+
+.article {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  margin: 0 20px 50px;
+  position: relative;
+}
+
+.article:after {
+  display: block;
+  content: ' ';
+  height: 30px;
 }
 
 .paragraph {
@@ -3930,7 +3930,6 @@ a.button_color_blue_light:hover .button__text {
   cursor: pointer;
   position: relative;
   padding-left: 22px;
-  display: inline-block;
   line-height: normal;
 }
 
@@ -4067,7 +4066,6 @@ a.button_color_blue_light:hover .button__text {
   cursor: pointer;
   position: relative;
   padding-left: 22px;
-  display: inline-block;
   line-height: normal;
 }
 
@@ -5230,6 +5228,11 @@ a.button_color_blue_light:hover .button__text {
 
 .card__main_transition > * {
   transition: 0.5s;
+}
+
+.card__main + .card__header {
+  border-bottom: none;
+  border-top: solid 1px #ddd;
 }
 
 .card__left {
