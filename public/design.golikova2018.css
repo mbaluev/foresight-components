@@ -420,15 +420,6 @@ fieldset {
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
-  .fs-view__left_hidden {
-    margin-left: -300px;
-    width: 230px;
-    min-width: 230px;
-    max-width: 230px;
-  }
-}
-
 @media (max-width: 1500px) {
   /*
     .header__column_absolute_center {
@@ -466,6 +457,15 @@ fieldset {
         -ms-flex-align: center;
             align-items: center;
     height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .fs-view__left_hidden {
+    margin-left: -300px;
+    width: 230px;
+    min-width: 230px;
+    max-width: 230px;
   }
 }
 
