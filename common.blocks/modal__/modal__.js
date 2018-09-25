@@ -217,7 +217,7 @@
                         that.data.buttons.forEach(function(button){
                             var $button = $(
                                 '<button class="button button__' + button.name + '" data-fc="button"' +
-                                (button.id ? ' id="' + button.id + '"' : '') + '>' +
+                                (button.id ? ' id="' + button.id + '"' : '') +
                                 (button.tooltip ? ' data-tooltip="' + button.tooltip + '"' : '') + '>' +
                                 (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
                                 (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
@@ -256,7 +256,7 @@
                         that.data.footer.buttons.forEach(function(button){
                             var $button = $(
                                 '<button class="button button__' + button.name + '" data-fc="button"' +
-                                (button.id ? ' id="' + button.id + '"' : '') + '>' +
+                                (button.id ? ' id="' + button.id + '"' : '') +
                                 (button.tooltip ? ' data-tooltip="' + button.tooltip + '"' : '') + '>' +
                                 (button.icon ? '<span class="icon ' + button.icon + '"></span>' : '') +
                                 (button.caption ? '<span class="button__text"> ' + button.caption + '</span>' : '') +
