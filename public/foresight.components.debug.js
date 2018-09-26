@@ -7353,10 +7353,10 @@ $(function(){
                                     that.data._el.card.css('height', '100%');
                                     if (that.data.draggable) {
                                         that.init_draggable();
-                                    }
-                                    if (!that.data.render_backdrop) {
-                                        self.append(that.data._el.modal__dialog);
-                                        that.data._el.modal__view.remove();
+                                        if (!that.data.render_backdrop) {
+                                            self.append(that.data._el.modal__dialog);
+                                            that.data._el.modal__view.remove();
+                                        }
                                     }
                                     self.trigger(that.data._triggers.shown);
                                     self.trigger(that.data._triggers.showed);
