@@ -1321,8 +1321,9 @@ Asyst.GridView = function(options) {
 
     that.store_to_window = function(){
         if (typeof window.gridviews == typeof undefined) { window.gridviews = []; }
-        //window.gridviews[that.data.id] = that;
+        if (typeof window.gridviews_view == typeof undefined) { window.gridviews_view = []; }
         window.gridviews.push(that);
+        window.gridviews_view[that.data.view] = that;
     };
     that.reload = {
         view: function(){
