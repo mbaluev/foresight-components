@@ -83,7 +83,8 @@
                         showed: 'showed.fc.modal',
                         hide: 'hide.fc.modal',
                         hidden: 'hidden.fc.modal',
-                        loaded: 'loaded.fc.modal'
+                        loaded: 'loaded.fc.modal',
+                        drag: 'drag.fc.modal'
                     };
 
                     that.destroy = function(){
@@ -416,6 +417,7 @@
                                     width: Math.round(props.width / that.data.draggable_grid_size) * that.data.draggable_grid_size,
                                     height: Math.round(props.height / that.data.draggable_grid_size) * that.data.draggable_grid_size
                                 });
+                                self.trigger(that.data._triggers.drag);
                             });
                     };
                     that.init_components = function(){
