@@ -7584,8 +7584,8 @@ $(function(){
                         }
                     };
                     that.set_forward = function(){
-                        $('.modal__dialog').css('z-index', 1050);
-                        that.data._el.modal__dialog.css('z-index', 1051);
+                        $('.modal__dialog').css('z-index', 1048);
+                        that.data._el.modal__dialog.css('z-index', 1049);
                     };
 
                     that.init_draggable = function(){
