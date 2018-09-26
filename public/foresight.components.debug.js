@@ -7353,7 +7353,7 @@ $(function(){
                                     that.data._el.card.css('height', '100%');
                                 }, 100);
                                 if (that.data.draggable) {
-                                    that.init_draggable();
+                                    setTimeout(that.init_draggable, 300);
                                 }
                                 if (!that.data.render_backdrop) {
                                     self.append(that.data._el.modal__dialog);
