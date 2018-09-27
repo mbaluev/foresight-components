@@ -11,6 +11,7 @@
                         width: 'full',
                         height: 'auto',
                         position: 'bottom left',
+                        place: 'source', // [source, body]
                         animation: true,
                         visible: false,
                         offset: 10,
@@ -198,7 +199,13 @@
                     };
 
                     that.get_dimentions = function($el) {
-                        var position = $el.position();
+                        var position;
+                        if (that.data.place == 'source') {
+                            position = $el.position();
+                        }
+                        if (that.data.place == 'body') {
+                            position = $el.offset();
+                        }
                         return {
                             width: $el.outerWidth(),
                             height: $el.outerHeight(),
@@ -231,8 +238,23 @@
                             that.data._el.source_arrow.addClass('icon_animate');
                         }
                     };
+                    that.init_resize = function(){
+                        if (that.data.place == 'body') {
+                            $(window).on('resize', function(){
+                                if (that.data.visible) {
+                                    that.set_position(that.data.position);
+                                }
+                            });
+                            $(document).on('mousewheel', function(){
+                                if (that.data.visible) {
+                                    that.set_position(that.data.position);
+                                }
+                            });
+                        }
+                    };
                     that.init = function(){
                         that.init_components();
+                        that.init_resize();
                         that.bind();
                         if (that.data.select) {
                             self.addClass('popup_select ');

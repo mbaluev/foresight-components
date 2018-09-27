@@ -564,6 +564,7 @@ $(function(){
                         width: 'full',
                         height: 'auto',
                         position: 'bottom left',
+                        place: 'source', // [source, body]
                         animation: true,
                         visible: false,
                         offset: 10,
@@ -751,7 +752,13 @@ $(function(){
                     };
 
                     that.get_dimentions = function($el) {
-                        var position = $el.position();
+                        var position;
+                        if (that.data.place == 'source') {
+                            position = $el.position();
+                        }
+                        if (that.data.place == 'body') {
+                            position = $el.offset();
+                        }
                         return {
                             width: $el.outerWidth(),
                             height: $el.outerHeight(),
@@ -784,8 +791,23 @@ $(function(){
                             that.data._el.source_arrow.addClass('icon_animate');
                         }
                     };
+                    that.init_resize = function(){
+                        if (that.data.place == 'body') {
+                            $(window).on('resize', function(){
+                                if (that.data.visible) {
+                                    that.set_position(that.data.position);
+                                }
+                            });
+                            $(document).on('mousewheel', function(){
+                                if (that.data.visible) {
+                                    that.set_position(that.data.position);
+                                }
+                            });
+                        }
+                    };
                     that.init = function(){
                         that.init_components();
+                        that.init_resize();
                         that.bind();
                         if (that.data.select) {
                             self.addClass('popup_select ');
@@ -5410,6 +5432,7 @@ $(function(){
                         width: '100%',
                         autoclose: true,
                         popup_animation: true,
+                        popup_place: 'source', // [source, body]
                         format: 'dd.MM.yyyy',
                         placeholder: null,
                         highlight: false
@@ -5608,9 +5631,15 @@ $(function(){
                     };
                     that.init_datepicker = function(){
                         // init popup
-                        self.after(that.data._el.popup);
+                        if (that.data.popup_place == 'source') {
+                            self.after(that.data._el.popup);
+                        }
+                        if (that.data.popup_place == 'body') {
+                            $('body').append(that.data._el.popup);
+                        }
                         that.data._el.popup.popup({
                             source: self,
+                            place: that.data.popup_place,
                             animation: that.data.popup_animation,
                             width: 'auto'
                         });

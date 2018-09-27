@@ -15,6 +15,7 @@
                         width: '100%',
                         autoclose: true,
                         popup_animation: true,
+                        popup_place: 'source', // [source, body]
                         format: 'dd.MM.yyyy',
                         placeholder: null,
                         highlight: false
@@ -213,9 +214,15 @@
                     };
                     that.init_datepicker = function(){
                         // init popup
-                        self.after(that.data._el.popup);
+                        if (that.data.popup_place == 'source') {
+                            self.after(that.data._el.popup);
+                        }
+                        if (that.data.popup_place == 'body') {
+                            $('body').append(that.data._el.popup);
+                        }
                         that.data._el.popup.popup({
                             source: self,
+                            place: that.data.popup_place,
                             animation: that.data.popup_animation,
                             width: 'auto'
                         });
