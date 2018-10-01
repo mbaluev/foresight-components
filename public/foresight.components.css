@@ -5332,6 +5332,13 @@ a.button_color_blue_light:hover .button__text {
   max-width: 400px;
 }
 
+.card__right_horizontal {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .card__right .menu_color_light {
   border-right: none;
   border-left: solid 1px #ddd;
