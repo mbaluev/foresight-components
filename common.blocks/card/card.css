@@ -265,6 +265,17 @@
     border-left: solid 1px #ddd;
 }
 
+.card__right-footer {
+    /*z-index: 2;*/
+    position: relative;
+    border-top: solid 1px #ddd;
+    border-left: solid 1px #ddd;
+    padding: 10px 0 0 10px;
+    flex: 0 0 auto;
+    background-color: #fafafa;
+    overflow: visible;
+}
+
 .card__middle {
     z-index: 1;
     flex: 1 1 auto;
