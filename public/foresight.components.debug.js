@@ -7278,6 +7278,8 @@ $(function(){
                         footer: {
                             buttons: null
                         },
+                        content: null,
+                        /*
                         content: {
                             tabs: [
                                 {
@@ -7287,6 +7289,7 @@ $(function(){
                                 }
                             ]
                         },
+                        */
                         data: null,
                         show: true,
                         position: null,
@@ -7435,9 +7438,10 @@ $(function(){
                                         (that.data.header.caption || that.data.buttons ? that.data._el.card__header_row_caption : null),
                                         (that.data.header.name ? that.data._el.card__header_row_name : null),
                                         (that.data.render_tabs_row ? that.data._el.card__header_row_tabs.append(that.data._el.tabs__list) : null)),
-                                    that.data._el.card__main
-                                        .append(that.data._el.card__middle
-                                            .append(that.data._el.card__middle_scroll)),
+                                    (that.data.content ?
+                                        that.data._el.card__main
+                                            .append(that.data._el.card__middle
+                                                .append(that.data._el.card__middle_scroll)) : null),
                                     (that.data.footer.buttons ? that.data._el.card__footer.append(that.data._el.card__footer_row) : null)
                                 )
                             )));
@@ -7533,42 +7537,46 @@ $(function(){
                         });
                     };
                     that.render_tabs_row = function(){
-                        if (that.data.content.tabs.length == 1) {
-                            that.data.content.tabs[0].active = true;
-                        } else {
-                            var has_active_tab = false;
-                            that.data.content.tabs.forEach(function(tab) {
-                                if (tab.active) {
-                                    has_active_tab = true;
+                        if (that.data.content) {
+                            if (that.data.content.tabs) {
+                                if (that.data.content.tabs.length == 1) {
+                                    that.data.content.tabs[0].active = true;
+                                } else {
+                                    var has_active_tab = false;
+                                    that.data.content.tabs.forEach(function(tab) {
+                                        if (tab.active) {
+                                            has_active_tab = true;
+                                        }
+                                    });
+                                    if (!has_active_tab) {
+                                        that.data.content.tabs[0].active = true;
+                                    }
                                 }
-                            });
-                            if (!has_active_tab) {
-                                that.data.content.tabs[0].active = true;
+                                that.data.content.tabs.forEach(function(tab){
+                                    var $tab__link = $([
+                                        '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">',
+                                        '<button class="button" data-fc="button">',
+                                        '<span class="button__text">' + tab.name + '</span>',
+                                        '</button>',
+                                        '</a>'
+                                    ].join(''));
+                                    $tab__link.data('data', tab.data);
+                                    $tab__link.data('onclick', tab.onclick);
+                                    that.data._el.tabs__list.append(
+                                        $((tab.active ? '<li class="tabs__tab tabs__tab_active"></li>' : '<li class="tabs__tab"></li>' ))
+                                            .append(
+                                            $tab__link
+                                        )
+                                    );
+                                    that.data._el.card__middle_scroll.append(
+                                        that.data._el.tabs_pane.clone()
+                                            .attr('id', tab.id)
+                                            .css('padding', (tab.padding ? tab.padding : null))
+                                            .addClass((tab.active ? 'tabs__pane_active' : ''))
+                                            .append(tab.content));
+                                });
                             }
                         }
-                        that.data.content.tabs.forEach(function(tab){
-                            var $tab__link = $([
-                                '<a class="tabs__link link" href="#' + tab.id + '" data-fc="tab">',
-                                '<button class="button" data-fc="button">',
-                                '<span class="button__text">' + tab.name + '</span>',
-                                '</button>',
-                                '</a>'
-                            ].join(''));
-                            $tab__link.data('data', tab.data);
-                            $tab__link.data('onclick', tab.onclick);
-                            that.data._el.tabs__list.append(
-                                $((tab.active ? '<li class="tabs__tab tabs__tab_active"></li>' : '<li class="tabs__tab"></li>' ))
-                                    .append(
-                                        $tab__link
-                                    )
-                            );
-                            that.data._el.card__middle_scroll.append(
-                                that.data._el.tabs_pane.clone()
-                                    .attr('id', tab.id)
-                                    .css('padding', (tab.padding ? tab.padding : null))
-                                    .addClass((tab.active ? 'tabs__pane_active' : ''))
-                                    .append(tab.content));
-                        });
                     };
 
                     that.bind = function(){
