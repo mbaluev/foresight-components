@@ -7365,8 +7365,7 @@ $(function(){
                                 self.addClass('modal_hidden');
                                 self.trigger(that.data._triggers.hidden);
                             }
-                        });
-                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        }).addClass('modal__dialog_hidden');
                         that.data.show = false;
                     };
                     that.hidden = function(){
@@ -7400,10 +7399,7 @@ $(function(){
                                     self.trigger(that.data._triggers.showed);
                                 }, 250);
                             }
-                        });
-                        setTimeout(function(){
-                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                        }, 250);
+                        }).removeClass('modal__dialog_hidden');
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
