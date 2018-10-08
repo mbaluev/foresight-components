@@ -7358,7 +7358,7 @@ $(function(){
                         that.data.transitioning = true;
                         that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
@@ -7377,7 +7377,9 @@ $(function(){
                     that.show = function(){
                         that.data.transitioning = true;
                         self.trigger(that.data._triggers.show);
-                        self.find('.modal__dialog').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                        that.set_forward();
+                        self.removeClass('modal_hidden');
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
@@ -7399,8 +7401,6 @@ $(function(){
                                 }, 250);
                             }
                         });
-                        that.set_forward();
-                        self.removeClass('modal_hidden');
                         self.find('.modal__dialog').removeClass('modal__dialog_hidden');
                         that.data.show = true;
                     };
