@@ -197,6 +197,22 @@
     font-size: 40px;
     padding: 10px;
 }
+.widget__nodata {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #bbb;
+    font-size: 20px;
+    padding: 10px;
+}
+.widget__nodata_big {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #bbb;
+    font-size: 40px;
+    padding: 10px;
+}
 
 .widget__text {
     white-space: nowrap;

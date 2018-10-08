@@ -2628,6 +2628,24 @@ a.button_color_blue_light:hover .button__text {
   padding: 10px;
 }
 
+.widget__nodata {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #bbb;
+  font-size: 20px;
+  padding: 10px;
+}
+
+.widget__nodata_big {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #bbb;
+  font-size: 40px;
+  padding: 10px;
+}
+
 .widget__text {
   white-space: nowrap;
   overflow: hidden;
