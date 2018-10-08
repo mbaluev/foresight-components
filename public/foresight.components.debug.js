@@ -7401,7 +7401,9 @@ $(function(){
                                 }, 250);
                             }
                         });
-                        self.find('.modal__dialog').removeClass('modal__dialog_hidden');
+                        setTimeout(function(){
+                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
+                        }, 250);
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
