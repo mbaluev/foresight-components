@@ -7358,7 +7358,7 @@ $(function(){
                         that.data.transitioning = true;
                         that.data._el.modal__dialog.removeClass('modal__dialog_draggable');
                         self.trigger(that.data._triggers.hide);
-                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
@@ -7369,7 +7369,7 @@ $(function(){
                         that.data.show = false;
                     };
                     that.hidden = function(){
-                        self.find('.modal__dialog').addClass('modal__dialog_hidden');
+                        that.data._el.modal__dialog.addClass('modal__dialog_hidden');
                         self.addClass('modal_hidden');
                         that.data.show = false;
                     };
@@ -7378,28 +7378,30 @@ $(function(){
                         self.trigger(that.data._triggers.show);
                         that.set_forward();
                         self.removeClass('modal_hidden');
-                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
-                            if (that.data.transitioning) {
-                                that.data.transitioning = false;
-                                $(this).off(e);
-                                setTimeout(function(){
-                                    that.data._el.card.css('max-height', '100%');
-                                    that.data._el.card.css('height', '100%');
-                                    if (that.data.draggable) {
-                                        that.init_draggable();
-                                    }
-                                    if (that.data.resizable) {
-                                        that.init_resizable();
-                                    }
-                                    if (!that.data.render_backdrop && (that.data.draggable || that.data.resizable)) {
-                                        self.append(that.data._el.modal__dialog);
-                                        that.data._el.modal__view.remove();
-                                    }
-                                    self.trigger(that.data._triggers.shown);
-                                    self.trigger(that.data._triggers.showed);
-                                }, 250);
-                            }
-                        }).removeClass('modal__dialog_hidden');
+                        setTimeout(function(){
+                            that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                                if (that.data.transitioning) {
+                                    that.data.transitioning = false;
+                                    $(this).off(e);
+                                    setTimeout(function(){
+                                        that.data._el.card.css('max-height', '100%');
+                                        that.data._el.card.css('height', '100%');
+                                        if (that.data.draggable) {
+                                            that.init_draggable();
+                                        }
+                                        if (that.data.resizable) {
+                                            that.init_resizable();
+                                        }
+                                        if (!that.data.render_backdrop && (that.data.draggable || that.data.resizable)) {
+                                            self.append(that.data._el.modal__dialog);
+                                            that.data._el.modal__view.remove();
+                                        }
+                                        self.trigger(that.data._triggers.shown);
+                                        self.trigger(that.data._triggers.showed);
+                                    }, 250);
+                                }
+                            }).removeClass('modal__dialog_hidden');
+                        }, 100);
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
