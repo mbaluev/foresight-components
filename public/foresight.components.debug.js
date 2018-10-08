@@ -7377,7 +7377,7 @@ $(function(){
                     that.show = function(){
                         that.data.transitioning = true;
                         self.trigger(that.data._triggers.show);
-                        that.data._el.modal__dialog.one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
+                        self.find('.modal__dialog').one('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(e){
                             if (that.data.transitioning) {
                                 that.data.transitioning = false;
                                 $(this).off(e);
@@ -7401,7 +7401,7 @@ $(function(){
                         });
                         that.set_forward();
                         self.removeClass('modal_hidden');
-                        that.data._el.modal__dialog.removeClass('modal__dialog_hidden');
+                        self.find('.modal__dialog').removeClass('modal__dialog_hidden');
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
