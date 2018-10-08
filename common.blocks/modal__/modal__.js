@@ -193,6 +193,9 @@
                             )));
                     };
                     that.render_header = function(){
+                        if (!that.data.content) {
+                            that.data._el.card__header.addClass('card__header-border_bottom_none');
+                        }
                         that.render_header_caption();
                         that.render_header_name();
                     };
