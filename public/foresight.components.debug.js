@@ -7396,14 +7396,12 @@ $(function(){
                                     }
                                     self.trigger(that.data._triggers.shown);
                                     self.trigger(that.data._triggers.showed);
-                                }, 100);
+                                }, 250);
                             }
                         });
-                        self.removeClass('modal_hidden');
                         that.set_forward();
-                        setTimeout(function(){
-                            self.find('.modal__dialog').removeClass('modal__dialog_hidden');
-                        }, 100);
+                        self.removeClass('modal_hidden');
+                        that.data._el.modal__dialog.removeClass('modal__dialog_hidden');
                         that.data.show = true;
                     };
                     that.fullscreen = function(){
