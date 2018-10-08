@@ -7295,6 +7295,7 @@ $(function(){
                         position: null,
                         size: null,
                         draggable: false,
+                        resizable: false,
                         draggable_grid_size: 1,
                         render_tabs_row: true,
                         render_backdrop: true,
@@ -7385,10 +7386,13 @@ $(function(){
                                     that.data._el.card.css('height', '100%');
                                     if (that.data.draggable) {
                                         that.init_draggable();
-                                        if (!that.data.render_backdrop) {
-                                            self.append(that.data._el.modal__dialog);
-                                            that.data._el.modal__view.remove();
-                                        }
+                                    }
+                                    if (that.data.resizable) {
+                                        that.init_resizable();
+                                    }
+                                    if (!that.data.render_backdrop && (that.data.draggable || that.data.resizable)) {
+                                        self.append(that.data._el.modal__dialog);
+                                        that.data._el.modal__view.remove();
                                     }
                                     self.trigger(that.data._triggers.shown);
                                     self.trigger(that.data._triggers.showed);
@@ -7628,6 +7632,34 @@ $(function(){
 
                     that.init_draggable = function(){
                         var dimm = that.data._el.modal__dialog.offset();
+                        that.data._el.modal__dialog
+                            .css(dimm)
+                            .addClass('modal__dialog_absolute')
+                            .addClass('modal__dialog_draggable')
+                            .drag('start', function(ev, dd){
+                                that.set_forward();
+                                dd.attr = $(ev.target).prop('className');
+                                dd.width = $(this).width();
+                                dd.height = $(this).height();
+                            })
+                            .drag(function(ev, dd){
+                                that.data.fullscreen.active = false;
+                                var props = {};
+                                if (dd.attr.indexOf('card__header') > -1 ||
+                                    dd.attr.indexOf('card__caption') > -1 ||
+                                    dd.attr.indexOf('card__name') > -1) {
+                                    props.top = dd.offsetY;
+                                    props.left = dd.offsetX;
+                                }
+                                $(this).css({
+                                    top: Math.round(props.top / that.data.draggable_grid_size) * that.data.draggable_grid_size,
+                                    left: Math.round(props.left / that.data.draggable_grid_size) * that.data.draggable_grid_size
+                                });
+                                self.trigger(that.data._triggers.drag);
+                            });
+                    };
+                    that.init_resizable = function(){
+                        var dimm = that.data._el.modal__dialog.offset();
                         dimm.width = that.data._el.modal__dialog.outerWidth();
                         if (that.data._el.modal__dialog.is('[class*="max"]')) {
                             dimm.height = that.data._el.modal__dialog.outerHeight();
@@ -7668,12 +7700,6 @@ $(function(){
                                 if (dd.attr.indexOf('N') > -1) {
                                     props.height = Math.max(200, dd.height - dd.deltaY);
                                     props.top = dd.originalY + dd.height - props.height;
-                                }
-                                if (dd.attr.indexOf('card__header') > -1 ||
-                                    dd.attr.indexOf('card__caption') > -1 ||
-                                    dd.attr.indexOf('card__name') > -1) {
-                                    props.top = dd.offsetY;
-                                    props.left = dd.offsetX;
                                 }
                                 $(this).css({
                                     top: Math.round(props.top / that.data.draggable_grid_size) * that.data.draggable_grid_size,

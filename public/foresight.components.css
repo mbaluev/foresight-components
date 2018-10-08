@@ -6465,6 +6465,16 @@ img + .card__text {
   border-top: solid 1px #5a97f2;
 }
 
+.modal__dialog_size_auto {
+  width: auto;
+  min-height: auto;
+}
+
+.modal__dialog_size_auto_max {
+  width: auto;
+  height: 100%;
+}
+
 .modal__dialog_size_xs {
   width: 320px;
   min-height: auto;
