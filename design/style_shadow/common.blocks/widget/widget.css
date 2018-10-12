@@ -14,12 +14,13 @@
     background-color: #fff;
     padding: 0 5px;
 }
-.widget_has_name,
-.widget_mode_edit,
-.widget_mode_view_has_buttons,
-.widget_mode_view_has_buttons {
+
+.widget_has_name .widget__header,
+.widget_mode_edit .widget__header,
+.widget_mode_view_has_buttons .widget__header {
     min-height: 40px;
 }
+
 .widget__header .button {
     height: 40px;
     line-height: 1.2;
