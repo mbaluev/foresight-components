@@ -169,6 +169,16 @@
   border: none;
 }
 
+.widget_color_none {
+  color: #13a89e;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.widget_color_none .widget__border {
+  border: none;
+}
+
 .card__name-text {
   font-size: 15px;
   font-weight: bold;
