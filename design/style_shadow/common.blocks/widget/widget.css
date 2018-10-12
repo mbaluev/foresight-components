@@ -1,8 +1,8 @@
 .widget {
-    height: auto;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    height: auto;
     border: solid 1px #e5e5e5;
     box-shadow: 0 0 10px rgba(0,0,0,.05);
     margin-top: 10px;
@@ -29,19 +29,22 @@
     font-weight: bold;
 }
 .widget__border {
-    height: auto;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    height: auto;
 }
 .widget__body {
-    height: auto;
     display: flex;
     flex-direction: column;
     flex: 1 1 auto;
+    height: auto;
     padding: 0;
 }
-.widget__body-data {
+.widget__body-data_type_html {
+    flex-direction: column;
+    flex: 1 1 auto;
+    height: auto;
 }
 .widget__body-data_type_text {
     padding: 5px;
