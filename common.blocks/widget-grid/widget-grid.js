@@ -260,7 +260,7 @@
 
                     that.init_collapsed_widget_height = function(){
                         if (typeof getCookie == 'function') {
-                            that.data.collapsed_widget_height = getCookie('collapsed_widget_height');
+                            that.data.collapsed_widget_height = +getCookie('collapsed_widget_height');
                         }
                     };
                     that.init_resize = function(){
