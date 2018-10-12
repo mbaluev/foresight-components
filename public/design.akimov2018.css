@@ -327,6 +327,13 @@ fieldset {
   padding: 0;
 }
 
+.copyright {
+  background-color: #2057a7;
+  border-bottom: solid 1px rgba(255,255,255,.15);
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
 .grid img {
   width: 20px;
   height: 24px;
@@ -341,13 +348,6 @@ fieldset {
 .slick-row a {
   color: #08c;
   text-decoration: none;
-}
-
-.copyright {
-  background-color: #2057a7;
-  border-bottom: solid 1px rgba(255,255,255,.15);
-  font-size: 14px;
-  padding: 8px 10px;
 }
 
 @media (max-width: 920px) {

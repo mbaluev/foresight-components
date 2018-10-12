@@ -1022,6 +1022,135 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'codearea', target: self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        disabled: false,
+                        readonly: false,
+                        mime: 'text/html',
+                        editor: null,
+                        value: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.enable = function(){
+                        that.data.disabled = false;
+                        that.render();
+                    };
+                    that.render = function(){
+                        if (!that.data.disabled) {
+                            if (that.data.value) {
+                                self.val(that.data.value);
+                            }
+                            that.data.editor = CodeMirror.fromTextArea(self[0], {
+                                readOnly: that.data.readonly,
+                                mode: that.data.mime,
+                                tabSize: 2,
+                                lineNumbers: true,
+                                matchBrackets: true,
+                                autoCloseBrackets: true,
+                                autoCloseTags: true,
+                                foldGutter: true,
+                                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
+                            });
+                        }
+                    };
+                    that.get_value = function(){
+                        if (that.data.editor) {
+                            that.data.value = that.data.editor.getValue();
+                        }
+                        return that.data.value;
+                    };
+                    that.set_value = function(value){
+                        value = value.replace(new RegExp('%', 'g'), '%25');
+                        that.data.value = decodeURI(value);
+                        if (that.data.editor) {
+                            that.data.editor.setValue(that.data.value);
+                        }
+                    };
+                    that.init = function(){
+                        that.render();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        enable : function() {
+            return this.each(function() {
+                this.obj.enable();
+            });
+        },
+        render : function() {
+            return this.each(function() {
+                this.obj.render();
+            });
+        },
+        set_value : function(value) {
+            return this.each(function() {
+                this.obj.set_value(value);
+            });
+        },
+        get_value : function() {
+            if (this.length == 1) {
+                var _val = false;
+                this.each(function() {
+                    _val = this.obj.get_value();
+                });
+                return _val;
+            } else {
+                var _arr = [];
+                this.each(function() {
+                    _arr.push(this.obj.get_value());
+                });
+                return _arr;
+            }
+        },
+        value : function(value) {
+            if (value) {
+                return this.each(function() {
+                    this.obj.set_value(value);
+                });
+            } else {
+                if (this.length == 1) {
+                    var _val = false;
+                    this.each(function() {
+                        _val = this.obj.get_value();
+                    });
+                    return _val;
+                } else {
+                    var _arr = [];
+                    this.each(function() {
+                        _arr.push(this.obj.get_value());
+                    });
+                    return _arr;
+                }
+            }
+        }
+    };
+    $.fn.codearea = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.button' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="codearea"]').codearea();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'widget', target : self });
                     var that = this.obj = {};
                     that.const = {
@@ -1552,634 +1681,6 @@ $(function(){
 $(function(){
     $('[data-fc="widget"]').widget();
 });
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'codearea', target: self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        disabled: false,
-                        readonly: false,
-                        mime: 'text/html',
-                        editor: null,
-                        value: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.enable = function(){
-                        that.data.disabled = false;
-                        that.render();
-                    };
-                    that.render = function(){
-                        if (!that.data.disabled) {
-                            if (that.data.value) {
-                                self.val(that.data.value);
-                            }
-                            that.data.editor = CodeMirror.fromTextArea(self[0], {
-                                readOnly: that.data.readonly,
-                                mode: that.data.mime,
-                                tabSize: 2,
-                                lineNumbers: true,
-                                matchBrackets: true,
-                                autoCloseBrackets: true,
-                                autoCloseTags: true,
-                                foldGutter: true,
-                                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter']
-                            });
-                        }
-                    };
-                    that.get_value = function(){
-                        if (that.data.editor) {
-                            that.data.value = that.data.editor.getValue();
-                        }
-                        return that.data.value;
-                    };
-                    that.set_value = function(value){
-                        value = value.replace(new RegExp('%', 'g'), '%25');
-                        that.data.value = decodeURI(value);
-                        if (that.data.editor) {
-                            that.data.editor.setValue(that.data.value);
-                        }
-                    };
-                    that.init = function(){
-                        that.render();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        enable : function() {
-            return this.each(function() {
-                this.obj.enable();
-            });
-        },
-        render : function() {
-            return this.each(function() {
-                this.obj.render();
-            });
-        },
-        set_value : function(value) {
-            return this.each(function() {
-                this.obj.set_value(value);
-            });
-        },
-        get_value : function() {
-            if (this.length == 1) {
-                var _val = false;
-                this.each(function() {
-                    _val = this.obj.get_value();
-                });
-                return _val;
-            } else {
-                var _arr = [];
-                this.each(function() {
-                    _arr.push(this.obj.get_value());
-                });
-                return _arr;
-            }
-        },
-        value : function(value) {
-            if (value) {
-                return this.each(function() {
-                    this.obj.set_value(value);
-                });
-            } else {
-                if (this.length == 1) {
-                    var _val = false;
-                    this.each(function() {
-                        _val = this.obj.get_value();
-                    });
-                    return _val;
-                } else {
-                    var _arr = [];
-                    this.each(function() {
-                        _arr.push(this.obj.get_value());
-                    });
-                    return _arr;
-                }
-            }
-        }
-    };
-    $.fn.codearea = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.button' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="codearea"]').codearea();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'counter', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        date: null,
-                        showyears: false,
-                        counttime: false,
-                        countdown: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-
-                    that.countdown = function(){
-                        that.data.countdown = self.countdown({
-                            date: that.data.date,
-                            showYears: that.data.showyears,
-                            render: function(date){
-                                var thisObj = this, $years;
-                                $(this.el).empty().append(
-                                    (that.data.showyears ?
-                                        [
-                                            $('<span class="alertbox-group"></span>').append(
-                                                that.split(date.years.toString(), 1).map(function(d){
-                                                    return $([
-                                                        '<span class="alertbox">',
-                                                        '<span class="alertbox__text">' + d + '</span>',
-                                                        '</span>'
-                                                    ].join(''));
-                                                })
-                                            ),
-                                            $([
-                                                '<span class="alertbox alertbox_border_none">',
-                                                '<span class="alertbox__text">:</span>',
-                                                '</span>'
-                                            ].join(''))
-                                        ]
-                                        : null
-                                    ),
-                                    $('<span class="alertbox-group"></span>').append(
-                                        that.split(date.days.toString(), 1).map(function(d){
-                                            return $([
-                                                '<span class="alertbox">',
-                                                '<span class="alertbox__text">' + d + '</span>',
-                                                '</span>'
-                                            ].join(''));
-                                        })
-                                    ),
-                                    $([
-                                        '<span class="alertbox alertbox_border_none">',
-                                        '<span class="alertbox__text">:</span>',
-                                        '</span>'
-                                    ].join('')),
-                                    $('<span class="alertbox-group"></span>').append(
-                                        that.split(thisObj.leadingZeros(date.hours, 2), 1).map(function(d){
-                                            return $([
-                                                '<span class="alertbox">',
-                                                '<span class="alertbox__text">' + d + '</span>',
-                                                '</span>'
-                                            ].join(''));
-                                        })
-                                    ),
-                                    $([
-                                        '<span class="alertbox alertbox_border_none">',
-                                        '<span class="alertbox__text">:</span>',
-                                        '</span>'
-                                    ].join('')),
-                                    $('<span class="alertbox-group"></span>').append(
-                                        that.split(thisObj.leadingZeros(date.min, 2), 1).map(function(d){
-                                            return $([
-                                                '<span class="alertbox">',
-                                                '<span class="alertbox__text">' + d + '</span>',
-                                                '</span>'
-                                            ].join(''));
-                                        })
-                                    ),
-                                    $([
-                                        '<span class="alertbox alertbox_border_none">',
-                                        '<span class="alertbox__text">:</span>',
-                                        '</span>'
-                                    ].join('')),
-                                    $('<span class="alertbox-group"></span>').append(
-                                        that.split(thisObj.leadingZeros(date.sec, 2), 1).map(function(d){
-                                            return $([
-                                                '<span class="alertbox">',
-                                                '<span class="alertbox__text">' + d + '</span>',
-                                                '</span>'
-                                            ].join(''));
-                                        })
-                                    )
-                                );
-                            }
-                        });
-                    };
-                    that.counttime = function(){
-                        render();
-                        setInterval(function(){
-                            render();
-                        }, 1e3);
-                        function pad(a,b){ return([1e15]+a).slice(-b); }
-                        function render(){
-                            $(self).empty().append(
-                                $('<span class="alertbox-group"></span>').append(
-                                    that.split(pad((new Date()).getHours(), 2), 1).map(function(d){
-                                        return $([
-                                            '<span class="alertbox">',
-                                            '<span class="alertbox__text">' + d + '</span>',
-                                            '</span>'
-                                        ].join(''));
-                                    })
-                                ),
-                                $([
-                                    '<span class="alertbox alertbox_border_none">',
-                                    '<span class="alertbox__text">:</span>',
-                                    '</span>'
-                                ].join('')),
-                                $('<span class="alertbox-group"></span>').append(
-                                    that.split(pad((new Date()).getMinutes(), 2), 1).map(function(d){
-                                        return $([
-                                            '<span class="alertbox">',
-                                            '<span class="alertbox__text">' + d + '</span>',
-                                            '</span>'
-                                        ].join(''));
-                                    })
-                                ),
-                                $([
-                                    '<span class="alertbox alertbox_border_none">',
-                                    '<span class="alertbox__text">:</span>',
-                                    '</span>'
-                                ].join('')),
-                                $('<span class="alertbox-group"></span>').append(
-                                    that.split(pad((new Date()).getSeconds(), 2), 1).map(function(d){
-                                        return $([
-                                            '<span class="alertbox">',
-                                            '<span class="alertbox__text">' + d + '</span>',
-                                            '</span>'
-                                        ].join(''));
-                                    })
-                                )
-                            );
-                        }
-                    };
-                    that.split = function(str, length){
-                        return str.match(new RegExp('.{1,' + length + '}', 'g'));
-                    };
-
-                    that.init_components = function(){};
-                    that.init = function(){
-                        if (that.data.counttime) {
-                            that.counttime();
-                        } else {
-                            that.countdown();
-                        }
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.counter = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.counter' );
-        }
-    };
-})( jQuery );
-$(function(){
-    $('[data-fc="counter"]').counter();
-});
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'gallery', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        title: 'Фотогалерея',
-                        items: []
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._el = {
-                        target: self,
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row"></div>'),
-                        card__header_column: $([
-                            '<div class="card__header-column">',
-                                '<label class="card__name">',
-                                '<span class="card__name-text">' + that.data.title + '</span>',
-                                '</label>',
-                            '</div>'
-                        ].join('')),
-                        card__header_column_search: $('<div class="card__header-column card__header-element_stretch"></div>'),
-                        input: $([
-                            '<span class="input input__has-clear card__header-element_stretch" data-fc="input">',
-                                '<span class="input__box">',
-                                    '<span class="alertbox" data-fc="alertbox">',
-                                        '<span class="icon icon_svg_search"></span>',
-                                    '</span>',
-                                    '<input type="text" class="input__control">',
-                                    '<button class="button" type="button" data-fc="button" tabindex="-1">',
-                                        '<span class="icon icon_svg_close"></span>',
-                                    '</button>',
-                                '</span>',
-                            '</span>',
-                        ].join('')),
-                        button_toggle_left: $([
-                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_right"></span>',
-                            '</button>'
-                        ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__left: $('<div class="card__left"></div>'),
-                        card__backdrop: $('<div class="card__backdrop"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
-                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
-                        tabs: []
-                    };
-                    that.data.private = {
-                        datatree: [],
-                        datalevel: -1,
-                        search: {
-                            text: null,
-                            timer: null
-                        }
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.nulls = function(){
-                        that.data.items.map(function(item){
-                            for (var key in item){
-                                if (item.hasOwnProperty(key)) {
-                                    if (item[key] == 'null') {
-                                        item[key] = '';
-                                    }
-                                }
-                            }
-                        });
-                    };
-                    that.prepare = function(){
-                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
-                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
-                        function prepareData(data, datalevel, parentid){
-                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
-                            datalevel++;
-                            roots.forEach(function(root){
-                                root.item.level = datalevel;
-                                if (!root.item.fileid)
-                                    root.child = prepareData(data, datalevel, root.item.id);
-                            });
-                            datalevel--;
-                            return roots;
-                        }
-                    };
-
-                    that.render = function(){
-                        that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header.append(
-                                    that.data._el.card__header_row.append(
-                                        that.data._el.card__header_column.prepend(
-                                            that.data._el.button_toggle_left
-                                        ),
-                                        that.data._el.card__header_column_search.append(
-                                            that.data._el.input
-                                        )
-                                    )
-                                ),
-                                that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle.append(
-                                        that.data._el.card__middle_scroll.append(
-                                            that.data._el.card__middle_inner
-                                        )
-                                    ),
-                                    that.data._el.card__backdrop
-                                )
-                            )
-                        );
-                    };
-                    that.render_data = function(){
-                        var $menu__list = $('<ul class="menu__list"></ul>');
-                        renderMenu(that.data.private.datatree, $menu__list);
-                        that.data._el.menu.append($menu__list);
-                        that.data._el.menu.menu();
-                        function renderMenu(data, container){
-                            var result = false,
-                                padding = 10;
-                            data.forEach(function(d){
-                                if (!d.item.fileid) {
-                                    result = true;
-                                    padding = 10;
-                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
-                                    //d.item.icon = 'icon_svg_folder';
-                                    var $menu__item = $([
-                                            '<li class="menu__item" id=' + d.item.id + '>',
-                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                            '<span class="menu__item-link-content">',
-                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
-                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                '<span class="menu__item-text">' + d.item.name + '</span>',
-                                            '</span>',
-                                            '</a>',
-                                            '</li>'
-                                        ].join(''));
-                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
-                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
-                                    $menu__item.append(
-                                        $menu__submenu.append(
-                                            $menu__list
-                                        )
-                                    );
-                                    if (d.child) {
-                                        if (!renderMenu(d.child, $menu__list)) {
-                                            d.item.icon = 'icon_svg_images';
-                                            $menu__item = $([
-                                                '<li class="menu__item" id=' + d.item.id + '>',
-                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                                '<span class="menu__item-link-content">',
-                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
-                                                '</span>',
-                                                '</a>',
-                                                '</li>'
-                                            ].join(''));
-                                            $menu__item.on('click', function(e){
-                                                console.log(d.item.id);
-                                                if (!d._loaded) {
-                                                    renderPanel(d);
-                                                }
-                                                that.data._el.card__middle.find('.tabs__pane').hide();
-                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
-                                            });
-                                        }
-                                    }
-                                    container.append($menu__item);
-                                }
-                            });
-                            return result;
-                        }
-                        function renderPanel(d){
-                            //set flag loaded
-                            d._loaded = true;
-
-                            //render panel
-                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
-                            that.data._el.tabs.push($tab);
-                            that.data._el.card__middle_inner.append($tab);
-
-                            // render images
-                            d.child.forEach(function(d) {
-                                var item = d.item;
-                                var _guid = item.url.replace('/asyst/api/file/get/','')
-                                var _slash = _guid.indexOf('/');
-                                _guid = _guid.substring(0,_slash);
-                                item.guid = _guid;
-                                renderImageBlock(item, $tab);
-                            });
-                        }
-                        function renderImageBlock(item, cont){
-                            var $imageblock = $([
-                                '<div class="gallery__image-block" data-url="' + item.url + '">',
-                                '<a class="gallery__image-link" href="' + item.url + '"',
-                                'data-description="' + item.description + '"',
-                                'data-lightbox="lightbox-' + item.parentid + '">',
-                                '<div class="spinner spinner_align_center"></div>',
-                                '<div class="gallery__image"></div>',
-                                '<div class="gallery__error">',
-                                '<div class="icon icon_svg_close"></div>',
-                                '<div class="gallery__error-info">Ошибка</div>',
-                                '</div>',
-                                '<div class="gallery__filename"></div>',
-                                '</a></div>'
-                            ].join('')).appendTo(cont);
-                            $imageblock.find('.spinner').show();
-                            $imageblock.find('.gallery__image').css('opacity', 0);
-                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
-                            var tempImg = new Image();
-                            tempImg.src = '/converter/converter?file=' + item.guid;
-                            tempImg.onload = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').css('opacity', 1);
-                            };
-                            tempImg.onerror = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').hide();
-                                $imageblock.find('.gallery__error').css('display', 'flex');
-                                $imageblock.find('.gallery__image-link').on('click', function(e){
-                                    e.preventDefault();
-                                    return false;
-                                }).removeAttr('data-lightbox');
-                            };
-                        }
-                    };
-                    that.filter = function(){
-                        filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
-                        function filter(arr, text){
-                            arr.map(function(d){
-                                var fields = [], show = false;
-                                if (typeof d.item.ownerName != 'undefined') {
-                                    fields.push('ownerName');
-                                }
-                                if (typeof d.item.responsibleName != 'undefined') {
-                                    fields.push('responsibleName');
-                                }
-                                if (typeof d.item.name != 'undefined') {
-                                    fields.push('name');
-                                }
-                                fields.map(function(field){
-                                    if (d.item[field].toLowerCase().indexOf(text) >= 0) {
-                                        show = true;
-                                    }
-                                });
-                                if (show) {
-                                    self.find('.menu__item' + '#' + d.item.id).show();
-                                } else {
-                                    self.find('.menu__item' + '#' + d.item.id).hide();
-                                }
-                            });
-                        }
-                    };
-                    that.bind = function(){
-                        that.data._el.input.on('keyup', function(){
-                            clearTimeout(that.data.private.search.timer);
-                            that.data.private.search.text = $(this).input('value');
-                            that.data.private.search.timer = setTimeout(that.filter, 300);
-                        });
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="card"]').card();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-tooltip]').tooltip();
-                        self.find('[data-fc="input"]').input();
-                    };
-                    that.init = function(){
-                        that.nulls();
-                        that.prepare();
-                        that.render();
-                        that.render_data();
-                        that.init_components();
-                        that.bind();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.gallery = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
-        }
-    };
-})( jQuery );
 (function($){
     var methods = {
         init : function(options) {
@@ -3200,6 +2701,817 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
+                    self.data('_widget', { type: 'counter', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        date: null,
+                        showyears: false,
+                        counttime: false,
+                        countdown: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+
+                    that.countdown = function(){
+                        that.data.countdown = self.countdown({
+                            date: that.data.date,
+                            showYears: that.data.showyears,
+                            render: function(date){
+                                var thisObj = this, $years;
+                                $(this.el).empty().append(
+                                    (that.data.showyears ?
+                                        [
+                                            $('<span class="alertbox-group"></span>').append(
+                                                that.split(date.years.toString(), 1).map(function(d){
+                                                    return $([
+                                                        '<span class="alertbox">',
+                                                        '<span class="alertbox__text">' + d + '</span>',
+                                                        '</span>'
+                                                    ].join(''));
+                                                })
+                                            ),
+                                            $([
+                                                '<span class="alertbox alertbox_border_none">',
+                                                '<span class="alertbox__text">:</span>',
+                                                '</span>'
+                                            ].join(''))
+                                        ]
+                                        : null
+                                    ),
+                                    $('<span class="alertbox-group"></span>').append(
+                                        that.split(date.days.toString(), 1).map(function(d){
+                                            return $([
+                                                '<span class="alertbox">',
+                                                '<span class="alertbox__text">' + d + '</span>',
+                                                '</span>'
+                                            ].join(''));
+                                        })
+                                    ),
+                                    $([
+                                        '<span class="alertbox alertbox_border_none">',
+                                        '<span class="alertbox__text">:</span>',
+                                        '</span>'
+                                    ].join('')),
+                                    $('<span class="alertbox-group"></span>').append(
+                                        that.split(thisObj.leadingZeros(date.hours, 2), 1).map(function(d){
+                                            return $([
+                                                '<span class="alertbox">',
+                                                '<span class="alertbox__text">' + d + '</span>',
+                                                '</span>'
+                                            ].join(''));
+                                        })
+                                    ),
+                                    $([
+                                        '<span class="alertbox alertbox_border_none">',
+                                        '<span class="alertbox__text">:</span>',
+                                        '</span>'
+                                    ].join('')),
+                                    $('<span class="alertbox-group"></span>').append(
+                                        that.split(thisObj.leadingZeros(date.min, 2), 1).map(function(d){
+                                            return $([
+                                                '<span class="alertbox">',
+                                                '<span class="alertbox__text">' + d + '</span>',
+                                                '</span>'
+                                            ].join(''));
+                                        })
+                                    ),
+                                    $([
+                                        '<span class="alertbox alertbox_border_none">',
+                                        '<span class="alertbox__text">:</span>',
+                                        '</span>'
+                                    ].join('')),
+                                    $('<span class="alertbox-group"></span>').append(
+                                        that.split(thisObj.leadingZeros(date.sec, 2), 1).map(function(d){
+                                            return $([
+                                                '<span class="alertbox">',
+                                                '<span class="alertbox__text">' + d + '</span>',
+                                                '</span>'
+                                            ].join(''));
+                                        })
+                                    )
+                                );
+                            }
+                        });
+                    };
+                    that.counttime = function(){
+                        render();
+                        setInterval(function(){
+                            render();
+                        }, 1e3);
+                        function pad(a,b){ return([1e15]+a).slice(-b); }
+                        function render(){
+                            $(self).empty().append(
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getHours(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                ),
+                                $([
+                                    '<span class="alertbox alertbox_border_none">',
+                                    '<span class="alertbox__text">:</span>',
+                                    '</span>'
+                                ].join('')),
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getMinutes(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                ),
+                                $([
+                                    '<span class="alertbox alertbox_border_none">',
+                                    '<span class="alertbox__text">:</span>',
+                                    '</span>'
+                                ].join('')),
+                                $('<span class="alertbox-group"></span>').append(
+                                    that.split(pad((new Date()).getSeconds(), 2), 1).map(function(d){
+                                        return $([
+                                            '<span class="alertbox">',
+                                            '<span class="alertbox__text">' + d + '</span>',
+                                            '</span>'
+                                        ].join(''));
+                                    })
+                                )
+                            );
+                        }
+                    };
+                    that.split = function(str, length){
+                        return str.match(new RegExp('.{1,' + length + '}', 'g'));
+                    };
+
+                    that.init_components = function(){};
+                    that.init = function(){
+                        if (that.data.counttime) {
+                            that.counttime();
+                        } else {
+                            that.countdown();
+                        }
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.counter = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.counter' );
+        }
+    };
+})( jQuery );
+$(function(){
+    $('[data-fc="counter"]').counter();
+});
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'gallery', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        title: 'Фотогалерея',
+                        items: []
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        target: self,
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                                '<label class="card__name">',
+                                '<span class="card__name-text">' + that.data.title + '</span>',
+                                '</label>',
+                            '</div>'
+                        ].join('')),
+                        card__header_column_search: $('<div class="card__header-column card__header-element_stretch"></div>'),
+                        input: $([
+                            '<span class="input input__has-clear card__header-element_stretch" data-fc="input">',
+                                '<span class="input__box">',
+                                    '<span class="alertbox" data-fc="alertbox">',
+                                        '<span class="icon icon_svg_search"></span>',
+                                    '</span>',
+                                    '<input type="text" class="input__control">',
+                                    '<button class="button" type="button" data-fc="button" tabindex="-1">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                    '</button>',
+                                '</span>',
+                            '</span>',
+                        ].join('')),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_right"></span>',
+                            '</button>'
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__left: $('<div class="card__left"></div>'),
+                        card__backdrop: $('<div class="card__backdrop"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
+                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
+                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
+                        tabs: []
+                    };
+                    that.data.private = {
+                        datatree: [],
+                        datalevel: -1,
+                        search: {
+                            text: null,
+                            timer: null
+                        }
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.nulls = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    that.prepare = function(){
+                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
+                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
+                        function prepareData(data, datalevel, parentid){
+                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
+                            datalevel++;
+                            roots.forEach(function(root){
+                                root.item.level = datalevel;
+                                if (!root.item.fileid)
+                                    root.child = prepareData(data, datalevel, root.item.id);
+                            });
+                            datalevel--;
+                            return roots;
+                        }
+                    };
+
+                    that.render = function(){
+                        that.data._el.target.append(
+                            that.data._el.card.append(
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_search.append(
+                                            that.data._el.input
+                                        )
+                                    )
+                                ),
+                                that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
+                                    that.data._el.card__middle.append(
+                                        that.data._el.card__middle_scroll.append(
+                                            that.data._el.card__middle_inner
+                                        )
+                                    ),
+                                    that.data._el.card__backdrop
+                                )
+                            )
+                        );
+                    };
+                    that.render_data = function(){
+                        var $menu__list = $('<ul class="menu__list"></ul>');
+                        renderMenu(that.data.private.datatree, $menu__list);
+                        that.data._el.menu.append($menu__list);
+                        that.data._el.menu.menu();
+                        function renderMenu(data, container){
+                            var result = false,
+                                padding = 10;
+                            data.forEach(function(d){
+                                if (!d.item.fileid) {
+                                    result = true;
+                                    padding = 10;
+                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
+                                    //d.item.icon = 'icon_svg_folder';
+                                    var $menu__item = $([
+                                            '<li class="menu__item" id=' + d.item.id + '>',
+                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                            '<span class="menu__item-link-content">',
+                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                '<span class="menu__item-text">' + d.item.name + '</span>',
+                                            '</span>',
+                                            '</a>',
+                                            '</li>'
+                                        ].join(''));
+                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
+                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
+                                    $menu__item.append(
+                                        $menu__submenu.append(
+                                            $menu__list
+                                        )
+                                    );
+                                    if (d.child) {
+                                        if (!renderMenu(d.child, $menu__list)) {
+                                            d.item.icon = 'icon_svg_images';
+                                            $menu__item = $([
+                                                '<li class="menu__item" id=' + d.item.id + '>',
+                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                                '<span class="menu__item-link-content">',
+                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
+                                                '</span>',
+                                                '</a>',
+                                                '</li>'
+                                            ].join(''));
+                                            $menu__item.on('click', function(e){
+                                                console.log(d.item.id);
+                                                if (!d._loaded) {
+                                                    renderPanel(d);
+                                                }
+                                                that.data._el.card__middle.find('.tabs__pane').hide();
+                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
+                                            });
+                                        }
+                                    }
+                                    container.append($menu__item);
+                                }
+                            });
+                            return result;
+                        }
+                        function renderPanel(d){
+                            //set flag loaded
+                            d._loaded = true;
+
+                            //render panel
+                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
+                            that.data._el.tabs.push($tab);
+                            that.data._el.card__middle_inner.append($tab);
+
+                            // render images
+                            d.child.forEach(function(d) {
+                                var item = d.item;
+                                var _guid = item.url.replace('/asyst/api/file/get/','')
+                                var _slash = _guid.indexOf('/');
+                                _guid = _guid.substring(0,_slash);
+                                item.guid = _guid;
+                                renderImageBlock(item, $tab);
+                            });
+                        }
+                        function renderImageBlock(item, cont){
+                            var $imageblock = $([
+                                '<div class="gallery__image-block" data-url="' + item.url + '">',
+                                '<a class="gallery__image-link" href="' + item.url + '"',
+                                'data-description="' + item.description + '"',
+                                'data-lightbox="lightbox-' + item.parentid + '">',
+                                '<div class="spinner spinner_align_center"></div>',
+                                '<div class="gallery__image"></div>',
+                                '<div class="gallery__error">',
+                                '<div class="icon icon_svg_close"></div>',
+                                '<div class="gallery__error-info">Ошибка</div>',
+                                '</div>',
+                                '<div class="gallery__filename"></div>',
+                                '</a></div>'
+                            ].join('')).appendTo(cont);
+                            $imageblock.find('.spinner').show();
+                            $imageblock.find('.gallery__image').css('opacity', 0);
+                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                            var tempImg = new Image();
+                            tempImg.src = '/converter/converter?file=' + item.guid;
+                            tempImg.onload = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').css('opacity', 1);
+                            };
+                            tempImg.onerror = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').hide();
+                                $imageblock.find('.gallery__error').css('display', 'flex');
+                                $imageblock.find('.gallery__image-link').on('click', function(e){
+                                    e.preventDefault();
+                                    return false;
+                                }).removeAttr('data-lightbox');
+                            };
+                        }
+                    };
+                    that.filter = function(){
+                        filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
+                        function filter(arr, text){
+                            arr.map(function(d){
+                                var fields = [], show = false;
+                                if (typeof d.item.ownerName != 'undefined') {
+                                    fields.push('ownerName');
+                                }
+                                if (typeof d.item.responsibleName != 'undefined') {
+                                    fields.push('responsibleName');
+                                }
+                                if (typeof d.item.name != 'undefined') {
+                                    fields.push('name');
+                                }
+                                fields.map(function(field){
+                                    if (d.item[field].toLowerCase().indexOf(text) >= 0) {
+                                        show = true;
+                                    }
+                                });
+                                if (show) {
+                                    self.find('.menu__item' + '#' + d.item.id).show();
+                                } else {
+                                    self.find('.menu__item' + '#' + d.item.id).hide();
+                                }
+                            });
+                        }
+                    };
+                    that.bind = function(){
+                        that.data._el.input.on('keyup', function(){
+                            clearTimeout(that.data.private.search.timer);
+                            that.data.private.search.text = $(this).input('value');
+                            that.data.private.search.timer = setTimeout(that.filter, 300);
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-tooltip]').tooltip();
+                        self.find('[data-fc="input"]').input();
+                    };
+                    that.init = function(){
+                        that.nulls();
+                        that.prepare();
+                        that.render();
+                        that.render_data();
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.gallery = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'visit', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        title: 'Паспорта регионов',
+                        items: [],
+                        headerRenderer: null
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data.private = {
+                        subjects: [],
+                        sections: [],
+                        items: []
+                    };
+                    that.data.current = {
+                        subject: null,
+                        section: null,
+                        groupings: [],
+                        item: null
+                    };
+                    that.data._el = {
+                        target: self,
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row card__header-column_start"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                            '<label class="card__name">',
+                            '<span class="card__name-text">' + that.data.title + '</span>',
+                            '</label>',
+                            '</div>'
+                        ].join('')),
+                        card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_right"></span>',
+                            '</button>'
+                        ].join('')),
+
+                        card__header_row_tabs: $([
+                            '<div class="card__header-row tabs">',
+                            '<ul class="tabs__list"></ul>',
+                            '</div>'
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__left: $('<div class="card__left"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        visit__frame_container: $('<div class="visit__frame-container"></div>'),
+                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
+
+                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
+                        tabs__list: $('<ul class="tabs__list"></ul>'),
+                        tabs: [],
+                        loader: $('<span class="spinner spinner_align_center"></span>')
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.nulls = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
+
+                    that.render = function(){
+                        that.data._el.target.append(
+                            that.data._el.card.append(
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_subjects
+                                    )
+                                ),
+                                that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
+                                    that.data._el.card__middle.append(
+                                        that.data._el.visit__frame_container
+                                    )
+                                )
+                            )
+                        );
+                    };
+                    that.render_select = function(){
+                        that.loader_add();
+                        var distinct = {};
+                        that.data.private.subjects = [];
+                        that.data.items.map(function(d){
+                            if (d.subjectnameid in distinct) {
+                                distinct[d.subjectnameid]++;
+                            } else {
+                                distinct[d.subjectnameid] = 1;
+                                that.data.private.subjects.push({
+                                    subjectname: d.subjectname,
+                                    subjectnameid: d.subjectnameid
+                                });
+                            }
+                        });
+                        that.data.current.subject = that.data.private.subjects[0];
+                        that.data.private.subjects.map(function(d){
+                            that.data._el.select.append('<option value="' + d.subjectnameid + '">' + d.subjectname + '</option>');
+                        });
+
+                        that.data._el.card__header_column_subjects.append( that.data._el.select );
+                        that.data._el.select.select();
+                        that.data._el.select.on('change', function(){
+                            var value = $(this).select('value');
+                            that.data.current.subject = that.data.private.subjects.filter(function(d){ return d.subjectnameid == value; })[0];
+                            that.data.current.subjectnameid = value;
+                            that.render_tabs();
+                        });
+                        if (typeof that.data.current.subject != 'undefined') {
+                            if (typeof that.data.current.subject.subjectnameid != 'undefined') {
+                                that.data._el.select.select('check', that.data.current.subject.subjectnameid);
+                            }
+                        }
+                        that.loader_remove();
+                    };
+                    that.render_tabs = function(){
+                        //that.loader_add();
+                        that.data.current.item = null;
+                        that.render_item();
+                        that.data._el.card__header_row_tabs.remove();
+                        that.data._el.card__header_row_tabs.find('.tabs__list').empty();
+
+                        var distinct = {};
+                        that.data.private.sections = [];
+                        that.data.items.map(function(d){
+                            if (d.sectionnameid in distinct) {
+                                distinct[d.sectionnameid]++;
+                            } else {
+                                distinct[d.sectionnameid] = 1;
+                                that.data.private.sections.push({
+                                    sectionname: d.sectionname,
+                                    sectionnameid: d.sectionnameid
+                                });
+                            }
+                        });
+                        that.data.current.section = that.data.private.sections[0];
+                        that.data.private.sections.map(function(d,i){
+                            var $tab = $([
+                                '<li class="tabs__tab'+ (i == 0 ? ' tabs__tab_active' : '') +'" data-id="'+ d.sectionnameid +'">',
+                                '<a class="tabs__link link" href="#section_'+ d.sectionnameid +'" data-fc="tab">',
+                                '<button class="button" data-fc="button" style="width: auto;">',
+                                '<span class="button__text">'+ d.sectionname +'</span>',
+                                '</button>',
+                                '</a>',
+                                '</li>'
+                            ].join(''));
+                            $tab.on('click', function(){
+                                var value = $(this).attr('data-id');
+                                that.data.current.section = that.data.private.sections.filter(function(d){ return d.sectionnameid == value; })[0];
+                                that.data.current.sectionnameid = value;
+                                that.render_menu();
+                            });
+                            that.data._el.card__header_row_tabs.find('.tabs__list').append($tab);
+                        });
+
+                        that.data._el.card__header.append(that.data._el.card__header_row_tabs);
+                        that.data._el.card__header_row_tabs.find('[data-fc="tab"]').tabs();
+                        that.data._el.card__header_row_tabs.find('.tabs__tab[data-id="'+ that.data.current.section.sectionnameid +'"]').trigger('click');
+                        //that.loader_remove();
+                    };
+                    that.render_menu = function(){
+                        that.loader_add();
+                        that.data.current.item = null;
+                        that.render_item();
+                        that.data._el.menu.menu();
+                        that.data._el.menu.menu('destroy');
+                        that.data._el.menu.empty();
+
+                        that.data.private.items = that.data.items.filter(function(d){
+                            return (d.subjectnameid == that.data.current.subject.subjectnameid &&
+                                    d.sectionnameid == that.data.current.section.sectionnameid);
+                        });
+
+                        var distinct = {};
+                        that.data.current.groupings = [];
+                        that.data.private.items.map(function(d){
+                            if (d.groupingnameid in distinct) {
+                                distinct[d.groupingnameid]++;
+                            } else {
+                                distinct[d.groupingnameid] = 1;
+                                that.data.current.groupings.push({
+                                    groupingname: d.groupingname,
+                                    groupingnameid: d.groupingnameid
+                                });
+                            }
+                        });
+
+                        var $menu__list = $('<ul class="menu__list"></ul>');
+                        that.data.current.groupings.map(function(d){
+                            var $menu__item = $([
+                                '<li class="menu__item" id=' + d.groupingnameid + '>',
+                                    '<a class="menu__item-link link">',
+                                    '<span class="menu__item-link-content">',
+                                        '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                        '<span class="menu__item-text">' + d.groupingname + '</span>',
+                                    '</span>',
+                                    '</a>',
+                                    '<div class="menu menu__submenu-container">',
+                                        '<ul class="menu__list menu__submenu"></ul>',
+                                    '</div>',
+                                '</li>'
+                            ].join(''));
+                            that.data.private.items.map(function(item){
+                                if (item.groupingnameid == d.groupingnameid) {
+                                    if (item.sectionnameid == 1) {
+                                        item.icon = 'icon_svg_document';
+                                    } else {
+                                        item.icon = 'icon_svg_chart';
+                                    }
+                                    var $menu__subitem = $([
+                                        '<li class="menu__item" id=' + item.nameid + '>',
+                                        '<a class="menu__item-link link">',
+                                        '<span class="menu__item-link-content">',
+                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
+                                            '<span class="menu__item-text">' + item.name + '</span>',
+                                        '</span>',
+                                        '</a>',
+                                        '</li>'
+                                    ].join(''));
+                                    $menu__item.find('.menu__list').append($menu__subitem);
+                                    $menu__subitem.find('.menu__item-link').on('click', function(){
+                                        that.data.current.item = item;
+                                        that.render_item();
+                                    });
+                                }
+                            });
+                            $menu__list.append($menu__item);
+                        });
+                        that.data._el.menu.append($menu__list);
+                        that.data._el.menu.menu();
+                        that.loader_remove();
+                    };
+                    that.render_item = function(){
+                        if (that.data.onItemClick) {
+                            if (typeof(that.data.onItemClick) == 'function') {
+                                that.data.onItemClick(
+                                    that.data.current.item,
+                                    that.data.current.sectionnameid,
+                                    that.data._el.visit__frame_container
+                                );
+                            }
+                        }
+                    };
+
+                    that.loader_add = function(container){
+                        if (!container) {
+                            that.data._el.target.before(that.data._el.loader);
+                        } else {
+                            container.before(that.data._el.loader);
+                        }
+                    };
+                    that.loader_remove = function(){
+                        that.data._el.loader.remove();
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-fc="select"]').select();
+                        self.find('[data-tooltip]').tooltip();
+                    };
+                    that.init = function(){
+                        that.nulls();
+                        that.render();
+                        that.render_select();
+                        that.init_components();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.visit = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.visit' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
                     self.data('_widget', { type: 'calendar', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -3555,318 +3867,6 @@ $(function(){
 $(function(){
     $('[data-fc="calendar"]').calendar();
 });
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
-                    self.data('_widget', { type: 'visit', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        title: 'Паспорта регионов',
-                        items: [],
-                        headerRenderer: null
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data.private = {
-                        subjects: [],
-                        sections: [],
-                        items: []
-                    };
-                    that.data.current = {
-                        subject: null,
-                        section: null,
-                        groupings: [],
-                        item: null
-                    };
-                    that.data._el = {
-                        target: self,
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row card__header-column_start"></div>'),
-                        card__header_column: $([
-                            '<div class="card__header-column">',
-                            '<label class="card__name">',
-                            '<span class="card__name-text">' + that.data.title + '</span>',
-                            '</label>',
-                            '</div>'
-                        ].join('')),
-                        card__header_column_subjects: $('<div class="card__header-column" id="subjects"></div>'),
-                        button_toggle_left: $([
-                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_right"></span>',
-                            '</button>'
-                        ].join('')),
-
-                        card__header_row_tabs: $([
-                            '<div class="card__header-row tabs">',
-                            '<ul class="tabs__list"></ul>',
-                            '</div>'
-                        ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__left: $('<div class="card__left"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        visit__frame_container: $('<div class="visit__frame-container"></div>'),
-                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
-
-                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
-                        tabs__list: $('<ul class="tabs__list"></ul>'),
-                        tabs: [],
-                        loader: $('<span class="spinner spinner_align_center"></span>')
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.nulls = function(){
-                        that.data.items.map(function(item){
-                            for (var key in item){
-                                if (item.hasOwnProperty(key)) {
-                                    if (item[key] == 'null') {
-                                        item[key] = '';
-                                    }
-                                }
-                            }
-                        });
-                    };
-
-                    that.render = function(){
-                        that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header.append(
-                                    that.data._el.card__header_row.append(
-                                        that.data._el.card__header_column.prepend(
-                                            that.data._el.button_toggle_left
-                                        ),
-                                        that.data._el.card__header_column_subjects
-                                    )
-                                ),
-                                that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle.append(
-                                        that.data._el.visit__frame_container
-                                    )
-                                )
-                            )
-                        );
-                    };
-                    that.render_select = function(){
-                        that.loader_add();
-                        var distinct = {};
-                        that.data.private.subjects = [];
-                        that.data.items.map(function(d){
-                            if (d.subjectnameid in distinct) {
-                                distinct[d.subjectnameid]++;
-                            } else {
-                                distinct[d.subjectnameid] = 1;
-                                that.data.private.subjects.push({
-                                    subjectname: d.subjectname,
-                                    subjectnameid: d.subjectnameid
-                                });
-                            }
-                        });
-                        that.data.current.subject = that.data.private.subjects[0];
-                        that.data.private.subjects.map(function(d){
-                            that.data._el.select.append('<option value="' + d.subjectnameid + '">' + d.subjectname + '</option>');
-                        });
-
-                        that.data._el.card__header_column_subjects.append( that.data._el.select );
-                        that.data._el.select.select();
-                        that.data._el.select.on('change', function(){
-                            var value = $(this).select('value');
-                            that.data.current.subject = that.data.private.subjects.filter(function(d){ return d.subjectnameid == value; })[0];
-                            that.data.current.subjectnameid = value;
-                            that.render_tabs();
-                        });
-                        if (typeof that.data.current.subject != 'undefined') {
-                            if (typeof that.data.current.subject.subjectnameid != 'undefined') {
-                                that.data._el.select.select('check', that.data.current.subject.subjectnameid);
-                            }
-                        }
-                        that.loader_remove();
-                    };
-                    that.render_tabs = function(){
-                        //that.loader_add();
-                        that.data.current.item = null;
-                        that.render_item();
-                        that.data._el.card__header_row_tabs.remove();
-                        that.data._el.card__header_row_tabs.find('.tabs__list').empty();
-
-                        var distinct = {};
-                        that.data.private.sections = [];
-                        that.data.items.map(function(d){
-                            if (d.sectionnameid in distinct) {
-                                distinct[d.sectionnameid]++;
-                            } else {
-                                distinct[d.sectionnameid] = 1;
-                                that.data.private.sections.push({
-                                    sectionname: d.sectionname,
-                                    sectionnameid: d.sectionnameid
-                                });
-                            }
-                        });
-                        that.data.current.section = that.data.private.sections[0];
-                        that.data.private.sections.map(function(d,i){
-                            var $tab = $([
-                                '<li class="tabs__tab'+ (i == 0 ? ' tabs__tab_active' : '') +'" data-id="'+ d.sectionnameid +'">',
-                                '<a class="tabs__link link" href="#section_'+ d.sectionnameid +'" data-fc="tab">',
-                                '<button class="button" data-fc="button" style="width: auto;">',
-                                '<span class="button__text">'+ d.sectionname +'</span>',
-                                '</button>',
-                                '</a>',
-                                '</li>'
-                            ].join(''));
-                            $tab.on('click', function(){
-                                var value = $(this).attr('data-id');
-                                that.data.current.section = that.data.private.sections.filter(function(d){ return d.sectionnameid == value; })[0];
-                                that.data.current.sectionnameid = value;
-                                that.render_menu();
-                            });
-                            that.data._el.card__header_row_tabs.find('.tabs__list').append($tab);
-                        });
-
-                        that.data._el.card__header.append(that.data._el.card__header_row_tabs);
-                        that.data._el.card__header_row_tabs.find('[data-fc="tab"]').tabs();
-                        that.data._el.card__header_row_tabs.find('.tabs__tab[data-id="'+ that.data.current.section.sectionnameid +'"]').trigger('click');
-                        //that.loader_remove();
-                    };
-                    that.render_menu = function(){
-                        that.loader_add();
-                        that.data.current.item = null;
-                        that.render_item();
-                        that.data._el.menu.menu();
-                        that.data._el.menu.menu('destroy');
-                        that.data._el.menu.empty();
-
-                        that.data.private.items = that.data.items.filter(function(d){
-                            return (d.subjectnameid == that.data.current.subject.subjectnameid &&
-                                    d.sectionnameid == that.data.current.section.sectionnameid);
-                        });
-
-                        var distinct = {};
-                        that.data.current.groupings = [];
-                        that.data.private.items.map(function(d){
-                            if (d.groupingnameid in distinct) {
-                                distinct[d.groupingnameid]++;
-                            } else {
-                                distinct[d.groupingnameid] = 1;
-                                that.data.current.groupings.push({
-                                    groupingname: d.groupingname,
-                                    groupingnameid: d.groupingnameid
-                                });
-                            }
-                        });
-
-                        var $menu__list = $('<ul class="menu__list"></ul>');
-                        that.data.current.groupings.map(function(d){
-                            var $menu__item = $([
-                                '<li class="menu__item" id=' + d.groupingnameid + '>',
-                                    '<a class="menu__item-link link">',
-                                    '<span class="menu__item-link-content">',
-                                        '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
-                                        '<span class="menu__item-text">' + d.groupingname + '</span>',
-                                    '</span>',
-                                    '</a>',
-                                    '<div class="menu menu__submenu-container">',
-                                        '<ul class="menu__list menu__submenu"></ul>',
-                                    '</div>',
-                                '</li>'
-                            ].join(''));
-                            that.data.private.items.map(function(item){
-                                if (item.groupingnameid == d.groupingnameid) {
-                                    if (item.sectionnameid == 1) {
-                                        item.icon = 'icon_svg_document';
-                                    } else {
-                                        item.icon = 'icon_svg_chart';
-                                    }
-                                    var $menu__subitem = $([
-                                        '<li class="menu__item" id=' + item.nameid + '>',
-                                        '<a class="menu__item-link link">',
-                                        '<span class="menu__item-link-content">',
-                                            (item.icon && item.icon != 'null' ? '<span class="icon ' + item.icon + '"></span>' : ''),
-                                            '<span class="menu__item-text">' + item.name + '</span>',
-                                        '</span>',
-                                        '</a>',
-                                        '</li>'
-                                    ].join(''));
-                                    $menu__item.find('.menu__list').append($menu__subitem);
-                                    $menu__subitem.find('.menu__item-link').on('click', function(){
-                                        that.data.current.item = item;
-                                        that.render_item();
-                                    });
-                                }
-                            });
-                            $menu__list.append($menu__item);
-                        });
-                        that.data._el.menu.append($menu__list);
-                        that.data._el.menu.menu();
-                        that.loader_remove();
-                    };
-                    that.render_item = function(){
-                        if (that.data.onItemClick) {
-                            if (typeof(that.data.onItemClick) == 'function') {
-                                that.data.onItemClick(
-                                    that.data.current.item,
-                                    that.data.current.sectionnameid,
-                                    that.data._el.visit__frame_container
-                                );
-                            }
-                        }
-                    };
-
-                    that.loader_add = function(container){
-                        if (!container) {
-                            that.data._el.target.before(that.data._el.loader);
-                        } else {
-                            container.before(that.data._el.loader);
-                        }
-                    };
-                    that.loader_remove = function(){
-                        that.data._el.loader.remove();
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="card"]').card();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-fc="select"]').select();
-                        self.find('[data-tooltip]').tooltip();
-                    };
-                    that.init = function(){
-                        that.nulls();
-                        that.render();
-                        that.render_select();
-                        that.init_components();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.visit = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.visit' );
-        }
-    };
-})( jQuery );
 (function($){
     var methods = {
         init : function(options) {

@@ -82,6 +82,15 @@ var golikova2018params = {
     levels: ['design/golikova2018/common.blocks', 'design/golikova2018/mobile.blocks'],
     images: 'images/golikova2018/'
 };
+var roboto_monoparams = {
+    out: 'public',
+    cssOut: 'design.roboto_mono.css',
+    jsOut: 'design.roboto_mono.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/roboto_mono/common.blocks', 'design/roboto_mono/mobile.blocks'],
+    images: 'images/roboto_mono/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -142,6 +151,7 @@ var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
 var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
 var akimovGetFileNames = require('html2bl').getFileNames(akimov2018params);
 var golikovaGetFileNames = require('html2bl').getFileNames(golikova2018params);
+var roboto_monoGetFileNames = require('html2bl').getFileNames(roboto_monoparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -341,7 +351,7 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018']);
+gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018', 'roboto_mono']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -710,6 +720,32 @@ gulp.task('golikova2018_js', function() {
                 }
             }))
             .pipe(gulp.dest(golikova2018params.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* roboto_mono */
+gulp.task('roboto_mono', ['roboto_mono_css']);
+gulp.task('roboto_mono_css', function(){
+    roboto_monoGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(roboto_monoparams.cssOut))
+            .pipe(url({ prepend: roboto_monoparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(roboto_monoparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    roboto_monoGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(roboto_monoparams.cssOut))
+            .pipe(url({ prepend: roboto_monoparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(roboto_monoparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

@@ -9,3 +9,31 @@
 .fs-view__middle-scroll_widget_overflow_visible .card__main {
     overflow: hidden !important;
 }
+
+/* page_horizontal-menu */
+@media (min-width: 769px) {
+    .page_menu_horizontal .fs-view__main {
+        display: flex;
+        flex-direction: row;
+    }
+    .page_menu_horizontal .fs-view__left {
+        flex: 0 0 auto;
+        position: relative;
+        width: auto;
+        min-width: auto;
+        max-width: none;
+        overflow: visible;
+        height: auto;
+    }
+    .page_menu_horizontal .fs-view__left.fs-view__left_hidden {
+        margin-left: 0;
+    }
+    .page_menu_horizontal .fs-view__middle {
+        flex: 1 1 auto;
+        display: flex;
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+}
