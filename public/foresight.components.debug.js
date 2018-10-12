@@ -6822,6 +6822,8 @@ $(function(){
                         if (self.hasClass('grid-stack')) {
                             if (that.data.single) {
                                 self.addClass('widget-grid_single');
+                            } else {
+                                self.addClass('widget-grid_multiple');
                             }
                             if (!that.data.margin) {
                                 self.addClass('widget-grid_margin_none');
