@@ -6861,12 +6861,18 @@ $(function(){
                         });
                     };
 
+                    that.init_collapsed_widget_height = function(){
+                        if (typeof getCookie == 'function') {
+                            that.data.collapsed_widget_height = getCookie('collapsed_widget_height');
+                        }
+                    };
                     that.init_resize = function(){
                         $(window).on('resize', function(){
                             that.resize();
                         });
                     };
                     that.init = function(){
+                        that.init_collapsed_widget_height();
                         if (that.create()) {
                             that.load();
                             if (that.data.mode == 'view') {
