@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="design.golikova2018.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="design.roboto_mono.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="design.style_shadow.min.css" type="text/css" media="all">
 </head>
 <body class="page">
     <div class="fs-view">
@@ -524,6 +525,7 @@
             ];
             dashboard = new Dashboard({
                 //editable: false,
+                collapsed_widget_height: 2,
                 tumblerContainerSelector: '.header__tumbler-container',
                 containerid: 'container',
                 items: items,
@@ -534,7 +536,7 @@
                 },
                 save: function(data){
                     console.log(JSON.stringify(data));
-                },
+                }
             });
         });
     </script>

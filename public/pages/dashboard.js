@@ -51,7 +51,8 @@ var Dashboard = function(options){
         params: null,
         type: 'page',
         modal: null,
-        modal_dbm: null
+        modal_dbm: null,
+        collapsed_widget_height: 1
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -518,7 +519,8 @@ var Dashboard = function(options){
                 //library: that.data.library,
 
                 params: that.data.params,
-                widget_buttons: buttons
+                widget_buttons: buttons,
+                collapsed_widget_height: that.data.collapsed_widget_height
             });
     };
     that.update_grid = function(items){

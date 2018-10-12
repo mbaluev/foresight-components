@@ -120,7 +120,8 @@ Asyst.PageDashboard = function(options){
         pageId: Asyst.Workspace.currentPage.pageId,
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
-        params: null
+        params: null,
+        collapsed_widget_height: 1
     };
     that.data = $.extend(true, that.data, options);
     that.data._el = {
@@ -276,7 +277,8 @@ Asyst.PageDashboard = function(options){
                     accountSettings: that.data.accountSettings,
                     headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                     tumblerContainerSelector: that.data.tumblerContainerSelector,
-                    params: that.data.params
+                    params: that.data.params,
+                    collapsed_widget_height: that.data.collapsed_widget_height
                 });
             }
         });
@@ -308,7 +310,8 @@ Asyst.Dashboard = function(options){
             id: -1,
             list: [],
             saved: []
-        }
+        },
+        collapsed_widget_height: 1
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -511,7 +514,8 @@ Asyst.Dashboard = function(options){
                 account: that.data.accountSettings,
                 headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                 tumblerContainerSelector: that.data.tumblerContainerSelector,
-                params: that.data.params
+                params: that.data.params,
+                collapsed_widget_height: that.data.collapsed_widget_height
             });
         });
     };

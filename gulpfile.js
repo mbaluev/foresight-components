@@ -91,6 +91,15 @@ var roboto_monoparams = {
     levels: ['design/roboto_mono/common.blocks', 'design/roboto_mono/mobile.blocks'],
     images: 'images/roboto_mono/'
 };
+var style_shadowparams = {
+    out: 'public',
+    cssOut: 'design.style_shadow.css',
+    jsOut: 'design.style_shadow.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/style_shadow/common.blocks', 'design/style_shadow/mobile.blocks'],
+    images: 'images/style_shadow/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -152,6 +161,7 @@ var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
 var akimovGetFileNames = require('html2bl').getFileNames(akimov2018params);
 var golikovaGetFileNames = require('html2bl').getFileNames(golikova2018params);
 var roboto_monoGetFileNames = require('html2bl').getFileNames(roboto_monoparams);
+var style_shadowGetFileNames = require('html2bl').getFileNames(style_shadowparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -242,6 +252,26 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['golikova2018_js']);
+
+    /* watch design - roboto_mono */
+    gulp.watch(roboto_monoparams.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['roboto_mono_css']);
+    gulp.watch(roboto_monoparams.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['roboto_mono_js']);
+
+    /* watch design - golikova2018 */
+    gulp.watch(style_shadowparams.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['style_shadow_css']);
+    gulp.watch(style_shadowparams.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['style_shadow_js']);
 });
 
 /* components */
@@ -351,7 +381,8 @@ gulp.task('pages', function(){
 });
 
 /* design */
-gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018', 'roboto_mono']);
+gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018',
+    'roboto_mono', 'style_shadow']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -746,6 +777,59 @@ gulp.task('roboto_mono_css', function(){
             }))
             .pipe(rename({suffix: '.min'}))
             .pipe(gulp.dest(roboto_monoparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* golikova2018 */
+gulp.task('style_shadow', ['style_shadow_css', 'style_shadow_images', 'style_shadow_js']);
+gulp.task('style_shadow_css', function(){
+    style_shadowGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(style_shadowparams.cssOut))
+            .pipe(url({ prepend: style_shadowparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(style_shadowparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    style_shadowGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(style_shadowparams.cssOut))
+            .pipe(url({ prepend: style_shadowparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(style_shadowparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('style_shadow_images', function(){
+    style_shadowGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(style_shadowparams.out, style_shadowparams.images)));
+    }).done();
+});
+gulp.task('style_shadow_js', function() {
+    style_shadowGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(style_shadowparams.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(style_shadowparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

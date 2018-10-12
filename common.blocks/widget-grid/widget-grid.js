@@ -22,7 +22,8 @@
                             disableDrag: true,
                             disableResize: true,
                             resizable: { handles: 'e, se, s, sw, w' }
-                        }
+                        },
+                        collapsed_widget_height: 1
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -154,7 +155,7 @@
                         if (node.length > 0) {
                             node = node[0];
                             var _collapsed = node.widget.data().collapsed;
-                            that.update_widget(node._id, null, null, null, 1);
+                            that.update_widget(node._id, null, null, null, that.data.collapsed_widget_height);
                             node.widget.widget('collapse');
                             if (!save_state) {
                                 node.widget.data().collapsed = _collapsed;

@@ -234,6 +234,50 @@
                         that.render_button_collapse();
                     };
                     that.set_color = function(){
+                        if (that.data.color === that.const.BORDER_COLOR_DARK_BLUE) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_dark_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_BLUE) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_LIGHT_BLUE) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_light_blue');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_DEFAULT) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_default');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_DARK_GREY) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_dark_grey');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_PURPLE) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_purple');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_RED) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_red');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_GREEN) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_green');
+                        }
+                        else if (that.data.color === that.const.BORDER_COLOR_NONE) {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.addClass('widget_color_none');
+                        }
+                        else {
+                            self.attr('class',self.attr('class').replace(/\widget_color_.*?\b/g, ''));
+                            self.css({
+                                'border-color': that.data.color
+                            });
+                        }
+                    };
+                    that.set_color_border = function(){
                         var $border = self.closestChild('.widget__border');
                         if (that.data.color === that.const.BORDER_COLOR_DARK_BLUE) {
                             $border.attr('class',$border.attr('class').replace(/\widget__border_color_.*?\b/g, ''));
