@@ -321,10 +321,11 @@
 .menu_color_golikova {
   border-top: solid 1px #fff;
   background: url("images/golikova2018/menu-bg.png") left bottom no-repeat #774d95;
+  overflow: visible;
 }
 
 .menu_color_golikova .menu__item {
-  background: #774d95;
+  background: transparent;
 }
 
 .menu_color_golikova .menu__item-link {
@@ -343,8 +344,27 @@
   background: url("images/golikova2018/menu-bg-hidden.png") left bottom no-repeat #774d95;
 }
 
-.fs-view__left_hidden .menu__item-text {
+.fs-view__left_hidden .menu_color_golikova .menu__item-text,
+.fs-view__left_hidden .menu_color_golikova .menu__item-text + .icon {
   display: none;
+}
+
+.fs-view__left_hidden .menu_color_golikova .menu__submenu-container {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 240px;
+  border-left: solid 1px #fff;
+}
+
+.fs-view__left_hidden .menu_color_golikova .menu__submenu .menu__item {
+  border-bottom: solid 1px rgba(255,255,255,.15);
+  border-top: none;
+  background: #774d95;
+}
+
+.fs-view__left_hidden .menu_color_golikova .menu__submenu-container .menu__item-text {
+  display: block;
 }
 
 .link {
@@ -471,5 +491,7 @@ fieldset {
 }
 
 @media (max-width: 768px) {
-
+  .fs-view__left_hidden .menu_color_golikova .menu__submenu-container {
+    display: none !important;
+  }
 }

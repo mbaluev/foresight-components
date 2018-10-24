@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="design.golikova2018.min.css" type="text/css" media="all">
+    <!--
     <link rel="stylesheet" href="design.roboto_mono.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="design.style_shadow.min.css" type="text/css" media="all">
+    -->
 </head>
 <body class="page">
     <div class="fs-view">
@@ -84,7 +86,7 @@
         </div>
         <div class="fs-view__main">
             <div class="fs-view__left fs-view__left_hidden">
-                <div class="menu menu_color_golikova" data-fc="menu" data-toggle="click">
+                <div class="menu menu_color_golikova" data-fc="menu" data-toggle="click" data-autoClose="true">
                     <ul class="menu__list">
                         <li class="menu__item">
                             <a class="menu__item-link link">
@@ -101,6 +103,74 @@
                                     <span class="menu__item-text">Поручения Правительства РФ</span>
                                 </span>
                             </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_images_white"></span>
+                                    <span class="menu__item-text">Информационные сервисы</span>
+                                    <span class="menu__icon icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Новости</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">СМИ</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Видео</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_images_white"></span>
+                                    <span class="menu__item-text">Информационные сервисы</span>
+                                    <span class="menu__icon icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Новости</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">СМИ</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Видео</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -525,7 +595,7 @@
             ];
             dashboard = new Dashboard({
                 //editable: false,
-                collapsed_widget_height: 2,
+                collapsed_widget_height: 1,
                 tumblerContainerSelector: '.header__tumbler-container',
                 containerid: 'container',
                 items: items,

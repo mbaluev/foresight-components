@@ -81,20 +81,28 @@
                                         var collapsed = $submenu.data('collapsed');
                                         $submenu.slideToggle(500);
                                         $submenu.data('collapsed', !collapsed);
-                                        $icon.toggleClass('icon_rotate_0deg');
-                                        if (that.data.autoclose) {
-                                            item.siblings().each(function(){
-                                                var sibling = $(this),
-                                                    ssubmenu = sibling.children('.menu__submenu-container'),
-                                                    sicon = sibling.children('.menu__item-link').children('.menu__item-link-content').children('.menu__icon');
+                                        if (collapsed) {
+                                            $icon.addClass('icon_rotate_0deg');
+                                            $(this).addClass('menu__item-link_selected');
+                                        } else {
+                                            $icon.removeClass('icon_rotate_0deg');
+                                            $(this).removeClass('menu__item-link_selected');
+                                        }
+                                        item.siblings().each(function(){
+                                            var sibling = $(this),
+                                                ssubmenu = sibling.children('.menu__submenu-container'),
+                                                sitemlink = sibling.children('.menu__item-link'),
+                                                sicon = sibling.children('.menu__item-link').children('.menu__item-link-content').children('.menu__icon');
+                                            sitemlink.removeClass('menu__item-link_selected');
+                                            if (that.data.autoclose) {
                                                 var scollapsed = ssubmenu.data('collapsed');
                                                 if (!scollapsed) {
                                                     ssubmenu.slideUp(500);
                                                     ssubmenu.data('collapsed', true);
                                                     sicon.toggleClass('icon_rotate_0deg');
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
                                     });
                                     if (that.data.expanded) {
                                         $submenu.show();
