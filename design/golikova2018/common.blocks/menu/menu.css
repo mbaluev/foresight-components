@@ -1,7 +1,6 @@
 .menu_color_golikova {
     border-top: solid 1px #fff;
     background: url('menu-bg.png') left bottom no-repeat #774d95;
-    overflow: visible;
 }
 .menu_color_golikova .menu__item,
 .menu_color_golikova .menu__submenu-container {
@@ -23,6 +22,7 @@
 .fs-view__left_hidden .menu_color_golikova {
     width: 40px;
     background: url('menu-bg-hidden.png') left bottom no-repeat #774d95;
+    overflow: visible;
 }
 .fs-view__left_hidden .menu_color_golikova .menu__item-text,
 .fs-view__left_hidden .menu_color_golikova .menu__item-text + .icon {
