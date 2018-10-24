@@ -324,8 +324,12 @@
   overflow: visible;
 }
 
-.menu_color_golikova .menu__item {
-  background: transparent;
+.menu_color_golikova .menu__submenu-container {
+  background: #774d95;
+}
+
+.menu_color_golikova .menu__submenu-container .menu__item {
+  background: rgba(51,51,51,.15);
 }
 
 .menu_color_golikova .menu__item-link {
