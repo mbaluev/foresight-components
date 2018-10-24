@@ -17,9 +17,26 @@
 }
 */
 
+@font-face {
+    font-family: 'ProximaNova-Regular';
+    src: url('ProximaNova-Regular/ProximaNova-Regular.eot');
+    src: url('ProximaNova-Regular/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
+    url('ProximaNova-Regular/ProximaNova-Regular.woff') format('woff'),
+    url('ProximaNova-Regular/ProximaNova-Regular.ttf')  format('truetype'),
+    url('ProximaNova-Regular/ProximaNova-Regular.svg#svgFontName') format('svg');
+}
+@font-face {
+    font-family: 'ProximaNova-Bold';
+    src: url('ProximaNova-Bold/ProximaNova-Bold.eot');
+    src: url('ProximaNova-Bold/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
+    url('ProximaNova-Bold/ProximaNova-Bold.woff') format('woff'),
+    url('ProximaNova-Bold/ProximaNova-Bold.ttf')  format('truetype'),
+    url('ProximaNova-Bold/ProximaNova-Bold.svg#svgFontName') format('svg');
+}
+
 /* regular */
 @font-face {
-    font-family: 'ProximaNova', 'ProximaNova-Regular';
+    font-family: 'ProximaNova';
     font-style: normal;
     font-weight: 400;
     src: local('ProximaNova'), local('ProximaNova-Regular'),
@@ -30,7 +47,7 @@
 }
 /* bold */
 @font-face {
-    font-family: 'ProximaNova', 'ProximaNova-Bold';
+    font-family: 'ProximaNova';
     font-style: normal;
     font-weight: 700;
     src: local('ProximaNova Bold'), local('ProximaNova-Bold'),
