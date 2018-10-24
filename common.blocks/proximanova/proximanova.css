@@ -19,10 +19,10 @@
 
 /* regular */
 @font-face {
-    font-family: 'ProximaNova';
+    font-family: 'ProximaNova', 'Proximanova', 'ProximaNova-Regular', 'Proximanova-Regular';
     font-style: normal;
     font-weight: 400;
-    src: local('ProximaNova'), local('Proximanova'), local('ProximaNova-Regular'), local('Proximanova-Regular'),
+    src: local('ProximaNova'), local('ProximaNova-Regular'),
     url('ProximaNova-Regular/ProximaNova-Regular.eot?#iefix') format('embedded-opentype'),
     url('ProximaNova-Regular/ProximaNova-Regular.woff') format('woff'),
     url('ProximaNova-Regular/ProximaNova-Regular.ttf')  format('truetype'),
@@ -30,10 +30,10 @@
 }
 /* bold */
 @font-face {
-    font-family: 'ProximaNova';
+    font-family: 'ProximaNova', 'Proximanova', 'ProximaNova-Bold', 'Proximanova-Bold';
     font-style: normal;
     font-weight: 700;
-    src: local('ProximaNova Bold'), local('ProximaNova-Bold'), local('Proximanova Bold'), local('Proximanova-Bold'),
+    src: local('ProximaNova Bold'), local('ProximaNova-Bold'),
     url('ProximaNova-Bold/ProximaNova-Bold.eot?#iefix') format('embedded-opentype'),
     url('ProximaNova-Bold/ProximaNova-Bold.woff') format('woff'),
     url('ProximaNova-Bold/ProximaNova-Bold.ttf')  format('truetype'),
