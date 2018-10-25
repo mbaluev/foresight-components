@@ -7605,17 +7605,19 @@ $(function(){
                     that.render_tabs_row = function(){
                         if (that.data.content) {
                             if (that.data.content.tabs) {
-                                if (that.data.content.tabs.length == 1) {
-                                    that.data.content.tabs[0].active = true;
-                                } else {
-                                    var has_active_tab = false;
-                                    that.data.content.tabs.forEach(function(tab) {
-                                        if (tab.active) {
-                                            has_active_tab = true;
-                                        }
-                                    });
-                                    if (!has_active_tab) {
+                                if (that.data.content.tabs.length > 0) {
+                                    if (that.data.content.tabs.length == 1) {
                                         that.data.content.tabs[0].active = true;
+                                    } else {
+                                        var has_active_tab = false;
+                                        that.data.content.tabs.forEach(function(tab) {
+                                            if (tab.active) {
+                                                has_active_tab = true;
+                                            }
+                                        });
+                                        if (!has_active_tab) {
+                                            that.data.content.tabs[0].active = true;
+                                        }
                                     }
                                 }
                                 that.data.content.tabs.forEach(function(tab){

@@ -810,15 +810,18 @@ var Dashboard = function(options){
                     }
                 }
             }
-            if (render) {
-                tabs.push({
-                    id: 'source',
-                    name: 'Источник данных',
-                    active: active,
-                    content:
-                        $('<div style="display: flex; flex-direction: column; height: 100%;"></div>').append($control__library, $control__widgets)
-                });
+            if (!render) {
+                $button_add.remove();
+                $button_edit.remove();
+                $button_save.remove();
             }
+            tabs.push({
+                id: 'source',
+                name: 'Источник данных',
+                active: active,
+                content:
+                    $('<div style="display: flex; flex-direction: column; height: 100%;"></div>').append($control__library, $control__widgets)
+            });
         }
         function prepare_widgets_buttons(){
             $button_add.attr('data-hidden', true);
