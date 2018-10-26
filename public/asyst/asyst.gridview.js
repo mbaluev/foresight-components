@@ -46,7 +46,7 @@ Asyst.GridView = function(options) {
             save: false
         }
     };
-    that.data = $.extend(that.data, options);
+    that.data = $.extend(true, {}, that.data, options);
     that.data._el = {
         target: $('#' + that.data.containerid),
         button_group__view_sample: $('<span class="button-group"></span>'),
