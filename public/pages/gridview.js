@@ -1033,7 +1033,7 @@ var GridView5 = function(options){
     that.init();
     return that;
 }; //no header
-var GridView3_1 = function(options){
+var GridView6 = function(options){
     var that = this._gridview = {};
     that.data = {
         containerid: '',
