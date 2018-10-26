@@ -15,8 +15,7 @@
 .menu_color_golikova .menu__item-link_selected,
 .menu_color_golikova .menu__item-link:hover,
 .menu_color_golikova .menu__item-link_hovered {
-    background-color: inherit;
-    opacity: .5;
+    background: rgba(51,51,51,.15);
 }
 
 .fs-view__left_hidden .menu_color_golikova {
@@ -42,4 +41,6 @@
 }
 .fs-view__left_hidden .menu_color_golikova .menu__submenu-container .menu__item-text {
     display: block;
+}
+.fs-view__left_hidden .menu__item-link_selected {
 }
