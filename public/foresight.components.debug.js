@@ -972,7 +972,8 @@ $(function(){
                                         $submenu.data('collapsed', false);
                                         $icon.toggleClass('icon_rotate_0deg');
                                     } else {
-                                        if ($submenu.data('collapsed') == false) {
+                                        if ($submenu.data('collapsed') == false ||
+                                            $submenu.data('collapsed') == 'false') {
                                             $submenu.show();
                                             $icon.toggleClass('icon_rotate_0deg');
                                             $itemlink.addClass('menu__item-link_selected');
