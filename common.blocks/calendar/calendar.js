@@ -130,8 +130,8 @@
                                         (button.name ? '<span class="button__text">' + button.name + '</span>' : ''),
                                         '</button>'
                                     ].join(''));
-                                    if (typeof item.onclick == 'function') {
-                                        $button.on('click', item.onclick);
+                                    if (typeof button.onclick == 'function') {
+                                        $button.on('click', button.onclick);
                                     }
                                     that.data._el.card__header.append($button);
                                     that.data._el.buttons.push($button);
