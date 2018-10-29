@@ -972,7 +972,12 @@ $(function(){
                                         $submenu.data('collapsed', false);
                                         $icon.toggleClass('icon_rotate_0deg');
                                     } else {
-                                        $submenu.data('collapsed', true);
+                                        if (!$submenu.data('collapsed')) {
+                                            $submenu.data('collapsed', false);
+                                            $submenu.show();
+                                            $icon.toggleClass('icon_rotate_0deg');
+                                            $itemlink.addClass('menu__item-link_selected');
+                                        }
                                     }
                                 }
                                 if (that.data.toggle == 'hover') {
