@@ -3576,6 +3576,7 @@ $(function(){
                     that.defaults = {
                         items: [],
                         columns: [],
+                        buttons: [],
                         events: {
                             render: false,
                             TitleColumn: 'date',
@@ -3589,7 +3590,7 @@ $(function(){
                         onSelectAllowed: true,
                         useItemsLength: true,
                         initDate: null,
-                        horizontal: false
+                        horizontal: false,
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3632,7 +3633,8 @@ $(function(){
                         calendar__row_first: $('<div class="calendar__row"></div>'),
                         calendar__row_second: $('<div class="calendar__row"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
-                        calendar__table: $('<div class="calendar__table"></div>')
+                        calendar__table: $('<div class="calendar__table"></div>'),
+                        buttons: []
                     };
 
                     that.destroy = function(){
@@ -3683,6 +3685,26 @@ $(function(){
                                 )
                             )
                         );
+                    };
+                    that.render_buttons = function(){
+                        if (that.data.buttons) {
+                            if (that.data.buttons.length > 0) {
+                                that.data.buttons.forEach(function(button){
+                                    var $button = $([
+                                        '<button class="button" type="button" data-fc="button"' + (button.id ? ' id="' + button.id + '"' : ''),
+                                        (button.name ? ' data-tooltip="' + button.name + '"' : ''), '>',
+                                        '<span class="icon ' + button.icon + '"></span>',
+                                        (button.name ? '<span class="button__text">' + button.name + '</span>' : ''),
+                                        '</button>'
+                                    ].join(''));
+                                    if (typeof item.onclick == 'function') {
+                                        $button.on('click', item.onclick);
+                                    }
+                                    that.data._el.card__header.append($button);
+                                    that.data._el.buttons.push($button);
+                                });
+                            }
+                        }
                     };
                     that.render_datepicker = function(){
                         that.data._el.calendar__datepicker.datepicker({
@@ -3893,6 +3915,7 @@ $(function(){
                     that.init = function(){
                         that.prepare_data();
                         that.render();
+                        that.render_buttons();
                         that.render_datepicker();
                         that.init_components();
                         that.bind();
