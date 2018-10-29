@@ -3700,7 +3700,7 @@ $(function(){
                                     if (typeof button.onclick == 'function') {
                                         $button.on('click', button.onclick);
                                     }
-                                    that.data._el.card__header.append($button);
+                                    that.data._el.card__header.find('#actions').append($button);
                                     that.data._el.buttons.push($button);
                                 });
                             }
