@@ -8,4 +8,8 @@
     .calendar__row_right {
         flex: 1 1 auto;
     }
+    .calendar__row_right .calendar__table {
+        border-top: solid 1px #ddd;
+        border-left: none;
+    }
 }

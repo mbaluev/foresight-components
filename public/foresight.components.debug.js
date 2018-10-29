@@ -3589,7 +3589,7 @@ $(function(){
                         onSelectAllowed: true,
                         useItemsLength: true,
                         initDate: null,
-                        direction: 'horizontal' // 'horizontal' || 'vertical'
+                        horizontal: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -3629,8 +3629,8 @@ $(function(){
                             '</label>',
                         ].join('')),
                         card__main: $('<div class="card__main"></div>'),
-                        calendar__row_first: $('<div class="calendar__row calendar__row_top"></div>'),
-                        calendar__row_second: $('<div class="calendar__row calendar__row_bottom"></div>'),
+                        calendar__row_first: $('<div class="calendar__row"></div>'),
+                        calendar__row_second: $('<div class="calendar__row"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
                         calendar__table: $('<div class="calendar__table"></div>')
                     };
@@ -3652,7 +3652,7 @@ $(function(){
                         });
                     };
                     that.render = function(){
-                        if (that.data.direction == 'horizontal') {
+                        if (that.data.horizontal) {
                             that.data._el.calendar__container.addClass('calendar__container_horizontal');
                             that.data._el.calendar__row_first.addClass('calendar__row_left');
                             that.data._el.calendar__row_second.addClass('calendar__row_right');

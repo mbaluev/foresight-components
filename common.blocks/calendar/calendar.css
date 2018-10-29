@@ -23,10 +23,7 @@
     flex: 1 1 auto;
 }
 
-.calendar__row_left {
-    flex-basis: 50%;
-    border-right: solid 1px #ddd;
-}
+.calendar__row_left,
 .calendar__row_right {
     flex-basis: 50%;
 }
@@ -51,6 +48,10 @@
     border-top: solid 1px #ddd;
 }
 .calendar__table .table thead td {
+    border-top: none;
+}
+.calendar__row_right .calendar__table {
+    border-left: solid 1px #ddd;
     border-top: none;
 }
 
