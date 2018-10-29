@@ -1,0 +1,11 @@
+@media (max-width: 768px) {
+    .calendar > .calendar__container > .card > .card__main {
+        flex-direction: column;
+    }
+    .calendar__row_left {
+        flex: 0 0 auto;
+    }
+    .calendar__row_right {
+        flex: 1 1 auto;
+    }
+}

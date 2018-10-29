@@ -21,7 +21,8 @@
                         onSelect: null,
                         onSelectAllowed: true,
                         useItemsLength: true,
-                        initDate: null
+                        initDate: null,
+                        direction: 'horizontal' // 'horizontal' || 'vertical'
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -60,9 +61,9 @@
                             '<span class="card__name-text">Событий: 3</span>',
                             '</label>',
                         ].join('')),
-                        card__main: $('<div class="card__main card__main_flex-direction_column"></div>'),
-                        calendar__row_top: $('<div class="calendar__row calendar__row_top"></div>'),
-                        calendar__row_bottom: $('<div class="calendar__row calendar__row_bottom"></div>'),
+                        card__main: $('<div class="card__main"></div>'),
+                        calendar__row_first: $('<div class="calendar__row calendar__row_top"></div>'),
+                        calendar__row_second: $('<div class="calendar__row calendar__row_bottom"></div>'),
                         calendar__datepicker: $('<div class="calendar__datepicker"></div>'),
                         calendar__table: $('<div class="calendar__table"></div>')
                     };
@@ -84,6 +85,15 @@
                         });
                     };
                     that.render = function(){
+                        if (that.data.direction == 'horizontal') {
+                            that.data._el.calendar__container.addClass('calendar__container_horizontal');
+                            that.data._el.calendar__row_first.addClass('calendar__row_left');
+                            that.data._el.calendar__row_second.addClass('calendar__row_right');
+                        } else {
+                            that.data._el.card__main.addClass('card__main_flex-direction_column');
+                            that.data._el.calendar__row_first.addClass('calendar__row_top');
+                            that.data._el.calendar__row_second.addClass('calendar__row_bottom');
+                        }
                         that.data._el.card__header.find('#name').append(
                             that.data._el.card__name
                         );
@@ -96,10 +106,10 @@
                                 that.data._el.card.append(
                                     that.data._el.card__header,
                                     that.data._el.card__main.append(
-                                        that.data._el.calendar__row_top.append(
+                                        that.data._el.calendar__row_first.append(
                                             that.data._el.calendar__datepicker
                                         ),
-                                        (that.data.columns.length > 0 ? that.data._el.calendar__row_bottom.append(
+                                        (that.data.columns.length > 0 ? that.data._el.calendar__row_second.append(
                                             that.data._el.calendar__table
                                         ) : null)
                                     )
@@ -225,7 +235,7 @@
                             }
                         });
                         if (that.data.events.render) {
-                            that.data._el.calendar__row_bottom.remove();
+                            that.data._el.calendar__row_second.remove();
                             that.data._el.calendar__datepicker.find('.datepicker--cells-days').addClass('datepicker__cells-days-border');
                         }
                         that.data._datepicker = that.data._el.calendar__datepicker.data().datepicker;

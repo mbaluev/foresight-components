@@ -23,6 +23,14 @@
     flex: 1 1 auto;
 }
 
+.calendar__row_left {
+    flex-basis: 50%;
+    border-right: solid 1px #ddd;
+}
+.calendar__row_right {
+    flex-basis: 50%;
+}
+
 .calendar__datepicker {
     width: 100%;
     flex: 0 0 auto;

@@ -3244,6 +3244,17 @@ a.button_color_blue_light:hover .button__text {
           flex: 1 1 auto;
 }
 
+.calendar__row_left {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+  border-right: solid 1px #ddd;
+}
+
+.calendar__row_right {
+  -ms-flex-preferred-size: 50%;
+      flex-basis: 50%;
+}
+
 .calendar__datepicker {
   width: 100%;
   -webkit-box-flex: 0;
@@ -6936,6 +6947,27 @@ img + .card__text {
 
 @media (max-width: 768px) {
 
+}
+
+@media (max-width: 768px) {
+  .calendar > .calendar__container > .card > .card__main {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+
+  .calendar__row_left {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 auto;
+            flex: 0 0 auto;
+  }
+
+  .calendar__row_right {
+    -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+  }
 }
 
 @media (max-width: 768px) {
