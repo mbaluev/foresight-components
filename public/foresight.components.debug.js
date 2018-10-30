@@ -191,6 +191,7 @@ $(function(){
                         hidden: false,
                         width: 'auto',
                         popup_animation: true,
+                        popup_place: 'source',
                         datePickerOptions: {
                             data: [],
                             autoClose: true,
@@ -325,22 +326,20 @@ $(function(){
                     };
 
                     that.init_components = function(){
+                        var popupOptions = {
+                            source: self,
+                            animation: that.data.popup_animation,
+                            popup_place: that.data.popup_place
+                        };
                         if (that.data.toggle == 'popup') {
                             that.data._el.popup = $(that.data.target);
-                            that.data._el.popup.popup({
-                                source: self,
-                                animation: that.data.popup_animation
-                            });
+                            that.data._el.popup.popup(popupOptions);
                         }
-
                         if (that.data.toggle == 'datepicker') {
                             self.after(that.data._el.popup);
-                            that.data._el.popup.popup({
-                                source: self,
-                                position: that.data.datePickerOptions.position,
-                                width: 'auto',
-                                animation: that.data.popup_animation
-                            });
+                            popupOptions.position = that.data.datePickerOptions.position;
+                            popupOptions.width = 'auto';
+                            that.data._el.popup.popup(popupOptions);
                             self.datepicker({
                                 inline: true,
                                 autoClose: that.data.datePickerOptions.autoClose,
