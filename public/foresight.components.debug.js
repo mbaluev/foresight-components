@@ -336,7 +336,12 @@ $(function(){
                             that.data._el.popup.popup(popupOptions);
                         }
                         if (that.data.toggle == 'datepicker') {
-                            self.after(that.data._el.popup);
+                            if (that.data.popup_place == 'source') {
+                                self.after(that.data._el.popup);
+                            }
+                            if (that.data.popup_place == 'body') {
+                                $('body').append(that.data._el.popup);
+                            }
                             popupOptions.position = that.data.datePickerOptions.position;
                             popupOptions.width = 'auto';
                             that.data._el.popup.popup(popupOptions);
