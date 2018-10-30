@@ -150,7 +150,7 @@
                         var popupOptions = {
                             source: self,
                             animation: that.data.popup_animation,
-                            popup_place: that.data.popup_place
+                            place: that.data.popup_place
                         };
                         if (that.data.toggle == 'popup') {
                             that.data._el.popup = $(that.data.target);
