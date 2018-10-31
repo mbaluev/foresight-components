@@ -208,7 +208,8 @@ $(function(){
 
                     that.data._handlers = null;
                     that.data._el = {
-                        popup: $('<div class="popup"></div>')
+                        popup: $('<div class="popup"></div>'),
+                        search: $('<div class="search"></div>')
                     };
 
                     that.destroy = function(){
@@ -380,6 +381,14 @@ $(function(){
                             that.data.datePickerOptions.instance = self.data().datepicker;
                             that.data.datePickerOptions.instance.$datepicker.parent().appendTo(that.data._el.popup);
                         }
+                        if (that.data.toggle == 'search') {
+                            that.data._el.search.search({
+                                source: self,
+                                func: that.data.func,
+                                areas: that.data.areas,
+                                usesp: that.data.usesp
+                            });
+                        }
                     };
                     that.init = function() {
                         that.set_width(that.data.width);
@@ -488,6 +497,7 @@ $(function(){
 $(function(){
     $('[data-fc="button"]').button();
 });
+
 (function($){
     var methods = {
         init : function(options) {
@@ -2954,315 +2964,6 @@ $(function(){
             return this.each(function(){
                 var self = $(this), data = self.data('_widget');
                 if (!data) {
-                    self.data('_widget', { type: 'gallery', target : self });
-                    var that = this.obj = {};
-                    that.defaults = {
-                        title: 'Фотогалерея',
-                        items: []
-                    };
-                    that.data = self.data();
-                    that.options = $.extend(true, {}, that.defaults, that.data, options);
-
-                    /* save widget options to self.data */
-                    self.data(that.options);
-
-                    that.data._el = {
-                        target: self,
-                        card: $('<div class="card" data-fc="card"></div>'),
-                        card__header: $('<div class="card__header"></div>'),
-                        card__header_row: $('<div class="card__header-row"></div>'),
-                        card__header_column: $([
-                            '<div class="card__header-column">',
-                                '<label class="card__name">',
-                                '<span class="card__name-text">' + that.data.title + '</span>',
-                                '</label>',
-                            '</div>'
-                        ].join('')),
-                        card__header_column_search: $('<div class="card__header-column card__header-element_stretch"></div>'),
-                        input: $([
-                            '<span class="input input__has-clear card__header-element_stretch" data-fc="input">',
-                                '<span class="input__box">',
-                                    '<span class="alertbox" data-fc="alertbox">',
-                                        '<span class="icon icon_svg_search"></span>',
-                                    '</span>',
-                                    '<input type="text" class="input__control">',
-                                    '<button class="button" type="button" data-fc="button" tabindex="-1">',
-                                        '<span class="icon icon_svg_close"></span>',
-                                    '</button>',
-                                '</span>',
-                            '</span>',
-                        ].join('')),
-                        button_toggle_left: $([
-                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
-                            '<span class="icon icon_svg_double_right"></span>',
-                            '</button>'
-                        ].join('')),
-                        card__main: $('<div class="card__main"></div>'),
-                        card__left: $('<div class="card__left"></div>'),
-                        card__backdrop: $('<div class="card__backdrop"></div>'),
-                        card__middle: $('<div class="card__middle"></div>'),
-                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
-                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
-                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
-                        tabs: []
-                    };
-                    that.data.private = {
-                        datatree: [],
-                        datalevel: -1,
-                        search: {
-                            text: null,
-                            timer: null
-                        }
-                    };
-
-                    that.destroy = function(){
-                        self.removeData();
-                        self.remove();
-                    };
-                    that.nulls = function(){
-                        that.data.items.map(function(item){
-                            for (var key in item){
-                                if (item.hasOwnProperty(key)) {
-                                    if (item[key] == 'null') {
-                                        item[key] = '';
-                                    }
-                                }
-                            }
-                        });
-                    };
-                    that.prepare = function(){
-                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
-                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
-                        function prepareData(data, datalevel, parentid){
-                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
-                            datalevel++;
-                            roots.forEach(function(root){
-                                root.item.level = datalevel;
-                                if (!root.item.fileid)
-                                    root.child = prepareData(data, datalevel, root.item.id);
-                            });
-                            datalevel--;
-                            return roots;
-                        }
-                    };
-
-                    that.render = function(){
-                        that.data._el.target.append(
-                            that.data._el.card.append(
-                                that.data._el.card__header.append(
-                                    that.data._el.card__header_row.append(
-                                        that.data._el.card__header_column.prepend(
-                                            that.data._el.button_toggle_left
-                                        ),
-                                        that.data._el.card__header_column_search.append(
-                                            that.data._el.input
-                                        )
-                                    )
-                                ),
-                                that.data._el.card__main.append(
-                                    that.data._el.card__left.append(
-                                        that.data._el.menu
-                                    ),
-                                    that.data._el.card__middle.append(
-                                        that.data._el.card__middle_scroll.append(
-                                            that.data._el.card__middle_inner
-                                        )
-                                    ),
-                                    that.data._el.card__backdrop
-                                )
-                            )
-                        );
-                    };
-                    that.render_data = function(){
-                        var $menu__list = $('<ul class="menu__list"></ul>');
-                        renderMenu(that.data.private.datatree, $menu__list);
-                        that.data._el.menu.append($menu__list);
-                        that.data._el.menu.menu();
-                        function renderMenu(data, container){
-                            var result = false,
-                                padding = 10;
-                            data.forEach(function(d){
-                                if (!d.item.fileid) {
-                                    result = true;
-                                    padding = 10;
-                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
-                                    //d.item.icon = 'icon_svg_folder';
-                                    var $menu__item = $([
-                                            '<li class="menu__item" id=' + d.item.id + '>',
-                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                            '<span class="menu__item-link-content">',
-                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
-                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                '<span class="menu__item-text">' + d.item.name + '</span>',
-                                            '</span>',
-                                            '</a>',
-                                            '</li>'
-                                        ].join(''));
-                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
-                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
-                                    $menu__item.append(
-                                        $menu__submenu.append(
-                                            $menu__list
-                                        )
-                                    );
-                                    if (d.child) {
-                                        if (!renderMenu(d.child, $menu__list)) {
-                                            d.item.icon = 'icon_svg_images';
-                                            $menu__item = $([
-                                                '<li class="menu__item" id=' + d.item.id + '>',
-                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
-                                                '<span class="menu__item-link-content">',
-                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
-                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
-                                                '</span>',
-                                                '</a>',
-                                                '</li>'
-                                            ].join(''));
-                                            $menu__item.on('click', function(e){
-                                                console.log(d.item.id);
-                                                if (!d._loaded) {
-                                                    renderPanel(d);
-                                                }
-                                                that.data._el.card__middle.find('.tabs__pane').hide();
-                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
-                                            });
-                                        }
-                                    }
-                                    container.append($menu__item);
-                                }
-                            });
-                            return result;
-                        }
-                        function renderPanel(d){
-                            //set flag loaded
-                            d._loaded = true;
-
-                            //render panel
-                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
-                            that.data._el.tabs.push($tab);
-                            that.data._el.card__middle_inner.append($tab);
-
-                            // render images
-                            d.child.forEach(function(d) {
-                                var item = d.item;
-                                var _guid = item.url.replace('/asyst/api/file/get/','')
-                                var _slash = _guid.indexOf('/');
-                                _guid = _guid.substring(0,_slash);
-                                item.guid = _guid;
-                                renderImageBlock(item, $tab);
-                            });
-                        }
-                        function renderImageBlock(item, cont){
-                            var $imageblock = $([
-                                '<div class="gallery__image-block" data-url="' + item.url + '">',
-                                '<a class="gallery__image-link" href="' + item.url + '"',
-                                'data-description="' + item.description + '"',
-                                'data-lightbox="lightbox-' + item.parentid + '">',
-                                '<div class="spinner spinner_align_center"></div>',
-                                '<div class="gallery__image"></div>',
-                                '<div class="gallery__error">',
-                                '<div class="icon icon_svg_close"></div>',
-                                '<div class="gallery__error-info">Ошибка</div>',
-                                '</div>',
-                                '<div class="gallery__filename"></div>',
-                                '</a></div>'
-                            ].join('')).appendTo(cont);
-                            $imageblock.find('.spinner').show();
-                            $imageblock.find('.gallery__image').css('opacity', 0);
-                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
-                            var tempImg = new Image();
-                            tempImg.src = '/converter/converter?file=' + item.guid;
-                            tempImg.onload = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').css('opacity', 1);
-                            };
-                            tempImg.onerror = function() {
-                                $imageblock.find('.spinner').hide();
-                                $imageblock.find('.gallery__image').hide();
-                                $imageblock.find('.gallery__error').css('display', 'flex');
-                                $imageblock.find('.gallery__image-link').on('click', function(e){
-                                    e.preventDefault();
-                                    return false;
-                                }).removeAttr('data-lightbox');
-                            };
-                        }
-                    };
-                    that.filter = function(){
-                        filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
-                        function filter(arr, text){
-                            arr.map(function(d){
-                                var fields = [], show = false;
-                                if (typeof d.item.ownerName != 'undefined') {
-                                    fields.push('ownerName');
-                                }
-                                if (typeof d.item.responsibleName != 'undefined') {
-                                    fields.push('responsibleName');
-                                }
-                                if (typeof d.item.name != 'undefined') {
-                                    fields.push('name');
-                                }
-                                fields.map(function(field){
-                                    if (d.item[field].toLowerCase().indexOf(text) >= 0) {
-                                        show = true;
-                                    }
-                                });
-                                if (show) {
-                                    self.find('.menu__item' + '#' + d.item.id).show();
-                                } else {
-                                    self.find('.menu__item' + '#' + d.item.id).hide();
-                                }
-                            });
-                        }
-                    };
-                    that.bind = function(){
-                        that.data._el.input.on('keyup', function(){
-                            clearTimeout(that.data.private.search.timer);
-                            that.data.private.search.text = $(this).input('value');
-                            that.data.private.search.timer = setTimeout(that.filter, 300);
-                        });
-                    };
-
-                    that.init_components = function(){
-                        self.find('[data-fc="card"]').card();
-                        self.find('[data-fc="button"]').button();
-                        self.find('[data-tooltip]').tooltip();
-                        self.find('[data-fc="input"]').input();
-                    };
-                    that.init = function(){
-                        that.nulls();
-                        that.prepare();
-                        that.render();
-                        that.render_data();
-                        that.init_components();
-                        that.bind();
-                    };
-                    that.init();
-                }
-                return this;
-            });
-        },
-        destroy : function() {
-            return this.each(function() {
-                this.obj.destroy();
-            });
-        }
-    };
-    $.fn.gallery = function( method ) {
-        if ( methods[method] ) {
-            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-        } else if ( typeof method === 'object' || ! method ) {
-            return methods.init.apply( this, arguments );
-        } else {
-            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
-        }
-    };
-})( jQuery );
-(function($){
-    var methods = {
-        init : function(options) {
-            return this.each(function(){
-                var self = $(this), data = self.data('_widget');
-                if (!data) {
                     self.data('_widget', { type: 'visit', target : self });
                     var that = this.obj = {};
                     that.defaults = {
@@ -3566,6 +3267,315 @@ $(function(){
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on $.visit' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'gallery', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        title: 'Фотогалерея',
+                        items: []
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        target: self,
+                        card: $('<div class="card" data-fc="card"></div>'),
+                        card__header: $('<div class="card__header"></div>'),
+                        card__header_row: $('<div class="card__header-row"></div>'),
+                        card__header_column: $([
+                            '<div class="card__header-column">',
+                                '<label class="card__name">',
+                                '<span class="card__name-text">' + that.data.title + '</span>',
+                                '</label>',
+                            '</div>'
+                        ].join('')),
+                        card__header_column_search: $('<div class="card__header-column card__header-element_stretch"></div>'),
+                        input: $([
+                            '<span class="input input__has-clear card__header-element_stretch" data-fc="input">',
+                                '<span class="input__box">',
+                                    '<span class="alertbox" data-fc="alertbox">',
+                                        '<span class="icon icon_svg_search"></span>',
+                                    '</span>',
+                                    '<input type="text" class="input__control">',
+                                    '<button class="button" type="button" data-fc="button" tabindex="-1">',
+                                        '<span class="icon icon_svg_close"></span>',
+                                    '</button>',
+                                '</span>',
+                            '</span>',
+                        ].join('')),
+                        button_toggle_left: $([
+                            '<button class="button" type="button" data-fc="button" data-toggle="left">',
+                            '<span class="icon icon_svg_double_right"></span>',
+                            '</button>'
+                        ].join('')),
+                        card__main: $('<div class="card__main"></div>'),
+                        card__left: $('<div class="card__left"></div>'),
+                        card__backdrop: $('<div class="card__backdrop"></div>'),
+                        card__middle: $('<div class="card__middle"></div>'),
+                        card__middle_scroll: $('<div class="card__middle-scroll"></div>'),
+                        card__middle_inner: $('<div class="card__middle-inner"></div>'),
+                        menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
+                        tabs: []
+                    };
+                    that.data.private = {
+                        datatree: [],
+                        datalevel: -1,
+                        search: {
+                            text: null,
+                            timer: null
+                        }
+                    };
+
+                    that.destroy = function(){
+                        self.removeData();
+                        self.remove();
+                    };
+                    that.nulls = function(){
+                        that.data.items.map(function(item){
+                            for (var key in item){
+                                if (item.hasOwnProperty(key)) {
+                                    if (item[key] == 'null') {
+                                        item[key] = '';
+                                    }
+                                }
+                            }
+                        });
+                    };
+                    that.prepare = function(){
+                        that.data.items.map(function(d){ that.data.private.datatree.push({ item: d }) });
+                        that.data.private.datatree = prepareData(that.data.private.datatree, that.data.private.datalevel, null);
+                        function prepareData(data, datalevel, parentid){
+                            var roots = data.filter(function(d){ return d.item.parentid == parentid; });
+                            datalevel++;
+                            roots.forEach(function(root){
+                                root.item.level = datalevel;
+                                if (!root.item.fileid)
+                                    root.child = prepareData(data, datalevel, root.item.id);
+                            });
+                            datalevel--;
+                            return roots;
+                        }
+                    };
+
+                    that.render = function(){
+                        that.data._el.target.append(
+                            that.data._el.card.append(
+                                that.data._el.card__header.append(
+                                    that.data._el.card__header_row.append(
+                                        that.data._el.card__header_column.prepend(
+                                            that.data._el.button_toggle_left
+                                        ),
+                                        that.data._el.card__header_column_search.append(
+                                            that.data._el.input
+                                        )
+                                    )
+                                ),
+                                that.data._el.card__main.append(
+                                    that.data._el.card__left.append(
+                                        that.data._el.menu
+                                    ),
+                                    that.data._el.card__middle.append(
+                                        that.data._el.card__middle_scroll.append(
+                                            that.data._el.card__middle_inner
+                                        )
+                                    ),
+                                    that.data._el.card__backdrop
+                                )
+                            )
+                        );
+                    };
+                    that.render_data = function(){
+                        var $menu__list = $('<ul class="menu__list"></ul>');
+                        renderMenu(that.data.private.datatree, $menu__list);
+                        that.data._el.menu.append($menu__list);
+                        that.data._el.menu.menu();
+                        function renderMenu(data, container){
+                            var result = false,
+                                padding = 10;
+                            data.forEach(function(d){
+                                if (!d.item.fileid) {
+                                    result = true;
+                                    padding = 10;
+                                    for (var i = 0; i < d.item.level; i++) { padding += 20; }
+                                    //d.item.icon = 'icon_svg_folder';
+                                    var $menu__item = $([
+                                            '<li class="menu__item" id=' + d.item.id + '>',
+                                            '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                            '<span class="menu__item-link-content">',
+                                                '<span class="menu__icon icon icon_animate icon_svg_right"></span>',
+                                                (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                '<span class="menu__item-text">' + d.item.name + '</span>',
+                                            '</span>',
+                                            '</a>',
+                                            '</li>'
+                                        ].join(''));
+                                    var $menu__submenu = $('<div class="menu menu__submenu-container"></div>');
+                                    var $menu__list = $('<ul class="menu__list menu__submenu"></ul>');
+                                    $menu__item.append(
+                                        $menu__submenu.append(
+                                            $menu__list
+                                        )
+                                    );
+                                    if (d.child) {
+                                        if (!renderMenu(d.child, $menu__list)) {
+                                            d.item.icon = 'icon_svg_images';
+                                            $menu__item = $([
+                                                '<li class="menu__item" id=' + d.item.id + '>',
+                                                '<a class="menu__item-link link" style="padding-left: '+ padding +'px">',
+                                                '<span class="menu__item-link-content">',
+                                                    (d.item.icon && d.item.icon != 'null' ? '<span class="icon ' + d.item.icon + '"></span>' : ''),
+                                                    '<span class="menu__item-text">' + d.item.name + '</span>',
+                                                '</span>',
+                                                '</a>',
+                                                '</li>'
+                                            ].join(''));
+                                            $menu__item.on('click', function(e){
+                                                console.log(d.item.id);
+                                                if (!d._loaded) {
+                                                    renderPanel(d);
+                                                }
+                                                that.data._el.card__middle.find('.tabs__pane').hide();
+                                                that.data._el.card__middle.find('.tabs__pane[data-id="' + d.item.id + '"]').show();
+                                            });
+                                        }
+                                    }
+                                    container.append($menu__item);
+                                }
+                            });
+                            return result;
+                        }
+                        function renderPanel(d){
+                            //set flag loaded
+                            d._loaded = true;
+
+                            //render panel
+                            var $tab = $('<div class="tabs__pane tabs__pane_active" data-id="' + d.item.id + '"></div>').hide();
+                            that.data._el.tabs.push($tab);
+                            that.data._el.card__middle_inner.append($tab);
+
+                            // render images
+                            d.child.forEach(function(d) {
+                                var item = d.item;
+                                var _guid = item.url.replace('/asyst/api/file/get/','')
+                                var _slash = _guid.indexOf('/');
+                                _guid = _guid.substring(0,_slash);
+                                item.guid = _guid;
+                                renderImageBlock(item, $tab);
+                            });
+                        }
+                        function renderImageBlock(item, cont){
+                            var $imageblock = $([
+                                '<div class="gallery__image-block" data-url="' + item.url + '">',
+                                '<a class="gallery__image-link" href="' + item.url + '"',
+                                'data-description="' + item.description + '"',
+                                'data-lightbox="lightbox-' + item.parentid + '">',
+                                '<div class="spinner spinner_align_center"></div>',
+                                '<div class="gallery__image"></div>',
+                                '<div class="gallery__error">',
+                                '<div class="icon icon_svg_close"></div>',
+                                '<div class="gallery__error-info">Ошибка</div>',
+                                '</div>',
+                                '<div class="gallery__filename"></div>',
+                                '</a></div>'
+                            ].join('')).appendTo(cont);
+                            $imageblock.find('.spinner').show();
+                            $imageblock.find('.gallery__image').css('opacity', 0);
+                            $imageblock.find('.gallery__image').css('background-image', 'url(/converter/converter?file=' + item.guid + ')');
+                            var tempImg = new Image();
+                            tempImg.src = '/converter/converter?file=' + item.guid;
+                            tempImg.onload = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').css('opacity', 1);
+                            };
+                            tempImg.onerror = function() {
+                                $imageblock.find('.spinner').hide();
+                                $imageblock.find('.gallery__image').hide();
+                                $imageblock.find('.gallery__error').css('display', 'flex');
+                                $imageblock.find('.gallery__image-link').on('click', function(e){
+                                    e.preventDefault();
+                                    return false;
+                                }).removeAttr('data-lightbox');
+                            };
+                        }
+                    };
+                    that.filter = function(){
+                        filter(that.data.private.datatree, that.data.private.search.text.toLowerCase().trim());
+                        function filter(arr, text){
+                            arr.map(function(d){
+                                var fields = [], show = false;
+                                if (typeof d.item.ownerName != 'undefined') {
+                                    fields.push('ownerName');
+                                }
+                                if (typeof d.item.responsibleName != 'undefined') {
+                                    fields.push('responsibleName');
+                                }
+                                if (typeof d.item.name != 'undefined') {
+                                    fields.push('name');
+                                }
+                                fields.map(function(field){
+                                    if (d.item[field].toLowerCase().indexOf(text) >= 0) {
+                                        show = true;
+                                    }
+                                });
+                                if (show) {
+                                    self.find('.menu__item' + '#' + d.item.id).show();
+                                } else {
+                                    self.find('.menu__item' + '#' + d.item.id).hide();
+                                }
+                            });
+                        }
+                    };
+                    that.bind = function(){
+                        that.data._el.input.on('keyup', function(){
+                            clearTimeout(that.data.private.search.timer);
+                            that.data.private.search.text = $(this).input('value');
+                            that.data.private.search.timer = setTimeout(that.filter, 300);
+                        });
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="card"]').card();
+                        self.find('[data-fc="button"]').button();
+                        self.find('[data-tooltip]').tooltip();
+                        self.find('[data-fc="input"]').input();
+                    };
+                    that.init = function(){
+                        that.nulls();
+                        that.prepare();
+                        that.render();
+                        that.render_data();
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        }
+    };
+    $.fn.gallery = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.gallery' );
         }
     };
 })( jQuery );
@@ -7885,6 +7895,293 @@ $(function(){
             return methods.init.apply( this, arguments );
         } else {
             $.error( 'Method ' +  method + ' does not exist on $.modal__' );
+        }
+    };
+})( jQuery );
+(function($){
+    var methods = {
+        init : function(options) {
+            return this.each(function(){
+                var self = $(this), data = self.data('_widget');
+                if (!data) {
+                    self.data('_widget', { type: 'search', target : self });
+                    var that = this.obj = {};
+                    that.defaults = {
+                        source: null,
+                        func: function(){},
+                        areas: 'entitysearch',
+                        usesp: false,
+                        search_delay: 300
+                    };
+                    that.data = self.data();
+                    that.options = $.extend(true, {}, that.defaults, that.data, options);
+
+                    /* save widget options to self.data */
+                    self.data(that.options);
+
+                    that.data._el = {
+                        search: $('<div class="search"></div>'),
+                        search__view: $('<div class="search__view search__view_hidden"></div>'),
+                        search__backdrop: $('<div class="search__backdrop" data-tooltip="Закрыть"></div>'),
+                        search__dialog: $('<div class="search__dialog"></div>'),
+                        search__header: $('<div class="search__header"></div>'),
+                        search__header_row_input: $('<div class="search__header-row"></div>'),
+                        input: $([
+                            '<span class="input" data-fc="input" data-placeholder="Поиск">',
+                            '<span class="input__box">',
+                            '<span class="alertbox">',
+                            '<span class="icon icon_svg_search_white"></span>',
+                            '</span>',
+                            '<input type="text" class="input__control">',
+                            '<button class="button" data-fc="button" type="button" tabindex="-1" data-tooltip="Очистить">',
+                            '<span class="icon icon_svg_close_white"></span>',
+                            '</button>',
+                            '</span>',
+                            '</span>'
+                        ].join('')),
+                        search__header_row_filter: $('<div class="search__header-row"></div>'),
+                        search__body: $('<div class="search__body"></div>'),
+                        results: $('<table class="table"></table>')
+                    };
+                    that.data._private = {
+                        timeout_id: null,
+                        xhr: null,
+                        search_text: null,
+                        search_current_text: null,
+                        search_results: null
+                    };
+
+                    that.destroy = function(){
+                        that.hide();
+                        setTimeout(function(){
+                            self.removeData();
+                            self.remove();
+                        }, 500);
+                    };
+                    that.hide = function(){
+                        if (that.data._el.search__view.hasClass('search__view_visible')) {
+                            that.data._el.search__view.removeClass('search__view_visible');
+                            setTimeout(function(){
+                                that.data._el.search__view.addClass('search__view_hidden');
+                                $(window).off('keyup.search');
+                            }, 100);
+                        }
+                    };
+                    that.show = function(){
+                        that.data._el.search__view.removeClass('search__view_hidden');
+                        setTimeout(function(){
+                            that.data._el.search__view.addClass('search__view_visible');
+                            that.focus();
+                            that.bind_hide();
+                        }, 100);
+                    };
+                    that.focus = function(){
+                        that.data._el.input.input('focus');
+                    };
+                    that.render = function(){
+                        $('body').append(
+                            that.data._el.search.append(
+                                that.data._el.search__view.append(
+                                    that.data._el.search__backdrop,
+                                    that.data._el.search__dialog.append(
+                                        that.data._el.search__header.append(
+                                            that.data._el.search__header_row_input.append(
+                                                that.data._el.input
+                                            )
+                                        ),
+                                        that.data._el.search__body
+                                    )
+                                )
+                            )
+                        );
+                    };
+                    that.render_error = function(text){
+                        that.data._el.results.remove();
+                        that.data._el.results = $(
+                            '<table class="table"><thead><tr><td class="table__td_no_border">' + text + '</td></tr></thead></table>'
+                        );
+                        that.data._el.search__body.append(
+                            that.data._el.results
+                        );
+                    };
+                    that.render_results = function(data){
+                        if (!jQuery.isArray(data)) {
+                            that.render_error(Globa.RecordNotFound.locale());
+                        } else {
+                            if (data.length > 0) {
+                                that.data._el.results.remove();
+                                var table = $('<table class="table"></table>');
+                                var tbody = $('<tbody></tbody>');
+                                var tr = $('<tr></tr>');
+                                var td = $('<td></td>');
+                                var a = $('<a class="link"></a>');
+                                data.map(function(d){
+                                    if (d.hasOwnProperty('__type__') && (d.__type__ == 'filesearch' || d.__type__ == 'documentsearch')) {
+                                        tbody.append(
+                                            tr.clone().append(
+                                                td.clone().text('Файл'),
+                                                td.clone().append(
+                                                    a.clone().text(d.Name)
+                                                        .attr('href', d.Url)
+                                                )
+                                            )
+                                        );
+                                    } else {
+                                        tbody.append(
+                                            tr.clone().append(
+                                                td.clone().text(d.EntityTitle),
+                                                td.clone().append(
+                                                    a.clone().text(d.Name)
+                                                        .attr('href', '/asyst/' + d.EntityName + '/form/auto' + d.Id + '?mode=view&back' + encodeURIComponent(location.href))
+                                                )
+                                            )
+                                        );
+                                    }
+                                });
+                                that.data._el.search__body.append(
+                                    that.data._el.results.empty().append(table.append(tbody))
+                                );
+                            } else {
+                                that.render_error(Globa.RecordNotFound.locale());
+                            }
+                        }
+                    };
+
+                    that.search = function(){
+                        that.data._private.search_text = that.data._el.input.input('value');
+                        if (!that.data._private.search_text) {
+                            this.clear();
+                        } else {
+                            if (that.data._private.timeout_id) {
+                                clearTimeout(that.data._private.timeout_id);
+                                that.data._private.timeout_id = null;
+                            }
+                            that.data._private.timeout_id = setTimeout(function(){
+                                if (that.data._private.search_current_text != that.data._private.search_text) {
+                                    if (that.data._private.xhr) {
+                                        that.data._private.xhr.abort();
+                                        that.data._private.xhr = null;
+                                    }
+                                    that.data._private.search_current_text = that.data._private.search_text;
+                                    // processing
+
+                                    that.data._private.timeout_id = null;
+                                    var success = function(data) {
+                                        that.data._private.xhr = null;
+                                        that.render_results(data);
+                                    };
+                                    var error = function() {
+                                        that.data._private.xhr = null;
+                                    };
+                                    if (typeof window[that.data.func] != 'undefined') {
+                                        that.data._private.xhr = window[that.data.func](that.data._private.search_current_text,
+                                            success, error, null, that.data.areas, that.data.usesp);
+                                    } else {
+                                        that.render_error('search method does not exist');
+                                    }
+                                }
+                            }, that.data.search_delay);
+                        }
+                    };
+                    that.clear = function(){
+                        that.data._private.search_text = '';
+                        that.data._private.search_current_text = '';
+                        that.data._el.results.empty();
+                    };
+
+                    that.bind = function(){
+                        if (that.data.source) {
+                            that.data.source.on('click', that.show);
+                            that.data._el.search__backdrop.on('click', that.hide);
+                            that.bind_search();
+                        }
+                    };
+                    that.bind_hide = function(){
+                        $(window).on('keyup.search', function(e){
+                            if (e.keyCode == 27) {
+                                that.hide();
+                            }
+                        });
+                    };
+                    that.bind_search = function(){
+                        var keyup = function (e) {
+                            switch (e.keyCode) {
+                                case 27: // escape
+                                    that.hide();
+                                    break;
+                                default: // search
+                                    that.search();
+                            }
+                            e.stopPropagation();
+                            e.preventDefault();
+                        };
+                        var keydown = function (e) {
+                            switch (e.keyCode) {
+                                case 27: // escape
+                                    e.preventDefault();
+                                    break;
+                                case 13: // enter. stop processing to prevent submit form
+                                    e.preventDefault();
+                                    break;
+                            }
+                            e.stopPropagation();
+                        };
+                        that.data._el.input.on('keydown keypress', keydown);
+                        that.data._el.input.on('keyup', keyup);
+                    };
+
+                    that.init_components = function(){
+                        self.find('[data-fc="alertbox"]').alertbox();
+                        self.find('[data-fc="button"]').button({
+                            popup_animation: false
+                        });
+                        self.find('[data-fc="checkbox"]').checkbox();
+                        self.find('[data-fc="input"]').input({
+                            popup_animation: false
+                        });
+                        self.find('[data-fc="radio"]').radio();
+                        self.find('[data-fc="radio-group"]').radio_group();
+                        self.find('[data-fc="select"]').select({
+                            popup_animation: false,
+                            autoclose: true
+                        });
+                        self.find('[data-fc="tab"]').tabs();
+                        self.find('[data-fc="tumbler"]').tumbler();
+                        self.find('[data-fc="widget"]').widget();
+                    };
+                    that.init = function(){
+                        that.render();
+                        that.init_components();
+                        that.bind();
+                    };
+                    that.init();
+                }
+                return this;
+            });
+        },
+        destroy : function() {
+            return this.each(function() {
+                this.obj.destroy();
+            });
+        },
+        hide : function() {
+            return this.each(function() {
+                this.obj.hide();
+            });
+        },
+        show : function() {
+            return this.each(function() {
+                this.obj.show();
+            });
+        }
+    };
+    $.fn.search = function( method ) {
+        if ( methods[method] ) {
+            return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
+        } else if ( typeof method === 'object' || ! method ) {
+            return methods.init.apply( this, arguments );
+        } else {
+            $.error( 'Method ' +  method + ' does not exist on $.search' );
         }
     };
 })( jQuery );

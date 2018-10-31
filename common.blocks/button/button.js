@@ -29,7 +29,8 @@
 
                     that.data._handlers = null;
                     that.data._el = {
-                        popup: $('<div class="popup"></div>')
+                        popup: $('<div class="popup"></div>'),
+                        search: $('<div class="search"></div>')
                     };
 
                     that.destroy = function(){
@@ -200,6 +201,14 @@
                             });
                             that.data.datePickerOptions.instance = self.data().datepicker;
                             that.data.datePickerOptions.instance.$datepicker.parent().appendTo(that.data._el.popup);
+                        }
+                        if (that.data.toggle == 'search') {
+                            that.data._el.search.search({
+                                source: self,
+                                func: that.data.func,
+                                areas: that.data.areas,
+                                usesp: that.data.usesp
+                            });
                         }
                     };
                     that.init = function() {

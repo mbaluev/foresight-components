@@ -61,7 +61,8 @@ if (!Asyst.browser) {
                 type: 'GET',
                 async: true,
                 cache: false,
-                data: /*JSON.stringify({ action: action, text: text }),  //*/'{"action":"' + action + '","text" : "' + encodeURIComponent(text) + '", "useSearchProc": "' + useSP+ '"}',
+                //data: JSON.stringify({ action: action, text: text }),
+                data: '{"action":"' + action + '","text" : "' + encodeURIComponent(text) + '", "useSearchProc": "' + useSP + '"}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 processData: false,
@@ -69,29 +70,40 @@ if (!Asyst.browser) {
                     if (response) {
                         result = response;
                         if (result && result.thisIsError == true) {
-                            if (error)
+                            if (error) {
                                 error(result.message, result.info, context);
-                            else if (!async)
-                                throw { error: result.message, info: result.info, toString: function () { return result.message; }, context: context };
-
+                            } else if (!async) {
+                                throw {
+                                    error: result.message,
+                                    info: result.info,
+                                    toString: function () { return result.message; },
+                                    context: context
+                                };
+                            }
                             return;
                         }
                     }
-                    if (callback)
+                    if (callback) {
                         callback(result, context);
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     var text = "";
-                    if (jqXHR)
+                    if (jqXHR) {
                         text = jqXHR.responseText;
-
-                    if (error)
+                    }
+                    if (error) {
                         error(errorThrown, text, context);
-                    else if (!async)
-                        throw { error: errorThrown, info: text, toString: function () { return errorThrown; }, context: context };
+                    } else if (!async) {
+                        throw {
+                            error: errorThrown,
+                            info: text,
+                            toString: function () { return errorThrown; },
+                            context: context
+                        };
+                    }
                 }
             });
-
             return xhr;
         };
     }
@@ -111,11 +123,9 @@ if (!Asyst.browser) {
                     case 27: // escape
                         Asyst.globalSearch.clear(selector);
                         break;
-
                     default:
                         Asyst.globalSearch.search(selector, $input.val());
                 }
-
                 e.stopPropagation();
                 e.preventDefault();
             };
@@ -129,7 +139,6 @@ if (!Asyst.browser) {
                         e.preventDefault();
                         break;
                 }
-
                 e.stopPropagation();
             };
 
@@ -137,9 +146,11 @@ if (!Asyst.browser) {
                 if ($searchResults && $searchResults.active) {
                     $searchResults.active = false;
                     $searchResults.blur(blur);
+                } else {
+                    setTimeout(function () {
+                        Asyst.globalSearch.clear(selector);
+                    }, 200);
                 }
-                else
-                    setTimeout(function () { Asyst.globalSearch.clear(selector); }, 200);
             };
 
             $input.blur(blur);
@@ -158,14 +169,12 @@ if (!Asyst.browser) {
     if (typeof Asyst.globalSearch.search !== 'function') {
 
         Asyst.globalSearch.search = function (selector, text) {
-            if(!text)
-            {
+            if (!text) {
                 this.clear();
                 return;
             }
 
-            if(timeoutId)
-            {
+            if (timeoutId) {
                 clearTimeout(timeoutId);
                 timeoutId = null;
             }
@@ -187,18 +196,20 @@ if (!Asyst.browser) {
                     timeoutId = null;
                     var areas = $input.data('search-areas');
                     var useSP = $input.data('search-useSP');
-                    if (typeof areas == 'undefined')
+                    if (typeof areas == 'undefined') {
                         areas = 'entitysearch';
-                    xhr = self.find(currentSearchText, function(results) {
+                    }
+
+                    var success = function(results) {
                         $element.removeClass("globalsearch-processing");
                         xhr = null;
                         render(results);
-                    },
-                        function() {
-                            $element.removeClass("globalsearch-processing");
-                            xhr = null;
-                        },
-                        self, areas, useSP);
+                    };
+                    var error = function() {
+                        $element.removeClass("globalsearch-processing");
+                        xhr = null;
+                    };
+                    xhr = self.find(currentSearchText, success, error, self, areas, useSP);
                 }
             };
             timeoutId = setTimeout(doSearch, 200);
@@ -208,13 +219,11 @@ if (!Asyst.browser) {
     if (typeof Asyst.globalSearch.clear !== 'function') {
 
         Asyst.globalSearch.clear = function (selector) {
-
             $(selector).removeClass("globalsearch-processing");
 
             currentSearchText = "";
             timeoutId = null;
-            if($searchResults)
-            {
+            if ($searchResults) {
                 $searchResults.hide('slow', function(){
                     $searchResults.remove();
                     $searchResults = null;
@@ -224,8 +233,7 @@ if (!Asyst.browser) {
     }
 
     function render(results) {
-        if(!$searchResults)
-        {
+        if(!$searchResults) {
             $('body').append('<div id="globalsearch-results" style="display:none;"></div>');
             $searchResults = $('#globalsearch-results');
             $searchResults.css(
@@ -269,10 +277,8 @@ if (!Asyst.browser) {
         $searchResults.css({ top: pos.top + pos.height, left: pos.left });
 
         var builder = $input.data('search-builder');
-        if (builder == null)
-            builder = buildList;
+        if (builder == null) { builder = buildList; }
         $searchResults.html(builder(results));
-
         $searchResults.show();
     }
 
@@ -299,6 +305,5 @@ if (!Asyst.browser) {
         }
         
     }
-
     
 } ());

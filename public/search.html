@@ -1,0 +1,231 @@
+<!doctype html>
+<head>
+    <title>foresight-dashboard</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+</head>
+<body class="page proximanova">
+    <div class="fs-view">
+        <div class="fs-view__header">
+            <div class="header">
+                <div class="header__column header__column-left">
+                    <button class="button" type="button" data-fc="button" data-toggle="menu-left">
+                        <span class="icon icon_svg_bars"></span>
+                        <span class="button__anim"></span>
+                    </button>
+                    <a class="button" href="dashboard.html" data-fc="button">
+                        <span class="icon icon_svg_home"></span>
+                        <span class="button__anim"></span>
+                    </a>
+                    <button class="button" type="button" data-fc="button"
+                            data-toggle="search" data-func="Asyst.globalSearch.find">
+                        <span class="icon icon_svg_search"></span>
+                        <span class="button__anim"></span>
+                    </button>
+                </div>
+                <div class="header__column header__column-right">
+                    <button class="button" data-fc="button" data-toggle="popup" data-target="#account">
+                        <span class="icon icon_svg_settings"></span>
+                        <span class="button__text mobile mobile_hide">Функциональный администратор</span>
+                        <span class="icon icon_svg_down icon_animate"></span>
+                    </button>
+                    <div class="popup" id="account" data-position="bottom left" data-width="auto">
+                        <ul class="popup__list">
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="icon icon_svg_settings"></span>
+                                    <span class="popup__text">Профиль</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="settings.html">
+                                    <span class="popup__text">Центр настроек</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#">
+                                    <span class="popup__text">Администрирование</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="logout.html">
+                                    <span class="popup__text">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fs-view__main">
+            <div class="fs-view__left fs-view__left_hidden">
+                <div class="menu" data-fc="menu">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="index.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Главная</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="card.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Карточка</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="gridview.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Реестр</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="docsearch.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Расширенный поиск документов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="dashboard.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="single.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Дашборд с одним виджетом</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="reports.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Центр отчетов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="bubble.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Баблчарт моих контрактов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="cloud.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Облако тэгов</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link" href="ktchart.html">
+                                <span class="menu__item-link-content">
+                                    <span class="menu__item-text">Визуализация иерархии контрольных точек</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_settings_white"></span>
+                                    <span class="menu__item-text">Компоненты</span>
+                                    <span class="icon menu__icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="components.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Все</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="icons.html">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Иконки</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fs-view__middle fs-view__middle_full">
+                <div class="fs-view__middle-scroll" id="container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="search">
+        <div class="search__view">
+            <div class="search__backdrop" data-tooltip="Закрыть"></div>
+            <div class="search__dialog">
+                <div class="search__header">
+                    <div class="search__header-row">
+                        <span class="input" data-fc="input" data-placeholder="Поиск">
+                            <span class="input__box">
+                                <span class="alertbox">
+                                    <span class="icon icon_svg_search_white"></span>
+                                </span>
+                                <input type="text" class="input__control">
+                                <button class="button" data-fc="button" type="button" tabindex="-1" data-tooltip="Очистить">
+                                    <span class="icon icon_svg_close_white"></span>
+                                </button>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="search__body">
+                    <table class="table">
+                    <thead><tr><td class="table__td_no_border">Тип</td><td class="table__td_no_border">Название файла</td><td class="table__td_no_border">Автор</td><td class="table__td_no_border">Тип карточки</td><td class="table__td_no_border">Наименование</td><td class="table__td_no_border">Дата изменения</td><td class="table__td_no_border">Размер</td><td class="table__td_no_border">Версия</td></tr></thead>
+                    <tbody>
+                    <tr>
+                    <td><img class="doctype" src="/asyst/img/document-pdf.png"></td>
+                    <td><a class="link" href="/asyst/api/file/get/e28a97b6-32fb-417f-b3f5-cb2f05e4a9f9/Приказ 001.pdf" target="_blank">Приказ 001.pdf</a></td>
+                    <td>admin admin  </td>
+                    <td>Вопрос</td>
+                    <td>Chrome-вопрос для совещания</td>
+                    <td>03.11.2016 12:31:28</td>
+                    <td>285.85 kB</td>
+                    <td>1</td>
+                    </tr>
+                    <tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/c3b100a1-f081-41b6-81ed-b704896f1b43/Приказ 001.docx" target="_blank">Приказ 001.docx</a></td><td>admin admin  </td><td>Вопрос</td><td>IE вопрос к совещанию, редактирование</td><td>03.11.2016 12:44:23</td><td>11.39 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/aae1db1a-5684-472b-808c-475f2c638c13/Приказ 001.pdf" target="_blank">Приказ 001.pdf</a></td><td>admin admin  </td><td>Вопрос</td><td>IE вопрос к совещанию, редактирование</td><td>03.11.2016 12:44:23</td><td>282.24 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/fa62bee4-6210-4b36-9e49-7207dbfbe1b2/Приказ 001.docx" target="_blank">Приказ 001.docx</a></td><td>admin admin  </td><td>Совещание</td><td>Chrome, тест-совещание из проекта</td><td>03.11.2016 15:40:56</td><td>11.39 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/f5f77bd2-3393-4206-b7aa-28c90d60f6d0/Документ Microsoft Word (5).docx" target="_blank">Документ Microsoft Word (5).docx</a></td><td>admin admin  </td><td>Проект</td><td>ЖК Славянка</td><td>19.12.2016 09:39:12</td><td>35.26 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/d1cd759a-2cf8-4727-b7f1-c04da8e03ad3/Документ Microsoft Word.docx" target="_blank">Документ Microsoft Word.docx</a></td><td>admin admin  </td><td>Проект</td><td>ЖК Славянка</td><td>19.12.2016 09:39:27</td><td>11.22 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/05c287e3-49a5-4322-93fd-8594dca3ba85/Документ Microsoft Word (5).docx" target="_blank">Документ Microsoft Word (5).docx</a></td><td>admin admin  </td><td>Проект</td><td>ЖК Славянка</td><td>19.12.2016 09:41:14</td><td>35.26 kB</td><td>2</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/c592a0c1-5ac5-465a-995b-8eff1935f5ac/Документ Microsoft Word (5).docx" target="_blank">Документ Microsoft Word (5).docx</a></td><td>замещаемый юзер  </td><td>Проект</td><td>Замещение-2</td><td>13.01.2017 12:08:19</td><td>15.53 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-word.png"></td><td><a class="link" href="/asyst/api/file/get/ba9cbdc6-7267-420b-9325-589bf429542e/Проектная документация 13.docx" target="_blank">Проектная документация 13.docx</a></td><td>admin admin  </td><td>Проект</td><td>Замещение-2</td><td>13.01.2017 18:19:46</td><td>11.23 kB</td><td>2</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/390c181c-5c88-4c01-afde-f477176bd2c9/Документы для заказчика.pdf" target="_blank">Документы для заказчика.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:57:13</td><td>289.20 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/0226819e-87e6-41d0-aca0-7614a2eff519/Документы для проектного комитета.pdf" target="_blank">Документы для проектного комитета.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:57:13</td><td>290.04 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/35bbeb6d-489f-4241-a8b6-9351b5697189/Документы экспертизы.pdf" target="_blank">Документы экспертизы.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:57:13</td><td>288.96 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/9663cea4-22b1-4c41-a321-4b92671fdb2d/Документы для заказчика.pdf" target="_blank">Документы для заказчика.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:58:45</td><td>289.20 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/fdb132ba-c66f-41bd-a9f8-36cb7763312a/Документы экспертизы.pdf" target="_blank">Документы экспертизы.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:58:45</td><td>288.96 kB</td><td>1</td></tr><tr><td><img class="doctype" src="/asyst/img/document-pdf.png"></td><td><a class="link" href="/asyst/api/file/get/61cb8391-91ad-4655-a3d5-782cfaabc8aa/Документы для проектного комитета.pdf" target="_blank">Документы для проектного комитета.pdf</a></td><td>admin admin  </td><td>Проект</td><td>Тестирование одинаковых предшественников/потомков в КТ</td><td>06.06.2017 09:58:45</td><td>290.04 kB</td><td>1</td></tr></tbody></table>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
+    <script src="third/jquery-3.2.1.min.js"></script>
+    <script src="third/jquery-ui.min.js"></script>
+    <script src="third/jquery.event.drag-2.3.0.js"></script>
+    <script src="third/jquery.event.drop-2.3.0.js"></script>
+    <script src="third/highcharts.js"></script>
+    <script src="foresight.third.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
+    <script src="foresight.pages.min.js"></script>
+    <script>
+        var search_results;
+        /*
+         search_results = [
+         {"Matches":{"Наименование":"ЗАО Проектные системы и сервисы"},"EntityId":"4c17d9d0-0e60-4f8d-a7ec-dd04db1683c1","EntityName":"Contractor","EntityTitle":"Подрядчики","Id":2,"Name":"ЗАО Проектные системы и сервисы","Code":null,"Rank":110},{"Matches":{"Ожидаемые результаты":"Продукт проекта","Наименование":"ПИ \"Перевод инициативы в проект\" 16-08-2017"},"EntityId":"46caa4ad-02b8-4d70-a1db-196bab860742","EntityName":"Project","EntityTitle":"Проект","Id":263618,"Name":"ПИ \"Перевод инициативы в проект\" 16-08-2017","Code":"500-352","Rank":102},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289092,"Name":"Постпроектный мониторинг завершен","Code":"110-552","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289231,"Name":"Проект закрыт","Code":"110-659","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289232,"Name":"Постпроектный мониторинг завершен","Code":"110-660","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289218,"Name":"Проект запущен","Code":"110-651","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289221,"Name":"Проект закрыт","Code":"110-654","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289222,"Name":"Постпроектный мониторинг завершен","Code":"110-655","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289234,"Name":"Проект запущен","Code":"110-662","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":266513,"Name":"Проект закрыт","Code":"108-927","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":266510,"Name":"Проект запущен","Code":"108-924","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":146304,"Name":"Проект закрыт","Code":"102-057","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289237,"Name":"Проект закрыт","Code":"110-665","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289238,"Name":"Постпроектный мониторинг завершен","Code":"110-666","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":266514,"Name":"Постпроектный мониторинг завершен","Code":"108-928","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289088,"Name":"Проект запущен","Code":"110-548","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289176,"Name":"Проект запущен","Code":"110-618","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289179,"Name":"Проект закрыт","Code":"110-621","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289180,"Name":"Постпроектный мониторинг завершен","Code":"110-622","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289170,"Name":"Проект запущен","Code":"110-613","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289173,"Name":"Проект закрыт","Code":"110-616","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289174,"Name":"Постпроектный мониторинг завершен","Code":"110-617","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":266206,"Name":"Проект запущен","Code":"108-870","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289193,"Name":"Проект запущен","Code":"110-635","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289196,"Name":"Проект закрыт","Code":"110-638","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289197,"Name":"Постпроектный мониторинг завершен","Code":"110-639","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289185,"Name":"Проект запущен","Code":"110-627","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289188,"Name":"Проект закрыт","Code":"110-630","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289189,"Name":"Постпроектный мониторинг завершен","Code":"110-631","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":264041,"Name":"Проект закрыт","Code":"107-905","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":264039,"Name":"Проект запущен","Code":"107-903","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":146177,"Name":"Проект закрыт","Code":"101-936","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289379,"Name":"Проект закрыт","Code":"110-805","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289380,"Name":"Постпроектный мониторинг завершен","Code":"110-806","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289376,"Name":"Проект запущен","Code":"110-802","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289384,"Name":"Проект запущен","Code":"110-809","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289392,"Name":"Проект закрыт","Code":"110-817","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289393,"Name":"Постпроектный мониторинг завершен","Code":"110-818","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289396,"Name":"Постпроектный мониторинг завершен","Code":"110-821","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289387,"Name":"Проект закрыт","Code":"110-812","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289388,"Name":"Постпроектный мониторинг завершен","Code":"110-813","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289389,"Name":"Проект запущен","Code":"110-814","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289375,"Name":"Постпроектный мониторинг завершен","Code":"110-801","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":146186,"Name":"Проект закрыт","Code":"101-945","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289262,"Name":"Проект запущен","Code":"110-689","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289263,"Name":"Проект закрыт","Code":"110-690","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":146224,"Name":"Проект закрыт","Code":"101-983","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289116,"Name":"Проект запущен","Code":"110-572","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":94728,"Name":"Проект запущен","Code":"100-962","Rank":101},{"Matches":{"Наименование":"Утверждение паспорта проекта"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289265,"Name":"Утверждение паспорта проекта","Code":"110-692","Rank":101},{"Matches":{"Наименование":"Обучение и сертификация специалистов – не менее 30 человек для пилотного проекта. Создание 1-ой Региональной площадки инновационных технологий организации труда (РП ИТОТ) в Татарстане, как регионе имеющим опыт по реализации региональных программ повышения производительности труда не менее, чем на 3-х предприятиях разных отраслей экономики"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289307,"Name":"Обучение и сертификация специалистов – не менее 30 человек для пилотного проекта. Создание 1-ой Региональной площадки инновационных технологий организации труда (РП ИТОТ) в Татарстане, как регионе имеющим опыт по реализации региональных программ повышения производительности труда не менее, чем на 3-х предприятиях разных отраслей экономики","Code":"110-734","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289371,"Name":"Проект запущен","Code":"110-797","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289374,"Name":"Проект закрыт","Code":"110-800","Rank":101},{"Matches":{"Наименование":"Паспорт проекта утвержден"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289266,"Name":"Паспорт проекта утвержден","Code":"110-693","Rank":101},{"Matches":{"Наименование":"Разработаны требования и модель структуры и отчетов к описанию управленческих практик повышения эффективности организации труда российских предприятий (требования для участия в проекте производственных площадок/предприятий, которые должны подтвердить наличие лучшей практики в области повышения производительности труда и внедрившим на текущий момент лин–технологии; технологии и инструменты организации труда данных предприятий будут обследованы в ходе аудита инжиниринга организации труда и описаны на 2-м этапе проекта как базовый эталон для разработки инновационных технологий  с учетом российского компонента)"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289271,"Name":"Разработаны требования и модель структуры и отчетов к описанию управленческих практик повышения эффективности организации труда российских предприятий (требования для участия в проекте производственных площадок/предприятий, которые должны подтвердить наличие лучшей практики в области повышения производительности труда и внедрившим на текущий момент лин–технологии; технологии и инструменты организации труда данных предприятий будут обследованы в ходе аудита инжиниринга организации труда и описаны на 2-м этапе проекта как базовый эталон для разработки инновационных технологий  с учетом российского компонента)","Code":"110-698","Rank":101},{"Matches":{"Наименование":"Выбраны и проанализированы с целью апробации методов отбора лучших практик и решений несколько производственных площадок, имеющих лучшую практику в отрасли в отношении внедрения лин-технологий, чьи технологии и инструменты были исследованы, описаны в ходе проекта как базовый эталон для разработки инновационных технологий. Производственные площадки, участвующие в проекте для описания базового эталона при разработке инновационных технологий и инструментов, используют единый Стандарт описания инжинирингового подхода к организации труда"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289275,"Name":"Выбраны и проанализированы с целью апробации методов отбора лучших практик и решений несколько производственных площадок, имеющих лучшую практику в отрасли в отношении внедрения лин-технологий, чьи технологии и инструменты были исследованы, описаны в ходе проекта как базовый эталон для разработки инновационных технологий. Производственные площадки, участвующие в проекте для описания базового эталона при разработке инновационных технологий и инструментов, используют единый Стандарт описания инжинирингового подхода к организации труда","Code":"110-702","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289169,"Name":"Постпроектный мониторинг завершен","Code":"110-612","Rank":101},{"Matches":{"Наименование":"Тестовый портфель проектов"},"EntityId":"bfed1f68-33a7-4428-855f-799640070a53","EntityName":"Portfolio","EntityTitle":"Портфель","Id":167749,"Name":"Тестовый портфель проектов","Code":"900-032","Rank":101},{"Matches":{"Наименование":"Тестовый портфель проектов"},"EntityId":"bfed1f68-33a7-4428-855f-799640070a53","EntityName":"Portfolio","EntityTitle":"Портфель","Id":167750,"Name":"Тестовый портфель проектов","Code":"900-033","Rank":101},{"Matches":{"Наименование":"Тестовый проект 2"},"EntityId":"bfed1f68-33a7-4428-855f-799640070a53","EntityName":"Portfolio","EntityTitle":"Портфель","Id":218101,"Name":"Тестовый проект 2","Code":"900-037","Rank":101},{"Matches":{"Наименование":"Нац проект с доп. инфо"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":289203,"Name":"Нац проект с доп. инфо","Code":"400-301","Rank":101},{"Matches":{"Наименование":"Национальный проект для тестирования выгрузки паспорта"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":289207,"Name":"Национальный проект для тестирования выгрузки паспорта","Code":"400-302","Rank":101},{"Matches":{"Наименование":"Нац. проект (тестовая сущность) 28.03.2018 05:11"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":276986,"Name":"Нац. проект (тестовая сущность) 28.03.2018 05:11","Code":"400-200","Rank":101},{"Matches":{"Наименование":"Тестовый портфель для проектов"},"EntityId":"bfed1f68-33a7-4428-855f-799640070a53","EntityName":"Portfolio","EntityTitle":"Портфель","Id":249404,"Name":"Тестовый портфель для проектов","Code":"900-044","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289073,"Name":"Проект запущен","Code":"110-535","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289076,"Name":"Проект закрыт","Code":"110-538","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289077,"Name":"Постпроектный мониторинг завершен","Code":"110-539","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289066,"Name":"Проект закрыт","Code":"110-530","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289070,"Name":"Проект запущен","Code":"110-532","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289071,"Name":"Проект закрыт","Code":"110-533","Rank":101},{"Matches":{"Наименование":"Федеральный проект 14-09-2018"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":289028,"Name":"Федеральный проект 14-09-2018","Code":"400-299","Rank":101},{"Matches":{"Наименование":"ПП в проект"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265664,"Name":"ПП в проект","Code":"400-108","Rank":101},{"Matches":{"Наименование":"ПП в проект 11-01-2018"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265777,"Name":"ПП в проект 11-01-2018","Code":"400-116","Rank":101},{"Matches":{"Наименование":"ПП в проект 11-01-2018"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265780,"Name":"ПП в проект 11-01-2018","Code":"400-117","Rank":101},{"Matches":{"Наименование":"тест Модуль управления непроектными мероприятиями"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":239265,"Name":"тест Модуль управления непроектными мероприятиями","Code":"400-003","Rank":101},{"Matches":{"Наименование":"Проектное предложение в проект 27-11-2017"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265594,"Name":"Проектное предложение в проект 27-11-2017","Code":"400-098","Rank":101},{"Matches":{"Наименование":"Первое проектное предложение"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265654,"Name":"Первое проектное предложение","Code":"400-106","Rank":101},{"Matches":{"Наименование":"ПП в проект 11-01-2018"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265804,"Name":"ПП в проект 11-01-2018","Code":"400-118","Rank":101},{"Matches":{"Наименование":"Нац. проект Влад"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":289007,"Name":"Нац. проект Влад","Code":"400-297","Rank":101},{"Matches":{"Наименование":"Новый нац. проект (программа) РС"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":289008,"Name":"Новый нац. проект (программа) РС","Code":"400-298","Rank":101},{"Matches":{"Наименование":"ПП в проект"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265667,"Name":"ПП в проект","Code":"400-109","Rank":101},{"Matches":{"Наименование":"ПП в проект 11-01-2018"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":266101,"Name":"ПП в проект 11-01-2018","Code":"400-149","Rank":101},{"Matches":{"Наименование":"Проектное предложение для тестирования 901 (26-12-2017)"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":265560,"Name":"Проектное предложение для тестирования 901 (26-12-2017)","Code":"400-091","Rank":101},{"Matches":{"Наименование":"Тестовая программа. Тестируется Национальный проект 01"},"EntityId":"396abf01-5bf3-46a3-b4a5-a7ef4cdb8859","EntityName":"LProgram","EntityTitle":"Программа","Id":278967,"Name":"Тестовая программа. Тестируется Национальный проект 01","Code":"400-294","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289142,"Name":"Постпроектный мониторинг завершен","Code":"110-594","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289144,"Name":"Проект запущен","Code":"110-595","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289148,"Name":"Проект запущен","Code":"110-596","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289119,"Name":"Проект закрыт","Code":"110-575","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289138,"Name":"Проект запущен","Code":"110-590","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289141,"Name":"Проект закрыт","Code":"110-593","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289151,"Name":"Проект закрыт","Code":"110-599","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289162,"Name":"Постпроектный мониторинг завершен","Code":"110-607","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289165,"Name":"Проект запущен","Code":"110-608","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289168,"Name":"Проект закрыт","Code":"110-611","Rank":101},{"Matches":{"Наименование":"Постпроектный мониторинг завершен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289152,"Name":"Постпроектный мониторинг завершен","Code":"110-600","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289158,"Name":"Проект запущен","Code":"110-603","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289161,"Name":"Проект закрыт","Code":"110-606","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289035,"Name":"Проект запущен","Code":"110-506","Rank":101},{"Matches":{"Наименование":"Проект запущен"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289110,"Name":"Проект запущен","Code":"110-567","Rank":101},{"Matches":{"Наименование":"Проект закрыт"},"EntityId":"71dcb2f7-a542-4909-b4f4-3dcaf2b3b14c","EntityName":"Point","EntityTitle":"Этапы / Работы / КТ","Id":289113,"Name":"Проект закрыт","Code":"110-570","Rank":101}
+         ];
+         */
+    </script>
+</body>
+</html>

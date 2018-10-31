@@ -3050,6 +3050,40 @@ a.button_color_blue_light:hover .button__text {
   font-size: 16px;
 }
 
+.visit {
+  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
+  height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.visit__frame-container {
+  position: relative;
+  width: 100%;
+  height: auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.visit__frame-container > iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.visit__frame_hidden {
+  display: none;
+}
+
 .gallery {
   font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
   height: 100%;
@@ -3166,40 +3200,6 @@ a.button_color_blue_light:hover .button__text {
 
 .gallery__doc > * {
   display: block;
-}
-
-.visit {
-  font-family: 'ProximaNova-Regular', Tahoma, Helvetica, Arial, 'Open Sans', sans-serif;
-  height: 100%;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.visit__frame-container {
-  position: relative;
-  width: 100%;
-  height: auto;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.visit__frame-container > iframe {
-  border: none;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
-
-.visit__frame_hidden {
-  display: none;
 }
 
 .calendar {
@@ -6843,6 +6843,144 @@ img + .card__text {
 
 .logo__text-title {
   font-size: 13px;
+}
+
+
+
+.search__view {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1038;
+  overflow: hidden;
+  color: #fff;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  transition: .25s;
+  opacity: 0;
+}
+
+.search__view_hidden {
+  display: none;
+}
+
+.search__view_visible {
+  opacity: 1;
+}
+
+.search__backdrop {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: rgba(0,0,0,.9);
+  cursor: pointer;
+}
+
+.search__dialog {
+  position: relative;
+  width: 768px;
+  padding: 10px 0 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  z-index: 1038;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  overflow: hidden;
+}
+
+.search__header {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
+.search__header-row {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.search__body {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow: auto;
+}
+
+.search__header .input {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  width: 100%;
+}
+
+.search__header .input__control {
+  color: #fff;
+  font-size: 18px;
+}
+
+.search__header .button {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+}
+
+.search__header .input,
+.search__header .input:before,
+.search__header .alertbox,
+.search__header .alertbox:before,
+.search__header .button,
+.search__header .button.button_clicked,
+.search__header .button:before,
+.search__header .button.button_clicked:before {
+  background: transparent;
+}
+
+.search .table {
+  color: #fff;
+}
+
+.search .table tr > td {
+  border-top: solid 1px rgba(255,255,255,.1);
+}
+
+.search .table tr:hover td {
+  background-color: rgba(255,255,255,.05);
+  cursor: pointer;
+}
+
+.search .table thead tr:hover td {
+  background-color: transparent;
+  cursor: default;
+}
+
+.search .table th,
+.search .table thead td,
+.search .table thead th {
+  background-color: transparent;
+  font-weight: bold;
 }
 
 /*

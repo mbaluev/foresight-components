@@ -1,0 +1,101 @@
+.search {}
+
+.search__view {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1038;
+    overflow: hidden;
+    color: #fff;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    transition: .25s;
+    opacity: 0;
+}
+.search__view_hidden {
+    display: none;
+}
+.search__view_visible {
+    opacity: 1;
+}
+.search__backdrop {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    background-color: rgba(0,0,0,.9);
+    cursor: pointer;
+}
+.search__dialog {
+    position: relative;
+    width: 768px;
+    padding: 10px 0 0;
+    flex: 1 1 auto;
+    z-index: 1038;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+.search__header {
+    flex: 0 0 auto;
+}
+.search__header-row {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.search__body {
+    flex: 1 1 auto;
+    overflow: auto;
+}
+
+.search__header .input {
+    flex: 1 1 auto;
+    width: 100%;
+}
+.search__header .input__control {
+    color: #fff;
+    font-size: 18px;
+}
+.search__header .button {
+    flex: 0 0 auto;
+}
+
+.search__header .input,
+.search__header .input:before,
+.search__header .alertbox,
+.search__header .alertbox:before,
+.search__header .button,
+.search__header .button.button_clicked,
+.search__header .button:before,
+.search__header .button.button_clicked:before {
+    background: transparent;
+}
+
+.search .table {
+    color: #fff;
+}
+.search .table tr > td {
+    border-top: solid 1px rgba(255,255,255,.1);
+}
+.search .table tr:hover td {
+    background-color: rgba(255,255,255,.05);
+    cursor: pointer;
+}
+.search .table thead tr:hover td {
+    background-color: transparent;
+    cursor: default;
+}
+.search .table th,
+.search .table thead td,
+.search .table thead th {
+    background-color: transparent;
+    font-weight: bold;
+}
