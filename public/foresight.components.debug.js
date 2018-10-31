@@ -7949,7 +7949,7 @@ $(function(){
                         results: $('<table class="table"></table>'),
                         spinner: $([
                             '<span class="icon">',
-                            '<span class="spinner"></span>',
+                            '<span class="spinner spinner_white"></span>',
                             '</span>'
                         ].join(''))
                     };
