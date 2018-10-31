@@ -193,6 +193,7 @@
                         that.data._private.search_text = '';
                         that.data._private.search_current_text = '';
                         that.data._el.search__body.empty();
+                        that.focus();
                     };
 
                     that.bind = function(){
