@@ -179,7 +179,7 @@
                                             return (typeof prev == "undefined") ? prev : prev[curr];
                                         }, window);
                                     };
-                                    if (exists(that.data.func) == 'function') {
+                                    if (typeof exists(that.data.func) == 'function') {
                                         that.data._private.xhr = eval(that.data.func)(that.data._private.search_current_text,
                                             success, error, null, that.data.areas, that.data.usesp);
                                     } else {
