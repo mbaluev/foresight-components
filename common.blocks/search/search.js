@@ -113,7 +113,7 @@
                                     if (d.hasOwnProperty('__type__') && (d.__type__ == 'filesearch' || d.__type__ == 'documentsearch')) {
                                         tbody.append(
                                             tr.clone().append(
-                                                td.clone().text('Файл'),
+                                                td.clone().addClass('color_grey').text('Файл'),
                                                 td.clone().append(
                                                     a.clone().text(d.Name)
                                                         .attr('href', d.Url)
@@ -123,7 +123,7 @@
                                     } else {
                                         tbody.append(
                                             tr.clone().append(
-                                                td.clone().text(d.EntityTitle),
+                                                td.clone().addClass('color_grey').text(d.EntityTitle),
                                                 td.clone().append(
                                                     a.clone().text(d.Name)
                                                         .attr('href', '/asyst/' + d.EntityName + '/form/auto' + d.Id + '?mode=view&back' + encodeURIComponent(location.href))
