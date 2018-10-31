@@ -33,11 +33,16 @@
                             '<span class="icon icon_svg_search_white"></span>',
                             '</span>',
                             '<input type="text" class="input__control">',
-                            '<button class="button" data-fc="button" type="button" tabindex="-1" data-tooltip="Очистить">',
-                            '<span class="icon icon_svg_close_white"></span>',
+                            '<button class="button" data-fc="button" type="button" tabindex="-1">',
+                            '<span class="button__text">Очистить</span>',
                             '</button>',
                             '</span>',
                             '</span>'
+                        ].join('')),
+                        button_close: $([
+                            '<button class="button" data-fc="button" type="button" tabindex="-1">',
+                            '<span class="button__text">Закрыть</span>',
+                            '</button>'
                         ].join('')),
                         search__header_row_filter: $('<div class="search__header-row"></div>'),
                         search__body: $('<div class="search__body"></div>'),
@@ -86,7 +91,8 @@
                                     that.data._el.search__dialog.append(
                                         that.data._el.search__header.append(
                                             that.data._el.search__header_row_input.append(
-                                                that.data._el.input
+                                                that.data._el.input,
+                                                that.data._el.button_close
                                             )
                                         ),
                                         that.data._el.search__body
@@ -193,6 +199,7 @@
                         if (that.data.source) {
                             that.data.source.on('click', that.show);
                             that.data._el.search__backdrop.on('click', that.hide);
+                            that.data._el.button_close.on('click', that.hide);
                             that.bind_search();
                         }
                     };
@@ -231,23 +238,23 @@
                     };
 
                     that.init_components = function(){
-                        self.find('[data-fc="alertbox"]').alertbox();
-                        self.find('[data-fc="button"]').button({
+                        that.data._el.search.find('[data-fc="alertbox"]').alertbox();
+                        that.data._el.search.find('[data-fc="button"]').button({
                             popup_animation: false
                         });
-                        self.find('[data-fc="checkbox"]').checkbox();
-                        self.find('[data-fc="input"]').input({
+                        that.data._el.search.find('[data-fc="checkbox"]').checkbox();
+                        that.data._el.search.find('[data-fc="input"]').input({
                             popup_animation: false
                         });
-                        self.find('[data-fc="radio"]').radio();
-                        self.find('[data-fc="radio-group"]').radio_group();
-                        self.find('[data-fc="select"]').select({
+                        that.data._el.search.find('[data-fc="radio"]').radio();
+                        that.data._el.search.find('[data-fc="radio-group"]').radio_group();
+                        that.data._el.search.find('[data-fc="select"]').select({
                             popup_animation: false,
                             autoclose: true
                         });
-                        self.find('[data-fc="tab"]').tabs();
-                        self.find('[data-fc="tumbler"]').tumbler();
-                        self.find('[data-fc="widget"]').widget();
+                        that.data._el.search.find('[data-fc="tab"]').tabs();
+                        that.data._el.search.find('[data-fc="tumbler"]').tumbler();
+                        that.data._el.search.find('[data-fc="widget"]').widget();
                     };
                     that.init = function(){
                         that.render();

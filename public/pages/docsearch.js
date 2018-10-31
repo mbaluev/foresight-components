@@ -247,13 +247,13 @@ var DocSearch = function(options){
         }
         var rows_txt = temp + "" + param + "=" + paramVal;
         return baseURL + "?" + newAdditionalURL + rows_txt;
-    }
+    };
     that.get_url_parameter = function(name) {
         name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
         var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
             results = regex.exec(location.search);
         return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
+    };
 
     that.loader_add = function(){
         that.data._el.target.before(that.data._el.loader)

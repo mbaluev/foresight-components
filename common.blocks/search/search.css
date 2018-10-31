@@ -78,6 +78,12 @@
 .search__header .button.button_clicked:before {
     background: transparent;
 }
+.search__header .button__text {
+    color: #fff;
+}
+.search__header .button_hovered .button__text {
+    color: #999;
+}
 
 .search .table {
     color: #fff;
