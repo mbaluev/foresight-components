@@ -29,13 +29,13 @@
                         input: $([
                             '<span class="input" data-fc="input" data-placeholder="Поиск">',
                             '<span class="input__box">',
-                            '<span class="alertbox">',
-                            '<span class="icon icon_svg_search_white"></span>',
-                            '</span>',
-                            '<input type="text" class="input__control">',
-                            '<button class="button" data-fc="button" type="button" tabindex="-1">',
-                            '<span class="button__text">Очистить</span>',
-                            '</button>',
+                                '<span class="alertbox">',
+                                '<span class="icon icon_svg_search_white"></span>',
+                                '</span>',
+                                '<input type="text" class="input__control">',
+                                '<button class="button" data-fc="button" type="button" tabindex="-1">',
+                                '<span class="button__text">Очистить</span>',
+                                '</button>',
                             '</span>',
                             '</span>'
                         ].join('')),
@@ -46,7 +46,12 @@
                         ].join('')),
                         search__header_row_filter: $('<div class="search__header-row"></div>'),
                         search__body: $('<div class="search__body"></div>'),
-                        results: $('<table class="table"></table>')
+                        results: $('<table class="table"></table>'),
+                        spinner: $([
+                            '<span class="icon">',
+                            '<span class="spinner"></span>',
+                            '</span>'
+                        ].join(''))
                     };
                     that.data._private = {
                         timeout_id: null,
@@ -163,14 +168,14 @@
                                         that.data._private.xhr = null;
                                     }
                                     that.data._private.search_current_text = that.data._private.search_text;
-                                    // processing
-
                                     that.data._private.timeout_id = null;
                                     var success = function(data) {
+                                        that.data._el.spinner.remove();
                                         that.data._private.xhr = null;
                                         that.render_results(data);
                                     };
                                     var error = function() {
+                                        that.data._el.spinner.remove();
                                         that.data._private.xhr = null;
                                     };
                                     var exists = function(namespace) {
@@ -180,6 +185,9 @@
                                         }, window);
                                     };
                                     if (typeof exists(that.data.func) == 'function') {
+                                        that.data._el.input.find('.input__control').after(
+                                            that.data._el.spinner
+                                        );
                                         that.data._private.xhr = eval(that.data.func)(that.data._private.search_current_text,
                                             success, error, null, that.data.areas, that.data.usesp);
                                     } else {
