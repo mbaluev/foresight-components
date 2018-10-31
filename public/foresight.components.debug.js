@@ -7922,7 +7922,7 @@ $(function(){
                     that.data._el = {
                         search: $('<div class="search"></div>'),
                         search__view: $('<div class="search__view search__view_hidden"></div>'),
-                        search__backdrop: $('<div class="search__backdrop" data-tooltip="Закрыть"></div>'),
+                        search__backdrop: $('<div class="search__backdrop"></div>'),
                         search__dialog: $('<div class="search__dialog"></div>'),
                         search__header: $('<div class="search__header"></div>'),
                         search__header_row_input: $('<div class="search__header-row"></div>'),
@@ -8073,8 +8073,14 @@ $(function(){
                                     var error = function() {
                                         that.data._private.xhr = null;
                                     };
-                                    if (typeof window[that.data.func] != 'undefined') {
-                                        that.data._private.xhr = window[that.data.func](that.data._private.search_current_text,
+                                    var exists = function(namespace) {
+                                        var tokens = namespace.split('.');
+                                        return tokens.reduce(function(prev, curr) {
+                                            return (typeof prev == "undefined") ? prev : prev[curr];
+                                        }, window);
+                                    };
+                                    if (exists(that.data.func) == 'function') {
+                                        that.data._private.xhr = eval(that.data.func)(that.data._private.search_current_text,
                                             success, error, null, that.data.areas, that.data.usesp);
                                     } else {
                                         that.render_error('search method does not exist');
