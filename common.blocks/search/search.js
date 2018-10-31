@@ -117,6 +117,7 @@
                                                 td.clone().append(
                                                     a.clone().text(d.Name)
                                                         .attr('href', d.Url)
+                                                        .attr('target', '_blank')
                                                 )
                                             )
                                         );
@@ -126,7 +127,8 @@
                                                 td.clone().addClass('color_grey').text(d.EntityTitle),
                                                 td.clone().append(
                                                     a.clone().text(d.Name)
-                                                        .attr('href', '/asyst/' + d.EntityName + '/form/auto' + d.Id + '?mode=view&back' + encodeURIComponent(location.href))
+                                                        .attr('href', '/asyst/' + d.EntityName + '/form/auto/' + d.Id + '?mode=view&back' + encodeURIComponent(location.href))
+                                                        .attr('target', '_blank')
                                                 )
                                             )
                                         );
