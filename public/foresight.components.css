@@ -6907,6 +6907,7 @@ img + .card__text {
       -ms-flex-direction: column;
           flex-direction: column;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .search__header {
@@ -7290,5 +7291,11 @@ img + .card__text {
 @media (max-width: 768px) {
   .logo {
     border-right: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .search__dialog {
+    padding: 10px;
   }
 }
