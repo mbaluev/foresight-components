@@ -96,20 +96,14 @@
                         );
                     };
                     that.render_error = function(text){
-                        that.data._el.results.remove();
-                        that.data._el.results = $(
-                            '<table class="table"><thead><tr><td class="table__td_no_border">' + text + '</td></tr></thead></table>'
-                        );
-                        that.data._el.search__body.append(
-                            that.data._el.results
-                        );
+                        var table = $('<table class="table"><thead><tr><td class="table__td_no_border">' + text + '</td></tr></thead></table>');
+                        that.data._el.search__body.empty().append(table);
                     };
                     that.render_results = function(data){
                         if (!jQuery.isArray(data)) {
                             that.render_error(Globa.RecordNotFound.locale());
                         } else {
                             if (data.length > 0) {
-                                that.data._el.results.remove();
                                 var table = $('<table class="table"></table>');
                                 var tbody = $('<tbody></tbody>');
                                 var tr = $('<tr></tr>');
@@ -138,9 +132,7 @@
                                         );
                                     }
                                 });
-                                that.data._el.search__body.append(
-                                    that.data._el.results.empty().append(table.append(tbody))
-                                );
+                                that.data._el.search__body.empty().append(table.append(tbody));
                             } else {
                                 that.render_error(Globa.RecordNotFound.locale());
                             }
@@ -192,7 +184,7 @@
                     that.clear = function(){
                         that.data._private.search_text = '';
                         that.data._private.search_current_text = '';
-                        that.data._el.results.empty();
+                        that.data._el.search__body.empty();
                     };
 
                     that.bind = function(){
