@@ -1,8 +1,3 @@
-*,
-.page {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
 /* cyrillic-ext */
 
 @font-face {
@@ -147,7 +142,8 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.fs-view {
+*,
+.page {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -159,7 +155,19 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
+.fs-view {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
 .menu * {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
+.article {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
+.heading {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -175,11 +183,7 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.article {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
-.heading {
+.widget {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -191,7 +195,7 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.widget {
+.gallery {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -200,14 +204,6 @@
 }
 
 .visit {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
-.calendar__container {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
-.gallery {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -243,6 +239,10 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
+.calendar__container {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
 .control {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
@@ -259,19 +259,15 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.table {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
 .tooltip {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.copyright {
+.table {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.datepicker {
+.copyright {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -280,6 +276,10 @@
 }
 
 .grid {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
+.datepicker {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 

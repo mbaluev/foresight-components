@@ -107,7 +107,7 @@
                         );
                     };
                     that.render_error = function(text){
-                        var table = $('<table class="table"><thead><tr><td class="table__td_no_border">' + text + '</td></tr></thead></table>');
+                        var table = $('<table class="table"><tbody><tr><td class="td_static">' + text + '</td></tr></tbody></table>');
                         that.data._el.search__body.empty().append(table);
                     };
                     that.render_results = function(data){
