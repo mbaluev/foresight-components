@@ -221,6 +221,13 @@
           align-items: flex-start;
 }
 
+.header__row_row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
 .header__tumbler-container {
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
