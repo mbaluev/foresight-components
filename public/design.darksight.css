@@ -520,11 +520,14 @@
 .widget_color_nodata,
 .widget_color_purple,
 .widget_color_red,
-.widget_color_green,
-.widget_color_none {
+.widget_color_green {
   color: #fff;
   border: solid 1px transparent;
   box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+.widget_color_none {
+  box-shadow: none;
 }
 
 .counter {
