@@ -290,20 +290,31 @@
 .menu_color_darksight .menu__item,
 .menu_color_darksight .menu__submenu-container {
   background: #1a1e2a;
+  border: none;
 }
 
 .menu_color_darksight .menu__submenu-container .menu__item {
-  background: rgba(255,255,255,.05);
+  background: #1e2434;
 }
 
 .menu_color_darksight .menu__item-link {
-  padding: 12px 17px;
+  padding: 12px 18px;
 }
 
 .menu_color_darksight .menu__item-link_selected,
 .menu_color_darksight .menu__item-link:hover,
 .menu_color_darksight .menu__item-link_hovered {
-  background: rgba(255,255,255,.05);
+  background: #1e2434;
+}
+
+.menu_color_darksight .menu__submenu-container .menu__item-link {
+  padding: 12px 18px;
+}
+
+.menu_color_darksight .menu__submenu-container .menu__item-link_selected,
+.menu_color_darksight .menu__submenu-container .menu__item-link:hover,
+.menu_color_darksight .menu__submenu-container .menu__item-link_hovered {
+  background: #303548;
 }
 
 .menu_color_darksight .icon+.menu__item-text {
@@ -330,13 +341,22 @@
   top: 0;
   left: 100%;
   width: 230px;
-  border-left: solid 1px rgba(255,255,255,.15);
+  border-left: solid 1px #2dceb6;
 }
 
 .fs-view__left_hidden .menu_color_darksight .menu__submenu .menu__item {
-  border-bottom: solid 1px rgba(255,255,255,.15);
   border-top: none;
   background: #1a1e2a;
+}
+
+.fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link {
+  padding: 12px 18px;
+}
+
+.fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link_selected,
+.fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link:hover,
+.fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link_hovered {
+  background: #1e2434;
 }
 
 .fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-text {
