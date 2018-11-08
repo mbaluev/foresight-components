@@ -197,7 +197,7 @@
 .header__tumbler-container .alertbox:before,
 .header__tumbler-container .button:before {
   border-radius: 0;
-  background: #1e2434;
+  background: #303548;
   top: 0;
   right: 0;
   bottom: 0;
@@ -245,7 +245,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  background: #1e2434;
+  background: #303548;
 }
 
 .button_color_dark:hover {
@@ -254,7 +254,7 @@
 
 .button_color_dark.button_clicked:before {
   box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
-  background-color: #1e2434;
+  background-color: #303548;
 }
 
 .button_color_dark .button__text {
@@ -285,6 +285,7 @@
 .menu_color_darksight {
   transition: .5s;
   background: #1a1e2a;
+  border-top-right-radius: 5px;
 }
 
 .menu_color_darksight .menu__item,

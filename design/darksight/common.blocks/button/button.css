@@ -8,14 +8,14 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background: #1e2434;
+    background: #303548;
 }
 .button_color_dark:hover {
     background: #fff;
 }
 .button_color_dark.button_clicked:before {
     box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
-    background-color: #1e2434;
+    background-color: #303548;
 }
 .button_color_dark .button__text {
     color: #fff;
