@@ -7,8 +7,10 @@
     background-color: #393e52;
 }
 .table tr > td {
-    border-top: solid 1px #595d6d;
+    border-top: solid 1px #393e52;
+    border-bottom: none;
 }
+.table thead tr:hover td,
 .table tbody tr:hover td {
     background-color: #393e52;
 }
