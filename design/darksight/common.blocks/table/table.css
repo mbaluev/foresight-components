@@ -4,9 +4,14 @@
 .table th,
 .table thead td,
 .table thead th {
-    border-bottom: solid 1px #595d6d;
     background-color: #393e52;
 }
 .table tr > td {
+    border-bottom: none;
+    /*
     border-bottom: solid 1px #595d6d;
+    */
+}
+.table tbody tr:hover td {
+    background-color: #393e52;
 }
