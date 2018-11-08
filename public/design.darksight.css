@@ -289,6 +289,11 @@
   border-top-right-radius: 5px;
 }
 
+.fs-view__middle-right .menu_color_darksight {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 0;
+}
+
 .menu_color_darksight .menu__item,
 .menu_color_darksight .menu__submenu-container {
   background: #1a1e2a;
@@ -296,7 +301,7 @@
 }
 
 .menu_color_darksight .menu__submenu-container .menu__item {
-  background: #1e2434;
+  background: #303548;
 }
 
 .menu_color_darksight .menu__item-link {
@@ -306,7 +311,7 @@
 .menu_color_darksight .menu__item-link_selected,
 .menu_color_darksight .menu__item-link:hover,
 .menu_color_darksight .menu__item-link_hovered {
-  background: #1e2434;
+  background: #2dceb6;
 }
 
 .menu_color_darksight .menu__submenu-container .menu__item-link {
@@ -316,7 +321,7 @@
 .menu_color_darksight .menu__submenu-container .menu__item-link_selected,
 .menu_color_darksight .menu__submenu-container .menu__item-link:hover,
 .menu_color_darksight .menu__submenu-container .menu__item-link_hovered {
-  background: #303548;
+  background: #2dceb6;
 }
 
 .menu_color_darksight .icon+.menu__item-text {
@@ -358,7 +363,7 @@
 .fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link_selected,
 .fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link:hover,
 .fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-link_hovered {
-  background: #1e2434;
+  background: #2dceb6;
 }
 
 .fs-view__left_hidden .menu_color_darksight .menu__submenu-container .menu__item-text {
@@ -394,14 +399,7 @@
   border-radius: 3px 3px 0 0;
 }
 
-.widget .widget__header {
-  position: relative;
-  background-color: #303548;
-  padding: 0 5px;
-  border-radius: 3px 3px 0 0;
-}
-
-.widget_collapsed .widget__header {
+.widget-grid_multiple .widget_collapsed .widget__header {
   border-radius: 3px;
 }
 
