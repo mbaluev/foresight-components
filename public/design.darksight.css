@@ -66,7 +66,7 @@
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  padding-top: 18px;
+  padding-top: 15px;
 }
 
 .header__column_logo {
@@ -76,14 +76,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding-top: 18px;
+  padding-top: 15px;
 }
 
 .header__column_counter {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
-  padding-top: 13px;
+  padding-top: 10px;
 }
 
 .header__column_account {
@@ -614,7 +614,11 @@ fieldset {
   background-color: #393e52;
 }
 
-.grid-stack>.grid-stack-item>.grid-stack-item-content {
+.widget-grid {
+  margin: -9px 9px 18px;
+}
+
+.grid-stack > .grid-stack-item > .grid-stack-item-content {
   overflow: visible;
   display: -webkit-box;
   display: -ms-flexbox;
