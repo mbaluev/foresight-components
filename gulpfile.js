@@ -82,23 +82,32 @@ var golikova2018params = {
     levels: ['design/golikova2018/common.blocks', 'design/golikova2018/mobile.blocks'],
     images: 'images/golikova2018/'
 };
-var roboto_monoparams = {
+var robotomonoparams = {
     out: 'public',
-    cssOut: 'design.roboto_mono.css',
-    jsOut: 'design.roboto_mono.js',
+    cssOut: 'design.robotomono.css',
+    jsOut: 'design.robotomono.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['design/roboto_mono/common.blocks', 'design/roboto_mono/mobile.blocks'],
-    images: 'images/roboto_mono/'
+    levels: ['design/robotomono/common.blocks', 'design/robotomono/mobile.blocks'],
+    images: 'images/robotomono/'
 };
-var style_shadowparams = {
+var shadowparams = {
     out: 'public',
-    cssOut: 'design.style_shadow.css',
-    jsOut: 'design.style_shadow.js',
+    cssOut: 'design.shadow.css',
+    jsOut: 'design.shadow.js',
     htmlOut: 'index.html',
     htmlSrc: 'index.html',
-    levels: ['design/style_shadow/common.blocks', 'design/style_shadow/mobile.blocks'],
-    images: 'images/style_shadow/'
+    levels: ['design/shadow/common.blocks', 'design/shadow/mobile.blocks'],
+    images: 'images/shadow/'
+};
+var darksightparams = {
+    out: 'public',
+    cssOut: 'design.darksight.css',
+    jsOut: 'design.darksight.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/darksight/common.blocks', 'design/darksight/mobile.blocks'],
+    images: 'images/darksight/'
 };
 
 var third_js = [
@@ -160,8 +169,9 @@ var gazpromGetFileNames = require('html2bl').getFileNames(gazpromparams);
 var mtkGetFileNames = require('html2bl').getFileNames(mtk17params);
 var akimovGetFileNames = require('html2bl').getFileNames(akimov2018params);
 var golikovaGetFileNames = require('html2bl').getFileNames(golikova2018params);
-var roboto_monoGetFileNames = require('html2bl').getFileNames(roboto_monoparams);
-var style_shadowGetFileNames = require('html2bl').getFileNames(style_shadowparams);
+var robotomonoGetFileNames = require('html2bl').getFileNames(robotomonoparams);
+var shadowGetFileNames = require('html2bl').getFileNames(shadowparams);
+var darksightGetFileNames = require('html2bl').getFileNames(darksightparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -253,25 +263,35 @@ gulp.task('server', function(){
         return jsGlob;
     }), ['golikova2018_js']);
 
-    /* watch design - roboto_mono */
-    gulp.watch(roboto_monoparams.levels.map(function(level){
+    /* watch design - robotomono */
+    gulp.watch(robotomonoparams.levels.map(function(level){
         var cssGlob = level + '/**/*.css';
         return cssGlob;
-    }), ['roboto_mono_css']);
-    gulp.watch(roboto_monoparams.levels.map(function(level){
+    }), ['robotomono_css']);
+    gulp.watch(robotomonoparams.levels.map(function(level){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
-    }), ['roboto_mono_js']);
+    }), ['robotomono_js']);
 
-    /* watch design - golikova2018 */
-    gulp.watch(style_shadowparams.levels.map(function(level){
+    /* watch design - shadow */
+    gulp.watch(shadowparams.levels.map(function(level){
         var cssGlob = level + '/**/*.css';
         return cssGlob;
-    }), ['style_shadow_css']);
-    gulp.watch(style_shadowparams.levels.map(function(level){
+    }), ['shadow_css']);
+    gulp.watch(shadowparams.levels.map(function(level){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
-    }), ['style_shadow_js']);
+    }), ['shadow_js']);
+
+    /* watch design - darksight */
+    gulp.watch(darksightparams.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['darksight_css']);
+    gulp.watch(darksightparams.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['darksight_js']);
 });
 
 /* components */
@@ -382,7 +402,7 @@ gulp.task('pages', function(){
 
 /* design */
 gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018',
-    'roboto_mono', 'style_shadow']);
+    'robotomono', 'shadow', 'darksight']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -755,81 +775,134 @@ gulp.task('golikova2018_js', function() {
     }).done();
 });
 
-/* roboto_mono */
-gulp.task('roboto_mono', ['roboto_mono_css']);
-gulp.task('roboto_mono_css', function(){
-    roboto_monoGetFileNames.then(function(files){
+/* robotomono */
+gulp.task('robotomono', ['robotomono_css']);
+gulp.task('robotomono_css', function(){
+    robotomonoGetFileNames.then(function(files){
         gulp.src(files.css)
-            .pipe(concat(roboto_monoparams.cssOut))
-            .pipe(url({ prepend: roboto_monoparams.images }))
+            .pipe(concat(robotomonoparams.cssOut))
+            .pipe(url({ prepend: robotomonoparams.images }))
             .pipe(postcss([ autoprefixer() ]))
-            .pipe(gulp.dest(roboto_monoparams.out))
+            .pipe(gulp.dest(robotomonoparams.out))
             .pipe(reload({ stream: true }));
     }).done();
-    roboto_monoGetFileNames.then(function(files){
+    robotomonoGetFileNames.then(function(files){
         gulp.src(files.css)
-            .pipe(concat(roboto_monoparams.cssOut))
-            .pipe(url({ prepend: roboto_monoparams.images }))
+            .pipe(concat(robotomonoparams.cssOut))
+            .pipe(url({ prepend: robotomonoparams.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
                 console.log(details.name + ': ' + details.stats.originalSize);
                 console.log(details.name + ': ' + details.stats.minifiedSize);
             }))
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest(roboto_monoparams.out))
+            .pipe(gulp.dest(robotomonoparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });
 
-/* golikova2018 */
-gulp.task('style_shadow', ['style_shadow_css', 'style_shadow_images', 'style_shadow_js']);
-gulp.task('style_shadow_css', function(){
-    style_shadowGetFileNames.then(function(files){
+/* shadow */
+gulp.task('shadow', ['shadow_css', 'shadow_images', 'shadow_js']);
+gulp.task('shadow_css', function(){
+    shadowGetFileNames.then(function(files){
         gulp.src(files.css)
-            .pipe(concat(style_shadowparams.cssOut))
-            .pipe(url({ prepend: style_shadowparams.images }))
+            .pipe(concat(shadowparams.cssOut))
+            .pipe(url({ prepend: shadowparams.images }))
             .pipe(postcss([ autoprefixer() ]))
-            .pipe(gulp.dest(style_shadowparams.out))
+            .pipe(gulp.dest(shadowparams.out))
             .pipe(reload({ stream: true }));
     }).done();
-    style_shadowGetFileNames.then(function(files){
+    shadowGetFileNames.then(function(files){
         gulp.src(files.css)
-            .pipe(concat(style_shadowparams.cssOut))
-            .pipe(url({ prepend: style_shadowparams.images }))
+            .pipe(concat(shadowparams.cssOut))
+            .pipe(url({ prepend: shadowparams.images }))
             .pipe(postcss([ autoprefixer() ]))
             .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
                 console.log(details.name + ': ' + details.stats.originalSize);
                 console.log(details.name + ': ' + details.stats.minifiedSize);
             }))
             .pipe(rename({suffix: '.min'}))
-            .pipe(gulp.dest(style_shadowparams.out))
+            .pipe(gulp.dest(shadowparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });
-gulp.task('style_shadow_images', function(){
-    style_shadowGetFileNames.then(function(source){
+gulp.task('shadow_images', function(){
+    shadowGetFileNames.then(function(source){
         gulp.src(source.dirs.map(function(dir){
             var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
             return imgGlob;
-        })).pipe(gulp.dest(path.join(style_shadowparams.out, style_shadowparams.images)));
+        })).pipe(gulp.dest(path.join(shadowparams.out, shadowparams.images)));
     }).done();
 });
-gulp.task('style_shadow_js', function() {
-    style_shadowGetFileNames.then(function(src){
+gulp.task('shadow_js', function() {
+    shadowGetFileNames.then(function(src){
         return src.dirs.map(function(dir){
             var jsGlob = path.resolve(dir) + '/*.js';
             return jsGlob;
         });
     }).then(function(jsGlobs){
         gulp.src(jsGlobs)
-            .pipe(concat(style_shadowparams.jsOut))
+            .pipe(concat(shadowparams.jsOut))
             .pipe(minify({
                 ext:{
                     src:'.debug.js',
                     min:'.min.js'
                 }
             }))
-            .pipe(gulp.dest(style_shadowparams.out))
+            .pipe(gulp.dest(shadowparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* darksight */
+gulp.task('darksight', ['darksight_css', 'darksight_images', 'darksight_js']);
+gulp.task('darksight_css', function(){
+    darksightGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(darksightparams.cssOut))
+            .pipe(url({ prepend: darksightparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(darksightparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    darksightGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(darksightparams.cssOut))
+            .pipe(url({ prepend: darksightparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(darksightparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+gulp.task('darksight_images', function(){
+    darksightGetFileNames.then(function(source){
+        gulp.src(source.dirs.map(function(dir){
+            var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+            return imgGlob;
+        })).pipe(gulp.dest(path.join(darksightparams.out, darksightparams.images)));
+    }).done();
+});
+gulp.task('darksight_js', function() {
+    darksightGetFileNames.then(function(src){
+        return src.dirs.map(function(dir){
+            var jsGlob = path.resolve(dir) + '/*.js';
+            return jsGlob;
+        });
+    }).then(function(jsGlobs){
+        gulp.src(jsGlobs)
+            .pipe(concat(darksightparams.jsOut))
+            .pipe(minify({
+                ext:{
+                    src:'.debug.js',
+                    min:'.min.js'
+                }
+            }))
+            .pipe(gulp.dest(darksightparams.out))
             .pipe(reload({ stream: true }));
     }).done();
 });

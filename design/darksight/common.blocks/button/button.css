@@ -1,0 +1,40 @@
+.button_color_dark {
+    border-radius: 4px;
+    background: rgba(255,255,255,.5);
+}
+.button_color_dark:before {
+    border-radius: 2px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #1e2434;
+}
+.button_color_dark:hover {
+    background: #fff;
+}
+.button_color_dark.button_clicked:before {
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+    background-color: #1e2434;
+}
+.button_color_dark .button__text {
+    color: #fff;
+}
+
+.button_color_transparent {
+    background: transparent !important;
+}
+.button_color_transparent:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: transparent !important;
+}
+.button_color_transparent:hover {
+    background: transparent !important;
+}
+.button_color_transparent.button_clicked:before {
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
+    background-color: transparent !important;
+}

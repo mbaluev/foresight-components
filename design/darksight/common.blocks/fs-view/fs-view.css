@@ -1,0 +1,21 @@
+.fs-view {
+    z-index: 3;
+    background: url('background.png') left top no-repeat #1e2434;
+}
+.fs-view__header {
+    z-index: 2;
+    box-shadow: none;
+}
+.fs-view__left {
+    transition: .5s;
+}
+.fs-view__main {
+    z-index: 1;
+    box-shadow: none;
+}
+.fs-view__left_hidden {
+    margin-left: 0;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
