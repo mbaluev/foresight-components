@@ -486,123 +486,45 @@
   padding: 5px;
 }
 
-.widget_color_default {
-  color: #333;
-  border: solid 1px #e5e5e5;
-  box-shadow: 0 0 10px rgba(0,0,0,.05);
-}
-
-.widget_color_default .widget__border {
-  border: none;
-}
-
-.widget_color_dark_grey {
-  color: #333;
-  border: solid 1px #777;
-  box-shadow: 0 0 10px rgba(0,0,0,.05);
-}
-
-.widget_color_dark_grey .widget__border {
-  border: none;
-}
-
-.widget_color_dark_blue {
-  color: #0070ba;
-  border: solid 1px #0070ba;
-  box-shadow: 0 0 10px #0070ba33;
-}
-
-.widget_color_dark_blue .widget__border {
-  border: none;
-}
-
-.widget_color_blue {
-  color: #5a97f2;
-  border: solid 1px #5a97f2;
-  box-shadow: 0 0 10px #5a97f233;
-}
-
-.widget_color_blue .widget__border {
-  border: none;
-}
-
-.widget_color_light_blue {
-  color: #2fb4e9;
-  border: solid 1px #2fb4e9;
-  box-shadow: 0 0 10px #2fb4e933;
-}
-
-.widget_color_light_blue .widget__border {
-  border: none;
-}
-
-.widget_color_nodata {
-  color: #aaa;
-  border: solid 1px #e5e5e5;
-  box-shadow: 0 0 10px #e5e5e533;
-}
-
-.widget_color_nodata .widget__border {
-  border: none;
-}
-
-.widget_color_purple {
-  color: #8e6bf5;
-  border: solid 1px #8e6bf5;
-  box-shadow: 0 0 10px #8e6bf533;
-}
-
-.widget_color_purple .widget__border {
-  border: none;
-}
-
-.widget_color_red {
-  color: #ff5940;
-  border: solid 1px #ff5940;
-  box-shadow: 0 0 10px #ff594033;
-}
-
-.widget_color_red .widget__border {
-  border: none;
-}
-
-.widget_color_green {
-  color: #13a89e;
-  border: solid 1px #13a89e;
-  box-shadow: 0 0 10px #13a89e33;
-}
-
-.widget_color_green .widget__border {
-  border: none;
-}
-
-.widget_color_none {
-  color: #13a89e;
-  border: solid 1px transparent;
-  box-shadow: none;
-}
-
-.widget_color_none .widget__border {
-  border: none;
-}
-
-.widget {
-  border: none;
-  box-shadow: none;
-}
-
 .widget-grid .widget {
   border: none;
-  box-shadow: none;
 }
 
 .widget-grid .widget__border {
-  border-top: solid 1px #595d6d;
   color: #fff;
+  border-top: solid 1px #595d6d;
 }
 
 .widget-grid .widget_collapsed .widget__border {
   border-top: none;
+}
+
+.widget_color_default .widget__border,
+.widget_color_dark_grey .widget__border,
+.widget_color_dark_blue .widget__border,
+.widget_color_blue .widget__border,
+.widget_color_light_blue .widget__border,
+.widget_color_nodata .widget__border,
+.widget_color_purple .widget__border,
+.widget_color_red .widget__border,
+.widget_color_green .widget__border,
+.widget_color_none .widget__border {
+  border: none;
+}
+
+.widget_color_default,
+.widget_color_dark_grey,
+.widget_color_dark_blue,
+.widget_color_blue,
+.widget_color_light_blue,
+.widget_color_nodata,
+.widget_color_purple,
+.widget_color_red,
+.widget_color_green,
+.widget_color_none {
+  color: #fff;
+  border: solid 1px transparent;
+  box-shadow: 0 0 10px rgba(0,0,0,.3);
 }
 
 .counter {
