@@ -8,9 +8,7 @@
   box-shadow: none;
 }
 
-.fs-view__left {
-  transition: .5s;
-}
+
 
 .fs-view__main {
   z-index: 1;
@@ -22,6 +20,10 @@
   width: 50px;
   min-width: 50px;
   max-width: 50px;
+}
+
+.fs-view__main_transition .menu_color_darksight {
+  transition: .5s;
 }
 
 .header {
@@ -283,7 +285,6 @@
 }
 
 .menu_color_darksight {
-  transition: .5s;
   background: #1a1e2a;
   border-top-right-radius: 5px;
 }
