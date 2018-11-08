@@ -368,7 +368,7 @@
 
 
 .link {
-  color: #08c;
+  color: #2dceb6;
 }
 
 .widget-grid_multiple .widget {
@@ -591,7 +591,20 @@ fieldset {
 
 
 
+.table {
+  color: #fff;
+}
 
+.table th,
+.table thead td,
+.table thead th {
+  border-bottom: solid 1px #595d6d;
+  background-color: #393e52;
+}
+
+.table tr > td {
+  border-bottom: solid 1px #595d6d;
+}
 
 .grid-stack>.grid-stack-item>.grid-stack-item-content {
   overflow: visible;
