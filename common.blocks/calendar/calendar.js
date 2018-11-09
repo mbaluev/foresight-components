@@ -111,9 +111,10 @@
                                         that.data._el.calendar__row_first.append(
                                             that.data._el.calendar__datepicker
                                         ),
-                                        (that.data.columns.length > 0 ? that.data._el.calendar__row_second.append(
-                                            that.data._el.calendar__table
-                                        ) : null)
+                                        (that.data.columns.length > 0  && !that.data.modal.render ?
+                                            that.data._el.calendar__row_second.append(
+                                                that.data._el.calendar__table
+                                            ) : null)
                                     )
                                 )
                             )
