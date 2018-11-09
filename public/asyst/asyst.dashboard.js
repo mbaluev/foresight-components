@@ -121,7 +121,8 @@ Asyst.PageDashboard = function(options){
         headerExtraControlsRenderer: null,
         tumblerContainerSelector: null,
         params: null,
-        collapsed_widget_height: 1
+        collapsed_widget_height: 1,
+        headerClass: null
     };
     that.data = $.extend(true, that.data, options);
     that.data._el = {
@@ -278,7 +279,8 @@ Asyst.PageDashboard = function(options){
                     headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                     tumblerContainerSelector: that.data.tumblerContainerSelector,
                     params: that.data.params,
-                    collapsed_widget_height: that.data.collapsed_widget_height
+                    collapsed_widget_height: that.data.collapsed_widget_height,
+                    headerClass: that.data.headerClass
                 });
             }
         });
@@ -311,7 +313,8 @@ Asyst.Dashboard = function(options){
             list: [],
             saved: []
         },
-        collapsed_widget_height: 1
+        collapsed_widget_height: 1,
+        headerClass: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -515,7 +518,8 @@ Asyst.Dashboard = function(options){
                 headerExtraControlsRenderer: that.data.headerExtraControlsRenderer,
                 tumblerContainerSelector: that.data.tumblerContainerSelector,
                 params: that.data.params,
-                collapsed_widget_height: that.data.collapsed_widget_height
+                collapsed_widget_height: that.data.collapsed_widget_height,
+                headerClass: that.data.headerClass
             });
         });
     };

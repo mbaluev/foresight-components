@@ -18,15 +18,13 @@
 
 .widget-grid_multiple .widget_has_name > .widget__header,
 .widget-grid_multiple .widget_mode_edit > .widget__header,
-.widget-grid_multiple .widget_mode_view_has_buttons > .widget__header {
-    min-height: 40px;
-}
+.widget-grid_multiple .widget_mode_view_has_buttons > .widget__header {}
 
 .widget-grid_multiple .widget__header .button {
     background: #303548;
     height: 28px;
     line-height: 28px;
-    margin: 5px 0;
+    margin: 6px 0;
 }
 .widget-grid_multiple .widget__header .button:before {
     background: #303548;

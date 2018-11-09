@@ -677,17 +677,13 @@
   border-radius: 3px;
 }
 
-.widget-grid_multiple .widget_has_name > .widget__header,
-.widget-grid_multiple .widget_mode_edit > .widget__header,
-.widget-grid_multiple .widget_mode_view_has_buttons > .widget__header {
-  min-height: 40px;
-}
+
 
 .widget-grid_multiple .widget__header .button {
   background: #303548;
   height: 28px;
   line-height: 28px;
-  margin: 5px 0;
+  margin: 6px 0;
 }
 
 .widget-grid_multiple .widget__header .button:before {
@@ -1051,6 +1047,16 @@ fieldset {
 
 .widget-grid_multiple .widget .card__header .card__name-text {
   color: #fff;
+}
+
+.card__header_transparent {
+  background: transparent;
+  border: none;
+}
+
+.card__header_transparent .card__name-text {
+  color: #fff;
+  margin: 0 10px;
 }
 
 .widget-grid_multiple .widget .table {

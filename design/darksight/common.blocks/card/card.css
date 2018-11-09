@@ -28,3 +28,12 @@
 .widget-grid_multiple .widget .card__header .card__name-text {
     color: #fff;
 }
+
+.card__header_transparent {
+    background: transparent;
+    border: none;
+}
+.card__header_transparent .card__name-text {
+    color: #fff;
+    margin: 0 10px;
+}

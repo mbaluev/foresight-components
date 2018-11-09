@@ -52,7 +52,8 @@ var Dashboard = function(options){
         type: 'page',
         modal: null,
         modal_dbm: null,
-        collapsed_widget_height: 1
+        collapsed_widget_height: 1,
+        headerClass: null
     };
     that.data = $.extend(that.data, options);
     that.data._el = {
@@ -72,7 +73,7 @@ var Dashboard = function(options){
             grid: $('<div class="widget-grid grid-stack" data-gs-animate="true"></div>'),
             card: $('<div class="card"></div>'),
             card__header: $([
-                '<div class="card__header">',
+                '<div class="card__header' + (that.data.headerClass ? ' ' + that.data.headerClass : '' ) + '">',
                 '<div class="card__header-row card__header-row_wrap">',
                 '<div class="card__header-column" id="title"></div>',
                 '<div class="card__header-column card__header-column_start" id="actions"></div>',
