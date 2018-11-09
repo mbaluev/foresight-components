@@ -594,13 +594,60 @@
   color: #fff;
 }
 
+.calendar_dark .datepicker--day-name {
+  color: #ccc;
+  font-style: normal;
+}
+
+.calendar_dark .datepicker--day-name.-weekend- {
+  color: #ff5940;
+}
+
+.calendar_dark .datepicker--cell.-current- {
+  color: #2dceb6;
+}
+
+.calendar_dark .datepicker--cell.-weekend- {
+  color: #ff5940;
+}
+
+.calendar_dark .datepicker--cell.datepicker--cell-year.-selected-,
+.calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.calendar_dark .datepicker--cell.datepicker--cell-month.-selected-,
+.calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-,
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.calendar_dark .datepicker--cell-day.-other-month-,
+.calendar_dark .datepicker--cell-year.-other-decade- {
+  color: #888;
+}
+
 .calendar_dark .datepicker--nav-action,
 .calendar_dark .datepicker--nav-title {
   border: none;
-}
-
-.calendar_dark .datepicker--nav-action path {
-  stroke: #fff;
 }
 
 .calendar_dark .datepicker--nav-title,
@@ -608,24 +655,8 @@
   color: #fff;
 }
 
-.calendar_dark .datepicker--day-name {
-  color: #ccc;
-  font-style: normal;
-}
-
-.calendar_dark .datepicker--cell.-current- {
-  color: #2dceb6;
-}
-
-.calendar_dark .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
-  background: #393e52;
-}
-
-.calendar_dark .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
-.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
-.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
-  background: #2dceb6;
-  color: #fff;
+.calendar_dark .datepicker--nav-action path {
+  stroke: #fff;
 }
 
 .calendar_dark .datepicker__note {
