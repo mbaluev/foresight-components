@@ -1,0 +1,55 @@
+.calendar_dark {}
+.calendar_dark .datepicker {
+    color: #fff;
+}
+.calendar_dark .datepicker--nav-action,
+.calendar_dark .datepicker--nav-title {
+    border: none;
+}
+.calendar_dark .datepicker--nav-action path {
+    stroke: #fff;
+}
+.calendar_dark .datepicker--nav-title,
+.calendar_dark .datepicker--nav-title i {
+    color: #fff;
+}
+.calendar_dark .datepicker--day-name {
+    color: #ccc;
+    font-style: normal;
+}
+.calendar_dark .datepicker--cell.-current- {
+    color: #2dceb6;
+}
+.calendar_dark .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+    background: #393e52;
+}
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
+    background: #2dceb6;
+    color: #fff;
+}
+.calendar_dark .datepicker__note {
+    background-color: #d644d6;
+}
+.calendar_dark .datepicker__indicator {
+    border: solid 1px #393e52;
+}
+.calendar_dark .datepicker__event-text {
+    border: solid 1px #393e52;
+}
+.calendar_dark .datepicker__more {
+    color: #fff;
+}
+.calendar_dark .datepicker__day-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.calendar_dark .datepicker__day-border {
+    border: solid 1px #393e52;
+}
+.calendar_dark .datepicker__cells-days-border {
+    border-right: solid 1px #393e52;
+    border-bottom: solid 1px #393e52;
+}
