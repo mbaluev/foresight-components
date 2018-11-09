@@ -58,7 +58,7 @@
                         visit__frame_container: $('<div class="visit__frame-container"></div>'),
                         menu: $('<div class="menu menu_color_light" data-fc="menu"></div>'),
 
-                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-autoclose="true"></select>'),
+                        select: $('<select class="select" data-fc="select" data-mode="radio" data-width="300" data-height="400" data-autoclose="true"></select>'),
                         tabs__list: $('<ul class="tabs__list"></ul>'),
                         tabs: [],
                         loader: $('<span class="spinner spinner_align_center"></span>')
