@@ -802,6 +802,10 @@
   color: #fff;
 }
 
+.widget-grid_single .widget {
+  margin-top: 0;
+}
+
 .counter {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
@@ -1086,6 +1090,10 @@ fieldset {
 
 .card__header + .card__main > .card__middle > .card__middle-scroll > .widget-grid_multiple {
   margin: 9px 9px 18px;
+}
+
+.card__header_transparent + .card__main > .card__middle > .card__middle-scroll > .widget-grid_multiple {
+  margin: 0 9px 18px;
 }
 
 .grid-stack > .grid-stack-item > .grid-stack-item-content {
