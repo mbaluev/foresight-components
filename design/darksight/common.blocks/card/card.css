@@ -1,7 +1,6 @@
 .card__name-text {
     font-size: 15px;
 }
-
 .widget-grid_multiple .widget .card__header {
     background: transparent;
     border-bottom: none;
@@ -15,7 +14,6 @@
 .widget-grid_multiple .widget .card__header .button:before {
     background: #303548;
 }
-
 .widget-grid_multiple .widget .card__header .popup .alertbox,
 .widget-grid_multiple .widget .card__header .popup .button {
     background: transparent;
@@ -23,4 +21,7 @@
 .widget-grid_multiple .widget .card__header .popup .alertbox:before,
 .widget-grid_multiple .widget .card__header .popup .button:before {
     background: transparent;
+}
+.widget-grid_multiple .widget .card__header .card__name-text {
+    color: #fff;
 }
