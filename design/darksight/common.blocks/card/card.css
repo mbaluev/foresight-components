@@ -7,11 +7,20 @@
     border-bottom: none;
 }
 .widget-grid_multiple .widget .card__header .button {
-    background: #393e52;
+    background: #595d6d;
 }
 .widget-grid_multiple .widget .card__header .button_hovered {
     background: #2dceb6;
 }
 .widget-grid_multiple .widget .card__header .button:before {
     background: #303548;
+}
+
+.widget-grid_multiple .widget .card__header .popup .alertbox,
+.widget-grid_multiple .widget .card__header .popup .button {
+    background: transparent;
+}
+.widget-grid_multiple .widget .card__header .popup .alertbox:before,
+.widget-grid_multiple .widget .card__header .popup .button:before {
+    background: transparent;
 }
