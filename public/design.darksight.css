@@ -368,7 +368,7 @@
 
 
 
-.widget .link {
+.link {
   color: #2dceb6;
 }
 
@@ -524,6 +524,20 @@
 
 .widget_color_default {
   box-shadow: 0 0 10px rgba(0,0,0,.3);
+}
+
+.widget_color_default .widget__border .widget__count.link,
+.widget_color_dark_grey .widget__border .widget__count.link,
+.widget_color_dark_blue .widget__border .widget__count.link,
+.widget_color_blue .widget__border .widget__count.link,
+.widget_color_light_blue .widget__border .widget__count.link,
+.widget_color_nodata .widget__border .widget__count.link,
+.widget_color_purple .widget__border .widget__count.link,
+.widget_color_red .widget__border .widget__count.link,
+.widget_color_green .widget__border .widget__count.link,
+.widget_color_none .widget__border .widget__count.link,
+.widget_color_default .widget__border .widget__count.link {
+  color: #fff;
 }
 
 .counter {
