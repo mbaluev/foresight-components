@@ -1,4 +1,17 @@
 .card__name-text {
     font-size: 15px;
 }
-.card__header .button__text {}
+
+.widget-grid_multiple .widget .card__header {
+    background: transparent;
+    border-bottom: none;
+}
+.widget-grid_multiple .widget .card__header .button {
+    background: #393e52;
+}
+.widget-grid_multiple .widget .card__header .button_hovered {
+    background: #2dceb6;
+}
+.widget-grid_multiple .widget .card__header .button:before {
+    background: #303548;
+}
