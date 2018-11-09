@@ -1,17 +1,17 @@
-.table {
+.widget .table {
     color: #fff;
 }
-.table th,
-.table thead td,
-.table thead th {
+.widget .table th,
+.widget .table thead td,
+.widget .table thead th {
     background-color: #393e52;
 }
-.table tr > th,
-.table tr > td {
+.widget .table tr > th,
+.widget .table tr > td {
     border-top: solid 1px #393e52;
     border-bottom: none;
 }
-.table thead tr:hover td,
-.table tbody tr:hover td {
+.widget .table thead tr:hover td,
+.widget .table tbody tr:hover td {
     background-color: #393e52;
 }

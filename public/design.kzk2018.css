@@ -43,6 +43,40 @@
   background-position: center 300px;
 }
 
+.button_color_blue:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #1e81c2;
+}
+
+.button_border_blue {
+  background: #0096de;
+  border-radius: 4px;
+}
+
+.button_border_blue:before {
+  border-radius: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
+.button_border_dark_blue {
+  background: #2057a7;
+  border-radius: 4px;
+}
+
+.button_border_dark_blue:before {
+  border-radius: 2px;
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
 .header {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
@@ -179,38 +213,8 @@
           filter: FlipH;
 }
 
-.button_color_blue:before {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: #1e81c2;
-}
-
-.button_border_blue {
-  background: #0096de;
-  border-radius: 4px;
-}
-
-.button_border_blue:before {
-  border-radius: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
-.button_border_dark_blue {
-  background: #2057a7;
-  border-radius: 4px;
-}
-
-.button_border_dark_blue:before {
-  border-radius: 2px;
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
+.link {
+  color: #08c;
 }
 
 .menu_color_kzk {
@@ -257,10 +261,6 @@
 
 .menu_type_horizontal .menu__submenu .menu__item-link {
   padding-left: 15px;
-}
-
-.link {
-  color: #08c;
 }
 
 .counter {

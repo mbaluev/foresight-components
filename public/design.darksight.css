@@ -189,9 +189,7 @@
   background: #2dceb6;
 }
 
-.header__tumbler-container .tumbler__sticker-label {
-  color: #fff;
-}
+
 
 .header__tumbler-container .alertbox,
 .header__tumbler-container .button {
@@ -370,7 +368,7 @@
 
 
 
-.link {
+.widget .link {
   color: #2dceb6;
 }
 
@@ -576,6 +574,44 @@
   margin: 0;
 }
 
+.widget .carousel {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+}
+
+.widget .carousel .button {
+  background: transparent;
+}
+
+.widget .carousel .button:before {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #303548;
+}
+
+.widget .carousel .icon_svg_right {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+}
+
+.widget .carousel .icon_svg_left {
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiPjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0i0KHQu9C+0LlfMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMnB4IiBoZWlnaHQ9IjYuNzA3cHgiIHZpZXdCb3g9IjAgMCAxMiA2LjcwNyIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTIgNi43MDciIHhtbDpzcGFjZT0icHJlc2VydmUiPjxwb2x5Z29uIGZpbGw9IiNGRkZGRkYiIHBvaW50cz0iNiw2LjcwNyAwLDAuNzA3IDAuNzA3LDAgNiw1LjI5MyAxMS4yOTMsMCAxMiwwLjcwNyAiLz48L3N2Zz4=");
+}
+
+.widget .carousel .icon__circle_grey {
+  background-color: #888;
+}
+
+.widget .carousel .icon__circle_blue {
+  background-color: #2dceb6;
+}
+
+.widget .carousel__item-image-text {
+  color: #fff;
+}
+
 fieldset {
   border: none;
   margin: 0;
@@ -588,24 +624,24 @@ fieldset {
 
 
 
-.table {
+.widget .table {
   color: #fff;
 }
 
-.table th,
-.table thead td,
-.table thead th {
+.widget .table th,
+.widget .table thead td,
+.widget .table thead th {
   background-color: #393e52;
 }
 
-.table tr > th,
-.table tr > td {
+.widget .table tr > th,
+.widget .table tr > td {
   border-top: solid 1px #393e52;
   border-bottom: none;
 }
 
-.table thead tr:hover td,
-.table tbody tr:hover td {
+.widget .table thead tr:hover td,
+.widget .table tbody tr:hover td {
   background-color: #393e52;
 }
 
