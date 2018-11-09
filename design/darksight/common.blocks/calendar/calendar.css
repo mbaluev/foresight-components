@@ -36,12 +36,23 @@
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
     opacity: 0.75;
 }
+
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    color: #fff;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+    background: #393e52;
+}
+.calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
     background: #2dceb6;
     color: #fff;
 }
+
 .calendar_dark .datepicker--cell-day.-other-month-,
 .calendar_dark .datepicker--cell-year.-other-decade- {
     color: #888;
