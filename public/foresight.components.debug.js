@@ -3597,9 +3597,9 @@ $(function(){
                             TooltipColumn: 'date',
                             maxItems: 3
                         },
-                        renderEvents: false,
-                        eventTitleColumn: 'date',
-                        eventTooltipColumn: 'date',
+                        modal: {
+                            render: false
+                        },
                         onSelect: null,
                         onSelectAllowed: true,
                         useItemsLength: true,
@@ -3830,6 +3830,13 @@ $(function(){
                                     } else {
                                         that.data._el.calendar__table.empty().append(that.render_table());
                                         that.data._el.calendar__table.find('[data-tooltip]').tooltip();
+                                    }
+                                    if (that.data.modal.render) {
+                                        if (that.data._selectedItems.length > 0) {
+                                            if (that.data._showModal) {
+                                                that.render_modal();
+                                            }
+                                        }
                                     }
                                     if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
                                         that.data.onSelect(formattedDate, date);
