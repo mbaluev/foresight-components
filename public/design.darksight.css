@@ -1055,6 +1055,12 @@ fieldset {
   color: #fff;
 }
 
+.widget-grid_multiple .widget .card__header .button .button__text_placeholder,
+.widget-grid_multiple .widget .card__header a.button .button__text_placeholder,
+.widget-grid_multiple .widget .card__header a.button:hover .button__text_placeholder {
+  color: #2dceb6;
+}
+
 .card__header_transparent {
   background: transparent;
   border: none;

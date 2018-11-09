@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c10b203a-2e46-4ee3-a43b-592d3aabfcf2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/design.darksight.css" afterPath="$PROJECT_DIR$/public/design.darksight.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/design.darksight.min.css" afterPath="$PROJECT_DIR$/public/design.darksight.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/darksight/common.blocks/widget/widget.css" afterPath="$PROJECT_DIR$/design/darksight/common.blocks/widget/widget.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/design/darksight/common.blocks/card/card.css" afterPath="$PROJECT_DIR$/design/darksight/common.blocks/card/card.css" />
     </list>
     <ignored path="foresight-components.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="widget.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="widget.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/widget/widget.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42537314">
+            <state vertical-scroll-proportion="0.0">
               <caret line="65" column="38" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
               <folding>
                 <element signature="e#30#160#0" expanded="false" />
@@ -50,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="card.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="card.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/card/card.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.33582088">
+              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="e#17#41#0" expanded="false" />
                 <element signature="e#86#143#0" expanded="false" />
@@ -65,8 +63,9 @@
                 <element signature="e#602#634#0" expanded="false" />
                 <element signature="e#770#802#0" expanded="false" />
                 <element signature="e#864#884#0" expanded="false" />
-                <element signature="e#912#962#0" expanded="false" />
-                <element signature="e#1006#1046#0" expanded="false" />
+                <element signature="e#1129#1152#0" expanded="false" />
+                <element signature="e#1180#1230#0" expanded="false" />
+                <element signature="e#1274#1314#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -540,9 +539,9 @@
         <option value="$PROJECT_DIR$/design/darksight/common.blocks/menu/menu.css" />
         <option value="$PROJECT_DIR$/public/asyst/asyst.dashboard.js" />
         <option value="$PROJECT_DIR$/public/pages/dashboard.js" />
-        <option value="$PROJECT_DIR$/design/darksight/common.blocks/card/card.css" />
         <option value="$PROJECT_DIR$/design/darksight/common.blocks/widget-grid/widget-grid.css" />
         <option value="$PROJECT_DIR$/design/darksight/common.blocks/widget/widget.css" />
+        <option value="$PROJECT_DIR$/design/darksight/common.blocks/card/card.css" />
       </list>
     </option>
   </component>
@@ -3107,26 +3106,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/card/card.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#17#41#0" expanded="false" />
-            <element signature="e#86#143#0" expanded="false" />
-            <element signature="e#196#224#0" expanded="false" />
-            <element signature="e#285#313#0" expanded="false" />
-            <element signature="e#373#401#0" expanded="false" />
-            <element signature="e#460#480#0" expanded="false" />
-            <element signature="e#602#634#0" expanded="false" />
-            <element signature="e#770#802#0" expanded="false" />
-            <element signature="e#864#884#0" expanded="false" />
-            <element signature="e#912#962#0" expanded="false" />
-            <element signature="e#1006#1046#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/widget-grid/widget-grid.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3137,7 +3116,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/widget/widget.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42537314">
+        <state vertical-scroll-proportion="0.0">
           <caret line="65" column="38" selection-start-line="65" selection-start-column="38" selection-end-line="65" selection-end-column="38" />
           <folding>
             <element signature="e#30#160#0" expanded="false" />
@@ -3154,6 +3133,27 @@
             <element signature="e#1601#1719#0" expanded="false" />
             <element signature="e#1776#1801#0" expanded="false" />
             <element signature="e#3947#3969#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/design/darksight/common.blocks/card/card.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33582088">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding>
+            <element signature="e#17#41#0" expanded="false" />
+            <element signature="e#86#143#0" expanded="false" />
+            <element signature="e#196#224#0" expanded="false" />
+            <element signature="e#285#313#0" expanded="false" />
+            <element signature="e#373#401#0" expanded="false" />
+            <element signature="e#460#480#0" expanded="false" />
+            <element signature="e#602#634#0" expanded="false" />
+            <element signature="e#770#802#0" expanded="false" />
+            <element signature="e#864#884#0" expanded="false" />
+            <element signature="e#1129#1152#0" expanded="false" />
+            <element signature="e#1180#1230#0" expanded="false" />
+            <element signature="e#1274#1314#0" expanded="false" />
           </folding>
         </state>
       </provider>
