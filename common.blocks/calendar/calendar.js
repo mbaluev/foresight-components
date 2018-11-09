@@ -247,14 +247,15 @@
                                             }
                                         }
                                     } else {
-                                        that.data._el.calendar__table.empty().append(that.render_table());
-                                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
-                                    }
-                                    if (that.data.modal.render) {
-                                        if (that.data._selectedItems.length > 0) {
-                                            if (that.data._showModal) {
-                                                that.render_modal();
+                                        if (that.data.modal.render) {
+                                            if (that.data._selectedItems.length > 0) {
+                                                if (that.data._showModal) {
+                                                    that.render_modal();
+                                                }
                                             }
+                                        } else {
+                                            that.data._el.calendar__table.empty().append(that.render_table());
+                                            that.data._el.calendar__table.find('[data-tooltip]').tooltip();
                                         }
                                     }
                                     if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
