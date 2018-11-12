@@ -1,13 +1,22 @@
 .card__name-text {
     font-size: 15px;
 }
+.card__header_transparent {
+    background: transparent;
+    border: none;
+}
+.card__header_transparent .card__name-text {
+    color: #fff;
+    margin: 0 10px;
+}
 
 /*.widget-grid_multiple*/ .widget .card__header {
     background: transparent;
     border-bottom: none;
 }
 /*.widget-grid_multiple*/ .widget .card__header .button {
-    background: #595d6d;
+    /*background: #595d6d;*/
+    background: #474c63;
 }
 /*.widget-grid_multiple*/ .widget .card__header .button_hovered {
     background: #2dceb6;
@@ -35,11 +44,24 @@
     color: #2dceb6;
 }
 
-.card__header_transparent {
-    background: transparent;
-    border: none;
+.fs-view__middle-scroll > .card .card__header {
+    background: #303548;
+    border-bottom: solid 1px #474c63;
 }
-.card__header_transparent .card__name-text {
+.fs-view__middle-scroll > .card .card__header .button {
+    background: #474c63;
+}
+.fs-view__middle-scroll > .card .card__header .button_hovered {
+    background: #2dceb6;
+}
+.fs-view__middle-scroll > .card .card__header .button:before {
+    background: #303548;
+}
+.fs-view__middle-scroll > .card .card__header .button__text {
     color: #fff;
-    margin: 0 10px;
+}
+.fs-view__middle-scroll > .card .card__header .button .button__text_placeholder,
+.fs-view__middle-scroll > .card .card__header a.button .button__text_placeholder,
+.fs-view__middle-scroll > .card .card__header a.button:hover .button__text_placeholder {
+color: #2dceb6;
 }
