@@ -5,6 +5,7 @@
     height: auto;
     margin-top: 10px;
     padding-top: 0;
+    border: none;
 }
 .widget-grid_multiple .widget__header {
     position: relative;
@@ -16,10 +17,6 @@
 .widget-grid_multiple .widget_collapsed .widget__header {
     border-radius: 3px;
 }
-
-.widget-grid_multiple .widget_has_name > .widget__header,
-.widget-grid_multiple .widget_mode_edit > .widget__header,
-.widget-grid_multiple .widget_mode_view_has_buttons > .widget__header {}
 
 .widget-grid_multiple .widget__header .button {
     background: #303548;
@@ -41,7 +38,15 @@
     flex-direction: column;
     flex: 1 1 auto;
     height: auto;
+    color: #fff;
+    border-top: solid 1px #595d6d;
+    background-color: #303548;
+    border-radius: 0 0 3px 3px;
 }
+.widget-grid_multiple .widget_collapsed .widget__border {
+    border-top: none;
+}
+
 .widget-grid_multiple .widget__body {
     display: flex;
     flex-direction: column;
@@ -61,17 +66,8 @@
     padding: 5px;
 }
 
-.widget-grid_multiple .widget {
-    border: none;
-}
-.widget-grid_multiple .widget__border {
-    color: #fff;
-    border-top: solid 1px #595d6d;
-    background-color: #303548;
-    border-radius: 0 0 3px 3px;
-}
-.widget-grid_multiple .widget_collapsed .widget__border {
-    border-top: none;
+.widget-grid_single .widget {
+    margin-top: 0;
 }
 
 .widget-grid_multiple .widget_color_default .widget__border,
@@ -97,18 +93,14 @@
 .widget-grid_multiple .widget_color_none { color: #fff; border: solid 1px transparent; box-shadow: none; }
 .widget-grid_multiple .widget_color_default { box-shadow: 0 0 10px rgba(0,0,0,.3); }
 
-.widget-grid_multiple .widget_color_default .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_dark_grey .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_dark_blue .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_blue .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_light_blue .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_nodata .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_purple .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_red .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_green .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_none .widget__border .widget__count.link,
-.widget-grid_multiple .widget_color_default .widget__border .widget__count.link { color: #fff; }
-
-.widget-grid_single .widget {
-    margin-top: 0;
-}
+/*.widget-grid_multiple*/ .widget_color_default .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_dark_grey .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_dark_blue .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_blue .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_light_blue .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_nodata .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_purple .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_red .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_green .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_none .widget__border .widget__count.link,
+/*.widget-grid_multiple*/ .widget_color_default .widget__border .widget__count.link { color: #fff; }
