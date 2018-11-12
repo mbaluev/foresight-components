@@ -1403,6 +1403,16 @@ fieldset {
   font-size: 15px;
 }
 
+.card__header_transparent {
+  background: transparent;
+  border: none;
+}
+
+.card__header_transparent .card__name-text {
+  color: #fff;
+  margin: 0 10px;
+}
+
 /*.widget-grid_multiple*/
 
 .widget .card__header {
@@ -1468,6 +1478,11 @@ fieldset {
   border-bottom: solid 1px #474c63;
 }
 
+.fs-view__middle-scroll > .card .card__header_transparent {
+  background: transparent;
+  border: none;
+}
+
 .fs-view__middle-scroll > .card .card__header .button {
   background: #474c63;
 }
@@ -1488,16 +1503,6 @@ fieldset {
 .fs-view__middle-scroll > .card .card__header a.button .button__text_placeholder,
 .fs-view__middle-scroll > .card .card__header a.button:hover .button__text_placeholder {
   color: #2dceb6;
-}
-
-.card__header_transparent {
-  background: transparent;
-  border: none;
-}
-
-.card__header_transparent .card__name-text {
-  color: #fff;
-  margin: 0 10px;
 }
 
 /*.widget-grid_multiple*/
