@@ -764,9 +764,7 @@
   color: #2dceb6;
 }
 
-/*.widget-grid_multiple*/
-
-.widget {
+.widget-grid_multiple .widget {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -782,9 +780,7 @@
   padding-top: 0;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__header {
+.widget-grid_multiple .widget__header {
   position: relative;
   background-color: #303548;
   padding: 0 5px;
@@ -794,42 +790,30 @@
           flex: 0 0 auto;
 }
 
-/*.widget-grid_multiple*/
-
-.widget_collapsed .widget__header {
+.widget-grid_multiple .widget_collapsed .widget__header {
   border-radius: 3px;
 }
 
-/*.widget-grid_multiple*/
 
 
-
-/*.widget-grid_multiple*/
-
-.widget__header .button {
+.widget-grid_multiple .widget__header .button {
   background: #303548;
   height: 28px;
   line-height: 28px;
   margin: 6px 0;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__header .button:before {
+.widget-grid_multiple .widget__header .button:before {
   background: #303548;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__header .button__text {
+.widget-grid_multiple .widget__header .button__text {
   min-height: 20px;
   font-size: 15px;
   color: #fff;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__border {
+.widget-grid_multiple .widget__border {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -843,9 +827,7 @@
   height: auto;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__body {
+.widget-grid_multiple .widget__body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -862,9 +844,7 @@
   border-radius: 0 0 3px 3px;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__body-data_type_html {
+.widget-grid_multiple .widget__body-data_type_html {
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -875,91 +855,73 @@
   height: auto;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__body-data_type_text,
-.widget__body-data_type_text_align_center {
+.widget-grid_multiple .widget__body-data_type_text,
+.widget-grid_multiple .widget__body-data_type_text_align_center {
   padding: 5px;
 }
 
-/*.widget-grid_multiple*/
-
-.widget {
+.widget-grid_multiple .widget {
   border: none;
 }
 
-/*.widget-grid_multiple*/
-
-.widget__border {
+.widget-grid_multiple .widget__border {
   color: #fff;
   border-top: solid 1px #595d6d;
   background-color: #303548;
   border-radius: 0 0 3px 3px;
 }
 
-/*.widget-grid_multiple*/
-
-.widget_collapsed .widget__border {
+.widget-grid_multiple .widget_collapsed .widget__border {
   border-top: none;
 }
 
-/*.widget-grid_multiple*/
-
-.widget_color_default .widget__border,
-.widget_color_dark_grey .widget__border,
-.widget_color_dark_blue .widget__border,
-.widget_color_blue .widget__border,
-.widget_color_light_blue .widget__border,
-.widget_color_nodata .widget__border,
-.widget_color_purple .widget__border,
-.widget_color_red .widget__border,
-.widget_color_green .widget__border,
-.widget_color_none .widget__border {
+.widget-grid_multiple .widget_color_default .widget__border,
+.widget-grid_multiple .widget_color_dark_grey .widget__border,
+.widget-grid_multiple .widget_color_dark_blue .widget__border,
+.widget-grid_multiple .widget_color_blue .widget__border,
+.widget-grid_multiple .widget_color_light_blue .widget__border,
+.widget-grid_multiple .widget_color_nodata .widget__border,
+.widget-grid_multiple .widget_color_purple .widget__border,
+.widget-grid_multiple .widget_color_red .widget__border,
+.widget-grid_multiple .widget_color_green .widget__border,
+.widget-grid_multiple .widget_color_none .widget__border {
   border: none;
 }
 
-/*.widget-grid_multiple*/
-
-.widget_color_default,
-.widget_color_dark_grey,
-.widget_color_dark_blue,
-.widget_color_blue,
-.widget_color_light_blue,
-.widget_color_nodata,
-.widget_color_purple,
-.widget_color_red,
-.widget_color_green,
-.widget_color_none {
+.widget-grid_multiple .widget_color_default,
+.widget-grid_multiple .widget_color_dark_grey,
+.widget-grid_multiple .widget_color_dark_blue,
+.widget-grid_multiple .widget_color_blue,
+.widget-grid_multiple .widget_color_light_blue,
+.widget-grid_multiple .widget_color_nodata,
+.widget-grid_multiple .widget_color_purple,
+.widget-grid_multiple .widget_color_red,
+.widget-grid_multiple .widget_color_green,
+.widget-grid_multiple .widget_color_none {
   color: #fff;
   border: solid 1px transparent;
   box-shadow: none;
 }
 
-/*.widget-grid_multiple*/
-
-.widget_color_default {
+.widget-grid_multiple .widget_color_default {
   box-shadow: 0 0 10px rgba(0,0,0,.3);
 }
 
-/*.widget-grid_multiple*/
-
-.widget_color_default .widget__border .widget__count.link,
-.widget_color_dark_grey .widget__border .widget__count.link,
-.widget_color_dark_blue .widget__border .widget__count.link,
-.widget_color_blue .widget__border .widget__count.link,
-.widget_color_light_blue .widget__border .widget__count.link,
-.widget_color_nodata .widget__border .widget__count.link,
-.widget_color_purple .widget__border .widget__count.link,
-.widget_color_red .widget__border .widget__count.link,
-.widget_color_green .widget__border .widget__count.link,
-.widget_color_none .widget__border .widget__count.link,
-.widget_color_default .widget__border .widget__count.link {
+.widget-grid_multiple .widget_color_default .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_dark_grey .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_dark_blue .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_blue .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_light_blue .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_nodata .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_purple .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_red .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_green .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_none .widget__border .widget__count.link,
+.widget-grid_multiple .widget_color_default .widget__border .widget__count.link {
   color: #fff;
 }
 
-/*.widget-grid_single*/
-
-.widget {
+.widget-grid_single .widget {
   margin-top: 0;
 }
 
