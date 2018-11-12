@@ -1,3 +1,6 @@
+.grid {
+    background-color: #303548;
+}
 .grid img {
     width: 20px;
     height: 24px;
@@ -6,9 +9,18 @@
 
 .slick-group {
     font-weight: normal;
-    color: #08c;
+    color: #2dceb6;
 }
 .slick-row a {
-    color: #08c;
+    color: #2dceb6;
     text-decoration: none;
+}
+.slick-header.ui-state-default {
+    background-color: #393e52;
+}
+.slick-cell {
+    border-bottom: solid 1px #474c63;
+}
+.slick-row.ui-state-active, .slick-row.ui-widget-content:hover {
+    background-color: #393e52;
 }

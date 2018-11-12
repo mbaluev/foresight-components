@@ -1079,6 +1079,7 @@ var Dashboard = function(options){
     that.init();
     return that;
 };
+
 var DashboardGrid = function(options){
     var that = this._dashboard_grid = {};
     that.data = {

@@ -1,8 +1,3 @@
-*,
-.page {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
 /* cyrillic-ext */
 
 @font-face {
@@ -155,6 +150,11 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
+*,
+.page {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
+}
+
 .button {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
@@ -187,11 +187,11 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.codearea {
+.widget {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.widget {
+.codearea {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
@@ -287,14 +287,14 @@
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
-.zimbargate .info {
-  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
-}
-
 .logo {
   font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }
 
 .logo__text-name {
   margin: 0;
+}
+
+.zimbargate .info {
+  font-family: 'Roboto Mono', 'ProximaNova', monospace !important;
 }

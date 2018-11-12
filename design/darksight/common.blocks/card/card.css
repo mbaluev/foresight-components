@@ -1,36 +1,37 @@
 .card__name-text {
     font-size: 15px;
 }
-.widget-grid_multiple .widget .card__header {
+
+/*.widget-grid_multiple*/ .widget .card__header {
     background: transparent;
     border-bottom: none;
 }
-.widget-grid_multiple .widget .card__header .button {
+/*.widget-grid_multiple*/ .widget .card__header .button {
     background: #595d6d;
 }
-.widget-grid_multiple .widget .card__header .button_hovered {
+/*.widget-grid_multiple*/ .widget .card__header .button_hovered {
     background: #2dceb6;
 }
-.widget-grid_multiple .widget .card__header .button:before {
+/*.widget-grid_multiple*/ .widget .card__header .button:before {
     background: #303548;
 }
-.widget-grid_multiple .widget .card__header .button__text {
+/*.widget-grid_multiple*/ .widget .card__header .button__text {
     color: #fff;
 }
-.widget-grid_multiple .widget .card__header .popup .alertbox,
-.widget-grid_multiple .widget .card__header .popup .button {
+/*.widget-grid_multiple*/ .widget .card__header .popup .alertbox,
+/*.widget-grid_multiple*/ .widget .card__header .popup .button {
     background: transparent;
 }
-.widget-grid_multiple .widget .card__header .popup .alertbox:before,
-.widget-grid_multiple .widget .card__header .popup .button:before {
+/*.widget-grid_multiple*/ .widget .card__header .popup .alertbox:before,
+/*.widget-grid_multiple*/ .widget .card__header .popup .button:before {
     background: transparent;
 }
-.widget-grid_multiple .widget .card__header .card__name-text {
+/*.widget-grid_multiple*/ .widget .card__header .card__name-text {
     color: #fff;
 }
-.widget-grid_multiple .widget .card__header .button .button__text_placeholder,
-.widget-grid_multiple .widget .card__header a.button .button__text_placeholder,
-.widget-grid_multiple .widget .card__header a.button:hover .button__text_placeholder {
+/*.widget-grid_multiple*/ .widget .card__header .button .button__text_placeholder,
+/*.widget-grid_multiple*/ .widget .card__header a.button .button__text_placeholder,
+/*.widget-grid_multiple*/ .widget .card__header a.button:hover .button__text_placeholder {
     color: #2dceb6;
 }
 
