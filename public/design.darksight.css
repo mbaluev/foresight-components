@@ -1487,13 +1487,8 @@ fieldset {
   border: none;
 }
 
-.fs-view__middle-scroll > .card > .card__header .button,
-.fs-view__middle-scroll > .card > .card__header .input {
+.fs-view__middle-scroll > .card > .card__header .button {
   background: #595d6d;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input_focused {
-  background: #2dceb6;
 }
 
 .fs-view__middle-scroll > .card > .card__header .button_hovered {
@@ -1501,14 +1496,6 @@ fieldset {
 }
 
 .fs-view__middle-scroll > .card > .card__header .button:before,
-.fs-view__middle-scroll > .card > .card__header .input:before {
-  background: #303548;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input__control {
-  color: #fff;
-}
-
 .fs-view__middle-scroll > .card > .card__header .button__text {
   color: #fff;
 }
@@ -1517,6 +1504,32 @@ fieldset {
 .fs-view__middle-scroll > .card > .card__header a.button .button__text_placeholder,
 .fs-view__middle-scroll > .card > .card__header a.button:hover .button__text_placeholder {
   color: #2dceb6;
+}
+
+.fs-view__middle-scroll > .card > .card__header .input {
+  background: #595d6d;
+}
+
+.fs-view__middle-scroll > .card > .card__header .input_focused {
+  background: #2dceb6;
+}
+
+
+
+.fs-view__middle-scroll > .card > .card__header .input:before {
+  background: #303548;
+}
+
+.fs-view__middle-scroll > .card > .card__header .input__control {
+  color: #fff;
+}
+
+.fs-view__middle-scroll > .card > .card__header .input_filled {
+  background: #2dceb6;
+}
+
+.fs-view__middle-scroll > .card > .card__header .input__box .button {
+  background: transparent;
 }
 
 /*.widget-grid_multiple*/
