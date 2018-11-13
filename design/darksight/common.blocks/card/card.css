@@ -85,6 +85,7 @@ color: #2dceb6;
 .fs-view__middle-scroll > .card > .card__header .input_filled {
     background: #2dceb6;
 }
-.fs-view__middle-scroll > .card > .card__header .input__box .button {
+.fs-view__middle-scroll > .card > .card__header .input__box .button,
+.fs-view__middle-scroll > .card > .card__header .input__box .button:before {
     background: transparent;
 }
