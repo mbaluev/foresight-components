@@ -59,7 +59,9 @@
 .fs-view__middle-scroll > .card > .card__header .button_hovered {
     background: #2dceb6;
 }
-.fs-view__middle-scroll > .card > .card__header .button:before,
+.fs-view__middle-scroll > .card > .card__header .button:before {
+    background: #303548;
+}
 .fs-view__middle-scroll > .card > .card__header .button__text {
     color: #fff;
 }
