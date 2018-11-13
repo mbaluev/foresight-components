@@ -1075,8 +1075,12 @@
 
 
 .menu_color_light {
-  background-color: #303548;
-  border-right: solid 1px #474c63;
+  background-color: #393e52;
+  border-right: none;
+}
+
+.menu_color_light .menu__item-link {
+  background: transparent;
 }
 
 .menu_color_light .menu__item-link .menu__item-text {
@@ -1085,6 +1089,10 @@
 
 .menu_color_light .menu__item-link_disabled .menu__item-text {
   color: #999;
+}
+
+.menu_color_light .menu__item-link_selected .menu__item-text {
+  color: #2dceb6;
 }
 
 .link {
