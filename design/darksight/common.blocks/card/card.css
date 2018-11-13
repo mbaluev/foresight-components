@@ -41,7 +41,7 @@
 /*.widget-grid_multiple*/ .widget .card__header .button .button__text_placeholder,
 /*.widget-grid_multiple*/ .widget .card__header a.button .button__text_placeholder,
 /*.widget-grid_multiple*/ .widget .card__header a.button:hover .button__text_placeholder {
-    color: #2dceb6;
+    color: #999;
 }
 
 .widget__register > .card > .card__header,
@@ -59,6 +59,9 @@
 .fs-view__middle-scroll > .card > .card__header .button_hovered {
     background: #2dceb6;
 }
+.fs-view__middle-scroll > .card > .card__header .select__container.select_checked > .button {
+    background: #2dceb6;
+}
 .fs-view__middle-scroll > .card > .card__header .button:before {
     background: #303548;
 }
@@ -68,7 +71,7 @@
 .fs-view__middle-scroll > .card > .card__header .button .button__text_placeholder,
 .fs-view__middle-scroll > .card > .card__header a.button .button__text_placeholder,
 .fs-view__middle-scroll > .card > .card__header a.button:hover .button__text_placeholder {
-color: #2dceb6;
+    color: #999;
 }
 
 .fs-view__middle-scroll > .card > .card__header .input {
