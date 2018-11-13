@@ -1570,6 +1570,16 @@ fieldset {
   color: #999;
 }
 
+.fs-view__middle-scroll > .card > .card__header .popup .alertbox,
+.fs-view__middle-scroll > .card > .card__header .popup .button {
+  background: transparent;
+}
+
+.fs-view__middle-scroll > .card > .card__header .popup .alertbox:before,
+.fs-view__middle-scroll > .card > .card__header .popup .button:before {
+  background: transparent;
+}
+
 .fs-view__middle-scroll > .card > .card__header .input {
   background: #595d6d;
 }
