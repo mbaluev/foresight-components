@@ -70,3 +70,14 @@
 }
 .fs-view__left_hidden .menu__item-link_selected {
 }
+
+.menu_color_light {
+    background-color: #303548;
+    border-right: solid 1px #474c63;
+}
+.menu_color_light .menu__item-link .menu__item-text {
+    color: #fff;
+}
+.menu_color_light .menu__item-link_disabled .menu__item-text {
+    color: #999;
+}
