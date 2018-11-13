@@ -1,3 +1,7 @@
+.widget__body {
+    background-color: #303548;
+}
+
 .widget-grid_multiple .widget {
     display: flex;
     flex-direction: column;
@@ -53,7 +57,6 @@
     flex: 1 1 auto;
     height: auto;
     padding: 0;
-    background-color: #303548;
     border-radius: 0 0 3px 3px;
 }
 .widget-grid_multiple .widget__body-data_type_html {
