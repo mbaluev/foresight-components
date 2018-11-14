@@ -42,24 +42,6 @@
   background-position: center 300px;
 }
 
-.button_color_blue {
-  border-radius: 4px;
-  background: rgba(255,255,255,.5);
-}
-
-.button_color_blue:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-  border-radius: 3px;
-  background: #2057a7;
-}
-
-.button_color_blue:hover {
-  background: #fff;
-}
-
 .header {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
@@ -226,8 +208,22 @@
   width: 241px;
 }
 
-.link {
-  color: #08c;
+.button_color_blue {
+  border-radius: 4px;
+  background: rgba(255,255,255,.5);
+}
+
+.button_color_blue:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  border-radius: 3px;
+  background: #2057a7;
+}
+
+.button_color_blue:hover {
+  background: #fff;
 }
 
 .menu_color_akimov {
@@ -275,6 +271,10 @@
 
 .menu_type_horizontal .menu__submenu .menu__item-link {
   padding-left: 15px;
+}
+
+.link {
+  color: #08c;
 }
 
 .counter {
