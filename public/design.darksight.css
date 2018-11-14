@@ -794,7 +794,8 @@
           flex: 1 1 auto;
   height: auto;
   color: #fff;
-  border-top: solid 1px #595d6d;
+  border: none;
+  /*border-top: solid 1px #595d6d;*/
   background-color: #303548;
   border-radius: 0 0 3px 3px;
 }
@@ -846,7 +847,7 @@
 .widget-grid_multiple .widget_color_green,
 .widget-grid_multiple .widget_color_none {
   color: #fff;
-  border: solid 1px transparent;
+  border: none;
   box-shadow: none;
 }
 
