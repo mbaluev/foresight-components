@@ -1,152 +1,184 @@
-.menu__calendar .calendar {
-    border-bottom: solid 1px #474c63 !important;
-}
-
-.menu__calendar .datepicker,
 .calendar_dark .datepicker {
     color: #fff;
 }
-
-.menu__calendar .datepicker--day-name,
 .calendar_dark .datepicker--day-name {
     color: #ccc;
     font-style: normal;
 }
-
-.menu__calendar .datepicker--day-name.-weekend-,
 .calendar_dark .datepicker--day-name.-weekend- {
     color: #ff5940;
 }
-
-.menu__calendar .datepicker--cell.-current-,
 .calendar_dark .datepicker--cell.-current- {
     color: #2dceb6;
 }
-
-.menu__calendar .datepicker--cell.-weekend-,
 .calendar_dark .datepicker--cell.-weekend- {
     color: #ff5940;
 }
-
-.menu__calendar .datepicker--cell.-focus-,
 .calendar_dark .datepicker--cell.-focus- {
     background: #393e52;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
     background: #2dceb6;
     color: #fff;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
     opacity: 0.75;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
     background: #2dceb6;
     color: #fff;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
     opacity: 0.75;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
     color: #fff;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
     background: #393e52;
 }
-
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
     background: #2dceb6;
     color: #fff;
 }
-
-.menu__calendar .datepicker--cell-day.-other-month-,
-.menu__calendar .datepicker--cell-year.-other-decade-,
 .calendar_dark .datepicker--cell-day.-other-month-,
 .calendar_dark .datepicker--cell-year.-other-decade- {
     color: #888;
 }
-
-.menu__calendar .datepicker--nav-action,
-.menu__calendar .datepicker--nav-title,
 .calendar_dark .datepicker--nav-action,
 .calendar_dark .datepicker--nav-title {
     border: none;
 }
-
-.menu__calendar .datepicker--nav-title,
-.menu__calendar .datepicker--nav-title i,
 .calendar_dark .datepicker--nav-title,
 .calendar_dark .datepicker--nav-title i {
     color: #fff;
 }
-
-.menu__calendar .datepicker--nav-action path,
 .calendar_dark .datepicker--nav-action path {
     stroke: #fff;
 }
-
-.menu__calendar .datepicker__note,
 .calendar_dark .datepicker__note {
     background-color: #d644d6;
 }
-
-.menu__calendar .datepicker__indicator,
 .calendar_dark .datepicker__indicator {
     border: solid 1px #393e52;
 }
-
-.menu__calendar .datepicker__event-text,
 .calendar_dark .datepicker__event-text {
     border: solid 1px #393e52;
 }
-
-.menu__calendar .datepicker__more,
 .calendar_dark .datepicker__more {
     color: #fff;
 }
-
-.menu__calendar .datepicker__day-container,
 .calendar_dark .datepicker__day-container {
     width: 100%;
     height: 100%;
     box-sizing: border-box;
 }
-
-.menu__calendar .datepicker__day-border,
 .calendar_dark .datepicker__day-border {
     border: solid 1px #393e52;
 }
-
-.menu__calendar .datepicker__cells-days-border,
 .calendar_dark .datepicker__cells-days-border {
+    border-right: solid 1px #393e52;
+    border-bottom: solid 1px #393e52;
+}
+
+.menu__calendar .calendar {
+    border-bottom: solid 1px #474c63 !important;
+}
+.menu__calendar .datepicker {
+    color: #fff;
+}
+.menu__calendar .datepicker--day-name {
+    color: #ccc;
+    font-style: normal;
+}
+.menu__calendar .datepicker--day-name.-weekend- {
+    color: #ff5940;
+}
+.menu__calendar .datepicker--cell.-current- {
+    color: #2dceb6;
+}
+.menu__calendar .datepicker--cell.-weekend- {
+    color: #ff5940;
+}
+.menu__calendar .datepicker--cell.-focus- {
+    background: #393e52;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+    background: #2dceb6;
+    color: #fff;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+    opacity: 0.75;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+    background: #2dceb6;
+    color: #fff;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+    opacity: 0.75;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+    color: #fff;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+    background: #393e52;
+}
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
+    background: #2dceb6;
+    color: #fff;
+}
+.menu__calendar .datepicker--cell-day.-other-month-,
+.menu__calendar .datepicker--cell-year.-other-decade- {
+    color: #888;
+}
+.menu__calendar .datepicker--nav-action,
+.menu__calendar .datepicker--nav-title {
+    border: none;
+}
+.menu__calendar .datepicker--nav-title,
+.menu__calendar .datepicker--nav-title i {
+    color: #fff;
+}
+.menu__calendar .datepicker--nav-action path {
+    stroke: #fff;
+}
+.menu__calendar .datepicker__note {
+    background-color: #d644d6;
+}
+.menu__calendar .datepicker__indicator {
+    border: solid 1px #393e52;
+}
+.menu__calendar .datepicker__event-text {
+    border: solid 1px #393e52;
+}
+.menu__calendar .datepicker__more {
+    color: #fff;
+}
+.menu__calendar .datepicker__day-container {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.menu__calendar .datepicker__day-border {
+    border: solid 1px #393e52;
+}
+.menu__calendar .datepicker__cells-days-border {
     border-right: solid 1px #393e52;
     border-bottom: solid 1px #393e52;
 }

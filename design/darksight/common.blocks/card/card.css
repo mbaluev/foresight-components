@@ -1,180 +1,74 @@
-.card__name-text {
-    font-size: 15px;
+.card__header {
+    background: #303548;
+    border-bottom: solid 1px #474c63;
 }
 .card__header_transparent {
     background: transparent;
     border: none;
 }
-.card__header_transparent .card__name-text {
+.card__header .button {
+    background: #595d6d;
+}
+.card__header .button_hovered {
+    background: #2dceb6;
+}
+.card__header .button_highlighted {
+    background: #2dceb6;
+}
+.card__header .button_highlighted.button_hovered {
+    background: #595d6d;
+}
+.card__header .select__container.select_checked > .button {
+    background: #2dceb6;
+}
+.card__header .button:before {
+    background: #303548;
+}
+.card__header .button__text {
     color: #fff;
+}
+.card__header .button .button__text_placeholder,
+.card__header a.button .button__text_placeholder,
+.card__header a.button:hover .button__text_placeholder {
+    color: #999;
+}
+.card__header .input {
+    background: #595d6d;
+}
+.card__header .input_focused {
+    background: #2dceb6;
+}
+.card__header .input_focused:before {}
+.card__header .input:before {
+    background: #303548;
+}
+.card__header .input__control {
+    color: #fff;
+}
+.card__header .input_filled {
+    background: #2dceb6;
+}
+.card__header .input__box .button,
+.card__header .input__box .button:before {
+    background: transparent;
+}
+.card__header .card__name-text {
+    color: #fff;
+    font-size: 15px;
+}
+.card__header_transparent .card__name-text {
     margin: 0 10px;
 }
 
-/*.widget-grid_multiple*/ .widget .card__header {
+.widget .card__header {
     background: transparent;
     border-bottom: none;
 }
-/*.widget-grid_multiple*/ .widget .card__header .button {
-    background: #595d6d;
-    /*background: #474c63;*/
-}
-/*.widget-grid_multiple*/ .widget .card__header .button_hovered {
-    background: #2dceb6;
-}
-/*.widget-grid_multiple*/ .widget .card__header .button:before {
-    background: #303548;
-}
-/*.widget-grid_multiple*/ .widget .card__header .button__text {
-    color: #fff;
-}
-/*.widget-grid_multiple*/ .widget .card__header .card__name-text {
-    color: #fff;
-}
-/*.widget-grid_multiple*/ .widget .card__header .button .button__text_placeholder,
-/*.widget-grid_multiple*/ .widget .card__header a.button .button__text_placeholder,
-/*.widget-grid_multiple*/ .widget .card__header a.button:hover .button__text_placeholder {
-    color: #999;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input {
-    background: #595d6d;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input_focused {
-    background: #2dceb6;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input_focused:before {}
-/*.widget-grid_multiple*/ .widget .card__header .input:before {
-    background: #303548;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input__control {
-    color: #fff;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input_filled {
-    background: #2dceb6;
-}
-/*.widget-grid_multiple*/ .widget .card__header .input__box .button,
-/*.widget-grid_multiple*/ .widget .card__header .input__box .button:before {
-    background: transparent;
-}
-
 .widget__register > .card > .card__header {
     background: #303548;
     border-bottom: solid 1px #474c63;
 }
-
-.fs-view__middle-scroll > .card > .card__header {
-    background: #303548;
-    border-bottom: solid 1px #474c63;
-}
-.fs-view__middle-scroll > .card > .card__header_transparent {
-    background: transparent;
-    border: none;
-}
-.fs-view__middle-scroll > .card > .card__header .button {
-    background: #595d6d;
-}
-.fs-view__middle-scroll > .card > .card__header .button_hovered {
-    background: #2dceb6;
-}
-.fs-view__middle-scroll > .card > .card__header .button_highlighted {
-    background: #2dceb6;
-}
-.fs-view__middle-scroll > .card > .card__header .button_highlighted.button_hovered {
-    background: #595d6d;
-}
-.fs-view__middle-scroll > .card > .card__header .select__container.select_checked > .button {
-    background: #2dceb6;
-}
-.fs-view__middle-scroll > .card > .card__header .button:before {
-    background: #303548;
-}
-.fs-view__middle-scroll > .card > .card__header .button__text {
-    color: #fff;
-}
-.fs-view__middle-scroll > .card > .card__header .button .button__text_placeholder,
-.fs-view__middle-scroll > .card > .card__header a.button .button__text_placeholder,
-.fs-view__middle-scroll > .card > .card__header a.button:hover .button__text_placeholder {
-    color: #999;
-}
-.fs-view__middle-scroll > .card > .card__header .input {
-    background: #595d6d;
-}
-.fs-view__middle-scroll > .card > .card__header .input_focused {
-    background: #2dceb6;
-}
-.fs-view__middle-scroll > .card > .card__header .input_focused:before {}
-.fs-view__middle-scroll > .card > .card__header .input:before {
-    background: #303548;
-}
-.fs-view__middle-scroll > .card > .card__header .input__control {
-    color: #fff;
-}
-.fs-view__middle-scroll > .card > .card__header .input_filled {
-    background: #2dceb6;
-}
-.fs-view__middle-scroll > .card > .card__header .input__box .button,
-.fs-view__middle-scroll > .card > .card__header .input__box .button:before {
-    background: transparent;
-}
-
 .card__left-renu {
     background: transparent;
     border-right: solid 1px #474c63;
-}
-.card__left-renu .card__header {
-    border-bottom: solid 1px #474c63;
-}
-
-.menu__calendar .card__header {
-    background: #303548;
-    border-bottom: solid 1px #474c63;
-}
-.menu__calendar .card__header_transparent {
-    background: transparent;
-    border: none;
-}
-.menu__calendar .card__header .button {
-    background: #595d6d;
-}
-.menu__calendar .card__header .button_hovered {
-    background: #2dceb6;
-}
-.menu__calendar .card__header .button_highlighted {
-    background: #2dceb6;
-}
-.menu__calendar .card__header .button_highlighted.button_hovered {
-    background: #595d6d;
-}
-.menu__calendar .card__header .select__container.select_checked > .button {
-    background: #2dceb6;
-}
-.menu__calendar .card__header .button:before {
-    background: #303548;
-}
-.menu__calendar .card__header .button__text {
-    color: #fff;
-}
-.menu__calendar .card__header .button .button__text_placeholder,
-.menu__calendar .card__header a.button .button__text_placeholder,
-.menu__calendar .card__header a.button:hover .button__text_placeholder {
-    color: #999;
-}
-.menu__calendar .card__header .input {
-    background: #595d6d;
-}
-.menu__calendar .card__header .input_focused {
-    background: #2dceb6;
-}
-.menu__calendar .card__header .input_focused:before {}
-.menu__calendar .card__header .input:before {
-    background: #303548;
-}
-.menu__calendar .card__header .input__control {
-    color: #fff;
-}
-.menu__calendar .card__header .input_filled {
-    background: #2dceb6;
-}
-.menu__calendar .card__header .input__box .button,
-.menu__calendar .card__header .input__box .button:before {
-    background: transparent;
 }

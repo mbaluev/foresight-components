@@ -1309,44 +1309,31 @@
   margin: 0;
 }
 
-.menu__calendar .calendar {
-  border-bottom: solid 1px #474c63 !important;
-}
-
-.menu__calendar .datepicker,
 .calendar_dark .datepicker {
   color: #fff;
 }
 
-.menu__calendar .datepicker--day-name,
 .calendar_dark .datepicker--day-name {
   color: #ccc;
   font-style: normal;
 }
 
-.menu__calendar .datepicker--day-name.-weekend-,
 .calendar_dark .datepicker--day-name.-weekend- {
   color: #ff5940;
 }
 
-.menu__calendar .datepicker--cell.-current-,
 .calendar_dark .datepicker--cell.-current- {
   color: #2dceb6;
 }
 
-.menu__calendar .datepicker--cell.-weekend-,
 .calendar_dark .datepicker--cell.-weekend- {
   color: #ff5940;
 }
 
-.menu__calendar .datepicker--cell.-focus-,
 .calendar_dark .datepicker--cell.-focus- {
   background: #393e52;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
@@ -1354,14 +1341,10 @@
   color: #fff;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
   opacity: 0.75;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
@@ -1369,28 +1352,20 @@
   color: #fff;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
   opacity: 0.75;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
   color: #fff;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
   background: #393e52;
 }
 
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
-.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
 .calendar_dark .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
@@ -1398,66 +1373,170 @@
   color: #fff;
 }
 
-.menu__calendar .datepicker--cell-day.-other-month-,
-.menu__calendar .datepicker--cell-year.-other-decade-,
 .calendar_dark .datepicker--cell-day.-other-month-,
 .calendar_dark .datepicker--cell-year.-other-decade- {
   color: #888;
 }
 
-.menu__calendar .datepicker--nav-action,
-.menu__calendar .datepicker--nav-title,
 .calendar_dark .datepicker--nav-action,
 .calendar_dark .datepicker--nav-title {
   border: none;
 }
 
-.menu__calendar .datepicker--nav-title,
-.menu__calendar .datepicker--nav-title i,
 .calendar_dark .datepicker--nav-title,
 .calendar_dark .datepicker--nav-title i {
   color: #fff;
 }
 
-.menu__calendar .datepicker--nav-action path,
 .calendar_dark .datepicker--nav-action path {
   stroke: #fff;
 }
 
-.menu__calendar .datepicker__note,
 .calendar_dark .datepicker__note {
   background-color: #d644d6;
 }
 
-.menu__calendar .datepicker__indicator,
 .calendar_dark .datepicker__indicator {
   border: solid 1px #393e52;
 }
 
-.menu__calendar .datepicker__event-text,
 .calendar_dark .datepicker__event-text {
   border: solid 1px #393e52;
 }
 
-.menu__calendar .datepicker__more,
 .calendar_dark .datepicker__more {
   color: #fff;
 }
 
-.menu__calendar .datepicker__day-container,
 .calendar_dark .datepicker__day-container {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
 
-.menu__calendar .datepicker__day-border,
 .calendar_dark .datepicker__day-border {
   border: solid 1px #393e52;
 }
 
-.menu__calendar .datepicker__cells-days-border,
 .calendar_dark .datepicker__cells-days-border {
+  border-right: solid 1px #393e52;
+  border-bottom: solid 1px #393e52;
+}
+
+.menu__calendar .calendar {
+  border-bottom: solid 1px #474c63 !important;
+}
+
+.menu__calendar .datepicker {
+  color: #fff;
+}
+
+.menu__calendar .datepicker--day-name {
+  color: #ccc;
+  font-style: normal;
+}
+
+.menu__calendar .datepicker--day-name.-weekend- {
+  color: #ff5940;
+}
+
+.menu__calendar .datepicker--cell.-current- {
+  color: #2dceb6;
+}
+
+.menu__calendar .datepicker--cell.-weekend- {
+  color: #ff5940;
+}
+
+.menu__calendar .datepicker--cell.-focus- {
+  background: #393e52;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
+  opacity: 0.75;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+  color: #fff;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+  background: #393e52;
+}
+
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
+  background: #2dceb6;
+  color: #fff;
+}
+
+.menu__calendar .datepicker--cell-day.-other-month-,
+.menu__calendar .datepicker--cell-year.-other-decade- {
+  color: #888;
+}
+
+.menu__calendar .datepicker--nav-action,
+.menu__calendar .datepicker--nav-title {
+  border: none;
+}
+
+.menu__calendar .datepicker--nav-title,
+.menu__calendar .datepicker--nav-title i {
+  color: #fff;
+}
+
+.menu__calendar .datepicker--nav-action path {
+  stroke: #fff;
+}
+
+.menu__calendar .datepicker__note {
+  background-color: #d644d6;
+}
+
+.menu__calendar .datepicker__indicator {
+  border: solid 1px #393e52;
+}
+
+.menu__calendar .datepicker__event-text {
+  border: solid 1px #393e52;
+}
+
+.menu__calendar .datepicker__more {
+  color: #fff;
+}
+
+.menu__calendar .datepicker__day-container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.menu__calendar .datepicker__day-border {
+  border: solid 1px #393e52;
+}
+
+.menu__calendar .datepicker__cells-days-border {
   border-right: solid 1px #393e52;
   border-bottom: solid 1px #393e52;
 }
@@ -1506,8 +1585,9 @@ fieldset {
   padding: 0;
 }
 
-.card__name-text {
-  font-size: 15px;
+.card__header {
+  background: #303548;
+  border-bottom: solid 1px #474c63;
 }
 
 .card__header_transparent {
@@ -1515,96 +1595,79 @@ fieldset {
   border: none;
 }
 
-.card__header_transparent .card__name-text {
-  color: #fff;
-  margin: 0 10px;
+.card__header .button {
+  background: #595d6d;
 }
 
-/*.widget-grid_multiple*/
+.card__header .button_hovered {
+  background: #2dceb6;
+}
+
+.card__header .button_highlighted {
+  background: #2dceb6;
+}
+
+.card__header .button_highlighted.button_hovered {
+  background: #595d6d;
+}
+
+.card__header .select__container.select_checked > .button {
+  background: #2dceb6;
+}
+
+.card__header .button:before {
+  background: #303548;
+}
+
+.card__header .button__text {
+  color: #fff;
+}
+
+.card__header .button .button__text_placeholder,
+.card__header a.button .button__text_placeholder,
+.card__header a.button:hover .button__text_placeholder {
+  color: #999;
+}
+
+.card__header .input {
+  background: #595d6d;
+}
+
+.card__header .input_focused {
+  background: #2dceb6;
+}
+
+
+
+.card__header .input:before {
+  background: #303548;
+}
+
+.card__header .input__control {
+  color: #fff;
+}
+
+.card__header .input_filled {
+  background: #2dceb6;
+}
+
+.card__header .input__box .button,
+.card__header .input__box .button:before {
+  background: transparent;
+}
+
+.card__header .card__name-text {
+  color: #fff;
+  font-size: 15px;
+}
+
+.card__header_transparent .card__name-text {
+  margin: 0 10px;
+}
 
 .widget .card__header {
   background: transparent;
   border-bottom: none;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .button {
-  background: #595d6d;
-  /*background: #474c63;*/
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .button_hovered {
-  background: #2dceb6;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .button:before {
-  background: #303548;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .button__text {
-  color: #fff;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .card__name-text {
-  color: #fff;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .button .button__text_placeholder,
-.widget .card__header a.button .button__text_placeholder,
-.widget .card__header a.button:hover .button__text_placeholder {
-  color: #999;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input {
-  background: #595d6d;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input_focused {
-  background: #2dceb6;
-}
-
-/*.widget-grid_multiple*/
-
-
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input:before {
-  background: #303548;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input__control {
-  color: #fff;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input_filled {
-  background: #2dceb6;
-}
-
-/*.widget-grid_multiple*/
-
-.widget .card__header .input__box .button,
-.widget .card__header .input__box .button:before {
-  background: transparent;
 }
 
 .widget__register > .card > .card__header {
@@ -1612,155 +1675,9 @@ fieldset {
   border-bottom: solid 1px #474c63;
 }
 
-.fs-view__middle-scroll > .card > .card__header {
-  background: #303548;
-  border-bottom: solid 1px #474c63;
-}
-
-.fs-view__middle-scroll > .card > .card__header_transparent {
-  background: transparent;
-  border: none;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button {
-  background: #595d6d;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button_hovered {
-  background: #2dceb6;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button_highlighted {
-  background: #2dceb6;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button_highlighted.button_hovered {
-  background: #595d6d;
-}
-
-.fs-view__middle-scroll > .card > .card__header .select__container.select_checked > .button {
-  background: #2dceb6;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button:before {
-  background: #303548;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button__text {
-  color: #fff;
-}
-
-.fs-view__middle-scroll > .card > .card__header .button .button__text_placeholder,
-.fs-view__middle-scroll > .card > .card__header a.button .button__text_placeholder,
-.fs-view__middle-scroll > .card > .card__header a.button:hover .button__text_placeholder {
-  color: #999;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input {
-  background: #595d6d;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input_focused {
-  background: #2dceb6;
-}
-
-
-
-.fs-view__middle-scroll > .card > .card__header .input:before {
-  background: #303548;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input__control {
-  color: #fff;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input_filled {
-  background: #2dceb6;
-}
-
-.fs-view__middle-scroll > .card > .card__header .input__box .button,
-.fs-view__middle-scroll > .card > .card__header .input__box .button:before {
-  background: transparent;
-}
-
 .card__left-renu {
   background: transparent;
   border-right: solid 1px #474c63;
-}
-
-.card__left-renu .card__header {
-  border-bottom: solid 1px #474c63;
-}
-
-.menu__calendar .card__header {
-  background: #303548;
-  border-bottom: solid 1px #474c63;
-}
-
-.menu__calendar .card__header_transparent {
-  background: transparent;
-  border: none;
-}
-
-.menu__calendar .card__header .button {
-  background: #595d6d;
-}
-
-.menu__calendar .card__header .button_hovered {
-  background: #2dceb6;
-}
-
-.menu__calendar .card__header .button_highlighted {
-  background: #2dceb6;
-}
-
-.menu__calendar .card__header .button_highlighted.button_hovered {
-  background: #595d6d;
-}
-
-.menu__calendar .card__header .select__container.select_checked > .button {
-  background: #2dceb6;
-}
-
-.menu__calendar .card__header .button:before {
-  background: #303548;
-}
-
-.menu__calendar .card__header .button__text {
-  color: #fff;
-}
-
-.menu__calendar .card__header .button .button__text_placeholder,
-.menu__calendar .card__header a.button .button__text_placeholder,
-.menu__calendar .card__header a.button:hover .button__text_placeholder {
-  color: #999;
-}
-
-.menu__calendar .card__header .input {
-  background: #595d6d;
-}
-
-.menu__calendar .card__header .input_focused {
-  background: #2dceb6;
-}
-
-
-
-.menu__calendar .card__header .input:before {
-  background: #303548;
-}
-
-.menu__calendar .card__header .input__control {
-  color: #fff;
-}
-
-.menu__calendar .card__header .input_filled {
-  background: #2dceb6;
-}
-
-.menu__calendar .card__header .input__box .button,
-.menu__calendar .card__header .input__box .button:before {
-  background: transparent;
 }
 
 /*.widget-grid_multiple*/
