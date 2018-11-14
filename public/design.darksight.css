@@ -849,6 +849,7 @@
 .widget-grid_multiple .widget_color_red .widget__border,
 .widget-grid_multiple .widget_color_green .widget__border,
 .widget-grid_multiple .widget_color_none .widget__border {
+  color: #fff;
   border: none;
 }
 
@@ -1465,8 +1466,11 @@ fieldset {
 }
 
 .modal__ .card__header {
-  border-bottom: solid 1px #474c63;
-  background: url("images/darksight/background.png") right top no-repeat #303548;
+  /*
+    border-bottom: solid 1px #474c63;
+    background: url('background.png') right top no-repeat #303548;
+    */
+  background: #303548;
 }
 
 @media (max-width: 768px) {
