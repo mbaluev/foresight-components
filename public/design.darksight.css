@@ -1468,6 +1468,11 @@ fieldset {
   opacity: .25;
 }
 
+.modal__ .card__header {
+  border-bottom: solid 1px #474c63;
+  background: url("images/darksight/background.png") right top no-repeat #303548;
+}
+
 @media (max-width: 768px) {
   .fs-view__left_hidden {
     margin-left: -300px;
