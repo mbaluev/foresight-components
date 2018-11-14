@@ -1607,7 +1607,11 @@ fieldset {
   background: transparent;
 }
 
-.widget__register > .card > .card__header,
+.widget__register > .card > .card__header {
+  background: #303548;
+  border-bottom: solid 1px #474c63;
+}
+
 .fs-view__middle-scroll > .card > .card__header {
   background: #303548;
   border-bottom: solid 1px #474c63;
@@ -1686,6 +1690,77 @@ fieldset {
 
 .card__left-renu .card__header {
   border-bottom: solid 1px #474c63;
+}
+
+.menu__calendar.card__header {
+  background: #303548;
+  border-bottom: solid 1px #474c63;
+}
+
+.menu__calendar.card__header_transparent {
+  background: transparent;
+  border: none;
+}
+
+.menu__calendar.card__header .button {
+  background: #595d6d;
+}
+
+.menu__calendar.card__header .button_hovered {
+  background: #2dceb6;
+}
+
+.menu__calendar.card__header .button_highlighted {
+  background: #2dceb6;
+}
+
+.menu__calendar.card__header .button_highlighted.button_hovered {
+  background: #595d6d;
+}
+
+.menu__calendar.card__header .select__container.select_checked > .button {
+  background: #2dceb6;
+}
+
+.menu__calendar.card__header .button:before {
+  background: #303548;
+}
+
+.menu__calendar.card__header .button__text {
+  color: #fff;
+}
+
+.menu__calendar.card__header .button .button__text_placeholder,
+.menu__calendar.card__header a.button .button__text_placeholder,
+.menu__calendar.card__header a.button:hover .button__text_placeholder {
+  color: #999;
+}
+
+.menu__calendar.card__header .input {
+  background: #595d6d;
+}
+
+.menu__calendar.card__header .input_focused {
+  background: #2dceb6;
+}
+
+
+
+.menu__calendar.card__header .input:before {
+  background: #303548;
+}
+
+.menu__calendar.card__header .input__control {
+  color: #fff;
+}
+
+.menu__calendar.card__header .input_filled {
+  background: #2dceb6;
+}
+
+.menu__calendar.card__header .input__box .button,
+.menu__calendar.card__header .input__box .button:before {
+  background: transparent;
 }
 
 /*.widget-grid_multiple*/
