@@ -1310,6 +1310,42 @@ fieldset {
   border-right: solid 1px #474c63;
 }
 
+.tabs__tab .button:before {
+  background-color: #303548;
+}
+
+.tabs__tab_active .button {
+  background-color: #fff;
+}
+
+.tabs__tab_active .button:before {
+  background-color: #fff;
+}
+
+.tabs__tab_active .button__text {
+  color: #222;
+}
+
+.tabs__tab .button.button_hovered {
+  background-color: #2dceb6;
+}
+
+.tabs__tab .button.button_hovered:before {
+  bottom: 0;
+}
+
+.tabs__radio .tabs__tab .button.button_hovered {
+  background-color: #2dceb6;
+}
+
+.tabs__radio .tabs__tab .button:before {
+  background-color: #303548;
+}
+
+.tabs__radio .tabs__tab_active .button:before {
+  background-color: #303548;
+}
+
 /*.widget-grid_multiple*/
 
 .widget .table {
@@ -1425,6 +1461,10 @@ fieldset {
   width: 12px;
   height: 8px;
   margin-left: 10px;
+}
+
+.modal__backdrop {
+  background-color: rgba(30,36,52,.7);
 }
 
 @media (max-width: 768px) {

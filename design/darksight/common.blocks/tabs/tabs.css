@@ -1,0 +1,28 @@
+.tabs__tab .button:before {
+    background-color: #303548;
+}
+.tabs__tab_active .button {
+    background-color: #fff;
+}
+.tabs__tab_active .button:before {
+    background-color: #fff;
+}
+.tabs__tab_active .button__text {
+    color: #222;
+}
+.tabs__tab .button.button_hovered {
+    background-color: #2dceb6;
+}
+.tabs__tab .button.button_hovered:before {
+    bottom: 0;
+}
+
+.tabs__radio .tabs__tab .button.button_hovered {
+    background-color: #2dceb6;
+}
+.tabs__radio .tabs__tab .button:before {
+    background-color: #303548;
+}
+.tabs__radio .tabs__tab_active .button:before {
+    background-color: #303548;
+}
