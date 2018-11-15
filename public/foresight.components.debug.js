@@ -1922,6 +1922,11 @@ $(function(){
                     that.video_canplay = function(){
                         that.data._video.oncanplay = that.video_play_pause_enale;
                     };
+                    that.video_canplaythrough = function(){
+                        that.data._video.oncanplaythrough = function(){
+                            console.log('canplaythrough');
+                        };
+                    };
                     that.video_set_metadata = function(){
                         that.video_set_progress_text();
                         that.loader_remove();
