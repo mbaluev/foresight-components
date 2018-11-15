@@ -2063,6 +2063,7 @@ $(function(){
                             that.init_components();
                             that.bind();
                             that.video_canplay();
+                            that.video_canplaythrough();
                         } else {
                             that.error();
                         }
