@@ -3241,12 +3241,14 @@ a.button_color_blue_light:hover .button__text {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
+  border-top: solid 1px #ddd;
 }
 
 .calendar__row_left,
 .calendar__row_right {
   -ms-flex-preferred-size: 50%;
       flex-basis: 50%;
+  border-left: solid 1px #ddd;
 }
 
 .calendar__datepicker {
@@ -3269,7 +3271,6 @@ a.button_color_blue_light:hover .button__text {
 .calendar__table {
   width: 100%;
   overflow: auto;
-  border-top: solid 1px #ddd;
 }
 
 .calendar__table .table thead td {
@@ -3277,7 +3278,6 @@ a.button_color_blue_light:hover .button__text {
 }
 
 .calendar__row_right .calendar__table {
-  border-left: solid 1px #ddd;
   border-top: none;
 }
 
