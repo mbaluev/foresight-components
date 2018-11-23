@@ -3837,9 +3837,11 @@ var CalendarEvent = function(options){
             },
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
                 that.data.api.update(event, function(event){
-                    that.data.events.map(function(d){
+                    that.data.events = that.data.events.map(function(d){
                         if (d.id == event.id) {
-                            d = event;
+                            return event;
+                        } else {
+                            return d;
                         }
                     });
                     that.mc_update(that.data.events);
