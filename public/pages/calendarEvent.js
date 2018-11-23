@@ -171,7 +171,7 @@ var CalendarEvent = function(options){
         });
     };
     that.mc_select = function(date){
-        that.data._menu_calendar.data('_datepicker').selectDate(date._d);
+        that.data._menu_calendar.data('_datepicker').selectDate(date);
     };
     that.mc_update = function(items){
         that.data._menu_calendar.data('initDate', that.data._current.date);
