@@ -56,7 +56,11 @@
 .fc-unthemed .fc-list-empty {
     background-color: transparent;
 }
-a[data-goto]:hover {
+.fc a {
+    text-decoration: none;
+    color: #fff;
+}
+.fc a[data-goto]:hover {
     text-decoration: none;
     color: #2dceb6;
 }
