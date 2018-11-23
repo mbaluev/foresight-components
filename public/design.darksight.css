@@ -1597,6 +1597,14 @@ fieldset {
   color: #2dceb6;
 }
 
+.fc a.fc-event {
+  color: #222;
+}
+
+.fc a.fc-event:hover {
+  color: #fff;
+}
+
 @media (max-width: 768px) {
   .fs-view__left_hidden {
     margin-left: -300px;
