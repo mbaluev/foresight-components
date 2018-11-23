@@ -219,7 +219,7 @@ var CalendarEvent = function(options){
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
                 that.data.api.update(event, function(event){
                     that.data.events.map(function(d){
-                        if (d._id == event._id) {
+                        if (d.id == event.id) {
                             d = event;
                         }
                     });
@@ -231,7 +231,7 @@ var CalendarEvent = function(options){
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
                 that.data.api.update(event, function(event){
                     that.data.events.map(function(d){
-                        if (d._id == event._id) {
+                        if (d.id == event.id) {
                             d = event;
                         }
                     });
