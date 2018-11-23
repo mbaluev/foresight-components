@@ -3816,18 +3816,34 @@ var CalendarEvent = function(options){
                 }
             },
             eventClick: function(event, jsEvent, view) {
-                that.data.api.click(event, jsEvent, view);
+                that.data.api.click(event, function(event){
+
+                });
                 //console.log('Event: ' + calEvent.title);
                 //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
                 //console.log('View: ' + view.name);
             },
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
-                that.data.api.update(event, delta, revertFunc, jsEvent, ui, view);
+                that.data.api.update(event, function(event){
+                    that.data.events.map(function(d){
+                        if (d.id == event.id) {
+                            d = event;
+                        }
+                    });
+                    that.mc_update(that.data.events);
+                });
                 //console.log(event.title + " end is now " + event.end.format());
                 //revertFunc();
             },
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
-                that.data.api.update(event, delta, revertFunc, jsEvent, ui, view);
+                that.data.api.update(event, function(event){
+                    that.data.events.map(function(d){
+                        if (d.id == event.id) {
+                            d = event;
+                        }
+                    });
+                    that.mc_update(that.data.events);
+                });
                 //console.log(event.title + " was dropped on " + event.start.format());
                 //revertFunc();
             },
