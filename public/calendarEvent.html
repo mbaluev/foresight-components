@@ -1,0 +1,282 @@
+<!doctype html>
+<head>
+    <title>foresight-components</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="images/darksight/favicon.ico">
+    <link rel="stylesheet" href="foresight.third.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="foresight.components.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="design.robotomono.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="design.darksight.min.css" type="text/css" media="all">
+</head>
+<body class="page proximanova roboto_mono">
+    <div class="fs-view">
+        <div class="fs-view__header">
+            <div class="header">
+                <div class="header__column header__column_bars">
+                    <button class="button button_color_transparent" type="button" data-fc="button" data-toggle="menu-left">
+                        <span class="icon icon_svg_bars_white"></span>
+                    </button>
+                </div>
+                <div class="header__column header__column_name">
+                    <div class="header__caption">
+                        <a class="header__caption-text link" href="golodec2018.html">
+                            Информационная система обеспечения деятельности<br>Заместителя Председателя Правительства Российской Федерации<br>Голодец О.Ю.
+                        </a>
+                    </div>
+                </div>
+                <div class="header__column header__column_logo mobile_hide">
+                    <a class="header__logo" href="/"></a>
+                </div>
+                <div class="header__column header__column_counter mobile_hide">
+                    <div class="counter" data-fc="counter" data-counttime="true"></div>
+                    <span class="alertbox counter__date mobile_hide">
+                        <span class="alertbox__text" id="header__today">15 Января 2018</span>
+                    </span>
+                </div>
+                <div class="header__column header__column_account">
+                    <button class="button button_color_dark" data-fc="button" data-toggle="popup" data-target="#account" style="width: auto;">
+                        <span class="icon" id="user__photo"><span class="spinner"></span></span>
+                        <span class="button__text mobile mobile_hide" id="user__name">Системный Администратор</span>
+                        <span class="icon icon_svg_down icon_animate"></span>
+                    </button>
+                    <div class="popup" id="account" data-position="bottom right" data-width="auto" style="width: auto;">
+                        <ul class="popup__list">
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="/asyst/page/profile">
+                                    <span class="popup__text">Профиль</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="/asyst/page/settingscenter">
+                                    <span class="popup__text">Центр настроек</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="/asyst/default.aspx?showadmin=true" target="_blank">
+                                    <span class="popup__text">Администрирование</span>
+                                </a>
+                            </li>
+                            <li class="popup__list-item">
+                                <a class="popup__link" href="#" onclick="Asyst.API.AdminTools.logout();">
+                                    <span class="popup__text">Выход</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fs-view__main">
+            <div class="fs-view__left fs-view__left_hidden">
+                <div class="menu menu_color_darksight" data-fc="menu" data-toggle="click" data-autoClose="true">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_calendar_white"></span>
+                                    <span class="menu__item-text">Поручения Президента РФ</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_government_white"></span>
+                                    <span class="menu__item-text">Поручения Правительства РФ</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_images_white"></span>
+                                    <span class="menu__item-text">Информационные сервисы</span>
+                                    <span class="menu__icon icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Новости</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">СМИ</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Видео</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="menu__item">
+                            <a class="menu__item-link link">
+                                <span class="menu__item-link-content">
+                                    <span class="icon icon_svg_images_white"></span>
+                                    <span class="menu__item-text">Информационные сервисы</span>
+                                    <span class="menu__icon icon icon_svg_right_white"></span>
+                                </span>
+                            </a>
+                            <div class="menu menu__submenu-container">
+                                <ul class="menu__list menu__submenu">
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Новости</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">СМИ</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="menu__item">
+                                        <a class="menu__item-link link" href="#">
+                                            <span class="menu__item-link-content">
+                                                <span class="menu__item-text">Видео</span>
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fs-view__middle fs-view__middle_full">
+                <div class="fs-view__middle-scroll" id="ce"
+                     style="background: #303548;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="third/jquery-3.2.1.min.js"></script>
+    <script src="third/jquery-ui.min.js"></script>
+    <script src="third/jquery-migrate-3.0.0.js"></script>
+    <script src="third/jquery.event.drag-2.3.0.js"></script>
+    <script src="third/jquery.event.drop-2.3.0.js"></script>
+    <script src="third/highcharts.js"></script>
+    <script src="foresight.third.min.js"></script>
+    <script src="foresight.components.debug.js"></script>
+    <script src="foresight.pages.debug.js"></script>
+    <script>
+        $(function(){
+            CalendarEvent({
+                title: 'Календарь событий',
+                containerid: 'ce',
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: '2018-11-01',
+                    },
+                    {
+                        title: 'Long Event',
+                        start: '2018-11-07',
+                        end: '2018-11-10'
+                    },
+                    /*
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: '2018-11-09T16:00:00'
+                    },
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: '2018-11-16T16:00:00'
+                    },
+                    */
+                    {
+                        title: 'Conference',
+                        start: '2018-11-11',
+                        end: '2018-11-13'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2018-11-12T10:30:00',
+                        end: '2018-11-12T12:30:00'
+                    },
+                    {
+                        title: 'Lunch',
+                        start: '2018-11-12T12:00:00'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2018-11-12T14:30:00'
+                    },
+                    {
+                        title: 'Happy Hour',
+                        start: '2018-11-12T17:30:00'
+                    },
+                    {
+                        title: 'Dinner',
+                        start: '2018-11-12T20:00:00'
+                    },
+                    {
+                        title: 'Birthday Party',
+                        start: '2018-11-13T07:00:00'
+                    },
+                    {
+                        title: 'Click for Google',
+                        url: 'http://google.com/',
+                        start: '2018-11-28'
+                    }
+                ],
+                items: [
+                    {
+                        date: new Date(),
+                        name: 'qwertyuioplkjhgfdsazxcvbnm',
+                        background: '#5a97f2',
+                        color: '#fff',
+                        indicator: 1,
+                        url: 'javascript:alert(\'qwertyuioplkjhgfdsazxcvbnm\')'
+                    },
+                    {
+                        date: new Date(),
+                        name: 'qwertyuioplkjhgfdsazxcvbnm',
+                        background: '#5a97f2',
+                        color: '#fff',
+                        url: 'javascript:alert(\'qwertyuioplkjhgfdsazxcvbnm\')'
+                    },
+                    {
+                        date: new Date(),
+                        name: 'qwertyuioplkjhgfdsazxcvbnm',
+                        background: '#5a97f2',
+                        color: '#fff',
+                        url: 'javascript:alert(\'qwertyuioplkjhgfdsazxcvbnm\')'
+                    }
+                ],
+                api: {
+                    new: function(date, render){
+                        var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
+                        var event = {
+                            name: 'new',
+                            title: 'new',
+                            date: date._d,
+                            start: date.format(),
+                            background: backgrounds[Math.floor(Math.random() * 3)]
+                        };
+                        render(event);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

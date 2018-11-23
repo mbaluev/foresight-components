@@ -124,7 +124,10 @@ var third_js = [
     'public/third/filesize.js',
     'public/third/lightbox/lightbox.js',
     'public/third/particles/particles.min.js',
-    'public/third/jquery.countdown.min.js'
+    'public/third/jquery.countdown.min.js',
+    'public/third/fullcalendar-3.9.0/lib/moment.min.js',
+    'public/third/fullcalendar-3.9.0/fullcalendar.min.js',
+    'public/third/fullcalendar-3.9.0/locale-all.js'
     /*
     'public/third/slickgrid/slick.core.js',
     'public/third/slickgrid/slick.formatters.js',
@@ -145,7 +148,8 @@ var third_css = [
     'public/third/air-datepicker/datepicker.min.css',
     'public/third/jquery.riskmatrix.css',
     'public/third/gridstack/gridstack.css',
-    'public/third/lightbox/lightbox.css'
+    'public/third/lightbox/lightbox.css',
+    'public/third/fullcalendar-3.9.0/fullcalendar.min.css'
     /*
     'public/third/slickgrid/slick.grid.css',
     'public/third/slickgrid/controls/slick.pager.css',
@@ -158,7 +162,8 @@ var pages_js = [
     'public/pages/docsearch.js',
     'public/pages/gridview.js',
     'public/pages/reports.js',
-    'public/pages/gridboard.js'
+    'public/pages/gridboard.js',
+    'public/pages/calendarEvent.js'
 ];
 
 var getFileNames = require('html2bl').getFileNames(params);

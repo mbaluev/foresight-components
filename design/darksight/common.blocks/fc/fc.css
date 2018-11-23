@@ -1,0 +1,62 @@
+.fc {
+    padding: 0;
+    flex: 1 1 auto;
+}
+.fc-unthemed .fc-content,
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-list-view,
+.fc-unthemed .fc-popover,
+.fc-unthemed .fc-row,
+.fc-unthemed tbody,
+.fc-unthemed td,
+.fc-unthemed th,
+.fc-unthemed thead {
+    border-color: #474c63;
+}
+.fc-event, .fc-event-dot,
+.fc-unthemed td.fc-today {
+    background-color: #2dceb6;
+    color: #222;
+    border: 1px solid #2dceb6;
+}
+.fc-day-header {
+    padding: 5px !important;
+    font-weight: normal;
+}
+.fc-axis {
+    padding: 0 5px !important;
+    font-weight: normal;
+}
+.fc-unthemed .fc-divider,
+.fc-unthemed .fc-list-heading td,
+.fc-unthemed .fc-popover .fc-header {
+    background: #393e52;
+}
+.fc-unthemed .fc-popover {
+    background-color: #303548;
+    border: none;
+}
+.fc-popover .fc-header {
+    padding: 10px;
+}
+.fc-unthemed .fc-popover .fc-header .fc-close {
+    color: #fff;
+}
+.fc-popover {
+    box-shadow: 0 0 50px rgba(0,0,0,.5);
+}
+.fc-unthemed .fc-list-item:hover td {
+    background-color: #393e52;
+}
+.fc td, .fc th {}
+.fc-list-heading td {
+    font-weight: normal;
+}
+.fc-unthemed .fc-list-empty {
+    background-color: transparent;
+}
+a[data-goto]:hover {
+    text-decoration: none;
+    color: #2dceb6;
+}

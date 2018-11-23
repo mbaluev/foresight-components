@@ -19,6 +19,12 @@
                         modal: {
                             render: false
                         },
+                        table: {
+                            render: false
+                        },
+                        header: {
+                            render: true
+                        },
                         onSelect: null,
                         onSelectAllowed: true,
                         useItemsLength: true,
@@ -106,7 +112,7 @@
                         that.data._el.target.append(
                             that.data._el.calendar__container.append(
                                 that.data._el.card.append(
-                                    that.data._el.card__header,
+                                    (that.data.header.render ? that.data._el.card__header : null),
                                     that.data._el.card__main.append(
                                         that.data._el.calendar__row_first.append(
                                             that.data._el.calendar__datepicker
@@ -150,7 +156,7 @@
                                         items = that.data.items.filter(function(it){
                                             return it.date && typeof it.date == 'object';
                                         }).filter(function(it){
-                                            return  it.date.getDate() == date.getDate() &&
+                                            return it.date.getDate() == date.getDate() &&
                                                 it.date.getMonth() == date.getMonth() &&
                                                 it.date.getFullYear() == date.getFullYear();
                                         });
@@ -164,12 +170,12 @@
                                                         items.map(function(item, i){
                                                             return (i < that.data.events.maxItems ? [
                                                                 '<div class="datepicker__event">',
-                                                                    '<a class="datepicker__event-link link" href="' + item.url + '" target="_blank" onclick="event.cancelBubble = true; if(event.stopPropagation){ event.stopPropagation(); }" data-tooltip="' + item[that.data.events.TooltipColumn] + '">',
-                                                                    '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>',
-                                                                    '<div class="datepicker__event-text" ',
-                                                                    item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
-                                                                    '>' + item[that.data.events.TitleColumn] + '</div>',
-                                                                    '</a>',
+                                                                '<a class="datepicker__event-link link" href="' + item.url + '" target="_blank" onclick="event.cancelBubble = true; if(event.stopPropagation){ event.stopPropagation(); }" data-tooltip="' + item[that.data.events.TooltipColumn] + '">',
+                                                                (item.indicator ? '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>' : null),
+                                                                '<div class="datepicker__event-text" ',
+                                                                item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
+                                                                '>' + item[that.data.events.TitleColumn] + '</div>',
+                                                                '</a>',
                                                                 '</div>'
                                                             ].join('') : '')
                                                         }).join(''),
@@ -241,23 +247,16 @@
                                         }
                                     }
                                     that.data._el.card__name.find('.card__name-text').text(that.data.displayDate);
-                                    if (that.data.events.render) {
+                                    if (that.data.modal.render) {
                                         if (that.data._selectedItems.length > 0) {
                                             if (that.data._showModal) {
                                                 that.render_modal();
                                             }
                                         }
-                                    } else {
-                                        if (that.data.modal.render) {
-                                            if (that.data._selectedItems.length > 0) {
-                                                if (that.data._showModal) {
-                                                    that.render_modal();
-                                                }
-                                            }
-                                        } else {
-                                            that.data._el.calendar__table.empty().append(that.render_table());
-                                            that.data._el.calendar__table.find('[data-tooltip]').tooltip();
-                                        }
+                                    }
+                                    if (that.data.table.render) {
+                                        that.data._el.calendar__table.empty().append(that.render_table());
+                                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
                                     }
                                     if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
                                         that.data.onSelect(formattedDate, date);

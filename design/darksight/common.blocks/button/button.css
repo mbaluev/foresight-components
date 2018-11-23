@@ -38,3 +38,12 @@
     box-shadow: inset 0 0 0 2px rgba(0,0,0,.08);
     background-color: transparent !important;
 }
+.button.button_checked {
+    background-color: #2dceb6 !important;
+}
+.button.button_checked:before {
+    background-color: #2dceb6 !important;
+}
+.button.button_checked .button__text {
+    color: #222;
+}

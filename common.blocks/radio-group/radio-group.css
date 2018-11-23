@@ -10,6 +10,7 @@
     display: inline-flex;
     white-space: nowrap;
     flex-wrap: nowrap !important;
+    position: relative;
 }
 
 .radio-group_type_button .radio + .radio { margin-left: -1px; }

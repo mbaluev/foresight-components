@@ -70,4 +70,9 @@
 .radio_type_button {
     display: inline-flex;
     max-width: 100%;
+    z-index: 1;
+}
+.radio_type_button.radio_hovered,
+.radio_type_button.radio_checked {
+    z-index: 2;
 }
