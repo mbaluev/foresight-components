@@ -3826,7 +3826,7 @@ var CalendarEvent = function(options){
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
                 that.data.api.update(event, function(event){
                     that.data.events.map(function(d){
-                        if (d.id == event.id) {
+                        if (d._id == event._id) {
                             d = event;
                         }
                     });
@@ -3838,7 +3838,7 @@ var CalendarEvent = function(options){
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
                 that.data.api.update(event, function(event){
                     that.data.events = that.data.events.map(function(d){
-                        if (d.id == event.id) {
+                        if (d._id == event._id) {
                             return event;
                         } else {
                             return d;
@@ -3888,8 +3888,7 @@ var CalendarEvent = function(options){
     that.prepare = function(){
         that.data.events.map(function(d){
             d.name = d.title;
-            d.date = moment(d.start, "YYYY-MM-DD");
-            d.date = d.date._d;
+            d.date = new Date(moment(d.start, "YYYY-MM-DD"));
         })
     };
     that.bind = function(){
