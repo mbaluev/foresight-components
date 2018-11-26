@@ -3612,10 +3612,10 @@ var CalendarEvent = function(options){
         events: [],
         title: 'Календарь',
         api: {
-            new: function(){},
-            click: function(){},
-            update: function(){},
-            delete: function(){}
+            new: null,
+            click: null,
+            update: null,
+            delete: null
         }
     };
     that.data = $.extend(true, {}, that.data, options);
@@ -3816,48 +3816,57 @@ var CalendarEvent = function(options){
                 }
             },
             eventClick: function(event, jsEvent, view) {
-                that.data.api.click(event, function(event){
-
-                });
-                //console.log('Event: ' + calEvent.title);
-                //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                //console.log('View: ' + view.name);
+                if (typeof that.data.api.click == 'function') {
+                    that.data.api.click(event, callback);
+                }
+                function callback(event){
+                    that.replace(event);
+                    that.mc_update(that.data.events);
+                }
             },
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
-                that.data.api.update(event, function(event){
-                    that.data.events.map(function(d){
-                        if (d._id == event._id) {
-                            d = event;
-                        }
-                    });
+                if (typeof that.data.api.update == 'function') {
+                    that.data.api.update(event, callback);
+                } else {
+                    callback(event);
+                }
+                function callback(event){
+                    that.replace(event);
                     that.mc_update(that.data.events);
-                });
-                //console.log(event.title + " end is now " + event.end.format());
-                //revertFunc();
+                }
             },
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
-                that.data.api.update(event, function(event){
-                    that.data.events = that.data.events.map(function(d){
-                        if (d._id == event._id) {
-                            return event;
-                        } else {
-                            return d;
-                        }
-                    });
+                if (typeof that.data.api.update == 'function') {
+                    that.data.api.update(event, callback);
+                } else {
+                    callback(event);
+                }
+                function callback(event){
+                    event.date = event.start._d;
+                    that.replace(event);
                     that.mc_update(that.data.events);
-                });
-                //console.log(event.title + " was dropped on " + event.start.format());
-                //revertFunc();
+                }
             },
             dayClick: function(date, jsEvent, view) {
-                //console.log('Clicked on: ' + date.format());
-                //console.log('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-                //console.log('Current view: ' + view.name);
-                that.data.api.new(date, function(event){
-                    that.data.events.push(event);
-                    that.data._full_calendar.fullCalendar('renderEvent', event, true);
+                if (typeof that.data.api.new == 'function') {
+                    that.data.api.new(date, callback);
+                } else {
+                    var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
+                    var item = {
+                        name: 'new',
+                        title: 'new',
+                        date: date._d,
+                        start: date.format(),
+                        background: backgrounds[Math.floor(Math.random() * 3)]
+                    };
+                    callback(item);
+                }
+                function callback(item){
+                    item._eid = that.data.events.length;
+                    that.data.events.push(item);
+                    that.data._full_calendar.fullCalendar('renderEvent', item, true);
                     that.mc_update(that.data.events);
-                });
+                }
             }
         });
     };
@@ -3886,10 +3895,20 @@ var CalendarEvent = function(options){
     };
 
     that.prepare = function(){
-        that.data.events.map(function(d){
+        that.data.events.map(function(d, i){
+            d._eid = i;
             d.name = d.title;
             d.date = new Date(moment(d.start, "YYYY-MM-DD"));
         })
+    };
+    that.replace = function(event){
+        that.data.events = that.data.events.map(function(d){
+            if (d._eid == event._eid) {
+                return event;
+            } else {
+                return d;
+            }
+        });
     };
     that.bind = function(){
         that.data._el.button_today.on('click', function(){
