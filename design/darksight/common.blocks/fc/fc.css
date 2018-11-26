@@ -14,11 +14,13 @@
 .fc-unthemed thead {
     border-color: #474c63;
 }
-.fc-event, .fc-event-dot,
-.fc-unthemed td.fc-today {
+.fc-event, .fc-event-dot {
     background-color: #2dceb6;
     color: #222;
     border: 1px solid #2dceb6;
+}
+.fc-unthemed td.fc-today {
+    background-color: #393e52;
 }
 .fc-day-header {
     padding: 5px !important;
