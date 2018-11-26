@@ -14,10 +14,14 @@
 .fc-unthemed thead {
     border-color: #474c63;
 }
-.fc-event, .fc-event-dot {
+.fc-event {
     background-color: #bbb;
     color: #222;
     border: 1px solid #bbb;
+}
+.fc-event-dot {
+    background-color: #bbb;
+    color: #222;
 }
 .fc-unthemed td.fc-today {
     background-color: #393e52;
@@ -71,7 +75,4 @@
 }
 .fc a.fc-event:hover {
     color: #fff;
-}
-.fc-ltr .fc-list-item-marker {
-    display: none;
 }

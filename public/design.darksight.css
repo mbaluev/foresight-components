@@ -1532,11 +1532,15 @@ fieldset {
   border-color: #474c63;
 }
 
-.fc-event,
-.fc-event-dot {
+.fc-event {
   background-color: #bbb;
   color: #222;
   border: 1px solid #bbb;
+}
+
+.fc-event-dot {
+  background-color: #bbb;
+  color: #222;
 }
 
 .fc-unthemed td.fc-today {
@@ -1606,10 +1610,6 @@ fieldset {
 
 .fc a.fc-event:hover {
   color: #fff;
-}
-
-.fc-ltr .fc-list-item-marker {
-  display: none;
 }
 
 @media (max-width: 768px) {

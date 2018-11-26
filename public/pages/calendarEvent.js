@@ -201,14 +201,7 @@ var CalendarEvent = function(options){
                 that.data._el.radio_group.radio_group('check', 'agendaWeek');
                 that.data._full_calendar.fullCalendar('changeView', 'agendaWeek')
             },
-            eventRender: function(event, element) {
-                if (event.background) {
-                    element.css({
-                        'background': event.background,
-                        'border-color': event.background
-                    });
-                }
-            },
+            eventRender: function(event, element) {},
             eventClick: function(event, jsEvent, view) {
                 if (typeof that.data.api.click == 'function') {
                     that.data.api.click(event, callback);
@@ -255,11 +248,11 @@ var CalendarEvent = function(options){
                 if (typeof that.data.api.new == 'function') {
                     that.data.api.new(date, callback);
                 } else {
-                    var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
+                    var colors = ['#2dceb6', '#5a97f2', '#d644d6'];
                     var item = {
                         title: 'new',
                         start: date,
-                        background: backgrounds[Math.floor(Math.random() * 3)]
+                        color: colors[Math.floor(Math.random() * 3)]
                     };
                     callback(item);
                 }
