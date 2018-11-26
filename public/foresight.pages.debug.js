@@ -3865,7 +3865,7 @@ var CalendarEvent = function(options){
                     var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
                     var item = {
                         title: 'new',
-                        start: date.toDate(),
+                        start: date,
                         background: backgrounds[Math.floor(Math.random() * 3)]
                     };
                     callback(item);
