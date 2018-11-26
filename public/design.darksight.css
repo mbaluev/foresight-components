@@ -1608,6 +1608,10 @@ fieldset {
   color: #fff;
 }
 
+.fc-ltr .fc-list-item-marker {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .fs-view__left_hidden {
     margin-left: -300px;
