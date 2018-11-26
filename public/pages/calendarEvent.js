@@ -116,7 +116,8 @@ var CalendarEvent = function(options){
         date: null,
         day: null,
         month: null,
-        year: null
+        year: null,
+        i: 0
     };
 
     that.render = function(){
@@ -211,10 +212,15 @@ var CalendarEvent = function(options){
             eventClick: function(event, jsEvent, view) {
                 if (typeof that.data.api.click == 'function') {
                     that.data.api.click(event, callback);
+                } else {
+                    callback(event);
                 }
                 function callback(event){
+                    event.name = event.title;
+                    event.date = moment(event.start, "YYYY-MM-DD").toDate();
                     that.replace(event);
                     that.mc_update(that.data.events);
+                    that.data._full_calendar.fullCalendar('updateEvent', event);
                 }
             },
             eventResize: function(event, delta, revertFunc, jsEvent, ui, view) {
@@ -224,8 +230,11 @@ var CalendarEvent = function(options){
                     callback(event);
                 }
                 function callback(event){
+                    event.name = event.title;
+                    event.date = moment(event.start, "YYYY-MM-DD").toDate();
                     that.replace(event);
                     that.mc_update(that.data.events);
+                    that.data._full_calendar.fullCalendar('updateEvent', event);
                 }
             },
             eventDrop: function(event, delta, revertFunc, jsEvent, ui, view) {
@@ -235,9 +244,11 @@ var CalendarEvent = function(options){
                     callback(event);
                 }
                 function callback(event){
-                    event.date = event.start._d;
+                    event.name = event.title;
+                    event.date = moment(event.start, "YYYY-MM-DD").toDate();
                     that.replace(event);
                     that.mc_update(that.data.events);
+                    that.data._full_calendar.fullCalendar('updateEvent', event);
                 }
             },
             dayClick: function(date, jsEvent, view) {
@@ -246,16 +257,17 @@ var CalendarEvent = function(options){
                 } else {
                     var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
                     var item = {
-                        name: 'new',
                         title: 'new',
-                        date: date._d,
-                        start: date.format(),
+                        start: date.toDate(),
                         background: backgrounds[Math.floor(Math.random() * 3)]
                     };
                     callback(item);
                 }
                 function callback(item){
-                    item._eid = that.data.events.length;
+                    that.data._current.i++;
+                    item._eid = that.data._current.i;
+                    item.name = item.title;
+                    item.date = moment(item.start, "YYYY-MM-DD").toDate();
                     that.data.events.push(item);
                     that.data._full_calendar.fullCalendar('renderEvent', item, true);
                     that.mc_update(that.data.events);
@@ -289,15 +301,23 @@ var CalendarEvent = function(options){
 
     that.prepare = function(){
         that.data.events.map(function(d, i){
-            d._eid = i;
+            that.data._current.i = i;
+            d._eid = that.data._current.i;
             d.name = d.title;
-            d.date = new Date(moment(d.start, "YYYY-MM-DD"));
+            d.date = moment(d.start, "YYYY-MM-DD").toDate();
         })
     };
-    that.replace = function(event){
+    that.replace = function(e){
         that.data.events = that.data.events.map(function(d){
-            if (d._eid == event._eid) {
-                return event;
+            if (d._eid == e._eid) {
+                return {
+                    _eid: e._eid,
+                    title: e.title,
+                    name: e.name,
+                    date: e.date,
+                    start: e.start,
+                    end: e.end
+                };
             } else {
                 return d;
             }

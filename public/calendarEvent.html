@@ -182,30 +182,17 @@
                 containerid: 'ce',
                 events: [
                     {
-                        title: 'All Day Event',
-                        start: '2018-11-01',
-                    },
-                    {
                         title: 'Long Event',
                         start: '2018-11-07',
                         end: '2018-11-10'
                     },
-                    /*
                     {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2018-11-09T16:00:00'
+                        title: 'All Day Event',
+                        start: new Date('2018-11-18')
                     },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2018-11-16T16:00:00'
-                    },
-                    */
                     {
                         title: 'Conference',
-                        start: '2018-11-11',
-                        end: '2018-11-13'
+                        start: moment('2018-11-18')
                     },
                     {
                         title: 'Meeting',
@@ -237,22 +224,26 @@
                         url: 'http://google.com/',
                         start: '2018-11-28'
                     }
+                    /*
+                     {
+                     id: 999,
+                     title: 'Repeating Event',
+                     start: '2018-11-09T16:00:00'
+                     },
+                     {
+                     id: 999,
+                     title: 'Repeating Event',
+                     start: '2018-11-16T16:00:00'
+                     },
+                     */
                 ],
-                /*
                 api: {
-                    new: function(date, render){
-                        var backgrounds = ['#2dceb6', '#5a97f2', '#d644d6'];
-                        var event = {
-                            name: 'new',
-                            title: 'new',
-                            date: date._d,
-                            start: date.format(),
-                            background: backgrounds[Math.floor(Math.random() * 3)]
-                        };
-                        render(event);
+                    click: function(event, callback){
+                        event.title = '123';
+                        event.start = new Date();
+                        callback(event);
                     }
                 }
-                */
             });
         });
     </script>
