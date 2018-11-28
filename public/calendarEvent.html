@@ -176,71 +176,30 @@
     <script src="foresight.components.debug.js"></script>
     <script src="foresight.pages.debug.js"></script>
     <script>
+        var items = [];
         $(function(){
+            var colors = ['#2dceb6', '#5a97f2', '#d644d6'];
+            for (var i = 0; i < 500; i++) {
+                var y = moment().year(),
+                    m = moment().month(),
+                    d = Math.floor(Math.random() * 30) + 1,
+                    h = Math.floor(Math.random() * 23) + 1;
+                var item = {
+                    title: 'new',
+                    start: moment({ y: y, M: m, d: d, h: h, m: 0, s: 0, ms: 0 }),
+                    end: moment({ y: y, M: m, d: d, h: h, m: 0, s: 0, ms: 0 }).add(1,'h'),
+                    color: colors[Math.floor(Math.random() * 3)]
+                };
+                items.push(item);
+            }
             CalendarEvent({
                 title: 'Календарь событий',
                 containerid: 'ce',
-                events: [
-                    {
-                        title: 'Long Event',
-                        start: '2018-11-07',
-                        end: '2018-11-10'
-                    },
-                    {
-                        title: 'All Day Event',
-                        start: new Date('2018-11-18')
-                    },
-                    {
-                        title: 'Conference',
-                        start: moment('2018-11-18')
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2018-11-12T10:30:00',
-                        end: '2018-11-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2018-11-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2018-11-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2018-11-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2018-11-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2018-11-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2018-11-28'
-                    }
-                    /*
-                     {
-                     id: 999,
-                     title: 'Repeating Event',
-                     start: '2018-11-09T16:00:00'
-                     },
-                     {
-                     id: 999,
-                     title: 'Repeating Event',
-                     start: '2018-11-16T16:00:00'
-                     },
-                     */
-                ],
+                events: items,
                 api: {
                     click: function(event, callback){
                         event.title = '123';
-                        event.start = new Date();
+                        //event.start = new Date();
                         callback(event);
                     }
                 }
