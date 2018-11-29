@@ -3033,6 +3033,9 @@ a.button_color_blue_light:hover .button__text {
 
 .select__container {
   overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .select__container_hidden {
@@ -3059,6 +3062,32 @@ a.button_color_blue_light:hover .button__text {
   right: 1px;
   bottom: 1px;
   left: 1px;
+}
+
+.select__container > .button {
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  overflow: hidden;
+}
+
+.select__container > .button + .button {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  margin-left: -1px;
+}
+
+.select__container > .button_hovered {
+  z-index: 1;
+}
+
+.select__container > .button .icon {
+  opacity: .5;
+}
+
+.select__container > .button_hovered .icon {
+  opacity: 1;
 }
 
 .counter {

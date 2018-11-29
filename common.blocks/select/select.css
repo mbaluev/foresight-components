@@ -3,6 +3,7 @@
 }
 .select__container {
     overflow: hidden;
+    display: flex;
 }
 .select__container_hidden {
     display: none;
@@ -23,4 +24,21 @@
     right: 1px;
     bottom: 1px;
     left: 1px;
+}
+.select__container > .button {
+    flex: 1 1 auto;
+    overflow: hidden;
+}
+.select__container > .button + .button {
+    flex: 0 0 auto;
+    margin-left: -1px;
+}
+.select__container > .button_hovered {
+    z-index: 1;
+}
+.select__container > .button .icon {
+    opacity: .5;
+}
+.select__container > .button_hovered .icon {
+    opacity: 1;
 }

@@ -39,12 +39,15 @@
                     that.data._options = [];
                     that.data._el = {
                         select: $('<div class="select__container"></div>'),
+                        button_group: $('<span class="button-group"></div>'),
                         button: $([
                             '<button class="button" data-fc="button">',
                                 '<span class="button__text">' + that.data.placeholder + '</span>',
                                 '<span class="icon icon_animate icon_svg_down"></span>',
+                                //'<span class="icon icon_svg_close"></span>',
                             '</button>'
                         ].join('')),
+                        button_clear: $('<button class="button" data-fc="button" tabindex="-1"><span class="icon icon_svg_close"></span></button>'),
                         spinner: $([
                             '<span class="icon">',
                                 '<span class="spinner"></span>',
@@ -80,6 +83,7 @@
                     that.destroy = function(){
                         if (that.data._widget.type == 'select') {
                             that.data._el.button.button('destroy');
+                            that.data._el.button_clear.button('destroy');
                             that.data._el.input.input('destroy');
                             that.data._el.popup.popup('destroy');
                             that.data._el.select.remove();
@@ -89,18 +93,21 @@
                     };
                     that.disable = function(){
                         that.data._el.button.button('disable');
+                        that.data._el.button_clear.button('disable');
                         that.data._el.input.input('disable');
                         that.data._el.popup.popup('hide');
                         that.data.disabled = true;
                     };
                     that.enable = function(){
                         that.data._el.button.button('enable');
+                        that.data._el.button_clear.button('enable');
                         that.data._el.input.input('enable');
                         that.data.disabled = false;
                     };
                     that.hide = function(){
                         that.data._el.select.addClass('select__container_hidden');
                         that.data._el.button.button('hide');
+                        that.data._el.button_clear.button('hide');
                         that.data._el.input.input('hide');
                         that.data._el.popup.popup('hide');
                         that.data.hidden = true;
@@ -108,6 +115,7 @@
                     that.show = function(){
                         that.data._el.select.removeClass('select__container_hidden');
                         that.data._el.button.button('show');
+                        that.data._el.button_clear.button('show');
                         that.data._el.input.input('show');
                         that.data.hidden = false;
                     };
@@ -124,6 +132,7 @@
                         that.render_popup_list();
                         that.data._el.select.append(
                             that.data._el.button,
+                            (that.data.mode == 'radio' ? null : that.data._el.button_clear),
                             that.data._el.popup.append(
                                 (that.data.search ?
                                     that.data._el.popup__input.append(
@@ -487,6 +496,11 @@
                                 });
                             }
                         });
+                        that.data._el.button_clear.on('click', function(e){
+                            e.stopPropagation();
+                            that.clear();
+                            that.data._el.popup.popup('hide');
+                        });
                     };
                     that.bind_input = function(){
                         that.data._el.input.find('.input__control').on('keyup', function(){
@@ -520,8 +534,11 @@
                     that.init_components = function(){
                         that.data._el.button.button({
                             disabled: that.data.disabled,
-                            hidden: that.data.hidden,
-                            width: that.data.width
+                            hidden: that.data.hidden
+                        });
+                        that.data._el.button_clear.button({
+                            disabled: that.data.disabled,
+                            hidden: that.data.hidden
                         });
                         that.data._el.input.input({
                             width: '100%'
