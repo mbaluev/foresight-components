@@ -4,7 +4,7 @@
 .select__container {
     overflow: hidden;
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap !important;
 }
 .select__container_hidden {
     display: none;
