@@ -3044,17 +3044,6 @@ a.button_color_blue_light:hover .button__text {
   display: none;
 }
 
-.select__container.select_checked > .button {
-  background: #63c163;
-}
-
-.select__container.select_checked > .button:before {
-  top: 2px;
-  right: 2px;
-  bottom: 2px;
-  left: 2px;
-}
-
 .select__container.select__has-error > .button {
   background: #ff5940;
 }
@@ -3077,7 +3066,7 @@ a.button_color_blue_light:hover .button__text {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  margin-left: -2px;
+  margin-left: -1px;
 }
 
 .select__container > .button_hovered {
@@ -3090,6 +3079,21 @@ a.button_color_blue_light:hover .button__text {
 
 .select__container > .button_hovered .icon {
   opacity: 1;
+}
+
+.select__container.select_checked > .button {
+  background: #63c163;
+}
+
+.select__container.select_checked > .button:before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+}
+
+.select__container.select_checked > .button + .button {
+  margin-left: -2px;
 }
 
 .counter {
