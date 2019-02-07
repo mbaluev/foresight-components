@@ -43,6 +43,116 @@
   background-position: center 300px;
 }
 
+.header {
+  -ms-flex-align: stretch;
+      align-items: stretch;
+  background: url("images/kzk2018/header-wave.png") repeat-x bottom;
+}
+
+.header__column {
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  padding-bottom: 10px;
+}
+
+.header__column:first-child {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+
+.header__column:nth-child(2) {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+}
+
+.header__column:nth-child(3) {
+  padding-bottom: 0;
+  -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+  -ms-flex-direction: row;
+      flex-direction: row;
+  -ms-flex-align: stretch;
+      align-items: stretch;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+
+.header__column:nth-child(3) > * {
+  margin: 0 20px 0 0!important;
+}
+
+.header__column:last-child {
+  -ms-flex: 0 0 auto;
+      flex: 0 0 auto;
+  -ms-flex-align: end;
+      align-items: flex-end;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+}
+
+.header__column > .header__column {
+  margin: 0 !important;
+  padding: 0;
+}
+
+.header__tumbler-container {
+  -ms-flex-direction: row !important;
+      flex-direction: row !important;
+  margin-right: 0 !important;
+}
+
+.header__row {
+  -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
+}
+
+.header__row > * {
+  margin-right: 10px;
+}
+
+.header__logo {
+  width: 70px;
+  height: 70px;
+  background: url("images/kzk2018/heraldry_small_blue.png") center center no-repeat;
+  background-size: contain;
+}
+
+.header__column_tank {
+  width: 66px;
+  background: url("images/kzk2018/header-tank.png") no-repeat center bottom;
+}
+
+.header__column_station {
+  width: 96px;
+  background: url("images/kzk2018/header-station.png") no-repeat center bottom;
+}
+
+.header__column_ship {
+  width: 96px;
+  background: url("images/kzk2018/header-ship.png") no-repeat center bottom;
+}
+
+.header__column_flip {
+  transform: scaleX(-1);
+  filter: FlipH;
+}
+
 .button_color_blue:before {
   top: 0;
   right: 0;
@@ -75,142 +185,6 @@
   right: 2px;
   bottom: 2px;
   left: 2px;
-}
-
-.header {
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  background: url("images/kzk2018/header-wave.png") repeat-x bottom;
-}
-
-.header__column {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  padding-bottom: 10px;
-}
-
-.header__column:first-child {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.header__column:nth-child(2) {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-}
-
-.header__column:nth-child(3) {
-  padding-bottom: 0;
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: stretch;
-      -ms-flex-align: stretch;
-          align-items: stretch;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.header__column:nth-child(3) > * {
-  margin: 0 20px 0 0!important;
-}
-
-.header__column:last-child {
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 auto;
-          flex: 0 0 auto;
-  -webkit-box-align: end;
-      -ms-flex-align: end;
-          align-items: flex-end;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.header__column > .header__column {
-  margin: 0 !important;
-  padding: 0;
-}
-
-.header__tumbler-container {
-  -webkit-box-orient: horizontal !important;
-  -webkit-box-direction: normal !important;
-      -ms-flex-direction: row !important;
-          flex-direction: row !important;
-  margin-right: 0 !important;
-}
-
-.header__row {
-  -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
-          flex: 1 1 auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -ms-flex-wrap: nowrap;
-      flex-wrap: nowrap;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.header__row > * {
-  margin-right: 10px;
-}
-
-.header__logo {
-  width: 70px;
-  height: 70px;
-  background: url("images/kzk2018/heraldry_small_blue.png") center center no-repeat;
-  background-size: contain;
-}
-
-.header__column_tank {
-  width: 66px;
-  background: url("images/kzk2018/header-tank.png") no-repeat center bottom;
-}
-
-.header__column_station {
-  width: 96px;
-  background: url("images/kzk2018/header-station.png") no-repeat center bottom;
-}
-
-.header__column_ship {
-  width: 96px;
-  background: url("images/kzk2018/header-ship.png") no-repeat center bottom;
-}
-
-.header__column_flip {
-  -webkit-transform: scaleX(-1);
-          transform: scaleX(-1);
-  -webkit-filter: FlipH;
-          filter: FlipH;
 }
 
 .menu_color_kzk {
@@ -264,9 +238,8 @@
 }
 
 .counter {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
 }

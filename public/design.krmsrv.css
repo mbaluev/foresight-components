@@ -155,7 +155,6 @@
   box-sizing: border-box;
   width: 170px;
   background: url("images/krmsrv/top-left.png") left center no-repeat;
-  -webkit-box-flex: 0;
   -ms-flex: 0 0 auto;
   flex: 0 0 auto;
 }
@@ -234,9 +233,8 @@
 }
 
 .counter {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  -ms-flex-pack: end;
+      justify-content: flex-end;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
 }
