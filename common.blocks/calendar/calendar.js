@@ -25,11 +25,20 @@
                         header: {
                             render: true
                         },
+
                         onSelect: null,
+                        onShow: null,
+                        onHide: null,
+                        onChangeMonth: null,
+                        onChangeYear: null,
+                        onChangeDecade: null,
+                        onChangeView: null,
+                        onRenderCell: null,
+
                         onSelectAllowed: true,
                         useItemsLength: true,
                         initDate: null,
-                        horizontal: false,
+                        horizontal: false
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -148,7 +157,45 @@
                     };
                     that.render_datepicker = function(){
                         that.data._el.calendar__datepicker.datepicker({
-                            onRenderCell: function (date, cellType) {
+                            onSelect: function(formattedDate, date) {
+                                self.find('[data-tooltip]').tooltip();
+                                self.find('[data-tooltip]').tooltip('hide');
+                                if (date) {
+                                    that.data._selectedItems = that.data.items.filter(function(it){
+                                        return it.date && typeof it.date == 'object';
+                                    }).filter(function(it){
+                                        return  it.date.getDate() == date.getDate() &&
+                                            it.date.getMonth() == date.getMonth() &&
+                                            it.date.getFullYear() == date.getFullYear();
+                                    });
+                                    that.data.date = date;
+                                    that.data.formattedDate = formattedDate;
+                                    that.data.displayDate = formattedDate;
+                                    if (typeof Asyst != 'undefined') {
+                                        if (Asyst.date) {
+                                            if (typeof Asyst.date.convertToGenitive == 'function') {
+                                                that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());
+                                            }
+                                        }
+                                    }
+                                    that.data._el.card__name.find('.card__name-text').text(that.data.displayDate);
+                                    if (that.data.modal.render) {
+                                        if (that.data._selectedItems.length > 0) {
+                                            if (that.data._showModal) {
+                                                that.render_modal();
+                                            }
+                                        }
+                                    }
+                                    if (that.data.table.render) {
+                                        that.data._el.calendar__table.empty().append(that.render_table());
+                                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
+                                    }
+                                    if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
+                                        that.data.onSelect(formattedDate, date);
+                                    }
+                                }
+                            },
+                            onRenderCell: function(date, cellType) {
                                 self.find('[data-tooltip]').tooltip();
                                 self.find('[data-tooltip]').tooltip('hide');
                                 if (date) {
@@ -166,22 +213,22 @@
                                                 html: [
                                                     '<div class="datepicker__day-container">',
                                                     '<div class="datepicker__day-border">',
-                                                        '<div class="datepicker__day">' + currentDate + '</div>',
-                                                        items.map(function(item, i){
-                                                            return (i < that.data.events.maxItems ? [
-                                                                '<div class="datepicker__event">',
-                                                                '<a class="datepicker__event-link link" href="' + item.url + '" target="_blank" onclick="event.cancelBubble = true; if(event.stopPropagation){ event.stopPropagation(); }" data-tooltip="' + item[that.data.events.TooltipColumn] + '">',
-                                                                (item.indicator ? '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>' : null),
-                                                                '<div class="datepicker__event-text" ',
-                                                                item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
-                                                                '>' + item[that.data.events.TitleColumn] + '</div>',
-                                                                '</a>',
-                                                                '</div>'
-                                                            ].join('') : '')
-                                                        }).join(''),
-                                                        '<div class="datepicker__more">',
-                                                            (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : ''),
-                                                        '</div>',
+                                                    '<div class="datepicker__day">' + currentDate + '</div>',
+                                                    items.map(function(item, i){
+                                                        return (i < that.data.events.maxItems ? [
+                                                            '<div class="datepicker__event">',
+                                                            '<a class="datepicker__event-link link" href="' + item.url + '" target="_blank" onclick="event.cancelBubble = true; if(event.stopPropagation){ event.stopPropagation(); }" data-tooltip="' + item[that.data.events.TooltipColumn] + '">',
+                                                            (item.indicator ? '<div class="datepicker__indicator"><img src="/asyst/gantt/img/svg/' + item.indicator + '.svg"></div>' : null),
+                                                            '<div class="datepicker__event-text" ',
+                                                            item.background ? 'style="background-color: ' + item.background + '; color: ' + item.color + '; border: none;"' : '',
+                                                            '>' + item[that.data.events.TitleColumn] + '</div>',
+                                                            '</a>',
+                                                            '</div>'
+                                                        ].join('') : '')
+                                                    }).join(''),
+                                                    '<div class="datepicker__more">',
+                                                    (items.length - that.data.events.maxItems > 0 ? 'еще ' + (items.length - that.data.events.maxItems) : ''),
+                                                    '</div>',
                                                     '</div>',
                                                     '</div>'
                                                 ].join('')
@@ -224,43 +271,39 @@
                                         }
                                     }
                                 }
+                                if (typeof that.data.onRenderCell == 'function') {
+                                    that.data.onRenderCell(date, cellType);
+                                }
                             },
-                            onSelect: function onSelect(formattedDate, date) {
-                                self.find('[data-tooltip]').tooltip();
-                                self.find('[data-tooltip]').tooltip('hide');
-                                if (date) {
-                                    that.data._selectedItems = that.data.items.filter(function(it){
-                                        return it.date && typeof it.date == 'object';
-                                    }).filter(function(it){
-                                        return  it.date.getDate() == date.getDate() &&
-                                            it.date.getMonth() == date.getMonth() &&
-                                            it.date.getFullYear() == date.getFullYear();
-                                    });
-                                    that.data.date = date;
-                                    that.data.formattedDate = formattedDate;
-                                    that.data.displayDate = formattedDate;
-                                    if (typeof Asyst != 'undefined') {
-                                        if (Asyst.date) {
-                                            if (typeof Asyst.date.convertToGenitive == 'function') {
-                                                that.data.displayDate = Asyst.date.convertToGenitive(Asyst.date.format(date, 'dd MMMM yyyy').toLowerCase());
-                                            }
-                                        }
-                                    }
-                                    that.data._el.card__name.find('.card__name-text').text(that.data.displayDate);
-                                    if (that.data.modal.render) {
-                                        if (that.data._selectedItems.length > 0) {
-                                            if (that.data._showModal) {
-                                                that.render_modal();
-                                            }
-                                        }
-                                    }
-                                    if (that.data.table.render) {
-                                        that.data._el.calendar__table.empty().append(that.render_table());
-                                        that.data._el.calendar__table.find('[data-tooltip]').tooltip();
-                                    }
-                                    if (typeof that.data.onSelect == 'function' && that.data.onSelectAllowed) {
-                                        that.data.onSelect(formattedDate, date);
-                                    }
+
+                            onShow: function(inst, animationCompleted) {
+                                if (typeof that.data.onShow == 'function') {
+                                    that.data.onShow(inst, animationCompleted);
+                                }
+                            },
+                            onHide: function(inst, animationCompleted) {
+                                if (typeof that.data.onHide == 'function') {
+                                    that.data.onHide(inst, animationCompleted);
+                                }
+                            },
+                            onChangeMonth: function(month, year) {
+                                if (typeof that.data.onChangeMonth == 'function') {
+                                    that.data.onChangeMonth(month, year);
+                                }
+                            },
+                            onChangeYear: function(year) {
+                                if (typeof that.data.onChangeYear == 'function') {
+                                    that.data.onChangeYear(year);
+                                }
+                            },
+                            onChangeDecade: function(decade) {
+                                if (typeof that.data.onChangeDecade == 'function') {
+                                    that.data.onChangeDecade(decade);
+                                }
+                            },
+                            onChangeView: function(view) {
+                                if (typeof that.data.onChangeView == 'function') {
+                                    that.data.onChangeView(view);
                                 }
                             }
                         });
