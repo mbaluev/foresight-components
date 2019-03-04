@@ -3096,13 +3096,19 @@ a.button_color_blue_light:hover .button__text {
   display: block !important;
 }
 
-.calendar .datepicker__day {
+.calendar .datepicker__day,
+.calendar .datepicker__month,
+.calendar .datepicker__year {
   position: relative;
   padding: 8px;
   border-radius: 16px;
   min-width: 16px;
   text-align: center;
   box-sizing: content-box;
+}
+
+.calendar .datepicker__month {
+  padding: 8px 16px;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day {
@@ -3116,21 +3122,39 @@ a.button_color_blue_light:hover .button__text {
 .calendar .datepicker--cell.datepicker--cell-day.-focus-,
 .calendar .datepicker--cell.datepicker--cell-day.-selected-,
 .calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
-.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus-,
+.calendar .datepicker--cell.datepicker--cell-month.-focus-,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
+.calendar .datepicker--cell.datepicker--cell-year.-focus-,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
   background: transparent;
 }
 
-.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus-,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus-,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
   opacity: 0.75;
 }
 
-.calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
+.calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-month.-focus- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-year.-focus- .datepicker__year {
   background: #f0f0f0;
 }
 
 .calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
 .calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
-.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-month.-selected- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-year.-selected- .datepicker__year,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current- .datepicker__year,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- .datepicker__year {
   background: #5a97f2;
   color: #fff;
 }
@@ -3141,7 +3165,7 @@ a.button_color_blue_light:hover .button__text {
   color: #fff;
   background-color: #ff5940;
   right: -8px;
-  top: 0;
+  top: -4px;
   padding: 2px 5px;
   font-size: 10px;
   border-radius: 9px;

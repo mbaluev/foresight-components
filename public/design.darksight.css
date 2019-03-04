@@ -1055,47 +1055,61 @@
 }
 
 .menu__calendar .datepicker--cell.-focus- {
-  background: #393e52;
+  background: #303548;
 }
 
+.calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-month.-focus- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-year.-focus- .datepicker__year {
+  background: #303548;
+}
+
+.calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day,
+.calendar .datepicker--cell.datepicker--cell-month.-selected- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- .datepicker__month,
+.calendar .datepicker--cell.datepicker--cell-year.-selected- .datepicker__year,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current- .datepicker__year,
+.calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- .datepicker__year {
+  background: #2dceb6;
+}
+
+/*
 .menu__calendar .datepicker--cell.datepicker--cell-year.-selected-,
 .menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-,
 .menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
-  background: #2dceb6;
-  color: #fff;
+    background: #2dceb6;
+    color: #fff;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-year.-selected-.-current-.-focus- {
-  opacity: 0.75;
+    opacity: 0.75;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-month.-selected-,
 .menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-,
 .menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
-  background: #2dceb6;
-  color: #fff;
+    background: #2dceb6;
+    color: #fff;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-month.-selected-.-current-.-focus- {
-  opacity: 0.75;
+    opacity: 0.75;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected-,
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-,
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- {
-  color: #fff;
+    color: #fff;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-day.-focus- .datepicker__day {
-  background: #393e52;
+    background: #393e52;
 }
-
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected- .datepicker__day,
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current- .datepicker__day,
 .menu__calendar .datepicker--cell.datepicker--cell-day.-selected-.-current-.-focus- .datepicker__day {
-  background: #2dceb6;
-  color: #222;
+    background: #2dceb6;
+    color: #222;
 }
+*/
 
 .menu__calendar .datepicker--cell-day.-other-month-,
 .menu__calendar .datepicker--cell-year.-other-decade- {
@@ -1290,42 +1304,6 @@ fieldset {
 
 .card__left-renu .card__header {
   border-bottom: solid 1px #474c63;
-}
-
-.tabs__tab .button:before {
-  background-color: #303548;
-}
-
-.tabs__tab_active .button {
-  background-color: #2dceb6;
-}
-
-.tabs__tab_active .button:before {
-  background-color: #2dceb6;
-}
-
-.tabs__tab_active .button__text {
-  color: #222;
-}
-
-.tabs__tab .button.button_hovered {
-  background-color: #2dceb6;
-}
-
-.tabs__tab .button.button_hovered:before {
-  bottom: 0;
-}
-
-.tabs__radio .tabs__tab .button.button_hovered {
-  background-color: #2dceb6;
-}
-
-.tabs__radio .tabs__tab .button:before {
-  background-color: #303548;
-}
-
-.tabs__radio .tabs__tab_active .button:before {
-  background-color: #303548;
 }
 
 /*.widget-grid_multiple*/
@@ -1550,6 +1528,42 @@ fieldset {
 
 .fc a.fc-event:hover {
   color: #fff;
+}
+
+.tabs__tab .button:before {
+  background-color: #303548;
+}
+
+.tabs__tab_active .button {
+  background-color: #2dceb6;
+}
+
+.tabs__tab_active .button:before {
+  background-color: #2dceb6;
+}
+
+.tabs__tab_active .button__text {
+  color: #222;
+}
+
+.tabs__tab .button.button_hovered {
+  background-color: #2dceb6;
+}
+
+.tabs__tab .button.button_hovered:before {
+  bottom: 0;
+}
+
+.tabs__radio .tabs__tab .button.button_hovered {
+  background-color: #2dceb6;
+}
+
+.tabs__radio .tabs__tab .button:before {
+  background-color: #303548;
+}
+
+.tabs__radio .tabs__tab_active .button:before {
+  background-color: #303548;
 }
 
 @media (max-width: 768px) {

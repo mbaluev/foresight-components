@@ -199,7 +199,14 @@
                                 self.find('[data-tooltip]').tooltip();
                                 self.find('[data-tooltip]').tooltip('hide');
                                 if (date) {
+                                    moment.locale('ru');
                                     var currentDate = date.getDate(),
+                                        currentMonth = date.getMonth(),
+                                        currentMonthString =
+                                            (typeof Asyst != 'undefined' ? Asyst.date.shortMonthNames[currentMonth] : moment.monthsShort()[currentMonth]),
+                                        currentYear = date.getFullYear(),
+                                        items;
+                                    if (cellType == 'day') {
                                         items = that.data.items.filter(function(it){
                                             return it.date && typeof it.date == 'object';
                                         }).filter(function(it){
@@ -207,7 +214,6 @@
                                                 it.date.getMonth() == date.getMonth() &&
                                                 it.date.getFullYear() == date.getFullYear();
                                         });
-                                    if (cellType == 'day') {
                                         if (that.data.events.render) {
                                             return {
                                                 html: [
@@ -267,6 +273,89 @@
                                                 return {
                                                     html: '<div class="datepicker__day">' + currentDate + '</div>'
                                                 }
+                                            }
+                                        }
+                                    }
+                                    if (cellType == 'month') {
+                                        items = that.data.items.filter(function(it){
+                                            return it.date && typeof it.date == 'object';
+                                        }).filter(function(it){
+                                            return it.date.getMonth() == date.getMonth() &&
+                                                it.date.getFullYear() == date.getFullYear();
+                                        });
+                                        if (items.length > 0) {
+                                            if (that.data.useItemsLength) {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__month">' + currentMonthString,
+                                                        '<div class="datepicker__note">' + items.length,
+                                                        '</div>',
+                                                        '</div>'
+                                                    ].join('')
+                                                }
+                                            } else {
+                                                return {
+                                                    html: [
+                                                        '<a class="datepicker__month"',
+                                                        (items[0]['url'] ? 'href="' + items[0]['url'] + '"' +
+                                                        (items[0]['target'] ? 'target="' + items[0]['target'] + '"' : '') : ''),
+                                                        '>' + currentMonthString,
+
+                                                        '<div class="datepicker__note"',
+                                                        (items[0]['background'] ?
+                                                            ' style="background-color:' + items[0]['background'] + '"' : ''
+                                                        ) + '>' + items[0]['count'],
+                                                        '</div>',
+
+                                                        '</a>'
+                                                    ].join('')
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            return {
+                                                html: '<div class="datepicker__month">' + currentMonthString + '</div>'
+                                            }
+                                        }
+                                    }
+                                    if (cellType == 'year') {
+                                        items = that.data.items.filter(function(it){
+                                            return it.date && typeof it.date == 'object';
+                                        }).filter(function(it){
+                                            return it.date.getFullYear() == date.getFullYear();
+                                        });
+                                        if (items.length > 0) {
+                                            if (that.data.useItemsLength) {
+                                                return {
+                                                    html: [
+                                                        '<div class="datepicker__year">' + currentYear,
+                                                        '<div class="datepicker__note">' + items.length,
+                                                        '</div>',
+                                                        '</div>'
+                                                    ].join('')
+                                                }
+                                            } else {
+                                                return {
+                                                    html: [
+                                                        '<a class="datepicker__year"',
+                                                        (items[0]['url'] ? 'href="' + items[0]['url'] + '"' +
+                                                        (items[0]['target'] ? 'target="' + items[0]['target'] + '"' : '') : ''),
+                                                        '>' + currentYear,
+
+                                                        '<div class="datepicker__note"',
+                                                        (items[0]['background'] ?
+                                                            ' style="background-color:' + items[0]['background'] + '"' : ''
+                                                        ) + '>' + items[0]['count'],
+                                                        '</div>',
+
+                                                        '</a>'
+                                                    ].join('')
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            return {
+                                                html: '<div class="datepicker__year">' + currentYear + '</div>'
                                             }
                                         }
                                     }
