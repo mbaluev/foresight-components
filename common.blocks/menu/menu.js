@@ -12,7 +12,8 @@
                         maxItemLines: null,
                         maxItemSymbols: null,
                         toggle: 'click',
-                        autoclose: false
+                        autoclose: false,
+                        duration: 500
                     };
                     that.data = self.data();
                     that.options = $.extend(true, {}, that.defaults, that.data, options);
@@ -40,7 +41,8 @@
                                 $itemlinkcontent = $itemlink.children('.menu__item-link-content'),
                                 $itemtext = $itemlinkcontent.children('.menu__item-text'),
                                 $icon = $itemlinkcontent.children('.menu__icon'),
-                                $submenu = item.children('.menu__submenu-container');
+                                $submenu = item.children('.menu__submenu-container'),
+                                $submenutarget = $submenu.clone();
                             if (that.data.scrollToSelectedItem) {
                                 $itemlink.on('click', function(){
                                     self.animate({
@@ -76,29 +78,40 @@
                             if ($submenu.length > 0) {
                                 $itemlink.removeAttr('href');
                                 $icon.addClass('icon_animate');
+                                if (that.data.target) {
+                                    $submenu.addClass('menu__submenu-container_source');
+                                    $submenutarget.addClass('menu__submenu-container_target').appendTo($(that.data.target));
+                                }
+                                item.data('submenu', $submenu);
+                                item.data('submenutarget', $submenutarget);
                                 if (that.data.toggle == 'click') {
                                     $itemlink.on('click', function(){
-                                        var collapsed = $submenu.data('collapsed');
-                                        $submenu.slideToggle(500);
-                                        $submenu.data('collapsed', !collapsed);
+                                        var collapsed = item.data('collapsed');
+                                        $submenu.slideToggle(that.data.duration);
+                                        $submenutarget.slideToggle(that.data.duration);
+                                        item.data('collapsed', !collapsed);
                                         if (collapsed) {
                                             $icon.addClass('icon_rotate_0deg');
                                             $(this).addClass('menu__item-link_selected');
+                                            $(that.data.target).addClass('_has_target');
                                         } else {
                                             $icon.removeClass('icon_rotate_0deg');
                                             $(this).removeClass('menu__item-link_selected');
+                                            $(that.data.target).removeClass('_has_target');
                                         }
                                         item.siblings().each(function(){
                                             var sibling = $(this),
-                                                ssubmenu = sibling.children('.menu__submenu-container'),
+                                                ssubmenu = sibling.data('submenu'),
+                                                ssubmenutarget = sibling.data('submenutarget'),
                                                 sitemlink = sibling.children('.menu__item-link'),
                                                 sicon = sibling.children('.menu__item-link').children('.menu__item-link-content').children('.menu__icon');
                                             sitemlink.removeClass('menu__item-link_selected');
-                                            if (that.data.autoclose) {
-                                                var scollapsed = ssubmenu.data('collapsed');
+                                            if (that.data.autoclose && ssubmenu) {
+                                                var scollapsed = sibling.data('collapsed');
                                                 if (!scollapsed) {
-                                                    ssubmenu.slideUp(500);
-                                                    ssubmenu.data('collapsed', true);
+                                                    ssubmenu.slideUp(that.data.duration);
+                                                    ssubmenutarget.slideUp(that.data.duration);
+                                                    sibling.data('collapsed', true);
                                                     sicon.toggleClass('icon_rotate_0deg');
                                                 }
                                             }
@@ -106,27 +119,31 @@
                                     });
                                     if (that.data.expanded) {
                                         $submenu.show();
-                                        $submenu.data('collapsed', false);
+                                        $submenutarget.show();
+                                        item.data('collapsed', false);
                                         $icon.toggleClass('icon_rotate_0deg');
                                     } else {
-                                        if ($submenu.data('collapsed') == false ||
-                                            $submenu.data('collapsed') == 'false') {
+                                        if (item.data('collapsed') == false ||
+                                            item.data('collapsed') == 'false') {
                                             $submenu.show();
+                                            $submenutarget.show();
                                             $icon.toggleClass('icon_rotate_0deg');
                                             $itemlink.addClass('menu__item-link_selected');
                                         } else {
-                                            $submenu.data('collapsed', true);
+                                            item.data('collapsed', true);
                                         }
                                     }
                                 }
                                 if (that.data.toggle == 'hover') {
                                     item.on('mouseover', function(){
                                         $submenu.show();
+                                        $submenutarget.show();
                                         $itemlink.addClass('menu__item-link_hovered');
                                         $icon.toggleClass('icon_rotate_0deg');
                                     });
                                     item.on('mouseout', function(){
                                         $submenu.hide();
+                                        $submenutarget.hide();
                                         $itemlink.removeClass('menu__item-link_hovered');
                                         $icon.toggleClass('icon_rotate_0deg');
                                     });

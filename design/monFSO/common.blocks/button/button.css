@@ -1,0 +1,46 @@
+.button_color_dark_blue {}
+.button_color_dark_blue:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #33c;
+}
+.button_color_dark_blue.button_hovered:before {
+    background-color: #303548;
+}
+.button_color_dark_blue .button__text {
+    color: #fff;
+}
+
+.button_color_blue {}
+.button_color_blue:before {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #3880ff;
+}
+.button_color_blue.button_hovered:before {
+    background-color: #33c;
+}
+.button_color_blue .button__text {
+    color: #fff;
+}
+
+.button_color_white {}
+.button_color_white:before {
+    background-color: #fff !important;
+}
+.button_color_white .button__text {
+    color: #000;
+}
+
+.button_color_transparent,
+.button_color_transparent:before {
+    background: transparent;
+}
+
+.button_hovered {
+    background: transparent;
+}

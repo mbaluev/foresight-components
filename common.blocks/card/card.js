@@ -38,7 +38,7 @@
                         if (typeof setCookie == 'function') {
                             setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
                         }
-                        $(window).trigger('resize');
+                        $(window).trigger('resize.fs');
                     };
                     that.hide_right = function(){
                         that.data._el.button_toggle_right.find('.icon').removeClass('icon_rotate_180deg');
@@ -47,7 +47,7 @@
                         if (typeof setCookie == 'function') {
                             setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), true);
                         }
-                        $(window).trigger('resize');
+                        $(window).trigger('resize.fs');
                     };
 
                     that.show_left = function(){
@@ -62,7 +62,7 @@
                         if (typeof setCookie == 'function') {
                             setCookie('card_menu_left_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
                         }
-                        $(window).trigger('resize');
+                        $(window).trigger('resize.fs');
                     };
                     that.show_right = function(){
                         that.data._el.button_toggle_right.find('.icon').addClass('icon_rotate_180deg');
@@ -76,7 +76,7 @@
                         if (typeof setCookie == 'function') {
                             setCookie('card_menu_right_hidden' + (that.data.id ? '_' + that.data.id : ''), false);
                         }
-                        $(window).trigger('resize');
+                        $(window).trigger('resize.fs');
                     };
 
                     that.toggle_left = function(){

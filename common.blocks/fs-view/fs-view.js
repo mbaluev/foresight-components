@@ -20,7 +20,7 @@ $(function(){
             $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {
@@ -37,7 +37,7 @@ $(function(){
             $('.fs-view__main').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__main').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {
@@ -82,7 +82,7 @@ $(function(){
             $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {
@@ -98,7 +98,7 @@ $(function(){
             $('.fs-view__middle-right').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__middle-right').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {
@@ -135,7 +135,7 @@ $(function(){
             $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {
@@ -149,7 +149,7 @@ $(function(){
             $('.fs-view__header').on('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(){
                 $('.fs-view__header').off('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd');
                 setTimeout(function(){
-                    $(window).trigger('resize');
+                    $(window).trigger('resize.fs');
                 }, 100);
             });
             if (typeof setCookie == 'function') {

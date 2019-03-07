@@ -1,0 +1,97 @@
+.menu_color_monfso {
+    background-color: transparent;
+    align-items: flex-start;
+}
+.menu_color_monfso .menu__list {
+    justify-content: flex-start;
+    margin: 0 10px 10px 0;
+}
+.menu_color_monfso .menu__item {}
+.menu_color_monfso .menu__item-link {
+    padding: 7px 10px;
+    margin: 10px 10px 0 0;
+    border-radius: 3px;
+    background: #303548;
+}
+.menu_color_monfso .menu__item-link:hover,
+.menu_color_monfso .menu__item-link_hovered,
+.menu_color_monfso .menu__item-link_selected {
+    background-color: #33c;
+}
+.menu_color_monfso .menu__item-text {
+    font-size: 15px;
+}
+
+.menu_color_monfso .menu__submenu-container {
+    background-color: #fff;
+    top: calc(100% + 10px);
+}
+.menu_color_monfso .menu__submenu {
+    margin: 0;
+}
+.menu_color_monfso .menu__submenu .menu__item {
+    background-color: #fff;
+    border-top: none;
+}
+.menu_color_monfso .menu__submenu .menu__item-link {
+    padding: 15px;
+    background: transparent;
+    border-radius: 0;
+    margin: 0;
+}
+.menu_color_monfso .menu__submenu .menu__item-link:hover,
+.menu_color_monfso .menu__submenu .menu__item-link_selected {
+    background: none;
+    box-shadow: inset 0 -2px 0 0 #303548;
+}
+.menu_color_monfso .menu__submenu .menu__item-text {
+    color: #222;
+}
+
+.menu__buttons_left {
+    margin: 0 10px;
+}
+.menu__buttons_left .button {
+    background-color: #303548;
+    margin: 10px 0;
+    border-radius: 3px;
+}
+.menu__buttons_left .button.button_hovered,
+.menu__buttons_left .button.button_hovered:before {
+    background-color: #33c;
+}
+
+.menu__submenu-container_target {
+    z-index: 2;
+    position: relative;
+    background: transparent;
+}
+.menu__submenu-container_target .menu__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0 10px;
+    margin-bottom: 10px;
+    background: transparent;
+}
+.menu__submenu-container_target .menu__item {
+    width: auto;
+    border: none;
+}
+.menu__submenu-container_target .menu__submenu .menu__item-link {
+    padding: 7px 10px;
+    margin: 10px 10px 0 0;
+    border-radius: 3px;
+}
+.menu__submenu-container_target .menu__submenu .menu__item-link:hover,
+.menu__submenu-container_target .menu__submenu .menu__item-link_selected {
+    background-color: #33c;
+}
+.menu__submenu-container_target .menu__submenu .menu__item-text {
+    color: #222;
+    font-size: 15px;
+}
+.menu__submenu-container_target .menu__submenu .menu__item-link:hover .menu__item-text,
+.menu__submenu-container_target .menu__submenu .menu__item-link_selected .menu__item-text {
+    color: #fff;
+}

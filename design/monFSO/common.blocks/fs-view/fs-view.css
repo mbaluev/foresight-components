@@ -1,0 +1,79 @@
+.fs-view {
+    z-index: 3;
+    background-color: #e5e5e5;
+}
+
+.fs-view__header {
+    z-index: 2;
+    box-shadow: none;
+}
+
+.fs-view__left {
+    background: linear-gradient(to right, #303548 70%, #33c 100%);
+}
+.fs-view__left_submenu {
+    background: linear-gradient(to right, #fff 60%, #ff5a41 100%);
+    /*box-shadow: 0 3px 5px 0 rgba(0,0,0,.15);*/
+    border-bottom: solid 3px #ccc;
+    position: relative;
+    z-index: 2;
+    min-height: 50px;
+}
+
+.fs-view__main {
+    z-index: 1;
+    box-shadow: none;
+}
+
+.fs-view__background-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: url('bg-left-1.png');
+    background-repeat: no-repeat;
+    background-position: left bottom;
+}
+.fs-view__background-right {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: url('flag-shadows.png');
+    background-repeat: repeat-y;
+    background-position: right bottom;
+    background-size: 500px;
+}
+.fs-view__background-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-image: url('bg-center.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.fs-view__title {
+    z-index: 1;
+    position: relative;
+    color: #333;
+    font-size: 15px;
+    padding: 16px 20px;
+    line-height: 18px;
+}
+.fs-view__left_submenu._has_target .fs-view__title {
+    display: none;
+}

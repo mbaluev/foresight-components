@@ -109,6 +109,24 @@ var darksightparams = {
     levels: ['design/darksight/common.blocks', 'design/darksight/mobile.blocks'],
     images: 'images/darksight/'
 };
+var playparams = {
+    out: 'public',
+    cssOut: 'design.play.css',
+    jsOut: 'design.play.js',
+    htmlOut: 'index.html',
+    htmlSrc: 'index.html',
+    levels: ['design/play/common.blocks', 'design/play/mobile.blocks'],
+    images: 'images/play/'
+};
+var monFSOparams = {
+	out: 'public',
+	cssOut: 'design.monFSO.css',
+	jsOut: 'design.monFSO.js',
+	htmlOut: 'index.html',
+	htmlSrc: 'index.html',
+	levels: ['design/monFSO/common.blocks', 'design/monFSO/mobile.blocks'],
+	images: 'images/monFSO/'
+};
 
 var third_js = [
     'public/third/lodash.min.js',
@@ -177,6 +195,8 @@ var golikovaGetFileNames = require('html2bl').getFileNames(golikova2018params);
 var robotomonoGetFileNames = require('html2bl').getFileNames(robotomonoparams);
 var shadowGetFileNames = require('html2bl').getFileNames(shadowparams);
 var darksightGetFileNames = require('html2bl').getFileNames(darksightparams);
+var playGetFileNames = require('html2bl').getFileNames(playparams);
+var monFSOGetFileNames = require('html2bl').getFileNames(monFSOparams);
 
 gulp.task('default', ['server', 'build', 'misc', 'design']);
 
@@ -185,7 +205,7 @@ gulp.task('server', function(){
     browserSync.init({
         server: params.out,
         open: 'local',
-        browser: 'google chrome'
+        browser: ['google chrome', 'chrome']
     });
     gulp.watch('*.html', ['html']);
     gulp.watch(params.levels.map(function(level){
@@ -297,6 +317,16 @@ gulp.task('server', function(){
         var jsGlob = level + '/**/*.js';
         return jsGlob;
     }), ['darksight_js']);
+
+    /* watch design - monFSO */
+    gulp.watch(monFSOparams.levels.map(function(level){
+        var cssGlob = level + '/**/*.css';
+        return cssGlob;
+    }), ['monFSO_css']);
+    gulp.watch(monFSOparams.levels.map(function(level){
+        var jsGlob = level + '/**/*.js';
+        return jsGlob;
+    }), ['monFSO_js']);
 });
 
 /* components */
@@ -407,7 +437,7 @@ gulp.task('pages', function(){
 
 /* design */
 gulp.task('design', ['uni2019', 'krmsrv', 'kzk2018', 'gazprom', 'mtk17', 'akimov2018', 'golikova2018',
-    'robotomono', 'shadow', 'darksight']);
+    'robotomono', 'shadow', 'darksight', 'play', 'monFSO']);
 
 /* uni2019 */
 gulp.task('uni2019', ['uni2019_css', 'uni2019_images', 'uni2019_js']);
@@ -910,4 +940,83 @@ gulp.task('darksight_js', function() {
             .pipe(gulp.dest(darksightparams.out))
             .pipe(reload({ stream: true }));
     }).done();
+});
+
+/* play */
+gulp.task('play', ['play_css']);
+gulp.task('play_css', function(){
+    playGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(playparams.cssOut))
+            .pipe(url({ prepend: playparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(gulp.dest(playparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+    playGetFileNames.then(function(files){
+        gulp.src(files.css)
+            .pipe(concat(playparams.cssOut))
+            .pipe(url({ prepend: playparams.images }))
+            .pipe(postcss([ autoprefixer() ]))
+            .pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+                console.log(details.name + ': ' + details.stats.originalSize);
+                console.log(details.name + ': ' + details.stats.minifiedSize);
+            }))
+            .pipe(rename({suffix: '.min'}))
+            .pipe(gulp.dest(playparams.out))
+            .pipe(reload({ stream: true }));
+    }).done();
+});
+
+/* monFSO */
+gulp.task('monFSO', ['monFSO_css', 'monFSO_images', 'monFSO_js']);
+gulp.task('monFSO_css', function(){
+	monFSOGetFileNames.then(function(files){
+		gulp.src(files.css)
+			.pipe(concat(monFSOparams.cssOut))
+			.pipe(url({ prepend: monFSOparams.images }))
+			.pipe(postcss([ autoprefixer() ]))
+			.pipe(gulp.dest(monFSOparams.out))
+			.pipe(reload({ stream: true }));
+	}).done();
+	monFSOGetFileNames.then(function(files){
+		gulp.src(files.css)
+			.pipe(concat(monFSOparams.cssOut))
+			.pipe(url({ prepend: monFSOparams.images }))
+			.pipe(postcss([ autoprefixer() ]))
+			.pipe(cleancss({ debug: true, compatibility: 'ie8' }, function(details) {
+				console.log(details.name + ': ' + details.stats.originalSize);
+				console.log(details.name + ': ' + details.stats.minifiedSize);
+			}))
+			.pipe(rename({suffix: '.min'}))
+			.pipe(gulp.dest(monFSOparams.out))
+			.pipe(reload({ stream: true }));
+	}).done();
+});
+gulp.task('monFSO_images', function(){
+	monFSOGetFileNames.then(function(source){
+		gulp.src(source.dirs.map(function(dir){
+			var imgGlob = path.resolve(dir) + '/*.{jpg,png,svg,ico}';
+			return imgGlob;
+		})).pipe(gulp.dest(path.join(monFSOparams.out, monFSOparams.images)));
+	}).done();
+});
+gulp.task('monFSO_js', function() {
+	monFSOGetFileNames.then(function(src){
+		return src.dirs.map(function(dir){
+			var jsGlob = path.resolve(dir) + '/*.js';
+			return jsGlob;
+		});
+	}).then(function(jsGlobs){
+		gulp.src(jsGlobs)
+			.pipe(concat(monFSOparams.jsOut))
+			.pipe(minify({
+				ext:{
+					src:'.debug.js',
+					min:'.min.js'
+				}
+			}))
+			.pipe(gulp.dest(monFSOparams.out))
+			.pipe(reload({ stream: true }));
+	}).done();
 });

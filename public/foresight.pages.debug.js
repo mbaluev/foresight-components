@@ -496,17 +496,17 @@ var Dashboard = function(options){
             }
         }];
         if (that.data.admin) {
-            buttons.push({
-                id: 'button_remove',
-                icon: 'icon_svg_trash',
-                mode: 'edit',
-                click: function(widget, data){
-                    that.data.grid.widget_grid('remove_widget', data.id);
-                    if (that.data.single) {
-                        that.render_button_add(true);
-                    }
-                }
-            });
+			buttons.push({
+				id: 'button_remove',
+				icon: 'icon_svg_trash',
+				mode: 'edit',
+				click: function(widget, data){
+					that.data.grid.widget_grid('remove_widget', data.id);
+					if (that.data.single) {
+						that.render_button_add(true);
+					}
+				}
+			});
         }
         that.data.grid = that.data._el.grid
             .widget_grid({

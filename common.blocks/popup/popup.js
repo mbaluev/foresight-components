@@ -240,7 +240,7 @@
                     };
                     that.init_resize = function(){
                         if (that.data.place == 'body') {
-                            $(window).on('resize', function(){
+                            $(window).on('resize.fs', function(){
                                 if (that.data.visible) {
                                     that.set_position(that.data.position);
                                 }
