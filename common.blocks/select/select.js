@@ -496,7 +496,7 @@
                                 });
                             }
                         });
-                        that.data._el.button_clear.on('click', function(e){
+                        that.data._el.button_clear.off('click').on('click', function(e){
                             e.stopPropagation();
                             that.clear();
                             that.data._el.popup.popup('hide');
